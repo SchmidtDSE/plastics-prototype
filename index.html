@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Global Plastics Tool</title>
+        <link rel="stylesheet" href="css/base.css">
+    </head>
+    <body>
+        <header>
+            <h1>Global Plastics Tool</h1>
+            <div>Explore the impacts of different policy on the creation and journey of plastics across the planet.</div>
+        </header>
+        <main>
+            <div id="step-1">
+                <div class="form-group">
+                    <div><label>Lever name:</label></div>
+                    <input type="text" id="example-name">
+                </div>
+                <div class="form-group">
+                    <div><label>Min value:</label></div>
+                    <input type="number" id="example-min">
+                </div>
+                <div class="form-group">
+                    <div><label>Max value:</label></div>
+                    <input type="number" id="example-max">
+                </div>
+                <div class="form-group">
+                    <div><label>Starting value:</label></div>
+                    <input type="number" id="example-start">
+                </div>
+                <div class="form-group">
+                    <div><label>Units:</label></div>
+                    <input type="text" id="example-units">
+                </div>
+                <div>
+                    <button id="next-button">Next</button>
+                </div>
+            </div>
+            <div class="panel-box" id="step-2">
+                <div class="panel">
+                    <div>
+                        <div><label for="example-input"><span id="example-title"></span>: <span id="delta-display"></span></label></div>
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="example-input" step="1">
+                    </div>
+                    <div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div id="editor" aria-label="Code editor. Hit escape to remove focus."></div>
+                </div>
+            </div>
+        </main>
+        <script src="third_party/ace.min.js"></script>
+        <script src="js/driver.js"></script>
+    </body>
+</html>
