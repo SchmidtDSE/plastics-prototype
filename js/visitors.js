@@ -24,7 +24,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const bodyParsed = signMultiplier * parseFloat(bodyRawText);
 
         return (state) => {
-            let retVal = bodyParsed;
+            const retVal = bodyParsed;
             return retVal;
         };
     }
@@ -91,6 +91,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     }
 
     visitSimpleIdentifier(ctx) {
+        const self = this;
+
         const raw = ctx.getText();
         const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
         const pieces = resolved.split(".");
@@ -108,7 +110,9 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     }
 
     visitDefinition(ctx) {
-        const name = ctx.getChild(1);
+        const self = this;
+
+        const name = ctx.getChild(1).getText();
         if (name.indexOf(".") != -1) {
             throw "Cannot make new variables with periods in the name.";
         }
@@ -126,11 +130,13 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     }
 
     visitAssignment(ctx) {
-        const name = ctx.getChild(1);
+        const self = this;
+
+        const name = ctx.getChild(0).getText();
         const resolved = name.indexOf(".") == -1 ? "local." + name : name;
         const pieces = resolved.split(".");
 
-        const expression = ctx.getChild(3).accept(self);
+        const expression = ctx.getChild(2).accept(self);
 
         return (state) => {
             const result = expression(state);
@@ -177,10 +183,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const numCommands = ctx.getChildCount() / 2;
         for (let i = 0; i < numCommands; i++) {
             const newInstructions = ctx.getChild(i * 2).accept(self);
-            instructions.push.apply(instructions, newInstructions);
+            instructions.push(newInstructions);
         }
 
-        return instructions;
+        return (state) => {
+            instructions.forEach((instruction) => instruction(state));
+        };
     }
 
 }

@@ -30,11 +30,11 @@ VAR_: 'v' 'a' 'r';
 
 IDENTIFIER_: [A-Za-z0-9]+;
 
-number: (SUB_)? (FLOAT_ | INTEGER_);
+number: (FLOAT_ | INTEGER_);
 
 identifier: IDENTIFIER_ (PERIOD_ IDENTIFIER_)*;
 
-expression: number # simpleNumber
+expression: number # simpleExpression
   | identifier # simpleIdentifier
   | expression op=(MULT_ | DIV_ | POW_) expression  # multiplyExpression
   | expression op=(ADD_ | SUB_) expression # additionExpression

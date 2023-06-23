@@ -1,4 +1,5 @@
 const toolkit = PlasticsLang.getToolkit();
+let editor = null;
 
 
 function attachListeners() {
@@ -44,6 +45,78 @@ function onNextStep() {
 }
 
 
+function showStatusText(text) {
+    document.getElementById("status-display").textContent = text;
+}
+
+
+function compileProgram() {
+    const input = editor.getValue();
+
+    if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
+        showStatusText("Ready!");
+        return null;
+    }
+
+    const errors = [];
+
+    const chars = new toolkit.antlr4.InputStream(input);
+    const lexer = new toolkit.PlasticsLangLexer(chars);
+    lexer.removeErrorListeners();
+    lexer.addErrorListener({
+        syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
+            const result = `(line ${line}, col ${column}): ${msg}`;
+            errors.push(result);
+        }
+    });
+
+    const tokens = new toolkit.antlr4.CommonTokenStream(lexer);
+    const parser = new toolkit.PlasticsLangParser(tokens);
+
+    parser.buildParsePlastics = true;
+    parser.removeErrorListeners();
+    parser.addErrorListener({
+        syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
+          const result = `(line ${line}, col ${column}): ${msg}`;
+          errors.push(result);
+        }
+    });
+
+    const program = parser.program();
+
+    if (errors.length > 0) {
+        const errorsStr = errors.join("\n\n");
+        showStatusText(errorsStr);
+        return null;
+    } else {
+        return program.accept(new CompileVisitor());
+    }
+}
+
+
+function applyTransformation(projection) {
+    const exampleVariable = document.getElementById("example-variable").value;
+    const exampleValue = parseFloat(
+        document.getElementById("example-input").value
+    );
+
+    const state = new Map();
+    state.set("local", new Map());
+    state.set("out", projection);
+
+    const inputs = new Map();
+    inputs.set(exampleVariable, exampleValue);
+    state.set("in", inputs);
+
+    const program = compileProgram();
+    if (program !== null) {
+        program(state);
+    }
+
+    return state.get("out");
+}
+
+
 function onInputChange(projector) {
     const value = parseFloat(document.getElementById("example-input").value);
 
@@ -62,7 +135,8 @@ function onInputChange(projector) {
     };
 
     const updateDisplay = () => {
-        const projection = projector.project(YEAR);
+        const projection = applyTransformation(projector.project(YEAR));
+
         const naftaProjection = projection.get("nafta");
         const recyclingPercent = naftaProjection.get("eolRecyclingPercent");
         const incinerationPercent = naftaProjection.get("eolIncinerationPercent");
@@ -112,7 +186,7 @@ function setCommandEnabled(editor, name, enabled) {
  * Initalize the editor.
  */
 function initEditor() {
-    const editor = ace.edit("editor");
+    editor = ace.edit("editor");
     editor.getSession().setUseWorker(false);
 
     editor.session.setOptions({
