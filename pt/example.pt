@@ -1,6 +1,28 @@
 var multiplier = in.naftaRecyclingDelta / 100;
-var change = out.nafta.eolRecyclingPercent * multiplier;
-out.nafta.eolRecyclingPercent = out.nafta.eolRecyclingPercent + change;
-out.nafta.eolIncinerationPercent = out.nafta.eolIncinerationPercent - change / 3;
-out.nafta.eolLandfillPercent = out.nafta.eolLandfillPercent - change / 3;
-out.nafta.eolMismanagedPercent = out.nafta.eolMismanagedPercent - change / 3;
+var potentialRecyclingChange = out.nafta.eolRecyclingPercent * multiplier;
+var potentialNewRecycling = out.nafta.eolRecyclingPercent + potentialRecyclingChange;
+
+var newRecycling = bound(potentialNewRecycling, 0, 1);
+var actualChange = newRecycling - out.nafta.eolRecyclingPercent;
+out.nafta.eolRecyclingPercent = newRecycling;
+
+var totalOtherPercent = (
+    out.nafta.eolIncinerationPercent +
+    out.nafta.eolLandfillPercent +
+    out.nafta.eolMismanagedPercent
+);
+
+var shareIncineration = out.nafta.eolIncinerationPercent / totalOtherPercent;
+var incinerationChange = shareIncineration * actualChange;
+var newIncinerationPercent = out.nafta.eolIncinerationPercent - incinerationChange;
+out.nafta.eolIncinerationPercent = bound(newIncinerationPercent, 0, 1);
+
+var shareLandfill = out.nafta.eolLandfillPercent / totalOtherPercent;
+var landfillChange = shareLandfill * actualChange;
+var newLandfillPercent = out.nafta.eolLandfillPercent - landfillChange;
+out.nafta.eolLandfillPercent = bound(newLandfillPercent, 0, 1);
+
+var shareMismanaged = out.nafta.eolMismanagedPercent / totalOtherPercent;
+var mismanagedChange = shareMismanaged * actualChange;
+var newMismanagedPercent = out.nafta.eolMismanagedPercent - mismanagedChange;
+out.nafta.eolMismanagedPercent = bound(newMismanagedPercent, 0, 1);

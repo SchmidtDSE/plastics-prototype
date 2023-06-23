@@ -191,4 +191,83 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    visitCondition(ctx) {
+        const self = this;
+
+        const priorExpression = ctx.getChild(0).accept(self);
+        let opFunc = null;
+        if (ctx.op.text === "==") {
+            opFunc = (a, b) => a == b;
+        } else if (ctx.op.text === "<") {
+            opFunc = (a, b) => a < b;
+        } else if (ctx.op.text === ">") {
+            opFunc = (a, b) => a > b;
+        } else if (ctx.op.text === ">=") {
+            opFunc = (a, b) => a >= b;
+        } else if (ctx.op.text === "<=") {
+            opFunc = (a, b) => a <= b;
+        }
+        const afterExpression = ctx.getChild(2).accept(self);
+
+        return (state) => {
+            return opFunc(priorExpression(state), afterExpression(state));
+        };
+    }
+    
+    visitConditional(ctx) {
+        const self = this;
+
+        const condition = ctx.getChild(0).accept(self);
+        const positive = ctx.getChild(2).accept(self);
+        const negative = ctx.getChild(4).accept(self);
+
+        return (state) => {
+            if (condition(state)) {
+                return positive(state);
+            } else {
+                return negative(state);
+            }
+        };
+    }
+    
+    visitCallCap(ctx) {
+        const self = this;
+
+        let opFunc = null;
+        if (ctx.op.text === "min") {
+            opFunc = (a, b) => a < b ? a : b;
+        } else if (ctx.op.text === "max") {
+            opFunc = (a, b) => a > b ? a : b;
+        }
+
+        const operandExpression = ctx.operand.accept(self);
+        const limitExpression = ctx.limit.accept(self);
+
+        return (state) => {
+            return opFunc(operandExpression(state), limitExpression(state));
+        };
+    }
+
+    visitCallBound(ctx) {
+        const self = this;
+
+        const operandExpression = ctx.operand.accept(self);
+        const lowerExpression = ctx.lower.accept(self);
+        const upperExpression = ctx.upper.accept(self);
+
+        return (state) => {
+            const operand = operandExpression(state);
+            const lower = lowerExpression(state);
+            const upper = upperExpression(state);
+            
+            if (operand > upper) {
+                return upper;
+            } else if (operand < lower) {
+                return lower;
+            } else {
+                return operand;
+            }
+        };
+    }
+
 }
