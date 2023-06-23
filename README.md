@@ -1,3 +1,3 @@
 Plastics Prototype
 ===============================================================================
-Prototype for the plastics DST with embeddable R code.
+Prototype for the plastics DST with embeddable code.
