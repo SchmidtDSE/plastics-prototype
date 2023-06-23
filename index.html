@@ -15,23 +15,27 @@
             <div id="step-1">
                 <div class="form-group">
                     <div><label>Lever name:</label></div>
-                    <input type="text" id="example-name">
+                    <input type="text" id="example-name" value="NAFTA Recyling Rate Change">
                 </div>
                 <div class="form-group">
                     <div><label>Min value:</label></div>
-                    <input type="number" id="example-min">
+                    <input type="number" id="example-min" value="-100">
                 </div>
                 <div class="form-group">
                     <div><label>Max value:</label></div>
-                    <input type="number" id="example-max">
+                    <input type="number" id="example-max" value="100">
                 </div>
                 <div class="form-group">
                     <div><label>Starting value:</label></div>
-                    <input type="number" id="example-start">
+                    <input type="number" id="example-start" value="0">
                 </div>
                 <div class="form-group">
                     <div><label>Units:</label></div>
-                    <input type="text" id="example-units">
+                    <input type="text" id="example-units" value="%">
+                </div>
+                <div class="form-group">
+                    <div><label>Variable:</label></div>
+                    <input type="text" id="example-variable" value="naftaRecyclingDelta">
                 </div>
                 <div>
                     <button id="next-button">Next</button>
@@ -43,7 +47,24 @@
                         <div><label for="example-input"><span id="example-title"></span>: <span id="delta-display"></span></label></div>
                         <input type="range" min="-100" max="100" value="0" class="slider" id="example-input" step="1">
                     </div>
-                    <div>
+                    <div id="example-output">
+                        <h3>NAFTA 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-nafta-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-nafta-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-nafta-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-nafta-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-nafta-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-nafta-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-nafta-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-nafta-mismanaged-bar"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel">
@@ -52,7 +73,11 @@
             </div>
         </main>
         <script src="third_party/ace.min.js"></script>
-        <script src="third_party/regression.min.js"></script>
+        <script src="third_party/ml.min.js"></script>
+        <script src="third_party/papaparse.min.js"></script>
+
+        <script src="js/const.js"></script>
+        <script src="js/model.js"></script>
         <script src="js/driver.js"></script>
     </body>
 </html>

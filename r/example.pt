@@ -1,0 +1,6 @@
+var multiplier = in.naftaRecyclingDelta / 100;
+var change = out.nafta.eolRecyclingPercent * multiplier;
+out.nafta.eolRecyclingPercent = out.nafta.eolRecyclingPercent + change;
+out.nafta.eolIncinerationPercent = out.nafta.eolIncinerationPercent - change / 3;
+out.nafta.eolLandfillPercent = out.nafta.eolLandfillPercent - change / 3;
+out.nafta.eolMismanagedPercent = out.nafta.eolMismanagedPercent - change / 3;

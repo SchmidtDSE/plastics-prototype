@@ -37,3 +37,25 @@ html {
     height: 550px;
     border: 1px solid #C0C0C0;
 }
+
+#example-output {
+    margin: 3px;
+    padding: 5px;
+    border: 1px dotted #505050;
+    background-color: white;
+}
+
+#example-output h3 {
+    text-align: center;
+    border-bottom: 1px solid #505050;
+}
+
+#example-output .bar-display {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#example-output .bar-display .bar {
+    background-color: #333;
+    height: 4px;
+}

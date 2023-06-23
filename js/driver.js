@@ -1,21 +1,37 @@
 function attachListeners() {
-    let nextButton = document.getElementById("next-button");
+    const nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", onNextStep);
 
-    let exampleInput = document.getElementById("example-input");
-    exampleInput.addEventListener("change", onInputChange);
+    buildProjector().then((projector) => {
+        let timeoutId = null;
+        const exampleInput = document.getElementById("example-input");
+        exampleInput.addEventListener("change", () => {
+            if (timeoutId !== null) {
+                clearTimeout(timeoutId);
+            }
+
+            timeoutId = setTimeout(
+                () => {
+                    onInputChange(projector);
+                    timeoutId = null;
+                },
+                250
+            );
+        });
+        onInputChange(projector);
+    });
 }
 
 
 function onNextStep() {
-    let exampleName = document.getElementById("example-name").value;
-    let exampleMin = document.getElementById("example-min").value;
-    let exampleMax = document.getElementById("example-max").value;
-    let exampleStart = document.getElementById("example-start").value;
-    let exampleUnits = document.getElementById("example-units").value;
+    const exampleName = document.getElementById("example-name").value;
+    const exampleMin = document.getElementById("example-min").value;
+    const exampleMax = document.getElementById("example-max").value;
+    const exampleStart = document.getElementById("example-start").value;
+    const exampleUnits = document.getElementById("example-units").value;
 
     document.getElementById("example-title").innerHTML = exampleName;
-    let exampleInput = document.getElementById("example-input");
+    const exampleInput = document.getElementById("example-input");
     exampleInput.min = exampleMin;
     exampleInput.max = exampleMax;
     exampleInput.value = exampleStart;
@@ -25,11 +41,39 @@ function onNextStep() {
 }
 
 
-function onInputChange() {
-    let units = document.getElementById("example-units").value;
-    let value = document.getElementById("example-input").value;
-    let valueStr = value >= 0 ? ("+" + value + units) : (value + units);
-    document.getElementById("delta-display").innerHTML = valueStr;
+function onInputChange(projector) {
+    const value = parseFloat(document.getElementById("example-input").value);
+
+    const updateLabel = () => {
+        const units = document.getElementById("example-units").value;
+        const valueStr = value >= 0 ? ("+" + value + units) : (value + units);
+        document.getElementById("delta-display").innerHTML = valueStr;
+    };
+
+    const updateBar = (prefix, value) => {
+        const valueRounded = Math.round(value * 100);
+        document.getElementById(prefix + "-label").innerHTML = valueRounded;
+        
+        const width = valueRounded + "%";
+        document.getElementById(prefix + "-bar").style.width = width;
+    };
+
+    const updateDisplay = () => {
+        const projection = projector.project(YEAR);
+        const naftaProjection = projection.get("nafta");
+        const recyclingPercent = naftaProjection.get("eolRecyclingPercent");
+        const incinerationPercent = naftaProjection.get("eolIncinerationPercent");
+        const landfillPercent = naftaProjection.get("eolLandfillPercent");
+        const mismanagedPercent = naftaProjection.get("eolMismanagedPercent");
+
+        updateBar("eol-nafta-recycling", recyclingPercent);
+        updateBar("eol-nafta-incineration", incinerationPercent);
+        updateBar("eol-nafta-landfill", landfillPercent);
+        updateBar("eol-nafta-mismanaged", mismanagedPercent);
+    };
+
+    updateLabel();
+    updateDisplay();
 }
 
 
@@ -65,13 +109,15 @@ function setCommandEnabled(editor, name, enabled) {
  * Initalize the editor.
  */
 function initEditor() {
-    editor = ace.edit("editor");
+    const editor = ace.edit("editor");
     editor.getSession().setUseWorker(false);
 
     editor.session.setOptions({
         tabSize: 2,
         useSoftTabs: true
     });
+
+    editor.setOption("printMarginColumn", 100);
 
     editor.setTheme("ace/theme/monokai");
 
@@ -98,7 +144,6 @@ function main() {
     document.getElementById("step-2").style.display = "none";
 
     attachListeners();
-    onInputChange();
     initEditor();
 }
 
