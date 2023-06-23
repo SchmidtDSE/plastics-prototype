@@ -1,3 +1,6 @@
+const toolkit = PlasticsLang.getToolkit();
+
+
 function attachListeners() {
     const nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", onNextStep);

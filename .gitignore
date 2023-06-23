@@ -1,7 +1,6 @@
 data
 intermediate/node_modules
 intermediate/static
-intermediate/package-lock.json
 intermediate/PlasticsLang.*
 intermediate/PlasticsLangLexer.*
 intermediate/PlasticsLangListener.js

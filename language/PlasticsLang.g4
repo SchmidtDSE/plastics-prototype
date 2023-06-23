@@ -41,9 +41,9 @@ expression: number # simpleNumber
   | LPAREN_ expression RPAREN_ # parenExpression
   ;
 
-definition: VAR_ IDENTIFIER_ EQ_ expression;
+definition: VAR_ identifier EQ_ expression;
 
-assignment: IDENTIFIER_ EQ_ expression;
+assignment: identifier EQ_ expression;
 
 command: definition | assignment;
 
