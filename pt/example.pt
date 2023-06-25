@@ -1,5 +1,4 @@
-var multiplier = in.naftaRecyclingDelta / 100;
-var potentialRecyclingChange = out.nafta.eolRecyclingPercent * multiplier;
+var potentialRecyclingChange = in.naftaRecyclingDelta / 100;
 var potentialNewRecycling = out.nafta.eolRecyclingPercent + potentialRecyclingChange;
 
 var newRecycling = bound(potentialNewRecycling, 0, 1);

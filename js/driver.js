@@ -121,7 +121,7 @@ function onInputChange(projector) {
     const value = parseFloat(document.getElementById("example-input").value);
 
     const updateLabel = () => {
-        const units = document.getElementById("example-units").value;
+        const units = " " + document.getElementById("example-units").value;
         const valueStr = value >= 0 ? ("+" + value + units) : (value + units);
         document.getElementById("delta-display").innerHTML = valueStr;
     };

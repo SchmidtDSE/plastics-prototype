@@ -22,6 +22,10 @@ html {
     margin-bottom: 10px;
 }
 
+.form-group input {
+    min-width: 300px;
+}
+
 .panel-box {
     display: grid;
     column-gap: 10px;
