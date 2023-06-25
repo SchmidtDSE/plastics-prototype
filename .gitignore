@@ -7,3 +7,4 @@ intermediate/PlasticsLangListener.js
 intermediate/PlasticsLangVisitor.js
 intermediate/PlasticsLangParser.js
 js/plastics_lang.js
+language/*.jar
