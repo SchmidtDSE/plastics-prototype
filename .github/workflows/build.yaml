@@ -1,3 +1,6 @@
+name: Build
+on: [push]
+
 jobs:
   check_language:
     environment: deploy
