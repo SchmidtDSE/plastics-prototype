@@ -198,6 +198,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         let opFunc = null;
         if (ctx.op.text === "==") {
             opFunc = (a, b) => a == b;
+        } else if (ctx.op.text === "!=") {
+            opFunc = (a, b) => a != b;
         } else if (ctx.op.text === "<") {
             opFunc = (a, b) => a < b;
         } else if (ctx.op.text === ">") {
@@ -230,15 +232,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
     
-    visitCallCap(ctx) {
+    visitCallCap(ctx, opFunc) {
         const self = this;
-
-        let opFunc = null;
-        if (ctx.op.text === "min") {
-            opFunc = (a, b) => a < b ? a : b;
-        } else if (ctx.op.text === "max") {
-            opFunc = (a, b) => a > b ? a : b;
-        }
 
         const operandExpression = ctx.operand.accept(self);
         const limitExpression = ctx.limit.accept(self);
@@ -246,6 +241,16 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return (state) => {
             return opFunc(operandExpression(state), limitExpression(state));
         };
+    }
+
+    visitCallMin(ctx) {
+        const self = this;
+        return self.visitCallCap(ctx, (a, b) => a < b ? a : b);
+    }
+
+    visitCallMax(ctx) {
+        const self = this;
+        return self.visitCallCap(ctx, (a, b) => a > b ? a : b);
     }
 
     visitCallBound(ctx) {

@@ -5,7 +5,7 @@
     "build": "webpack --mode=development"
   },
   "dependencies": {
-    "antlr4": "^4.9.3",
+    "antlr4": "^4.13.0",
     "package.json": "^0.0.0"
   },
   "devDependencies": {
