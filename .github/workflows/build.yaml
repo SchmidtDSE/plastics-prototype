@@ -5,7 +5,7 @@ jobs:
   check_language:
     environment: deploy
     runs-on: ubuntu-latest
-    name: Upload static
+    name: Check language
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
@@ -20,7 +20,7 @@ jobs:
           chmod +x "./npm_install.sh"
           "./npm_install.sh"
           "./make.sh"
-      - name: 'Check File Existence'
-        uses: thebinaryfelix/check-file-existence-action@v1
+      - name: 'Verify ANTLR JS'
+        uses: thebinaryfelix/check-file-existence-action@1.0.0
         with:
           files: 'js/plastics_lang.js'
