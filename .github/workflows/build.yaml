@@ -20,7 +20,11 @@ jobs:
           chmod +x "./npm_install.sh"
           "./npm_install.sh"
           "./make.sh"
-      - name: 'Verify ANTLR JS'
+      - name: Look for ANTLR JS
         uses: thebinaryfelix/check-file-existence-action@1.0.0
+        id: check_files
         with:
           files: 'js/plastics_lang.js'
+      - name: Assert ANTLR JS
+        if: steps.check_files.outputs.exists == 'false'
+        run: exit 1
