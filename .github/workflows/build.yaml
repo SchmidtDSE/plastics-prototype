@@ -20,20 +20,15 @@ jobs:
           chmod +x "./sh/npm_install.sh"
           "./sh/npm_install.sh"
           "./sh/make.sh"
-      - name: Install browser
-        shell: bash
-        run: |
-          chmod +x "./sh/install_browser.sh"
-          "./sh/install_browser.sh"
       - name: Install JS deps
         shell: bash
         run: |
           chmod +x "./sh/load_deps.sh"
           "./sh/load_deps.sh"
-      - name: Run tests
+      - name: Install browser
         shell: bash
         run: |
-          chmod +x "./sh/load_deps.sh"
-          "./sh/load_deps.sh"
+          chmod +x "./sh/install_browser.sh"
+          "./sh/install_browser.sh"
       - name: Compile with Grunt
         run: grunt
