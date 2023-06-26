@@ -15,7 +15,7 @@ permissions:
 jobs:
   
   build:
-    environment: deployweb
+    environment: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
