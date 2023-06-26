@@ -50,46 +50,22 @@ function showStatusText(text) {
 }
 
 
-function compileProgram() {
+function compileLiveProgram() {
     const input = editor.getValue();
+    const compileResult = compileProgram(input);
 
-    if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
-        showStatusText("Ready!");
-        return null;
-    }
+    const hasErrors = compileResult.getErrors().length > 0;
+    const hasProgram = compileResult.getProgram() !== null;
 
-    const errors = [];
-
-    const chars = new toolkit.antlr4.InputStream(input);
-    const lexer = new toolkit.PlasticsLangLexer(chars);
-    lexer.removeErrorListeners();
-    lexer.addErrorListener({
-        syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-            const result = `(line ${line}, col ${column}): ${msg}`;
-            errors.push(result);
-        }
-    });
-
-    const tokens = new toolkit.antlr4.CommonTokenStream(lexer);
-    const parser = new toolkit.PlasticsLangParser(tokens);
-
-    parser.buildParsePlastics = true;
-    parser.removeErrorListeners();
-    parser.addErrorListener({
-        syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-          const result = `(line ${line}, col ${column}): ${msg}`;
-          errors.push(result);
-        }
-    });
-
-    const program = parser.program();
-
-    if (errors.length > 0) {
-        const errorsStr = errors.join("\n\n");
+    if (hasErrors) {
+        const errorsStr = compileResult.getErrors().join("\n\n");
         showStatusText(errorsStr);
         return null;
+    } else if (hasProgram) {
+        return compileResult.getProgram();
     } else {
-        return program.accept(new CompileVisitor());
+        showStatusText("Ready!");
+        return null;
     }
 }
 
@@ -108,7 +84,7 @@ function applyTransformation(projection) {
     inputs.set(exampleVariable, exampleValue);
     state.set("in", inputs);
 
-    const program = compileProgram();
+    const program = compileLiveProgram();
     if (program !== null) {
         program(state);
     }

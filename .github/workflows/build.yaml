@@ -16,15 +16,7 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          chmod +x "./make.sh"
-          chmod +x "./npm_install.sh"
-          "./npm_install.sh"
-          "./make.sh"
-      - name: Look for ANTLR JS
-        uses: thebinaryfelix/check-file-existence-action@1.0.0
-        id: check_files
-        with:
-          files: 'js/plastics_lang.js'
-      - name: Assert ANTLR JS
-        if: steps.check_files.outputs.exists == 'false'
-        run: exit 1
+          chmod +x "./sh/make.sh"
+          chmod +x "./sh/npm_install.sh"
+          "./sh/npm_install.sh"
+          "./sh/make.sh"

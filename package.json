@@ -6,6 +6,9 @@
   },
   "dependencies": {
     "antlr4": "^4.13.0",
+    "grunt": "^1.5.2",
+    "grunt-contrib-connect": "^3.0.0",
+    "grunt-contrib-qunit": "^6.1.0",
     "package.json": "^0.0.0"
   },
   "devDependencies": {
