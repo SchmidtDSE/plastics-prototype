@@ -183,7 +183,7 @@ function initEditor() {
 
     editor.setOption("printMarginColumn", 100);
 
-    editor.setTheme("ace/theme/monokai");
+    editor.setTheme("ace/theme/textmate");
 
     // Support keyboard escape for better accessibility
     const setTabsEnabled = (target) => {
