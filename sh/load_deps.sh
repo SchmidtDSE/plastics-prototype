@@ -6,3 +6,4 @@ mkdir -p third_party
 [ ! -e third_party/theme-textmate-css.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.0/theme-textmate-css.min.js -O third_party/theme-textmate-css.js
 [ ! -e third_party/ml.min.js ] && wget https://www.lactame.com/lib/ml/6.0.0/ml.min.js -O third_party/ml.min.js
 [ ! -e third_party/papaparse.min.js ] && wget https://raw.githubusercontent.com/mholt/PapaParse/master/papaparse.min.js -O third_party/papaparse.min.js
+echo "Installed deps..."
