@@ -2,10 +2,10 @@ name: Build
 on: [push]
 
 jobs:
-  check_language:
+  test:
     environment: deploy
     runs-on: ubuntu-latest
-    name: Check language
+    name: Test
     steps:
       - name: Checkout
         uses: actions/checkout@v2.3.4
@@ -20,3 +20,20 @@ jobs:
           chmod +x "./sh/npm_install.sh"
           "./sh/npm_install.sh"
           "./sh/make.sh"
+      - name: Install browser
+        shell: bash
+        run: |
+          chmod +x "./sh/install_browser.sh"
+          "./sh/install_browser.sh"
+      - name: Install JS deps
+        shell: bash
+        run: |
+          chmod +x "./sh/load_deps.sh"
+          "./sh/load_deps.sh"
+      - name: Run tests
+        shell: bash
+        run: |
+          chmod +x "./sh/load_deps.sh"
+          "./sh/load_deps.sh"
+      - name: Compile with Grunt
+        run: grunt
