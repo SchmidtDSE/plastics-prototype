@@ -1,3 +1,6 @@
+const toolkit = PlasticsLang.getToolkit();
+
+
 /**
  * Visitor which compiles the PT program to JS functions.
  *

@@ -8,3 +8,5 @@ intermediate/PlasticsLangVisitor.js
 intermediate/PlasticsLangParser.js
 js/plastics_lang.js
 language/*.jar
+test/qunit.css
+test/qunit.min.js

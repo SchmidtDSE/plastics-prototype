@@ -20,8 +20,6 @@ class CompileResult {
 
 
 function compileProgram(input) {
-    const input = editor.getValue();
-
     if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
         return new CompileResult(null, []);
     }
@@ -50,13 +48,13 @@ function compileProgram(input) {
         }
     });
 
-    const program = parser.program();
+    const programUncompiled = parser.program();
 
     if (errors.length > 0) {
         return new CompileResult(null, errors);
     }
     
-    const program = program.accept(new CompileVisitor());
+    const program = programUncompiled.accept(new CompileVisitor());
     if (errors.length > 0) {
         return new CompileResult(null, errors);
     }

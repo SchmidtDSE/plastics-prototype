@@ -1,4 +1,3 @@
-const toolkit = PlasticsLang.getToolkit();
 let editor = null;
 
 
