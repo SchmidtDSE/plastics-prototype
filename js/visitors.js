@@ -219,9 +219,9 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitConditional(ctx) {
         const self = this;
 
-        const condition = ctx.getChild(0).accept(self);
-        const positive = ctx.getChild(2).accept(self);
-        const negative = ctx.getChild(4).accept(self);
+        const condition = ctx.cond.accept(self);
+        const positive = ctx.pos.accept(self);
+        const negative = ctx.neg.accept(self);
 
         return (state) => {
             if (condition(state)) {

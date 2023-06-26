@@ -32,9 +32,13 @@ SEMICOLON_: ';';
 
 VAR_: 'v' 'a' 'r';
 
-TURINARY_: '?';
+COND_: 'i' 'f';
 
-COLON_: ':';
+ELSE_: 'e' 'l' 's' 'e';
+
+LIMIT_: 'l' 'i' 'm' 'i' 't';
+
+TO_: 't' 'o';
 
 GT_: '>';
 
@@ -56,24 +60,23 @@ LBRAC_: '[';
 
 RBRAC_: ']';
 
+
 IDENTIFIER_: [A-Za-z0-9]+;
 
 number: (FLOAT_ | INTEGER_);
 
 identifier: IDENTIFIER_ (PERIOD_ IDENTIFIER_)*;
 
-bound: BOUND_;
-
 expression: number # simpleExpression
   | identifier # simpleIdentifier
   | expression op=(MULT_ | DIV_ | POW_) expression  # multiplyExpression
   | expression op=(ADD_ | SUB_) expression # additionExpression
   | LPAREN_ expression RPAREN_ # parenExpression
-  | operand=expression COLON_ LBRAC_ limit=expression COMMA_ RBRAC_ # callMax
-  | operand=expression COLON_ LBRAC_ COMMA_ limit=expression RBRAC_ # callMin
-  | operand=expression COLON_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_  # callBound
+  | LIMIT_ operand=expression TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # callMax
+  | LIMIT_ operand=expression TO_ LBRAC_ COMMA_ limit=expression RBRAC_ # callMin
+  | LIMIT_ operand=expression TO_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_  # callBound
   | pos=expression op=(NEQ_ | GT_ | LT_ | EQEQ_ | LTEQ_ | GTEQ_) neg=expression  # condition
-  | expression TURINARY_ expression COLON_ expression  # conditional
+  | pos=expression COND_ cond=expression ELSE_ neg=expression  # conditional
   ;
 
 definition: VAR_ identifier EQ_ expression;
