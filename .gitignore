@@ -1,4 +1,5 @@
 data
+deploy
 node_modules
 intermediate/static
 intermediate/PlasticsLang.*

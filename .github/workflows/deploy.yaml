@@ -39,13 +39,17 @@ jobs:
         run: |
           chmod +x "./sh/load_deps.sh"
           "./sh/load_deps.sh"
-      - name: Upload website
-        id: uploadWebsite
+      - name: Package website
+        shell: bash
+        run: |
+          chmod +x "./sh/package.sh"
+          "./sh/package.sh"
+      - name: Upload
         uses: Creepios/sftp-action@v1.0.3
         with:
           host: ${{ secrets.SFTPHOST }}
           port: 22
           username: ${{ secrets.SFTPUSER }}
           password: ${{ secrets.SFTPPASSWORD }}
-          localPath: './'
+          localPath: './deploy'
           remotePath: './global-plastics-tool.org'
