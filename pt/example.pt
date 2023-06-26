@@ -3,7 +3,7 @@ var potentialRecyclingChange = in.naftaRecyclingDelta / 100;
 var potentialNewRecycling = out.nafta.eolRecyclingPercent + potentialRecyclingChange;
 
 # Update recycling but keep it in bounds
-var newRecycling = potentialNewRecycling : [0, 1];  # Force between 0 and 1
+var newRecycling = limit potentialNewRecycling to [0, 1];  # Force between 0 and 1
 var recyclingBeforeChange = out.nafta.eolRecyclingPercent;
 out.nafta.eolRecyclingPercent = newRecycling;
 
@@ -21,16 +21,16 @@ var totalOtherPercent = (
 var shareIncineration = out.nafta.eolIncinerationPercent / totalOtherPercent;
 var incinerationChange = shareIncineration * actualChange;
 var newIncinerationPercent = out.nafta.eolIncinerationPercent - incinerationChange;
-out.nafta.eolIncinerationPercent = newIncinerationPercent : [0, 1];
+out.nafta.eolIncinerationPercent = limit newIncinerationPercent to [0, 1];
 
 # Update landfill
 var shareLandfill = out.nafta.eolLandfillPercent / totalOtherPercent;
 var landfillChange = shareLandfill * actualChange;
 var newLandfillPercent = out.nafta.eolLandfillPercent - landfillChange;
-out.nafta.eolLandfillPercent = newLandfillPercent : [0, 1];
+out.nafta.eolLandfillPercent = limit newLandfillPercent to [0, 1];
 
 # Update mismanaged
 var shareMismanaged = out.nafta.eolMismanagedPercent / totalOtherPercent;
 var mismanagedChange = shareMismanaged * actualChange;
 var newMismanagedPercent = out.nafta.eolMismanagedPercent - mismanagedChange;
-out.nafta.eolMismanagedPercent = newMismanagedPercent : [0, 1];
+out.nafta.eolMismanagedPercent = limit newMismanagedPercent to [0, 1];

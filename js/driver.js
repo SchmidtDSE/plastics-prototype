@@ -11,6 +11,7 @@ function attachListeners() {
         exampleInput.addEventListener("change", () => {
             if (timeoutId !== null) {
                 clearTimeout(timeoutId);
+                onInputChangeInProgress();
             }
 
             timeoutId = setTimeout(
@@ -21,6 +22,11 @@ function attachListeners() {
                 250
             );
         });
+        
+        exampleInput.addEventListener("input", () => {
+            onInputChangeInProgress();
+        });
+
         onInputChange(projector);
     });
 }
@@ -92,7 +98,7 @@ function applyTransformation(projection) {
 }
 
 
-function onInputChange(projector) {
+function onInputChangeInProgress() {
     const value = parseFloat(document.getElementById("example-input").value);
 
     const updateLabel = () => {
@@ -100,6 +106,13 @@ function onInputChange(projector) {
         const valueStr = value >= 0 ? ("+" + value + units) : (value + units);
         document.getElementById("delta-display").innerHTML = valueStr;
     };
+
+    updateLabel();
+}
+
+
+function onInputChange(projector) {
+    onInputChangeInProgress();
 
     const updateBar = (prefix, value) => {
         const valueRounded = Math.round(value * 100);
@@ -124,7 +137,6 @@ function onInputChange(projector) {
         updateBar("eol-nafta-mismanaged", mismanagedPercent);
     };
 
-    updateLabel();
     updateDisplay();
 }
 
