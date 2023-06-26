@@ -10,3 +10,4 @@ js/plastics_lang.js
 language/*.jar
 test/qunit.css
 test/qunit.min.js
+third_party
