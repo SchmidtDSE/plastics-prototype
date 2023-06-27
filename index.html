@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Global Plastics Tool</title>
-        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/base.css?v=20230626">
     </head>
     <body>
         <header>
@@ -68,7 +68,42 @@
                     </div>
                 </div>
                 <div class="panel">
-                    <div id="editor" aria-label="Code editor. Hit escape to remove focus."></div>
+                    <div id="editor" aria-label="Code editor. Hit escape to remove focus."># Determine what the change could be
+var potentialRecyclingChange = in.naftaRecyclingDelta / 100;
+var potentialNewRecycling = out.nafta.eolRecyclingPercent + potentialRecyclingChange;
+
+# Update recycling but keep it in bounds
+var newRecycling = limit potentialNewRecycling to [0, 1];  # Force between 0 and 1
+var recyclingBeforeChange = out.nafta.eolRecyclingPercent;
+out.nafta.eolRecyclingPercent = newRecycling;
+
+# Determine what the actual change was after bounds
+var actualChange = newRecycling - recyclingBeforeChange;
+
+# Spread the corresponding change proportionally across the other EOL types
+var totalOtherPercent = (
+  out.nafta.eolIncinerationPercent +
+  out.nafta.eolLandfillPercent + 
+  out.nafta.eolMismanagedPercent
+);
+
+# Update incineration
+var shareIncineration = out.nafta.eolIncinerationPercent / totalOtherPercent;
+var incinerationChange = shareIncineration * actualChange;
+var newIncinerationPercent = out.nafta.eolIncinerationPercent - incinerationChange;
+out.nafta.eolIncinerationPercent = limit newIncinerationPercent to [0, 1];
+
+# Update landfill
+var shareLandfill = out.nafta.eolLandfillPercent / totalOtherPercent;
+var landfillChange = shareLandfill * actualChange;
+var newLandfillPercent = out.nafta.eolLandfillPercent - landfillChange;
+out.nafta.eolLandfillPercent = limit newLandfillPercent to [0, 1];
+
+# Update mismanaged
+var shareMismanaged = out.nafta.eolMismanagedPercent / totalOtherPercent;
+var mismanagedChange = shareMismanaged * actualChange;
+var newMismanagedPercent = out.nafta.eolMismanagedPercent - mismanagedChange;
+out.nafta.eolMismanagedPercent = limit newMismanagedPercent to [0, 1];</div>
                     <div id="status-display"></div>
                 </div>
             </div>
@@ -77,14 +112,14 @@
         <script src="third_party/ml.min.js"></script>
         <script src="third_party/papaparse.min.js"></script>
 
-        <script src="js/plastics_lang.js"></script>
+        <script src="js/plastics_lang.js?v=20230626"></script>
 
-        <script src="js/compiler.js"></script>
-        <script src="js/const.js"></script>
-        <script src="js/model.js"></script>
-        <script src="js/shared.js"></script>
-        <script src="js/visitors.js"></script>
+        <script src="js/compiler.js?v=20230626"></script>
+        <script src="js/const.js?v=20230626"></script>
+        <script src="js/model.js?v=20230626"></script>
+        <script src="js/shared.js?v=20230626"></script>
+        <script src="js/visitors.js?v=20230626"></script>
 
-        <script src="js/driver.js"></script>
+        <script src="js/driver.js?v=20230626"></script>
     </body>
 </html>
