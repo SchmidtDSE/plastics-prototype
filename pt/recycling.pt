@@ -42,11 +42,9 @@ distribute actualChange across [
 ] proportionally;
 
 # Ensure percents stay between 0 and 1 (0% to 100%)
-limit [
-  out.{{region}}.eolMismanagedPercent,
-  out.{{region}}.eolIncinerationPercent,
-  out.{{region}}.eolLandfillPercent
-] to [0, 1];
+limit out.{{region}}.eolMismanagedPercent to [0, 1];
+limit out.{{region}}.eolIncinerationPercent to [0, 1];
+limit out.{{region}}.eolLandfillPercent to [0, 1];
 
 ############################
 ## Update virgin plastics ##
@@ -76,8 +74,6 @@ distribute localProductionOffset across [
 ] proportionally;
 
 # Ensure that those local productions don't go below zero
-limit [
-  out.{{region}}.inputProduceFiberMT,
-  out.{{region}}.inputProduceResinMTt,
-  out.{{region}}.inputAdditivesMT
-] to [0,];
+limit out.{{region}}.inputProduceFiberMT to [0,];
+limit out.{{region}}.inputProduceResinMTt to [0,];
+limit out.{{region}}.inputAdditivesMT to [0,];
