@@ -42,7 +42,7 @@ DISTRIBUTE_: 'd' 'i' 's' 't' 'r' 'i' 'b' 'u' 't' 'e';
 
 ACROSS_: 'a' 'c' 'r' 'o' 's' 's';
 
-PROPORTIONALLY_: 'p' 'r' 'o' 'p' 'o' 'r' 't' 'i' 'o' 'n' 'a' 'l' 'l' y;
+PROPORTIONALLY_: 'p' 'r' 'o' 'p' 'o' 'r' 't' 'i' 'o' 'n' 'a' 'l' 'l' 'y';
 
 LINEARLY_: 'l' 'i' 'n' 'e' 'a' 'r' 'l' 'y';
 
@@ -88,13 +88,13 @@ definition: VAR_ identifier EQ_ expression;
 
 assignment: identifier EQ_ expression;
 
-limit: LIMIT_ operand=identifier TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # callMax
+limitop: LIMIT_ operand=identifier TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # callMax
   | LIMIT_ operand=identifier TO_ LBRAC_ COMMA_ limit=expression RBRAC_ # callMin
   | LIMIT_ operand=identifier TO_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_  # callBound
   ;
 
 distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_);
 
-command: definition | assignment | limit | distribute;
+command: definition | assignment | limitop | distribute;
 
 program: command (SEMICOLON_ command)* SEMICOLON_;
