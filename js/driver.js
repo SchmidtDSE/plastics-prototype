@@ -72,7 +72,7 @@ class SliderPresenter {
 
     _updateValueLabel() {
         const self = this;
-        
+
         const innerSlider = self._rootElement.querySelector('.slider');
         const value = parseFloat(innerSlider.value);
         const units = " " + self._config["units"];
@@ -226,28 +226,49 @@ function buildSliders() {
         .then(x => x.text())
         .then(x => Handlebars.compile(x));
 
-    return new Promise((resolve) => {
-        Promise.all([listingFuture, templateFuture]).then((values) => {
-            const listing = values[0];
-            const template = values[1];
 
-            const parent = document.getElementById("levers-panel");
-
-            const leversHtml = listing["levers"]
-                .map((x) => template(x))
-                .join("\n");
-            parent.innerHTML = leversHtml;
-
-            const presenters = listing["levers"].map((config) => {
-                const variable = config["variable"];
-                const element = document.getElementById(
-                    "slider-holder-" + variable
-                );
-                return new SliderPresenter(config, element, onInputChange);
+    const renderLever = (config, htmlTemplate) => {
+        const templateUrl = "/pt/" + config["template"];
+        return fetch(templateUrl).then(x => x.text())
+            .then(x => Handlebars.compile(x))
+            .then((codeTemplate) => codeTemplate(config["attrs"]))
+            .then((code) => {
+                config["code"] = code;
+                return htmlTemplate(config)
             });
+    };
 
-            resolve(presenters);
-        });
+    return new Promise((resolve) => {
+        Promise.all([listingFuture, templateFuture])
+            .then((values) => {
+                const listing = values[0];
+                const template = values[1];
+
+                const leverHtmlFutures = listing["levers"]
+                    .map((config) => renderLever(config, template));
+
+                return Promise.all(leverHtmlFutures)
+                    .then((leverHtmls) => {
+                        return {"leverHtmls": leverHtmls, "listing": listing};
+                    });
+            })
+            .then((workspace) => {
+                const parent = document.getElementById("levers-panel");
+                const leverHtmls = workspace["leverHtmls"];
+                const listing = workspace["listing"];
+
+                parent.innerHTML = leverHtmls.join("\n");
+
+                const presenters = listing["levers"].map((config) => {
+                    const variable = config["variable"];
+                    const element = document.getElementById(
+                        "slider-holder-" + variable
+                    );
+                    return new SliderPresenter(config, element, onInputChange);
+                });
+
+                resolve(presenters);
+            });
     });
 }
 
