@@ -3,6 +3,7 @@ on: [push]
 
 permissions:
   actions: read
+  contents: read
 
 jobs:
   test:
