@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   
@@ -27,6 +28,15 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: sqlpipeline.yml
+          workflow_conclusion: success
+          branch: main
+          path: data
       - name: Build
         shell: bash
         run: |

@@ -1,0 +1,83 @@
+###########
+## Setup ##
+###########
+
+# Build some constants
+var purchasingPowerParity = {{ purchasingPowerParity }};
+var conversionFactor = 287 / 2125000000;
+var recycleSuccess = 0.15;
+
+######################
+## Calculate change ##
+######################
+
+# Calculate how many points were purchased
+var effectiveInvestment = in.{{region}}RecyclingInvestment * purchasingPowerParity;
+var potentialRecyclingChange = effectiveInvestment * conversionFactor;
+
+# Determine what the change could be
+var potentialNewRecycling = (
+    out.{{region}}.eolRecyclingPercent +
+    potentialRecyclingChange
+);
+
+# Update recycling but keep it in bounds between 0 and 1 (0% to 100%)
+var newRecycling = limit potentialNewRecycling to [0, 1];
+var recyclingBeforeChange = out.{{region}}.eolRecyclingPercent;
+out.{{region}}.eolRecyclingPercent = newRecycling;
+
+# Determine what the actual change was after bounds
+var actualChange = newRecycling - recyclingBeforeChange;
+
+##############################
+## Update other EOL streams ##
+##############################
+
+# Distribute actualChange across the other EOL streams proportionally to how
+# large they are prior to the change
+distribute actualChange across [
+  out.{{region}}.eolMismanagedPercent,
+  out.{{region}}.eolIncinerationPercent,
+  out.{{region}}.eolLandfillPercent
+] proportionally;
+
+# Ensure percents stay between 0 and 1 (0% to 100%)
+limit [
+  out.{{region}}.eolMismanagedPercent,
+  out.{{region}}.eolIncinerationPercent,
+  out.{{region}}.eolLandfillPercent
+] to [0, 1];
+
+############################
+## Update virgin plastics ##
+############################
+var virginPlasticsOffsetPercent = recycleSuccess * actualChange;
+
+# Get total production
+var totalProduction = (
+  out.{{region}}.inputProduceFiberMT + 
+  out.{{region}}.inputProduceResinMT + 
+  out.{{region}}.inputAdditivesMT +
+  out.{{region}}.inputImportResinMT + 
+  out.{{region}}.inputImportArticlesMT + 
+  out.{{region}}.inputImportGoodsMT + 
+  out.{{region}}.inputImportFiberMT
+);
+
+# Assume impact to local production
+var localProductionOffset = totalProduction * virginPlasticsOffsetPercent * -1;
+
+# Distribute localProductionOffset across local production proportionally to how
+# large they are prior to the change
+distribute localProductionOffset across [
+  out.{{region}}.inputProduceFiberMT,
+  out.{{region}}.inputProduceResinMTt,
+  out.{{region}}.inputAdditivesMT
+] proportionally;
+
+# Ensure that those local productions don't go below zero
+limit [
+  out.{{region}}.inputProduceFiberMT,
+  out.{{region}}.inputProduceResinMTt,
+  out.{{region}}.inputAdditivesMT
+] to [0,];
