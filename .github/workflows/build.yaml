@@ -1,6 +1,10 @@
 name: Build
 on: [push]
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
   test:
     environment: build
@@ -13,6 +17,16 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{ secrets.CROSS_TOKEN }}
+          workflow: sqlpipeline.yaml
+          workflow_conclusion: success
+          branch: main
+          path: data
+          repo: SchmidtDSE/plastics-pipeline
       - name: Build
         shell: bash
         run: |
