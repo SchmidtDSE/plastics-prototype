@@ -26,6 +26,7 @@ jobs:
           workflow_conclusion: success
           branch: main
           path: data
+          repo: SchmidtDSE/plastics-pipeline
       - name: Build
         shell: bash
         run: |
