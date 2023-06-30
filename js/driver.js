@@ -1,11 +1,23 @@
 let editor = null;
 
 
+function getData() {
+    return new Promise((resolve) => {
+        Papa.parse("/data/web.csv", {
+            download: true,
+            header: true,
+            complete: (results) => resolve(results["data"]),
+            dynamicTyping: true
+        });
+    });
+}
+
+
 function attachListeners() {
     const nextButton = document.getElementById("next-button");
     nextButton.addEventListener("click", onNextStep);
 
-    buildProjector().then((projector) => {
+    getData().then((data) => {
         let timeoutId = null;
         const exampleInput = document.getElementById("example-input");
         exampleInput.addEventListener("change", () => {
@@ -16,7 +28,7 @@ function attachListeners() {
 
             timeoutId = setTimeout(
                 () => {
-                    onInputChange(projector);
+                    onInputChange(data);
                     timeoutId = null;
                 },
                 250
@@ -27,7 +39,7 @@ function attachListeners() {
             onInputChangeInProgress();
         });
 
-        onInputChange(projector);
+        onInputChange(data);
     });
 }
 
@@ -75,7 +87,28 @@ function compileLiveProgram() {
 }
 
 
-function applyTransformation(projection) {
+function applyTransformation(projectionRaw) {
+    const naftaData = projectionRaw.filter((x) => x["region"] === "nafta");
+    const targetData = naftaData.filter((x) => x["year"] == 2050);
+    const targetDatum = targetData[0];
+
+    const naftaProjection = new Map();
+    naftaProjection.set("eolIncinerationPercent", targetDatum["eolIncinerationPercent"]);
+    naftaProjection.set("eolLandfillPercent", targetDatum["eolLandfillPercent"]);
+    naftaProjection.set("inputProduceResinMTt", targetDatum["inputProduceResinMTt"]);
+    naftaProjection.set("eolMismanagedPercent", targetDatum["eolMismanagedPercent"]);
+    naftaProjection.set("inputImportFiberMT", targetDatum["inputImportFiberMT"]);
+    naftaProjection.set("inputProduceResinMT", targetDatum["inputProduceResinMT"]);
+    naftaProjection.set("inputImportResinMT", targetDatum["inputImportResinMT"]);
+    naftaProjection.set("inputAdditivesMT", targetDatum["inputAdditivesMT"]);
+    naftaProjection.set("inputImportGoodsMT", targetDatum["inputImportGoodsMT"]);
+    naftaProjection.set("inputImportArticlesMT", targetDatum["inputImportArticlesMT"]);
+    naftaProjection.set("eolRecyclingPercent", targetDatum["eolRecyclingPercent"]);
+    naftaProjection.set("inputProduceFiberMT", targetDatum["inputProduceFiberMT"]);
+
+    const projection = new Map();
+    projection.set("nafta", naftaProjection);
+
     const exampleVariable = document.getElementById("example-variable").value;
     const exampleValue = parseFloat(
         document.getElementById("example-input").value
@@ -111,7 +144,7 @@ function onInputChangeInProgress() {
 }
 
 
-function onInputChange(projector) {
+function onInputChange(data) {
     onInputChangeInProgress();
 
     const updateBar = (prefix, value) => {
@@ -123,7 +156,7 @@ function onInputChange(projector) {
     };
 
     const updateDisplay = () => {
-        const projection = applyTransformation(projector.project(YEAR));
+        const projection = applyTransformation(data);
 
         const naftaProjection = projection.get("nafta");
         const recyclingPercent = naftaProjection.get("eolRecyclingPercent");
