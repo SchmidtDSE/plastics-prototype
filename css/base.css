@@ -18,6 +18,13 @@ html {
     font-family: Spartan;
 }
 
+.editor {
+    width: 100%;
+    height: 550px;
+    border: 1px solid #C0C0C0;
+    background-color: white;
+}
+
 .form-group {
     margin-bottom: 10px;
 }
@@ -34,13 +41,6 @@ html {
 
 .slider {
     width: 100%;
-}
-
-#editor {
-    width: 100%;
-    height: 550px;
-    border: 1px solid #C0C0C0;
-    background-color: white;
 }
 
 #example-output {
@@ -63,4 +63,28 @@ html {
 #example-output .bar-display .bar {
     background-color: #333;
     height: 4px;
+}
+
+#levers-panel {
+    background-color: white;
+    padding: 5px;
+    border: 1px dotted #505050;
+    margin: 3px;
+}
+
+#levers-panel details {
+    margin-left: 15px;
+}
+
+#levers-panel label {
+    font-weight: bold;
+}
+
+#levers-panel .slider-holder {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+#levers-panel .wiki-info {
+    padding-bottom: 20px;
 }
