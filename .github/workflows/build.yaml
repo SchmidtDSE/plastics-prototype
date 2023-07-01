@@ -27,6 +27,8 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Move web CSV
+        run: mv data/SQL\ Pipeline\ Result/web.csv data/web.csv
       - name: Build
         shell: bash
         run: |
