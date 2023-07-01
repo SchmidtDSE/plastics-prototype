@@ -45,8 +45,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = (in.test + 5) * 5;",
-            "var limited = limit inner to [10, 40];",
-            "out.test = limited;"
+            "limit inner to [10, 40];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -61,8 +61,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = (in.test + 5) * 5;",
-            "var limited = limit inner to [10, 70];",
-            "out.test = limited;"
+            "limit inner to [10, 70];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -77,8 +77,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = 100;",
-            "var limited = limit inner to [, 70];",
-            "out.test = limited;"
+            "limit inner to [, 70];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -93,8 +93,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = 100;",
-            "var limited = limit inner to [, 120];",
-            "out.test = limited;"
+            "limit inner to [, 120];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -109,8 +109,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = 100;",
-            "var limited = limit inner to [200, ];",
-            "out.test = limited;"
+            "limit inner to [200, ];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -125,8 +125,8 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace();
         const code = [
             "var inner = 100;",
-            "var limited = limit inner to [0, ];",
-            "out.test = limited;"
+            "limit inner to [0, ];",
+            "out.test = inner;"
         ].join("\n");
 
         const compileResult = compileProgram(code);

@@ -18,12 +18,41 @@ html {
     font-family: Spartan;
 }
 
+.editor {
+    width: 100%;
+    height: 550px;
+    border: 1px solid #C0C0C0;
+    background-color: white;
+}
+
 .form-group {
     margin-bottom: 10px;
 }
 
 .form-group input {
     min-width: 300px;
+}
+
+.output-section {
+    margin: 3px 3px 30px 3px;
+    padding: 5px;
+    border: 1px dotted #505050;
+    background-color: white;
+}
+
+.output-section h3 {
+    text-align: center;
+    border-bottom: 1px solid #505050;
+}
+
+.output-section .bar-display {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.output-section .bar-display .bar {
+    background-color: #333;
+    height: 4px;
 }
 
 .panel-box {
@@ -36,31 +65,26 @@ html {
     width: 100%;
 }
 
-#editor {
-    width: 100%;
-    height: 550px;
-    border: 1px solid #C0C0C0;
+#levers-panel {
     background-color: white;
-}
-
-#example-output {
-    margin: 3px;
     padding: 5px;
     border: 1px dotted #505050;
-    background-color: white;
+    margin: 3px;
 }
 
-#example-output h3 {
-    text-align: center;
-    border-bottom: 1px solid #505050;
+#levers-panel details {
+    margin-left: 15px;
 }
 
-#example-output .bar-display {
-    margin-top: 10px;
-    margin-bottom: 10px;
+#levers-panel label {
+    font-weight: bold;
 }
 
-#example-output .bar-display .bar {
-    background-color: #333;
-    height: 4px;
+#levers-panel .slider-holder {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
+#levers-panel .wiki-info {
+    padding-bottom: 20px;
 }

@@ -97,18 +97,9 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const self = this;
 
         const raw = ctx.getText();
-        const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
-        const pieces = resolved.split(".");
 
         return (state) => {
-            let value = state;
-            pieces.forEach((piece) => {
-                if (!value.has(piece)) {
-                    throw "Could not find " + piece + " in " + raw;
-                }
-                value = value.get(piece);
-            });
-            return value;
+            return self._getValue(raw, state);
         };
     }
 
@@ -136,28 +127,11 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const self = this;
 
         const name = ctx.getChild(0).getText();
-        const resolved = name.indexOf(".") == -1 ? "local." + name : name;
-        const pieces = resolved.split(".");
-
         const expression = ctx.getChild(2).accept(self);
 
         return (state) => {
             const result = expression(state);
-            
-            let container = state;
-            pieces.slice(0, -1).forEach((piece) => {
-                if (!container.has(piece)) {
-                    throw "Could not find " + piece + " in " + name;
-                }
-                container = container.get(piece);
-            });
-            
-            const finalPiece = pieces[pieces.length - 1];
-            if (!container.has(finalPiece)) {
-                throw "Could not find " + finalPiece + " in " + name;
-            }
-
-            container.set(finalPiece, result);
+            self._setValue(name, result, state);
         };
     }
 
@@ -238,11 +212,15 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitCallCap(ctx, opFunc) {
         const self = this;
 
-        const operandExpression = ctx.operand.accept(self);
+        const identifier = ctx.operand.getText();
         const limitExpression = ctx.limit.accept(self);
 
         return (state) => {
-            return opFunc(operandExpression(state), limitExpression(state));
+            const val = opFunc(
+                self._getValue(identifier, state),
+                limitExpression(state)
+            );
+            self._setValue(identifier, val, state);
         };
     }
 
@@ -259,23 +237,100 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitCallBound(ctx) {
         const self = this;
 
-        const operandExpression = ctx.operand.accept(self);
+        const identifier = ctx.operand.getText();
         const lowerExpression = ctx.lower.accept(self);
         const upperExpression = ctx.upper.accept(self);
 
         return (state) => {
-            const operand = operandExpression(state);
-            const lower = lowerExpression(state);
-            const upper = upperExpression(state);
+            const getBoundValue = () => {
+                const operand = self._getValue(identifier, state);
+                const lower = lowerExpression(state);
+                const upper = upperExpression(state);
+                
+                if (operand > upper) {
+                    return upper;
+                } else if (operand < lower) {
+                    return lower;
+                } else {
+                    return operand;
+                }
+            };
             
-            if (operand > upper) {
-                return upper;
-            } else if (operand < lower) {
-                return lower;
-            } else {
-                return operand;
-            }
+            const newValue = getBoundValue();
+            self._setValue(identifier, newValue, state);
         };
+    }
+
+    visitDistribute(ctx) {
+        const self = this;
+
+        const valueExpression = ctx.value.accept(self);
+        const methodName = ctx.method.text;
+
+        const numIdentifiers = Math.ceil((ctx.getChildCount() - 5) / 2.0);
+        const identifiers = [];
+        for (let i = 0; i < numIdentifiers; i++) {
+            const childIndex = i * 2 + 4;
+            identifiers.push(ctx.getChild(childIndex).getText());
+        }
+
+        return (state) => {
+            const valueToDistribute = valueExpression(state);
+
+            if (Math.abs(valueToDistribute) < 1e-7) {
+                return;
+            }
+
+            const totalTargetsValue = identifiers.map((identifier) => {
+                return self._getValue(identifier, state);
+            }).reduce((a, b) => a + b);
+            
+            identifiers.forEach((identifier) => {
+                const beforeValue = self._getValue(identifier, state);
+                const share = beforeValue / totalTargetsValue;
+                const change = share * valueToDistribute;
+                const newValue = beforeValue + change;
+                if (beforeValue != 0) {
+                    self._setValue(identifier, newValue, state);
+                }
+            });
+        };
+    }
+
+    _getValue(raw, state) {
+        const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
+        const pieces = resolved.split(".");
+        let value = state;
+        pieces.forEach((piece) => {
+            if (!value.has(piece)) {
+                throw "Could not find " + piece + " in " + raw;
+            }
+            value = value.get(piece);
+        });
+        return value;
+    }
+
+    _setValue(name, result, state) {
+        const self = this;
+
+        
+        const resolved = name.indexOf(".") == -1 ? "local." + name : name;
+        const pieces = resolved.split(".");
+        
+        let container = state;
+        pieces.slice(0, -1).forEach((piece) => {
+            if (!container.has(piece)) {
+                throw "Could not find " + piece + " in " + name;
+            }
+            container = container.get(piece);
+        });
+        
+        const finalPiece = pieces[pieces.length - 1];
+        if (!container.has(finalPiece)) {
+            throw "Could not find " + finalPiece + " in " + name;
+        }
+
+        container.set(finalPiece, result);
     }
 
 }

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Global Plastics Tool</title>
-        <link rel="stylesheet" href="css/base.css?v=20230626">
+        <link rel="stylesheet" href="css/base.css?v=20230630">
     </head>
     <body>
         <header>
@@ -12,42 +12,28 @@
             <div>Explore the impacts of different policy on the creation and journey of plastics across the planet.</div>
         </header>
         <main>
-            <div id="step-1">
-                <div class="form-group">
-                    <div><label>Lever name:</label></div>
-                    <input type="text" id="example-name" value="NAFTA Recyling Rate Change">
-                </div>
-                <div class="form-group">
-                    <div><label>Min value:</label></div>
-                    <input type="number" id="example-min" value="-100">
-                </div>
-                <div class="form-group">
-                    <div><label>Max value:</label></div>
-                    <input type="number" id="example-max" value="100">
-                </div>
-                <div class="form-group">
-                    <div><label>Starting value:</label></div>
-                    <input type="number" id="example-start" value="0">
-                </div>
-                <div class="form-group">
-                    <div><label>Units:</label></div>
-                    <input type="text" id="example-units" value="points">
-                </div>
-                <div class="form-group">
-                    <div><label>Variable:</label></div>
-                    <input type="text" id="example-variable" value="naftaRecyclingDelta">
-                </div>
-                <div>
-                    <button id="next-button">Next</button>
-                </div>
-            </div>
-            <div class="panel-box" id="step-2">
+            <div class="panel-box">
                 <div class="panel">
-                    <div>
-                        <div><label for="example-input"><span id="example-title"></span>: <span id="delta-display"></span></label></div>
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="example-input" step="1">
+                    <div id="china-output" class="output-section">
+                        <h3>China 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-china-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-china-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-china-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-china-mismanaged-bar"></div>
+                        </div>
                     </div>
-                    <div id="example-output">
+                    <div id="nafta-output" class="output-section">
                         <h3>NAFTA 2050 End of Life Plastics</h3>
                         <div class="bar-display">
                             <div class="label"><span id="eol-nafta-recycling-label"></span>% Recycled</div>
@@ -66,60 +52,61 @@
                             <div class="bar" id="eol-nafta-mismanaged-bar"></div>
                         </div>
                     </div>
+                    <div id="eu30-output" class="output-section">
+                        <h3>EU30 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-eu30-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-eu30-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-eu30-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-eu30-mismanaged-bar"></div>
+                        </div>
+                    </div>
+                    <div id="row-output" class="output-section">
+                        <h3>Rest of World 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-row-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-row-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-row-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-row-mismanaged-bar"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="panel">
-                    <div id="editor" aria-label="Code editor. Hit escape to remove focus."># Determine what the change could be
-var potentialRecyclingChange = in.naftaRecyclingDelta / 100;
-var potentialNewRecycling = out.nafta.eolRecyclingPercent + potentialRecyclingChange;
-
-# Update recycling but keep it in bounds
-var newRecycling = limit potentialNewRecycling to [0, 1];  # Force between 0 and 1
-var recyclingBeforeChange = out.nafta.eolRecyclingPercent;
-out.nafta.eolRecyclingPercent = newRecycling;
-
-# Determine what the actual change was after bounds
-var actualChange = newRecycling - recyclingBeforeChange;
-
-# Spread the corresponding change proportionally across the other EOL types
-var totalOtherPercent = (
-  out.nafta.eolIncinerationPercent +
-  out.nafta.eolLandfillPercent + 
-  out.nafta.eolMismanagedPercent
-);
-
-# Update incineration
-var shareIncineration = out.nafta.eolIncinerationPercent / totalOtherPercent;
-var incinerationChange = shareIncineration * actualChange;
-var newIncinerationPercent = out.nafta.eolIncinerationPercent - incinerationChange;
-out.nafta.eolIncinerationPercent = limit newIncinerationPercent to [0, 1];
-
-# Update landfill
-var shareLandfill = out.nafta.eolLandfillPercent / totalOtherPercent;
-var landfillChange = shareLandfill * actualChange;
-var newLandfillPercent = out.nafta.eolLandfillPercent - landfillChange;
-out.nafta.eolLandfillPercent = limit newLandfillPercent to [0, 1];
-
-# Update mismanaged
-var shareMismanaged = out.nafta.eolMismanagedPercent / totalOtherPercent;
-var mismanagedChange = shareMismanaged * actualChange;
-var newMismanagedPercent = out.nafta.eolMismanagedPercent - mismanagedChange;
-out.nafta.eolMismanagedPercent = limit newMismanagedPercent to [0, 1];</div>
-                    <div id="status-display"></div>
+                    <div id="levers-panel"></div>
                 </div>
             </div>
         </main>
         <script src="third_party/ace.min.js"></script>
-        <script src="third_party/ml.min.js"></script>
+        <script src="third_party/handlebars.min.js"></script>
         <script src="third_party/papaparse.min.js"></script>
 
-        <script src="js/plastics_lang.js?v=20230626"></script>
+        <script src="js/plastics_lang.js?v=20230630"></script>
 
-        <script src="js/compiler.js?v=20230626"></script>
-        <script src="js/const.js?v=20230626"></script>
-        <script src="js/model.js?v=20230626"></script>
-        <script src="js/shared.js?v=20230626"></script>
-        <script src="js/visitors.js?v=20230626"></script>
+        <script src="js/compiler.js?v=20230630"></script>
+        <script src="js/const.js?v=20230630"></script>
+        <script src="js/shared.js?v=20230630"></script>
+        <script src="js/visitors.js?v=20230630"></script>
 
-        <script src="js/driver.js?v=20230626"></script>
+        <script src="js/driver.js?v=20230630"></script>
     </body>
 </html>

@@ -1,0 +1,12 @@
+<div class="slider-holder" id="slider-holder-{{variable}}">
+    <div><label for="input-{{variable}}"><span id="title-{{variable}}">{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span></label></div>
+    <input type="range" min="{{ min }}" max="{{ max }}" value="{{ default }}" class="slider" id="input-{{variable}}" step="{{ step }}">
+    <details>
+        <summary>Information about {{ name }}</summary>
+        <p>
+            <div class="wiki-info"><a target="_blank" href="{{url}}">Write up for {{ name }}</a></div>
+            <div class="editor" id="editor-{{variable}}">{{ code }}</div>
+            <div class="status-display"></div>
+        </p>
+    </details>
+</div>
