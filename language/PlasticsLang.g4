@@ -69,9 +69,9 @@ LBRAC_: '[';
 RBRAC_: ']';
 
 
-IDENTIFIER_: [A-Za-z0-9]+;
+IDENTIFIER_: [A-Za-z][A-Za-z0-9]*;
 
-number: (FLOAT_ | INTEGER_);
+number: (SUB_)? (FLOAT_ | INTEGER_);
 
 identifier: IDENTIFIER_ (PERIOD_ IDENTIFIER_)*;
 

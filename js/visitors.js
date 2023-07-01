@@ -212,7 +212,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitCallCap(ctx, opFunc) {
         const self = this;
 
-        const identifier = ctx.operand.text;
+        const identifier = ctx.operand.getText();
         const limitExpression = ctx.limit.accept(self);
 
         return (state) => {
@@ -237,7 +237,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitCallBound(ctx) {
         const self = this;
 
-        const identifier = ctx.operand.text;
+        const identifier = ctx.operand.getText();
         const lowerExpression = ctx.lower.accept(self);
         const upperExpression = ctx.upper.accept(self);
 
@@ -271,20 +271,28 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const identifiers = [];
         for (let i = 0; i < numIdentifiers; i++) {
             const childIndex = i * 2 + 4;
-            identifiers.push(ctx.getChild(childIndex));
+            identifiers.push(ctx.getChild(childIndex).getText());
         }
 
         return (state) => {
             const valueToDistribute = valueExpression(state);
+
+            if (Math.abs(valueToDistribute) < 1e-7) {
+                return;
+            }
+
             const totalTargetsValue = identifiers.map((identifier) => {
                 return self._getValue(identifier, state);
             }).reduce((a, b) => a + b);
             
-            identifier.forEach((identifier) => {
+            identifiers.forEach((identifier) => {
                 const beforeValue = self._getValue(identifier, state);
                 const share = beforeValue / totalTargetsValue;
-                const valuePiece = share * valueToDistribute;
-                self._setValue(identifier, valuePiece, state);
+                const change = share * valueToDistribute;
+                const newValue = beforeValue + change;
+                if (beforeValue != 0) {
+                    self._setValue(identifier, newValue, state);
+                }
             });
         };
     }

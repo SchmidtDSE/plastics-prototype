@@ -1,4 +1,5 @@
 let levers = null;
+let baseline = null;
 
 
 class SliderPresenter {
@@ -15,6 +16,16 @@ class SliderPresenter {
 
         self._attachListeners();
         self._onInputChangeInProgress();
+    }
+
+    getVariable() {
+        const self = this;
+        return self._config["variable"];
+    }
+
+    getValue() {
+        const self = this;
+        return self._rootElement.querySelector(".slider").value;
     }
 
     getProgram() {
@@ -88,6 +99,7 @@ class SliderPresenter {
     _onInputChange(data) {
         const self = this;
         self._onInputChangeInProgress();
+        self._onChange();
     }
 
     /**
@@ -171,52 +183,74 @@ function getData() {
 }
 
 
-function applyTransformation(projectionRaw) {
-    const naftaData = projectionRaw.filter((x) => x["region"] === "nafta");
-    const targetData = naftaData.filter((x) => x["year"] == 2050);
-    const targetDatum = targetData[0];
-
-    const naftaProjection = new Map();
-    naftaProjection.set("eolIncinerationPercent", targetDatum["eolIncinerationPercent"]);
-    naftaProjection.set("eolLandfillPercent", targetDatum["eolLandfillPercent"]);
-    naftaProjection.set("inputProduceResinMTt", targetDatum["inputProduceResinMTt"]);
-    naftaProjection.set("eolMismanagedPercent", targetDatum["eolMismanagedPercent"]);
-    naftaProjection.set("inputImportFiberMT", targetDatum["inputImportFiberMT"]);
-    naftaProjection.set("inputProduceResinMT", targetDatum["inputProduceResinMT"]);
-    naftaProjection.set("inputImportResinMT", targetDatum["inputImportResinMT"]);
-    naftaProjection.set("inputAdditivesMT", targetDatum["inputAdditivesMT"]);
-    naftaProjection.set("inputImportGoodsMT", targetDatum["inputImportGoodsMT"]);
-    naftaProjection.set("inputImportArticlesMT", targetDatum["inputImportArticlesMT"]);
-    naftaProjection.set("eolRecyclingPercent", targetDatum["eolRecyclingPercent"]);
-    naftaProjection.set("inputProduceFiberMT", targetDatum["inputProduceFiberMT"]);
-
-    const projection = new Map();
-    projection.set("nafta", naftaProjection);
-
-    const exampleVariable = document.getElementById("example-variable").value;
-    const exampleValue = parseFloat(
-        document.getElementById("example-input").value
-    );
-
+function buildState() {
     const state = new Map();
     state.set("local", new Map());
-    state.set("out", projection);
 
     const inputs = new Map();
-    inputs.set(exampleVariable, exampleValue);
+    levers.forEach((lever) => {
+        inputs.set(lever.getVariable(), lever.getValue());
+    });
     state.set("in", inputs);
 
-    const program = compileLiveProgram();
-    if (program !== null) {
-        program(state);
-    }
+    const outputs = new Map();
+    const targetData = baseline.filter((x) => x["year"] == 2050);
+    targetData.forEach((datum) => {
+        const region = datum["region"];
+        if (!outputs.has(region)) {
+            outputs.set(region, new Map());
+        }
 
-    return state.get("out");
+        const regionData = outputs.get(region);
+        for (let key in datum) {
+            if (datum.hasOwnProperty(key)) {
+                regionData.set(key, datum[key]);
+            }
+        }
+    });
+    state.set("out", outputs);
+
+    return state;
+}
+
+
+function updateOutputs(state) {
+    const outputs = state.get("out");
+
+    const updateBar = (prefix, value) => {
+        const valueRounded = Math.round(value * 100);
+        document.getElementById(prefix + "-label").innerHTML = valueRounded;
+        
+        const width = valueRounded + "%";
+        document.getElementById(prefix + "-bar").style.width = width;
+    };
+
+    const updateDisplay = (region) => {
+        const localProjection = outputs.get(region);
+        const recyclingPercent = localProjection.get("eolRecyclingPercent");
+        const incinerationPercent = localProjection.get("eolIncinerationPercent");
+        const landfillPercent = localProjection.get("eolLandfillPercent");
+        const mismanagedPercent = localProjection.get("eolMismanagedPercent");
+
+        updateBar("eol-" + region + "-recycling", recyclingPercent);
+        updateBar("eol-" + region + "-incineration", incinerationPercent);
+        updateBar("eol-" + region + "-landfill", landfillPercent);
+        updateBar("eol-" + region + "-mismanaged", mismanagedPercent);
+    };
+
+    updateDisplay("nafta");
 }
 
 
 function onInputChange() {
-
+    const state = buildState();
+    const programs = levers.map((x) => x.getProgram());
+    console.log("going in");
+    programs.forEach((program) => {
+        state.set("local", new Map());
+        program(state);
+    });
+    updateOutputs(state);
 }
 
 
@@ -274,8 +308,13 @@ function buildSliders() {
 
 
 function main() {
-    buildSliders().then((newPresenters) => {
-        presenters = newPresenters;
+    getData().then((newData) => {
+        baseline = newData;
+
+        buildSliders().then((newPresenters) => {
+            levers = newPresenters;
+            onInputChange();
+        });
     });
 }
 

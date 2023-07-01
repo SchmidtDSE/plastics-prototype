@@ -8,7 +8,7 @@
             "step": 0.1,
             "units": "Billion USD",
             "rampYears": 10,
-            "variable": "chinaRecyclingDelta",
+            "variable": "chinaRecyclingInvestment",
             "template": "recycling.pt",
             "attrs": {
                 "purchasingPowerParity": "4.02",
@@ -24,7 +24,7 @@
             "step": 0.1,
             "units": "Billion USD",
             "rampYears": 10,
-            "variable": "naftaRecyclingDelta",
+            "variable": "naftaRecyclingInvestment",
             "template": "recycling.pt",
             "attrs": {
                 "purchasingPowerParity": 1.2,
@@ -40,11 +40,11 @@
             "step": 0.1,
             "units": "Billion USD",
             "rampYears": 10,
-            "variable": "euRecyclingDelta",
+            "variable": "eu30RecyclingInvestment",
             "template": "recycling.pt",
             "attrs": {
                 "purchasingPowerParity": 0.7,
-                "region": "nafta"
+                "region": "eu30"
             },
             "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
         },
@@ -56,11 +56,11 @@
             "step": 0.1,
             "units": "Billion USD",
             "rampYears": 10,
-            "variable": "rowRecyclingDelta",
+            "variable": "rowRecyclingInvestment",
             "template": "recycling.pt",
             "attrs": {
                 "purchasingPowerParity": 2.5,
-                "region": "nafta"
+                "region": "row"
             },
             "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
         }
