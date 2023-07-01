@@ -33,6 +33,28 @@ html {
     min-width: 300px;
 }
 
+.output-section {
+    margin: 3px 3px 30px 3px;
+    padding: 5px;
+    border: 1px dotted #505050;
+    background-color: white;
+}
+
+.output-section h3 {
+    text-align: center;
+    border-bottom: 1px solid #505050;
+}
+
+.output-section .bar-display {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.output-section .bar-display .bar {
+    background-color: #333;
+    height: 4px;
+}
+
 .panel-box {
     display: grid;
     column-gap: 10px;
@@ -41,28 +63,6 @@ html {
 
 .slider {
     width: 100%;
-}
-
-#example-output {
-    margin: 3px;
-    padding: 5px;
-    border: 1px dotted #505050;
-    background-color: white;
-}
-
-#example-output h3 {
-    text-align: center;
-    border-bottom: 1px solid #505050;
-}
-
-#example-output .bar-display {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-#example-output .bar-display .bar {
-    background-color: #333;
-    height: 4px;
 }
 
 #levers-panel {

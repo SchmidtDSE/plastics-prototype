@@ -238,7 +238,10 @@ function updateOutputs(state) {
         updateBar("eol-" + region + "-mismanaged", mismanagedPercent);
     };
 
+    updateDisplay("china");
     updateDisplay("nafta");
+    updateDisplay("eu30");
+    updateDisplay("row");
 }
 
 

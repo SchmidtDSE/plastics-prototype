@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Global Plastics Tool</title>
-        <link rel="stylesheet" href="css/base.css?v=20230626">
+        <link rel="stylesheet" href="css/base.css?v=20230630">
     </head>
     <body>
         <header>
@@ -14,7 +14,26 @@
         <main>
             <div class="panel-box">
                 <div class="panel">
-                    <div id="example-output">
+                    <div id="china-output" class="output-section">
+                        <h3>China 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-china-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-china-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-china-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-china-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-china-mismanaged-bar"></div>
+                        </div>
+                    </div>
+                    <div id="nafta-output" class="output-section">
                         <h3>NAFTA 2050 End of Life Plastics</h3>
                         <div class="bar-display">
                             <div class="label"><span id="eol-nafta-recycling-label"></span>% Recycled</div>
@@ -33,8 +52,47 @@
                             <div class="bar" id="eol-nafta-mismanaged-bar"></div>
                         </div>
                     </div>
+                    <div id="eu30-output" class="output-section">
+                        <h3>EU30 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-eu30-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-eu30-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-eu30-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-eu30-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-eu30-mismanaged-bar"></div>
+                        </div>
+                    </div>
+                    <div id="row-output" class="output-section">
+                        <h3>Rest of World 2050 End of Life Plastics</h3>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-recycling-label"></span>% Recycled</div>
+                            <div class="bar" id="eol-row-recycling-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-incineration-label"></span>% Incinerated</div>
+                            <div class="bar" id="eol-row-incineration-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-landfill-label"></span>% Sent to Landfill</div>
+                            <div class="bar" id="eol-row-landfill-bar"></div>
+                        </div>
+                        <div class="bar-display">
+                            <div class="label"><span id="eol-row-mismanaged-label"></span>% Mismanaged</div>
+                            <div class="bar" id="eol-row-mismanaged-bar"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel" id="levers-panel">
+                <div class="panel">
+                    <div id="levers-panel"></div>
                 </div>
             </div>
         </main>
@@ -42,13 +100,13 @@
         <script src="third_party/handlebars.min.js"></script>
         <script src="third_party/papaparse.min.js"></script>
 
-        <script src="js/plastics_lang.js?v=20230626"></script>
+        <script src="js/plastics_lang.js?v=20230630"></script>
 
-        <script src="js/compiler.js?v=20230626"></script>
-        <script src="js/const.js?v=20230626"></script>
-        <script src="js/shared.js?v=20230626"></script>
-        <script src="js/visitors.js?v=20230626"></script>
+        <script src="js/compiler.js?v=20230630"></script>
+        <script src="js/const.js?v=20230630"></script>
+        <script src="js/shared.js?v=20230630"></script>
+        <script src="js/visitors.js?v=20230630"></script>
 
-        <script src="js/driver.js?v=20230626"></script>
+        <script src="js/driver.js?v=20230630"></script>
     </body>
 </html>
