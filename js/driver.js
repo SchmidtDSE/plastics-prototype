@@ -39,12 +39,13 @@ class SliderPresenter {
 
         if (hasErrors) {
             const errorsStr = compileResult.getErrors().join("\n\n");
-            self._showStatusText(errorsStr);
+            self._showError(errorsStr);
             return null;
         } else if (hasProgram) {
+            self._showError(null);
             return compileResult.getProgram();
         } else {
-            self._showStatusText("Ready!");
+            self._showError(null);
             return null;
         }
     }
@@ -74,11 +75,39 @@ class SliderPresenter {
         });
     }
 
-    _showStatusText(text) {
+    _checkStatus(text) {
         const self = this;
 
+        const program = self.getProgram();
+        if (program === null) {
+            return;
+        }
+        
+        const state = buildState();
+        try {
+            program(state);
+            self._showError(null);
+        } catch (error) {
+            self._showError(error);
+        }
+    }
+
+    _showError(text) {
+        const self = this;
+
+        const errorIndicator = self._rootElement.querySelector(
+            ".error-indicator"
+        );
         const display = self._rootElement.querySelector('.status-display');
-        display.textContent = text;
+
+        if (text === null) {
+            errorIndicator.style.display = "none";
+            display.style.display = "none";
+        } else {
+            display.textContent = text;
+            display.style.display = "block";
+            errorIndicator.style.display = "inline-block";
+        }
     }
 
     _updateValueLabel() {
@@ -166,6 +195,17 @@ class SliderPresenter {
             }
         });
 
+        let timeoutId = null;
+        editor.on("change", () => {
+            if (timeoutId !== null) {
+                clearTimeout(timeoutId);
+            }
+            timeoutId = setTimeout(() => {
+                timeoutId = null;
+                self._checkStatus();
+            }, 500);
+        });
+
         return editor;
     }
 }
@@ -187,12 +227,6 @@ function buildState() {
     const state = new Map();
     state.set("local", new Map());
 
-    const inputs = new Map();
-    levers.forEach((lever) => {
-        inputs.set(lever.getVariable(), lever.getValue());
-    });
-    state.set("in", inputs);
-
     const outputs = new Map();
     const targetData = baseline.filter((x) => x["year"] == 2050);
     targetData.forEach((datum) => {
@@ -209,6 +243,12 @@ function buildState() {
         }
     });
     state.set("out", outputs);
+
+    const inputs = new Map();
+    levers.forEach((lever) => {
+        inputs.set(lever.getVariable(), lever.getValue());
+    });
+    state.set("in", inputs);
 
     return state;
 }
@@ -248,7 +288,6 @@ function updateOutputs(state) {
 function onInputChange() {
     const state = buildState();
     const programs = levers.map((x) => x.getProgram());
-    console.log("going in");
     programs.forEach((program) => {
         state.set("local", new Map());
         program(state);

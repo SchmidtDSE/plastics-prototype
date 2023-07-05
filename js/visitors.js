@@ -303,7 +303,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         let value = state;
         pieces.forEach((piece) => {
             if (!value.has(piece)) {
-                throw "Could not find " + piece + " in " + raw;
+                throw "Could not find " + piece + " (" + raw + ")";
             }
             value = value.get(piece);
         });
@@ -320,14 +320,14 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         let container = state;
         pieces.slice(0, -1).forEach((piece) => {
             if (!container.has(piece)) {
-                throw "Could not find " + piece + " in " + name;
+                throw "Could not find " + piece + " (" + name + ")";
             }
             container = container.get(piece);
         });
         
         const finalPiece = pieces[pieces.length - 1];
         if (!container.has(finalPiece)) {
-            throw "Could not find " + finalPiece + " in " + name;
+            throw "Could not find " + finalPiece + " (" + name + ")";
         }
 
         container.set(finalPiece, result);
