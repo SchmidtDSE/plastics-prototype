@@ -297,6 +297,18 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    visitInspect(ctx) {
+        const self = this;
+
+        const valueText = ctx.value.getText();
+        const valueExpression = ctx.value.accept(self);
+
+        return (state) => {
+            const value = valueExpression(state);
+            state.get("inspect").push({"name": valueText, "value": value});
+        };
+    }
+
     _getValue(raw, state) {
         const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
         const pieces = resolved.split(".");

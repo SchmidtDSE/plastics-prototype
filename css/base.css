@@ -3,6 +3,20 @@
   src: url(/font/LeagueSpartan-Medium.otf);
 }
 
+table, th, td {
+    border: 1px solid #333333;
+    border-collapse: collapse;
+}
+
+table th {
+    background-color: #E0E0E0;
+    padding: 3px;
+}
+
+table td {
+    padding: 3px;
+}
+
 header {
     padding-bottom: 5px;
     border-bottom: 1px solid #333333;
@@ -83,6 +97,10 @@ html {
 
 #levers-panel .error-indicator {
     display: none;
+}
+
+#levers-panel .inspects-area {
+    margin-top: 15px;
 }
 
 #levers-panel .lever-section {

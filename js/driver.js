@@ -50,6 +50,26 @@ class SliderPresenter {
         }
     }
 
+    showInspects(inspects) {
+        const self = this;
+
+        const hasInspects = inspects.length > 0;
+        const inspectsArea = self._rootElement.querySelector(".inspects-area");
+
+        if (!hasInspects) {
+            inspectsArea.innerHTML = "";
+            return;
+        }
+
+        const leverTemplateFuture = fetch("/template/variables.html?v=" + CACHE_BUSTER)
+            .then(x => x.text())
+            .then(x => Handlebars.compile(x))
+            .then((template) => {
+                const inspectsHtml = template({"variables": inspects});
+                inspectsArea.innerHTML = inspectsHtml;
+            });
+    }
+
     _attachListeners() {
         const self = this;
 
@@ -250,6 +270,8 @@ function buildState() {
     });
     state.set("in", inputs);
 
+    state.set("inspect", []);
+
     return state;
 }
 
@@ -287,11 +309,21 @@ function updateOutputs(state) {
 
 function onInputChange() {
     const state = buildState();
-    const programs = levers.map((x) => x.getProgram());
-    programs.forEach((program) => {
+
+    levers.forEach((lever) => {
+        const program = lever.getProgram();
+        if (program === null) {
+            return;
+        }
+        
         state.set("local", new Map());
+        state.set("inspect", []);
         program(state);
+
+        const inspects = state.get("inspect");
+        lever.showInspects(inspects);
     });
+
     updateOutputs(state);
 }
 
