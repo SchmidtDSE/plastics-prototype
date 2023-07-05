@@ -297,14 +297,16 @@ function onInputChange() {
 
 
 function buildSliders() {
-    const listingFuture = fetch("/pt/index.json").then(x => x.json());
-    const templateFuture = fetch("/template/slider.html")
+    const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
+        .then(x => x.json());
+
+    const templateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
         .then(x => x.text())
         .then(x => Handlebars.compile(x));
 
 
     const renderLever = (config, htmlTemplate) => {
-        const templateUrl = "/pt/" + config["template"];
+        const templateUrl = "/pt/" + config["template"] + "?v=" + CACHE_BUSTER;
         return fetch(templateUrl).then(x => x.text())
             .then(x => Handlebars.compile(x))
             .then((codeTemplate) => codeTemplate(config["attrs"]))
