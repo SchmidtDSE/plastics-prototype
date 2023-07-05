@@ -15,21 +15,23 @@ var originalEolRecycling = out.{{ region }}.eolRecyclingPercent;
 
 var investment = 1000000000 * in.{{ region }}RecyclingInvestment;
 var collectionInvestment = investment * 0.5;
-var recoveryInvestment = investment * 0;
+var recoveryInvestment = investment * 0.5;
 
 ########################
 ## Calculate recovery ##
 ########################
 
 # Find change relative
-var recycleSuccessMargin = (recoveryInvestment * conversionFactorRecovery)^(1/2);
+var recycleSuccessMargin = (recoveryInvestment * conversionFactorRecovery)^(1/2) / 100;
+
+# New recovery can't be more than 100
+limit recycleSuccessMargin to [0, 1 - recycleSuccessInitial];
 
 # Find change
-var potentialRecoveryChange = originalEolRecycling * recycleSuccessMargin / 100;
+var potentialRecoveryChange = originalEolRecycling * recycleSuccessMargin;
 
 # Find new recycle success
 var recycleSuccess = recycleSuccessInitial * (1 + recycleSuccessMargin);
-
 limit recycleSuccess to [0, 1];
 
 ##########################
