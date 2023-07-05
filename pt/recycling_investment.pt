@@ -22,10 +22,13 @@ var recoveryInvestment = investment * 0.5;
 ########################
 
 # Find change relative
-var recycleSuccessMargin = (recoveryInvestment * conversionFactorRecovery)^(1/2) / 100;
+var recycleSuccessMarginNaive = (recoveryInvestment * conversionFactorRecovery)^(1/2) / 100;
 
 # New recovery can't be more than 100
-limit recycleSuccessMargin to [0, 1 - recycleSuccessInitial];
+limit recycleSuccessMarginNaive to [0, 1 - recycleSuccessInitial];
+
+# Assume half of newly recycled can't be recycled again.
+var recycleSuccessMargin = recycleSuccessMarginNaive / 2;
 
 # Find change
 var potentialRecoveryChange = originalEolRecycling * recycleSuccessMargin;
