@@ -36,3 +36,5 @@ const EOL_ATTRS = [
 const ALL_ATTRS = INPUT_ATTRS.concat(CONSUMPTION_ATTRS, EOL_ATTRS);
 
 const YEAR = 2050;
+
+const CACHE_BUSTER = Date.now();
