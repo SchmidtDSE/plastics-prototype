@@ -80,9 +80,18 @@ html {
     font-weight: bold;
 }
 
+#levers-panel .error-indicator {
+    display: none;
+}
+
 #levers-panel .slider-holder {
     margin-top: 15px;
     margin-bottom: 30px;
+}
+
+#levers-panel .status-display {
+    background-color: #E0D000;
+    padding: 2px;
 }
 
 #levers-panel .wiki-info {
