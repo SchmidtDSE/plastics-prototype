@@ -4,33 +4,65 @@
 
 # Build some constants
 var purchasingPowerParity = {{ purchasingPowerParity }};
-var conversionFactor = 287 / 2125000000;
-var recycleSuccess = 0.15;
+var conversionFactorCollection = 287 / 2125000000;
+var conversionFactorRecovery = 1 / 19200;
+var recycleSuccessInitial = 0.75;
+var originalEolRecycling = out.{{ region }}.eolRecyclingPercent;
 
 ######################
-## Calculate change ##
+## Split investment ##
 ######################
+
+var investment = 1000000000 * in.{{ region }}RecyclingInvestment;
+var collectionInvestment = investment * 0.5;
+var recoveryInvestment = investment * 0;
+
+########################
+## Calculate recovery ##
+########################
+
+# Find change relative
+var recycleSuccessMargin = (recoveryInvestment * conversionFactorRecovery)^(1/2);
+
+# Find change
+var potentialRecoveryChange = originalEolRecycling * recycleSuccessMargin / 100;
+
+# Find new recycle success
+var recycleSuccess = recycleSuccessInitial * (1 + recycleSuccessMargin);
+
+limit recycleSuccess to [0, 1];
+
+##########################
+## Calculate collection ##
+##########################
 
 # Calculate how many points were purchased
-var effectiveInvestment = in.{{region}}RecyclingInvestment * purchasingPowerParity * 1000000000;
-var potentialRecyclingChangeNoSpillPoints = ((effectiveInvestment * conversionFactor)^0.5);
+var effectiveInvestment = collectionInvestment * purchasingPowerParity;
+var potentialRecyclingChangeNoSpillPoints = (
+    effectiveInvestment * conversionFactorCollection
+)^(1/2);
 
 # Need between 0 and 1
-var potentialRecyclingChangeNoSpill = potentialRecyclingChangeNoSpillPoints / 100; 
+var potentialCollectionChangeNoSpill = potentialRecyclingChangeNoSpillPoints / 100; 
 
 # Account for recycle success rate, assuming they go to other streams otherwise
-var potentialRecyclingChange = potentialRecyclingChangeNoSpill * recycleSuccess;
+var potentialCollectionChange = potentialCollectionChangeNoSpill * recycleSuccess;
+
+########################
+## Apply total change ##
+########################
 
 # Determine what the change could be
 var newRecycling = (
-    out.{{region}}.eolRecyclingPercent +
-    potentialRecyclingChange
+    originalEolRecycling +
+    potentialCollectionChange +
+    potentialRecoveryChange
 );
 
 # Update recycling but keep it in bounds between 0 and 1 (0% to 100%)
 limit newRecycling to [0, 1];
-var recyclingBeforeChange = out.{{region}}.eolRecyclingPercent;
-out.{{region}}.eolRecyclingPercent = newRecycling;
+var recyclingBeforeChange = out.{{ region }}.eolRecyclingPercent;
+out.{{ region }}.eolRecyclingPercent = newRecycling;
 
 # Determine what the actual change was after bounds
 var actualChange = newRecycling - recyclingBeforeChange;
@@ -43,29 +75,29 @@ var actualChange = newRecycling - recyclingBeforeChange;
 # large they are prior to the change
 var eolOffset = -1 * actualChange;
 distribute eolOffset across [
-  out.{{region}}.eolMismanagedPercent,
-  out.{{region}}.eolIncinerationPercent,
-  out.{{region}}.eolLandfillPercent
+  out.{{ region }}.eolMismanagedPercent,
+  out.{{ region }}.eolIncinerationPercent,
+  out.{{ region }}.eolLandfillPercent
 ] proportionally;
 
 # Ensure percents stay between 0 and 1 (0% to 100%)
-limit out.{{region}}.eolMismanagedPercent to [0, 1];
-limit out.{{region}}.eolIncinerationPercent to [0, 1];
-limit out.{{region}}.eolLandfillPercent to [0, 1];
+limit out.{{ region }}.eolMismanagedPercent to [0, 1];
+limit out.{{ region }}.eolIncinerationPercent to [0, 1];
+limit out.{{ region }}.eolLandfillPercent to [0, 1];
 
 ############################
 ## Update virgin plastics ##
-############################\
+############################
 
 # Get total production
 var totalProduction = (
-  out.{{region}}.inputProduceFiberMT + 
-  out.{{region}}.inputProduceResinMT + 
-  out.{{region}}.inputAdditivesMT +
-  out.{{region}}.inputImportResinMT + 
-  out.{{region}}.inputImportArticlesMT + 
-  out.{{region}}.inputImportGoodsMT + 
-  out.{{region}}.inputImportFiberMT
+    out.{{ region }}.inputProduceFiberMT + 
+    out.{{ region }}.inputProduceResinMT + 
+    out.{{ region }}.inputAdditivesMT +
+    out.{{ region }}.inputImportResinMT + 
+    out.{{ region }}.inputImportArticlesMT + 
+    out.{{ region }}.inputImportGoodsMT + 
+    out.{{ region }}.inputImportFiberMT
 );
 
 # Assume impact to local production
@@ -74,12 +106,12 @@ var localProductionOffset = totalProduction * actualChange * -1;
 # Distribute localProductionOffset across local production proportionally to how
 # large they are prior to the change
 distribute localProductionOffset across [
-  out.{{region}}.inputProduceFiberMT,
-  out.{{region}}.inputProduceResinMT,
-  out.{{region}}.inputAdditivesMT
+    out.{{ region }}.inputProduceFiberMT,
+    out.{{ region }}.inputProduceResinMT,
+    out.{{ region }}.inputAdditivesMT
 ] proportionally;
 
 # Ensure that those local productions don't go below zero
-limit out.{{region}}.inputProduceFiberMT to [0,];
-limit out.{{region}}.inputProduceResinMT to [0,];
-limit out.{{region}}.inputAdditivesMT to [0,];
+limit out.{{ region }}.inputProduceFiberMT to [0,];
+limit out.{{ region }}.inputProduceResinMT to [0,];
+limit out.{{ region }}.inputAdditivesMT to [0,];
