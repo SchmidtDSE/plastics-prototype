@@ -92,7 +92,22 @@
                     </div>
                 </div>
                 <div class="panel">
-                    <div id="levers-panel"></div>
+                    <div id="levers-panel">
+                        <div id="levers-panel-inner"></div>
+                        <div class="lever-section" id="prototype">
+                            <details id="lever-section-prototype">
+                                <summary class="lever-section-title">Prototype</summary>
+                                <p class="section-levers">
+                                    <div class="slider-holder" id="slider-holder-prototype">
+                                        <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
+                                        <input type="number" value="0" class="slider" id="input-prototype">
+                                        <div class="status-display"></div>
+                                        <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
+                                    </div>
+                                </p>
+                            </details>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

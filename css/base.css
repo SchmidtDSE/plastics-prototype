@@ -43,6 +43,7 @@ html {
 .output-section h3 {
     text-align: center;
     border-bottom: 1px solid #505050;
+    font-size: 21px;
 }
 
 .output-section .bar-display {
@@ -84,6 +85,21 @@ html {
     display: none;
 }
 
+#levers-panel .lever-section {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px dotted black;
+}
+
+#levers-panel .lever-section-title {
+    font-size: 21px;
+}
+
+#levers-panel .lever-section {
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+
 #levers-panel .slider-holder {
     margin-top: 15px;
     margin-bottom: 30px;
@@ -96,4 +112,8 @@ html {
 
 #levers-panel .wiki-info {
     padding-bottom: 20px;
+}
+
+#prototype input {
+    width: 90%;
 }
