@@ -46,6 +46,8 @@ PROPORTIONALLY_: 'p' 'r' 'o' 'p' 'o' 'r' 't' 'i' 'o' 'n' 'a' 'l' 'l' 'y';
 
 LINEARLY_: 'l' 'i' 'n' 'e' 'a' 'r' 'l' 'y';
 
+INSPECT_: 'i' 'n' 's' 'p' 'e' 'c' 't';
+
 TO_: 't' 'o';
 
 GT_: '>';
@@ -95,6 +97,8 @@ limitop: LIMIT_ operand=identifier TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # c
 
 distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_);
 
-command: definition | assignment | limitop | distribute;
+inspect: INSPECT_ value=expression;
+
+command: definition | assignment | limitop | distribute | inspect;
 
 program: command (SEMICOLON_ command)* SEMICOLON_;
