@@ -300,7 +300,11 @@ function buildSliders() {
     const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
         .then(x => x.json());
 
-    const templateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
+    const leverTemplateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
+        .then(x => x.text())
+        .then(x => Handlebars.compile(x));
+
+    const sectionTemplateFuture = fetch("/template/section.html?v=" + CACHE_BUSTER)
         .then(x => x.text())
         .then(x => Handlebars.compile(x));
 
@@ -316,34 +320,54 @@ function buildSliders() {
             });
     };
 
+    const renderSection = (config, leverTemplate, sectionTemplate) => {
+        const htmlFutures = config["levers"].map(
+            (leverConfig) => renderLever(leverConfig, leverTemplate)
+        );
+        return Promise.all(htmlFutures).then((htmls) => {
+            const innerHtml = htmls.join("\n");
+            config["innerHtml"] = innerHtml;
+            return sectionTemplate(config);
+        });
+    };
+
     return new Promise((resolve) => {
-        Promise.all([listingFuture, templateFuture])
+        Promise.all([listingFuture, leverTemplateFuture, sectionTemplateFuture])
             .then((values) => {
                 const listing = values[0];
-                const template = values[1];
+                const leverTemplate = values[1];
+                const sectionTemplate = values[2];
 
-                const leverHtmlFutures = listing["levers"]
-                    .map((config) => renderLever(config, template));
+                const htmlFutures = listing["categories"]
+                    .map((config) => renderSection(config, leverTemplate, sectionTemplate));
 
-                return Promise.all(leverHtmlFutures)
-                    .then((leverHtmls) => {
-                        return {"leverHtmls": leverHtmls, "listing": listing};
+                return Promise.all(htmlFutures)
+                    .then((htmls) => {
+                        return {"html": htmls.join("\n"), "listing": listing};
                     });
             })
             .then((workspace) => {
-                const parent = document.getElementById("levers-panel");
-                const leverHtmls = workspace["leverHtmls"];
+                const parent = document.getElementById("levers-panel-inner");
+                const innerHtml = workspace["html"];
                 const listing = workspace["listing"];
 
-                parent.innerHTML = leverHtmls.join("\n");
+                parent.innerHTML = innerHtml;
 
-                const presenters = listing["levers"].map((config) => {
+                const levers = listing["categories"].flatMap((x) => x["levers"]);
+
+                const presenters = levers.map((config) => {
                     const variable = config["variable"];
                     const element = document.getElementById(
                         "slider-holder-" + variable
                     );
                     return new SliderPresenter(config, element, onInputChange);
                 });
+
+                presenters.push(new SliderPresenter(
+                    {"units": "units", "variable": "prototype"},
+                    document.getElementById("slider-holder-prototype"),
+                    onInputChange
+                ));
 
                 resolve(presenters);
             });
