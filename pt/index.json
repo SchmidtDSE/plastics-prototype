@@ -9,7 +9,7 @@
             "units": "Billion USD",
             "rampYears": 10,
             "variable": "chinaRecyclingInvestment",
-            "template": "recycling.pt",
+            "template": "recycling_investment.pt",
             "attrs": {
                 "purchasingPowerParity": "4.02",
                 "region": "china"
@@ -25,7 +25,7 @@
             "units": "Billion USD",
             "rampYears": 10,
             "variable": "naftaRecyclingInvestment",
-            "template": "recycling.pt",
+            "template": "recycling_investment.pt",
             "attrs": {
                 "purchasingPowerParity": 1.2,
                 "region": "nafta"
@@ -41,7 +41,7 @@
             "units": "Billion USD",
             "rampYears": 10,
             "variable": "eu30RecyclingInvestment",
-            "template": "recycling.pt",
+            "template": "recycling_investment.pt",
             "attrs": {
                 "purchasingPowerParity": 0.7,
                 "region": "eu30"
@@ -57,7 +57,7 @@
             "units": "Billion USD",
             "rampYears": 10,
             "variable": "rowRecyclingInvestment",
-            "template": "recycling.pt",
+            "template": "recycling_investment.pt",
             "attrs": {
                 "purchasingPowerParity": 2.5,
                 "region": "row"
