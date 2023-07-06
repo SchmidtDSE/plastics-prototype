@@ -142,4 +142,6 @@ QUnit.module("compiler", function() {
         assert.ok(workspace.get("out").get("test") == 100);
     });
 
+    // TODO: distribute
+
 });
