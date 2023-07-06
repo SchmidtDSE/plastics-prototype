@@ -1,5 +1,10 @@
 QUnit.module("compiler", function() {
 
+    function compileProgram(target) {
+        const compiler = new Compiler();
+        return compiler.compile(target);
+    }
+
     function buildWorkspace() {
         const workspace = new Map();
         
@@ -136,5 +141,7 @@ QUnit.module("compiler", function() {
         program(workspace);
         assert.ok(workspace.get("out").get("test") == 100);
     });
+
+    // TODO: distribute
 
 });

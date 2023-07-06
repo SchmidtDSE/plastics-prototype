@@ -2,8 +2,6 @@ Plastics Prototype
 ===============================================================================
 Prototype for the plastics decision support tool with transparent intervention code / authoring.
 
-**This is still prototype code. The architecture of this code will change dramatically!**
-
 <br>
 
 ## Open source
