@@ -72,8 +72,8 @@ var newRecyclingPercent = (
 
 # Update recycling but keep it in bounds between 0 and 1 (0% to 100%)
 limit newRecyclingPercent to [0, 1];
-var newRecyclingMT = newRecyclingPercent / originalEolRecycling * out.{{ region }}.eolRecyclingMT;
-out.{{ region }}.eolRecyclingMT= newRecyclingMT;
+var newRecyclingMT = newRecyclingPercent * totalEol;
+out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Determine what the actual change was after bounds
 var actualChange = newRecyclingPercent - originalEolRecycling;
@@ -84,7 +84,7 @@ var actualChange = newRecyclingPercent - originalEolRecycling;
 
 # Distribute actualChange across the other EOL streams proportionally to how
 # large they are prior to the change
-var eolOffset = -1 * newRecyclingMT;
+var eolOffset = -1 * actualChange;
 distribute eolOffset across [
   out.{{ region }}.eolMismanagedMT,
   out.{{ region }}.eolIncinerationMT,
