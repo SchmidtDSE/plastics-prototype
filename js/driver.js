@@ -25,7 +25,8 @@ class SliderPresenter {
 
     getValue() {
         const self = this;
-        return self._rootElement.querySelector(".slider").value;
+        const slider = self._rootElement.querySelector(".slider");
+        return parseFloat(slider.value + "");
     }
 
     getProgram() {
