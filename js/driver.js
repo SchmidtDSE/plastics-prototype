@@ -234,7 +234,7 @@ class SliderPresenter {
 
 function getData() {
     return new Promise((resolve) => {
-        Papa.parse("/data/web.csv", {
+        Papa.parse("/data/web.csv?v=" + CACHE_BUSTER, {
             download: true,
             header: true,
             complete: (results) => resolve(results["data"]),
