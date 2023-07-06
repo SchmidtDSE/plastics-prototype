@@ -7,7 +7,13 @@ var purchasingPowerParity = {{ purchasingPowerParity }};
 var conversionFactorCollection = 287 / 2125000000;
 var conversionFactorRecovery = 1 / 19200;
 var recycleSuccessInitial = 0.75;
-var originalEolRecycling = out.{{ region }}.eolRecyclingPercent;
+var totalEol = (
+    out.{{ region }}.eolRecyclingMT +
+    out.{{ region }}.eolIncinerationMT + 
+    out.{{ region }}.eolLandfillMT + 
+    out.{{ region }}.eolMismanagedMT
+);
+var originalEolRecycling = out.{{ region }}.eolRecyclingMT / totalEol;
 
 ######################
 ## Split investment ##
@@ -58,19 +64,19 @@ var potentialCollectionChange = potentialCollectionChangeNoSpill * recycleSucces
 ########################
 
 # Determine what the change could be
-var newRecycling = (
+var newRecyclingPercent = (
     originalEolRecycling +
     potentialCollectionChange +
     potentialRecoveryChange
 );
 
 # Update recycling but keep it in bounds between 0 and 1 (0% to 100%)
-limit newRecycling to [0, 1];
-var recyclingBeforeChange = out.{{ region }}.eolRecyclingPercent;
-out.{{ region }}.eolRecyclingPercent = newRecycling;
+limit newRecyclingPercent to [0, 1];
+var newRecyclingMT = newRecyclingPercent / originalEolRecycling * out.{{ region }}.eolRecyclingMT;
+out.{{ region }}.eolRecyclingMT= newRecyclingMT;
 
 # Determine what the actual change was after bounds
-var actualChange = newRecycling - recyclingBeforeChange;
+var actualChange = newRecyclingPercent - originalEolRecycling;
 
 ##############################
 ## Update other EOL streams ##
@@ -78,17 +84,17 @@ var actualChange = newRecycling - recyclingBeforeChange;
 
 # Distribute actualChange across the other EOL streams proportionally to how
 # large they are prior to the change
-var eolOffset = -1 * actualChange;
+var eolOffset = -1 * newRecyclingMT;
 distribute eolOffset across [
-  out.{{ region }}.eolMismanagedPercent,
-  out.{{ region }}.eolIncinerationPercent,
-  out.{{ region }}.eolLandfillPercent
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolLandfillMT
 ] proportionally;
 
-# Ensure percents stay between 0 and 1 (0% to 100%)
-limit out.{{ region }}.eolMismanagedPercent to [0, 1];
-limit out.{{ region }}.eolIncinerationPercent to [0, 1];
-limit out.{{ region }}.eolLandfillPercent to [0, 1];
+# Ensure EOL stay positive
+limit out.{{ region }}.eolMismanagedMT to [0, ];
+limit out.{{ region }}.eolIncinerationMT to [0, ];
+limit out.{{ region }}.eolLandfillMT to [0, ];
 
 ############################
 ## Update virgin plastics ##
