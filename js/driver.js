@@ -290,10 +290,17 @@ function updateOutputs(state) {
 
     const updateDisplay = (region) => {
         const localProjection = outputs.get(region);
-        const recyclingPercent = localProjection.get("eolRecyclingPercent");
-        const incinerationPercent = localProjection.get("eolIncinerationPercent");
-        const landfillPercent = localProjection.get("eolLandfillPercent");
-        const mismanagedPercent = localProjection.get("eolMismanagedPercent");
+        const recyclingMT = localProjection.get("eolRecyclingMT");
+        const incinerationMT = localProjection.get("eolIncinerationMT");
+        const landfillMT = localProjection.get("eolLandfillMT");
+        const mismanagedMT = localProjection.get("eolMismanagedMT");
+
+        const totalMT = recyclingMT + incinerationMT + landfillMT + mismanagedMT;
+
+        const recyclingPercent = recyclingMT / totalMT;
+        const incinerationPercent = incinerationMT / totalMT;
+        const landfillPercent = landfillMT / totalMT;
+        const mismanagedPercent = mismanagedMT / totalMT;
 
         updateBar("eol-" + region + "-recycling", recyclingPercent);
         updateBar("eol-" + region + "-incineration", incinerationPercent);
