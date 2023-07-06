@@ -16,21 +16,21 @@ const INPUT_ATTRS = [
 ];
 
 const CONSUMPTION_ATTRS = [
-    "consumptionAgriculturePercent",
-    "consumptionConstructionPercent",
-    "consumptionElectronicPercent",
-    "consumptionHouseholdLeisureSportsPercent",
-    "consumptionPackagingPercent",
-    "consumptionTransporationPercent",
-    "consumptionTextitlePercent",
-    "consumptionOtherPercent"
+    "consumptionAgricultureMT",
+    "consumptionConstructionMT",
+    "consumptionElectronicMT",
+    "consumptionHouseholdLeisureSportsMT",
+    "consumptionPackagingMT",
+    "consumptionTransporationMT",
+    "consumptionTextitleMT",
+    "consumptionOtherMT"
 ];
 
 const EOL_ATTRS = [
-    "eolRecyclingPercent",
-    "eolIncinerationPercent",
-    "eolLandfillPercent",
-    "eolMismanagedPercent"
+    "eolRecyclingMT",
+    "eolIncinerationMT",
+    "eolLandfillMT",
+    "eolMismanagedMT"
 ];
 
 const ALL_ATTRS = INPUT_ATTRS.concat(CONSUMPTION_ATTRS, EOL_ATTRS);
