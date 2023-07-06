@@ -1,5 +1,10 @@
 QUnit.module("compiler", function() {
 
+    function compileProgram(target) {
+        const compiler = new Compiler();
+        return compiler.compile(target);
+    }
+
     function buildWorkspace() {
         const workspace = new Map();
         
