@@ -44,14 +44,14 @@ class ReportPresenter {
             DISPLAY_STAGES.eol
         );
 
-        const slopegraphSvg = document.getElementById("slopegraph-container");
-        self._slopegraphPresenter = new SlopegraphPresenter(slopegraphSvg);
+        const bubblegraphSvg = document.getElementById("bubblegraph-container");
+        self._bubblegraphPresenter = new BubblegraphPresenter(bubblegraphSvg);
     }
 
     render(state) {
         const self = this;
 
-        self._slopegraphPresenter.update(state, self._selection);
+        self._bubblegraphPresenter.update(state, self._selection);
     }
 
 }

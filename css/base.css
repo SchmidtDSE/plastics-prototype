@@ -59,33 +59,34 @@ html {
     margin: 10px 0 0 0;
 }
 
-.output-section .slopegraph {
+.output-section .bubblegraph {
     width: 100%;
     height: 400px;
 }
 
-.output-section .slopegraph .bubble ellipse {
+.output-section .bubblegraph .bubble ellipse {
     fill-opacity: 0.9;
     stroke-width: 2px;
 }
 
-.output-section .slopegraph .bubble text {
+.output-section .bubblegraph .bubble text {
     font-size: 13px;
     text-anchor: middle;
     dominant-baseline: middle;
 }
 
-.output-section .slopegraph .line {
+.output-section .bubblegraph .line {
     stroke-width: 2px;
+    stroke-dasharray: 2 2;
     fill: none;
 }
 
-.output-section .slopegraph .metric-intro .label {
+.output-section .bubblegraph .metric-intro .label {
     text-anchor: end;
     dominant-baseline: middle;
 }
 
-.output-section .slopegraph .region-intro .label {
+.output-section .bubblegraph .region-intro .label {
     text-anchor: middle;
     dominant-baseline: middle;
 }
