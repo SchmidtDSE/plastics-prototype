@@ -50,19 +50,18 @@ html {
 .output-section {
     margin: 3px 3px 30px 3px;
     padding: 5px;
-    border: 1px dotted #505050;
+    border: 1px solid #505050;
     background-color: white;
 }
 
 .output-section h3 {
-    text-align: center;
-    border-bottom: 1px solid #505050;
     font-size: 21px;
+    margin: 10px 0 0 0;
 }
 
 .output-section .slopegraph {
     width: 100%;
-    height: 350px;
+    height: 400px;
 }
 
 .output-section .slopegraph .bubble ellipse {
@@ -94,7 +93,7 @@ html {
 .panel-box {
     display: grid;
     column-gap: 10px;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 65% 35%;
     width: 99%;
 }
 
@@ -105,7 +104,7 @@ html {
 #levers-panel {
     background-color: white;
     padding: 5px;
-    border: 1px dotted #505050;
+    border: 1px solid #505050;
     margin: 3px;
 }
 

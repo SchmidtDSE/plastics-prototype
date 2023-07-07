@@ -1,7 +1,3 @@
-const DISPLAY_TYPES = {amount: 1, percent: 2};
-const DISPLAY_STAGES = {consumption: 1, eol: 2};
-
-
 class ReportSelection {
 
     constructor(year, region, displayType, displayStage) {
@@ -48,7 +44,7 @@ class ReportPresenter {
             DISPLAY_STAGES.eol
         );
 
-        const slopegraphSvg = document.getElementById("slopegraph");
+        const slopegraphSvg = document.getElementById("slopegraph-container");
         self._slopegraphPresenter = new SlopegraphPresenter(slopegraphSvg);
     }
 

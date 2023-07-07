@@ -1,9 +1,10 @@
 class SlopegraphPresenter {
 
-    constructor(targetSvg) {
+    constructor(targetDiv) {
         const self = this;
         
-        self._targetSvg = targetSvg;
+        self._targetDiv = targetDiv;
+        self._targetSvg = self._targetDiv.querySelector(".slopegraph");
         self._targetSvgId = self._targetSvg.id;
 
         const svgBoundingBox = self._targetSvg.getBoundingClientRect();
@@ -103,6 +104,20 @@ class SlopegraphPresenter {
         indicies.set("header", {"get": (x) => -1});
 
         const svgSelection = d3.select("#" + self._targetSvgId);
+
+        const updateTitle = () => {
+            const titleElement = self._targetDiv.querySelector(".title");
+            const stageString = STRINGS.get(selection.getDisplayStage());
+            const typeString = STRINGS.get(selection.getDisplayType());
+            const text = [
+                stageString,
+                "by Country in",
+                selection.getYear() + " as",
+                typeString
+            ].join(" ");
+
+            titleElement.textContent = text;
+        };
 
         const updateMetricLabels = () => {
             const bound = svgSelection.selectAll(".metric-intro")
@@ -280,6 +295,7 @@ class SlopegraphPresenter {
                 .attr("ry", getRadius);
         };
 
+        updateTitle();
         updateMetricLabels();
         updateRegionLabels();
         updateLines();
