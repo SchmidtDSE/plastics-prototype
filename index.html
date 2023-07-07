@@ -14,80 +14,10 @@
         <main>
             <div class="panel-box">
                 <div class="panel">
-                    <div id="china-output" class="output-section">
-                        <h3>China 2050 End of Life Plastics</h3>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-china-recycling-label"></span>% Recycled</div>
-                            <div class="bar" id="eol-china-recycling-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-china-incineration-label"></span>% Incinerated</div>
-                            <div class="bar" id="eol-china-incineration-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-china-landfill-label"></span>% Sent to Landfill</div>
-                            <div class="bar" id="eol-china-landfill-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-china-mismanaged-label"></span>% Mismanaged</div>
-                            <div class="bar" id="eol-china-mismanaged-bar"></div>
-                        </div>
-                    </div>
-                    <div id="nafta-output" class="output-section">
-                        <h3>NAFTA 2050 End of Life Plastics</h3>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-nafta-recycling-label"></span>% Recycled</div>
-                            <div class="bar" id="eol-nafta-recycling-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-nafta-incineration-label"></span>% Incinerated</div>
-                            <div class="bar" id="eol-nafta-incineration-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-nafta-landfill-label"></span>% Sent to Landfill</div>
-                            <div class="bar" id="eol-nafta-landfill-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-nafta-mismanaged-label"></span>% Mismanaged</div>
-                            <div class="bar" id="eol-nafta-mismanaged-bar"></div>
-                        </div>
-                    </div>
-                    <div id="eu30-output" class="output-section">
-                        <h3>EU30 2050 End of Life Plastics</h3>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-eu30-recycling-label"></span>% Recycled</div>
-                            <div class="bar" id="eol-eu30-recycling-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-eu30-incineration-label"></span>% Incinerated</div>
-                            <div class="bar" id="eol-eu30-incineration-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-eu30-landfill-label"></span>% Sent to Landfill</div>
-                            <div class="bar" id="eol-eu30-landfill-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-eu30-mismanaged-label"></span>% Mismanaged</div>
-                            <div class="bar" id="eol-eu30-mismanaged-bar"></div>
-                        </div>
-                    </div>
-                    <div id="row-output" class="output-section">
-                        <h3>Rest of World 2050 End of Life Plastics</h3>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-row-recycling-label"></span>% Recycled</div>
-                            <div class="bar" id="eol-row-recycling-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-row-incineration-label"></span>% Incinerated</div>
-                            <div class="bar" id="eol-row-incineration-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-row-landfill-label"></span>% Sent to Landfill</div>
-                            <div class="bar" id="eol-row-landfill-bar"></div>
-                        </div>
-                        <div class="bar-display">
-                            <div class="label"><span id="eol-row-mismanaged-label"></span>% Mismanaged</div>
-                            <div class="bar" id="eol-row-mismanaged-bar"></div>
+                    <div class="output-section">
+                        <div id="bubblegraph-container" class="bubblegraph-container">
+                            <h3 class="title"></h3>
+                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
                         </div>
                     </div>
                 </div>
@@ -112,7 +42,9 @@
                 </div>
             </div>
         </main>
+
         <script src="third_party/ace.min.js"></script>
+        <script src="third_party/d3.min.js"></script>
         <script src="third_party/handlebars.min.js"></script>
         <script src="third_party/papaparse.min.js"></script>
 
@@ -122,7 +54,9 @@
         <script src="js/const.js?v=20230706"></script>
         <script src="js/data.js?v=20230706"></script>
         <script src="js/report.js?v=20230706"></script>
+        <script src="js/report_bubble.js?v=20230706"></script>
         <script src="js/slider.js?v=20230706"></script>
+        <script src="js/strings.js?v=20230706"></script>
         <script src="js/visitors.js?v=20230706"></script>
 
         <script src="js/driver.js?v=20230706"></script>

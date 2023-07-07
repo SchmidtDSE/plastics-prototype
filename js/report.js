@@ -1,47 +1,82 @@
-class ReportPresenter {
+class ReportSelection {
 
-    render(state) {
+    constructor(year, region, displayType, displayStage) {
         const self = this;
 
-        const outputs = state.get("out");
-
-        const updateBar = (prefix, value) => {
-            const valueRounded = Math.round(value * 100);
-            document.getElementById(prefix + "-label").innerHTML = valueRounded;
-            
-            const width = valueRounded + "%";
-            document.getElementById(prefix + "-bar").style.width = width;
-        };
-
-        const updateDisplay = (region) => {
-            const localProjection = outputs.get(region);
-            const recyclingMT = localProjection.get("eolRecyclingMT");
-            const incinerationMT = localProjection.get("eolIncinerationMT");
-            const landfillMT = localProjection.get("eolLandfillMT");
-            const mismanagedMT = localProjection.get("eolMismanagedMT");
-
-            const totalMT = recyclingMT + incinerationMT + landfillMT + mismanagedMT;
-
-            const recyclingPercent = recyclingMT / totalMT;
-            const incinerationPercent = incinerationMT / totalMT;
-            const landfillPercent = landfillMT / totalMT;
-            const mismanagedPercent = mismanagedMT / totalMT;
-
-            updateBar("eol-" + region + "-recycling", recyclingPercent);
-            updateBar("eol-" + region + "-incineration", incinerationPercent);
-            updateBar("eol-" + region + "-landfill", landfillPercent);
-            updateBar("eol-" + region + "-mismanaged", mismanagedPercent);
-        };
-
-        updateDisplay("china");
-        updateDisplay("nafta");
-        updateDisplay("eu30");
-        updateDisplay("row");
+        self._year = year;
+        self._region = region;
+        self._displayType = displayType;
+        self._displayStage = displayStage;
+    }
+    
+    getYear() {
+        const self = this;
+        return self._year;
+    }
+    
+    getRegion() {
+        const self = this;
+        return self._region;
+    }
+    
+    getDisplayType() {
+        const self = this;
+        return self._displayType;
+    }
+    
+    getDisplayStage() {
+        const self = this;
+        return self._displayStage;
     }
 
 }
 
 
-function buildReportPresenter() {
-    return new Promise((resolve) => resolve(new ReportPresenter()));
+class ReportPresenter {
+
+    constructor(onRequestRender) {
+        const self = this;
+
+        self._onRequestRender = onRequestRender;
+
+        self._selection = new ReportSelection(
+            DEFAULT_YEAR,
+            DEFAULT_REGION,
+            DISPLAY_TYPES.amount,
+            DISPLAY_STAGES.eol
+        );
+
+        const bubblegraphSvg = document.getElementById("bubblegraph-container");
+        self._bubblegraphPresenter = new BubblegraphPresenter(
+            bubblegraphSvg,
+            (region) => self._onRegionChange(region)
+        );
+    }
+
+    render(state) {
+        const self = this;
+        self._bubblegraphPresenter.update(state, self._selection);
+    }
+
+
+    _onRegionChange(region) {
+        const self = this;
+
+        self._selection = new ReportSelection(
+            self._selection.getYear(),
+            region,
+            self._selection.getDisplayType(),
+            self._selection.getDisplayStage()
+        );
+
+        self._onRequestRender();
+    }
+
+}
+
+
+function buildReportPresenter(onRequestRender) {
+    return new Promise((resolve) => resolve(
+        new ReportPresenter(onRequestRender)
+    ));
 }
