@@ -32,6 +32,21 @@
                                 <span>.</span>
                             </div>
                         </div>
+                        <div id="region-container" class="region-container">
+                            <div id="current-year-container" class="current-year-container">
+                                <div id="eol-container" class="stage-container">
+                                    <h3><input type="radio" class="stage-radio" id="eol-radio" value="eol"> <span class="description">EOL</span></h3>
+                                    <div class="bars"></div>
+                                </div>
+                                <div id="consumption-container" class="stage-container">
+                                    <h3><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> <span class="description">Consumption</span></h3>
+                                    <div class="bars"></div>
+                                </div>
+                            </div>
+                            <div id="timeseries-container" class="timeseries-container">
+                                <h3>Timeseries</h3>
+                            </div>
+                        </div>
                         <div id="bubblegraph-container" class="bubblegraph-container">
                             <h3 class="title"></h3>
                             <div class="slope-check-holder">
@@ -76,6 +91,7 @@
         <script src="js/report.js?v=EPOCH"></script>
         <script src="js/report_bubble.js?v=EPOCH"></script>
         <script src="js/report_config.js?v=EPOCH"></script>
+        <script src="js/report_stage.js?v=EPOCH"></script>
         <script src="js/slider.js?v=EPOCH"></script>
         <script src="js/strings.js?v=EPOCH"></script>
         <script src="js/visitors.js?v=EPOCH"></script>

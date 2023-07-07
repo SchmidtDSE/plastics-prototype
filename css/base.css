@@ -55,7 +55,7 @@ html {
 }
 
 .output-section h3 {
-    font-size: 21px;
+    font-size: 18px;
     margin: 10px 0 0 0;
     margin-bottom: 8px;
 }
@@ -80,6 +80,10 @@ html {
     stroke-width: 2px;
     stroke-dasharray: 2 2;
     fill: none;
+}
+
+.output-section .bubblegraph .label {
+    font-size: 14px;
 }
 
 .output-section .bubblegraph .metric-intro .label {
@@ -120,9 +124,61 @@ html {
     margin-top: 15px;
     border-bottom: 1px dotted black;
     padding-bottom: 15px;
-    margin-bottom: 15px;
-    font-size: 21px;
+    font-size: 18px;
     text-align: center;
+}
+
+.output-section .region-container {
+    margin-bottom: 15px;
+    border-bottom: 1px dotted black;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 30% 70%;
+    width: 99%;
+}
+
+.output-section .region-container .current-year-container {
+    border-right: 1px dotted black;
+}
+
+.output-section .region-container .current-year-container .stage-container {
+    padding-bottom: 10px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar {
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .glyph {
+    margin-top: -1px;
+    margin-bottom: 1px;
+    height: 7px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .label {
+    font-size: 14px;
+}
+
+
+.output-section .region-container .current-year-container .stage-container .bar .text {
+    display: grid;
+    column-gap: 5px;
+    grid-template-columns: 60% 38%;
+    width: 99%;
+    border-bottom: 1px dotted #A0A0A0;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .value {
+    font-size: 12px;
+    text-align: right;
+    color: #505050;
+}
+
+.output-section .region-container .current-year-container #eol-container {
+    border-bottom: 1px dotted black;
 }
 
 .panel-box {
