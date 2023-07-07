@@ -11,6 +11,6 @@ STRINGS.set("eolLandfillMT", "Landfill");
 STRINGS.set("eolMismanagedMT", "Mismanaged");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Metric Tons");
-STRINGS.set(DISPLAY_TYPES.percent, "Percent");
+STRINGS.set(DISPLAY_TYPES.percent, "Percent of Region");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "End of Life");
