@@ -49,7 +49,8 @@ class ReportPresenter {
         const bubblegraphSvg = document.getElementById("bubblegraph-container");
         self._bubblegraphPresenter = new BubblegraphPresenter(
             bubblegraphSvg,
-            (region) => self._onRegionChange(region)
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender()
         );
     }
 

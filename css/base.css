@@ -111,6 +111,11 @@ html {
     dominant-baseline: middle;
 }
 
+.output-section .bubblegraph-container .slope-check-holder {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .panel-box {
     display: grid;
     column-gap: 10px;
