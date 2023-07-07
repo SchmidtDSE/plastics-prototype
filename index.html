@@ -44,7 +44,11 @@
                                 </div>
                             </div>
                             <div id="timeseries-container" class="timeseries-container">
-                                <h3>Timeseries</h3>
+                                <h3 class="title">Timeseries</h3>
+                                <div class="slope-check-holder">
+                                <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
+                            </div>
+                                <svg class="timeseries" id="timeseries"></svg>
                             </div>
                         </div>
                         <div id="bubblegraph-container" class="bubblegraph-container">
@@ -92,6 +96,7 @@
         <script src="js/report_bubble.js?v=EPOCH"></script>
         <script src="js/report_config.js?v=EPOCH"></script>
         <script src="js/report_stage.js?v=EPOCH"></script>
+        <script src="js/report_timeseries.js?v=EPOCH"></script>
         <script src="js/slider.js?v=EPOCH"></script>
         <script src="js/strings.js?v=EPOCH"></script>
         <script src="js/visitors.js?v=EPOCH"></script>
