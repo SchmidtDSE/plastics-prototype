@@ -13,7 +13,8 @@ var totalEol = (
     out.{{ region }}.eolLandfillMT + 
     out.{{ region }}.eolMismanagedMT
 );
-var originalEolRecycling = out.{{ region }}.eolRecyclingMT / totalEol;
+var originalEolRecycling = out.{{ region }}.eolRecyclingMT;
+var originalEolRecyclingPercent = originalEolRecycling / totalEol;
 
 ######################
 ## Split investment ##
@@ -37,7 +38,7 @@ limit recycleSuccessMarginNaive to [0, 1 - recycleSuccessInitial];
 var recycleSuccessMargin = recycleSuccessMarginNaive / 2;
 
 # Find change
-var potentialRecoveryChange = originalEolRecycling * recycleSuccessMargin;
+var potentialRecoveryChange = originalEolRecyclingPercent * recycleSuccessMargin;
 
 # Find new recycle success
 var recycleSuccess = recycleSuccessInitial * (1 + recycleSuccessMargin);
@@ -65,7 +66,7 @@ var potentialCollectionChange = potentialCollectionChangeNoSpill * recycleSucces
 
 # Determine what the change could be
 var newRecyclingPercent = (
-    originalEolRecycling +
+    originalEolRecyclingPercent +
     potentialCollectionChange +
     potentialRecoveryChange
 );
@@ -76,7 +77,8 @@ var newRecyclingMT = newRecyclingPercent * totalEol;
 out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Determine what the actual change was after bounds
-var actualChange = newRecyclingPercent - originalEolRecycling;
+var actualChangePercent = newRecyclingPercent - originalEolRecyclingPercent;
+var actualChange = totalEol * actualChangePercent;
 
 ##############################
 ## Update other EOL streams ##
