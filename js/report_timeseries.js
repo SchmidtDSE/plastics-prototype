@@ -9,6 +9,10 @@ class TimeseriesPresenter {
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
         self._d3Selection = d3.select("#" + self._targetSvg.id);
+        self._d3Selection.append("g").attr("id", "axis-layer");
+        self._d3Selection.append("g").attr("id", "indicator-layer");
+        self._d3Selection.append("g").attr("id", "bar-layer");
+        self._d3Selection.append("g").attr("id", "listener-layer");
 
         // Listen for historical change
         const historyCheck = self._targetDiv.querySelector(".history-check");
@@ -49,6 +53,12 @@ class TimeseriesPresenter {
         const showHistorical = historicalCheck.checked;
         const selectedYear = selection.getYear();
         const colorScale = self._colorScales.get(selection.getDisplayStage());
+
+        // Get layers
+        const axisLayer = self._d3Selection.select("#axis-layer");
+        const indicatorLayer = self._d3Selection.select("#indicator-layer");
+        const barLayer = self._d3Selection.select("#bar-layer");
+        const listenerLayer = self._d3Selection.select("#listener-layer");
 
         // Make vertical scale
         const verticalStep = isPercent ? 20 : 50;
@@ -98,7 +108,7 @@ class TimeseriesPresenter {
                 ticks.push(i);
             }
 
-            const bound = self._d3Selection.selectAll(".value-tick")
+            const bound = axisLayer.selectAll(".value-tick")
                 .data(ticks, (x) => x);
 
             bound.exit().remove();
@@ -110,7 +120,7 @@ class TimeseriesPresenter {
                 .attr("y", 0)
                 .html((amount) => amount);
 
-            const boundUpdated = self._d3Selection.selectAll(".value-tick");
+            const boundUpdated = axisLayer.selectAll(".value-tick");
 
             boundUpdated.attr("y", (amount) => verticalScale(amount));
         };
@@ -121,7 +131,7 @@ class TimeseriesPresenter {
                 ticks.push(year);
             }
 
-            const bound = self._d3Selection.selectAll(".year-tick")
+            const bound = axisLayer.selectAll(".year-tick")
                 .data(ticks, (x) => x);
 
             bound.exit().remove();
@@ -133,14 +143,14 @@ class TimeseriesPresenter {
                 .attr("y", height - 20)
                 .html((x) => x);
 
-            const boundUpdated = self._d3Selection.selectAll(".year-tick");
+            const boundUpdated = axisLayer.selectAll(".year-tick");
 
             boundUpdated.attr("x", (x) => horizontalScale(x) + horizontalScale.step() / 2);
         }
 
         const updateYearIndicator = () => {
-            if (self._d3Selection.select(".year-indicator").empty()) {
-                const newGroup = self._d3Selection.append("g")
+            if (indicatorLayer.select(".year-indicator").empty()) {
+                const newGroup = indicatorLayer.append("g")
                     .classed("year-indicator", true)
                     .attr("transform", "translate(50 0)");
 
@@ -158,7 +168,7 @@ class TimeseriesPresenter {
             }
 
             const newX = horizontalScale(selectedYear) + horizontalScale.step() / 2;
-            const yearIndicator = self._d3Selection.select(".year-indicator");
+            const yearIndicator = indicatorLayer.select(".year-indicator");
             yearIndicator.transition().attr(
                 "transform",
                 "translate(" + newX + " 0)"
@@ -190,7 +200,7 @@ class TimeseriesPresenter {
         const updateBars = () => {
             const data = years.flatMap(buildDataForYear);
 
-            const bound = self._d3Selection.selectAll(".bar")
+            const bound = barLayer.selectAll(".bar")
                 .data(data, (datum) => datum["year"] + "/" + datum["attr"]);
 
             bound.exit().remove();
@@ -203,7 +213,7 @@ class TimeseriesPresenter {
                 .attr("height", 1)
                 .style("fill", (datum) => colorScale.get(datum["attr"]));
 
-            const boundUpdated = self._d3Selection.selectAll(".bar");
+            const boundUpdated = barLayer.selectAll(".bar");
 
             boundUpdated.transition()
                 .attr("x", (datum) => horizontalScale(datum["year"]))
@@ -219,7 +229,7 @@ class TimeseriesPresenter {
         };
 
         const updateListeners = () => {
-            const bound = self._d3Selection.selectAll(".click-target")
+            const bound = listenerLayer.selectAll(".click-target")
                 .data(years, (x) => x);
 
             bound.exit().remove();
@@ -230,7 +240,7 @@ class TimeseriesPresenter {
                     self._onYearChange(year);
                 });
 
-            const boundUpdated = self._d3Selection.selectAll(".click-target");
+            const boundUpdated = listenerLayer.selectAll(".click-target");
             boundUpdated.attr("x", (year) => horizontalScale(year) - 1)
                 .attr("y", 25)
                 .attr("width", horizontalScale.bandwidth() + 2)
