@@ -181,6 +181,53 @@ html {
     border-bottom: 1px dotted black;
 }
 
+.output-section .region-container .timeseries-container {
+    margin-right: 10px;
+}
+
+.output-section .region-container .timeseries-container .timeseries {
+    height: 320px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.output-section .region-container .timeseries-container .timeseries .bar {
+    opacity: 0.9;
+}
+
+.output-section .region-container .timeseries-container .timeseries .click-target {
+    fill: #FFFFFF;
+    fill-opacity: 0;
+    stroke: none;
+    stroke-width: 1px;
+}
+
+.output-section .region-container .timeseries-container .timeseries .click-target:hover {
+    stroke: #C0C0C0;
+    fill-opacity: 0.1;
+    cursor: pointer;
+}
+
+.output-section .region-container .timeseries-container .timeseries .tick {
+    fill: #505050;
+    font-size: 12px;
+}
+
+.output-section .region-container .timeseries-container .timeseries .tick.value-tick {
+    text-anchor: end;
+    dominant-baseline: middle;
+}
+
+.output-section .region-container .timeseries-container .timeseries .tick.year-tick {
+    text-anchor: middle;
+    dominant-baseline: hanging;
+}
+
+.output-section .region-container .timeseries-container .timeseries .year-indicator {
+    text-anchor: middle;
+    font-size: 12px;
+}
+
 .panel-box {
     display: grid;
     column-gap: 10px;

@@ -77,20 +77,28 @@ class ReportPresenter {
             (stage) => self._onStageChange(stage),
             () => self._onRequestRender()
         );
+
+        const timeseriesDiv = document.getElementById("timeseries-container");
+        self._timeseriesPresenter = new TimeseriesPresenter(
+            timeseriesDiv,
+            (year) => self._onYearChange(year),
+            () => self._onRequestRender()
+        );
     }
 
     render(states) {
         const self = this;
 
-        const state = states.get(self._selection.getYear());
-
         const usingPercent = self._selection.getDisplayType() == DISPLAY_TYPES.percent;
-        const targetState = usingPercent ? self._getPercent(state) : state;
+
+        const targetStates = usingPercent ? self._getPercents(states) : states;
+        const targetState = targetStates.get(self._selection.getYear());
 
         self._bubblegraphPresenter.update(targetState, self._selection);
         self._configPresenter.update(targetState, self._selection);
         self._consumptionStagePresenter.update(targetState, self._selection);
         self._eolStagePresenter.update(targetState, self._selection);
+        self._timeseriesPresenter.update(targetStates, self._selection);
     }
 
     _onStageChange(stage) {
@@ -143,6 +151,17 @@ class ReportPresenter {
         );
 
         self._onRequestRender();
+    }
+
+    _getPercents(states) {
+        const self = this;
+        const newStates = new Map();
+
+        states.forEach((state, year) => {
+            newStates.set(year, self._getPercent(state));
+        });
+
+        return newStates;
     }
 
     _getPercent(state) {

@@ -73,7 +73,7 @@ class ConfigPresenter {
         const self = this;
 
         const years = [];
-        for (let year = START_YEAR; year <= MAX_YEAR; year++) {
+        for (let year = HISTORY_START_YEAR; year <= MAX_YEAR; year++) {
             years.push(year);
         }
 
