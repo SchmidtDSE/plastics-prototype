@@ -53,7 +53,7 @@ class StagePresenter {
 
         const regionData = state.get("out").get(selection.getRegion());
 
-        const maxValue = attrs
+        const maxValue = CONSUMPTION_ATTRS.concat(EOL_ATTRS)
             .map((attr) => regionData.get(attr))
             .reduce((a, b) => a > b ? a : b);
 
