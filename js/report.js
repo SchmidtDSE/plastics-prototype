@@ -1,42 +1,61 @@
+const DISPLAY_TYPES = {amount: 1, percent: 2};
+const DISPLAY_STAGES = {consumption: 1, eol: 2};
+
+
+class ReportSelection {
+
+    constructor(year, region, displayType, displayStage) {
+        const self = this;
+
+        self._year = year;
+        self._region = region;
+        self._displayType = displayType;
+        self._displayStage = displayStage;
+    }
+    
+    getYear() {
+        const self = this;
+        return self._year;
+    }
+    
+    getRegion() {
+        const self = this;
+        return self._region;
+    }
+    
+    getDisplayType() {
+        const self = this;
+        return self._displayType;
+    }
+    
+    getDisplayStage() {
+        const self = this;
+        return self._displayStage;
+    }
+
+}
+
+
 class ReportPresenter {
+
+    constructor() {
+        const self = this;
+
+        self._selection = new ReportSelection(
+            DEFAULT_YEAR,
+            DEFAULT_REGION,
+            DISPLAY_TYPES.amount,
+            DISPLAY_STAGES.eol
+        );
+
+        const slopegraphSvg = document.getElementById("slopegraph");
+        self._slopegraphPresenter = new SlopegraphPresenter(slopegraphSvg);
+    }
 
     render(state) {
         const self = this;
 
-        const outputs = state.get("out");
-
-        const updateBar = (prefix, value) => {
-            const valueRounded = Math.round(value * 100);
-            document.getElementById(prefix + "-label").innerHTML = valueRounded;
-            
-            const width = valueRounded + "%";
-            document.getElementById(prefix + "-bar").style.width = width;
-        };
-
-        const updateDisplay = (region) => {
-            const localProjection = outputs.get(region);
-            const recyclingMT = localProjection.get("eolRecyclingMT");
-            const incinerationMT = localProjection.get("eolIncinerationMT");
-            const landfillMT = localProjection.get("eolLandfillMT");
-            const mismanagedMT = localProjection.get("eolMismanagedMT");
-
-            const totalMT = recyclingMT + incinerationMT + landfillMT + mismanagedMT;
-
-            const recyclingPercent = recyclingMT / totalMT;
-            const incinerationPercent = incinerationMT / totalMT;
-            const landfillPercent = landfillMT / totalMT;
-            const mismanagedPercent = mismanagedMT / totalMT;
-
-            updateBar("eol-" + region + "-recycling", recyclingPercent);
-            updateBar("eol-" + region + "-incineration", incinerationPercent);
-            updateBar("eol-" + region + "-landfill", landfillPercent);
-            updateBar("eol-" + region + "-mismanaged", mismanagedPercent);
-        };
-
-        updateDisplay("china");
-        updateDisplay("nafta");
-        updateDisplay("eu30");
-        updateDisplay("row");
+        self._slopegraphPresenter.update(state, self._selection);
     }
 
 }
