@@ -61,7 +61,7 @@ html {
 
 .output-section .bubblegraph {
     width: 100%;
-    height: 400px;
+    height: 300px;
 }
 
 .output-section .bubblegraph .bubble ellipse {
@@ -84,6 +84,26 @@ html {
 .output-section .bubblegraph .metric-intro .label {
     text-anchor: end;
     dominant-baseline: middle;
+}
+
+.output-section .bubblegraph .region-intro .active-indicator {
+    fill: #FFFFFF;
+    stroke-width: 1px;
+    stroke: none;
+}
+
+.output-section .bubblegraph .region-intro.active .active-indicator {
+    stroke: #A0A0A0;
+}
+
+.output-section .bubblegraph .region-intro.inactive:hover .active-indicator {
+    stroke: #C0C0C0;
+    cursor: pointer;
+}
+
+.output-section .bubblegraph .region-intro.inactive:hover .active-indicator {
+    stroke: #C0C0C0;
+    cursor: pointer;
 }
 
 .output-section .bubblegraph .region-intro .label {

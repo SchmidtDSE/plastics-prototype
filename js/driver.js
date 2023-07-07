@@ -15,7 +15,9 @@ class Driver {
         const promises = [
             buildCompiler(),
             buildDataLayer(() => self._getLevers()),
-            buildReportPresenter(),
+            buildReportPresenter(
+                () => self._onInputChange()
+            ),
             buildSliders(
                 () => self._buildState(),
                 (x) => self._compileProgram(x),

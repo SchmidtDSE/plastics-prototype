@@ -34,8 +34,10 @@ class ReportSelection {
 
 class ReportPresenter {
 
-    constructor() {
+    constructor(onRequestRender) {
         const self = this;
+
+        self._onRequestRender = onRequestRender;
 
         self._selection = new ReportSelection(
             DEFAULT_YEAR,
@@ -45,18 +47,36 @@ class ReportPresenter {
         );
 
         const bubblegraphSvg = document.getElementById("bubblegraph-container");
-        self._bubblegraphPresenter = new BubblegraphPresenter(bubblegraphSvg);
+        self._bubblegraphPresenter = new BubblegraphPresenter(
+            bubblegraphSvg,
+            (region) => self._onRegionChange(region)
+        );
     }
 
     render(state) {
         const self = this;
-
         self._bubblegraphPresenter.update(state, self._selection);
+    }
+
+
+    _onRegionChange(region) {
+        const self = this;
+
+        self._selection = new ReportSelection(
+            self._selection.getYear(),
+            region,
+            self._selection.getDisplayType(),
+            self._selection.getDisplayStage()
+        );
+
+        self._onRequestRender();
     }
 
 }
 
 
-function buildReportPresenter() {
-    return new Promise((resolve) => resolve(new ReportPresenter()));
+function buildReportPresenter(onRequestRender) {
+    return new Promise((resolve) => resolve(
+        new ReportPresenter(onRequestRender)
+    ));
 }
