@@ -57,6 +57,7 @@ html {
 .output-section h3 {
     font-size: 21px;
     margin: 10px 0 0 0;
+    margin-bottom: 8px;
 }
 
 .output-section .bubblegraph {
@@ -112,8 +113,16 @@ html {
 }
 
 .output-section .bubblegraph-container .slope-check-holder {
-    margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.output-section .config-container {
+    margin-top: 15px;
+    border-bottom: 1px dotted black;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    font-size: 21px;
+    text-align: center;
 }
 
 .panel-box {

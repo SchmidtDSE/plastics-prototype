@@ -159,7 +159,7 @@ class BubblegraphPresenter {
 
         const updateMetricLabels = () => {
             const bound = svgSelection.selectAll(".metric-intro")
-                .data(attrNames);
+                .data(attrNames, (x) => x);
 
             bound.exit().remove();
 
@@ -189,7 +189,7 @@ class BubblegraphPresenter {
 
         const updateRegionLabels = () => {
             const bound = svgSelection.selectAll(".region-intro")
-                .data(ALL_REGIONS);
+                .data(ALL_REGIONS, (x) => x);
 
             bound.exit().remove();
 
@@ -224,7 +224,7 @@ class BubblegraphPresenter {
 
         const updateLines = () => {
             const bound = svgSelection.selectAll(".line")
-                .data(attrNames);
+                .data(attrNames, (x) => x);
 
             bound.exit().remove();
 
@@ -295,7 +295,7 @@ class BubblegraphPresenter {
             };
 
             const bound = svgSelection.selectAll(".bubble")
-                .data(bubbleInfo);
+                .data(bubbleInfo, (x) => x["region"] + "\t" + x["attr"]);
 
             bound.exit().remove();
 
