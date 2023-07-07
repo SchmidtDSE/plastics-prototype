@@ -55,7 +55,7 @@ html {
 }
 
 .output-section h3 {
-    font-size: 21px;
+    font-size: 18px;
     margin: 10px 0 0 0;
     margin-bottom: 8px;
 }
@@ -120,9 +120,25 @@ html {
     margin-top: 15px;
     border-bottom: 1px dotted black;
     padding-bottom: 15px;
-    margin-bottom: 15px;
-    font-size: 21px;
+    font-size: 18px;
     text-align: center;
+}
+
+.output-section .region-container {
+    margin-bottom: 15px;
+    border-bottom: 1px dotted black;
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: 30% 70%;
+    width: 99%;
+}
+
+.output-section .region-container .current-year-container {
+    border-right: 1px dotted black;
+}
+
+.output-section .region-container .current-year-container #eol-container {
+    border-bottom: 1px dotted black;
 }
 
 .panel-box {
