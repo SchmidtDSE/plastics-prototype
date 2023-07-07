@@ -61,6 +61,22 @@ class ReportPresenter {
             (year) => self._onYearChange(year),
             (type) => self._onTypeChange(type)
         );
+
+        const consumptionStageDiv = document.getElementById("consumption-container");
+        self._consumptionStagePresenter = new StagePresenter(
+            consumptionStageDiv,
+            DISPLAY_STAGES.consumption,
+            (stage) => self._onStageChange(stage),
+            () => self._onRequestRender()
+        );
+
+        const eolStageDiv = document.getElementById("eol-container");
+        self._eolStagePresenter = new StagePresenter(
+            eolStageDiv,
+            DISPLAY_STAGES.eol,
+            (stage) => self._onStageChange(stage),
+            () => self._onRequestRender()
+        );
     }
 
     render(states) {
@@ -73,6 +89,8 @@ class ReportPresenter {
 
         self._bubblegraphPresenter.update(targetState, self._selection);
         self._configPresenter.update(targetState, self._selection);
+        self._consumptionStagePresenter.update(targetState, self._selection);
+        self._eolStagePresenter.update(targetState, self._selection);
     }
 
     _onStageChange(stage) {

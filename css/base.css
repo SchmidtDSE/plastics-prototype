@@ -82,6 +82,10 @@ html {
     fill: none;
 }
 
+.output-section .bubblegraph .label {
+    font-size: 14px;
+}
+
 .output-section .bubblegraph .metric-intro .label {
     text-anchor: end;
     dominant-baseline: middle;
@@ -135,6 +139,42 @@ html {
 
 .output-section .region-container .current-year-container {
     border-right: 1px dotted black;
+}
+
+.output-section .region-container .current-year-container .stage-container {
+    padding-bottom: 10px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar {
+    margin-bottom: 5px;
+    margin-top: 2px;
+    width: 100%;
+    margin-right: 5px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .glyph {
+    margin-top: -1px;
+    margin-bottom: 1px;
+    height: 7px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .label {
+    font-size: 14px;
+}
+
+
+.output-section .region-container .current-year-container .stage-container .bar .text {
+    display: grid;
+    column-gap: 5px;
+    grid-template-columns: 60% 38%;
+    width: 99%;
+    border-bottom: 1px dotted #A0A0A0;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .value {
+    font-size: 12px;
+    text-align: right;
+    color: #505050;
 }
 
 .output-section .region-container .current-year-container #eol-container {
