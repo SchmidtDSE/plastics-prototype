@@ -7,6 +7,16 @@ class Driver {
         self._dataLayer = null;
         self._reportPresenter = null;
         self._levers = null;
+
+        self._historicYears = [];
+        for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
+            self._historicYears.push(year);
+        }
+
+        self._projectionYears = [];
+        for (let year = START_YEAR; year <= MAX_YEAR; year++) {
+            self._projectionYears.push(year);
+        }
     }
 
     init() {
@@ -40,9 +50,16 @@ class Driver {
         return self._levers;
     }
 
-    _buildState() {
+    _buildState(year) {
         const self = this;
-        return self._dataLayer.buildState(2050);
+
+        const meta = new Map();
+        meta.set("year", year);
+
+        const state = self._dataLayer.buildState(year);
+        state.set("meta", meta);
+
+        return state;
     }
 
     _compileProgram(code) {
@@ -53,28 +70,46 @@ class Driver {
     _onInputChange() {
         const self = this;
 
-        const state = self._buildState();
+        const states = new Map();
 
-        self._getLevers().forEach((lever) => {
-            const program = lever.getProgram();
-            if (program === null) {
-                return;
-            }
-            
-            state.set("local", new Map());
-            state.set("inspect", []);
-            program(state);
+        const programs = self._getLevers()
+            .map((lever) => {
+                return {
+                    "lever": lever,
+                    "program": lever.getProgram()
+                };
+            })
+            .filter((leverInfo) => leverInfo["program"] !== null);
 
-            const inspects = state.get("inspect");
-            lever.showInspects(inspects);
+        self._historicYears.forEach((year) => {
+            const state = self._buildState(year);
+            states.set(year, state);
         });
 
-        self._updateOutputs(state);
+        self._projectionYears.forEach((year) => {
+            const state = self._buildState(year);
+
+            programs.forEach((programInfo) => {
+                const program = programInfo["program"];
+                const lever = programInfo["lever"];
+                
+                state.set("local", new Map());
+                state.set("inspect", []);
+                program(state);
+
+                const inspects = state.get("inspect");
+                lever.showInspects(inspects);
+            });
+
+            states.set(year, state);
+        });
+
+        self._updateOutputs(states);
     }
 
-    _updateOutputs(state) {
+    _updateOutputs(states) {
         const self = this;
-        self._reportPresenter.render(state);
+        self._reportPresenter.render(states);
     }
 
 }
