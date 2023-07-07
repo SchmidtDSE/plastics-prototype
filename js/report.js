@@ -46,9 +46,18 @@ class ReportPresenter {
             DISPLAY_STAGES.eol
         );
 
-        const bubblegraphSvg = document.getElementById("bubblegraph-container");
+        const configDiv = document.getElementById("config-container");
+        self._configPresenter = new ConfigPresenter(
+            configDiv,
+            (stage) => self._onStageChange(stage),
+            (region) => self._onRegionChange(stage),
+            (year) => self._onYearChange(year),
+            (type) => self._onTypeChange(type)
+        );
+
+        const bubblegraphDiv = document.getElementById("bubblegraph-container");
         self._bubblegraphPresenter = new BubblegraphPresenter(
-            bubblegraphSvg,
+            bubblegraphDiv,
             (region) => self._onRegionChange(region),
             () => self._onRequestRender()
         );
