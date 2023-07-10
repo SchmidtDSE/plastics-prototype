@@ -274,6 +274,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             identifiers.push(ctx.getChild(childIndex).getText());
         }
 
+        const isLinear = methodName === "linearly";
+
         return (state) => {
             const valueToDistribute = valueExpression(state);
 
@@ -284,11 +286,20 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const totalTargetsValue = identifiers.map((identifier) => {
                 return self._getValue(identifier, state);
             }).reduce((a, b) => a + b);
+
+            const getChangeProportional = (beforeValue) => {
+                return beforeValue / totalTargetsValue * valueToDistribute;
+            };
+
+            const getChangeLinear = (beforeValue) => {
+                return 1 / identifiers.length * valueToDistribute;
+            };
+
+            const getChange = isLinear ? getChangeLinear : getChangeProportional;
             
             identifiers.forEach((identifier) => {
                 const beforeValue = self._getValue(identifier, state);
-                const share = beforeValue / totalTargetsValue;
-                const change = share * valueToDistribute;
+                const change = getChange(beforeValue);
                 const newValue = beforeValue + change;
                 if (beforeValue != 0) {
                     self._setValue(identifier, newValue, state);
