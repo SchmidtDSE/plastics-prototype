@@ -48,7 +48,13 @@ LINEARLY_: 'l' 'i' 'n' 'e' 'a' 'r' 'l' 'y';
 
 INSPECT_: 'i' 'n' 's' 'p' 'e' 'c' 't';
 
+TARGET_: 't' 'a' 'r' 'g' 'e' 't';
+
+CHANGE_: 'c' 'h' 'a' 'n' 'g' 'e';
+
 TO_: 't' 'o';
+
+BY_: 'b' 'y';
 
 GT_: '>';
 
@@ -73,7 +79,7 @@ RBRAC_: ']';
 
 IDENTIFIER_: [A-Za-z][A-Za-z0-9]*;
 
-number: (SUB_)? (FLOAT_ | INTEGER_);
+number: (SUB_|ADD_)? (FLOAT_ | INTEGER_);
 
 identifier: IDENTIFIER_ (PERIOD_ IDENTIFIER_)*;
 
@@ -99,6 +105,8 @@ distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ ident
 
 inspect: INSPECT_ value=expression;
 
-command: definition | assignment | limitop | distribute | inspect;
+target: TARGET_ subject=identifier CHANGE_ value=expression BY_ year=expression;
+
+command: definition | assignment | limitop | distribute | inspect | target;
 
 program: command (SEMICOLON_ command)* SEMICOLON_;

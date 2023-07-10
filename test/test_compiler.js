@@ -5,7 +5,7 @@ QUnit.module("compiler", function() {
         return compiler.compile(target);
     }
 
-    function buildWorkspace() {
+    function buildWorkspace(year) {
         const workspace = new Map();
         
         workspace.set("in", new Map());
@@ -17,6 +17,10 @@ QUnit.module("compiler", function() {
         workspace.get("out").set("testB", -3);
 
         workspace.set("local", new Map());
+
+        workspace.set("meta", new Map());
+        year = year === undefined ? 2050: year;
+        workspace.get("meta").set("year", year);
 
         return workspace;
     }
@@ -222,6 +226,54 @@ QUnit.module("compiler", function() {
         program(workspace);
         assert.ok(workspace.get("out").get("testA") == 12);
         assert.ok(workspace.get("out").get("testB") == 24);
+    });
+
+    QUnit.test("target before end", function(assert) {
+        const workspace = buildWorkspace(2035);
+        const code = [
+            "var a = 10;",
+            "target a change +10 by 2045;",
+            "out.test = a;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(Math.abs(workspace.get("out").get("test") - 15) < 0.0001);
+    });
+
+    QUnit.test("target at end", function(assert) {
+        const workspace = buildWorkspace(2045);
+        const code = [
+            "var a = 10;",
+            "target a change +10 by 2045;",
+            "out.test = a;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(Math.abs(workspace.get("out").get("test") - 20) < 0.0001);
+    });
+
+    QUnit.test("target after end", function(assert) {
+        const workspace = buildWorkspace(2050);
+        const code = [
+            "var a = 10;",
+            "target a change +10 by 2045;",
+            "out.test = a;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(Math.abs(workspace.get("out").get("test") - 20) < 0.0001);
     });
 
 });
