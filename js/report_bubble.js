@@ -10,6 +10,13 @@ class BubblegraphPresenter {
         self._targetSvg = self._targetDiv.querySelector(".bubblegraph");
         self._targetSvgId = self._targetSvg.id;
 
+        // Setup svg
+        self._d3Selection = d3.select("#" + self._targetSvgId);
+        self._d3Selection.html("");
+        self._d3Selection.append("g").classed("line-layer", true);
+        self._d3Selection.append("g").classed("bubble-layer", true);
+        self._d3Selection.append("g").classed("label-layer", true);
+
         // Setup slope checkbox
         const slopeCheck = self._targetDiv.querySelector(".slope-check");
         self._enableSlope = slopeCheck.checked;
@@ -141,7 +148,9 @@ class BubblegraphPresenter {
         });
         indicies.set("header", {"get": (x) => -1});
 
-        const svgSelection = d3.select("#" + self._targetSvgId);
+        const lineLayer = self._d3Selection.select(".line-layer");
+        const bubbleLayer = self._d3Selection.select(".bubble-layer");
+        const labelLayer = self._d3Selection.select(".label-layer");
 
         const updateTitle = () => {
             const titleElement = self._targetDiv.querySelector(".title");
@@ -158,7 +167,7 @@ class BubblegraphPresenter {
         };
 
         const updateMetricLabels = () => {
-            const bound = svgSelection.selectAll(".metric-intro")
+            const bound = labelLayer.selectAll(".metric-intro")
                 .data(attrNames, (x) => x);
 
             bound.exit().remove();
@@ -188,7 +197,7 @@ class BubblegraphPresenter {
         };
 
         const updateRegionLabels = () => {
-            const bound = svgSelection.selectAll(".region-intro")
+            const bound = labelLayer.selectAll(".region-intro")
                 .data(ALL_REGIONS, (x) => x);
 
             bound.exit().remove();
@@ -216,14 +225,14 @@ class BubblegraphPresenter {
                 .classed("label", true)
                 .text((datum) => STRINGS.get(datum));
 
-            const updatedBound = svgSelection.selectAll(".region-intro");
+            const updatedBound = labelLayer.selectAll(".region-intro");
             updatedBound
                 .classed("active", (datum) => datum === selection.getRegion())
                 .classed("inactive", (datum) => datum !== selection.getRegion());
         };
 
         const updateLines = () => {
-            const bound = svgSelection.selectAll(".line")
+            const bound = lineLayer.selectAll(".line")
                 .data(attrNames, (x) => x);
 
             bound.exit().remove();
@@ -274,7 +283,7 @@ class BubblegraphPresenter {
                 .attr("d", buildDGetter(lineGenerator))
                 .attr("stroke", (attr) => colorScale.get(attr));
 
-            const updatedBound = svgSelection.selectAll(".line");
+            const updatedBound = lineLayer.selectAll(".line");
 
             if (self._enableSlope) {
                 updatedBound.transition()
@@ -294,7 +303,7 @@ class BubblegraphPresenter {
                 return Math.sqrt(area);
             };
 
-            const bound = svgSelection.selectAll(".bubble")
+            const bound = bubbleLayer.selectAll(".bubble")
                 .data(bubbleInfo, (x) => x["region"] + "\t" + x["attr"]);
 
             bound.exit().remove();
@@ -323,7 +332,7 @@ class BubblegraphPresenter {
                 .attr("y", 0)
                 .attr("fill", (datum) => textColorScale.get(datum["attr"]));
 
-            const updatedBound = svgSelection.selectAll(".bubble");
+            const updatedBound = bubbleLayer.selectAll(".bubble");
 
             updatedBound.select("text")
                 .text((datum) => Math.round(datum["value"]))

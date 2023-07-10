@@ -9,6 +9,7 @@ class TimeseriesPresenter {
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
         self._d3Selection = d3.select("#" + self._targetSvg.id);
+        self._d3Selection.html("");
         self._d3Selection.append("g").attr("id", "axis-layer");
         self._d3Selection.append("g").attr("id", "indicator-layer");
         self._d3Selection.append("g").attr("id", "bar-layer");
