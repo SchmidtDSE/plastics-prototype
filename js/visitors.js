@@ -320,6 +320,32 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    visitTarget(ctx) {
+        const self = this;
+
+        const subject = ctx.subject.getText();
+        const valueExpression = ctx.value.accept(self);
+        const endYear = ctx.year.accept(self);
+
+        return (state) => {
+            const value = valueExpression(state);
+
+            const endYearRealized = endYear(state);
+            const currentYear = state.get("meta").get("year");
+            const startYear = START_YEAR;
+
+            const pastEnd = currentYear > endYearRealized;
+            const effectiveCurrentYear = pastEnd ? endYearRealized : currentYear;
+
+            const slope = value / (endYearRealized - startYear);
+            const change = slope * (effectiveCurrentYear - startYear);
+            const oldValue = self._getValue(subject, state);
+            const newValue = oldValue + change;
+            
+            self._setValue(subject, newValue, state);
+        };
+    }
+
     _getValue(raw, state) {
         const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
         const pieces = resolved.split(".");
