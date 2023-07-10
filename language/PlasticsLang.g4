@@ -105,7 +105,7 @@ distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ ident
 
 inspect: INSPECT_ value=expression;
 
-target: CHANGE_ subject=identifier BY_ value=expression OVER_ startyear=expression TO_ year=expression;
+target: CHANGE_ subject=identifier BY_ value=expression OVER_ startyear=expression TO_ endyear=expression;
 
 command: definition | assignment | limitop | distribute | inspect | target;
 

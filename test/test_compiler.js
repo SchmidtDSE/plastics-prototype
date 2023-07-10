@@ -276,4 +276,25 @@ QUnit.module("compiler", function() {
         assert.ok(Math.abs(workspace.get("out").get("test") - 20) < 0.0001);
     });
 
+    QUnit.test("target mix up years", function(assert) {
+        const workspace = buildWorkspace(2050);
+        const code = [
+            "var a = 10;",
+            "change a by +10 over 2045 to 2025;",
+            "out.test = a;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        try {
+            program(workspace);
+            assert.ok(false);
+        } catch {
+            assert.ok(true);
+        }
+        
+    });
+
 });
