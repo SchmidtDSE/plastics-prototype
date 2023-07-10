@@ -325,20 +325,26 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
         const subject = ctx.subject.getText();
         const valueExpression = ctx.value.accept(self);
-        const endYear = ctx.year.accept(self);
+        const startYear = ctx.startyear.accept(self);
+        const endYear = ctx.endyear.accept(self);
 
         return (state) => {
             const value = valueExpression(state);
 
+            const startYearRealized = startYear(state);
             const endYearRealized = endYear(state);
+
+            if (startYearRealized >= endYearRealized) {
+                throw "Start year must be earlier than end year for change.";
+            }
+
             const currentYear = state.get("meta").get("year");
-            const startYear = START_YEAR;
 
             const pastEnd = currentYear > endYearRealized;
             const effectiveCurrentYear = pastEnd ? endYearRealized : currentYear;
 
-            const slope = value / (endYearRealized - startYear);
-            const change = slope * (effectiveCurrentYear - startYear);
+            const slope = value / (endYearRealized - startYearRealized);
+            const change = slope * (effectiveCurrentYear - startYearRealized);
             const oldValue = self._getValue(subject, state);
             const newValue = oldValue + change;
             

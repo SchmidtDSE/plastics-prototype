@@ -48,9 +48,9 @@ LINEARLY_: 'l' 'i' 'n' 'e' 'a' 'r' 'l' 'y';
 
 INSPECT_: 'i' 'n' 's' 'p' 'e' 'c' 't';
 
-TARGET_: 't' 'a' 'r' 'g' 'e' 't';
-
 CHANGE_: 'c' 'h' 'a' 'n' 'g' 'e';
+
+OVER_: 'o' 'v' 'e' 'r';
 
 TO_: 't' 'o';
 
@@ -105,7 +105,7 @@ distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ ident
 
 inspect: INSPECT_ value=expression;
 
-target: TARGET_ subject=identifier CHANGE_ value=expression BY_ year=expression;
+target: CHANGE_ subject=identifier BY_ value=expression OVER_ startyear=expression TO_ endyear=expression;
 
 command: definition | assignment | limitop | distribute | inspect | target;
 

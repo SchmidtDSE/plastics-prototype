@@ -232,7 +232,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2035);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 over 2025 to 2045;",
             "out.test = a;"
         ].join("\n");
 
@@ -248,7 +248,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2045);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 over 2025 to 2045;",
             "out.test = a;"
         ].join("\n");
 
@@ -264,7 +264,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2050);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 over 2025 to 2045;",
             "out.test = a;"
         ].join("\n");
 
@@ -274,6 +274,27 @@ QUnit.module("compiler", function() {
         const program = compileResult.getProgram();
         program(workspace);
         assert.ok(Math.abs(workspace.get("out").get("test") - 20) < 0.0001);
+    });
+
+    QUnit.test("target mix up years", function(assert) {
+        const workspace = buildWorkspace(2050);
+        const code = [
+            "var a = 10;",
+            "change a by +10 over 2045 to 2025;",
+            "out.test = a;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        try {
+            program(workspace);
+            assert.ok(false);
+        } catch {
+            assert.ok(true);
+        }
+        
     });
 
 });
