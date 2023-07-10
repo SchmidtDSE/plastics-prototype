@@ -184,6 +184,26 @@ QUnit.module("compiler", function() {
         assert.ok(workspace.get("out").get("testB") == 5);
     });
 
+    QUnit.test("distribute linearly", function(assert) {
+        const workspace = buildWorkspace();
+        const code = [
+            "var a = 10;",
+            "var b = 20;",
+            "var c = 6;",
+            "distribute c across [a, b] linearly;",
+            "out.testA = a;",
+            "out.testB = b;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(workspace.get("out").get("testA") == 13);
+        assert.ok(workspace.get("out").get("testB") == 23);
+    });
+
     QUnit.test("distribute proportionally", function(assert) {
         const workspace = buildWorkspace();
         const code = [
