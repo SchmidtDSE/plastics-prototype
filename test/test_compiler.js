@@ -232,7 +232,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2035);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 by 2045;",
             "out.test = a;"
         ].join("\n");
 
@@ -248,7 +248,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2045);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 by 2045;",
             "out.test = a;"
         ].join("\n");
 
@@ -264,7 +264,7 @@ QUnit.module("compiler", function() {
         const workspace = buildWorkspace(2050);
         const code = [
             "var a = 10;",
-            "target a change +10 by 2045;",
+            "change a by +10 by 2045;",
             "out.test = a;"
         ].join("\n");
 
