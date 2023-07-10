@@ -67,13 +67,17 @@ class StagePresenter {
         };
 
         const updateTitle = () => {
-            const header = self._targetDiv.querySelector(".description");
-            const text = [
-                STRINGS.get(selection.getRegion()),
+            const title = self._targetDiv.querySelector(".description");
+            const subtitle = self._targetDiv.querySelector(".subtitle");
+            
+            const titleText = STRINGS.get(self._stage);
+            const subtitleText = [
                 selection.getYear() + "",
-                STRINGS.get(self._stage)
+                STRINGS.get(selection.getRegion())
             ].join(" ");
-            header.innerHTML = text;
+
+            title.innerHTML = titleText;
+            subtitle.innerHTML = subtitleText;
         };
 
         const updateBars = () => {
