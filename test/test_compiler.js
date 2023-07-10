@@ -13,6 +13,8 @@ QUnit.module("compiler", function() {
 
         workspace.set("out", new Map());
         workspace.get("out").set("test", -1);
+        workspace.get("out").set("testA", -2);
+        workspace.get("out").set("testB", -3);
 
         workspace.set("local", new Map());
 
@@ -142,6 +144,64 @@ QUnit.module("compiler", function() {
         assert.ok(workspace.get("out").get("test") == 100);
     });
 
-    // TODO: distribute
+    QUnit.test("conditional without equal", function(assert) {
+        const workspace = buildWorkspace();
+        const code = [
+            "var a = 1;",
+            "var b = 2;",
+            "var c = 3 if a < b else 4;",
+            "var d = 5 if a > b else 6;",
+            "out.testA = c;"
+            "out.testB = d;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(workspace.get("out").get("testA") == 3);
+        assert.ok(workspace.get("out").get("testB") == 6);
+    });
+
+    QUnit.test("conditional with equal", function(assert) {
+        const workspace = buildWorkspace();
+        const code = [
+            "var a = 1;",
+            "var b = 1;",
+            "var c = 3 if a <= b else 4;",
+            "var d = 5 if a >= b else 6;",
+            "out.testA = c;"
+            "out.testB = d;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(workspace.get("out").get("testA") == 3);
+        assert.ok(workspace.get("out").get("testB") == 5);
+    });
+
+    QUnit.test("distribute proportionally", function(assert) {
+        const workspace = buildWorkspace();
+        const code = [
+            "var a = 1;",
+            "var b = 2;",
+            "var c = 6;",
+            "distribute c across [a, b] proportionally;",
+            "out.testA = b;"
+            "out.testB = c;"
+        ].join("\n");
+
+        const compileResult = compileProgram(code);
+        assert.ok(compileResult.getErrors().length == 0);
+
+        const program = compileResult.getProgram();
+        program(workspace);
+        assert.ok(workspace.get("out").get("testA") == 4);
+        assert.ok(workspace.get("out").get("testB") == 8);
+    });
 
 });
