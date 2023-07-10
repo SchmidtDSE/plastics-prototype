@@ -151,7 +151,7 @@ QUnit.module("compiler", function() {
             "var b = 2;",
             "var c = 3 if a < b else 4;",
             "var d = 5 if a > b else 6;",
-            "out.testA = c;"
+            "out.testA = c;",
             "out.testB = d;"
         ].join("\n");
 
@@ -171,7 +171,7 @@ QUnit.module("compiler", function() {
             "var b = 1;",
             "var c = 3 if a <= b else 4;",
             "var d = 5 if a >= b else 6;",
-            "out.testA = c;"
+            "out.testA = c;",
             "out.testB = d;"
         ].join("\n");
 
@@ -191,7 +191,7 @@ QUnit.module("compiler", function() {
             "var b = 2;",
             "var c = 6;",
             "distribute c across [a, b] proportionally;",
-            "out.testA = b;"
+            "out.testA = b;",
             "out.testB = c;"
         ].join("\n");
 
