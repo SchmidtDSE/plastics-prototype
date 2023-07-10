@@ -187,12 +187,12 @@ QUnit.module("compiler", function() {
     QUnit.test("distribute proportionally", function(assert) {
         const workspace = buildWorkspace();
         const code = [
-            "var a = 1;",
-            "var b = 2;",
+            "var a = 10;",
+            "var b = 20;",
             "var c = 6;",
             "distribute c across [a, b] proportionally;",
-            "out.testA = b;",
-            "out.testB = c;"
+            "out.testA = a;",
+            "out.testB = b;"
         ].join("\n");
 
         const compileResult = compileProgram(code);
@@ -200,8 +200,8 @@ QUnit.module("compiler", function() {
 
         const program = compileResult.getProgram();
         program(workspace);
-        assert.ok(workspace.get("out").get("testA") == 4);
-        assert.ok(workspace.get("out").get("testB") == 8);
+        assert.ok(workspace.get("out").get("testA") == 12);
+        assert.ok(workspace.get("out").get("testB") == 24);
     });
 
 });
