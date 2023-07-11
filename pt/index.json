@@ -11,6 +11,7 @@
                     "default": 0,
                     "step": 5,
                     "units": "%",
+                    "forcePlus": false,
                     "rampYears": 10,
                     "variable": "chinaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
@@ -26,6 +27,7 @@
                     "default": 0,
                     "step": 5,
                     "units": "%",
+                    "forcePlus": false,
                     "variable": "eu30MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "attrs": {
@@ -40,6 +42,7 @@
                     "default": 0,
                     "step": 5,
                     "units": "%",
+                    "forcePlus": false,
                     "variable": "naftaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "attrs": {
@@ -54,6 +57,7 @@
                     "default": 0,
                     "step": 5,
                     "units": "%",
+                    "forcePlus": false,
                     "variable": "rowMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "attrs": {
@@ -79,7 +83,7 @@
                     "attrs": {
                         "region": "china"
                     },
-                    "url": "alert('No wiki entry.')"
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 }
             ]
         }

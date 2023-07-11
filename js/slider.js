@@ -138,7 +138,8 @@ class SliderPresenter {
         const innerSlider = self._rootElement.querySelector(".slider");
         const value = parseFloat(innerSlider.value);
         const units = " " + self._config["units"];
-        const valueStr = value >= 0 ? ("+" + value + units) : (value + units);
+        const plus = self._config["forcePlus"] == false ? "" : "+";
+        const valueStr = value >= 0 ? (plus + value + units) : (value + units);
         self._rootElement.querySelector(".delta-display").innerHTML = valueStr;
     }
 
