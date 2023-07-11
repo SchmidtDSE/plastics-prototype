@@ -139,4 +139,4 @@ function main() {
 }
 
 
-export { main };
+export {main};

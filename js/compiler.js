@@ -1,4 +1,4 @@
-import { CompileVisitor, toolkit } from "visitors";
+import {CompileVisitor, toolkit} from "visitors";
 
 
 class CompileResult {
@@ -73,5 +73,5 @@ function buildCompiler() {
 }
 
 
-export { buildCompiler, Compiler };
+export {buildCompiler, Compiler};
 
