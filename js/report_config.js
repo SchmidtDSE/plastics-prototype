@@ -24,7 +24,7 @@ class ConfigPresenter {
         self._setupType();
     }
 
-    update(state, selection) {
+    update(stateSet, selection) {
         const self = this;
 
         self._stageSelect.value = selection.getDisplayStage();

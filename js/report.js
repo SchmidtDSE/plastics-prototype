@@ -32,6 +32,48 @@ class ReportSelection {
 }
 
 
+class VizStateSet {
+
+    constructor(businessAsUsualRaw, businessAsUsualTrasnformed,
+        withInterventionsRaw, withInterventionsTransformed, selectedYear) {
+
+        const self = this;
+        self._businessAsUsualRaw = businessAsUsualRaw;
+        self._businessAsUsualTransformed = businessAsUsualTrasnformed;
+        self._withInterventionsRaw = withInterventionsRaw;
+        self._withInterventionsTransformed = withInterventionsTransformed;
+        self._selectedYear = selectedYear;
+    }
+
+    getAllBusinessAsUsuals(useRaw) {
+        const self = this;
+        useRaw = useRaw === undefined ? false : useRaw;
+        return useRaw ? self._businessAsUsualRaw : self._businessAsUsualTransformed;
+    }
+
+    getBusinessAsUsual(useRaw, year) {
+        const self = this;
+        year = year === undefined ? self._selectedYear : year;
+        const target = self.getBusinessAsUsuals(useRaw);
+        return target.get(year);
+    }
+
+    getAllWithInterventions(useRaw) {
+        const self = this;
+        useRaw = useRaw === undefined ? false : useRaw;
+        return useRaw ? self._withInterventionsRaw : self._withInterventionsTransformed;
+    }
+
+    getWithIntervention(useRaw, year) {
+        const self = this;
+        year = year === undefined ? self._selectedYear : year;
+        const target = self.getAllWithInterventions(useRaw);
+        return target.get(year);
+    }
+
+}
+
+
 class ReportPresenter {
 
     constructor(onRequestRender) {
@@ -86,19 +128,32 @@ class ReportPresenter {
         );
     }
 
-    render(states) {
+    render(businessAsUsual, withInterventions) {
         const self = this;
 
-        const usingPercent = self._selection.getDisplayType() == DISPLAY_TYPES.percent;
+        const displayType = self._selection.getDisplayType();
+        const usingPercent = displayType == DISPLAY_TYPES.percent;
+        const getTransformed = (target) => {
+            if (usingPercent) {
+                return self._getPercents(target);
+            } else {
+                return target;
+            }
+        };
 
-        const targetStates = usingPercent ? self._getPercents(states) : states;
-        const targetState = targetStates.get(self._selection.getYear());
+        const resultSet = new VizStateSet(
+            businessAsUsual,
+            getTransformed(businessAsUsual),
+            withInterventions,
+            getTransformed(withInterventions),
+            self._selection.getYear()
+        );
 
-        self._bubblegraphPresenter.update(targetState, self._selection);
-        self._configPresenter.update(targetState, self._selection);
-        self._consumptionStagePresenter.update(targetState, self._selection);
-        self._eolStagePresenter.update(targetState, self._selection);
-        self._timeseriesPresenter.update(targetStates, self._selection);
+        self._bubblegraphPresenter.update(resultSet, self._selection);
+        self._configPresenter.update(resultSet, self._selection);
+        self._consumptionStagePresenter.update(resultSet, self._selection);
+        self._eolStagePresenter.update(resultSet, self._selection);
+        self._timeseriesPresenter.update(resultSet, self._selection);
     }
 
     _onStageChange(stage) {
