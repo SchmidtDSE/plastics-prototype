@@ -5,68 +5,81 @@
             "label": "Recycling",
             "levers": [
                 {
-                    "name": "China Reycling Investment",
+                    "name": "China Min Recycling Rate",
                     "min": 0,
-                    "max": 20,
+                    "max": 100,
                     "default": 0,
-                    "step": 0.1,
-                    "units": "Billion USD",
+                    "step": 5,
+                    "units": "%",
                     "rampYears": 10,
-                    "variable": "chinaRecyclingInvestment",
-                    "template": "recycling_investment.pt",
+                    "variable": "chinaMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
                     "attrs": {
-                        "purchasingPowerParity": "4.02",
                         "region": "china"
                     },
-                    "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
+                    "url": ""
                 },
                 {
-                    "name": "NAFTA Reycling Investment",
+                    "name": "EU 30 Min Recycling Rate",
                     "min": 0,
-                    "max": 20,
+                    "max": 100,
                     "default": 0,
-                    "step": 0.1,
-                    "units": "Billion USD",
-                    "rampYears": 10,
-                    "variable": "naftaRecyclingInvestment",
-                    "template": "recycling_investment.pt",
+                    "step": 5,
+                    "units": "%",
+                    "variable": "eu30MinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
                     "attrs": {
-                        "purchasingPowerParity": 1.2,
-                        "region": "nafta"
-                    },
-                    "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
-                },
-                {
-                    "name": "EU Reycling Investment",
-                    "min": 0,
-                    "max": 20,
-                    "default": 0,
-                    "step": 0.1,
-                    "units": "Billion USD",
-                    "rampYears": 10,
-                    "variable": "eu30RecyclingInvestment",
-                    "template": "recycling_investment.pt",
-                    "attrs": {
-                        "purchasingPowerParity": 0.7,
                         "region": "eu30"
                     },
-                    "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
+                    "url": ""
                 },
                 {
-                    "name": "ROW Reycling Investment",
+                    "name": "NAFTA Min Recycling Rate",
                     "min": 0,
-                    "max": 20,
+                    "max": 100,
                     "default": 0,
-                    "step": 0.1,
-                    "units": "Billion USD",
-                    "rampYears": 10,
-                    "variable": "rowRecyclingInvestment",
-                    "template": "recycling_investment.pt",
+                    "step": 5,
+                    "units": "%",
+                    "variable": "naftaMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
                     "attrs": {
-                        "purchasingPowerParity": 2.5,
+                        "region": "nafta"
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "ROW Min Recycling Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "rowMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "attrs": {
                         "region": "row"
                     },
-                    "url": "https://gist.github.com/sampottinger/a7135508b15ccfec5c0089e853110a7e"
+                    "url": ""
+                }
+            ]
+        },
+        {
+            "name": "assumptions",
+            "label": "Assumptions",
+            "levers": [
+                {
+                    "name": "Recycling Inductive Demand Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "recyclingInductiveDemandRate",
+                    "template": "noop.pt",
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": ""
                 }
             ]
         }

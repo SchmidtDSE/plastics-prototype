@@ -35,7 +35,7 @@ class Driver {
                 () => self._onInputChange(),
             ),
             buildSliders(
-                () => self._buildState(),
+                (year) => self._buildState(year),
                 (x) => self._compileProgram(x),
                 () => self._onInputChange(),
             ),
