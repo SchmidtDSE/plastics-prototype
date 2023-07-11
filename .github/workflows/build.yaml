@@ -20,6 +20,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node dev requirements
+        uses: npm install --dev
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Download artifact
