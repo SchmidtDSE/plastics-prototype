@@ -1,3 +1,6 @@
+import {CACHE_BUSTER} from "const";
+
+
 class SliderPresenter {
     constructor(buildState, compileProgram, config, rootElement, onChange) {
         const self = this;
@@ -61,8 +64,8 @@ class SliderPresenter {
         }
 
         const leverTemplateFuture = fetch("/template/variables.html?v=" + CACHE_BUSTER)
-            .then(x => x.text())
-            .then(x => Handlebars.compile(x))
+            .then((x) => x.text())
+            .then((x) => getHandlebars().compile(x))
             .then((template) => {
                 const inspectsHtml = template({"variables": inspects});
                 inspectsArea.innerHTML = inspectsHtml;
@@ -85,10 +88,10 @@ class SliderPresenter {
                     self._onInputChange();
                     timeoutId = null;
                 },
-                250
+                250,
             );
         });
-        
+
         innerSlider.addEventListener("input", () => {
             self._onInputChangeInProgress();
         });
@@ -101,8 +104,8 @@ class SliderPresenter {
         if (program === null) {
             return;
         }
-        
-        const state = buildState();
+
+        const state = self._buildState();
         try {
             program(state);
             self._showError(null);
@@ -115,9 +118,9 @@ class SliderPresenter {
         const self = this;
 
         const errorIndicator = self._rootElement.querySelector(
-            ".error-indicator"
+            ".error-indicator",
         );
-        const display = self._rootElement.querySelector('.status-display');
+        const display = self._rootElement.querySelector(".status-display");
 
         if (text === null) {
             errorIndicator.style.display = "none";
@@ -132,7 +135,7 @@ class SliderPresenter {
     _updateValueLabel() {
         const self = this;
 
-        const innerSlider = self._rootElement.querySelector('.slider');
+        const innerSlider = self._rootElement.querySelector(".slider");
         const value = parseFloat(innerSlider.value);
         const units = " " + self._config["units"];
         const valueStr = value >= 0 ? ("+" + value + units) : (value + units);
@@ -154,7 +157,7 @@ class SliderPresenter {
      * Enable and disable Ace editor commands.
      *
      * To better support accessibility, turn editor commands on and off like for
-     * tab support. Thanks stackoverflow.com/questions/24963246/ace-editor-simply-re-enable-command-after-disabled-it.
+     * tab support. Thanks stackoverflow.com/questions/24963246.
      *
      * @param editor The Ace editor to modify.
      * @param name The name of the command to modify.
@@ -163,19 +166,22 @@ class SliderPresenter {
     _setCommandEnabled(editor, name, enabled) {
         const self = this;
 
-        var command = editor.commands.byName[name]
-        if (!command.bindKeyOriginal)
-            command.bindKeyOriginal = command.bindKey
+        const command = editor.commands.byName[name];
+        if (!command.bindKeyOriginal) {
+            command.bindKeyOriginal = command.bindKey;
+        }
         command.bindKey = enabled ? command.bindKeyOriginal : null;
         editor.commands.addCommand(command);
         // special case for backspace and delete which will be called from
         // textarea if not handled by main commandb binding
         if (!enabled) {
-            var key = command.bindKeyOriginal;
-            if (key && typeof key == "object")
+            let key = command.bindKeyOriginal;
+            if (key && typeof key == "object") {
                 key = key[editor.commands.platform];
-            if (/backspace|delete/i.test(key))
-                editor.commands.bindKey(key, "null")
+            }
+            if (/backspace|delete/i.test(key)) {
+                editor.commands.bindKey(key, "null");
+            }
         }
     }
 
@@ -186,12 +192,12 @@ class SliderPresenter {
     _initEditor(editorId) {
         const self = this;
 
-        const editor = ace.edit(editorId);
+        const editor = self._getAce().edit(editorId);
         editor.getSession().setUseWorker(false);
 
         editor.session.setOptions({
             tabSize: 2,
-            useSoftTabs: true
+            useSoftTabs: true,
         });
 
         editor.setOption("printMarginColumn", 100);
@@ -204,14 +210,16 @@ class SliderPresenter {
             self._setCommandEnabled(editor, "outdent", target);
         };
 
-        editor.on("focus", () => { setTabsEnabled(true); });
+        editor.on("focus", () => {
+            setTabsEnabled(true);
+        });
 
         editor.commands.addCommand({
             name: "escape",
             bindKey: {win: "Esc", mac: "Esc"},
             exec: () => {
-              setTabsEnabled(false);
-            }
+                setTabsEnabled(false);
+            },
         });
 
         let timeoutId = null;
@@ -227,36 +235,48 @@ class SliderPresenter {
 
         return editor;
     }
+
+    _getAce() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return ace;
+    }
+}
+
+
+function getHandlebars() {
+    // eslint-disable-next-line no-undef
+    return Handlebars;
 }
 
 
 function buildSliders(buildState, compileProgram, onInputChange) {
     const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
-        .then(x => x.json());
+        .then((x) => x.json());
 
     const leverTemplateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
-        .then(x => x.text())
-        .then(x => Handlebars.compile(x));
+        .then((x) => x.text())
+        .then((x) => getHandlebars().compile(x));
 
     const sectionTemplateFuture = fetch("/template/section.html?v=" + CACHE_BUSTER)
-        .then(x => x.text())
-        .then(x => Handlebars.compile(x));
+        .then((x) => x.text())
+        .then((x) => getHandlebars().compile(x));
 
 
     const renderLever = (config, htmlTemplate) => {
         const templateUrl = "/pt/" + config["template"] + "?v=" + CACHE_BUSTER;
-        return fetch(templateUrl).then(x => x.text())
-            .then(x => Handlebars.compile(x))
+        return fetch(templateUrl).then((x) => x.text())
+            .then((x) => getHandlebars().compile(x))
             .then((codeTemplate) => codeTemplate(config["attrs"]))
             .then((code) => {
                 config["code"] = code;
-                return htmlTemplate(config)
+                return htmlTemplate(config);
             });
     };
 
     const renderSection = (config, leverTemplate, sectionTemplate) => {
         const htmlFutures = config["levers"].map(
-            (leverConfig) => renderLever(leverConfig, leverTemplate)
+            (leverConfig) => renderLever(leverConfig, leverTemplate),
         );
         return Promise.all(htmlFutures).then((htmls) => {
             const innerHtml = htmls.join("\n");
@@ -292,14 +312,14 @@ function buildSliders(buildState, compileProgram, onInputChange) {
                 const presenters = levers.map((config) => {
                     const variable = config["variable"];
                     const element = document.getElementById(
-                        "slider-holder-" + variable
+                        "slider-holder-" + variable,
                     );
                     return new SliderPresenter(
                         buildState,
                         compileProgram,
                         config,
                         element,
-                        onInputChange
+                        onInputChange,
                     );
                 });
 
@@ -308,10 +328,13 @@ function buildSliders(buildState, compileProgram, onInputChange) {
                     compileProgram,
                     {"units": "units", "variable": "prototype"},
                     document.getElementById("slider-holder-prototype"),
-                    onInputChange
+                    onInputChange,
                 ));
 
                 resolve(presenters);
             });
     });
 }
+
+
+export {buildSliders};

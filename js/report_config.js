@@ -1,5 +1,8 @@
-class ConfigPresenter {
+import {ALL_REGIONS, DISPLAY_STAGES, DISPLAY_TYPES, HISTORY_START_YEAR, MAX_YEAR} from "const";
+import {STRINGS} from "strings";
 
+
+class ConfigPresenter {
     constructor(targetDiv, onStageChange, onRegionChange, onYearChange,
         onTypeChange) {
         const self = this;
@@ -16,7 +19,7 @@ class ConfigPresenter {
         self._yearSelect = self._targetDiv.querySelector(".year-select");
         self._typeSelect = self._targetDiv.querySelector(".type-select");
 
-        self._d3Selection = d3.select("#" + self._targetDiv.id);
+        self._d3Selection = self._getD3().select("#" + self._targetDiv.id);
 
         self._setupStage();
         self._setupRegion();
@@ -50,7 +53,7 @@ class ConfigPresenter {
             self._onStageChange(parseInt(self._stageSelect.value));
         });
     }
-    
+
     _setupRegion() {
         const self = this;
 
@@ -68,7 +71,7 @@ class ConfigPresenter {
             self._onRegionChange(self._regionSelect.value);
         });
     }
-    
+
     _setupYear() {
         const self = this;
 
@@ -91,7 +94,7 @@ class ConfigPresenter {
             self._onYearChange(parseInt(self._yearSelect.value));
         });
     }
-    
+
     _setupType() {
         const self = this;
 
@@ -110,4 +113,12 @@ class ConfigPresenter {
         });
     }
 
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
+    }
 }
+
+
+export {ConfigPresenter};

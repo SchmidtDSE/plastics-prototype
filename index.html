@@ -89,20 +89,30 @@
         <script src="third_party/handlebars.min.js"></script>
         <script src="third_party/papaparse.min.js"></script>
 
-        <script src="js/plastics_lang.js?v=EPOCH"></script>
+        <script src="./js/plastics_lang.js?v=EPOCH"></script>
 
-        <script src="js/compiler.js?v=EPOCH"></script>
-        <script src="js/const.js?v=EPOCH"></script>
-        <script src="js/data.js?v=EPOCH"></script>
-        <script src="js/report.js?v=EPOCH"></script>
-        <script src="js/report_bubble.js?v=EPOCH"></script>
-        <script src="js/report_config.js?v=EPOCH"></script>
-        <script src="js/report_stage.js?v=EPOCH"></script>
-        <script src="js/report_timeseries.js?v=EPOCH"></script>
-        <script src="js/slider.js?v=EPOCH"></script>
-        <script src="js/strings.js?v=EPOCH"></script>
-        <script src="js/visitors.js?v=EPOCH"></script>
+        <script type="importmap">
+            {
+                "imports": {
+                    "compiler": "./js/compiler.js?v=EPOCH",
+                    "const": "./js/const.js?v=EPOCH",
+                    "data": "./js/data.js?v=EPOCH",
+                    "report": "./js/report.js?v=EPOCH",
+                    "report_bubble": "./js/report_bubble.js?v=EPOCH",
+                    "report_config": "./js/report_config.js?v=EPOCH",
+                    "report_stage": "./js/report_stage.js?v=EPOCH",
+                    "report_timeseries": "./js/report_timeseries.js?v=EPOCH",
+                    "slider": "./js/slider.js?v=EPOCH",
+                    "strings": "./js/strings.js?v=EPOCH",
+                    "visitors": "./js/visitors.js?v=EPOCH",
+                    "driver": "./js/driver.js?v=EPOCH"
+                }
+            }
+        </script>
 
-        <script src="js/driver.js?v=EPOCH"></script>
+        <script type="module">
+            import { main } from "driver";
+            main();
+        </script>
     </body>
 </html>

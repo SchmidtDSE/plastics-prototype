@@ -1,17 +1,28 @@
-class BubblegraphPresenter {
+import {
+    ALL_REGIONS,
+    COLORS,
+    CONSUMPTION_ATTRS,
+    DISPLAY_STAGES,
+    EOL_ATTRS,
+    TEXT_COLORS,
+} from "const";
 
+import {STRINGS} from "strings";
+
+
+class BubblegraphPresenter {
     constructor(targetDiv, onRegionChange, requestRender) {
         const self = this;
 
         self._onRegionChange = onRegionChange;
         self._requestRender = requestRender;
-        
+
         self._targetDiv = targetDiv;
         self._targetSvg = self._targetDiv.querySelector(".bubblegraph");
         self._targetSvgId = self._targetSvg.id;
 
         // Setup svg
-        self._d3Selection = d3.select("#" + self._targetSvgId);
+        self._d3Selection = self._getD3().select("#" + self._targetSvgId);
         self._d3Selection.html("");
         self._d3Selection.append("g").classed("line-layer", true);
         self._d3Selection.append("g").classed("bubble-layer", true);
@@ -36,31 +47,31 @@ class BubblegraphPresenter {
         self._attrNames.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
 
         // Horizontal scales
-        self._horizontalScale = d3.scaleBand()
+        self._horizontalScale = self._getD3().scaleBand()
             .domain(["header"].concat(ALL_REGIONS))
             .range([0, self._svgWidth]);
 
         // Vertical scales
-        const verticalScaleEol = d3.scaleBand()
+        const verticalScaleEol = self._getD3().scaleBand()
             .domain(EOL_ATTRS)
             .range([30, self._svgHeight]);
 
-        const verticalScaleConsumption = d3.scaleBand()
+        const verticalScaleConsumption = self._getD3().scaleBand()
             .domain(CONSUMPTION_ATTRS)
             .range([30, self._svgHeight]);
-        
+
         self._verticalScales = new Map();
         self._verticalScales.set(DISPLAY_STAGES.eol, verticalScaleEol);
         self._verticalScales.set(DISPLAY_STAGES.consumption, verticalScaleConsumption);
 
         // Vertical scales on index
         const eolIndicies = EOL_ATTRS.map((x, i) => i);
-        const verticalIndexScaleEol = d3.scaleBand()
+        const verticalIndexScaleEol = self._getD3().scaleBand()
             .domain(eolIndicies)
             .range([30, self._svgHeight]);
 
         const consumptionIndicies = CONSUMPTION_ATTRS.map((x, i) => i);
-        const verticalIndexScaleConsumption = d3.scaleBand()
+        const verticalIndexScaleConsumption = self._getD3().scaleBand()
             .domain(consumptionIndicies)
             .range([30, self._svgHeight]);
 
@@ -122,7 +133,7 @@ class BubblegraphPresenter {
                 bubbleInfo.push({
                     "region": region,
                     "attr": attr,
-                    "value": outputData.get(region).get(attr)
+                    "value": outputData.get(region).get(attr),
                 });
             });
         });
@@ -131,7 +142,7 @@ class BubblegraphPresenter {
             .map((x) => x["value"])
             .reduce((a, b) => a > b ? a : b);
 
-        const bubbleAreaScale = d3.scaleLinear()
+        const bubbleAreaScale = self._getD3().scaleLinear()
             .domain([0, maxValue])
             .range([0, 800]);
 
@@ -161,7 +172,7 @@ class BubblegraphPresenter {
                 stageString,
                 "by Country in",
                 selection.getYear() + " as",
-                typeString
+                typeString,
             ].join(" ");
 
             titleElement.textContent = text;
@@ -178,7 +189,7 @@ class BubblegraphPresenter {
                 .classed("metric-intro", true)
                 .attr("transform", (datum) => {
                     const x = self._horizontalScale("header") + self._horizontalScale.step();
-                    const y = verticalScale(datum) + verticalScale.step() / 2
+                    const y = verticalScale(datum) + verticalScale.step() / 2;
                     return "translate(" + x + " " + y + ")";
                 });
 
@@ -246,17 +257,17 @@ class BubblegraphPresenter {
                 const region = point["region"];
                 const isHeader = region === "header";
                 const effectiveOffset = isHeader ? horizOffsetFull : horizOffset;
-                return self._horizontalScale(region) + effectiveOffset
+                return self._horizontalScale(region) + effectiveOffset;
             };
 
-            const lineGenerator = d3.line()
+            const lineGenerator = self._getD3().line()
                 .x(getX)
                 .y((point) => {
                     const attr = point["attr"];
                     return verticalScale(attr) + vertOffset;
                 });
 
-            const lineGeneratorUpdate = d3.line()
+            const lineGeneratorUpdate = self._getD3().line()
                 .x(getX)
                 .y((point) => {
                     const region = point["region"];
@@ -272,7 +283,9 @@ class BubblegraphPresenter {
             const buildDGetter = (generator) => {
                 return (attr) => {
                     const points = ["header"].concat(ALL_REGIONS).map(
-                        (region) => { return {"region": region, "attr": attr}; }
+                        (region) => {
+                            return {"region": region, "attr": attr};
+                        },
                     );
                     return generator(points);
                 };
@@ -382,4 +395,12 @@ class BubblegraphPresenter {
         updateBubbles();
     }
 
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
+    }
 }
+
+
+export {BubblegraphPresenter};
