@@ -1,5 +1,18 @@
-class ReportSelection {
+import {
+    DEFAULT_YEAR,
+    DEFAULT_REGION,
+    DISPLAY_TYPES,
+    DISPLAY_STAGES,
+    CONSUMPTION_ATTRS,
+    EOL_ATTRS,
+} from "const";
+import {BubblegraphPresenter} from "report_bubble";
+import {ConfigPresenter} from "report_config";
+import {StagePresenter} from "report_stage";
+import {TimeseriesPresenter} from "report_timeseries";
 
+
+class ReportSelection {
     constructor(year, region, displayType, displayStage) {
         const self = this;
 
@@ -8,35 +21,32 @@ class ReportSelection {
         self._displayType = displayType;
         self._displayStage = displayStage;
     }
-    
+
     getYear() {
         const self = this;
         return self._year;
     }
-    
+
     getRegion() {
         const self = this;
         return self._region;
     }
-    
+
     getDisplayType() {
         const self = this;
         return self._displayType;
     }
-    
+
     getDisplayStage() {
         const self = this;
         return self._displayStage;
     }
-
 }
 
 
 class VizStateSet {
-
     constructor(businessAsUsualRaw, businessAsUsualTrasnformed,
         withInterventionsRaw, withInterventionsTransformed, selectedYear) {
-
         const self = this;
         self._businessAsUsualRaw = businessAsUsualRaw;
         self._businessAsUsualTransformed = businessAsUsualTrasnformed;
@@ -70,12 +80,10 @@ class VizStateSet {
         const target = self.getAllWithInterventions(useRaw);
         return target.get(year);
     }
-
 }
 
 
 class ReportPresenter {
-
     constructor(onRequestRender) {
         const self = this;
 
@@ -85,14 +93,14 @@ class ReportPresenter {
             DEFAULT_YEAR,
             DEFAULT_REGION,
             DISPLAY_TYPES.amount,
-            DISPLAY_STAGES.eol
+            DISPLAY_STAGES.eol,
         );
 
         const bubblegraphDiv = document.getElementById("bubblegraph-container");
         self._bubblegraphPresenter = new BubblegraphPresenter(
             bubblegraphDiv,
             (region) => self._onRegionChange(region),
-            () => self._onRequestRender()
+            () => self._onRequestRender(),
         );
 
         const configDiv = document.getElementById("config-container");
@@ -101,7 +109,7 @@ class ReportPresenter {
             (stage) => self._onStageChange(stage),
             (region) => self._onRegionChange(region),
             (year) => self._onYearChange(year),
-            (type) => self._onTypeChange(type)
+            (type) => self._onTypeChange(type),
         );
 
         const consumptionStageDiv = document.getElementById("consumption-container");
@@ -109,7 +117,7 @@ class ReportPresenter {
             consumptionStageDiv,
             DISPLAY_STAGES.consumption,
             (stage) => self._onStageChange(stage),
-            () => self._onRequestRender()
+            () => self._onRequestRender(),
         );
 
         const eolStageDiv = document.getElementById("eol-container");
@@ -117,14 +125,14 @@ class ReportPresenter {
             eolStageDiv,
             DISPLAY_STAGES.eol,
             (stage) => self._onStageChange(stage),
-            () => self._onRequestRender()
+            () => self._onRequestRender(),
         );
 
         const timeseriesDiv = document.getElementById("timeseries-container");
         self._timeseriesPresenter = new TimeseriesPresenter(
             timeseriesDiv,
             (year) => self._onYearChange(year),
-            () => self._onRequestRender()
+            () => self._onRequestRender(),
         );
     }
 
@@ -146,7 +154,7 @@ class ReportPresenter {
             getTransformed(businessAsUsual),
             withInterventions,
             getTransformed(withInterventions),
-            self._selection.getYear()
+            self._selection.getYear(),
         );
 
         self._bubblegraphPresenter.update(resultSet, self._selection);
@@ -163,7 +171,7 @@ class ReportPresenter {
             self._selection.getYear(),
             self._selection.getRegion(),
             self._selection.getDisplayType(),
-            stage
+            stage,
         );
 
         self._onRequestRender();
@@ -176,7 +184,7 @@ class ReportPresenter {
             self._selection.getYear(),
             region,
             self._selection.getDisplayType(),
-            self._selection.getDisplayStage()
+            self._selection.getDisplayStage(),
         );
 
         self._onRequestRender();
@@ -189,7 +197,7 @@ class ReportPresenter {
             year,
             self._selection.getRegion(),
             self._selection.getDisplayType(),
-            self._selection.getDisplayStage()
+            self._selection.getDisplayStage(),
         );
 
         self._onRequestRender();
@@ -202,7 +210,7 @@ class ReportPresenter {
             self._selection.getYear(),
             self._selection.getRegion(),
             type,
-            self._selection.getDisplayStage()
+            self._selection.getDisplayStage(),
         );
 
         self._onRequestRender();
@@ -241,12 +249,14 @@ class ReportPresenter {
         newState.set("out", newOut);
         return newState;
     }
-
 }
 
 
 function buildReportPresenter(onRequestRender) {
     return new Promise((resolve) => resolve(
-        new ReportPresenter(onRequestRender)
+        new ReportPresenter(onRequestRender),
     ));
 }
+
+
+export {buildReportPresenter};

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const toolkit = PlasticsLang.getToolkit();
 
 
@@ -9,7 +10,6 @@ const toolkit = PlasticsLang.getToolkit();
  * program frame render.
  */
 class CompileVisitor extends toolkit.PlasticsLangVisitor {
-
     /**
      * Visit a number node with interpretation of number modifiers.
      *
@@ -192,7 +192,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             return opFunc(priorExpression(state), afterExpression(state));
         };
     }
-    
+
     visitConditional(ctx) {
         const self = this;
 
@@ -208,7 +208,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             }
         };
     }
-    
+
     visitCallCap(ctx, opFunc) {
         const self = this;
 
@@ -218,7 +218,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return (state) => {
             const val = opFunc(
                 self._getValue(identifier, state),
-                limitExpression(state)
+                limitExpression(state),
             );
             self._setValue(identifier, val, state);
         };
@@ -246,7 +246,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 const operand = self._getValue(identifier, state);
                 const lower = lowerExpression(state);
                 const upper = upperExpression(state);
-                
+
                 if (operand > upper) {
                     return upper;
                 } else if (operand < lower) {
@@ -255,7 +255,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                     return operand;
                 }
             };
-            
+
             const newValue = getBoundValue();
             self._setValue(identifier, newValue, state);
         };
@@ -296,7 +296,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             };
 
             const getChange = isLinear ? getChangeLinear : getChangeProportional;
-            
+
             identifiers.forEach((identifier) => {
                 const beforeValue = self._getValue(identifier, state);
                 const change = getChange(beforeValue);
@@ -347,7 +347,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const change = slope * (effectiveCurrentYear - startYearRealized);
             const oldValue = self._getValue(subject, state);
             const newValue = oldValue + change;
-            
+
             self._setValue(subject, newValue, state);
         };
     }
@@ -368,10 +368,10 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     _setValue(name, result, state) {
         const self = this;
 
-        
+
         const resolved = name.indexOf(".") == -1 ? "local." + name : name;
         const pieces = resolved.split(".");
-        
+
         let container = state;
         pieces.slice(0, -1).forEach((piece) => {
             if (!container.has(piece)) {
@@ -379,7 +379,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             }
             container = container.get(piece);
         });
-        
+
         const finalPiece = pieces[pieces.length - 1];
         if (!container.has(finalPiece)) {
             throw "Could not find " + finalPiece + " (" + name + ")";
@@ -387,5 +387,6 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
         container.set(finalPiece, result);
     }
-
 }
+
+export {toolkit, CompileVisitor};

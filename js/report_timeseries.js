@@ -1,5 +1,17 @@
-class TimeseriesPresenter {
+import {
+    COLORS,
+    CONSUMPTION_ATTRS,
+    DISPLAY_STAGES,
+    DISPLAY_TYPES,
+    EOL_ATTRS,
+    HISTORY_START_YEAR,
+    MAX_YEAR,
+    START_YEAR,
+} from "const";
+import {STRINGS} from "strings";
 
+
+class TimeseriesPresenter {
     constructor(targetDiv, onYearChange, requestRender) {
         const self = this;
 
@@ -8,7 +20,7 @@ class TimeseriesPresenter {
         self._requestRender = requestRender;
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
-        self._d3Selection = d3.select("#" + self._targetSvg.id);
+        self._d3Selection = self._getD3().select("#" + self._targetSvg.id);
         self._d3Selection.html("");
         self._d3Selection.append("g").attr("id", "axis-layer");
         self._d3Selection.append("g").attr("id", "indicator-layer");
@@ -73,10 +85,10 @@ class TimeseriesPresenter {
             return total;
         });
         const maxSumValueNative = Math.round(
-            yearValues.reduce((a, b) => a > b ? a : b)
+            yearValues.reduce((a, b) => a > b ? a : b),
         );
         const maxSumValue = Math.ceil(maxSumValueNative / verticalStep) * verticalStep;
-        const verticalScale = d3.scaleLinear()
+        const verticalScale = self._getD3().scaleLinear()
             .domain([0, maxSumValue])
             .range([height - 30, 30]);
 
@@ -87,7 +99,7 @@ class TimeseriesPresenter {
         for (let year = minYear; year <= MAX_YEAR; year++) {
             years.push(year);
         }
-        const horizontalScale = d3.scaleBand()
+        const horizontalScale = self._getD3().scaleBand()
             .domain(years)
             .range([55, width - 15])
             .paddingInner(0.1);
@@ -100,7 +112,7 @@ class TimeseriesPresenter {
                 "Annual",
                 STRINGS.get(selection.getDisplayStage()),
                 "in",
-                STRINGS.get(selection.getDisplayType())
+                STRINGS.get(selection.getDisplayType()),
             ].join(" ");
             title.innerHTML = text;
         };
@@ -149,7 +161,7 @@ class TimeseriesPresenter {
             const boundUpdated = axisLayer.selectAll(".year-tick");
 
             boundUpdated.attr("x", (x) => horizontalScale(x) + horizontalScale.step() / 2);
-        }
+        };
 
         const updateYearIndicator = () => {
             if (indicatorLayer.select(".year-indicator").empty()) {
@@ -174,12 +186,12 @@ class TimeseriesPresenter {
             const yearIndicator = indicatorLayer.select(".year-indicator");
             yearIndicator.transition().attr(
                 "transform",
-                "translate(" + newX + " 0)"
+                "translate(" + newX + " 0)",
             );
 
             yearIndicator.select(".year-indicator-label")
                 .html(selectedYear);
-        }
+        };
 
         const buildDataForYear = (year) => {
             let lastValue = 0;
@@ -193,7 +205,7 @@ class TimeseriesPresenter {
                     "attr": attr,
                     "year": year,
                     "start": lastValue,
-                    "end": nextEnd
+                    "end": nextEnd,
                 };
                 lastValue = nextEnd;
                 return datum;
@@ -258,4 +270,11 @@ class TimeseriesPresenter {
         updateListeners();
     }
 
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
+    }
 }
+
+export {TimeseriesPresenter};

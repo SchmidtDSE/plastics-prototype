@@ -13,10 +13,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: actions/setup-java@v2
+      - name: Install Node
+        uses: actions/setup-node@v3
+      - name: Install Java
+        uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node dev requirements
+        run: npm install --dev
+      - name: Run lint
+        run: npx eslint ./js/*.js
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
@@ -46,7 +53,7 @@ jobs:
         run: |
           chmod +x "./sh/install_browser.sh"
           "./sh/install_browser.sh"
-      - name: Compile with Grunt
+      - name: Run unit tests
         run: grunt
   deploy:
     name: Deploy

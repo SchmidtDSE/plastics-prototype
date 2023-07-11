@@ -1,5 +1,11 @@
-class Driver {
+import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {buildCompiler} from "compiler";
+import {buildDataLayer} from "data";
+import {buildReportPresenter} from "report";
+import {buildSliders} from "slider";
 
+
+class Driver {
     constructor() {
         const self = this;
 
@@ -26,13 +32,13 @@ class Driver {
             buildCompiler(),
             buildDataLayer(() => self._getLevers()),
             buildReportPresenter(
-                () => self._onInputChange()
+                () => self._onInputChange(),
             ),
             buildSliders(
                 () => self._buildState(),
                 (x) => self._compileProgram(x),
-                () => self._onInputChange()
-            )
+                () => self._onInputChange(),
+            ),
         ];
 
         Promise.all(promises).then((values) => {
@@ -77,11 +83,11 @@ class Driver {
                 .map((lever) => {
                     return {
                         "lever": lever,
-                        "program": lever.getProgram()
+                        "program": lever.getProgram(),
                     };
                 })
                 .filter((leverInfo) => leverInfo["program"] !== null);
-        }
+        };
 
         const programs = runPrograms ? getPrograms() : [];
 
@@ -96,7 +102,7 @@ class Driver {
             programs.forEach((programInfo) => {
                 const program = programInfo["program"];
                 const lever = programInfo["lever"];
-                
+
                 state.set("local", new Map());
                 state.set("inspect", []);
                 program(state);
@@ -124,7 +130,6 @@ class Driver {
         const self = this;
         self._reportPresenter.render(businessAsUsual, withInterventions);
     }
-
 }
 
 
@@ -134,4 +139,4 @@ function main() {
 }
 
 
-main();
+export {main};

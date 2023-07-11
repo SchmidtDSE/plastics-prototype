@@ -1,5 +1,7 @@
-class DataLayer {
+import {CACHE_BUSTER} from "const";
 
+
+class DataLayer {
     constructor(baseline, getLevers) {
         const self = this;
 
@@ -8,7 +10,7 @@ class DataLayer {
         self._baselineByYear = new Map();
         baseline.forEach((record) => {
             const year = record["year"];
-            
+
             if (!self._baselineByYear.has(year)) {
                 self._baselineByYear.set(year, []);
             }
@@ -32,8 +34,8 @@ class DataLayer {
             }
 
             const regionData = outputs.get(region);
-            for (let key in datum) {
-                if (datum.hasOwnProperty(key)) {
+            for (const key in datum) {
+                if (datum[key] !== undefined) {
                     regionData.set(key, datum[key]);
                 }
             }
@@ -55,13 +57,17 @@ class DataLayer {
 
 function buildDataLayer(getLevers) {
     const dataFuture = new Promise((resolve) => {
+        // eslint-disable-next-line no-undef
         Papa.parse("/data/web.csv?v=" + CACHE_BUSTER, {
             download: true,
             header: true,
             complete: (results) => resolve(results["data"]),
-            dynamicTyping: true
+            dynamicTyping: true,
         });
     });
 
     return dataFuture.then((baseline) => new DataLayer(baseline, getLevers));
 }
+
+
+export {buildDataLayer};

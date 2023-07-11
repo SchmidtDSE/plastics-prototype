@@ -1,3 +1,6 @@
+import {DISPLAY_TYPES, DISPLAY_STAGES} from "const";
+
+
 const STRINGS = new Map();
 
 STRINGS.set("china", "China");
@@ -23,3 +26,5 @@ STRINGS.set(DISPLAY_TYPES.amount, "Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "End of Life");
+
+export {STRINGS};

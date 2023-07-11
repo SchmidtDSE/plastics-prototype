@@ -2,7 +2,7 @@ const ALL_REGIONS = [
     "china",
     "eu30",
     "nafta",
-    "row"
+    "row",
 ];
 
 const INPUT_ATTRS = [
@@ -12,7 +12,7 @@ const INPUT_ATTRS = [
     "inputImportArticlesMT",
     "inputImportGoodsMT",
     "inputImportFiberMT",
-    "inputAdditivesMT"
+    "inputAdditivesMT",
 ];
 
 const CONSUMPTION_ATTRS = [
@@ -23,14 +23,14 @@ const CONSUMPTION_ATTRS = [
     "consumptionPackagingMT",
     "consumptionTransporationMT",
     "consumptionTextitleMT",
-    "consumptionOtherMT"
+    "consumptionOtherMT",
 ];
 
 const EOL_ATTRS = [
     "eolRecyclingMT",
     "eolLandfillMT",
     "eolIncinerationMT",
-    "eolMismanagedMT"
+    "eolMismanagedMT",
 ];
 
 const COLORS = [
@@ -41,7 +41,7 @@ const COLORS = [
     "#fb9a99",
     "#e31a1c",
     "#fdbf6f",
-    "#ff7f00"
+    "#ff7f00",
 ];
 
 const TEXT_COLORS = [
@@ -52,7 +52,7 @@ const TEXT_COLORS = [
     "#333333",
     "#F0F0F0",
     "#333333",
-    "#F0F0F0"
+    "#F0F0F0",
 ];
 
 const ALL_ATTRS = INPUT_ATTRS.concat(CONSUMPTION_ATTRS, EOL_ATTRS);
@@ -67,3 +67,21 @@ const CACHE_BUSTER = Date.now();
 
 const DISPLAY_TYPES = {amount: 1, percent: 2};
 const DISPLAY_STAGES = {consumption: 3, eol: 4};
+
+export {
+    ALL_REGIONS,
+    INPUT_ATTRS,
+    CONSUMPTION_ATTRS,
+    EOL_ATTRS,
+    COLORS,
+    TEXT_COLORS,
+    ALL_ATTRS,
+    DEFAULT_YEAR,
+    DEFAULT_REGION,
+    HISTORY_START_YEAR,
+    START_YEAR,
+    MAX_YEAR,
+    CACHE_BUSTER,
+    DISPLAY_TYPES,
+    DISPLAY_STAGES,
+};

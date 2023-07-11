@@ -1,5 +1,8 @@
-class StagePresenter {
+import {COLORS, CONSUMPTION_ATTRS, DISPLAY_STAGES, DISPLAY_TYPES, EOL_ATTRS} from "const";
+import {STRINGS} from "strings";
 
+
+class StagePresenter {
     constructor(targetDiv, stage, onStageChange, requestRender) {
         const self = this;
 
@@ -8,7 +11,7 @@ class StagePresenter {
         self._onStageChange = onStageChange;
         self._requestRender = requestRender;
 
-        self._d3Selection = d3.select("#" + targetDiv.id);
+        self._d3Selection = self._getD3().select("#" + targetDiv.id);
 
         // Setup radio
         const radio = self._targetDiv.querySelector(".stage-radio");
@@ -35,7 +38,7 @@ class StagePresenter {
                 colorScalesConsumption.set(attr, color);
             });
             return colorScalesConsumption;
-        }
+        };
 
         self._colorScale = isEol ? makeColorsEol() : makeColorsConsumption();
     }
@@ -46,7 +49,7 @@ class StagePresenter {
         const selected = selection.getDisplayStage() == self._stage;
         const isEol = self._stage == DISPLAY_STAGES.eol;
         const attrs = isEol ? EOL_ATTRS : CONSUMPTION_ATTRS;
-        
+
         const unitsStrRaw = STRINGS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const unitsStr = (isPercent ? "" : " ") + unitsStrRaw;
@@ -58,7 +61,7 @@ class StagePresenter {
             .map((attr) => regionData.get(attr))
             .reduce((a, b) => a > b ? a : b);
 
-        const widthScale = d3.scaleLinear()
+        const widthScale = self._getD3().scaleLinear()
             .domain([0, maxValue])
             .range([1, self._targetDiv.getBoundingClientRect().width - 5]);
 
@@ -70,11 +73,11 @@ class StagePresenter {
         const updateTitle = () => {
             const title = self._targetDiv.querySelector(".description");
             const subtitle = self._targetDiv.querySelector(".subtitle");
-            
+
             const titleText = STRINGS.get(self._stage);
             const subtitleText = [
                 selection.getYear() + "",
-                STRINGS.get(selection.getRegion())
+                STRINGS.get(selection.getRegion()),
             ].join(" ");
 
             title.innerHTML = titleText;
@@ -122,7 +125,7 @@ class StagePresenter {
                 .style("width", (attr) => {
                     const value = regionData.get(attr);
                     const width = widthScale(value);
-                    return width + "px"
+                    return width + "px";
                 })
                 .style("background-color", (attr) => {
                     if (selected) {
@@ -138,4 +141,12 @@ class StagePresenter {
         updateBars();
     }
 
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
+    }
 }
+
+
+export {StagePresenter};
