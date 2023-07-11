@@ -20,6 +20,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Run lint
+        run: npx eslint ./js/*.js
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
@@ -49,7 +51,7 @@ jobs:
         run: |
           chmod +x "./sh/install_browser.sh"
           "./sh/install_browser.sh"
-      - name: Run unittests
+      - name: Run unit tests
         run: grunt
   deploy:
     name: Deploy
