@@ -1,0 +1,50 @@
+var targetRate = in.{{ region }}MinimumRecyclingRate / 100;
+var inductiveDemandRate = in.recyclingInductiveDemandRate / 100;
+limit targetRate to [0, 1];
+
+# Get the total waste
+var totalWaste = (
+  out.{{ region }}.eolRecyclingMT +
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT
+);
+
+# Get the delta needed to achieve the goal
+var targetMT = totalWaste * targetRate;
+var shortageMT = targetMT - out.{{ region }}.eolRecyclingMT;
+limit shortageMT to [0,];
+
+# Apply the change to recycling
+change out.{{ region }}.eolRecyclingMT by shortageMT over 2025 to 2050;
+
+# Offset the change in the other EOL types
+var offsetMT = -1 * shortageMT;
+distribute offsetMT across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Inductive demand
+var newInductivePlasticsMT = inductiveDemandRate * shortageMT;
+
+# Bump consumption by inductive demand
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Bump EOL by inductive demand
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;

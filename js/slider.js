@@ -1,4 +1,4 @@
-import {CACHE_BUSTER} from "const";
+import {CACHE_BUSTER, MAX_YEAR} from "const";
 
 
 class SliderPresenter {
@@ -105,7 +105,7 @@ class SliderPresenter {
             return;
         }
 
-        const state = self._buildState();
+        const state = self._buildState(MAX_YEAR);
         try {
             program(state);
             self._showError(null);
