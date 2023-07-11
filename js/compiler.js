@@ -73,5 +73,5 @@ function buildCompiler() {
 }
 
 
-export {buildCompiler};
+export { buildCompiler, Compiler };
 
