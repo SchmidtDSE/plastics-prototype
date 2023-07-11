@@ -103,7 +103,7 @@ class BubblegraphPresenter {
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
     }
 
-    update(state, selection) {
+    update(stateSet, selection) {
         const self = this;
 
         const displayStage = selection.getDisplayStage();
@@ -113,6 +113,7 @@ class BubblegraphPresenter {
         const verticalScale = self._verticalScales.get(displayStage);
         const verticalIndexScale = self._verticalIndexScales.get(displayStage);
 
+        const state = stateSet.getWithIntervention();
         const outputData = state.get("out");
 
         const bubbleInfo = [];

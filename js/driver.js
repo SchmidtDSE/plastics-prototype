@@ -67,19 +67,23 @@ class Driver {
         return self._compiler.compile(code);
     }
 
-    _onInputChange() {
+    _getStates(runPrograms) {
         const self = this;
 
         const states = new Map();
 
-        const programs = self._getLevers()
-            .map((lever) => {
-                return {
-                    "lever": lever,
-                    "program": lever.getProgram()
-                };
-            })
-            .filter((leverInfo) => leverInfo["program"] !== null);
+        const getPrograms = () => {
+            return self._getLevers()
+                .map((lever) => {
+                    return {
+                        "lever": lever,
+                        "program": lever.getProgram()
+                    };
+                })
+                .filter((leverInfo) => leverInfo["program"] !== null);
+        }
+
+        const programs = runPrograms ? getPrograms() : [];
 
         self._historicYears.forEach((year) => {
             const state = self._buildState(year);
@@ -104,12 +108,21 @@ class Driver {
             states.set(year, state);
         });
 
-        self._updateOutputs(states);
+        return states;
     }
 
-    _updateOutputs(states) {
+    _onInputChange() {
         const self = this;
-        self._reportPresenter.render(states);
+
+        const businessAsUsual = self._getStates(false);
+        const withInterventions = self._getStates(true);
+
+        self._updateOutputs(businessAsUsual, withInterventions);
+    }
+
+    _updateOutputs(businessAsUsual, withInterventions) {
+        const self = this;
+        self._reportPresenter.render(businessAsUsual, withInterventions);
     }
 
 }

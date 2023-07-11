@@ -40,7 +40,7 @@ class StagePresenter {
         self._colorScale = isEol ? makeColorsEol() : makeColorsConsumption();
     }
 
-    update(state, selection) {
+    update(stateSet, selection) {
         const self = this;
 
         const selected = selection.getDisplayStage() == self._stage;
@@ -51,6 +51,7 @@ class StagePresenter {
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const unitsStr = (isPercent ? "" : " ") + unitsStrRaw;
 
+        const state = stateSet.getWithIntervention();
         const regionData = state.get("out").get(selection.getRegion());
 
         const maxValue = CONSUMPTION_ATTRS.concat(EOL_ATTRS)

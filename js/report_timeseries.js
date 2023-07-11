@@ -44,8 +44,10 @@ class TimeseriesPresenter {
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
     }
 
-    update(states, selection) {
+    update(stateSet, selection) {
         const self = this;
+
+        const states = stateSet.getAllWithInterventions();
 
         const attrNames = self._attrNames.get(selection.getDisplayStage());
         const region = selection.getRegion();
