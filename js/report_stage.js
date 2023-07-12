@@ -117,8 +117,8 @@ class StagePresenter {
             boundUpdated.select(".label")
                 .html((attr) => STRINGS.get(attr));
 
-            boundUpdated.select(".value").
-                html((attr) => {
+            boundUpdated.select(".value")
+                .html((attr) => {
                     const value = Math.round(regionData.get(attr));
                     return value + unitsStr;
                 });
