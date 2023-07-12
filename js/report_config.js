@@ -4,7 +4,7 @@ import {STRINGS} from "strings";
 
 class ConfigPresenter {
     constructor(targetDiv, onStageChange, onRegionChange, onYearChange,
-        onTypeChange) {
+        onTypeChange, onShowBauChange) {
         const self = this;
 
         self._targetDiv = targetDiv;
@@ -13,11 +13,13 @@ class ConfigPresenter {
         self._onRegionChange = onRegionChange;
         self._onYearChange = onYearChange;
         self._onTypeChange = onTypeChange;
+        self._onShowBauChange = onShowBauChange;
 
         self._stageSelect = self._targetDiv.querySelector(".stage-select");
         self._regionSelect = self._targetDiv.querySelector(".region-select");
         self._yearSelect = self._targetDiv.querySelector(".year-select");
         self._typeSelect = self._targetDiv.querySelector(".type-select");
+        self._showBauDeltaCheck = self._targetDiv.querySelector(".show-dau");
 
         self._d3Selection = self._getD3().select("#" + self._targetDiv.id);
 
@@ -25,6 +27,7 @@ class ConfigPresenter {
         self._setupRegion();
         self._setupYear();
         self._setupType();
+        self._setupBauCheck();
     }
 
     update(stateSet, selection) {
@@ -34,6 +37,7 @@ class ConfigPresenter {
         self._regionSelect.value = selection.getRegion();
         self._yearSelect.value = selection.getYear();
         self._typeSelect.value = selection.getDisplayType();
+        self._showBauDeltaCheck.checked = selection.getShowBauDelta() ? 1 : 0;
     }
 
     _setupStage() {
@@ -110,6 +114,14 @@ class ConfigPresenter {
 
         self._typeSelect.addEventListener("change", () => {
             self._onTypeChange(parseInt(self._typeSelect.value));
+        });
+    }
+
+    _setupBauCheck() {
+        const self = this;
+
+        self._showBauDeltaCheck.addEventListener("change", () => {
+            self._onShowBauChange(self._showBauDeltaCheck.checked == 1);
         });
     }
 

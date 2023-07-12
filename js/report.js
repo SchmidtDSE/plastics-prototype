@@ -13,13 +13,14 @@ import {TimeseriesPresenter} from "report_timeseries";
 
 
 class ReportSelection {
-    constructor(year, region, displayType, displayStage) {
+    constructor(year, region, displayType, displayStage, showBauDelta) {
         const self = this;
 
         self._year = year;
         self._region = region;
         self._displayType = displayType;
         self._displayStage = displayStage;
+        self._showBauDelta = showBauDelta;
     }
 
     getYear() {
@@ -40,6 +41,11 @@ class ReportSelection {
     getDisplayStage() {
         const self = this;
         return self._displayStage;
+    }
+
+    getShowBauDelta() {
+        const self = this;
+        return self._showBauDelta;
     }
 }
 
@@ -94,6 +100,7 @@ class ReportPresenter {
             DEFAULT_REGION,
             DISPLAY_TYPES.amount,
             DISPLAY_STAGES.eol,
+            false,
         );
 
         const bubblegraphDiv = document.getElementById("bubblegraph-container");
@@ -110,6 +117,7 @@ class ReportPresenter {
             (region) => self._onRegionChange(region),
             (year) => self._onYearChange(year),
             (type) => self._onTypeChange(type),
+            (showBau) => self._onShowBauChange(showBau)
         );
 
         const consumptionStageDiv = document.getElementById("consumption-container");
@@ -140,8 +148,10 @@ class ReportPresenter {
         const self = this;
 
         const displayType = self._selection.getDisplayType();
+        const showingBauDelta = self._selection.getShowBauDelta();
         const usingPercent = displayType == DISPLAY_TYPES.percent;
-        const getTransformed = (target) => {
+
+        const getTransformedMaybe = (target) => {
             if (usingPercent) {
                 return self._getPercents(target);
             } else {
@@ -149,11 +159,32 @@ class ReportPresenter {
             }
         };
 
+        const getRelativeMaybe = (target, reference) => {
+            if (showingBauDelta) {
+                return self._getRelative(target, reference);
+            } else {
+                return target;
+            }
+        };
+
+        const bauTransformed = getTransformedMaybe(businessAsUsual);
+        const interventionsTransformed = getTransformedMaybe(withInterventions);
+
+        const bauFinal = getRelativeMaybe(
+            bauTransformed,
+            interventionsTransformed
+        );
+
+        const interventionsFinal = getRelativeMaybe(
+            interventionsTransformed,
+            interventionsTransformed
+        );
+
         const resultSet = new VizStateSet(
             businessAsUsual,
-            getTransformed(businessAsUsual),
+            bauFinal,
             withInterventions,
-            getTransformed(withInterventions),
+            interventionsFinal,
             self._selection.getYear(),
         );
 
@@ -172,6 +203,7 @@ class ReportPresenter {
             self._selection.getRegion(),
             self._selection.getDisplayType(),
             stage,
+            self._selection.getShowBauDelta(),
         );
 
         self._onRequestRender();
@@ -185,6 +217,7 @@ class ReportPresenter {
             region,
             self._selection.getDisplayType(),
             self._selection.getDisplayStage(),
+            self._selection.getShowBauDelta(),
         );
 
         self._onRequestRender();
@@ -198,6 +231,7 @@ class ReportPresenter {
             self._selection.getRegion(),
             self._selection.getDisplayType(),
             self._selection.getDisplayStage(),
+            self._selection.getShowBauDelta(),
         );
 
         self._onRequestRender();
@@ -211,6 +245,21 @@ class ReportPresenter {
             self._selection.getRegion(),
             type,
             self._selection.getDisplayStage(),
+            self._selection.getShowBauDelta(),
+        );
+
+        self._onRequestRender();
+    }
+
+    _onShowBauChange(showBau) {
+        const self = this;
+
+        self._selection = new ReportSelection(
+            self._selection.getYear(),
+            self._selection.getRegion(),
+            self._selection.getDisplayType(),
+            self._selection.getDisplayStage(),
+            showBau,
         );
 
         self._onRequestRender();
@@ -248,6 +297,46 @@ class ReportPresenter {
         const newState = new Map();
         newState.set("out", newOut);
         return newState;
+    }
+
+    _getRelative(target, reference) {
+        const self = this;
+
+        const newTargetYears = new Map();
+
+        target.forEach((targetValues, year) => {
+            const referenceValues = reference.get(year);
+            const newTargetValues = self._getRelativeSingleYear(
+                targetValues,
+                referenceValues
+            );
+            newTargetYears.set(year, newTargetValues);
+        });
+
+        return newTargetYears;
+    }
+
+    _getRelativeSingleYear(target, reference) {
+        const self = this;
+
+        const newOut = new Map();
+
+        const targetOut = target.get("out");
+        const referenceOut = reference.get("out");
+
+        targetOut.forEach((targetRegions, region) => {
+            const newRegionOut = new Map();
+            targetRegions.forEach((targetValue, key) => {
+                const referenceValue = referenceOut.get(region).get(key);
+                const relativeValue = targetValue - referenceValue;
+                newRegionOut.set(key, relativeValue);
+            });
+            newOut.set(region, newRegionOut);
+        });
+
+        const wrapped = new Map();
+        wrapped.set("out", newOut);
+        return wrapped;
     }
 }
 
