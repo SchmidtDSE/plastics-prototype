@@ -63,7 +63,7 @@ class StagePresenter {
 
         const widthScale = self._getD3().scaleLinear()
             .domain([0, maxValue])
-            .range([1, self._targetDiv.getBoundingClientRect().width - 5]);
+            .range([1, self._targetDiv.getBoundingClientRect().width - 7]);
 
         const updateRadio = () => {
             const radio = self._targetDiv.querySelector(".stage-radio");
