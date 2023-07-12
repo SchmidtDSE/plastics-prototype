@@ -109,7 +109,6 @@ class StagePresenter {
 
             newSvgs.append("rect")
                 .classed("glyph", true);
-                
 
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
