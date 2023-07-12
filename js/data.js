@@ -48,7 +48,7 @@ class DataLayer {
             const total = Array.of(...outputs.values())
                 .map((region) => region.get(attr))
                 .reduce((a, b) => a + b);
-            globalValues.set(attr, total)
+            globalValues.set(attr, total);
         });
         outputs.set("global", globalValues);
 

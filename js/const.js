@@ -3,7 +3,7 @@ const ALL_REGIONS = [
     "eu30",
     "nafta",
     "row",
-    "global"
+    "global",
 ];
 
 const CONSUMPTION_ATTRS = [
