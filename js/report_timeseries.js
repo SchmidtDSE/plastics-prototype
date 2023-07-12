@@ -80,7 +80,7 @@ class TimeseriesPresenter {
         const height = self._targetSvg.getBoundingClientRect().height;
         const yearValues = Array.from(states.values()).map((state) => {
             const out = state.get("out").get(region);
-            
+
             const totalPositive = attrNames.map((attr) => out.get(attr))
                 .filter((x) => x > 0)
                 .reduce((a, b) => a + b, 0);
@@ -96,7 +96,7 @@ class TimeseriesPresenter {
         const maxSumValueNative = Math.round(maxSumValueNativeFloat);
         const maxSumValue = Math.ceil(maxSumValueNative / verticalStep) * verticalStep;
         const minSumValue = selection.getShowBauDelta() ? -maxSumValue : 0;
- 
+
         const verticalScale = self._getD3().scaleLinear()
             .domain([minSumValue, maxSumValue])
             .range([height - 30, 30]);

@@ -117,7 +117,7 @@ class ReportPresenter {
             (region) => self._onRegionChange(region),
             (year) => self._onYearChange(year),
             (type) => self._onTypeChange(type),
-            (showBau) => self._onShowBauChange(showBau)
+            (showBau) => self._onShowBauChange(showBau),
         );
 
         const consumptionStageDiv = document.getElementById("consumption-container");
@@ -172,12 +172,12 @@ class ReportPresenter {
 
         const bauFinal = getRelativeMaybe(
             bauTransformed,
-            bauTransformed
+            bauTransformed,
         );
 
         const interventionsFinal = getRelativeMaybe(
             interventionsTransformed,
-            bauTransformed
+            bauTransformed,
         );
 
         const resultSet = new VizStateSet(
@@ -308,7 +308,7 @@ class ReportPresenter {
             const referenceValues = reference.get(year);
             const newTargetValues = self._getRelativeSingleYear(
                 targetValues,
-                referenceValues
+                referenceValues,
             );
             newTargetYears.set(year, newTargetValues);
         });
