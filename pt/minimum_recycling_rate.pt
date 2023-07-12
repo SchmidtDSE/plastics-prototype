@@ -16,10 +16,13 @@ var shortageMT = targetMT - out.{{ region }}.eolRecyclingMT;
 limit shortageMT to [0,];
 
 # Apply the change to recycling
-change out.{{ region }}.eolRecyclingMT by shortageMT over 2025 to 2050;
+var newRecyclingMT = out.{{ region }}.eolRecyclingMT;
+change newRecyclingMT by shortageMT over 2025 to 2050;
+var currentChange = newRecyclingMT - out.{{ region }}.eolRecyclingMT;
+out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Offset the change in the other EOL types
-var offsetMT = -1 * shortageMT;
+var offsetMT = -1 * currentChange;
 distribute offsetMT across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
@@ -27,7 +30,7 @@ distribute offsetMT across [
 ] proportionally;
 
 # Inductive demand
-var newInductivePlasticsMT = inductiveDemandRate * shortageMT;
+var newInductivePlasticsMT = inductiveDemandRate * currentChange;
 
 # Bump consumption by inductive demand
 distribute newInductivePlasticsMT across [

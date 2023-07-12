@@ -1,4 +1,4 @@
-import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {buildReportPresenter} from "report";
@@ -93,6 +93,7 @@ class Driver {
 
         self._historicYears.forEach((year) => {
             const state = self._buildState(year);
+            self._addGlobalToState(state);
             states.set(year, state);
         });
 
@@ -111,6 +112,7 @@ class Driver {
                 lever.showInspects(inspects);
             });
 
+            self._addGlobalToState(state);
             states.set(year, state);
         });
 
@@ -129,6 +131,19 @@ class Driver {
     _updateOutputs(businessAsUsual, withInterventions) {
         const self = this;
         self._reportPresenter.render(businessAsUsual, withInterventions);
+    }
+
+    _addGlobalToState(state) {
+        const self = this;
+        const outputs = state.get("out");
+        const globalValues = new Map();
+        ALL_ATTRS.forEach((attr) => {
+            const total = Array.of(...outputs.values())
+                .map((region) => region.get(attr))
+                .reduce((a, b) => a + b);
+            globalValues.set(attr, total);
+        });
+        outputs.set("global", globalValues);
     }
 }
 

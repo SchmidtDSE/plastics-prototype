@@ -70,6 +70,11 @@ html {
     stroke-width: 2px;
 }
 
+.output-section .bubblegraph .bubble rect {
+    fill-opacity: 0.9;
+    stroke-width: 2px;
+}
+
 .output-section .bubblegraph .bubble text {
     font-size: 13px;
     text-anchor: middle;
@@ -127,6 +132,10 @@ html {
     padding-bottom: 15px;
     font-size: 18px;
     text-align: center;
+}
+
+.output-section .config-container .dau-check-holder {
+    margin-top: 10px;
 }
 
 .output-section .region-container {
