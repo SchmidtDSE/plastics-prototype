@@ -80,16 +80,25 @@ class TimeseriesPresenter {
         const height = self._targetSvg.getBoundingClientRect().height;
         const yearValues = Array.from(states.values()).map((state) => {
             const out = state.get("out").get(region);
-            const total = attrNames.map((attr) => out.get(attr))
-                .reduce((a, b) => a + b);
-            return total;
+            
+            const totalPositive = attrNames.map((attr) => out.get(attr))
+                .filter((x) => x > 0)
+                .reduce((a, b) => a + b, 0);
+
+            const totalNegative = attrNames.map((attr) => out.get(attr))
+                .filter((x) => x < 0)
+                .map((x) => Math.abs(x))
+                .reduce((a, b) => a + b, 0);
+
+            return Math.max(totalPositive, totalNegative);
         });
-        const maxSumValueNative = Math.round(
-            yearValues.reduce((a, b) => a > b ? a : b),
-        );
+        const maxSumValueNativeFloat = yearValues.reduce((a, b) => a > b ? a : b);
+        const maxSumValueNative = Math.round(maxSumValueNativeFloat);
         const maxSumValue = Math.ceil(maxSumValueNative / verticalStep) * verticalStep;
+        const minSumValue = selection.getShowBauDelta() ? -maxSumValue : 0;
+ 
         const verticalScale = self._getD3().scaleLinear()
-            .domain([0, maxSumValue])
+            .domain([minSumValue, maxSumValue])
             .range([height - 30, 30]);
 
         // Make horizontal scale
@@ -119,7 +128,7 @@ class TimeseriesPresenter {
 
         const updateValueAxis = () => {
             const ticks = [];
-            for (let i = 0; i <= maxSumValue; i += verticalStep) {
+            for (let i = minSumValue; i <= maxSumValue; i += verticalStep) {
                 ticks.push(i);
             }
 
@@ -198,18 +207,41 @@ class TimeseriesPresenter {
 
             const values = states.get(year).get("out").get(region);
 
-            return Array.from(attrNames).reverse().map((attr) => {
-                const nextValue = values.get(attr);
-                const nextEnd = lastValue + nextValue;
-                const datum = {
-                    "attr": attr,
-                    "year": year,
-                    "start": lastValue,
-                    "end": nextEnd,
-                };
-                lastValue = nextEnd;
-                return datum;
-            });
+            const positiveData = Array.from(attrNames)
+                .reverse()
+                .filter((attr) => values.get(attr) >= 0)
+                .map((attr) => {
+                    const nextValue = values.get(attr);
+                    const nextEnd = lastValue + nextValue;
+                    const datum = {
+                        "attr": attr,
+                        "year": year,
+                        "start": lastValue,
+                        "end": nextEnd,
+                    };
+                    lastValue = nextEnd;
+                    return datum;
+                });
+
+            lastValue = 0;
+
+            const negativeData = Array.from(attrNames)
+                .reverse()
+                .filter((attr) => values.get(attr) < 0)
+                .map((attr) => {
+                    const nextValue = values.get(attr);
+                    const nextEnd = lastValue + nextValue;
+                    const datum = {
+                        "attr": attr,
+                        "year": year,
+                        "start": nextEnd,
+                        "end": lastValue,
+                    };
+                    lastValue = nextEnd;
+                    return datum;
+                });
+
+            return positiveData.concat(negativeData);
         };
 
         const updateBars = () => {
