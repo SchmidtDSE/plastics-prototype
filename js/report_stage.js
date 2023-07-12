@@ -104,9 +104,12 @@ class StagePresenter {
             newText.append("div")
                 .classed("value", true);
 
-            newBars.append("div")
-                .classed("glyph", true)
-                .style("width", "1px");
+            const newSvgs = newBars.append("svg")
+                .classed("glyph-holder", true);
+
+            newSvgs.append("rect")
+                .classed("glyph", true);
+                
 
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
@@ -127,7 +130,7 @@ class StagePresenter {
                     const width = widthScale(value);
                     return width + "px";
                 })
-                .style("background-color", (attr) => {
+                .style("fill", (attr) => {
                     if (selected) {
                         return self._colorScale.get(attr);
                     } else {
