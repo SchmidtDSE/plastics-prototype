@@ -154,9 +154,14 @@ html {
 }
 
 .output-section .region-container .current-year-container .stage-container .bar .glyph {
-    margin-top: -1px;
-    margin-bottom: 1px;
     height: 7px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar .glyph-holder {
+    width: 100%;
+    height: 7px;
+    position: relative;
+    top: -5px;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar .label {
