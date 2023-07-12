@@ -127,10 +127,10 @@ class BubblegraphPresenter {
         const state = stateSet.getWithIntervention();
         const outputData = state.get("out");
 
-        const bubbleInfo = [];
+        const info = [];
         ALL_REGIONS.forEach((region) => {
             attrNames.forEach((attr) => {
-                bubbleInfo.push({
+                info.push({
                     "region": region,
                     "attr": attr,
                     "value": outputData.get(region).get(attr),
@@ -138,18 +138,28 @@ class BubblegraphPresenter {
             });
         });
 
-        const maxValue = bubbleInfo
+        const maxRegionValue = info
+            .filter((x) => x["region"] !== "global")
+            .map((x) => x["value"])
+            .reduce((a, b) => a > b ? a : b);
+
+        const maxGlobalValue = info
+            .filter((x) => x["region"] === "global")
             .map((x) => x["value"])
             .reduce((a, b) => a > b ? a : b);
 
         const bubbleAreaScale = self._getD3().scaleLinear()
-            .domain([0, maxValue])
+            .domain([0, maxRegionValue])
             .range([0, 800]);
+
+        const rectWidthScale = self._getD3().scaleLinear()
+            .domain([0, maxGlobalValue])
+            .range([0, self._horizontalScale.step() / 2 - 7]);
 
 
         const indicies = new Map();
         ALL_REGIONS.forEach((region) => {
-            const regionInfo = bubbleInfo.filter((x) => x["region"] == region);
+            const regionInfo = info.filter((x) => x["region"] == region);
             regionInfo.sort((a, b) => b["value"] - a["value"]);
 
             const attrsSorted = regionInfo.map((x) => x["attr"]);
@@ -317,8 +327,12 @@ class BubblegraphPresenter {
                 return Math.sqrt(area);
             };
 
+            const getWidth = (datum) => {
+                return rectWidthScale(datum["value"]);
+            };
+
             const bound = bubbleLayer.selectAll(".bubble")
-                .data(bubbleInfo, (x) => x["region"] + "\t" + x["attr"]);
+                .data(info, (x) => x["region"] + "\t" + x["attr"]);
 
             bound.exit().remove();
 
@@ -336,15 +350,31 @@ class BubblegraphPresenter {
             newGroups.append("ellipse")
                 .attr("x", 0)
                 .attr("y", 0)
-                .attr("rx", 10)
-                .attr("ry", 10)
+                .attr("rx", 0)
+                .attr("ry", 0)
                 .attr("fill", (datum) => colorScale.get(datum["attr"]))
-                .attr("stroke", (datum) => colorScale.get(datum["attr"]));
+                .attr("stroke", (datum) => colorScale.get(datum["attr"]))
+                .style("opacity", 0);
+
+            newGroups.append("rect")
+                .attr("x", 0)
+                .attr("y", -5)
+                .attr("width", 0)
+                .attr("height", 10)
+                .attr("fill", (datum) => colorScale.get(datum["attr"]))
+                .attr("stroke", (datum) => colorScale.get(datum["attr"]))
+                .style("opacity", 0);
 
             newGroups.append("text")
                 .attr("x", 0)
                 .attr("y", 0)
-                .attr("fill", (datum) => textColorScale.get(datum["attr"]));
+                .attr("fill", (datum) => {
+                    if (datum["region"] === "global") {
+                        return "#505050";
+                    } else {
+                        return textColorScale.get(datum["attr"]);
+                    }
+                });
 
             const updatedBound = bubbleLayer.selectAll(".bubble");
 
@@ -352,13 +382,28 @@ class BubblegraphPresenter {
                 .text((datum) => Math.round(datum["value"]))
                 .transition()
                 .attr("y", (datum) => {
-                    const radius = getRadius(datum);
-                    return radius < 5 ? 13 : 0;
+                    if (datum["region"] === "global") {
+                        return -12;
+                    } else {
+                        const radius = getRadius(datum);
+                        return radius < 5 ? 13 : 0;
+                    }
                 })
                 .attr("fill", (datum) => {
-                    const radius = getRadius(datum);
-                    const defaultColor = textColorScale.get(datum["attr"]);
-                    return radius < 5 ? "#333333" : defaultColor;
+                    if (datum["region"] === "global") {
+                        return "#505050";
+                    } else {
+                        const radius = getRadius(datum);
+                        const defaultColor = textColorScale.get(datum["attr"]);
+                        return radius < 5 ? "#333333" : defaultColor;
+                    }
+                })
+                .style("text-anchor", (datum) => {
+                    if (datum["region"] === "global") {
+                        return "start";
+                    } else {
+                        return "middle";
+                    }
                 });
 
             if (self._enableSlope) {
@@ -385,7 +430,13 @@ class BubblegraphPresenter {
             updatedBound.select("ellipse")
                 .transition()
                 .attr("rx", getRadius)
-                .attr("ry", getRadius);
+                .attr("ry", getRadius)
+                .style("opacity", (x) => x["region"] === "global" ? 0 : 1);
+
+            updatedBound.select("rect")
+                .transition()
+                .attr("width", getWidth)
+                .style("opacity", (x) => x["region"] === "global" ? 1 : 0);
         };
 
         updateTitle();

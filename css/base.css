@@ -135,7 +135,6 @@ html {
     display: grid;
     column-gap: 10px;
     grid-template-columns: 30% 70%;
-    width: 99%;
 }
 
 .output-section .region-container .current-year-container {

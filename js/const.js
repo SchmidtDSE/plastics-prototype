@@ -3,16 +3,7 @@ const ALL_REGIONS = [
     "eu30",
     "nafta",
     "row",
-];
-
-const INPUT_ATTRS = [
-    "inputProduceFiberMT",
-    "inputProduceResinMT",
-    "inputImportResinMT",
-    "inputImportArticlesMT",
-    "inputImportGoodsMT",
-    "inputImportFiberMT",
-    "inputAdditivesMT",
+    "global",
 ];
 
 const CONSUMPTION_ATTRS = [
@@ -55,7 +46,7 @@ const TEXT_COLORS = [
     "#F0F0F0",
 ];
 
-const ALL_ATTRS = INPUT_ATTRS.concat(CONSUMPTION_ATTRS, EOL_ATTRS);
+const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS);
 
 const DEFAULT_YEAR = 2050;
 const DEFAULT_REGION = ALL_REGIONS[0];
@@ -70,7 +61,6 @@ const DISPLAY_STAGES = {consumption: 3, eol: 4};
 
 export {
     ALL_REGIONS,
-    INPUT_ATTRS,
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
     COLORS,

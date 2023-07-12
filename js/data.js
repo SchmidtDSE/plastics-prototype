@@ -1,4 +1,4 @@
-import {CACHE_BUSTER} from "const";
+import {ALL_ATTRS, CACHE_BUSTER} from "const";
 
 
 class DataLayer {
@@ -25,6 +25,7 @@ class DataLayer {
         const state = new Map();
         state.set("local", new Map());
 
+        // Convert normal outputs
         const outputs = new Map();
         const targetData = self._baselineByYear.get(year);
         targetData.forEach((datum) => {
@@ -40,14 +41,28 @@ class DataLayer {
                 }
             }
         });
+
+        // Sum up global
+        const globalValues = new Map();
+        ALL_ATTRS.forEach((attr) => {
+            const total = Array.of(...outputs.values())
+                .map((region) => region.get(attr))
+                .reduce((a, b) => a + b);
+            globalValues.set(attr, total);
+        });
+        outputs.set("global", globalValues);
+
+        // Add outputs
         state.set("out", outputs);
 
+        // Add inputs
         const inputs = new Map();
         self._getLevers().forEach((lever) => {
             inputs.set(lever.getVariable(), lever.getValue());
         });
         state.set("in", inputs);
 
+        // Prepare for inspect
         state.set("inspect", []);
 
         return state;
