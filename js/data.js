@@ -1,4 +1,4 @@
-import {ALL_ATTRS, CACHE_BUSTER} from "const";
+import {CACHE_BUSTER} from "const";
 
 
 class DataLayer {
@@ -41,16 +41,6 @@ class DataLayer {
                 }
             }
         });
-
-        // Sum up global
-        const globalValues = new Map();
-        ALL_ATTRS.forEach((attr) => {
-            const total = Array.of(...outputs.values())
-                .map((region) => region.get(attr))
-                .reduce((a, b) => a + b);
-            globalValues.set(attr, total);
-        });
-        outputs.set("global", globalValues);
 
         // Add outputs
         state.set("out", outputs);

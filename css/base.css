@@ -70,6 +70,11 @@ html {
     stroke-width: 2px;
 }
 
+.output-section .bubblegraph .bubble rect {
+    fill-opacity: 0.9;
+    stroke-width: 2px;
+}
+
 .output-section .bubblegraph .bubble text {
     font-size: 13px;
     text-anchor: middle;

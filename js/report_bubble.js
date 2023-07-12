@@ -141,12 +141,13 @@ class BubblegraphPresenter {
         const maxRegionValue = info
             .filter((x) => x["region"] !== "global")
             .map((x) => x["value"])
-            .reduce((a, b) => a > b ? a : b);
+            .reduce((a, b) => a > b ? a : b, 1);
 
         const maxGlobalValue = info
             .filter((x) => x["region"] === "global")
             .map((x) => x["value"])
-            .reduce((a, b) => a > b ? a : b);
+            .map((x) => Math.abs(x))
+            .reduce((a, b) => a > b ? a : b, 1);
 
         const bubbleAreaScale = self._getD3().scaleLinear()
             .domain([0, maxRegionValue])
@@ -155,7 +156,6 @@ class BubblegraphPresenter {
         const rectWidthScale = self._getD3().scaleLinear()
             .domain([0, maxGlobalValue])
             .range([0, self._horizontalScale.step() / 2 - 7]);
-
 
         const indicies = new Map();
         ALL_REGIONS.forEach((region) => {
@@ -323,12 +323,14 @@ class BubblegraphPresenter {
             const vertOffset = verticalIndexScale.step() / 2;
 
             const getRadius = (datum) => {
-                const area = bubbleAreaScale(datum["value"]);
+                const value = Math.abs(datum["value"]);
+                const area = bubbleAreaScale(value);
                 return Math.sqrt(area);
             };
 
             const getWidth = (datum) => {
-                return rectWidthScale(datum["value"]);
+                const value = Math.abs(datum["value"]);
+                return rectWidthScale(value);
             };
 
             const bound = bubbleLayer.selectAll(".bubble")
@@ -354,7 +356,18 @@ class BubblegraphPresenter {
                 .attr("ry", 0)
                 .attr("fill", (datum) => colorScale.get(datum["attr"]))
                 .attr("stroke", (datum) => colorScale.get(datum["attr"]))
-                .style("opacity", 0);
+                .style("opacity", 0)
+                .classed("positive-bubble", true);
+
+            newGroups.append("rect")
+                .attr("x", 0)
+                .attr("y", 0)
+                .attr("width", 0)
+                .attr("height", 0)
+                .attr("fill", (datum) => colorScale.get(datum["attr"]))
+                .attr("stroke", (datum) => colorScale.get(datum["attr"]))
+                .style("opacity", 0)
+                .classed("negative-bubble", true);
 
             newGroups.append("rect")
                 .attr("x", 0)
@@ -363,7 +376,8 @@ class BubblegraphPresenter {
                 .attr("height", 10)
                 .attr("fill", (datum) => colorScale.get(datum["attr"]))
                 .attr("stroke", (datum) => colorScale.get(datum["attr"]))
-                .style("opacity", 0);
+                .style("opacity", 0)
+                .classed("bar-rect", true);
 
             newGroups.append("text")
                 .attr("x", 0)
@@ -399,7 +413,7 @@ class BubblegraphPresenter {
                     }
                 })
                 .style("text-anchor", (datum) => {
-                    if (datum["region"] === "global") {
+                    if (datum["region"] === "global" && !selection.getShowBauDelta()) {
                         return "start";
                     } else {
                         return "middle";
@@ -427,15 +441,46 @@ class BubblegraphPresenter {
                     });
             }
 
-            updatedBound.select("ellipse")
+            updatedBound.select(".positive-bubble")
                 .transition()
                 .attr("rx", getRadius)
                 .attr("ry", getRadius)
-                .style("opacity", (x) => x["region"] === "global" ? 0 : 1);
+                .style("opacity", (x) => {
+                    if (x["region"] === "global") {
+                        return 0;
+                    } else if (x["value"] >= 0) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+                });
 
-            updatedBound.select("rect")
+            updatedBound.select(".negative-bubble")
+                .transition()
+                .attr("width", (x) => getRadius(x) * 2)
+                .attr("height", (x) => getRadius(x) * 2)
+                .attr("x", (x) => -1 * getRadius(x))
+                .attr("y", (x) => -1 * getRadius(x))
+                .style("opacity", (x) => {
+                    if (x["region"] === "global") {
+                        return 0;
+                    } else if (x["value"] >= 0) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                });
+
+            updatedBound.select(".bar-rect")
                 .transition()
                 .attr("width", getWidth)
+                .attr("x", (x) => {
+                    if (x["value"] >= 0) {
+                        return 0;
+                    } else {
+                        return -1 * getWidth(x);
+                    }
+                })
                 .style("opacity", (x) => x["region"] === "global" ? 1 : 0);
         };
 
