@@ -51,11 +51,11 @@ class ReportSelection {
 
 
 class VizStateSet {
-    constructor(businessAsUsualRaw, businessAsUsualTrasnformed,
+    constructor(businessAsUsualRaw, businessAsUsualTransformed,
         withInterventionsRaw, withInterventionsTransformed, selectedYear) {
         const self = this;
         self._businessAsUsualRaw = businessAsUsualRaw;
-        self._businessAsUsualTransformed = businessAsUsualTrasnformed;
+        self._businessAsUsualTransformed = businessAsUsualTransformed;
         self._withInterventionsRaw = withInterventionsRaw;
         self._withInterventionsTransformed = withInterventionsTransformed;
         self._selectedYear = selectedYear;
@@ -172,12 +172,12 @@ class ReportPresenter {
 
         const bauFinal = getRelativeMaybe(
             bauTransformed,
-            interventionsTransformed
+            bauTransformed
         );
 
         const interventionsFinal = getRelativeMaybe(
             interventionsTransformed,
-            interventionsTransformed
+            bauTransformed
         );
 
         const resultSet = new VizStateSet(

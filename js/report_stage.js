@@ -58,12 +58,14 @@ class StagePresenter {
         const regionData = state.get("out").get(selection.getRegion());
 
         const maxValue = CONSUMPTION_ATTRS.concat(EOL_ATTRS)
-            .map((attr) => regionData.get(attr))
+            .map((attr) => Math.abs(regionData.get(attr)))
             .reduce((a, b) => a > b ? a : b);
 
-        const widthScale = self._getD3().scaleLinear()
-            .domain([0, maxValue])
-            .range([1, self._targetDiv.getBoundingClientRect().width - 7]);
+        const minValue = selection.getShowBauDelta() ? -maxValue : 0;
+
+        const horizontalScale = self._getD3().scaleLinear()
+            .domain([minValue, maxValue])
+            .range([0, self._targetDiv.getBoundingClientRect().width - 7]);
 
         const updateRadio = () => {
             const radio = self._targetDiv.querySelector(".stage-radio");
@@ -119,15 +121,29 @@ class StagePresenter {
             boundUpdated.select(".value")
                 .html((attr) => {
                     const value = Math.round(regionData.get(attr));
-                    return value + unitsStr;
+                    const valueStr = value + unitsStr;
+                    if (selection.getShowBauDelta() && value >= 0) {
+                        return "+" + valueStr;
+                    } else {
+                        return valueStr;
+                    }
                 });
 
             boundUpdated.select(".glyph")
                 .transition()
-                .style("width", (attr) => {
+                .attr("width", (attr) => {
                     const value = regionData.get(attr);
-                    const width = widthScale(value);
-                    return width + "px";
+                    const width = horizontalScale(value) - horizontalScale(0);
+                    return Math.abs(width);
+                })
+                .attr("x", (attr) => {
+                    const value = regionData.get(attr);
+                    const width = horizontalScale(value) - horizontalScale(0);
+                    if (width < 0) {
+                        return horizontalScale(0) + width;
+                    } else {
+                        return horizontalScale(0);
+                    }
                 })
                 .style("fill", (attr) => {
                     if (selected) {
