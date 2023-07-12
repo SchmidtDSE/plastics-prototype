@@ -7,6 +7,7 @@ STRINGS.set("china", "China");
 STRINGS.set("eu30", "EU 30");
 STRINGS.set("nafta", "NAFTA");
 STRINGS.set("row", "Rest of World");
+STRINGS.set("global", "Global");
 
 STRINGS.set("eolRecyclingMT", "Recycling");
 STRINGS.set("eolIncinerationMT", "Incineration");
