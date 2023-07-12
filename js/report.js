@@ -8,6 +8,7 @@ import {
 } from "const";
 import {BubblegraphPresenter} from "report_bubble";
 import {ConfigPresenter} from "report_config";
+import {SparklinesSet} from "report_sparklines";
 import {StagePresenter} from "report_stage";
 import {TimeseriesPresenter} from "report_timeseries";
 
@@ -142,6 +143,13 @@ class ReportPresenter {
             (year) => self._onYearChange(year),
             () => self._onRequestRender(),
         );
+
+        const sparklinesDiv = document.getElementById("sparklines-section");
+        self._sparklineSet = new SparklinesSet(
+            sparklinesDiv,
+            (year) => self._onYearChange(year),
+            () => self._onRequestRender()
+        );
     }
 
     render(businessAsUsual, withInterventions) {
@@ -193,6 +201,7 @@ class ReportPresenter {
         self._consumptionStagePresenter.update(resultSet, self._selection);
         self._eolStagePresenter.update(resultSet, self._selection);
         self._timeseriesPresenter.update(resultSet, self._selection);
+        self._sparklineSet.update(resultSet, self._selection);
     }
 
     _onStageChange(stage) {

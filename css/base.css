@@ -198,6 +198,10 @@ html {
     margin-right: 4px;
 }
 
+.output-section .region-container .current-year-container #consumption-container {
+    border-bottom: 1px dotted black;
+}
+
 .output-section .region-container .current-year-container #eol-container {
     border-bottom: 1px dotted black;
 }
@@ -206,10 +210,49 @@ html {
     margin-right: 10px;
 }
 
+.output-section .region-container .timeseries-container .sparklines-section {
+    display: grid;
+    column-gap: 10px;
+    row-gap: 10px;
+    grid-template-columns: 50% 50%;
+    width: 99%;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .spark-label {
+    font-size: 11px;
+    fill: #505050;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .spark-label.value-label {
+    text-anchor: end;
+    vertical-align: middle;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .spark-label.year-label {
+    text-anchor: middle;
+    vertical-align: top;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .sparkline {
+    width: 100%;
+    height: 100px;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .sparkline-glyph {
+    fill: none;
+    stroke-width: 2px;
+    stroke: #505050;
+}
+
+.output-section .region-container .timeseries-container .sparklines-section .sparkline-glyph.bau-glyph {
+    stroke-dasharray: 2,2;
+}
+
 .output-section .region-container .timeseries-container .timeseries {
-    height: 320px;
+    height: 280px;
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .output-section .region-container .timeseries-container .timeseries .bar {

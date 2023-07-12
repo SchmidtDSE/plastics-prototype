@@ -47,13 +47,22 @@
                                     <h3><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> <span class="description">Consumption</span></h3>
                                     <div class="bars"></div>
                                 </div>
+                                <div id="production-container" class="stage-container">
+                                    <div class="subtitle"></div>
+                                    <h3><span class="description">Production</span></h3>
+                                    <div>Coming soon</div>
+                                </div>
                             </div>
                             <div id="timeseries-container" class="timeseries-container">
                                 <h3 class="title">Timeseries</h3>
                                 <div class="slope-check-holder">
-                                <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
-                            </div>
-                                <svg class="timeseries" id="timeseries"></svg>
+                                    <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
+                                </div>
+                                <div>
+                                    <svg class="timeseries" id="timeseries"></svg>
+                                </div>
+                                <div class="sparklines-section" id="sparklines-section">
+                                </div>
                             </div>
                         </div>
                         <div id="bubblegraph-container" class="bubblegraph-container">
@@ -103,6 +112,7 @@
                     "report": "./js/report.js?v=EPOCH",
                     "report_bubble": "./js/report_bubble.js?v=EPOCH",
                     "report_config": "./js/report_config.js?v=EPOCH",
+                    "report_sparklines": "./js/report_sparklines.js?v=EPOCH",
                     "report_stage": "./js/report_stage.js?v=EPOCH",
                     "report_timeseries": "./js/report_timeseries.js?v=EPOCH",
                     "slider": "./js/slider.js?v=EPOCH",
