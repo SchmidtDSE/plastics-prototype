@@ -19,7 +19,9 @@ class SparklinePresenter {
         self._attrName = attrName;
         self._color = color;
         self._targetDiv = targetDiv;
+        self._onYearChange = onYearChange;
         self._d3Selection = self._getD3().select("#" + targetDiv.id);
+
         self._initElements();
     }
 
@@ -96,6 +98,20 @@ class SparklinePresenter {
                 .html(maxValue);
         };
 
+        const updateIndicator = () => {
+            const selectedYear = selection.getYear();
+            const newX = horizontalScale(selectedYear);
+
+            self._d3Selection.select(".spark-year-indicator")
+                .transition()
+                .attr("x", newX);
+
+            self._d3Selection.select(".selected-year-label")
+                .html(selectedYear)
+                .transition()
+                .attr("x", newX);
+        };
+
         const updateLines = () => {
             const bauData = getData(stateSet.getAllBusinessAsUsuals());
             const projectionData = getData(stateSet.getAllWithInterventions());
@@ -109,8 +125,33 @@ class SparklinePresenter {
                 .attr("d", pathGenerator(projectionData));
         };
 
+        const updateHoverTargets = () => {
+            const yearWidth = horizontalScale(2050) - horizontalScale(2049) - 2;
+            const years = [];
+            for (let year = startYear; year <= endYear; year++) {
+                years.push(year);
+            }
+
+            self._d3Selection.select(".spark-hover-targets")
+                .html("");
+
+            self._d3Selection.select(".spark-hover-targets")
+                .selectAll(".spark-hover-target")
+                .data(years)
+                .enter()
+                .append("rect")
+                .classed("spark-hover-target", true)
+                .attr("x", (year) => horizontalScale(year) - yearWidth / 2)
+                .attr("width", yearWidth)
+                .attr("y", 16)
+                .attr("height", totalHeight - 20 - 16)
+                .on("click", (event, year) => self._onYearChange(year));
+        };
+
         updateLabels();
+        updateIndicator();
         updateLines();
+        updateHoverTargets();
     }
 
     _initElements() {
@@ -151,6 +192,20 @@ class SparklinePresenter {
             .classed("value-label", true)
             .classed("spark-label", true);
 
+        targetSvg.append("text")
+            .attr("x", 35)
+            .attr("y", 14)
+            .classed("selected-year-label", true)
+            .classed("year-label", true)
+            .classed("spark-label", true);
+
+        targetSvg.append("rect")
+            .attr("x", 35)
+            .attr("y", 16)
+            .attr("width", 1)
+            .attr("height", totalHeight - 20 - 16)
+            .classed("spark-year-indicator", true);
+
         targetSvg.append("path")
             .classed("sparkline-glyph", true)
             .classed("bau-glyph", true)
@@ -160,6 +215,9 @@ class SparklinePresenter {
             .classed("sparkline-glyph", true)
             .classed("projection-glyph", true)
             .style("stroke", self._color);
+
+        targetSvg.append("g")
+            .classed("spark-hover-targets", true);
     }
 
     _getShowHistory() {
