@@ -19,7 +19,7 @@ class ConfigPresenter {
         self._regionSelect = self._targetDiv.querySelector(".region-select");
         self._yearSelect = self._targetDiv.querySelector(".year-select");
         self._typeSelect = self._targetDiv.querySelector(".type-select");
-        self._showBauDeltaCheck = self._targetDiv.querySelector(".show-dau");
+        self._showBauDeltaCheck = self._targetDiv.querySelector(".show-delta");
 
         self._d3Selection = self._getD3().select("#" + self._targetDiv.id);
 
