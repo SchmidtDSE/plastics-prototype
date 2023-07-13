@@ -35,22 +35,41 @@
                                 <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
                             </div>
                         </div>
+                        <div id="gloals-container" class="goals-container">
+                            <div class="goal-container inner" id="production-goal-container">
+                                <h3>Production Emissions</h3>
+                                Coming soon
+                            </div>
+                            <div class="goal-container inner" id="consumption-goal-container">
+                                <h3>Consumption Emissions</h3>
+                                Coming soon
+                            </div>
+                            <div class="goal-container inner" id="total-waste-goal-container">
+                                <h3>Non-Recycled Waste</h3>
+                                <div class="bars"></div>
+                            </div>
+                            <div class="goal-container" id="mismanaged-waste-goal-container">
+                                <h3>Mismanaged Waste</h3>
+                                <div class="bars"></div>
+                            </div>
+                        </div>
                         <div id="region-container" class="region-container">
                             <div id="current-year-container" class="current-year-container">
                                 <div id="eol-container" class="stage-container">
                                     <div class="subtitle"></div>
-                                    <h3><input type="radio" class="stage-radio" id="eol-radio" value="eol"> <span class="description">EOL</span></h3>
+                                    <h3><span class="description">EOL</span></h3>
                                     <div class="bars"></div>
+                                    <div class="check-holder">
+                                        <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
+                                    </div>
                                 </div>
                                 <div id="consumption-container" class="stage-container">
                                     <div class="subtitle"></div>
-                                    <h3><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> <span class="description">Consumption</span></h3>
+                                    <h3><span class="description">Consumption</span></h3>
                                     <div class="bars"></div>
-                                </div>
-                                <div id="production-container" class="stage-container">
-                                    <div class="subtitle"></div>
-                                    <h3><span class="description">Production</span></h3>
-                                    <div>Coming soon</div>
+                                    <div class="check-holder">
+                                        <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
+                                    </div>
                                 </div>
                             </div>
                             <div id="timeseries-container" class="timeseries-container">
@@ -112,6 +131,7 @@
                     "report": "./js/report.js?v=EPOCH",
                     "report_bubble": "./js/report_bubble.js?v=EPOCH",
                     "report_config": "./js/report_config.js?v=EPOCH",
+                    "report_goals": "./js/report_goals.js?v=EPOCH",
                     "report_sparklines": "./js/report_sparklines.js?v=EPOCH",
                     "report_stage": "./js/report_stage.js?v=EPOCH",
                     "report_timeseries": "./js/report_timeseries.js?v=EPOCH",
