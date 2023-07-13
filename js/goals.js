@@ -18,14 +18,14 @@ function getGoals(target) {
                 "goal": "mismanagedWaste",
                 "value": output.get("eolMismanagedMT"),
             };
-        }
+        },
     ];
 
     const goals = new Map();
     ALL_REGIONS.forEach((region) => {
         const regionOutputs = target.get("out").get(region);
         const newValues = strategies.map((x) => x(regionOutputs));
-        
+
         const regionGoals = new Map();
         newValues.forEach((newValue) => {
             regionGoals.set(newValue["goal"], newValue["value"]);
