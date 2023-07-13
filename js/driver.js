@@ -1,6 +1,7 @@
 import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
+import {addGlobalToState} from "geotools";
 import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
@@ -35,9 +36,10 @@ class Driver {
                 () => self._onInputChange(),
             ),
             buildSliders(
-                (year) => self._buildState(year),
+                (year) => self._buildStateForCurrentYear(),
                 (x) => self._compileProgram(x),
-                () => self._onInputChange(),
+                () => self._onSlidersChange(),
+                () => self._reportPresenter.getSelection()
             ),
         ];
 
@@ -65,6 +67,15 @@ class Driver {
         const state = self._dataLayer.buildState(year);
         state.set("meta", meta);
 
+        return state;
+    }
+
+    _buildStateForCurrentYear() {
+        const self = this;
+
+        const year = self._reportPresenter.getSelection().getYear();
+        const state = self._buildState(year);
+        self._addGlobalToState(state);
         return state;
     }
 
@@ -119,6 +130,12 @@ class Driver {
         return states;
     }
 
+    _onSlidersChange() {
+        const self = this;
+        self._reportPresenter.showDeltaCheck();
+        self._onInputChange();
+    }
+
     _onInputChange() {
         const self = this;
 
@@ -126,6 +143,7 @@ class Driver {
         const withInterventions = self._getStates(true);
 
         self._updateOutputs(businessAsUsual, withInterventions);
+        self._levers.forEach((lever) => lever.refreshSelection());
     }
 
     _updateOutputs(businessAsUsual, withInterventions) {
@@ -135,15 +153,7 @@ class Driver {
 
     _addGlobalToState(state) {
         const self = this;
-        const outputs = state.get("out");
-        const globalValues = new Map();
-        ALL_ATTRS.forEach((attr) => {
-            const total = Array.of(...outputs.values())
-                .map((region) => region.get(attr))
-                .reduce((a, b) => a + b);
-            globalValues.set(attr, total);
-        });
-        outputs.set("global", globalValues);
+        return addGlobalToState(state);
     }
 }
 

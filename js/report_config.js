@@ -40,6 +40,11 @@ class ConfigPresenter {
         self._showBauDeltaCheck.checked = selection.getShowBauDelta() ? 1 : 0;
     }
 
+    showDeltaCheck() {
+        const self = this;
+        self._targetDiv.querySelector(".delta-check-holder").style.display = "block";
+    }
+
     _setupStage() {
         const self = this;
 

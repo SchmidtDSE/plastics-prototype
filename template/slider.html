@@ -1,13 +1,34 @@
 <div class="slider-holder" id="slider-holder-{{variable}}">
     <div><span class="error-indicator">⚠️</span><label for="input-{{variable}}"><span id="title-{{variable}}">{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span></label></div>
     <input type="range" min="{{ min }}" max="{{ max }}" value="{{ default }}" class="slider" id="input-{{variable}}" step="{{ step }}">
-    <details>
-        <summary>Information about {{ name }}</summary>
-        <p>
-            <div class="wiki-info"><a target="_blank" href="{{url}}">Write up for {{ name }}</a></div>
-            <div class="status-display"></div>
-            <div class="editor" id="editor-{{variable}}">{{ code }}</div>
-            <div class="inspects-area"></div>
-        </p>
-    </details>
+    <div class="slider-context">
+        <table class="goals-table">
+            <tr>
+                <td></td>
+                <td><span class="goal-table-year"></span> Production Emissions</td>
+                <td><span class="goal-table-year"></span> Consumption Emissions</td>
+                <td><span class="goal-table-year"></span> Non-Recycled Waste</td>
+                <td><span class="goal-table-year"></span> Mismanaged Waste</td>
+            </tr>
+            <tr>
+                <td>
+                    Impact on
+                    <span class="global-table-region"></span>
+                </td>
+                <td></td>
+                <td></td>
+                <td class="goal-table-non-recycled-waste"></td>
+                <td class="goal-table-mismanaged-waste"></td>
+            </tr>
+        </table>
+        <details>
+            <summary>Information about {{ name }}</summary>
+            <p>
+                <div class="wiki-info"><a target="_blank" href="{{url}}">Write up for {{ name }}</a></div>
+                <div class="status-display"></div>
+                <div class="editor" id="editor-{{variable}}">{{ code }}</div>
+                <div class="inspects-area"></div>
+            </p>
+        </details>
+    </div>
 </div>
