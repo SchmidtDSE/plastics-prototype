@@ -12,7 +12,6 @@ import {STRINGS} from "strings";
 
 
 class SparklinePresenter {
-
     constructor(attrName, color, targetDiv, onYearChange) {
         const self = this;
 
@@ -77,7 +76,7 @@ class SparklinePresenter {
                 .map((raw) => {
                     return {
                         "year": raw[0],
-                        "value": raw[1].get("out").get(region).get(self._attrName)
+                        "value": raw[1].get("out").get(region).get(self._attrName),
                     };
                 })
                 .filter((datum) => datum["year"] >= startYear)
@@ -233,7 +232,6 @@ class SparklinePresenter {
         // eslint-disable-next-line no-undef
         return d3;
     }
-
 }
 
 
@@ -308,4 +306,4 @@ class SparklinesSet {
 }
 
 
-export { SparklinesSet };
+export {SparklinesSet};

@@ -148,7 +148,7 @@ class ReportPresenter {
         self._sparklineSet = new SparklinesSet(
             sparklinesDiv,
             (year) => self._onYearChange(year),
-            () => self._onRequestRender()
+            () => self._onRequestRender(),
         );
     }
 
