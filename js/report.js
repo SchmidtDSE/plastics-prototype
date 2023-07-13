@@ -6,8 +6,10 @@ import {
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
 } from "const";
+import {getGoals} from "goals";
 import {BubblegraphPresenter} from "report_bubble";
 import {ConfigPresenter} from "report_config";
+import {GoalPresenter} from "report_goals";
 import {SparklinesSet} from "report_sparklines";
 import {StagePresenter} from "report_stage";
 import {TimeseriesPresenter} from "report_timeseries";
@@ -104,6 +106,22 @@ class ReportPresenter {
             false,
         );
 
+        const nonRecycledWasteDiv = document.getElementById("total-waste-goal-container");
+        self._nonRecycledWastePresenter = new GoalPresenter(
+            nonRecycledWasteDiv,
+            "nonRecycledWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const mismanagedWasteDiv = document.getElementById("mismanaged-waste-goal-container");
+        self._mismanagedWastePresenter = new GoalPresenter(
+            mismanagedWasteDiv,
+            "mismanagedWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
         const bubblegraphDiv = document.getElementById("bubblegraph-container");
         self._bubblegraphPresenter = new BubblegraphPresenter(
             bubblegraphDiv,
@@ -175,27 +193,41 @@ class ReportPresenter {
             }
         };
 
+        const getWithGoals = (target) => {
+            Array.of(...target.keys()).forEach((year) => {
+                const yearState = target.get(year);
+                const goals = self._getGoals(yearState, self._selection);
+                yearState.set("goal", goals);
+            });
+
+            return target;
+        };
+
         const bauTransformed = getTransformedMaybe(businessAsUsual);
         const interventionsTransformed = getTransformedMaybe(withInterventions);
 
-        const bauFinal = getRelativeMaybe(
+        const bauRelative = getRelativeMaybe(
             bauTransformed,
             bauTransformed,
         );
-
-        const interventionsFinal = getRelativeMaybe(
+        const interventionsRelative = getRelativeMaybe(
             interventionsTransformed,
             bauTransformed,
         );
 
+        const bauGoals = getWithGoals(bauRelative);
+        const interventionsGoals = getWithGoals(interventionsRelative);
+
         const resultSet = new VizStateSet(
             businessAsUsual,
-            bauFinal,
+            bauGoals,
             withInterventions,
-            interventionsFinal,
+            interventionsGoals,
             self._selection.getYear(),
         );
 
+        self._nonRecycledWastePresenter.update(resultSet, self._selection);
+        self._mismanagedWastePresenter.update(resultSet, self._selection);
         self._bubblegraphPresenter.update(resultSet, self._selection);
         self._configPresenter.update(resultSet, self._selection);
         self._consumptionStagePresenter.update(resultSet, self._selection);
@@ -346,6 +378,11 @@ class ReportPresenter {
         const wrapped = new Map();
         wrapped.set("out", newOut);
         return wrapped;
+    }
+
+    _getGoals(target, selection) {
+        const self = this;
+        return getGoals(target);
     }
 }
 

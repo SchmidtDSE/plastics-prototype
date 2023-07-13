@@ -88,7 +88,7 @@ class SliderPresenter {
                     self._onInputChange();
                     timeoutId = null;
                 },
-                250,
+                50,
             );
         });
 

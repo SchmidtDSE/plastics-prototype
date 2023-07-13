@@ -140,6 +140,83 @@ html {
     font-size: 16px;
 }
 
+.output-section .goals-container {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px dotted black;
+}
+
+.output-section .goal-container {
+    padding-bottom: 10px;
+}
+
+.output-section .goal-container.inner {
+    border-right: 1px dotted black;
+}
+
+.output-section .goal-container .bar {
+    margin-top: 2px;
+    width: 100%;
+    margin-right: 10px;
+}
+
+.output-section .goal-container .bar:first-of-type {
+    margin-top: 10px;
+}
+
+.output-section .goal-container .bar .glyph {
+    height: 7px;
+}
+
+.output-section .goal-container .bar .glyph-holder {
+    width: 100%;
+    height: 7px;
+    position: relative;
+    top: -5px;
+}
+
+.output-section .goal-container .bar .label {
+    font-size: 14px;
+}
+
+.output-section .goal-container .bar .text {
+    display: grid;
+    column-gap: 5px;
+    grid-template-columns: 60% 38%;
+    width: 99%;
+    border-bottom: 1px dotted #A0A0A0;
+    color: #505050;
+}
+
+.output-section .goal-container .bar .text a {
+    color: #505050;
+    text-decoration: none;
+}
+
+.output-section .goal-container .bar .text a:hover {
+    text-decoration: underline;
+}
+
+.output-section .goal-container .bar .value {
+    font-size: 12px;
+    text-align: right;
+    color: #707070;
+    margin-right: 5px;
+}
+
+.output-section .goal-container .bar.selected .text a {
+    color: #333333;
+}
+
+.output-section .goal-container .bar.selected .value {
+    color: #333333;
+}
+
+.output-section .goal-container .bar.selected .value {
+    color: #333333;
+}
+
 .output-section .region-container {
     margin-bottom: 15px;
     border-bottom: 1px dotted black;
@@ -153,14 +230,18 @@ html {
 }
 
 .output-section .region-container .current-year-container .stage-container {
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    padding-top: 5px;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar {
-    margin-bottom: 5px;
-    margin-top: 2px;
+    margin-top: 3px;
     width: 100%;
     margin-right: 5px;
+}
+
+.output-section .region-container .current-year-container .stage-container .bar:first-of-type {
+    margin-top: 10px;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar .glyph {
@@ -192,16 +273,17 @@ html {
     color: #505050;
 }
 
+.output-section .region-container .current-year-container .stage-container .check-holder {
+    text-align: center;
+    font-size: 14px;
+}
+
 .output-section .region-container .current-year-container .stage-container .subtitle {
     font-size: 14px;
     font-weight: bold;
     float: right;
-    margin-top: 3px;
-    margin-right: 4px;
-}
-
-.output-section .region-container .current-year-container #consumption-container {
-    border-bottom: 1px dotted black;
+    margin-top: 13px;
+    margin-right: 5px;
 }
 
 .output-section .region-container .current-year-container #eol-container {
@@ -210,6 +292,10 @@ html {
 
 .output-section .region-container .timeseries-container {
     margin-right: 10px;
+    max-height: 502px;
+    overflow: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .output-section .region-container .timeseries-container .sparklines-section {

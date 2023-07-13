@@ -13,7 +13,7 @@ const CONSUMPTION_ATTRS = [
     "consumptionHouseholdLeisureSportsMT",
     "consumptionPackagingMT",
     "consumptionTransporationMT",
-    "consumptionTextitleMT",
+    // "consumptionTextitleMT",
     "consumptionOtherMT",
 ];
 
@@ -25,10 +25,10 @@ const EOL_ATTRS = [
 ];
 
 const COLORS = [
-    "#a6cee3",
-    "#1f78b4",
     "#b2df8a",
     "#33a02c",
+    "#a6cee3",
+    "#1f78b4",
     "#fb9a99",
     "#e31a1c",
     "#fdbf6f",
