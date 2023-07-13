@@ -30,6 +30,7 @@ header h1 {
 html {
     background-color: #F0F0F0;
     font-family: Spartan;
+    font-size: 16px;
 }
 
 .editor {
@@ -136,6 +137,7 @@ html {
 
 .output-section .config-container .delta-check-holder {
     margin-top: 10px;
+    font-size: 16px;
 }
 
 .output-section .region-container {
