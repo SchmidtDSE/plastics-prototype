@@ -46,13 +46,17 @@ class StagePresenter {
     update(stateSet, selection) {
         const self = this;
 
+        const smallDisplay = window.innerWidth < 1200;
+
         const selected = selection.getDisplayStage() == self._stage;
         const isEol = self._stage == DISPLAY_STAGES.eol;
         const attrs = isEol ? EOL_ATTRS : CONSUMPTION_ATTRS;
 
         const unitsStrRaw = STRINGS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
-        const unitsStr = (isPercent ? "" : " ") + unitsStrRaw;
+        const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
+        const isMetricTons = unitsStrLong === " Metric Tons";
+        const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();
         const regionData = state.get("out").get(selection.getRegion());
@@ -116,7 +120,14 @@ class StagePresenter {
                 .selectAll(".bar");
 
             boundUpdated.select(".label")
-                .html((attr) => STRINGS.get(attr));
+                .html((attr) => {
+                    const labelRaw = STRINGS.get(attr);
+                    if (smallDisplay && labelRaw === "House, Leis, Sport") {
+                        return "Household";
+                    } else {
+                        return labelRaw;
+                    }
+                });
 
             boundUpdated.select(".value")
                 .html((attr) => {

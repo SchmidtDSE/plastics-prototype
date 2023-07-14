@@ -497,6 +497,19 @@ html {
 }
 
 
+@media (max-width: 1200px) {
+    .output-section h3 {
+        font-size: 15px;
+    }
+
+    .output-section .region-container .current-year-container .stage-container .subtitle {
+        font-size: 13px;
+        margin-right: 2px;
+        margin-top: 12px;
+    }
+}
+
+
 @media (max-width: 700px) {
     .output-section .goals-container {
         max-height: 205px;
@@ -515,7 +528,7 @@ html {
 
 
 @media (min-width: 700px) {
-    @media (max-width: 1400px) {
+    @media (max-width: 1050px) {
         .output-section .goals-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -536,7 +549,7 @@ html {
 }
 
 
-@media (min-width: 1400px) {
+@media (min-width: 1050px) {
     .output-section .goals-container {
         display: grid;
         column-gap: 10px;

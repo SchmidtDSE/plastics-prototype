@@ -19,7 +19,10 @@ class GoalPresenter {
 
         const unitsStrRaw = STRINGS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
-        const unitsStr = (isPercent ? "" : " ") + unitsStrRaw;
+        const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
+        const smallDisplay = window.innerWidth < 1400;
+        const isMetricTons = unitsStrLong === " Metric Tons";
+        const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();
 
