@@ -51,6 +51,8 @@ class Driver {
 
             self._onInputChange();
         });
+
+        self._setupLayoutListeners();
     }
 
     _getLevers() {
@@ -154,6 +156,27 @@ class Driver {
     _addGlobalToState(state) {
         const self = this;
         return addGlobalToState(state);
+    }
+
+    _setupLayoutListeners() {
+        const self = this;
+
+        const rebuild = () => {
+            setTimeout(() => {
+                self._reportPresenter.rebuildViz();
+                self._onInputChange();
+            }, 50);
+        };
+
+        document.getElementById("side-by-side-radio").addEventListener("click", () => {
+            document.getElementById("panel-box").classList.add("active");
+            rebuild();
+        });
+
+        document.getElementById("linear-radio").addEventListener("click", () => {
+            document.getElementById("panel-box").classList.remove("active");
+            rebuild();
+        });
     }
 }
 

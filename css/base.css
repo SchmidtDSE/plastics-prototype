@@ -576,11 +576,18 @@ select {
 
 
 @media (min-width: 1000px) {
-    .panel-box {
+    .panel-box.active {
         display: grid;
         column-gap: 10px;
         grid-template-columns: 65% 35%;
         width: 99%;
+    }
+}
+
+
+@media (max-width: 999px) {
+    #layout-panel {
+        display: none;
     }
 }
 
