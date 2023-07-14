@@ -585,6 +585,13 @@ select {
 }
 
 
+@media (max-width: 999px) {
+    #layout-panel {
+        display: none;
+    }
+}
+
+
 @media (min-width: 700px) {
     .output-section .region-container {
         display: grid;
