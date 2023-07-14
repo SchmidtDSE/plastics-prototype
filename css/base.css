@@ -352,6 +352,7 @@ html {
 .output-section .region-container .timeseries-container .sparklines-section .spark-hover-target:hover {
     fill-opacity: 0.1;
     stroke-opacity: 1;
+    cursor: pointer;
 }
 
 .output-section .region-container .timeseries-container .sparklines-section .spark-year-indicator {
