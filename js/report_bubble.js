@@ -117,6 +117,8 @@ class BubblegraphPresenter {
     update(stateSet, selection) {
         const self = this;
 
+        const smallDisplay = window.innerWidth < 800;
+
         const displayStage = selection.getDisplayStage();
         const attrNames = self._attrNames.get(displayStage);
         const colorScale = self._colorScales.get(displayStage);
@@ -245,7 +247,14 @@ class BubblegraphPresenter {
                 .attr("x", self._horizontalScale.step() / 2)
                 .attr("y", 20)
                 .classed("label", true)
-                .text((datum) => STRINGS.get(datum));
+                .text((datum) => {
+                    const rawText = STRINGS.get(datum);
+                    if (rawText === "Rest of World" && smallDisplay) {
+                        return "ROW";
+                    } else {
+                        return rawText;
+                    }
+                });
 
             const updatedBound = labelLayer.selectAll(".region-intro");
             updatedBound
