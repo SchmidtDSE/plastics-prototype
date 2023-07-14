@@ -39,7 +39,7 @@ class Driver {
                 (year) => self._buildStateForCurrentYear(),
                 (x) => self._compileProgram(x),
                 () => self._onSlidersChange(),
-                () => self._reportPresenter.getSelection()
+                () => self._reportPresenter.getSelection(),
             ),
         ];
 

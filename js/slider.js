@@ -177,7 +177,7 @@ class SliderPresenter {
 
         const updateLabels = () => {
             const selection = self._getSelection();
-            
+
             self._rootElement.querySelectorAll(".goal-table-year").forEach((elem) => {
                 elem.innerHTML = selection.getYear();
             });
