@@ -141,18 +141,11 @@ html {
 }
 
 .output-section .goals-container {
-    display: grid;
-    column-gap: 10px;
-    grid-template-columns: repeat(4, 1fr);
     border-bottom: 1px dotted black;
 }
 
 .output-section .goal-container {
     padding-bottom: 10px;
-}
-
-.output-section .goal-container.inner {
-    border-right: 1px dotted black;
 }
 
 .output-section .goal-container .bar {
@@ -220,13 +213,9 @@ html {
 .output-section .region-container {
     margin-bottom: 15px;
     border-bottom: 1px dotted black;
-    display: grid;
-    column-gap: 10px;
-    grid-template-columns: 30% 70%;
 }
 
 .output-section .region-container .current-year-container {
-    border-right: 1px dotted black;
     max-height: 512px;
     overflow-y: auto;
 }
@@ -234,6 +223,8 @@ html {
 .output-section .region-container .current-year-container .stage-container {
     padding-bottom: 15px;
     padding-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar {
@@ -289,11 +280,11 @@ html {
 }
 
 .output-section .region-container .current-year-container #production-container {
-    border-bottom: 1px dotted black;
+    border-bottom: 1px dotted #505050;
 }
 
 .output-section .region-container .current-year-container #eol-container {
-    border-bottom: 1px dotted black;
+    border-bottom: 1px dotted #505050;
 }
 
 .output-section .region-container .timeseries-container {
@@ -409,13 +400,6 @@ html {
     font-size: 12px;
 }
 
-.panel-box {
-    display: grid;
-    column-gap: 10px;
-    grid-template-columns: 65% 35%;
-    width: 99%;
-}
-
 .right-panel {
     background-color: white;
     padding: 5px;
@@ -509,4 +493,101 @@ html {
     margin-top: 3px;
     border: 1px solid #C0C0C0;
     border-collapse: collapse;
+}
+
+
+@media (max-width: 700px) {
+    .output-section .goals-container {
+        max-height: 205px;
+        overflow-y: auto;
+    }
+
+    .output-section .goal-container {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .output-section .goal-container.inner {
+        border-bottom: 1px dotted #505050;
+    }
+}
+
+
+@media (min-width: 700px) {
+    @media (max-width: 1400px) {
+        .output-section .goals-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .output-section .goal-container.even {
+            border-right: 1px dotted black;
+        }
+
+        .output-section .goal-container.odd {
+            padding-left: 5px;
+        }
+
+        .output-section .goal-container.top {
+            border-bottom: 1px dotted black;
+        }
+    }
+}
+
+
+@media (min-width: 1400px) {
+    .output-section .goals-container {
+        display: grid;
+        column-gap: 10px;
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .output-section .goal-container.inner {
+        border-right: 1px dotted black;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .panel-box {
+        display: grid;
+        column-gap: 10px;
+        grid-template-columns: 65% 35%;
+        width: 99%;
+    }
+}
+
+
+@media (min-width: 700px) {
+    .output-section .region-container {
+        display: grid;
+        column-gap: 10px;
+        grid-template-columns: 30% 70%;
+    }
+
+    .output-section .region-container .current-year-container {
+        border-right: 1px dotted black;
+    }
+}
+
+@media (max-width: 700px) {
+    .output-section .goal-container.inner {
+        border-bottom: 0px;
+    }
+
+    .output-section .region-container .current-year-container {
+        border-bottom: 1px dotted black;
+    }
+
+    .output-section .region-container .current-year-container #production-container {
+        border-bottom: 0px;
+    }
+
+    .output-section .region-container .current-year-container #eol-container {
+        border-bottom: 0px;
+    }
+
+    .panel-box {
+        margin-right: 20px;
+    }
 }
