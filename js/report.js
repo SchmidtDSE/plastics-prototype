@@ -106,7 +106,7 @@ class ReportPresenter {
             false,
         );
 
-        self._rebuildViz();
+        self.rebuildViz();
         self._setupResizeListener();
     }
 
@@ -204,13 +204,13 @@ class ReportPresenter {
 
                 lastWindowWidth = newWindowWidth;
                 timeoutId = null;
-                self._rebuildViz();
+                self.rebuildViz();
                 self._onRequestRender();
             }, 200);
         });
     }
 
-    _rebuildViz() {
+    rebuildViz() {
         const self = this;
 
         const nonRecycledWasteDiv = document.getElementById("total-waste-goal-container");
