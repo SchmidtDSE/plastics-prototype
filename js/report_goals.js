@@ -48,19 +48,20 @@ class GoalPresenter {
 
             const newBars = bound.enter()
                 .append("div")
-                .classed("bar", true);
+                .classed("bar", true)
+                .append("a")
+                .attr("href", "#")
+                .on("click", (event, region) => {
+                    event.preventDefault();
+                    self._onRegionChange(region);
+                });
+
 
             const newText = newBars.append("div")
                 .classed("text", true);
 
             const newLabel = newText.append("div")
                 .classed("label", true);
-
-            newLabel.append("a").attr("href", "#")
-                .on("click", (event, region) => {
-                    event.preventDefault();
-                    self._onRegionChange(region);
-                });
 
             newText.append("div")
                 .classed("value", true);
@@ -77,7 +78,6 @@ class GoalPresenter {
             boundUpdated.classed("selected", (region) => region === selection.getRegion());
 
             boundUpdated.select(".label")
-                .select("a")
                 .html((region) => STRINGS.get(region));
 
             boundUpdated.select(".value")
