@@ -9,6 +9,7 @@ Uses the following:
 
  - [ANTLR](https://www.antlr.org/index.html) under the [BSD License](https://www.antlr.org/license.html).
  - [Ace Editor](https://ace.c9.io/) under the [BSD License](https://github.com/ajaxorg/ace/blob/master/LICENSE).
+ - [Select CSS](https://stackoverflow.com/questions/38788848) under [CC-BY-SA](https://stackoverflow.com/help/licensing).
 
 Inspired by:
 
