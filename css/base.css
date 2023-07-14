@@ -424,6 +424,23 @@ html {
     margin-left: 15px;
 }
 
+#levers-panel .slider-context {
+    color: #505050;
+}
+
+#levers-panel .slider-context table {
+    display: none;
+}
+
+#levers-panel .slider-context table, #levers-panel .slider-context th, #levers-panel .slider-context td {
+    color: #505050;
+    font-size: 14px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    border: 1px solid #C0C0C0;
+    border-collapse: collapse;
+}
+
 #levers-panel label {
     font-weight: bold;
 }
@@ -459,6 +476,7 @@ html {
 #levers-panel .status-display {
     background-color: #E0D000;
     padding: 2px;
+    color: black;
 }
 
 #levers-panel .wiki-info {
@@ -467,4 +485,17 @@ html {
 
 #prototype input {
     width: 90%;
+}
+
+#prototype table {
+    display: none;
+}
+
+#prototype table, #prototype th, #prototype td {
+    color: #505050;
+    font-size: 14px;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    border: 1px solid #C0C0C0;
+    border-collapse: collapse;
 }

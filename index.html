@@ -103,6 +103,22 @@
                                     <div class="slider-holder" id="slider-holder-prototype">
                                         <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
                                         <input type="number" value="0" class="slider" id="input-prototype">
+                                        <table class="goals-table">
+                                            <tr>
+                                                <td></td>
+                                                <td><span class="goal-table-year"></span> Production Emissions</td>
+                                                <td><span class="goal-table-year"></span> Consumption Emissions</td>
+                                                <td><span class="goal-table-year"></span> Non-Recycled Waste</td>
+                                                <td><span class="goal-table-year"></span> Mismanaged Waste</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="global-table-region"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="goal-table-non-recycled-waste"></td>
+                                                <td class="goal-table-mismanaged-waste"></td>
+                                            </tr>
+                                        </table>
                                         <div class="status-display"></div>
                                         <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
                                         <div class="inspects-area"></div>
@@ -128,6 +144,7 @@
                     "compiler": "./js/compiler.js?v=EPOCH",
                     "const": "./js/const.js?v=EPOCH",
                     "data": "./js/data.js?v=EPOCH",
+                    "geotools": "./js/geotools.js?v=EPOCH",
                     "goals": "./js/goals.js?v=EPOCH",
                     "report": "./js/report.js?v=EPOCH",
                     "report_bubble": "./js/report_bubble.js?v=EPOCH",

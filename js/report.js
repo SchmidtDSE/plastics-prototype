@@ -236,6 +236,16 @@ class ReportPresenter {
         self._sparklineSet.update(resultSet, self._selection);
     }
 
+    getSelection() {
+        const self = this;
+        return self._selection;
+    }
+
+    showDeltaCheck() {
+        const self = this;
+        self._configPresenter.showDeltaCheck();
+    }
+
     _onStageChange(stage) {
         const self = this;
 

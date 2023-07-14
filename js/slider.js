@@ -1,8 +1,11 @@
 import {CACHE_BUSTER, MAX_YEAR} from "const";
+import {addGlobalToState} from "geotools";
+import {getGoals} from "goals";
+import {STRINGS} from "strings";
 
 
 class SliderPresenter {
-    constructor(buildState, compileProgram, config, rootElement, onChange) {
+    constructor(buildState, compileProgram, config, rootElement, onChange, getSelection) {
         const self = this;
 
         self._config = config;
@@ -10,6 +13,7 @@ class SliderPresenter {
         self._onChange = onChange;
         self._buildState = buildState;
         self._compileProgram = compileProgram;
+        self._getSelection = getSelection;
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
@@ -72,6 +76,11 @@ class SliderPresenter {
             });
     }
 
+    refreshSelection() {
+        const self = this;
+        self._refreshTable();
+    }
+
     _attachListeners() {
         const self = this;
 
@@ -105,7 +114,7 @@ class SliderPresenter {
             return;
         }
 
-        const state = self._buildState(MAX_YEAR);
+        const state = self._buildState();
         try {
             program(state);
             self._showError(null);
@@ -151,7 +160,77 @@ class SliderPresenter {
     _onInputChange(data) {
         const self = this;
         self._onInputChangeInProgress();
+        self._refreshTable();
         self._onChange();
+    }
+
+    _refreshTable(data) {
+        const self = this;
+
+        const region = "global";
+        const regionStr = STRINGS.get(region);
+
+        const showTable = () => {
+            const newDisplay = self.getValue() == self._config["default"] ? "none" : "block";
+            self._rootElement.querySelector(".goals-table").style.display = newDisplay;
+        };
+
+        const updateLabels = () => {
+            const selection = self._getSelection();
+
+            self._rootElement.querySelectorAll(".goal-table-year").forEach((elem) => {
+                elem.innerHTML = selection.getYear();
+            });
+
+            self._rootElement.querySelector(".global-table-region").innerHTML = regionStr;
+        };
+
+        const updateGoals = () => {
+            const selection = self._getSelection();
+
+            const program = self.getProgram();
+            if (program === null) {
+                return;
+            }
+
+            const stateBefore = self._buildState();
+            const stateAfter = self._buildState();
+            try {
+                program(stateAfter);
+            } catch {
+                return;
+            }
+
+            addGlobalToState(stateBefore);
+            addGlobalToState(stateAfter);
+
+            const goalsBefore = getGoals(stateBefore).get(region);
+            const goalsAfter = getGoals(stateAfter).get(region);
+
+            const getDelta = (attr) => {
+                const unrounded = goalsAfter.get(attr) - goalsBefore.get(attr);
+                return Math.round(unrounded * 100) / 100;
+            };
+
+            const getText = (value) => {
+                const prefix = value >= 0 ? "+" : "";
+                return prefix + value + " MT";
+            };
+
+            const setText = (value, selector) => {
+                self._rootElement.querySelector(selector).innerHTML = getText(value);
+            };
+
+            const deltaNonRecycled = getDelta("nonRecycledWaste");
+            setText(deltaNonRecycled, ".goal-table-non-recycled-waste");
+
+            const deltaMismanaged = getDelta("mismanagedWaste");
+            setText(deltaMismanaged, ".goal-table-mismanaged-waste");
+        };
+
+        showTable();
+        updateLabels();
+        updateGoals();
     }
 
     /**
@@ -251,7 +330,7 @@ function getHandlebars() {
 }
 
 
-function buildSliders(buildState, compileProgram, onInputChange) {
+function buildSliders(buildState, compileProgram, onInputChange, getSelection) {
     const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
         .then((x) => x.json());
 
@@ -321,6 +400,7 @@ function buildSliders(buildState, compileProgram, onInputChange) {
                         config,
                         element,
                         onInputChange,
+                        getSelection,
                     );
                 });
 
@@ -330,6 +410,7 @@ function buildSliders(buildState, compileProgram, onInputChange) {
                     {"units": "units", "variable": "prototype"},
                     document.getElementById("slider-holder-prototype"),
                     onInputChange,
+                    getSelection,
                 ));
 
                 resolve(presenters);
