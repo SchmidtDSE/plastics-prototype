@@ -106,68 +106,8 @@ class ReportPresenter {
             false,
         );
 
-        const nonRecycledWasteDiv = document.getElementById("total-waste-goal-container");
-        self._nonRecycledWastePresenter = new GoalPresenter(
-            nonRecycledWasteDiv,
-            "nonRecycledWaste",
-            (region) => self._onRegionChange(region),
-            () => self._onRequestRender(),
-        );
-
-        const mismanagedWasteDiv = document.getElementById("mismanaged-waste-goal-container");
-        self._mismanagedWastePresenter = new GoalPresenter(
-            mismanagedWasteDiv,
-            "mismanagedWaste",
-            (region) => self._onRegionChange(region),
-            () => self._onRequestRender(),
-        );
-
-        const bubblegraphDiv = document.getElementById("bubblegraph-container");
-        self._bubblegraphPresenter = new BubblegraphPresenter(
-            bubblegraphDiv,
-            (region) => self._onRegionChange(region),
-            () => self._onRequestRender(),
-        );
-
-        const configDiv = document.getElementById("config-container");
-        self._configPresenter = new ConfigPresenter(
-            configDiv,
-            (stage) => self._onStageChange(stage),
-            (region) => self._onRegionChange(region),
-            (year) => self._onYearChange(year),
-            (type) => self._onTypeChange(type),
-            (showBau) => self._onShowBauChange(showBau),
-        );
-
-        const consumptionStageDiv = document.getElementById("consumption-container");
-        self._consumptionStagePresenter = new StagePresenter(
-            consumptionStageDiv,
-            DISPLAY_STAGES.consumption,
-            (stage) => self._onStageChange(stage),
-            () => self._onRequestRender(),
-        );
-
-        const eolStageDiv = document.getElementById("eol-container");
-        self._eolStagePresenter = new StagePresenter(
-            eolStageDiv,
-            DISPLAY_STAGES.eol,
-            (stage) => self._onStageChange(stage),
-            () => self._onRequestRender(),
-        );
-
-        const timeseriesDiv = document.getElementById("timeseries-container");
-        self._timeseriesPresenter = new TimeseriesPresenter(
-            timeseriesDiv,
-            (year) => self._onYearChange(year),
-            () => self._onRequestRender(),
-        );
-
-        const sparklinesDiv = document.getElementById("sparklines-section");
-        self._sparklineSet = new SparklinesSet(
-            sparklinesDiv,
-            (year) => self._onYearChange(year),
-            () => self._onRequestRender(),
-        );
+        self._rebuildViz();
+        self._setupResizeListener();
     }
 
     render(businessAsUsual, withInterventions) {
@@ -244,6 +184,97 @@ class ReportPresenter {
     showDeltaCheck() {
         const self = this;
         self._configPresenter.showDeltaCheck();
+    }
+
+    _setupResizeListener() {
+        const self = this;
+
+        let timeoutId = null;
+        let lastWindowWidth = window.innerWidth;
+        window.addEventListener("resize", (event) => {
+            if (timeoutId !== null) {
+                clearTimeout(timeoutId);
+            }
+
+            timeoutId = setTimeout(() => {
+                const newWindowWidth = window.innerWidth;
+                if (Math.abs(lastWindowWidth - newWindowWidth) < 20) {
+                    return;
+                }
+
+                lastWindowWidth = newWindowWidth;
+                timeoutId = null;
+                self._rebuildViz();
+                self._onRequestRender();
+            }, 200);
+        });
+    }
+
+    _rebuildViz() {
+        const self = this;
+
+        const nonRecycledWasteDiv = document.getElementById("total-waste-goal-container");
+        self._nonRecycledWastePresenter = new GoalPresenter(
+            nonRecycledWasteDiv,
+            "nonRecycledWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const mismanagedWasteDiv = document.getElementById("mismanaged-waste-goal-container");
+        self._mismanagedWastePresenter = new GoalPresenter(
+            mismanagedWasteDiv,
+            "mismanagedWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const bubblegraphDiv = document.getElementById("bubblegraph-container");
+        self._bubblegraphPresenter = new BubblegraphPresenter(
+            bubblegraphDiv,
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const configDiv = document.getElementById("config-container");
+        self._configPresenter = new ConfigPresenter(
+            configDiv,
+            (stage) => self._onStageChange(stage),
+            (region) => self._onRegionChange(region),
+            (year) => self._onYearChange(year),
+            (type) => self._onTypeChange(type),
+            (showBau) => self._onShowBauChange(showBau),
+        );
+
+        const consumptionStageDiv = document.getElementById("consumption-container");
+        self._consumptionStagePresenter = new StagePresenter(
+            consumptionStageDiv,
+            DISPLAY_STAGES.consumption,
+            (stage) => self._onStageChange(stage),
+            () => self._onRequestRender(),
+        );
+
+        const eolStageDiv = document.getElementById("eol-container");
+        self._eolStagePresenter = new StagePresenter(
+            eolStageDiv,
+            DISPLAY_STAGES.eol,
+            (stage) => self._onStageChange(stage),
+            () => self._onRequestRender(),
+        );
+
+        const timeseriesDiv = document.getElementById("timeseries-container");
+        self._timeseriesPresenter = new TimeseriesPresenter(
+            timeseriesDiv,
+            (year) => self._onYearChange(year),
+            () => self._onRequestRender(),
+        );
+
+        const sparklinesDiv = document.getElementById("sparklines-section");
+        self._sparklineSet = new SparklinesSet(
+            sparklinesDiv,
+            (year) => self._onYearChange(year),
+            () => self._onRequestRender(),
+        );
     }
 
     _onStageChange(stage) {

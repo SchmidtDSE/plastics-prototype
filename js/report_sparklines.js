@@ -157,6 +157,7 @@ class SparklinePresenter {
         const self = this;
 
         const targetSvg = self._d3Selection.select(".sparkline");
+        targetSvg.html("");
 
         const boundingBox = self._targetDiv.querySelector(".sparkline")
             .getBoundingClientRect();

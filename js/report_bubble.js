@@ -54,11 +54,11 @@ class BubblegraphPresenter {
         // Vertical scales
         const verticalScaleEol = self._getD3().scaleBand()
             .domain(EOL_ATTRS)
-            .range([30, self._svgHeight]);
+            .range([30, self._svgHeight - 20]);
 
         const verticalScaleConsumption = self._getD3().scaleBand()
             .domain(CONSUMPTION_ATTRS)
-            .range([30, self._svgHeight]);
+            .range([30, self._svgHeight - 20]);
 
         self._verticalScales = new Map();
         self._verticalScales.set(DISPLAY_STAGES.eol, verticalScaleEol);
@@ -68,12 +68,12 @@ class BubblegraphPresenter {
         const eolIndicies = EOL_ATTRS.map((x, i) => i);
         const verticalIndexScaleEol = self._getD3().scaleBand()
             .domain(eolIndicies)
-            .range([30, self._svgHeight]);
+            .range([30, self._svgHeight - 20]);
 
         const consumptionIndicies = CONSUMPTION_ATTRS.map((x, i) => i);
         const verticalIndexScaleConsumption = self._getD3().scaleBand()
             .domain(consumptionIndicies)
-            .range([30, self._svgHeight]);
+            .range([30, self._svgHeight - 20]);
 
         self._verticalIndexScales = new Map();
         self._verticalIndexScales.set(DISPLAY_STAGES.eol, verticalIndexScaleEol);
