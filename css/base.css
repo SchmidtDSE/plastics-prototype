@@ -183,7 +183,7 @@ html {
 .output-section .goal-container .bar .text {
     display: grid;
     column-gap: 5px;
-    grid-template-columns: 60% 38%;
+    grid-template-columns: 50% 48%;
     width: 99%;
     border-bottom: 1px dotted #A0A0A0;
     color: #505050;

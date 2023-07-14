@@ -29,13 +29,13 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: sqlpipeline.yaml
+          workflow: pipelines.yaml
           workflow_conclusion: success
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
       - name: Move web CSV
-        run: mv data/SQL\ Pipeline\ Result/web.csv data/web.csv
+        run: mv data/Pipeline\ Result/overview.csv data/web.csv
       - name: Build
         shell: bash
         run: |
@@ -76,13 +76,13 @@ jobs:
         uses: dawidd6/action-download-artifact@v2
         with:
           github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: sqlpipeline.yaml
+          workflow: pipelines.yaml
           workflow_conclusion: success
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
       - name: Move web CSV
-        run: mv data/SQL\ Pipeline\ Result/web.csv data/web.csv
+        run: mv data/Pipeline\ Result/overview.csv data/web.csv
       - name: Build
         shell: bash
         run: |
