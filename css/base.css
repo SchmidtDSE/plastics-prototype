@@ -189,12 +189,12 @@ html {
     color: #505050;
 }
 
-.output-section .goal-container .bar .text a {
+.output-section .goal-container a {
     color: #505050;
     text-decoration: none;
 }
 
-.output-section .goal-container .bar .text a:hover {
+.output-section .goal-container a:hover {
     text-decoration: underline;
 }
 
