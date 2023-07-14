@@ -227,6 +227,8 @@ html {
 
 .output-section .region-container .current-year-container {
     border-right: 1px dotted black;
+    max-height: 512px;
+    overflow-y: auto;
 }
 
 .output-section .region-container .current-year-container .stage-container {
@@ -286,6 +288,10 @@ html {
     margin-right: 5px;
 }
 
+.output-section .region-container .current-year-container #production-container {
+    border-bottom: 1px dotted black;
+}
+
 .output-section .region-container .current-year-container #eol-container {
     border-bottom: 1px dotted black;
 }
@@ -293,15 +299,15 @@ html {
 .output-section .region-container .timeseries-container {
     margin-right: 10px;
     max-height: 502px;
-    overflow: auto;
+    overflow-y: auto;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
 .output-section .region-container .timeseries-container .sparklines-section {
     display: grid;
-    column-gap: 10px;
-    row-gap: 10px;
+    column-gap: 20px;
+    row-gap: 20px;
     grid-template-columns: 50% 50%;
     width: 99%;
 }
@@ -360,7 +366,7 @@ html {
 }
 
 .output-section .region-container .timeseries-container .timeseries {
-    height: 280px;
+    height: 270px;
     width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -410,15 +416,19 @@ html {
     width: 99%;
 }
 
-.slider {
-    width: 100%;
-}
-
-#levers-panel {
+.right-panel {
     background-color: white;
     padding: 5px;
     border: 1px solid #505050;
-    margin: 3px;
+    margin: 3px 3px 20px 3px;
+}
+
+.right-panel h3 {
+    margin-top: 7px;
+}
+
+.slider {
+    width: 100%;
 }
 
 #levers-panel details {
