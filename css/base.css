@@ -255,7 +255,7 @@ html {
 .output-section .region-container .current-year-container .stage-container .bar .text {
     display: grid;
     column-gap: 5px;
-    grid-template-columns: 60% 38%;
+    grid-template-columns: 50% 48%;
     width: 99%;
     border-bottom: 1px dotted #A0A0A0;
 }
@@ -425,6 +425,7 @@ html {
 
 #levers-panel .slider-context table {
     display: none;
+    width: 100%;
 }
 
 #levers-panel .slider-context table, #levers-panel .slider-context th, #levers-panel .slider-context td {
@@ -496,6 +497,19 @@ html {
 }
 
 
+@media (max-width: 1200px) {
+    .output-section h3 {
+        font-size: 15px;
+    }
+
+    .output-section .region-container .current-year-container .stage-container .subtitle {
+        font-size: 13px;
+        margin-right: 2px;
+        margin-top: 12px;
+    }
+}
+
+
 @media (max-width: 700px) {
     .output-section .goals-container {
         max-height: 205px;
@@ -514,7 +528,7 @@ html {
 
 
 @media (min-width: 700px) {
-    @media (max-width: 1400px) {
+    @media (max-width: 1050px) {
         .output-section .goals-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -535,7 +549,7 @@ html {
 }
 
 
-@media (min-width: 1400px) {
+@media (min-width: 1050px) {
     .output-section .goals-container {
         display: grid;
         column-gap: 10px;
@@ -548,7 +562,7 @@ html {
 }
 
 
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
     .panel-box {
         display: grid;
         column-gap: 10px;
