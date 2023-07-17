@@ -59,10 +59,10 @@ const CACHE_BUSTER = Date.now();
 const DISPLAY_TYPES = {amount: 1, percent: 2};
 const DISPLAY_STAGES = {consumption: 3, eol: 4};
 const GOALS = {
-    productionEmissions: 5,
-    consumptionEmissions: 6,
-    nonRecycledWaste: 7,
-    mismanagedWaste: 8,
+    productionEmissions: "productionEmissions",
+    consumptionEmissions: "consumptionEmissions",
+    nonRecycledWaste: "nonRecycledWaste",
+    mismanagedWaste: "mismanagedWaste",
 };
 
 

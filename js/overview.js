@@ -45,14 +45,16 @@ class OverviewPresenter {
         const currentYearRelative = relative.get(self._year);
 
         const rawGoals = getGoals(currentYear);
-        self._rawScorecardPresenter.render(self._year, rawGoals);
+        self._rawScorecardPresenter.render(self._year, rawGoals, self._goal);
 
         const relativeGoals = getGoals(currentYearRelative);
-        self._relativeScorecardPresenter.render(self._year, relativeGoals);
+        self._relativeScorecardPresenter.render(self._year, relativeGoals, self._goal);
     }
 
     _onGoalChange(newGoal) {
         const self = this;
+        self._goal = newGoal;
+        self._onRequestRender();
     }
 }
 

@@ -5,12 +5,16 @@ class ScorecardPresenter {
         self._targetDiv = targetDiv;
         self._onGoalChange = onGoalChange;
         self._prefix = prefix;
+
+        self._targetDiv.querySelectorAll(".card").forEach((card) => {
+            card.addEventListener("click", () => {
+                self._onGoalChange(card.getAttribute("goal"));
+            });
+        });
     }
 
-    render(year, goals) {
+    render(year, goals, selectedGoal) {
         const self = this;
-
-        console.log(goals);
 
         const updateYear = () => {
             self._targetDiv.querySelector(".year").innerHTML = year;
@@ -27,7 +31,7 @@ class ScorecardPresenter {
             };
 
 
-            /* setBody(
+            /*setBody(
                 "production-emissions-card",
                 goals.get("productionEmissions"),
             );
@@ -48,8 +52,19 @@ class ScorecardPresenter {
             );
         };
 
+        const updateHighlight = () => {
+            self._targetDiv.querySelectorAll(".card").forEach((card) => {
+                if (card.getAttribute("goal") === selectedGoal) {
+                    card.classList.add("active");
+                } else {
+                    card.classList.remove("active");
+                }
+            });
+        };
+
         updateYear();
         updateBody();
+        updateHighlight();
     }
 }
 
