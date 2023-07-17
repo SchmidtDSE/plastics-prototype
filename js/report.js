@@ -395,10 +395,11 @@ class ReportPresenter {
 }
 
 
-function buildReportPresenter(onRequestRender) {
-    return new Promise((resolve) => resolve(
-        new ReportPresenter(onRequestRender),
-    ));
+function buildReportPresenter(onRequestRender, onYearChange) {
+    return new Promise((resolve) => {
+        const presenter = new ReportPresenter(onRequestRender, onYearChange);
+        resolve(presenter);
+    });
 }
 
 
