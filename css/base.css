@@ -435,17 +435,21 @@ select {
     color: #505050;
     padding: 5px;
     max-width: 200px;
-    border: 1px solid #FFFFFF;
+    border: 1px solid #C0C0C0;
+    background-color: #FAFAFA;
+    border-radius: 3px;
 }
 
 .overview .cards .card:hover {
-    border: 1px solid #C0C0C0;
+    border: 1px solid #A0A0A0;
     cursor: pointer;
+    color: black;
 }
 
 .overview .cards .card.active {
     border: 1px solid #A0A0A0;
     color: black;
+    background-color: #a6cee3;
 }
 
 .overview .cards .card.active:hover {
@@ -579,7 +583,7 @@ select {
 
 /* Responsive for top of details tab with goals */
 
-@media (max-width: 700px) {
+@media (max-width: 699px) {
     .output-section .goals-container {
         max-height: 205px;
         overflow-y: auto;
@@ -597,7 +601,7 @@ select {
 
 
 @media (min-width: 700px) {
-    @media (max-width: 1050px) {
+    @media (max-width: 1049px) {
         .output-section .goals-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -664,7 +668,7 @@ select {
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 699px) {
     .output-section .bubblegraph-container {
         overflow-x: auto;
     }
@@ -693,7 +697,28 @@ select {
 
 /* Responsive for layout on overview */
 
-@media (min-width: 800px) {
+@media (max-width: 849px) {
+    .overview .cards {
+        display: grid;
+        column-gap: 10px;
+        row-gap: 10px;
+        grid-template-columns: 50% 50%;
+    }
+
+    .overview .cards .card {
+        max-width: 180px;
+    }
+
+    .overview .overview-section {
+        border-bottom: 1px dotted black;
+    }
+
+    .overview .overview-section.last {
+        border-bottom: none;
+    }
+}
+
+@media (min-width: 850px) {
     .overview .cards {
         display: grid;
         column-gap: 10px;
@@ -714,5 +739,13 @@ select {
 
     .overview #scenarios {
         border-right: 1px dotted black;
+    }
+}
+
+/* Responsive for tabs */
+
+@media (max-width: 480px) {
+    [role="tab"][aria-selected="true"] {
+        border-bottom: 1px solid black;
     }
 }
