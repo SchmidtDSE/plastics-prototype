@@ -2,6 +2,7 @@ import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {addGlobalToState} from "geotools";
+import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
@@ -14,6 +15,7 @@ class Driver {
         self._compiler = null;
         self._dataLayer = null;
         self._reportPresenter = null;
+        self._overviewPresenter = null;
         self._levers = null;
 
         self._historicYears = [];
@@ -41,6 +43,7 @@ class Driver {
             buildDataLayer(() => self._getLevers()),
             buildReportPresenter(
                 () => self._onInputChange(),
+                (year) => self._onYearChange(year)
             ),
             buildSliders(
                 (year) => self._buildStateForCurrentYear(),
@@ -48,6 +51,11 @@ class Driver {
                 () => self._onSlidersChange(),
                 () => self._reportPresenter.getSelection(),
             ),
+            buildOverviewPresenter(
+                () => self._onInputChange(),
+                (change) => self._onPolicyChange(change),
+                (year) => onYearChange(year)
+            )
         ];
 
         Promise.all(promises).then((values) => {
@@ -55,6 +63,7 @@ class Driver {
             self._dataLayer = values[1];
             self._reportPresenter = values[2];
             self._levers = values[3];
+            self._overviewPresenter = values[4];
 
             self._onInputChange();
         });
@@ -145,6 +154,12 @@ class Driver {
         self._onInputChange();
     }
 
+    _onYearChange(year) {
+        const self = this;
+
+        self._reportPresenter.setYear(year);
+    }
+
     _onInputChange() {
         const self = this;
 
@@ -158,6 +173,7 @@ class Driver {
     _updateOutputs(businessAsUsual, withInterventions) {
         const self = this;
         self._reportPresenter.render(businessAsUsual, withInterventions);
+        self._overviewPresenter.render(businessAsUsual, withInterventions);
     }
 
     _addGlobalToState(state) {
@@ -184,6 +200,10 @@ class Driver {
             document.getElementById("panel-box").classList.remove("active");
             rebuild();
         });
+    }
+
+    _onPolicyChange(change) {
+        const self = this;
     }
 }
 

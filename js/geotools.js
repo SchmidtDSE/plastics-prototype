@@ -16,4 +16,42 @@ function addGlobalToState(state) {
 }
 
 
-export {addGlobalToState};
+function getRelative(target, reference) {
+    const newTargetYears = new Map();
+
+    target.forEach((targetValues, year) => {
+        const referenceValues = reference.get(year);
+        const newTargetValues = getRelativeSingleYear(
+            targetValues,
+            referenceValues,
+        );
+        newTargetYears.set(year, newTargetValues);
+    });
+
+    return newTargetYears;
+}
+
+
+function getRelativeSingleYear(target, reference) {
+    const newOut = new Map();
+
+    const targetOut = target.get("out");
+    const referenceOut = reference.get("out");
+
+    targetOut.forEach((targetRegions, region) => {
+        const newRegionOut = new Map();
+        targetRegions.forEach((targetValue, key) => {
+            const referenceValue = referenceOut.get(region).get(key);
+            const relativeValue = targetValue - referenceValue;
+            newRegionOut.set(key, relativeValue);
+        });
+        newOut.set(region, newRegionOut);
+    });
+
+    const wrapped = new Map();
+    wrapped.set("out", newOut);
+    return wrapped;
+}
+
+
+export {addGlobalToState, getRelative, getRelativeSingleYear};
