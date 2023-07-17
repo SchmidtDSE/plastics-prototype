@@ -62,7 +62,7 @@ const GOALS = {
     productionEmissions: 5,
     consumptionEmissions: 6,
     nonRecycledWaste: 7,
-    mismanagedWaste: 8
+    mismanagedWaste: 8,
 };
 
 

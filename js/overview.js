@@ -5,7 +5,6 @@ import {ScorecardPresenter} from "overview_scorecard";
 
 
 class OverviewPresenter {
-
     constructor(onRequestRender, onPolicyChange, onYearChange) {
         const self = this;
 
@@ -42,7 +41,7 @@ class OverviewPresenter {
         const self = this;
 
         const currentYear = withInterventions.get(self._year);
-        const relative = getRelative(withInterventions,businessAsUsual);
+        const relative = getRelative(withInterventions, businessAsUsual);
         const currentYearRelative = relative.get(self._year);
 
         const rawGoals = getGoals(currentYear);
@@ -55,7 +54,6 @@ class OverviewPresenter {
     _onGoalChange(newGoal) {
         const self = this;
     }
-
 }
 
 

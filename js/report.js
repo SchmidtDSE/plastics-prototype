@@ -94,7 +94,6 @@ class VizStateSet {
 
 
 class ReportPresenter {
-
     constructor(onRequestRender, onYearChange) {
         const self = this;
 

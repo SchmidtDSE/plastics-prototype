@@ -33,7 +33,7 @@ class Driver {
         const self = this;
 
         self._tabs = new Tabby("[data-tabs]");
-        document.addEventListener("tabby", function (event) {
+        document.addEventListener("tabby", function(event) {
             self._reportPresenter.rebuildViz();
             self._onInputChange();
         }, false);
@@ -43,7 +43,7 @@ class Driver {
             buildDataLayer(() => self._getLevers()),
             buildReportPresenter(
                 () => self._onInputChange(),
-                (year) => self._onYearChange(year)
+                (year) => self._onYearChange(year),
             ),
             buildSliders(
                 (year) => self._buildStateForCurrentYear(),
@@ -54,8 +54,8 @@ class Driver {
             buildOverviewPresenter(
                 () => self._onInputChange(),
                 (change) => self._onPolicyChange(change),
-                (year) => onYearChange(year)
-            )
+                (year) => onYearChange(year),
+            ),
         ];
 
         Promise.all(promises).then((values) => {

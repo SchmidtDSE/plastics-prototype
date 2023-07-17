@@ -1,5 +1,4 @@
 class ScorecardPresenter {
-
     constructor(targetDiv, onGoalChange, prefix) {
         const self = this;
 
@@ -27,22 +26,22 @@ class ScorecardPresenter {
                 body.innerHTML = valueStr;
             };
 
-            
-            /*setBody(
+
+            /* setBody(
                 "production-emissions-card",
                 goals.get("productionEmissions"),
             );
-            
+
             setBody(
                 "consumption-emissions-card",
                 goals.get("consumptionEmissions"),
             );*/
-            
+
             setBody(
                 "non-recycled-waste-card",
                 goals.get("global").get("nonRecycledWaste"),
             );
-            
+
             setBody(
                 "mismanaged-waste-card",
                 goals.get("global").get("mismanagedWaste"),
@@ -52,7 +51,6 @@ class ScorecardPresenter {
         updateYear();
         updateBody();
     }
-
 }
 
 
