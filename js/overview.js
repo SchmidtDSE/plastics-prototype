@@ -1,11 +1,12 @@
-import {DEFAULT_YEAR, GOALS} from "const";
+import {CACHE_BUSTER, DEFAULT_YEAR, GOALS} from "const";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
+import {ScenarioPresenter} from "overview_scenario";
 import {ScorecardPresenter} from "overview_scorecard";
 
 
 class OverviewPresenter {
-    constructor(onRequestRender, onPolicyChange, onYearChange) {
+    constructor(scenarios, onRequestRender, onPolicyChange, onYearChange) {
         const self = this;
 
         self._targetDiv = document.getElementById("overview");
@@ -28,6 +29,13 @@ class OverviewPresenter {
             (newGoal) => self._onGoalChange(newGoal),
             true,
         );
+
+        const policyScenariosDiv = self._targetDiv.querySelector(".scenarios");
+        self._policyScenarioPresenter = new ScenarioPresenter(
+            policyScenariosDiv,
+            scenarios,
+            (scenario, selected) => self._onPolicyChange(scenario, selected),
+        )
     }
 
     setYear(year) {
@@ -60,14 +68,17 @@ class OverviewPresenter {
 
 
 function buildOverviewPresenter(onRequestRerender, onPolicyChange, onYearChange) {
-    return new Promise((resolve, reject) => {
-        const newPresenter = new OverviewPresenter(
-            onRequestRerender,
-            onPolicyChange,
-            onYearChange,
-        );
-        resolve(newPresenter);
-    });
+    return fetch("/pt/scenarios.json?v=" + CACHE_BUSTER)
+        .then((x) => x.json())
+        .then((x) => x["scenarios"])
+        .then((scenarios) => {
+            return new OverviewPresenter(
+                scenarios,
+                onRequestRerender,
+                onPolicyChange,
+                onYearChange,
+            );
+        });
 }
 
 

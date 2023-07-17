@@ -19,6 +19,18 @@ function getGoals(target) {
                 "value": output.get("eolMismanagedMT"),
             };
         },
+        (output) => {
+            return {
+                "goal": "productionEmissions",
+                "value": 123,
+            };
+        },
+        (output) => {
+            return {
+                "goal": "consumptionEmissions",
+                "value": 123,
+            };
+        },
     ];
 
     const goals = new Map();

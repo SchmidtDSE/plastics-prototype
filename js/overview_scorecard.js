@@ -31,15 +31,15 @@ class ScorecardPresenter {
             };
 
 
-            /* setBody(
+            setBody(
                 "production-emissions-card",
-                goals.get("productionEmissions"),
+                goals.get("global").get("productionEmissions"),
             );
 
             setBody(
                 "consumption-emissions-card",
-                goals.get("consumptionEmissions"),
-            ); */
+                goals.get("global").get("consumptionEmissions"),
+            );
 
             setBody(
                 "non-recycled-waste-card",

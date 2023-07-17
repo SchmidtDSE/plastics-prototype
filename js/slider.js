@@ -34,6 +34,18 @@ class SliderPresenter {
         return parseFloat(slider.value + "");
     }
 
+    setValue(value) {
+        const self = this;
+        const slider = self._rootElement.querySelector(".slider");
+        slider.value = value;
+        self._onInputChangeInProgress();
+    }
+
+    resetToDefault() {
+        const self = this;
+        self.setValue(self._config["default"]);
+    }
+
     getProgram() {
         const self = this;
 

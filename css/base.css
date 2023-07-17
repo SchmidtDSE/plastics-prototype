@@ -436,7 +436,7 @@ select {
     padding: 5px;
     max-width: 200px;
     border: 1px solid #C0C0C0;
-    background-color: #FFFFFF;
+    background-color: #F5F5F5;
     border-radius: 3px;
 }
 
@@ -449,7 +449,7 @@ select {
 .overview .cards .card.active {
     border: 1px solid #A0A0A0;
     color: black;
-    background-color: #A6CEE3;
+    background-color: #FFFFFF;
 }
 
 .overview .cards .card.active:hover {
@@ -460,6 +460,10 @@ select {
     font-size: 30px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.overview .menu {
+    margin-bottom: 20px;
 }
 
 .overview .panel {
@@ -546,6 +550,18 @@ select {
 
 #levers-panel .wiki-info {
     padding-bottom: 20px;
+}
+
+#loaded {
+    display: none;
+}
+
+#loading-indicator {
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #A0A0A0;
+    margin: 3px 3px 20px 3px;
+    text-align: center;
 }
 
 #prototype input {
@@ -728,7 +744,7 @@ select {
     .overview .middle {
         display: grid;
         column-gap: 10px;
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 30% 70%;
         width: 99%;
         border-bottom: 1px dotted black;
     }
@@ -739,6 +755,12 @@ select {
 
     .overview #scenarios {
         border-right: 1px dotted black;
+    }
+}
+
+@media (min-width: 1000px) {
+    .overview .middle {
+        grid-template-columns: 25% 75%;
     }
 }
 

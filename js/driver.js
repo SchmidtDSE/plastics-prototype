@@ -33,6 +33,7 @@ class Driver {
     init() {
         const self = this;
 
+        // eslint-disable-next-line no-undef
         self._tabs = new Tabby("[data-tabs]");
         document.addEventListener("tabby", function(event) {
             self._reportPresenter.rebuildViz();
@@ -54,7 +55,7 @@ class Driver {
             ),
             buildOverviewPresenter(
                 () => self._onInputChange(),
-                (change) => self._onPolicyChange(change),
+                (change, selected) => self._onPolicyChange(change, selected),
                 (year) => onYearChange(year),
             ),
         ];
@@ -65,6 +66,14 @@ class Driver {
             self._reportPresenter = values[2];
             self._levers = values[3];
             self._overviewPresenter = values[4];
+
+            self._leversByName = new Map();
+            self._levers.forEach((lever) => {
+                self._leversByName.set(lever.getVariable(), lever);
+            });
+
+            document.getElementById("loading-indicator").style.display = "none";
+            document.getElementById("loaded").style.display = "block";
 
             self._onInputChange();
         });
@@ -211,8 +220,25 @@ class Driver {
         });
     }
 
-    _onPolicyChange(change) {
+    _onPolicyChange(change, selected) {
         const self = this;
+
+        self._renderEnabled = false;
+        
+        change["values"].forEach((valueInfo) => {
+            const lever = self._leversByName.get(valueInfo["lever"]);
+
+            if (selected) {
+                lever.setValue(valueInfo["value"]);
+            } else {
+                lever.resetToDefault();
+            }
+
+            lever.refreshSelection();
+        });
+
+        self._renderEnabled = true;
+        self._onInputChange();
     }
 }
 
