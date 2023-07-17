@@ -449,7 +449,7 @@ select {
 .overview .cards .card.active {
     border: 1px solid #A0A0A0;
     color: black;
-    background-color: #a6cee3;
+    background-color: #A6CEE3;
 }
 
 .overview .cards .card.active:hover {

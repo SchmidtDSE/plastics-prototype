@@ -17,6 +17,7 @@ class Driver {
         self._reportPresenter = null;
         self._overviewPresenter = null;
         self._levers = null;
+        self._renderEnabled = true;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -157,11 +158,19 @@ class Driver {
     _onYearChange(year) {
         const self = this;
 
+        self._renderEnabled = false;
         self._reportPresenter.setYear(year);
+        self._overviewPresenter.setYear(year);
+        self._renderEnabled = true;
+        self._onInputChange();
     }
 
     _onInputChange() {
         const self = this;
+
+        if (!self._renderEnabled) {
+            return;
+        }
 
         const businessAsUsual = self._getStates(false);
         const withInterventions = self._getStates(true);
