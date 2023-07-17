@@ -1,5 +1,4 @@
 class ScenarioPresenter {
-
     constructor(targetDiv, scenarios, onPolicyChange) {
         const self = this;
 
@@ -24,8 +23,9 @@ class ScenarioPresenter {
 
         newLabels.append("input")
             .attr("type", "checkbox")
-            .on("change", function (event, scenario) {
-                self._onPolicyChangeCallback(scenario, this.checked)
+            .on("change", function(event, scenario) {
+                // eslint-disable-next-line no-invalid-this
+                self._onPolicyChangeCallback(scenario, this.checked);
             });
 
         newLabels.append("span")
@@ -37,7 +37,6 @@ class ScenarioPresenter {
         // eslint-disable-next-line no-undef
         return d3;
     }
-
 }
 
 

@@ -35,7 +35,7 @@ class OverviewPresenter {
             policyScenariosDiv,
             scenarios,
             (scenario, selected) => self._onPolicyChange(scenario, selected),
-        )
+        );
     }
 
     setYear(year) {

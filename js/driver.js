@@ -224,7 +224,7 @@ class Driver {
         const self = this;
 
         self._renderEnabled = false;
-        
+
         change["values"].forEach((valueInfo) => {
             const lever = self._leversByName.get(valueInfo["lever"]);
 
