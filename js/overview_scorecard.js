@@ -31,7 +31,7 @@ class ScorecardPresenter {
             };
 
 
-            /*setBody(
+            /* setBody(
                 "production-emissions-card",
                 goals.get("productionEmissions"),
             );
@@ -39,7 +39,7 @@ class ScorecardPresenter {
             setBody(
                 "consumption-emissions-card",
                 goals.get("consumptionEmissions"),
-            );*/
+            ); */
 
             setBody(
                 "non-recycled-waste-card",
