@@ -10,6 +10,7 @@ class Driver {
     constructor() {
         const self = this;
 
+        self._tabs = null;
         self._compiler = null;
         self._dataLayer = null;
         self._reportPresenter = null;
@@ -28,6 +29,12 @@ class Driver {
 
     init() {
         const self = this;
+
+        self._tabs = new Tabby("[data-tabs]");
+        document.addEventListener("tabby", function (event) {
+            self._reportPresenter.rebuildViz();
+            self._onInputChange();
+        }, false);
 
         const promises = [
             buildCompiler(),
