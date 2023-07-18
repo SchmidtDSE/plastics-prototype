@@ -32,16 +32,32 @@ class TimeDeltaPresenter {
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
 
+        const narrowWindow = totalWidth < 500;
+
         const startYear = HISTORY_START_YEAR;
         const endYear = MAX_YEAR;
         const region = "global";
 
         const unitOptions = new Map();
-        unitOptions.set(GOALS.productionEmissions, "LB");
-        unitOptions.set(GOALS.consumptionEmissions, "LB");
-        unitOptions.set(GOALS.nonRecycledWaste, "MT");
-        unitOptions.set(GOALS.mismanagedWaste, "MT");
-        const units = unitOptions.get(self._attrName);
+        unitOptions.set(
+            GOALS.productionEmissions,
+            {"short": "LB", "long": "Pounds"}
+        );
+        unitOptions.set(
+            GOALS.consumptionEmissions,
+            {"short": "LB", "long": "Pounds"}
+        );
+        unitOptions.set(
+            GOALS.nonRecycledWaste,
+            {"short": "MT", "long": "Metric Tons"}
+        );
+        unitOptions.set(
+            GOALS.mismanagedWaste,
+            {"short": "MT", "long": "Metric Tons"}
+        );
+        const unitsInfo = unitOptions.get(self._attrName);
+        const unitsLong = unitsInfo["long"];
+        const units = unitsInfo["short"];
 
         const getMax = (target) => {
             return Array.from(target.values())
@@ -106,7 +122,8 @@ class TimeDeltaPresenter {
 
         const updateYearAxis = () => {
             const ticks = [];
-            for (let year = startYear; year <= endYear; year += 5) {
+            const increment = narrowWindow ? 10 : 5;
+            for (let year = startYear; year <= endYear; year += increment) {
                 ticks.push(year);
             }
 
@@ -185,7 +202,7 @@ class TimeDeltaPresenter {
                 "Global",
                 STRINGS.get(self._attrName),
                 "Over Time by",
-                units,
+                unitsLong,
             ].join(" ");
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
         };
@@ -208,8 +225,6 @@ class TimeDeltaPresenter {
             .getBoundingClientRect();
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
-
-        console.log(totalHeight);
 
         targetSvg.append("g").classed("year-labels", true);
         targetSvg.append("g").classed("value-labels", true);

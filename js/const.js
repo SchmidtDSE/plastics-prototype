@@ -1,9 +1,9 @@
 const ALL_REGIONS = [
+    "global",
     "china",
     "eu30",
     "nafta",
     "row",
-    "global",
 ];
 
 const CONSUMPTION_ATTRS = [

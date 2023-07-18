@@ -103,6 +103,7 @@ class TimeseriesPresenter {
 
         // Make horizontal scale
         const width = self._targetSvg.getBoundingClientRect().width;
+        const narrowWindow = width < 500 && showHistorical;
         const minYear = showHistorical ? HISTORY_START_YEAR : Math.min(START_YEAR, selectedYear);
         const years = [];
         for (let year = minYear; year <= MAX_YEAR; year++) {
@@ -151,7 +152,8 @@ class TimeseriesPresenter {
 
         const updateYearAxis = () => {
             const ticks = [];
-            for (let year = minYear; year <= MAX_YEAR; year += 5) {
+            const increment = narrowWindow ? 10 : 5;
+            for (let year = minYear; year <= MAX_YEAR; year += increment) {
                 ticks.push(year);
             }
 
