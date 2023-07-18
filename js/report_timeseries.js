@@ -76,7 +76,7 @@ class TimeseriesPresenter {
         const listenerLayer = self._d3Selection.select("#listener-layer");
 
         // Make vertical scale
-        const verticalStep = isPercent ? 20 : 500;
+        const verticalStep = isPercent ? 20 : 250;
         const height = self._targetSvg.getBoundingClientRect().height;
         const yearValues = Array.from(states.values()).map((state) => {
             const out = state.get("out").get(region);
