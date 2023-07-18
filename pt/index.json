@@ -12,7 +12,6 @@
                     "step": 5,
                     "units": "%",
                     "forcePlus": false,
-                    "rampYears": 10,
                     "variable": "chinaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "attrs": {

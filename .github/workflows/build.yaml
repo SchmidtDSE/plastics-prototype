@@ -24,6 +24,8 @@ jobs:
         run: npm install --dev
       - name: Run lint
         run: npx eslint ./js/*.js
+      - name: Check configuration
+        run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
