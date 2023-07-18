@@ -46,7 +46,7 @@ def check_and_get_levers(target):
         assert 'url' in lever
 
         assert lever['name'] not in lever_names
-        assert lever['label'] not in lever_labels
+        assert lever['variable'] not in lever_variables
 
         lever_names.add(lever['name'])
         lever_variables.add(lever['variable'])
@@ -66,9 +66,9 @@ def check_and_get_scenarios(target):
         assert 'values' in scenario
         assert len(scenarios) > 0
 
-        assert scenarios['name'] not in scenario_names
+        assert scenario['name'] not in scenario_names
 
-        scenario_names.add(scenarios['name'])
+        scenario_names.add(scenario['name'])
 
     # Check levers
     levers_nested = map(lambda x: x['values'], scenarios)
@@ -104,7 +104,7 @@ def main():
     lever_variables = check_and_get_levers(index_contents)
     scenario_variables = check_and_get_scenarios(scenarios_contents)
 
-    assert lever_variables.issubset(scenario_variables)
+    assert scenario_variables.issubset(lever_variables)
 
     print('Done.')
 
