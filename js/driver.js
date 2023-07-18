@@ -73,7 +73,10 @@ class Driver {
             });
 
             document.getElementById("loading-indicator").style.display = "none";
-            document.getElementById("loaded").style.display = "block";
+            self._getD3().select("#loaded")
+                .transition()
+                .duration(700)
+                .style("opacity", 1);
 
             self._onInputChange();
         });
@@ -239,6 +242,12 @@ class Driver {
 
         self._renderEnabled = true;
         self._onInputChange();
+    }
+
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
     }
 }
 

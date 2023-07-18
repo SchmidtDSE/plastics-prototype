@@ -606,7 +606,7 @@ select {
 }
 
 #loaded {
-    display: hidden;
+    opacity: 0;
 }
 
 #loading-indicator {
