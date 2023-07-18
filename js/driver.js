@@ -33,55 +33,59 @@ class Driver {
     init() {
         const self = this;
 
-        // eslint-disable-next-line no-undef
-        self._tabs = new Tabby("[data-tabs]");
-        document.addEventListener("tabby", function(event) {
-            self._reportPresenter.rebuildViz();
-            self._onInputChange();
-        }, false);
+        return new Promise((outerResolve) => {
+            // eslint-disable-next-line no-undef
+            self._tabs = new Tabby("[data-tabs]");
+            document.addEventListener("tabby", function(event) {
+                self._reportPresenter.rebuildViz();
+                self._onInputChange();
+            }, false);
 
-        const promises = [
-            buildCompiler(),
-            buildDataLayer(() => self._getLevers()),
-            buildReportPresenter(
-                () => self._onInputChange(),
-                (year) => self._onYearChange(year),
-            ),
-            buildSliders(
-                (year) => self._buildStateForCurrentYear(),
-                (x) => self._compileProgram(x),
-                () => self._onSlidersChange(),
-                () => self._reportPresenter.getSelection(),
-            ),
-            buildOverviewPresenter(
-                () => self._onInputChange(),
-                (change, selected) => self._onPolicyChange(change, selected),
-                (year) => self._onYearChange(year),
-            ),
-        ];
+            const promises = [
+                buildCompiler(),
+                buildDataLayer(() => self._getLevers()),
+                buildReportPresenter(
+                    () => self._onInputChange(),
+                    (year) => self._onYearChange(year),
+                ),
+                buildSliders(
+                    (year) => self._buildStateForCurrentYear(),
+                    (x) => self._compileProgram(x),
+                    () => self._onSlidersChange(),
+                    () => self._reportPresenter.getSelection(),
+                ),
+                buildOverviewPresenter(
+                    () => self._onInputChange(),
+                    (change, selected) => self._onPolicyChange(change, selected),
+                    (year) => self._onYearChange(year),
+                ),
+            ];
 
-        Promise.all(promises).then((values) => {
-            self._compiler = values[0];
-            self._dataLayer = values[1];
-            self._reportPresenter = values[2];
-            self._levers = values[3];
-            self._overviewPresenter = values[4];
+            Promise.all(promises).then((values) => {
+                self._compiler = values[0];
+                self._dataLayer = values[1];
+                self._reportPresenter = values[2];
+                self._levers = values[3];
+                self._overviewPresenter = values[4];
 
-            self._leversByName = new Map();
-            self._levers.forEach((lever) => {
-                self._leversByName.set(lever.getVariable(), lever);
+                self._leversByName = new Map();
+                self._levers.forEach((lever) => {
+                    self._leversByName.set(lever.getVariable(), lever);
+                });
+
+                document.getElementById("loading-indicator").style.display = "none";
+                self._getD3().select("#loaded")
+                    .transition()
+                    .duration(700)
+                    .style("opacity", 1);
+
+                self._onInputChange();
+
+                outerResolve();
             });
 
-            document.getElementById("loading-indicator").style.display = "none";
-            self._getD3().select("#loaded")
-                .transition()
-                .duration(700)
-                .style("opacity", 1);
-
-            self._onInputChange();
+            self._setupLayoutListeners();
         });
-
-        self._setupLayoutListeners();
     }
 
     _getLevers() {
@@ -254,7 +258,7 @@ class Driver {
 
 function main() {
     const driver = new Driver();
-    driver.init();
+    return driver.init();
 }
 
 

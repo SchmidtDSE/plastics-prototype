@@ -1,4 +1,4 @@
-import { Compiler } from "compiler";
+import {Compiler} from "compiler";
 
 
 function buildCompilerTest() {
@@ -305,4 +305,4 @@ function buildCompilerTest() {
 }
 
 
-export { buildCompilerTest };
+export {buildCompilerTest};

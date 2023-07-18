@@ -6,6 +6,8 @@
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
 
+    <div id="ui-harness"></div>
+
     <script src="./qunit.min.js"></script>
 
     <script type="text/javascript" src="../third_party/ace.min.js"></script>
@@ -27,26 +29,29 @@
                 "overview": "../js/overview.js?v=EPOCH",
                 "overview_scenario": "../js/overview_scenario.js?v=EPOCH",
                 "overview_scorecard": "../js/overview_scorecard.js?v=EPOCH",
-                "overview_timedelta": "./js/overview_timedelta.js?v=EPOCH",
+                "overview_timedelta": "../js/overview_timedelta.js?v=EPOCH",
                 "report": "../js/report.js?v=EPOCH",
                 "report_bubble": "../js/report_bubble.js?v=EPOCH",
                 "report_config": "../js/report_config.js?v=EPOCH",
                 "report_goals": "../js/report_goals.js?v=EPOCH",
-                "report_sparklines": "./js/report_sparklines.js?v=EPOCH",
+                "report_sparklines": "../js/report_sparklines.js?v=EPOCH",
                 "report_stage": "../js/report_stage.js?v=EPOCH",
                 "report_timeseries": "../js/report_timeseries.js?v=EPOCH",
                 "slider": "../js/slider.js?v=EPOCH",
                 "strings": "../js/strings.js?v=EPOCH",
                 "visitors": "../js/visitors.js?v=EPOCH",
                 "driver": "../js/driver.js?v=EPOCH",
-                "test_compiler": "./test_compiler.js"
+                "test_compiler": "./test_compiler.js?v=EPOCH",
+                "test_page": "./test_page.js?v=EPOCH"
             }
         }
     </script>
 
     <script type="module">
-        import { buildCompilerTest } from "test_compiler";
+        import {buildCompilerTest} from "test_compiler";
+        import {buildPageTest} from "test_page";
         buildCompilerTest();
+        buildPageTest();
     </script>
     
 </body>
