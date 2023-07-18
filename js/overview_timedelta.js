@@ -66,7 +66,7 @@ class TimeDeltaPresenter {
         };
 
         const maxValueNative = Math.max(getMax(businessAsUsuals), getMax(withInterventions));
-        const maxValue = Math.ceil(maxValueNative / 250) * 250;
+        const maxValue = Math.ceil(maxValueNative / 50) * 50;
         const minValue = 0;
 
         const horizontalScale = self._getD3().scaleLinear()
@@ -95,7 +95,7 @@ class TimeDeltaPresenter {
 
         const updateValueAxis = () => {
             const ticks = [];
-            for (let i = minValue; i <= maxValue; i += 250) {
+            for (let i = minValue; i <= maxValue; i += 50) {
                 ticks.push(i);
             }
 
