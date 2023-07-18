@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Global Plastics Tool</title>
+        <link rel="stylesheet" href="third_party/tabby-ui.min.css">
         <link rel="stylesheet" href="css/base.css?v=EPOCH">
     </head>
     <body>
@@ -12,145 +13,223 @@
             <div>Explore the impacts of different policy on the creation and journey of plastics across the planet.</div>
         </header>
         <main>
-            <div class="panel-box active" id="panel-box">
-                <div class="panel">
-                    <div class="output-section">
-                        <div id="config-container" class="config-container">
-                            <div>
-                                <span>Showing</span>
-                                <select class="stage-select" id="stage-select">
-                                </select>
-                                <span>in</span>
-                                <select class="region-select" id="region-select">
-                                </select>
-                                <span>at</span>
-                                <select class="year-select" id="year-select">
-                                </select>
-                                <span>as</span>
-                                <select class="type-select" id="type-select">
-                                </select>
-                                <span>.</span>
-                            </div>
-                            <div class="delta-check-holder">
-                                <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
-                            </div>
-                        </div>
-                        <div id="gloals-container" class="goals-container">
-                            <div class="goal-container inner even top" id="production-goal-container">
-                                <h3>Production Emissions</h3>
-                                Coming soon
-                            </div>
-                            <div class="goal-container inner top odd" id="consumption-goal-container">
-                                <h3>Consumption Emissions</h3>
-                                Coming soon
-                            </div>
-                            <div class="goal-container inner even" id="total-waste-goal-container">
-                                <h3>Non-Recycled Waste</h3>
-                                <div class="bars"></div>
-                            </div>
-                            <div class="goal-container odd" id="mismanaged-waste-goal-container">
-                                <h3>Mismanaged Waste</h3>
-                                <div class="bars"></div>
-                            </div>
-                        </div>
-                        <div id="region-container" class="region-container">
-                            <div id="current-year-container" class="current-year-container">
-                                <div id="eol-container" class="stage-container">
-                                    <div class="subtitle"></div>
-                                    <h3><span class="description">EOL</span></h3>
-                                    <div class="bars"></div>
-                                    <div class="check-holder">
-                                        <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
-                                    </div>
+            <div id="loading-indicator">
+                Loading please wait...
+            </div>
+            <div id="loaded">
+                <ul data-tabs>
+                    <li><a data-tabby-default href="#overview">Overview</a></li>
+                    <li><a href="#detailed">Details</a></li>
+                </ul>
+
+                <div id="overview" class="overview">
+                    <div class="panel overview-panel" id="overview-panel">
+                        <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
+                            <h3>Global <span class="year">2049</span> Projections</h3>
+                            <div class="cards">
+                                <div class="card production-emissions-card" goal="productionEmissions">
+                                    <div class="title">Production Emissions</div>
+                                    <div class="body">1234</div>
+                                    <div class="footer">Coming Soon</div>
                                 </div>
-                                <div id="production-container" class="stage-container">
-                                    <div class="subtitle"></div>
-                                    <h3><span class="description">Production</span></h3>
-                                    <div class="bars">Coming soon</div>
+                                <div class="card consumption-emissions-card" goal="consumptionEmissions">
+                                    <div class="title">Consumption Emissions</div>
+                                    <div class="body">1234</div>
+                                    <div class="footer">Coming Soon</div>
                                 </div>
-                                <div id="consumption-container" class="stage-container">
-                                    <div class="subtitle"></div>
-                                    <h3><span class="description">Consumption</span></h3>
-                                    <div class="bars"></div>
-                                    <div class="check-holder">
-                                        <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
-                                    </div>
+                                <div class="card non-recycled-waste-card active" goal="nonRecycledWaste">
+                                    <div class="title">Non-Recycled Waste</div>
+                                    <div class="body">1234</div>
+                                    <div class="footer">Metric Tons</div>
                                 </div>
-                            </div>
-                            <div id="timeseries-container" class="timeseries-container">
-                                <h3 class="title">Timeseries</h3>
-                                <div class="slope-check-holder">
-                                    <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
-                                </div>
-                                <div>
-                                    <svg class="timeseries" id="timeseries"></svg>
-                                </div>
-                                <div class="sparklines-section" id="sparklines-section">
+                                <div class="card mismanaged-waste-card" goal="mismanagedWaste">
+                                    <div class="title">Mismanaged Waste</div>
+                                    <div class="body">1234</div>
+                                    <div class="footer">Metric Tons</div>
                                 </div>
                             </div>
                         </div>
-                        <div id="bubblegraph-container" class="bubblegraph-container">
-                            <h3 class="title"></h3>
-                            <div class="slope-check-holder">
-                                <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
+                        <div class="middle">
+                            <div class="scenarios overview-section" id="scenarios">
+                                <h3>Policies</h3>
+                                <div class="menu"></div>
                             </div>
-                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
+                            <div class="overview-timeseries overview-section" id="overview-timeseries">
+                                <h3 class="title">Global Metrics over Time</h3>
+                                <svg class="body"></svg>
+                            </div>
+                        </div>
+                        <div class="scorecard overview-section last relative-scorecard" id="relative-scorecard">
+                            <h3>Impact of Policies on Global <span class="year">2049</span> Projections</h3>
+                            <div class="cards">
+                                <div class="card production-emissions-card" goal="productionEmissions">
+                                    <div class="title">Production Emissions</div>
+                                    <div class="body">+1234</div>
+                                    <div class="footer">Coming Soon</div>
+                                </div>
+                                <div class="card consumption-emissions-card" goal="consumptionEmissions">
+                                    <div class="title">Consumption Emissions</div>
+                                    <div class="body">+1234</div>
+                                    <div class="footer">Coming Soon</div>
+                                </div>
+                                <div class="card non-recycled-waste-card active" goal="nonRecycledWaste">
+                                    <div class="title">Non-Recycled Waste</div>
+                                    <div class="body">+1234</div>
+                                    <div class="footer">Metric Tons</div>
+                                </div>
+                                <div class="card mismanaged-waste-card" goal="mismanagedWaste">
+                                    <div class="title">Mismanaged Waste</div>
+                                    <div class="body">+1234</div>
+                                    <div class="footer">Metric Tons</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel">
-                    <div id="buttons-panel" class="right-panel">
-                        <h3>Save and share</h3>
-                        Save and load coming soon
-                    </div>
-                    <div id="levers-panel" class="right-panel">
-                        <div id="levers-panel-inner"></div>
-                        <div class="lever-section" id="prototype">
-                            <details id="lever-section-prototype">
-                                <summary class="lever-section-title">Prototype</summary>
-                                <p class="section-levers">
-                                    <div class="slider-holder" id="slider-holder-prototype">
-                                        <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
-                                        <input type="number" value="0" class="slider" id="input-prototype">
-                                        <table class="goals-table">
-                                            <tr>
-                                                <td></td>
-                                                <td><span class="goal-table-year"></span> Production Emissions</td>
-                                                <td><span class="goal-table-year"></span> Consumption Emissions</td>
-                                                <td><span class="goal-table-year"></span> Non-Recycled Waste</td>
-                                                <td><span class="goal-table-year"></span> Mismanaged Waste</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="global-table-region"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="goal-table-non-recycled-waste"></td>
-                                                <td class="goal-table-mismanaged-waste"></td>
-                                            </tr>
-                                        </table>
-                                        <div class="status-display"></div>
-                                        <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
-                                        <div class="inspects-area"></div>
+
+                <div id="detailed">
+                    <div class="panel-box active" id="panel-box">
+                        <div class="panel">
+                            <div class="output-section">
+                                <div id="config-container" class="config-container">
+                                    <div>
+                                        <span>Showing</span>
+                                        <select class="stage-select" id="stage-select">
+                                        </select>
+                                        <span>in</span>
+                                        <select class="region-select" id="region-select">
+                                        </select>
+                                        <span>at</span>
+                                        <select class="year-select" id="year-select">
+                                        </select>
+                                        <span>as</span>
+                                        <select class="type-select" id="type-select">
+                                        </select>
+                                        <span>.</span>
                                     </div>
-                                </p>
-                            </details>
+                                    <div class="delta-check-holder">
+                                        <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
+                                    </div>
+                                </div>
+                                <div id="gloals-container" class="goals-container">
+                                    <div class="goal-container inner even top" id="production-goal-container">
+                                        <h3>Production Emissions</h3>
+                                        Coming soon
+                                    </div>
+                                    <div class="goal-container inner top odd" id="consumption-goal-container">
+                                        <h3>Consumption Emissions</h3>
+                                        Coming soon
+                                    </div>
+                                    <div class="goal-container inner even" id="total-waste-goal-container">
+                                        <h3>Non-Recycled Waste</h3>
+                                        <div class="bars"></div>
+                                    </div>
+                                    <div class="goal-container odd" id="mismanaged-waste-goal-container">
+                                        <h3>Mismanaged Waste</h3>
+                                        <div class="bars"></div>
+                                    </div>
+                                </div>
+                                <div id="region-container" class="region-container">
+                                    <div id="current-year-container" class="current-year-container">
+                                        <div id="eol-container" class="stage-container">
+                                            <div class="subtitle"></div>
+                                            <h3><span class="description">EOL</span></h3>
+                                            <div class="bars"></div>
+                                            <div class="check-holder">
+                                                <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
+                                            </div>
+                                        </div>
+                                        <div id="production-container" class="stage-container">
+                                            <div class="subtitle"></div>
+                                            <h3><span class="description">Production</span></h3>
+                                            <div class="bars">Coming soon</div>
+                                        </div>
+                                        <div id="consumption-container" class="stage-container">
+                                            <div class="subtitle"></div>
+                                            <h3><span class="description">Consumption</span></h3>
+                                            <div class="bars"></div>
+                                            <div class="check-holder">
+                                                <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="timeseries-container" class="timeseries-container">
+                                        <h3 class="title">Timeseries</h3>
+                                        <div class="slope-check-holder">
+                                            <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
+                                        </div>
+                                        <div>
+                                            <svg class="timeseries" id="timeseries"></svg>
+                                        </div>
+                                        <div class="sparklines-section" id="sparklines-section">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="bubblegraph-container" class="bubblegraph-container">
+                                    <h3 class="title"></h3>
+                                    <div class="slope-check-holder">
+                                        <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
+                                    </div>
+                                    <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div id="layout-panel" class="right-panel">
-                        <h3>Layout</h3>
-                        <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
-                        <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
+                        <div class="panel">
+                            <div id="buttons-panel" class="right-panel">
+                                <h3>Save and share</h3>
+                                Save and load coming soon
+                            </div>
+                            <div id="levers-panel" class="right-panel">
+                                <div id="levers-panel-inner"></div>
+                                <div class="lever-section" id="prototype">
+                                    <details id="lever-section-prototype">
+                                        <summary class="lever-section-title">Prototype</summary>
+                                        <p class="section-levers">
+                                            <div class="slider-holder" id="slider-holder-prototype">
+                                                <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
+                                                <input type="number" value="0" class="slider" id="input-prototype">
+                                                <table class="goals-table">
+                                                    <tr>
+                                                        <td></td>
+                                                        <td><span class="goal-table-year"></span> Production Emissions</td>
+                                                        <td><span class="goal-table-year"></span> Consumption Emissions</td>
+                                                        <td><span class="goal-table-year"></span> Non-Recycled Waste</td>
+                                                        <td><span class="goal-table-year"></span> Mismanaged Waste</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="global-table-region"></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td class="goal-table-non-recycled-waste"></td>
+                                                        <td class="goal-table-mismanaged-waste"></td>
+                                                    </tr>
+                                                </table>
+                                                <div class="status-display"></div>
+                                                <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
+                                                <div class="inspects-area"></div>
+                                            </div>
+                                        </p>
+                                    </details>
+                                </div>
+                            </div>
+                            <div id="layout-panel" class="right-panel">
+                                <h3>Layout</h3>
+                                <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
+                                <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
 
-        <script src="third_party/ace.min.js"></script>
-        <script src="third_party/d3.min.js"></script>
-        <script src="third_party/handlebars.min.js"></script>
-        <script src="third_party/papaparse.min.js"></script>
+        <script type="text/javascript" src="third_party/ace.min.js"></script>
+        <script type="text/javascript" src="third_party/d3.min.js"></script>
+        <script type="text/javascript" src="third_party/handlebars.min.js"></script>
+        <script type="text/javascript" src="third_party/papaparse.min.js"></script>
+        <script type="text/javascript" src="third_party/tabby.min.js"></script>
 
-        <script src="./js/plastics_lang.js?v=EPOCH"></script>
+        <script type="text/javascript" src="./js/plastics_lang.js?v=EPOCH"></script>
 
         <script type="importmap">
             {
@@ -160,6 +239,10 @@
                     "data": "./js/data.js?v=EPOCH",
                     "geotools": "./js/geotools.js?v=EPOCH",
                     "goals": "./js/goals.js?v=EPOCH",
+                    "overview": "./js/overview.js?v=EPOCH",
+                    "overview_scenario": "./js/overview_scenario.js?v=EPOCH",
+                    "overview_scorecard": "./js/overview_scorecard.js?v=EPOCH",
+                    "overview_timedelta": "./js/overview_timedelta.js?v=EPOCH",
                     "report": "./js/report.js?v=EPOCH",
                     "report_bubble": "./js/report_bubble.js?v=EPOCH",
                     "report_config": "./js/report_config.js?v=EPOCH",

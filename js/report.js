@@ -6,6 +6,7 @@ import {
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
 } from "const";
+import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {BubblegraphPresenter} from "report_bubble";
 import {ConfigPresenter} from "report_config";
@@ -93,10 +94,11 @@ class VizStateSet {
 
 
 class ReportPresenter {
-    constructor(onRequestRender) {
+    constructor(onRequestRender, onYearChange) {
         const self = this;
 
         self._onRequestRender = onRequestRender;
+        self._onYearChangeCallback = onYearChange;
 
         self._selection = new ReportSelection(
             DEFAULT_YEAR,
@@ -108,6 +110,20 @@ class ReportPresenter {
 
         self.rebuildViz();
         self._setupResizeListener();
+    }
+
+    setYear(year) {
+        const self = this;
+
+        self._selection = new ReportSelection(
+            year,
+            self._selection.getRegion(),
+            self._selection.getDisplayType(),
+            self._selection.getDisplayStage(),
+            self._selection.getShowBauDelta(),
+        );
+
+        self._onRequestRender();
     }
 
     render(businessAsUsual, withInterventions) {
@@ -127,7 +143,7 @@ class ReportPresenter {
 
         const getRelativeMaybe = (target, reference) => {
             if (showingBauDelta) {
-                return self._getRelative(target, reference);
+                return getRelative(target, reference);
             } else {
                 return target;
             }
@@ -307,16 +323,7 @@ class ReportPresenter {
 
     _onYearChange(year) {
         const self = this;
-
-        self._selection = new ReportSelection(
-            year,
-            self._selection.getRegion(),
-            self._selection.getDisplayType(),
-            self._selection.getDisplayStage(),
-            self._selection.getShowBauDelta(),
-        );
-
-        self._onRequestRender();
+        self._onYearChangeCallback(year);
     }
 
     _onTypeChange(type) {
@@ -381,46 +388,6 @@ class ReportPresenter {
         return newState;
     }
 
-    _getRelative(target, reference) {
-        const self = this;
-
-        const newTargetYears = new Map();
-
-        target.forEach((targetValues, year) => {
-            const referenceValues = reference.get(year);
-            const newTargetValues = self._getRelativeSingleYear(
-                targetValues,
-                referenceValues,
-            );
-            newTargetYears.set(year, newTargetValues);
-        });
-
-        return newTargetYears;
-    }
-
-    _getRelativeSingleYear(target, reference) {
-        const self = this;
-
-        const newOut = new Map();
-
-        const targetOut = target.get("out");
-        const referenceOut = reference.get("out");
-
-        targetOut.forEach((targetRegions, region) => {
-            const newRegionOut = new Map();
-            targetRegions.forEach((targetValue, key) => {
-                const referenceValue = referenceOut.get(region).get(key);
-                const relativeValue = targetValue - referenceValue;
-                newRegionOut.set(key, relativeValue);
-            });
-            newOut.set(region, newRegionOut);
-        });
-
-        const wrapped = new Map();
-        wrapped.set("out", newOut);
-        return wrapped;
-    }
-
     _getGoals(target, selection) {
         const self = this;
         return getGoals(target);
@@ -428,10 +395,11 @@ class ReportPresenter {
 }
 
 
-function buildReportPresenter(onRequestRender) {
-    return new Promise((resolve) => resolve(
-        new ReportPresenter(onRequestRender),
-    ));
+function buildReportPresenter(onRequestRender, onYearChange) {
+    return new Promise((resolve) => {
+        const presenter = new ReportPresenter(onRequestRender, onYearChange);
+        resolve(presenter);
+    });
 }
 
 

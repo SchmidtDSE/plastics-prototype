@@ -58,6 +58,13 @@ const CACHE_BUSTER = Date.now();
 
 const DISPLAY_TYPES = {amount: 1, percent: 2};
 const DISPLAY_STAGES = {consumption: 3, eol: 4};
+const GOALS = {
+    productionEmissions: "productionEmissions",
+    consumptionEmissions: "consumptionEmissions",
+    nonRecycledWaste: "nonRecycledWaste",
+    mismanagedWaste: "mismanagedWaste",
+};
+
 
 export {
     ALL_REGIONS,
@@ -74,4 +81,5 @@ export {
     CACHE_BUSTER,
     DISPLAY_TYPES,
     DISPLAY_STAGES,
+    GOALS,
 };

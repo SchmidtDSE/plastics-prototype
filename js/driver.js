@@ -2,6 +2,7 @@ import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {addGlobalToState} from "geotools";
+import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
@@ -10,10 +11,13 @@ class Driver {
     constructor() {
         const self = this;
 
+        self._tabs = null;
         self._compiler = null;
         self._dataLayer = null;
         self._reportPresenter = null;
+        self._overviewPresenter = null;
         self._levers = null;
+        self._renderEnabled = true;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -29,17 +33,30 @@ class Driver {
     init() {
         const self = this;
 
+        // eslint-disable-next-line no-undef
+        self._tabs = new Tabby("[data-tabs]");
+        document.addEventListener("tabby", function(event) {
+            self._reportPresenter.rebuildViz();
+            self._onInputChange();
+        }, false);
+
         const promises = [
             buildCompiler(),
             buildDataLayer(() => self._getLevers()),
             buildReportPresenter(
                 () => self._onInputChange(),
+                (year) => self._onYearChange(year),
             ),
             buildSliders(
                 (year) => self._buildStateForCurrentYear(),
                 (x) => self._compileProgram(x),
                 () => self._onSlidersChange(),
                 () => self._reportPresenter.getSelection(),
+            ),
+            buildOverviewPresenter(
+                () => self._onInputChange(),
+                (change, selected) => self._onPolicyChange(change, selected),
+                (year) => self._onYearChange(year),
             ),
         ];
 
@@ -48,6 +65,15 @@ class Driver {
             self._dataLayer = values[1];
             self._reportPresenter = values[2];
             self._levers = values[3];
+            self._overviewPresenter = values[4];
+
+            self._leversByName = new Map();
+            self._levers.forEach((lever) => {
+                self._leversByName.set(lever.getVariable(), lever);
+            });
+
+            document.getElementById("loading-indicator").style.display = "none";
+            document.getElementById("loaded").style.display = "block";
 
             self._onInputChange();
         });
@@ -138,8 +164,22 @@ class Driver {
         self._onInputChange();
     }
 
+    _onYearChange(year) {
+        const self = this;
+
+        self._renderEnabled = false;
+        self._reportPresenter.setYear(year);
+        self._overviewPresenter.setYear(year);
+        self._renderEnabled = true;
+        self._onInputChange();
+    }
+
     _onInputChange() {
         const self = this;
+
+        if (!self._renderEnabled) {
+            return;
+        }
 
         const businessAsUsual = self._getStates(false);
         const withInterventions = self._getStates(true);
@@ -151,6 +191,7 @@ class Driver {
     _updateOutputs(businessAsUsual, withInterventions) {
         const self = this;
         self._reportPresenter.render(businessAsUsual, withInterventions);
+        self._overviewPresenter.render(businessAsUsual, withInterventions);
     }
 
     _addGlobalToState(state) {
@@ -177,6 +218,27 @@ class Driver {
             document.getElementById("panel-box").classList.remove("active");
             rebuild();
         });
+    }
+
+    _onPolicyChange(change, selected) {
+        const self = this;
+
+        self._renderEnabled = false;
+
+        change["values"].forEach((valueInfo) => {
+            const lever = self._leversByName.get(valueInfo["lever"]);
+
+            if (selected) {
+                lever.setValue(valueInfo["value"]);
+            } else {
+                lever.resetToDefault();
+            }
+
+            lever.refreshSelection();
+        });
+
+        self._renderEnabled = true;
+        self._onInputChange();
     }
 }
 

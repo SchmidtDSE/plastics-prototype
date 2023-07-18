@@ -1,0 +1,13 @@
+{
+    "scenarios": [
+        {
+            "name": "40% Minimum Recycling Rate",
+            "values": [
+                {"lever": "chinaMinimumRecyclingRate", "value": 40},
+                {"lever": "eu30MinimumRecyclingRate", "value": 40},
+                {"lever": "naftaMinimumRecyclingRate", "value": 40},
+                {"lever": "rowMinimumRecyclingRate", "value": 40}
+            ]
+        }
+    ]
+}

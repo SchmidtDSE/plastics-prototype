@@ -8,4 +8,6 @@ mkdir -p third_party
 [ ! -e third_party/theme-textmate-css.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/ace/1.23.0/theme-textmate-css.min.js -O third_party/theme-textmate-css.js
 [ ! -e third_party/papaparse.min.js ] && wget https://raw.githubusercontent.com/mholt/PapaParse/master/papaparse.min.js -O third_party/papaparse.min.js
 [ ! -e third_party/handlebars.min.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js -O third_party/handlebars.min.js
+[ ! -e third_party/tabby-ui.min.css ] && wget https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0.3/dist/css/tabby-ui.min.css -O third_party/tabby-ui.min.css
+[ ! -e third_party/tabby.min.js ] && wget https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0.3/dist/js/tabby.min.js -O third_party/tabby.min.js
 echo "Installed deps."

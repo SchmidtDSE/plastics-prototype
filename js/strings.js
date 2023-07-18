@@ -1,4 +1,4 @@
-import {DISPLAY_TYPES, DISPLAY_STAGES} from "const";
+import {DISPLAY_TYPES, DISPLAY_STAGES, GOALS} from "const";
 
 
 const STRINGS = new Map();
@@ -27,5 +27,10 @@ STRINGS.set(DISPLAY_TYPES.amount, "Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "Plastic Waste");
+
+STRINGS.set(GOALS.productionEmissions, "Production Emissions");
+STRINGS.set(GOALS.consumptionEmissions, "Consumption Emissions");
+STRINGS.set(GOALS.nonRecycledWaste, "Non-Recycled Waste");
+STRINGS.set(GOALS.mismanagedWaste, "Mismanaged Waste");
 
 export {STRINGS};
