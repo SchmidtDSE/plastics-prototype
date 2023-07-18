@@ -478,6 +478,23 @@ select {
     width: 99%;
 }
 
+.overview .overview-timeseries .current-value-display .background-panel {
+    fill: #FFFFFF;
+    fill-opacity: 0.7;
+    stroke: #1F78B4;
+    stroke-width: 0.5px;
+}
+
+.overview .overview-timeseries .current-value-display .label {
+    font-size: 10px;
+    fill: #1f78b4;
+}
+
+.overview .overview-timeseries .current-value-display .value {
+    font-size: 13px;
+    fill: #1f78b4;
+}
+
 .overview .overview-timeseries .timedelta-label {
     font-size: 13px;
     fill: #505050;

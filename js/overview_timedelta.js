@@ -71,7 +71,7 @@ class TimeDeltaPresenter {
 
         const horizontalScale = self._getD3().scaleLinear()
             .domain([startYear, endYear])
-            .range([70, totalWidth - 30]);
+            .range([70, totalWidth - 90]);
 
         const verticalScale = self._getD3().scaleLinear()
             .domain([minValue, maxValue])
@@ -151,14 +151,46 @@ class TimeDeltaPresenter {
         const updateIndicator = () => {
             const newX = horizontalScale(selectedYear);
 
-            self._d3Selection.select(".timedelta-year-indicator")
+            self._d3Selection.select(".year-indicator-group")
                 .transition()
-                .attr("x", newX);
+                .attr("transform", "translate(" + newX + " 16)");
 
             self._d3Selection.select(".selected-year-label")
-                .html(selectedYear)
+                .html(selectedYear);
+
+            const bauValue = businessAsUsuals.get(selectedYear)
+                .get(region)
+                .get(self._attrName);
+
+            const bauY = verticalScale(bauValue) - 16;
+            self._d3Selection.select(".current-bau-value-indicator")
                 .transition()
-                .attr("x", newX);
+                .attr("cy", bauY);
+
+            const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
+            bauValueDisplay.transition().attr("transform", "translate(8 " + (bauY - 15) + ")");
+            bauValueDisplay.select(".value").html(Math.round(bauValue) + " " + units);
+
+            const interventionValue = withInterventions.get(selectedYear)
+                .get(region)
+                .get(self._attrName);
+
+            const interventionY = verticalScale(interventionValue) - 16;
+            const distance = Math.abs(bauY - interventionY);
+            self._d3Selection.select(".current-intervention-value-indicator")
+                .transition()
+                .attr("cy", interventionY);
+
+            const interventionValueDisplay = self._d3Selection.select(
+                ".current-intervention-value-display",
+            );
+
+            interventionValueDisplay.transition()
+                .attr("transform", "translate(8 " + (interventionY - 15) + ")")
+                .style("opacity", distance < 30 ? 0 : 1);
+
+            interventionValueDisplay.select(".value")
+                .html(Math.round(interventionValue) + " " + units);
         };
 
         const updateLines = () => {
@@ -229,20 +261,6 @@ class TimeDeltaPresenter {
         targetSvg.append("g").classed("year-labels", true);
         targetSvg.append("g").classed("value-labels", true);
 
-        targetSvg.append("text")
-            .attr("x", 70)
-            .attr("y", 14)
-            .classed("selected-year-label", true)
-            .classed("year-label", true)
-            .classed("timedelta-label", true);
-
-        targetSvg.append("rect")
-            .attr("x", 70)
-            .attr("y", 16)
-            .attr("width", 1)
-            .attr("height", totalHeight - 20 - 16)
-            .classed("timedelta-year-indicator", true);
-
         targetSvg.append("path")
             .classed("timedelta-glyph", true)
             .classed("bau-glyph", true)
@@ -252,6 +270,88 @@ class TimeDeltaPresenter {
             .classed("timedelta-glyph", true)
             .classed("projection-glyph", true)
             .style("stroke", self._color);
+
+        const yearIndicatorGroup = targetSvg.append("g")
+            .attr("transform", "translate(70 16)")
+            .classed("year-indicator-group", true);
+
+        yearIndicatorGroup.append("text")
+            .attr("x", 0)
+            .attr("y", -2)
+            .classed("selected-year-label", true)
+            .classed("year-label", true)
+            .classed("timedelta-label", true);
+
+        yearIndicatorGroup.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 1)
+            .attr("height", totalHeight - 20 - 16)
+            .classed("timedelta-year-indicator", true);
+
+        const currentBauValueDisplay = yearIndicatorGroup.append("g")
+            .attr("transform", "translate(8, 0)")
+            .classed("current-value-display", true)
+            .classed("current-bau-value-display", true);
+
+        currentBauValueDisplay.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 77)
+            .attr("height", 30)
+            .classed("background-panel", true);
+
+        currentBauValueDisplay.append("text")
+            .attr("x", 1)
+            .attr("y", 11)
+            .html("Business as Usual")
+            .classed("label", true);
+
+        currentBauValueDisplay.append("text")
+            .attr("x", 1)
+            .attr("y", 26)
+            .classed("value", true);
+
+        yearIndicatorGroup.append("ellipse")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("rx", 7)
+            .attr("ry", 7)
+            .attr("fill", self._color)
+            .classed("current-value-indicator", true)
+            .classed("current-bau-value-indicator", true);
+
+        const currentInterventionValueDisplay = yearIndicatorGroup.append("g")
+            .attr("transform", "translate(8, 0)")
+            .classed("current-value-display", true)
+            .classed("current-intervention-value-display", true);
+
+        currentInterventionValueDisplay.append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 77)
+            .attr("height", 30)
+            .classed("background-panel", true);
+
+        currentInterventionValueDisplay.append("text")
+            .attr("x", 1)
+            .attr("y", 11)
+            .html("With Policies")
+            .classed("label", true);
+
+        currentInterventionValueDisplay.append("text")
+            .attr("x", 1)
+            .attr("y", 26)
+            .classed("value", true);
+
+        yearIndicatorGroup.append("ellipse")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("rx", 7)
+            .attr("ry", 7)
+            .attr("fill", self._color)
+            .classed("current-value-indicator", true)
+            .classed("current-intervention-value-indicator", true);
 
         targetSvg.append("g")
             .classed("timedelta-hover-targets", true);
