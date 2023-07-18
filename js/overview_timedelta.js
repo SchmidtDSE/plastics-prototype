@@ -41,19 +41,19 @@ class TimeDeltaPresenter {
         const unitOptions = new Map();
         unitOptions.set(
             GOALS.productionEmissions,
-            {"short": "LB", "long": "Pounds"}
+            {"short": "LB", "long": "Pounds"},
         );
         unitOptions.set(
             GOALS.consumptionEmissions,
-            {"short": "LB", "long": "Pounds"}
+            {"short": "LB", "long": "Pounds"},
         );
         unitOptions.set(
             GOALS.nonRecycledWaste,
-            {"short": "MT", "long": "Metric Tons"}
+            {"short": "MT", "long": "Metric Tons"},
         );
         unitOptions.set(
             GOALS.mismanagedWaste,
-            {"short": "MT", "long": "Metric Tons"}
+            {"short": "MT", "long": "Metric Tons"},
         );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];
