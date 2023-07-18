@@ -9,6 +9,8 @@ import {
 
 import {STRINGS} from "strings";
 
+const ALL_REGIONS_SORTED = ALL_REGIONS.filter((x) => x !== "global").concat(["global"]);
+
 
 class BubblegraphPresenter {
     constructor(targetDiv, onRegionChange, requestRender) {
@@ -48,7 +50,7 @@ class BubblegraphPresenter {
 
         // Horizontal scales
         self._horizontalScale = self._getD3().scaleBand()
-            .domain(["header"].concat(ALL_REGIONS))
+            .domain(["header"].concat(ALL_REGIONS_SORTED))
             .range([0, self._svgWidth]);
 
         // Vertical scales
@@ -130,7 +132,7 @@ class BubblegraphPresenter {
         const outputData = state.get("out");
 
         const info = [];
-        ALL_REGIONS.forEach((region) => {
+        ALL_REGIONS_SORTED.forEach((region) => {
             attrNames.forEach((attr) => {
                 info.push({
                     "region": region,
@@ -160,7 +162,7 @@ class BubblegraphPresenter {
             .range([0, self._horizontalScale.step() / 2 - 7]);
 
         const indicies = new Map();
-        ALL_REGIONS.forEach((region) => {
+        ALL_REGIONS_SORTED.forEach((region) => {
             const regionInfo = info.filter((x) => x["region"] == region);
             regionInfo.sort((a, b) => b["value"] - a["value"]);
 
@@ -222,7 +224,7 @@ class BubblegraphPresenter {
 
         const updateRegionLabels = () => {
             const bound = labelLayer.selectAll(".region-intro")
-                .data(ALL_REGIONS, (x) => x);
+                .data(ALL_REGIONS_SORTED, (x) => x);
 
             bound.exit().remove();
 
@@ -301,7 +303,7 @@ class BubblegraphPresenter {
 
             const buildDGetter = (generator) => {
                 return (attr) => {
-                    const points = ["header"].concat(ALL_REGIONS).map(
+                    const points = ["header"].concat(ALL_REGIONS_SORTED).map(
                         (region) => {
                             return {"region": region, "attr": attr};
                         },
