@@ -56,7 +56,7 @@ class Driver {
             buildOverviewPresenter(
                 () => self._onInputChange(),
                 (change, selected) => self._onPolicyChange(change, selected),
-                (year) => onYearChange(year),
+                (year) => self._onYearChange(year),
             ),
         ];
 

@@ -3,6 +3,7 @@ import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {ScenarioPresenter} from "overview_scenario";
 import {ScorecardPresenter} from "overview_scorecard";
+import {TimeDeltaPresenter} from "overview_timedelta";
 
 
 class OverviewPresenter {
@@ -36,6 +37,13 @@ class OverviewPresenter {
             scenarios,
             (scenario, selected) => self._onPolicyChange(scenario, selected),
         );
+
+        const timedeltaDiv = self._targetDiv.querySelector(".overview-timeseries");
+        self._timedeltaPresenter = new TimeDeltaPresenter(
+            timedeltaDiv,
+            self._goal,
+            (year) => self._onYearChange(year),
+        );
     }
 
     setYear(year) {
@@ -45,23 +53,44 @@ class OverviewPresenter {
         self._onRequestRender();
     }
 
-    render(businessAsUsual, withInterventions) {
+    render(businessAsUsuals, withInterventions) {
         const self = this;
 
         const currentYear = withInterventions.get(self._year);
-        const relative = getRelative(withInterventions, businessAsUsual);
+        const relative = getRelative(withInterventions, businessAsUsuals);
         const currentYearRelative = relative.get(self._year);
 
-        const rawGoals = getGoals(currentYear);
-        self._rawScorecardPresenter.render(self._year, rawGoals, self._goal);
+        const rawGoalsCurrentYear = getGoals(currentYear);
+        self._rawScorecardPresenter.render(self._year, rawGoalsCurrentYear, self._goal);
 
-        const relativeGoals = getGoals(currentYearRelative);
-        self._relativeScorecardPresenter.render(self._year, relativeGoals, self._goal);
+        const relativeGoalsCurrentYear = getGoals(currentYearRelative);
+        self._relativeScorecardPresenter.render(self._year, relativeGoalsCurrentYear, self._goal);
+
+        const getGoalsYears = (target) => {
+            const byYear = new Map();
+            
+            Array.of(...target.keys()).forEach((year) => {
+                const yearValue = target.get(year);
+                const goalOutput = getGoals(yearValue);
+                byYear.set(year, goalOutput);
+            });
+            
+            return byYear;
+        };
+
+        const rawGoalsBau = getGoalsYears(businessAsUsuals);
+        const rawGoalsIntervention = getGoalsYears(withInterventions);
+        self._timedeltaPresenter.render(
+            rawGoalsBau,
+            rawGoalsIntervention,
+            self._year,
+        );
     }
 
     _onGoalChange(newGoal) {
         const self = this;
         self._goal = newGoal;
+        self._timedeltaPresenter.setAttr(newGoal);
         self._onRequestRender();
     }
 }

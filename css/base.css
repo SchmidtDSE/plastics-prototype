@@ -473,6 +473,59 @@ select {
     margin: 3px 3px 20px 3px;
 }
 
+.overview .overview-timeseries .body {
+    height: 400px;
+    width: 99%;
+}
+
+.overview .overview-timeseries .timedelta-label {
+    font-size: 13px;
+    fill: #505050;
+}
+
+.overview .overview-timeseries .timedelta-label.value-label {
+    text-anchor: end;
+    vertical-align: middle;
+}
+
+.overview .overview-timeseries .timedelta-label.year-label {
+    text-anchor: middle;
+    vertical-align: top;
+}
+
+.overview .overview-timeseries .timedelta-label.year-label.selected-year-label {
+    text-anchor: middle;
+    vertical-align: baseline;
+}
+
+.overview .overview-timeseries .timedelta-glyph {
+    fill: none;
+    stroke-width: 4px;
+    stroke: #505050;
+}
+
+.overview .overview-timeseries .timedelta-glyph.bau-glyph {
+    stroke-dasharray: 4,4;
+}
+
+.overview .overview-timeseries .timedelta-hover-target {
+    fill-opacity: 0;
+    stroke-opacity: 0;
+    fill: #FFFFFF;
+    stroke: #C0C0C0;
+    stroke-width: 1;
+}
+
+.overview .overview-timeseries .timedelta-hover-target:hover {
+    fill-opacity: 0.1;
+    stroke-opacity: 1;
+    cursor: pointer;
+}
+
+.overview .overview-timeseries .timedelta-year-indicator {
+    fill: #C0C0C0;
+}
+
 .right-panel {
     background-color: white;
     padding: 5px;
@@ -553,7 +606,7 @@ select {
 }
 
 #loaded {
-    display: none;
+    display: hidden;
 }
 
 #loading-indicator {
