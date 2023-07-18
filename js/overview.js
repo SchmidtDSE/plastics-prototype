@@ -68,13 +68,13 @@ class OverviewPresenter {
 
         const getGoalsYears = (target) => {
             const byYear = new Map();
-            
+
             Array.of(...target.keys()).forEach((year) => {
                 const yearValue = target.get(year);
                 const goalOutput = getGoals(yearValue);
                 byYear.set(year, goalOutput);
             });
-            
+
             return byYear;
         };
 

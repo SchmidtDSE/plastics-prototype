@@ -1,7 +1,7 @@
 import {
     HISTORY_START_YEAR,
     MAX_YEAR,
-    GOALS
+    GOALS,
 } from "const";
 import {STRINGS} from "strings";
 
