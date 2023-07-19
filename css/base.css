@@ -787,12 +787,12 @@ select {
     .overview .cards {
         display: grid;
         column-gap: 10px;
-        row-gap: 10px;
+        row-gap: 20px;
         grid-template-columns: 50% 50%;
     }
 
     .overview .cards .card {
-        max-width: 180px;
+        max-width: 90%;
     }
 
     .overview .overview-section {
@@ -801,6 +801,14 @@ select {
 
     .overview .overview-section.last {
         border-bottom: none;
+    }
+}
+
+@media (max-width: 1000px) {
+    @media (min-width: 851px) {
+        .overview .cards .card {
+            max-width: 165px;
+        }
     }
 }
 
@@ -831,6 +839,12 @@ select {
 @media (min-width: 1000px) {
     .overview .middle {
         grid-template-columns: 25% 75%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .overview .cards .card {
+        max-width: 250px;
     }
 }
 
