@@ -41,7 +41,12 @@ class SparklinePresenter {
         const endYear = MAX_YEAR;
         const region = selection.getRegion();
 
-        const yearValues = Array.from(states.values()).map((state) => {
+        const allStates = [stateSet.getAllWithInterventions(), stateSet.getAllBusinessAsUsuals()];
+
+        const allValues = allStates.map((x) => x.values())
+            .flatMap((x) => Array.from(x));
+
+        const yearValues = allValues.map((state) => {
             const out = state.get("out").get(region);
 
             const maxPositive = ALL_ATTRS.map((attr) => out.get(attr))
