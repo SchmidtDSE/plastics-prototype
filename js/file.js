@@ -9,7 +9,7 @@ const SAVE_QUESTION_MSG = [
 ].join(" ");
 const OVERWRITE_QUESTION_MSG = [
     SAVE_QUESTION_MSG,
-    "This will overwrite your prior save."
+    "This will overwrite your prior save.",
 ].join(" ");
 const SAVE_CONFIRM_MSG = "Policy selections saved! Click load to open this save again later.";
 const LOAD_QUESTION_MSG = [
@@ -22,7 +22,6 @@ const RESET_CONFIRM_MSG = "This will clear all of your policy selections. Do you
 
 
 class FilePresenter {
-
     constructor(leversByVariable, onRequestRender) {
         const self = this;
         self._leversByVariable = leversByVariable;
@@ -58,7 +57,7 @@ class FilePresenter {
                 self.reset();
                 event.preventDefault();
             });
-        })
+        });
     }
 
     writeToClipboard() {
@@ -119,7 +118,7 @@ class FilePresenter {
 
         Array.of(...self._leversByVariable.values())
             .forEach((lever) => lever.reset());
-        
+
         self._onRequestRender();
     }
 
@@ -130,7 +129,7 @@ class FilePresenter {
             .map((x) => {
                 const variableName = x.getVariable();
                 const variableValue = encodeURIComponent(x.getValue());
-                return variableName + "=" + variableValue
+                return variableName + "=" + variableValue;
             })
             .join("&");
     }
@@ -149,7 +148,7 @@ class FilePresenter {
                 };
             })
             .forEach((leverInfo) => {
-                const lever = leversByVariable.get(leverInfo["variable"])
+                const lever = leversByVariable.get(leverInfo["variable"]);
                 lever.setValue(leverInfo["value"]);
             });
     }
@@ -162,7 +161,7 @@ class FilePresenter {
             "//",
             location.host,
             location.pathname,
-            "?"
+            "?",
         ].join("");
 
         const url = baseUrl + self._writeInputsToString(leversByVariable);
