@@ -10,7 +10,6 @@ class ScenarioPresenter {
         self._customScenario = {"name": "Custom", "values": []};
 
         self._createScenarios(self._scenarios);
-
     }
 
     updateSelection(baseline) {
