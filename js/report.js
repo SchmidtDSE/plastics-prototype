@@ -184,6 +184,8 @@ class ReportPresenter {
 
         self._nonRecycledWastePresenter.update(resultSet, self._selection);
         self._mismanagedWastePresenter.update(resultSet, self._selection);
+        self._incineratedWastePresenter.update(resultSet, self._selection);
+        self._totalConsumptionPresenter.update(resultSet, self._selection);
         self._bubblegraphPresenter.update(resultSet, self._selection);
         self._configPresenter.update(resultSet, self._selection);
         self._consumptionStagePresenter.update(resultSet, self._selection);
@@ -241,6 +243,22 @@ class ReportPresenter {
         self._mismanagedWastePresenter = new GoalPresenter(
             mismanagedWasteDiv,
             "mismanagedWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const incineratedWasteDiv = document.getElementById("incinerated-waste-goal-container");
+        self._incineratedWastePresenter = new GoalPresenter(
+            incineratedWasteDiv,
+            "incineratedWaste",
+            (region) => self._onRegionChange(region),
+            () => self._onRequestRender(),
+        );
+
+        const totalConsumptionDiv = document.getElementById("total-consumption-goal-container");
+        self._totalConsumptionPresenter = new GoalPresenter(
+            totalConsumptionDiv,
+            "totalConsumption",
             (region) => self._onRegionChange(region),
             () => self._onRequestRender(),
         );

@@ -1,4 +1,4 @@
-import {ALL_REGIONS, EOL_ATTRS} from "const";
+import {ALL_REGIONS, CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
 
 
 function getGoals(target) {
@@ -21,6 +21,12 @@ function getGoals(target) {
         },
         (output) => {
             return {
+                "goal": "incineratedWaste",
+                "value": output.get("eolIncinerationMT"),
+            };
+        },
+        (output) => {
+            return {
                 "goal": "productionEmissions",
                 "value": 123,
             };
@@ -29,6 +35,16 @@ function getGoals(target) {
             return {
                 "goal": "consumptionEmissions",
                 "value": 123,
+            };
+        },
+        (output) => {
+            const total = CONSUMPTION_ATTRS
+                .map((x) => output.get(x))
+                .reduce((a, b) => a + b);
+
+            return {
+                "goal": "totalConsumption",
+                "value": total,
             };
         },
     ];

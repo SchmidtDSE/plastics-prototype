@@ -14,7 +14,7 @@ class OverviewPresenter {
         self._onRequestRender = onRequestRender;
         self._onPolicyChange = onPolicyChange;
         self._onYearChange = onYearChange;
-        self._goal = GOALS.nonRecycledWaste;
+        self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
 
         const rawScorecordDiv = self._targetDiv.querySelector(".raw-scorecard");
