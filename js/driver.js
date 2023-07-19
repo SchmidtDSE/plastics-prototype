@@ -1,6 +1,7 @@
 import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
+import {FilePresenter} from "file";
 import {addGlobalToState} from "geotools";
 import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
@@ -46,7 +47,10 @@ class Driver {
 
             document.getElementById("detailed-cta").addEventListener("click", (event) => {
                 self._tabs.toggle("#detailed");
-                event.preventDefault();
+            });
+
+            document.getElementById("overview-cta").addEventListener("click", (event) => {
+                self._tabs.toggle("#overview");
             });
 
             const promises = [
@@ -88,6 +92,14 @@ class Driver {
                     .style("opacity", 1);
 
                 self._onInputChange();
+
+                self._filePresenter = new FilePresenter(
+                    self._leversByName,
+                    () => self._onInputChange(),
+                );
+                if (window.location.search !== "") {
+                    self._filePresenter.loadFromUrl();
+                }
 
                 outerResolve();
             });

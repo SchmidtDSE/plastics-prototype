@@ -3,6 +3,15 @@
   src: url(/font/LeagueSpartan-Medium.otf);
 }
 
+a:link, a:visited {
+    color: #0000D0;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
 table, th, td {
     border: 1px solid #333333;
     border-collapse: collapse;
@@ -556,6 +565,11 @@ select {
 
 .slider {
     width: 100%;
+}
+
+#buttons-panel .link-holder {
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 #levers-panel details {
