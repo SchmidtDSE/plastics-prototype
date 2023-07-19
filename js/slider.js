@@ -93,6 +93,11 @@ class SliderPresenter {
         self._refreshTable();
     }
 
+    reset() {
+        const self = this;
+        self.setValue(self._config["default"]);
+    }
+
     _attachListeners() {
         const self = this;
 
