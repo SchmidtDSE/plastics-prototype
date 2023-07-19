@@ -36,10 +36,18 @@ class Driver {
         return new Promise((outerResolve) => {
             // eslint-disable-next-line no-undef
             self._tabs = new Tabby("[data-tabs]");
-            document.addEventListener("tabby", function(event) {
+            document.addEventListener("tabby", (event) => {
                 self._reportPresenter.rebuildViz();
+                if (event.target.href.indexOf("#detailed") != -1) {
+                    document.querySelector(".custom-menu-check").checked = true;
+                }
                 self._onInputChange();
             }, false);
+
+            document.getElementById("detailed-cta").addEventListener("click", (event) => {
+                self._tabs.toggle("#detailed");
+                event.preventDefault();
+            });
 
             const promises = [
                 buildCompiler(),

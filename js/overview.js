@@ -85,6 +85,8 @@ class OverviewPresenter {
             rawGoalsIntervention,
             self._year,
         );
+
+        self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
     }
 
     _onGoalChange(newGoal) {
