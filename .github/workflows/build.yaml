@@ -15,6 +15,9 @@ jobs:
         uses: actions/checkout@v3
       - name: Install Node
         uses: actions/setup-node@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' 
       - name: Install Java
         uses: actions/setup-java@v2
         with:
@@ -24,6 +27,8 @@ jobs:
         run: npm install --dev
       - name: Run lint
         run: npx eslint ./js/*.js
+      - name: Check configuration
+        run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
