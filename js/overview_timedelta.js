@@ -49,11 +49,11 @@ class TimeDeltaPresenter {
         );
         unitOptions.set(
             GOALS.nonRecycledWaste,
-            {"short": "MT", "long": "Metric Tons"},
+            {"short": "MT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.mismanagedWaste,
-            {"short": "MT", "long": "Metric Tons"},
+            {"short": "MT", "long": "Million Metric Tons"},
         );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];

@@ -3,6 +3,7 @@ import {
     COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
+    DISPLAY_TYPES,
     EOL_ATTRS,
     HISTORY_START_YEAR,
     MAX_YEAR,
@@ -35,6 +36,7 @@ class SparklinePresenter {
         const states = stateSet.getAllWithInterventions();
 
         const showHistorical = self._getShowHistory();
+        const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const selectedYear = selection.getYear();
         const forwardYear = Math.min(START_YEAR, selectedYear);
         const startYear = showHistorical ? HISTORY_START_YEAR : forwardYear;
@@ -100,6 +102,9 @@ class SparklinePresenter {
 
             self._d3Selection.select(".max-value-label")
                 .html(maxValue);
+
+            self._d3Selection.select(".units-value-label")
+                .html(isPercent ? "%" : "MT");
         };
 
         const updateIndicator = () => {
@@ -187,6 +192,14 @@ class SparklinePresenter {
             .attr("x", 20)
             .attr("y", totalHeight - 20)
             .classed("min-value-label", true)
+            .classed("value-label", true)
+            .classed("spark-label", true);
+
+        targetSvg.append("text")
+            .attr("x", 20)
+            .attr("y", totalHeight / 2)
+            .html("MT")
+            .classed("units-value-label", true)
             .classed("value-label", true)
             .classed("spark-label", true);
 

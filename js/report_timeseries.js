@@ -69,6 +69,9 @@ class TimeseriesPresenter {
         const selectedYear = selection.getYear();
         const colorScale = self._colorScales.get(selection.getDisplayStage());
 
+        // Determine units
+        const unitsStr = isPercent ? "%" : "MT";
+
         // Get layers
         const axisLayer = self._d3Selection.select("#axis-layer");
         const indicatorLayer = self._d3Selection.select("#indicator-layer");
@@ -143,7 +146,7 @@ class TimeseriesPresenter {
                 .classed("value-tick", true)
                 .attr("x", 50)
                 .attr("y", 0)
-                .html((amount) => amount);
+                .html((amount) => amount + " " + unitsStr);
 
             const boundUpdated = axisLayer.selectAll(".value-tick");
 

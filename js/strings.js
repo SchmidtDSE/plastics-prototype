@@ -23,7 +23,7 @@ STRINGS.set("consumptionTransporationMT", "Transporation");
 STRINGS.set("consumptionTextitleMT", "Textitle");
 STRINGS.set("consumptionOtherMT", "Other");
 
-STRINGS.set(DISPLAY_TYPES.amount, "Metric Tons");
+STRINGS.set(DISPLAY_TYPES.amount, "Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "Plastic Waste");
