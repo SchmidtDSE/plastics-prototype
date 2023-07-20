@@ -8,7 +8,14 @@ function addGlobalToState(state) {
         const total = Array.of(...outputs.keys())
             .filter((region) => region !== "global")
             .map((region) => outputs.get(region))
-            .map((regionValues) => regionValues.get(attr))
+            .map((regionValues) => {
+                console.log(attr);
+                if (attr === "netImportsMT" || attr === "netExportsMT") {
+                    return 0;
+                } else {
+                    return regionValues.get(attr);
+                }
+            })
             .reduce((a, b) => a + b);
         globalValues.set(attr, total);
     });
