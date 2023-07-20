@@ -5,6 +5,7 @@ import {
     DISPLAY_STAGES,
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
+    PRODUCTION_ATTRS,
 } from "const";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
@@ -189,6 +190,7 @@ class ReportPresenter {
         self._bubblegraphPresenter.update(resultSet, self._selection);
         self._configPresenter.update(resultSet, self._selection);
         self._consumptionStagePresenter.update(resultSet, self._selection);
+        self._productionStagePresenter.update(resultSet, self._selection);
         self._eolStagePresenter.update(resultSet, self._selection);
         self._timeseriesPresenter.update(resultSet, self._selection);
         self._sparklineSet.update(resultSet, self._selection);
@@ -284,6 +286,14 @@ class ReportPresenter {
         self._consumptionStagePresenter = new StagePresenter(
             consumptionStageDiv,
             DISPLAY_STAGES.consumption,
+            (stage) => self._onStageChange(stage),
+            () => self._onRequestRender(),
+        );
+
+        const productionStageDiv = document.getElementById("production-container");
+        self._productionStagePresenter = new StagePresenter(
+            productionStageDiv,
+            DISPLAY_STAGES.production,
             (stage) => self._onStageChange(stage),
             () => self._onRequestRender(),
         );
@@ -398,6 +408,7 @@ class ReportPresenter {
             const newRegionOut = new Map();
             makePercents(regionOriginal, newRegionOut, CONSUMPTION_ATTRS);
             makePercents(regionOriginal, newRegionOut, EOL_ATTRS);
+            makePercents(regionOriginal, newRegionOut, PRODUCTION_ATTRS);
             newOut.set(region, newRegionOut);
         });
 

@@ -1,4 +1,12 @@
-import {COLORS, CONSUMPTION_ATTRS, DISPLAY_STAGES, DISPLAY_TYPES, EOL_ATTRS} from "const";
+import {
+    COLORS,
+    CONSUMPTION_ATTRS,
+    DISPLAY_STAGES,
+    DISPLAY_TYPES,
+    EOL_ATTRS,
+    PRODUCTION_ATTRS,
+    STANDARD_ATTR_NAMES,
+} from "const";
 import {STRINGS} from "strings";
 
 
@@ -20,7 +28,7 @@ class StagePresenter {
         });
 
         // Color scales
-        const isEol = self._stage == DISPLAY_STAGES.eol;
+        const colorScaleConstructors = new Map();
 
         const makeColorsEol = () => {
             const colorScalesEol = new Map();
@@ -30,6 +38,7 @@ class StagePresenter {
             });
             return colorScalesEol;
         };
+        colorScaleConstructors.set(DISPLAY_STAGES.eol, makeColorsEol);
 
         const makeColorsConsumption = () => {
             const colorScalesConsumption = new Map();
@@ -39,8 +48,19 @@ class StagePresenter {
             });
             return colorScalesConsumption;
         };
+        colorScaleConstructors.set(DISPLAY_STAGES.consumption, makeColorsConsumption);
 
-        self._colorScale = isEol ? makeColorsEol() : makeColorsConsumption();
+        const makeColorsProduction = () => {
+            const colorScalesProduction = new Map();
+            PRODUCTION_ATTRS.forEach((attr, i) => {
+                const color = COLORS[i];
+                colorScalesProduction.set(attr, color);
+            });
+            return colorScalesProduction;
+        };
+        colorScaleConstructors.set(DISPLAY_STAGES.production, makeColorsProduction);
+
+        self._colorScale = colorScaleConstructors.get(self._stage)();
     }
 
     update(stateSet, selection) {
@@ -49,8 +69,7 @@ class StagePresenter {
         const smallDisplay = window.innerWidth < 1200;
 
         const selected = selection.getDisplayStage() == self._stage;
-        const isEol = self._stage == DISPLAY_STAGES.eol;
-        const attrs = isEol ? EOL_ATTRS : CONSUMPTION_ATTRS;
+        const attrs = STANDARD_ATTR_NAMES.get(self._stage);
 
         const unitsStrRaw = STRINGS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;

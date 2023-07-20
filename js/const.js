@@ -13,7 +13,7 @@ const CONSUMPTION_ATTRS = [
     "consumptionHouseholdLeisureSportsMT",
     "consumptionPackagingMT",
     "consumptionTransporationMT",
-    // "consumptionTextitleMT",
+    "consumptionTextitleMT",
     "consumptionOtherMT",
 ];
 
@@ -73,6 +73,11 @@ const GOALS = {
     totalConsumption: "totalConsumption",
 };
 
+const STANDARD_ATTR_NAMES = new Map();
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.eol, EOL_ATTRS);
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.production, PRODUCTION_ATTRS);
+
 
 export {
     ALL_REGIONS,
@@ -91,4 +96,5 @@ export {
     DISPLAY_TYPES,
     DISPLAY_STAGES,
     GOALS,
+    STANDARD_ATTR_NAMES
 };

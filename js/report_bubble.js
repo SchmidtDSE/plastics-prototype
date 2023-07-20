@@ -4,7 +4,9 @@ import {
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     EOL_ATTRS,
+    PRODUCTION_ATTRS,
     TEXT_COLORS,
+    STANDARD_ATTR_NAMES,
 } from "const";
 
 import {STRINGS} from "strings";
@@ -44,9 +46,7 @@ class BubblegraphPresenter {
         self._svgHeight = svgBoundingBox.height;
 
         // Attrs
-        self._attrNames = new Map();
-        self._attrNames.set(DISPLAY_STAGES.eol, EOL_ATTRS);
-        self._attrNames.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
+        self._attrNames = STANDARD_ATTR_NAMES
 
         // Horizontal scales
         self._horizontalScale = self._getD3().scaleBand()
@@ -62,9 +62,14 @@ class BubblegraphPresenter {
             .domain(CONSUMPTION_ATTRS)
             .range([30, self._svgHeight - 20]);
 
+        const verticalScaleProduction = self._getD3().scaleBand()
+            .domain(PRODUCTION_ATTRS)
+            .range([30, self._svgHeight - 20]);
+
         self._verticalScales = new Map();
         self._verticalScales.set(DISPLAY_STAGES.eol, verticalScaleEol);
         self._verticalScales.set(DISPLAY_STAGES.consumption, verticalScaleConsumption);
+        self._verticalScales.set(DISPLAY_STAGES.production, verticalScaleProduction);
 
         // Vertical scales on index
         const eolIndicies = EOL_ATTRS.map((x, i) => i);
@@ -77,9 +82,15 @@ class BubblegraphPresenter {
             .domain(consumptionIndicies)
             .range([30, self._svgHeight - 20]);
 
+        const productionIndicies = PRODUCTION_ATTRS.map((x, i) => i);
+        const verticalIndexScaleProduction = self._getD3().scaleBand()
+            .domain(productionIndicies)
+            .range([30, self._svgHeight - 20]);
+
         self._verticalIndexScales = new Map();
         self._verticalIndexScales.set(DISPLAY_STAGES.eol, verticalIndexScaleEol);
         self._verticalIndexScales.set(DISPLAY_STAGES.consumption, verticalIndexScaleConsumption);
+        self._verticalIndexScales.set(DISPLAY_STAGES.production, verticalIndexScaleProduction);
 
         // Color scales
         const colorScalesEol = new Map();
@@ -94,9 +105,16 @@ class BubblegraphPresenter {
             colorScalesConsumption.set(attr, color);
         });
 
+        const colorScalesProduction = new Map();
+        PRODUCTION_ATTRS.forEach((attr, i) => {
+            const color = COLORS[i];
+            colorScalesProduction.set(attr, color);
+        });
+
         self._colorScales = new Map();
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
+        self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
 
         // Text color scales
         const textColorScalesEol = new Map();
@@ -111,9 +129,16 @@ class BubblegraphPresenter {
             textColorScalesConsumption.set(attr, color);
         });
 
+        const textColorScalesProduction = new Map();
+        PRODUCTION_ATTRS.forEach((attr, i) => {
+            const color = TEXT_COLORS[i];
+            textColorScalesProduction.set(attr, color);
+        });
+
         self._textColorScales = new Map();
         self._textColorScales.set(DISPLAY_STAGES.eol, textColorScalesEol);
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
+        self._textColorScales.set(DISPLAY_STAGES.production, textColorScalesProduction);
     }
 
     update(stateSet, selection) {
