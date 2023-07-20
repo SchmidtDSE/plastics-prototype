@@ -46,7 +46,7 @@ class BubblegraphPresenter {
         self._svgHeight = svgBoundingBox.height;
 
         // Attrs
-        self._attrNames = STANDARD_ATTR_NAMES
+        self._attrNames = STANDARD_ATTR_NAMES;
 
         // Horizontal scales
         self._horizontalScale = self._getD3().scaleBand()
