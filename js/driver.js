@@ -29,6 +29,13 @@ class Driver {
         for (let year = START_YEAR; year <= MAX_YEAR; year++) {
             self._projectionYears.push(year);
         }
+
+        self._pauseUiLoop = true;
+    }
+
+    setPauseUiLoop(shouldPause) {
+        const self = this;
+        self._pauseUiLoop = shouldPause;
     }
 
     init() {
@@ -206,15 +213,23 @@ class Driver {
             clearTimeout(self._redrawTimeout);
         }
 
-        // Give the UI loop a minute to catch up from OS
-        self._redrawTimeout = setTimeout(() => {
+        const execute = () => {
             const businessAsUsual = self._getStates(false);
             const withInterventions = self._getStates(true);
 
             self._updateOutputs(businessAsUsual, withInterventions);
             self._levers.forEach((lever) => lever.refreshSelection());
             self._redrawTimeout = null;
-        }, 150);
+        };
+
+        // Give the UI loop a minute to catch up from OS
+        if (self._pauseUiLoop) {
+            self._redrawTimeout = setTimeout(() => {
+                execute();
+            }, 150);
+        } else {
+            execute();
+        }
     }
 
     _updateOutputs(businessAsUsual, withInterventions) {
@@ -275,8 +290,9 @@ class Driver {
 }
 
 
-function main() {
+function main(shouldPause) {
     const driver = new Driver();
+    driver.setPauseUiLoop(shouldPause);
     return driver.init();
 }
 
