@@ -13,7 +13,7 @@ const CONSUMPTION_ATTRS = [
     "consumptionHouseholdLeisureSportsMT",
     "consumptionPackagingMT",
     "consumptionTransporationMT",
-    // "consumptionTextitleMT",
+    "consumptionTextitleMT",
     "consumptionOtherMT",
 ];
 
@@ -22,6 +22,12 @@ const EOL_ATTRS = [
     "eolLandfillMT",
     "eolIncinerationMT",
     "eolMismanagedMT",
+];
+
+const PRODUCTION_ATTRS = [
+    "netImportsMT",
+    "netExportsMT",
+    "domesticProductionMT",
 ];
 
 const COLORS = [
@@ -46,7 +52,7 @@ const TEXT_COLORS = [
     "#F0F0F0",
 ];
 
-const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS);
+const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
 
 const DEFAULT_YEAR = 2049;
 const DEFAULT_REGION = ALL_REGIONS[0];
@@ -57,19 +63,27 @@ const MAX_YEAR = 2049;
 const CACHE_BUSTER = Date.now();
 
 const DISPLAY_TYPES = {amount: 1, percent: 2};
-const DISPLAY_STAGES = {consumption: 3, eol: 4};
+const DISPLAY_STAGES = {consumption: 3, eol: 4, production: 5};
 const GOALS = {
     productionEmissions: "productionEmissions",
     consumptionEmissions: "consumptionEmissions",
     nonRecycledWaste: "nonRecycledWaste",
     mismanagedWaste: "mismanagedWaste",
+    incineratedWaste: "incineratedWaste",
+    totalConsumption: "totalConsumption",
 };
+
+const STANDARD_ATTR_NAMES = new Map();
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.eol, EOL_ATTRS);
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
+STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.production, PRODUCTION_ATTRS);
 
 
 export {
     ALL_REGIONS,
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
+    PRODUCTION_ATTRS,
     COLORS,
     TEXT_COLORS,
     ALL_ATTRS,
@@ -82,4 +96,5 @@ export {
     DISPLAY_TYPES,
     DISPLAY_STAGES,
     GOALS,
+    STANDARD_ATTR_NAMES,
 };

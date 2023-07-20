@@ -23,10 +23,15 @@ STRINGS.set("consumptionTransporationMT", "Transporation");
 STRINGS.set("consumptionTextitleMT", "Textitle");
 STRINGS.set("consumptionOtherMT", "Other");
 
+STRINGS.set("netImportsMT", "Imports");
+STRINGS.set("netExportsMT", "Exports");
+STRINGS.set("domesticProductionMT", "Domestic");
+
 STRINGS.set(DISPLAY_TYPES.amount, "Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "Plastic Waste");
+STRINGS.set(DISPLAY_STAGES.production, "Production");
 
 STRINGS.set(GOALS.productionEmissions, "Production Emissions");
 STRINGS.set(GOALS.consumptionEmissions, "Consumption Emissions");

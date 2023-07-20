@@ -51,3 +51,16 @@ distribute newInductivePlasticsMT across [
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT
 ] proportionally;
+
+# Offset production local
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+
+# Offset exports elsewhere
+distribute newInductivePlasticsMT across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;

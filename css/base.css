@@ -685,7 +685,7 @@ select {
 
 @media (max-width: 699px) {
     .output-section .goals-container {
-        max-height: 205px;
+        max-height: 213px;
         overflow-y: auto;
     }
 

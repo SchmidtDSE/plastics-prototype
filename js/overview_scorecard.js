@@ -30,15 +30,9 @@ class ScorecardPresenter {
                 body.innerHTML = valueStr;
             };
 
-
             setBody(
-                "production-emissions-card",
-                goals.get("global").get("productionEmissions"),
-            );
-
-            setBody(
-                "consumption-emissions-card",
-                goals.get("global").get("consumptionEmissions"),
+                "mismanaged-waste-card",
+                goals.get("global").get("mismanagedWaste"),
             );
 
             setBody(
@@ -47,8 +41,13 @@ class ScorecardPresenter {
             );
 
             setBody(
-                "mismanaged-waste-card",
-                goals.get("global").get("mismanagedWaste"),
+                "incinerated-waste-card",
+                goals.get("global").get("incineratedWaste"),
+            );
+
+            setBody(
+                "total-consumption-card",
+                goals.get("global").get("totalConsumption"),
             );
         };
 

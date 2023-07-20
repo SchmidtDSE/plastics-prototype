@@ -7,7 +7,9 @@ import {
     EOL_ATTRS,
     HISTORY_START_YEAR,
     MAX_YEAR,
+    PRODUCTION_ATTRS,
     START_YEAR,
+    STANDARD_ATTR_NAMES,
 } from "const";
 import {STRINGS} from "strings";
 
@@ -269,9 +271,7 @@ class SparklinesSet {
     update(stateSet, selection) {
         const self = this;
 
-        const attrsOptions = new Map();
-        attrsOptions.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
-        attrsOptions.set(DISPLAY_STAGES.eol, EOL_ATTRS);
+        const attrsOptions = STANDARD_ATTR_NAMES;
         const attrs = attrsOptions.get(selection.getDisplayStage());
 
         self._d3Selection.selectAll(".sparkline-container")
@@ -287,9 +287,11 @@ class SparklinesSet {
 
         // Color scales
         const colorScales = new Map();
-        EOL_ATTRS.concat(CONSUMPTION_ATTRS).forEach((attr, i) => {
-            const color = COLORS[i];
-            colorScales.set(attr, color);
+        [EOL_ATTRS, CONSUMPTION_ATTRS, PRODUCTION_ATTRS].forEach((attrList) => {
+            attrList.forEach((attr, i) => {
+                const color = COLORS[i];
+                colorScales.set(attr, color);
+            });
         });
 
         const bound = self._d3Selection.selectAll(".sparkline-container")

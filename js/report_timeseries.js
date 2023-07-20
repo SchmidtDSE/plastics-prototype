@@ -6,6 +6,8 @@ import {
     EOL_ATTRS,
     HISTORY_START_YEAR,
     MAX_YEAR,
+    PRODUCTION_ATTRS,
+    STANDARD_ATTR_NAMES,
     START_YEAR,
 } from "const";
 import {STRINGS} from "strings";
@@ -34,9 +36,7 @@ class TimeseriesPresenter {
         });
 
         // Attrs
-        self._attrNames = new Map();
-        self._attrNames.set(DISPLAY_STAGES.eol, EOL_ATTRS);
-        self._attrNames.set(DISPLAY_STAGES.consumption, CONSUMPTION_ATTRS);
+        self._attrNames = STANDARD_ATTR_NAMES;
 
         // Color scales
         const colorScalesEol = new Map();
@@ -51,9 +51,16 @@ class TimeseriesPresenter {
             colorScalesConsumption.set(attr, color);
         });
 
+        const colorScalesProduction = new Map();
+        PRODUCTION_ATTRS.forEach((attr, i) => {
+            const color = COLORS[i];
+            colorScalesProduction.set(attr, color);
+        });
+
         self._colorScales = new Map();
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
+        self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
     }
 
     update(stateSet, selection) {
