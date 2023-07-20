@@ -5,6 +5,8 @@ import {
 } from "const";
 import {STRINGS} from "strings";
 
+const TIMEDELTA_STEP = 200;
+
 
 class TimeDeltaPresenter {
     constructor(targetDiv, attrName, onYearChange) {
@@ -74,7 +76,7 @@ class TimeDeltaPresenter {
         };
 
         const maxValueNative = Math.max(getMax(businessAsUsuals), getMax(withInterventions));
-        const maxValue = Math.ceil(maxValueNative / 50) * 50;
+        const maxValue = Math.ceil(maxValueNative / TIMEDELTA_STEP) * TIMEDELTA_STEP;
         const minValue = 0;
 
         const horizontalScale = self._getD3().scaleLinear()
@@ -103,7 +105,7 @@ class TimeDeltaPresenter {
 
         const updateValueAxis = () => {
             const ticks = [];
-            for (let i = minValue; i <= maxValue; i += 50) {
+            for (let i = minValue; i <= maxValue; i += TIMEDELTA_STEP) {
                 ticks.push(i);
             }
 

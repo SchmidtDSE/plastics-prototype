@@ -18,7 +18,7 @@ class Driver {
         self._reportPresenter = null;
         self._overviewPresenter = null;
         self._levers = null;
-        self._renderEnabled = true;
+        self._redrawTimeout = null;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -194,25 +194,27 @@ class Driver {
     _onYearChange(year) {
         const self = this;
 
-        self._renderEnabled = false;
         self._reportPresenter.setYear(year);
         self._overviewPresenter.setYear(year);
-        self._renderEnabled = true;
         self._onInputChange();
     }
 
     _onInputChange() {
         const self = this;
 
-        if (!self._renderEnabled) {
-            return;
+        if (self._redrawTimeout !== null) {
+            clearTimeout(self._redrawTimeout);
         }
 
-        const businessAsUsual = self._getStates(false);
-        const withInterventions = self._getStates(true);
+        // Give the UI loop a minute to catch up from OS
+        self._redrawTimeout = setTimeout(() => {
+            const businessAsUsual = self._getStates(false);
+            const withInterventions = self._getStates(true);
 
-        self._updateOutputs(businessAsUsual, withInterventions);
-        self._levers.forEach((lever) => lever.refreshSelection());
+            self._updateOutputs(businessAsUsual, withInterventions);
+            self._levers.forEach((lever) => lever.refreshSelection());
+            self._redrawTimeout = null;
+        }, 150);
     }
 
     _updateOutputs(businessAsUsual, withInterventions) {
@@ -250,8 +252,6 @@ class Driver {
     _onPolicyChange(change, selected) {
         const self = this;
 
-        self._renderEnabled = false;
-
         change["values"].forEach((valueInfo) => {
             const lever = self._leversByName.get(valueInfo["lever"]);
 
@@ -264,7 +264,6 @@ class Driver {
             lever.refreshSelection();
         });
 
-        self._renderEnabled = true;
         self._onInputChange();
     }
 
