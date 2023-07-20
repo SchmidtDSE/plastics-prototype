@@ -24,6 +24,12 @@ const EOL_ATTRS = [
     "eolMismanagedMT",
 ];
 
+const PRODUCTION_ATTRS = [
+    "netImportsMT",
+    "netExportsMT",
+    "domesticProductionMT",
+];
+
 const COLORS = [
     "#b2df8a",
     "#33a02c",
@@ -46,7 +52,7 @@ const TEXT_COLORS = [
     "#F0F0F0",
 ];
 
-const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS);
+const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
 
 const DEFAULT_YEAR = 2049;
 const DEFAULT_REGION = ALL_REGIONS[0];
@@ -57,7 +63,7 @@ const MAX_YEAR = 2049;
 const CACHE_BUSTER = Date.now();
 
 const DISPLAY_TYPES = {amount: 1, percent: 2};
-const DISPLAY_STAGES = {consumption: 3, eol: 4};
+const DISPLAY_STAGES = {consumption: 3, eol: 4, production: 5};
 const GOALS = {
     productionEmissions: "productionEmissions",
     consumptionEmissions: "consumptionEmissions",
@@ -72,6 +78,7 @@ export {
     ALL_REGIONS,
     CONSUMPTION_ATTRS,
     EOL_ATTRS,
+    PRODUCTION_ATTRS,
     COLORS,
     TEXT_COLORS,
     ALL_ATTRS,
