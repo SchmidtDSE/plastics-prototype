@@ -138,11 +138,16 @@ class StagePresenter {
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
 
+            const isProduction = self._stage == DISPLAY_STAGES.production;
             boundUpdated.select(".label")
                 .html((attr) => {
                     const labelRaw = STRINGS.get(attr);
                     if (smallDisplay && labelRaw === "House, Leis, Sport") {
                         return "Household";
+                    } else if (labelRaw === "Domestic" && isProduction) {
+                        return "Stays in Region";
+                    } else if (labelRaw === "Net Export" && isProduction) {
+                        return "Traded";
                     } else {
                         return labelRaw;
                     }

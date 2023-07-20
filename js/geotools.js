@@ -9,7 +9,6 @@ function addGlobalToState(state) {
             .filter((region) => region !== "global")
             .map((region) => outputs.get(region))
             .map((regionValues) => {
-                console.log(attr);
                 if (attr === "netImportsMT" || attr === "netExportsMT") {
                     return 0;
                 } else {
