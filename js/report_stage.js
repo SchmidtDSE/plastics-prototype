@@ -80,7 +80,7 @@ class StagePresenter {
         const state = stateSet.getWithIntervention();
         const regionData = state.get("out").get(selection.getRegion());
 
-        const maxValue = CONSUMPTION_ATTRS.concat(EOL_ATTRS)
+        const maxValue = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS)
             .map((attr) => Math.abs(regionData.get(attr)))
             .reduce((a, b) => a > b ? a : b);
 
@@ -182,6 +182,13 @@ class StagePresenter {
                         return "#C0C0C0";
                     }
                 });
+
+            if (self._stage === DISPLAY_STAGES.production) {
+                boundUpdated.style("display", (attr) => {
+                    const isZero = regionData.get(attr) == 0;
+                    return isZero ? "none" : "block";
+                });
+            }
         };
 
         updateRadio();

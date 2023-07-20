@@ -23,8 +23,8 @@ STRINGS.set("consumptionTransporationMT", "Transporation");
 STRINGS.set("consumptionTextitleMT", "Textitle");
 STRINGS.set("consumptionOtherMT", "Other");
 
-STRINGS.set("netImportsMT", "Imports");
-STRINGS.set("netExportsMT", "Exports");
+STRINGS.set("netImportsMT", "Net Imports");
+STRINGS.set("netExportsMT", "Net Exports");
 STRINGS.set("domesticProductionMT", "Domestic");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Million Metric Tons");

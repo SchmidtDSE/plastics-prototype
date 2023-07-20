@@ -134,14 +134,6 @@ class ReportPresenter {
         const showingBauDelta = self._selection.getShowBauDelta();
         const usingPercent = displayType == DISPLAY_TYPES.percent;
 
-        const setToGlobal = self._selection.getRegion() === "global";
-        const productionDisplay = setToGlobal ? "none" : "block";
-        document.getElementById("production-container").style.display = productionDisplay;
-
-        if (setToGlobal && self._selection.getDisplayStage() == DISPLAY_STAGES.production) {
-            self._onStageChange(DISPLAY_STAGES.consumption);
-        }
-
         const getTransformedMaybe = (target) => {
             if (usingPercent) {
                 return self._getPercents(target);
