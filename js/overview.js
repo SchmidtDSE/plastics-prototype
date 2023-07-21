@@ -98,10 +98,18 @@ class OverviewPresenter {
 }
 
 
-function buildOverviewPresenter(onRequestRerender, onPolicyChange, onYearChange) {
+function buildOverviewPresenter(includeDevelopment, onRequestRerender, onPolicyChange,
+    onYearChange) {
     return fetch("/pt/scenarios.json?v=" + CACHE_BUSTER)
         .then((x) => x.json())
         .then((x) => x["scenarios"])
+        .then((x) => x.filter((scenario) => {
+            if (includeDevelopment) {
+                return true;
+            } else {
+                return scenario["released"] == true;
+            }
+        }))
         .then((scenarios) => {
             return new OverviewPresenter(
                 scenarios,

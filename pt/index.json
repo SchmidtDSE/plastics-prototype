@@ -14,6 +14,7 @@
                     "forcePlus": false,
                     "variable": "chinaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -30,6 +31,7 @@
                     "forcePlus": false,
                     "variable": "eu30MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -46,6 +48,7 @@
                     "forcePlus": false,
                     "variable": "naftaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -62,18 +65,13 @@
                     "forcePlus": false,
                     "variable": "rowMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                }
-            ]
-        },
-        {
-            "name": "mismanaged",
-            "label": "Mismanaged",
-            "levers": [
+                },
                 {
                     "name": "China Maximum Mismanaged Rate",
                     "min": 0,
@@ -84,6 +82,7 @@
                     "forcePlus": false,
                     "variable": "chinaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "china"
                     },
@@ -99,6 +98,7 @@
                     "forcePlus": false,
                     "variable": "eu30MaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "eu30"
                     },
@@ -114,6 +114,7 @@
                     "forcePlus": false,
                     "variable": "naftaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "nafta"
                     },
@@ -129,10 +130,85 @@
                     "forcePlus": false,
                     "variable": "rowMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "row"
                     },
                     "url": ""
+                }
+            ]
+        },
+        {
+            "name": "production",
+            "label": "Production",
+            "levers": [
+                {
+                    "name": "China Virgin Plastic Cap",
+                    "min": 0,
+                    "max": 500,
+                    "default": 500,
+                    "step": 10,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "chinaVirginPlasticCap",
+                    "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Virgin Plastic Cap",
+                    "min": 0,
+                    "max": 500,
+                    "default": 500,
+                    "step": 10,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "eu30VirginPlasticCap",
+                    "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Virgin Plastic Cap",
+                    "min": 0,
+                    "max": 500,
+                    "default": 500,
+                    "step": 10,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "naftaVirginPlasticCap",
+                    "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Virgin Plastic Cap",
+                    "min": 0,
+                    "max": 500,
+                    "default": 500,
+                    "step": 10,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "rowVirginPlasticCap",
+                    "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 }
             ]
         },
@@ -149,8 +225,22 @@
                     "units": "%",
                     "variable": "recyclingDisplacementRate",
                     "template": "noop.pt",
+                    "released": true,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Nivi Scratchpad",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "niviScrachpadInput",
+                    "template": "nivi_scratchpad.pt",
+                    "released": false,
+                    "attrs": {},
+                    "url": ""
                 }
             ]
         }
