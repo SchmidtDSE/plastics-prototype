@@ -194,10 +194,6 @@ select {
     margin-top: 10px;
 }
 
-.output-section .goal-container .bar .glyph {
-    height: 7px;
-}
-
 .output-section .goal-container .bar .glyph-holder {
     width: 100%;
     height: 7px;
@@ -271,10 +267,6 @@ select {
 
 .output-section .region-container .current-year-container .stage-container .bar:first-of-type {
     margin-top: 10px;
-}
-
-.output-section .region-container .current-year-container .stage-container .bar .glyph {
-    height: 7px;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar .glyph-holder {

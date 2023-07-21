@@ -135,6 +135,11 @@ class StagePresenter {
             newSvgs.append("rect")
                 .classed("glyph", true);
 
+            newSvgs.append("rect")
+                .classed("zero", true)
+                .style("fill", "#C0C0C0")
+                .attr("width", 1);
+
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
 
@@ -186,7 +191,13 @@ class StagePresenter {
                     } else {
                         return "#C0C0C0";
                     }
-                });
+                })
+                .attr("height", selection.getShowBauDelta() ? 4 : 7);
+
+            boundUpdated.select(".zero")
+                .transition()
+                .attr("x", horizontalScale(0))
+                .attr("height", selection.getShowBauDelta() ? 7 : 0);
 
             if (self._stage === DISPLAY_STAGES.production) {
                 boundUpdated.style("display", (attr) => {
