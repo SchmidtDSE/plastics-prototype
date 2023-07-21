@@ -1,0 +1,30 @@
+# Figuring out the target value
+var targetMismanagedRate = in.{{region}}MaximumMismanagedRate / 100;
+var totalWaste = (
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolRecyclingMT
+);
+var targetMismanaged = targetMismanagedRate * totalWaste;
+
+# Figuring out the delta
+var projected = out.{{ region }}.eolMismanagedMT; # BAU
+var mismanagedDelta = targetMismanaged - projected;
+
+# Don't make it worse: if projected was smaller
+# than targetMismanaged, the region is doing better than
+# the policy so don't increase mismanaged.
+limit mismanagedDelta to [,0];
+
+# Update the projected value for mismanaged
+change projected by mismanagedDelta over 2020 to 2050;
+out.{{ region }}.eolMismanagedMT = projected;
+
+# Distribute to the other fates
+var otherDelta = -1 * mismanagedDelta;
+distribute otherDelta across [
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;
