@@ -15,7 +15,7 @@ function buildPageTest() {
                     return x;
                 })
                 .then((text) => {
-                    return main(false);
+                    return main(false, true);
                 });
         }
 

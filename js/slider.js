@@ -367,9 +367,21 @@ function getHandlebars() {
 }
 
 
-function buildSliders(buildState, compileProgram, onInputChange, getSelection) {
+function buildSliders(includeDevelopment, buildState, compileProgram, onInputChange, getSelection) {
     const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
-        .then((x) => x.json());
+        .then((x) => x.json())
+        .then((x) => {
+            x["categories"].forEach((category) => {
+                category["levers"] = category["levers"].filter((lever) => {
+                    if (includeDevelopment) {
+                        return true;
+                    } else {
+                        return lever["released"] == true;
+                    }
+                });
+            });
+            return x;
+        });
 
     const leverTemplateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
         .then((x) => x.text())

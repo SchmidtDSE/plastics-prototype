@@ -38,7 +38,7 @@ class Driver {
         self._pauseUiLoop = shouldPause;
     }
 
-    init() {
+    init(includeDevelopment) {
         const self = this;
 
         return new Promise((outerResolve) => {
@@ -68,12 +68,14 @@ class Driver {
                     (year) => self._onYearChange(year),
                 ),
                 buildSliders(
+                    includeDevelopment,
                     (year) => self._buildStateForCurrentYear(),
                     (x) => self._compileProgram(x),
                     () => self._onSlidersChange(),
                     () => self._reportPresenter.getSelection(),
                 ),
                 buildOverviewPresenter(
+                    includeDevelopment,
                     () => self._onInputChange(),
                     (change, selected) => self._onPolicyChange(change, selected),
                     (year) => self._onYearChange(year),
@@ -290,10 +292,10 @@ class Driver {
 }
 
 
-function main(shouldPause) {
+function main(shouldPause, includeDevelopment) {
     const driver = new Driver();
     driver.setPauseUiLoop(shouldPause);
-    return driver.init();
+    return driver.init(includeDevelopment);
 }
 
 

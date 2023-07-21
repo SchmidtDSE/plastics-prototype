@@ -14,6 +14,7 @@
                     "forcePlus": false,
                     "variable": "chinaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -30,6 +31,7 @@
                     "forcePlus": false,
                     "variable": "eu30MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -46,6 +48,7 @@
                     "forcePlus": false,
                     "variable": "naftaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -62,6 +65,7 @@
                     "forcePlus": false,
                     "variable": "rowMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -78,6 +82,7 @@
                     "forcePlus": false,
                     "variable": "chinaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "china"
                     },
@@ -93,6 +98,7 @@
                     "forcePlus": false,
                     "variable": "eu30MaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "eu30"
                     },
@@ -108,6 +114,7 @@
                     "forcePlus": false,
                     "variable": "naftaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "nafta"
                     },
@@ -123,6 +130,7 @@
                     "forcePlus": false,
                     "variable": "rowMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
+                    "released": true,
                     "attrs": {
                         "region": "row"
                     },
@@ -144,6 +152,7 @@
                     "forcePlus": false,
                     "variable": "chinaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
+                    "released": true,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -160,6 +169,7 @@
                     "forcePlus": false,
                     "variable": "eu30VirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
+                    "released": true,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -176,6 +186,7 @@
                     "forcePlus": false,
                     "variable": "naftaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
+                    "released": true,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -192,6 +203,7 @@
                     "forcePlus": false,
                     "variable": "rowVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
+                    "released": true,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -213,6 +225,7 @@
                     "units": "%",
                     "variable": "recyclingDisplacementRate",
                     "template": "noop.pt",
+                    "released": true,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 }

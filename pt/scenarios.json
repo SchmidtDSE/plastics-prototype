@@ -7,7 +7,8 @@
                 {"lever": "eu30MinimumRecyclingRate", "value": 40},
                 {"lever": "naftaMinimumRecyclingRate", "value": 40},
                 {"lever": "rowMinimumRecyclingRate", "value": 40}
-            ]
+            ],
+            "released": true
         },
         {
             "name": "5% Maximum Mismanaged Rate",
@@ -16,7 +17,8 @@
                 {"lever": "eu30MaximumMismanagedRate", "value": 5},
                 {"lever": "naftaMaximumMismanagedRate", "value": 5},
                 {"lever": "rowMaximumMismanagedRate", "value": 5}
-            ]
+            ],
+            "released": true
         },
         {
             "name": "Cap to 2030 Annual Virgin Production",
@@ -25,7 +27,8 @@
                 {"lever": "eu30VirginPlasticCap", "value": 110},
                 {"lever": "naftaVirginPlasticCap", "value": 110},
                 {"lever": "rowVirginPlasticCap", "value": 210}
-            ]
+            ],
+            "released": true
         }
     ]
 }
