@@ -17,6 +17,9 @@ class OverviewPresenter {
         self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
 
+        self._cumulativeSwitch = self._targetDiv.querySelector(".cumulative-select");
+        self._cumulativeSwitch.addEventListener("change", () => self._onCumulativeSwitch());
+
         const rawScorecordDiv = self._targetDiv.querySelector(".raw-scorecard");
         self._rawScorecardPresenter = new ScorecardPresenter(
             rawScorecordDiv,
@@ -46,6 +49,11 @@ class OverviewPresenter {
         );
     }
 
+    getCumulativeEnabled() {
+        const self = this;
+        return self._cumulativeSwitch.value === "cumulative";
+    }
+
     setYear(year) {
         const self = this;
 
@@ -55,6 +63,11 @@ class OverviewPresenter {
 
     render(businessAsUsuals, withInterventions) {
         const self = this;
+
+        if (self.getCumulativeEnabled()) {
+            businessAsUsuals = self._makeCumulative(businessAsUsuals);
+            withInterventions = self._makeCumulative(withInterventions);
+        }
 
         const currentYear = withInterventions.get(self._year);
         const relative = getRelative(withInterventions, businessAsUsuals);
@@ -84,9 +97,66 @@ class OverviewPresenter {
             rawGoalsBau,
             rawGoalsIntervention,
             self._year,
+            self.getCumulativeEnabled(),
         );
 
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
+    }
+
+    _makeCumulative(target) {
+        const self = this;
+
+        const priorValues = new Map();
+        
+        const years = Array.of(...target.keys());
+        years.sort();
+
+        const allNewOutputs = new Map();
+        years.forEach((year) => {
+            const yearTarget = target.get(year);
+            const oldOut = yearTarget.get("out");
+            const newOut = new Map();
+
+            Array.of(...oldOut.keys()).forEach((region) => {
+                const oldRegionOut = oldOut.get(region);
+                const newRegionOut = new Map();
+
+                if (!priorValues.has(region)) {
+                    priorValues.set(region, new Map());
+                }
+
+                const priorValuesRegion = priorValues.get(region);
+
+                Array.of(...oldRegionOut.entries()).forEach((entry) => {
+                    const attrName = entry[0];
+                    const oldValue = entry[1];
+
+                    if (!priorValuesRegion.has(attrName)) {
+                        priorValuesRegion.set(attrName, 0);
+                    }
+
+                    const newValue = priorValuesRegion.get(attrName) + oldValue;
+
+                    newRegionOut.set(attrName, newValue);
+                    priorValuesRegion.set(attrName, newValue);
+                });
+
+                newOut.set(region, newRegionOut);
+            });
+
+            const decoratedOut = new Map();
+            decoratedOut.set("out", newOut);
+            decoratedOut.set("in", yearTarget.get("in"));
+
+            allNewOutputs.set(year, decoratedOut);
+        });
+
+        return allNewOutputs;
+    }
+
+    _onCumulativeSwitch() {
+        const self = this;
+        self._onRequestRender();
     }
 
     _onGoalChange(newGoal) {
