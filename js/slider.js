@@ -14,6 +14,7 @@ class SliderPresenter {
         self._buildState = buildState;
         self._compileProgram = compileProgram;
         self._getSelection = getSelection;
+        self._programCache = null;
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
@@ -49,23 +50,31 @@ class SliderPresenter {
     getProgram() {
         const self = this;
 
-        const input = self._editor.getValue();
-        const compileResult = self._compileProgram(input);
+        const getProgramNoCache = () => {
+            const input = self._editor.getValue();
+            const compileResult = self._compileProgram(input);
 
-        const hasErrors = compileResult.getErrors().length > 0;
-        const hasProgram = compileResult.getProgram() !== null;
+            const hasErrors = compileResult.getErrors().length > 0;
+            const hasProgram = compileResult.getProgram() !== null;
 
-        if (hasErrors) {
-            const errorsStr = compileResult.getErrors().join("\n\n");
-            self._showError(errorsStr);
-            return null;
-        } else if (hasProgram) {
-            self._showError(null);
-            return compileResult.getProgram();
-        } else {
-            self._showError(null);
-            return null;
+            if (hasErrors) {
+                const errorsStr = compileResult.getErrors().join("\n\n");
+                self._showError(errorsStr);
+                return null;
+            } else if (hasProgram) {
+                self._showError(null);
+                return compileResult.getProgram();
+            } else {
+                self._showError(null);
+                return null;
+            }
+        };
+
+        if (self._programCache === null) {
+            self._programCache = getProgramNoCache();
         }
+
+        return self._programCache;
     }
 
     showInspects(inspects) {
@@ -126,11 +135,16 @@ class SliderPresenter {
     _checkStatus(text) {
         const self = this;
 
+        // Invalid cache
+        self._programCache = null;
+
+        // Get new program
         const program = self.getProgram();
         if (program === null) {
             return;
         }
 
+        // Run program
         const state = self._buildState();
         try {
             program(state);
