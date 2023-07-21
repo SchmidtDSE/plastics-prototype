@@ -5,7 +5,7 @@ import {
 } from "const";
 import {STRINGS} from "strings";
 
-const TIMEDELTA_STEP = 200;
+const TIMEDELTA_STEP = 100;
 
 
 class TimeDeltaPresenter {
