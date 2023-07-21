@@ -29,6 +29,8 @@ jobs:
         run: npx eslint ./js/*.js
       - name: Check configuration
         run: python test/test_config.py pt/index.json pt/scenarios.json
+      - name: Render templates
+        run: bash sh/render_template.sh
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
@@ -76,6 +78,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Render templates
+        run: bash sh/render_template.sh
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
