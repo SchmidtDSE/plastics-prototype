@@ -75,17 +75,15 @@
             "label": "Assumptions",
             "levers": [
                 {
-                    "name": "Recycling Inductive Demand Rate",
+                    "name": "Recycling Displacement Rate",
                     "min": 0,
                     "max": 100,
-                    "default": 20,
+                    "default": 50,
                     "step": 5,
                     "units": "%",
-                    "variable": "recyclingInductiveDemandRate",
+                    "variable": "recyclingDisplacementRate",
                     "template": "noop.pt",
-                    "attrs": {
-                        "region": "china"
-                    },
+                    "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 }
             ]
