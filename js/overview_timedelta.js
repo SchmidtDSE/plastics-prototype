@@ -241,7 +241,7 @@ class TimeDeltaPresenter {
 
         const updateTitle = () => {
             const newTitle = [
-                "Global",
+                "Global Annual",
                 STRINGS.get(self._attrName),
                 "Over Time by",
                 unitsLong,
