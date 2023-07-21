@@ -71,6 +71,72 @@
             ]
         },
         {
+            "name": "mismanaged",
+            "label": "Mismanaged",
+            "levers": [
+                {
+                    "name": "China Maximum Mismanaged Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "EU 30 Maximum Mismanaged Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "attrs": {
+                        "region": "eu30"
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "NAFTA Maximum Mismanaged Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "attrs": {
+                        "region": "nafta"
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "ROW Maximum Mismanaged Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "attrs": {
+                        "region": "row"
+                    },
+                    "url": ""
+                }
+            ]
+        },
+        {
             "name": "assumptions",
             "label": "Assumptions",
             "levers": [
