@@ -585,8 +585,11 @@ select {
 }
 
 #levers-panel .slider-context table {
-    display: none;
     width: 100%;
+}
+
+#levers-panel .slider-context .goals-table {
+    display: none;
 }
 
 #levers-panel .slider-context table, #levers-panel .slider-context th, #levers-panel .slider-context td {
@@ -656,7 +659,7 @@ select {
     width: 90%;
 }
 
-#prototype table {
+#prototype .goals-table {
     display: none;
 }
 
