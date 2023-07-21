@@ -5,7 +5,7 @@ import {
 } from "const";
 import {STRINGS} from "strings";
 
-const TIMEDELTA_STEP = 200;
+const TIMEDELTA_STEP = 100;
 
 
 class TimeDeltaPresenter {
@@ -50,7 +50,7 @@ class TimeDeltaPresenter {
             {"short": "LB", "long": "Pounds"},
         );
         unitOptions.set(
-            GOALS.nonRecycledWaste,
+            GOALS.landfillWaste,
             {"short": "MT", "long": "Million Metric Tons"},
         );
         unitOptions.set(

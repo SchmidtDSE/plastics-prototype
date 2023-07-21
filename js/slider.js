@@ -252,11 +252,17 @@ class SliderPresenter {
                 self._rootElement.querySelector(selector).innerHTML = getText(value);
             };
 
-            const deltaNonRecycled = getDelta("nonRecycledWaste");
-            setText(deltaNonRecycled, ".goal-table-non-recycled-waste");
+            const deltaLandfill = getDelta("landfillWaste");
+            setText(deltaLandfill, ".goal-table-landfill-waste");
 
             const deltaMismanaged = getDelta("mismanagedWaste");
             setText(deltaMismanaged, ".goal-table-mismanaged-waste");
+
+            const deltaIncinerated = getDelta("incineratedWaste");
+            setText(deltaIncinerated, ".goal-table-incinerated-waste");
+
+            const deltaTotalConsumption = getDelta("totalConsumption");
+            setText(deltaTotalConsumption, ".goal-table-total-consumption");
         };
 
         showTable();

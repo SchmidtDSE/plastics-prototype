@@ -35,7 +35,7 @@ STRINGS.set(DISPLAY_STAGES.production, "Production");
 
 STRINGS.set(GOALS.productionEmissions, "Production Emissions");
 STRINGS.set(GOALS.consumptionEmissions, "Consumption Emissions");
-STRINGS.set(GOALS.nonRecycledWaste, "Non-Recycled Waste");
+STRINGS.set(GOALS.landfillWaste, "Landfill Waste");
 STRINGS.set(GOALS.mismanagedWaste, "Mismanaged Waste");
 
 export {STRINGS};

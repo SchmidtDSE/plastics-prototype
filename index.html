@@ -32,13 +32,13 @@
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
-                                <div class="card non-recycled-waste-card active" goal="nonRecycledWaste">
-                                    <div class="title">Non-Recycled Waste</div>
+                                <div class="card incinerated-waste-card" goal="incineratedWaste">
+                                    <div class="title">Incinerated Waste</div>
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
-                                <div class="card incinerated-waste-card" goal="incineratedWaste">
-                                    <div class="title">Incinerated Waste</div>
+                                <div class="card landfill-waste-card active" goal="landfillWaste">
+                                    <div class="title">Landfill Waste</div>
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
@@ -54,10 +54,10 @@
                                 <h3>Policies</h3>
                                 <div class="menu"></div>
                                 <div class="cta">
-                                    <div><a href="#detailed" id="detailed-cta">Customize policy details >></a></div>
-                                    <div><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                    <div><a href="#share" class="share-link">Share >></a></div>
-                                    <div><a href="#reset" class="reset-link">Reset >></a></div>
+                                    <div class="action"><a href="#detailed" id="detailed-cta">Customize policy details >></a></div>
+                                    <div class="action"><a href="#add-policy" id="add-policy-link">Add policy option >></a></div>
+                                    <div class="action"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
+                                    <div class="action"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
                                 </div>
                             </div>
                             <div class="overview-timeseries overview-section" id="overview-timeseries">
@@ -73,13 +73,13 @@
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
-                                <div class="card non-recycled-waste-card active" goal="nonRecycledWaste">
-                                    <div class="title">Non-Recycled Waste</div>
+                                <div class="card incinerated-waste-card" goal="incineratedWaste">
+                                    <div class="title">Incinerated Waste</div>
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
-                                <div class="card incinerated-waste-card" goal="incineratedWaste">
-                                    <div class="title">Incinerated Waste</div>
+                                <div class="card landfill-waste-card" goal="landfillWaste">
+                                    <div class="title">Landfill Waste</div>
                                     <div class="body">1234</div>
                                     <div class="footer">Annual Million Metric Tons</div>
                                 </div>
@@ -122,12 +122,12 @@
                                         <h3>Mismanaged Waste</h3>
                                         <div class="bars"></div>
                                     </div>
-                                    <div class="goal-container inner top odd" id="total-waste-goal-container">
-                                        <h3>Non-Recycled Waste</h3>
+                                    <div class="goal-container inner top odd" id="incinerated-waste-goal-container">
+                                        <h3>Incinerated Waste</h3>
                                         <div class="bars"></div>
                                     </div>
-                                    <div class="goal-container inner even top" id="incinerated-waste-goal-container">
-                                        <h3>Incinerated Waste</h3>
+                                    <div class="goal-container inner even top" id="landfill-waste-goal-container">
+                                        <h3>Landfill Waste</h3>
                                         <div class="bars"></div>
                                     </div>
                                     <div class="goal-container odd" id="total-consumption-goal-container">
@@ -185,11 +185,10 @@
                         </div>
                         <div class="panel">
                             <div id="buttons-panel" class="right-panel">
-                                <h3>Scenario</h3>
+                                <h3>Policy</h3>
                                 <div class="link-holder"><a href="#overview" id="overview-cta">Return to overview >></a></div>
                                 <div class="link-holder"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                <div class="link-holder"><a href="#share" class="share-link">Share >></a></div>
-                                <div class="link-holder"><a href="#reset" class="reset-link">Reset >></a></div>
+                                <div class="link-holder"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
                             </div>
                             <div id="levers-panel" class="right-panel">
                                 <div id="levers-panel-inner"></div>
@@ -205,15 +204,15 @@
                                                         <td></td>
                                                         <td><span class="goal-table-year"></span> Production Emissions</td>
                                                         <td><span class="goal-table-year"></span> Consumption Emissions</td>
-                                                        <td><span class="goal-table-year"></span> Non-Recycled Waste</td>
+                                                        <td><span class="goal-table-year"></span> Landfill Waste</td>
                                                         <td><span class="goal-table-year"></span> Mismanaged Waste</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="global-table-region"></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td class="goal-table-non-recycled-waste"></td>
                                                         <td class="goal-table-mismanaged-waste"></td>
+                                                        <td class="goal-table-incinerated-waste"></td>
+                                                        <td class="goal-table-landfill-waste"></td>
+                                                        <td class="goal-table-total-consumption"></td>
                                                     </tr>
                                                 </table>
                                                 <div class="status-display"></div>
@@ -234,6 +233,30 @@
                 </div>
             </div>
         </main>
+
+        <dialog id="add-dialog">
+            <form>
+                <p>
+                    <p>
+                    You can add your current custom policy as a new policy option, creating a checkbox for it on the menu. Alternatively, you can also enter a link to add a shared custom policy, adding it to the options menu with a new checkbox.
+                    </p>
+                    <p>
+                        <div><label for="policy-name">Policy Name:</label></div>
+                        <div><input type="text" name="policy-name" id="policy-name-input"></div>
+                    </p>
+                    <div>
+                        <label for="add-current-radio"><input type="radio" name="add-method" value="add-current" id="add-current-radio" checked> Add current custom policy as an option.</label>
+                    </div>
+                    <div>
+                        <label for="add-url-radio"><input type="radio" name="add-method" value="add-url" id="add-url-radio"> Add shared policy as an option using its URL.</label>
+                    </div>
+                </p>
+                <div>
+                  <button value="cancel" formmethod="dialog">Cancel</button>
+                  <button id="continue-add-button" value="default">Continue</button>
+                </div>
+            </form>
+        </dialog>
 
         <script type="text/javascript" src="third_party/ace.min.js"></script>
         <script type="text/javascript" src="third_party/d3.min.js"></script>

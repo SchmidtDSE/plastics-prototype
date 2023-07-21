@@ -21,6 +21,36 @@ const NO_SAVE_MSG = "No local saved policy selections found.";
 const RESET_CONFIRM_MSG = "This will clear all of your policy selections. Do you want to continue?";
 
 
+function writeInputsToString(leversByVariable) {
+    return Array.of(...leversByVariable.values())
+        .map((x) => {
+            const variableName = x.getVariable();
+            const variableValue = encodeURIComponent(x.getValue());
+            return variableName + "=" + variableValue;
+        })
+        .join("&");
+}
+
+
+function loadInputsFromString(urlString, leversByVariable) {
+    urlString.split("&")
+        .map((param) => param.split("="))
+        .map((pieces) => {
+            const variableName = pieces[0];
+            const valueStr = decodeURIComponent(pieces[1]);
+            return {
+                "variable": variableName,
+                "value": parseFloat(valueStr),
+            };
+        })
+        .filter((x) => x["variable"] !== "prototype")
+        .forEach((leverInfo) => {
+            const lever = leversByVariable.get(leverInfo["variable"]);
+            lever.setValue(leverInfo["value"]);
+        });
+}
+
+
 class FilePresenter {
     constructor(leversByVariable, onRequestRender) {
         const self = this;
@@ -122,37 +152,6 @@ class FilePresenter {
         self._onRequestRender();
     }
 
-    _writeInputsToString(leversByVariable) {
-        const self = this;
-
-        return Array.of(...leversByVariable.values())
-            .map((x) => {
-                const variableName = x.getVariable();
-                const variableValue = encodeURIComponent(x.getValue());
-                return variableName + "=" + variableValue;
-            })
-            .join("&");
-    }
-
-    _loadInputsFromString(urlString, leversByVariable) {
-        const self = this;
-
-        urlString.split("&")
-            .map((param) => param.split("="))
-            .map((pieces) => {
-                const variableName = pieces[0];
-                const valueStr = decodeURIComponent(pieces[1]);
-                return {
-                    "variable": variableName,
-                    "value": parseFloat(valueStr),
-                };
-            })
-            .forEach((leverInfo) => {
-                const lever = leversByVariable.get(leverInfo["variable"]);
-                lever.setValue(leverInfo["value"]);
-            });
-    }
-
     _writeInputsToUrl(leversByVariable) {
         const self = this;
 
@@ -164,7 +163,7 @@ class FilePresenter {
             "?",
         ].join("");
 
-        const url = baseUrl + self._writeInputsToString(leversByVariable);
+        const url = baseUrl + writeInputsToString(leversByVariable);
         history.pushState({}, "", url);
     }
 
@@ -172,14 +171,13 @@ class FilePresenter {
         const self = this;
         const fullString = window.location.search;
         const stripString = fullString.startsWith("?") ? fullString.substring(1) : fullString;
-        console.log(leversByVariable);
-        self._loadInputsFromString(stripString, leversByVariable);
+        loadInputsFromString(stripString, leversByVariable);
     }
 
     _writeInputsToLocal(leversByVariable) {
         const self = this;
 
-        const stateString = self._writeInputsToString(leversByVariable);
+        const stateString = writeInputsToString(leversByVariable);
         window.localStorage.setItem("state", stateString);
     }
 
@@ -188,10 +186,10 @@ class FilePresenter {
 
         const stateString = window.localStorage.getItem("state");
         if (stateString !== null) {
-            self._loadInputsFromString(stateString, leversByVariable);
+            loadInputsFromString(stateString, leversByVariable);
         }
     }
 }
 
 
-export {FilePresenter};
+export {FilePresenter, writeInputsToString, loadInputsFromString};

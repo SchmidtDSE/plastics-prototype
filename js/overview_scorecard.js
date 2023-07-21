@@ -36,8 +36,8 @@ class ScorecardPresenter {
             );
 
             setBody(
-                "non-recycled-waste-card",
-                goals.get("global").get("nonRecycledWaste"),
+                "landfill-waste-card",
+                goals.get("global").get("landfillWaste"),
             );
 
             setBody(

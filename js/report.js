@@ -183,7 +183,7 @@ class ReportPresenter {
             self._selection.getYear(),
         );
 
-        self._nonRecycledWastePresenter.update(resultSet, self._selection);
+        self._landfillWastePresenter.update(resultSet, self._selection);
         self._mismanagedWastePresenter.update(resultSet, self._selection);
         self._incineratedWastePresenter.update(resultSet, self._selection);
         self._totalConsumptionPresenter.update(resultSet, self._selection);
@@ -233,10 +233,10 @@ class ReportPresenter {
     rebuildViz() {
         const self = this;
 
-        const nonRecycledWasteDiv = document.getElementById("total-waste-goal-container");
-        self._nonRecycledWastePresenter = new GoalPresenter(
-            nonRecycledWasteDiv,
-            "nonRecycledWaste",
+        const landfillWasteDiv = document.getElementById("landfill-waste-goal-container");
+        self._landfillWastePresenter = new GoalPresenter(
+            landfillWasteDiv,
+            "landfillWaste",
             (region) => self._onRegionChange(region),
             () => self._onRequestRender(),
         );

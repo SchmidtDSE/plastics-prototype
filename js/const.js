@@ -7,21 +7,21 @@ const ALL_REGIONS = [
 ];
 
 const CONSUMPTION_ATTRS = [
-    "consumptionAgricultureMT",
-    "consumptionConstructionMT",
-    "consumptionElectronicMT",
-    "consumptionHouseholdLeisureSportsMT",
     "consumptionPackagingMT",
-    "consumptionTransporationMT",
+    "consumptionConstructionMT",
     "consumptionTextitleMT",
+    "consumptionHouseholdLeisureSportsMT",
+    "consumptionElectronicMT",
+    "consumptionTransporationMT",
+    "consumptionAgricultureMT",
     "consumptionOtherMT",
 ];
 
 const EOL_ATTRS = [
-    "eolRecyclingMT",
     "eolLandfillMT",
     "eolIncinerationMT",
     "eolMismanagedMT",
+    "eolRecyclingMT",
 ];
 
 const PRODUCTION_ATTRS = [
@@ -31,10 +31,10 @@ const PRODUCTION_ATTRS = [
 ];
 
 const COLORS = [
-    "#b2df8a",
-    "#33a02c",
     "#a6cee3",
     "#1f78b4",
+    "#b2df8a",
+    "#33a02c",
     "#fb9a99",
     "#e31a1c",
     "#fdbf6f",
@@ -67,7 +67,7 @@ const DISPLAY_STAGES = {consumption: 3, eol: 4, production: 5};
 const GOALS = {
     productionEmissions: "productionEmissions",
     consumptionEmissions: "consumptionEmissions",
-    nonRecycledWaste: "nonRecycledWaste",
+    landfillWaste: "landfillWaste",
     mismanagedWaste: "mismanagedWaste",
     incineratedWaste: "incineratedWaste",
     totalConsumption: "totalConsumption",
