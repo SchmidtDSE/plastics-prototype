@@ -30,7 +30,7 @@ function buildPageTest() {
         QUnit.test("renders cards", function(assert) {
             const done = assert.async();
             bootstrapPage().then(() => {
-                const insideText = document.querySelector(".non-recycled-waste-card")
+                const insideText = document.querySelector(".incinerated-waste-card")
                     .querySelector(".body")
                     .innerHTML;
 
@@ -51,7 +51,7 @@ function buildPageTest() {
         QUnit.test("renders top bars", function(assert) {
             const done = assert.async();
             bootstrapPage().then(() => {
-                const width = document.getElementById("total-waste-goal-container")
+                const width = document.getElementById("mismanaged-waste-goal-container")
                     .querySelector(".glyph")
                     .width;
                 assert.ok(width !== undefined);
