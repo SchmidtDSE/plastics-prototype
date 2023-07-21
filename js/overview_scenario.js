@@ -6,7 +6,6 @@ const CANCEL_MSG = "Cancelled adding policy option.";
 
 
 class VirtualLever {
-
     constructor(variable, value) {
         const self = this;
         self._variable = variable;
@@ -27,7 +26,6 @@ class VirtualLever {
         const self = this;
         self._value = newValue;
     }
-
 }
 
 
@@ -115,7 +113,7 @@ class ScenarioPresenter {
 
             const entries = Array.of(...self._lastBaseline.get("in").entries());
             const shouldAddCurrent = document.getElementById("add-current-radio").checked;
-            
+
             const addCurrent = () => {
                 const leverValues = entries.map((entry) => {
                     return {"lever": entry[0], "value": entry[1]};
@@ -123,7 +121,7 @@ class ScenarioPresenter {
 
                 return {
                     "name": name,
-                    "values": leverValues
+                    "values": leverValues,
                 };
             };
 
@@ -152,7 +150,7 @@ class ScenarioPresenter {
 
                 return {
                     "name": name,
-                    "values": leverValues
+                    "values": leverValues,
                 };
             };
 
