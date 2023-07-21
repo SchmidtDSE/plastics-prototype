@@ -1,5 +1,5 @@
 var targetRate = in.{{ region }}MinimumRecyclingRate / 100;
-var inductiveDemandRate = in.recyclingInductiveDemandRate / 100;
+var displacementRate = in.recyclingDisplacementRate / 100;
 limit targetRate to [0, 1];
 
 # Get the total waste
@@ -29,7 +29,9 @@ distribute offsetMT across [
   out.{{ region }}.eolMismanagedMT
 ] proportionally;
 
-# Inductive demand
+# Inductive demand - the part that isn't displaced.
+var displacedPlasticsMT = displacementRate * currentChange;
+var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * currentChange;
 
 # Bump consumption by inductive demand
@@ -53,13 +55,16 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Offset production local
-distribute newInductivePlasticsMT across [
+var priorImports = out.{{ region }}.netImportsMT;
+distribute displacedPlasticsMT across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
+var newImportsAbs = out.{{ region }}.netImportsMT;
 
 # Offset exports elsewhere
-distribute newInductivePlasticsMT across [
+var newImports = newImportsAbs - priorImports;
+distribute newImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
