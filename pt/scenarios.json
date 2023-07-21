@@ -8,6 +8,15 @@
                 {"lever": "naftaMinimumRecyclingRate", "value": 40},
                 {"lever": "rowMinimumRecyclingRate", "value": 40}
             ]
+        },
+        {
+            "name": "5% Maximum Mismanaged Rate",
+            "values": [
+                {"lever": "chinaMaximumMismanagedRate", "value": 5},
+                {"lever": "eu30MaximumMismanagedRate", "value": 5},
+                {"lever": "naftaMaximumMismanagedRate", "value": 5},
+                {"lever": "rowMaximumMismanagedRate", "value": 5}
+            ]
         }
     ]
 }
