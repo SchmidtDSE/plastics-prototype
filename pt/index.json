@@ -228,6 +228,19 @@
                     "released": true,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Nivi Scratchpad",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "niviScrachpadInput",
+                    "template": "nivi_scratchpad.pt",
+                    "released": false,
+                    "attrs": {},
+                    "url": ""
                 }
             ]
         }

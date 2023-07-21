@@ -29,6 +29,13 @@
                 {"lever": "rowVirginPlasticCap", "value": 210}
             ],
             "released": true
+        },
+        {
+            "name": "Nivi Scratchpad at 50",
+            "values": [
+                {"lever": "niviScrachpadInput", "value": 50}
+            ],
+            "released": false
         }
     ]
 }
