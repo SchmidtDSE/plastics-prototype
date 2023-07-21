@@ -555,8 +555,20 @@ select {
     margin-top: 7px;
 }
 
+.scenarios .action {
+    margin-bottom: 3px;
+}
+
 .slider {
     width: 100%;
+}
+
+#add-dialog {
+    width: 70%;
+}
+
+#add-dialog #policy-name-input {
+    width: 90%;
 }
 
 #buttons-panel .link-holder {
