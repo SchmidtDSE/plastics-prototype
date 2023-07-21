@@ -50,7 +50,7 @@ class TimeDeltaPresenter {
             {"short": "LB", "long": "Pounds"},
         );
         unitOptions.set(
-            GOALS.nonRecycledWaste,
+            GOALS.landfillWaste,
             {"short": "MT", "long": "Million Metric Tons"},
         );
         unitOptions.set(

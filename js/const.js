@@ -67,7 +67,7 @@ const DISPLAY_STAGES = {consumption: 3, eol: 4, production: 5};
 const GOALS = {
     productionEmissions: "productionEmissions",
     consumptionEmissions: "consumptionEmissions",
-    nonRecycledWaste: "nonRecycledWaste",
+    landfillWaste: "landfillWaste",
     mismanagedWaste: "mismanagedWaste",
     incineratedWaste: "incineratedWaste",
     totalConsumption: "totalConsumption",

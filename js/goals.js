@@ -4,13 +4,9 @@ import {ALL_REGIONS, CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
 function getGoals(target) {
     const strategies = [
         (output) => {
-            const total = EOL_ATTRS.filter((x) => x !== "eolRecyclingMT")
-                .map((x) => output.get(x))
-                .reduce((a, b) => a + b);
-
             return {
-                "goal": "nonRecycledWaste",
-                "value": total,
+                "goal": "landfillWaste",
+                "value": output.get("eolLandfillMT"),
             };
         },
         (output) => {
