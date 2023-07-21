@@ -1,0 +1,55 @@
+# Determine the delta
+var totalConsumption = (
+  out.{{ region }}.consumptionPackagingMT + 
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextitleMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransporationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT
+);
+
+# User set goals
+var goalReductionMT = totalConsumption - in.{{ region }}VirginPlasticCap;
+limit goalReductionMT to [0,];
+
+# Make that change happen over time
+var acutalDeltaMT = 0;
+change acutalDeltaMT by goalReductionMT over 2020 to 2050;  # Step 3
+var offset = -1 * acutalDeltaMT;
+
+# Update consumption
+distribute offset across [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Update production
+var priorImports = out.{{ region }}.netImportsMT;
+distribute offset across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+var importsOffset = out.{{ region }}.netImportsMT - priorImports;
+
+# Update the EOL
+distribute offset across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;
+
+# Offset exports elsewhere
+distribute importsOffset across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;

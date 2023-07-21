@@ -17,6 +17,15 @@
                 {"lever": "naftaMaximumMismanagedRate", "value": 5},
                 {"lever": "rowMaximumMismanagedRate", "value": 5}
             ]
+        },
+        {
+            "name": "Cap to 2030 Annual Virgin Production",
+            "values": [
+                {"lever": "chinaVirginPlasticCap", "value": 210},
+                {"lever": "eu30VirginPlasticCap", "value": 110},
+                {"lever": "naftaVirginPlasticCap", "value": 110},
+                {"lever": "rowVirginPlasticCap", "value": 210}
+            ]
         }
     ]
 }
