@@ -107,7 +107,7 @@ class OverviewPresenter {
         const self = this;
 
         const priorValues = new Map();
-        
+
         const years = Array.of(...target.keys());
         years.sort();
 
