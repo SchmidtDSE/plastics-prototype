@@ -119,7 +119,6 @@ class TimeDeltaPresenter {
                 .classed("value-tick", true)
                 .classed("value-label", true)
                 .classed("timedelta-label", true)
-                .attr("x", 50)
                 .attr("y", 0)
                 .html((amount) => amount);
 
@@ -127,7 +126,8 @@ class TimeDeltaPresenter {
 
             boundUpdated
                 .attr("y", (amount) => verticalScale(amount))
-                .html((x) => x + " " + units);
+                .html((x) => x + " " + units)
+                .attr("x", sparseTicks ? 60 : 50);
         };
 
         const updateYearAxis = () => {

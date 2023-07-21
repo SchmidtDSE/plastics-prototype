@@ -62,7 +62,7 @@ const MAX_YEAR = 2049;
 
 const CACHE_BUSTER = Date.now();
 
-const DISPLAY_TYPES = {amount: 1, percent: 2};
+const DISPLAY_TYPES = {amount: 1, percent: 2, cumulative: 3};
 const DISPLAY_STAGES = {consumption: 3, eol: 4, production: 5};
 const GOALS = {
     productionEmissions: "productionEmissions",
