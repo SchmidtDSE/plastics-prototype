@@ -12,3 +12,7 @@ language/*.jar
 test/qunit.css
 test/qunit.min.js
 third_party
+
+index.html
+preview.html
+test/harness.html
