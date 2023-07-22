@@ -6,6 +6,7 @@
             "levers": [
                 {
                     "name": "China Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in China by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -23,6 +24,7 @@
                 },
                 {
                     "name": "EU 30 Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in EU 30 by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -40,6 +42,7 @@
                 },
                 {
                     "name": "NAFTA Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in NAFTA by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -57,6 +60,7 @@
                 },
                 {
                     "name": "ROW Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in rest of world by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -74,6 +78,7 @@
                 },
                 {
                     "name": "China Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in China by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -90,6 +95,7 @@
                 },
                 {
                     "name": "EU 30 Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in EU 30 by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -106,6 +112,7 @@
                 },
                 {
                     "name": "NAFTA Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in NAFTA by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -122,6 +129,7 @@
                 },
                 {
                     "name": "ROW Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in rest of world by 2050.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -143,7 +151,80 @@
             "label": "Production",
             "levers": [
                 {
-                    "name": "China Virgin Plastic Cap",
+                    "name": "China Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in China by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in EU 30 by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in NAFTA by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in rest of world by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Virgin Plastic Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in China by 2050.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -160,7 +241,8 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "EU 30 Virgin Plastic Cap",
+                    "name": "EU 30 Virgin Plastic Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in EU 30 by 2050.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -177,7 +259,8 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "NAFTA Virgin Plastic Cap",
+                    "name": "NAFTA Virgin Plastic Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in NAFTA by 2050.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -194,7 +277,8 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "ROW Virgin Plastic Cap",
+                    "name": "ROW Virgin Plastic Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in rest of world by 2050.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -218,12 +302,41 @@
             "levers": [
                 {
                     "name": "Recycling Displacement Rate",
+                    "description": "How much of virgin plastic production is reduced or displaced by newly available recycled material.",
                     "min": 0,
                     "max": 100,
                     "default": 50,
                     "step": 5,
                     "units": "%",
                     "variable": "recyclingDisplacementRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Recycling Lost Virgin Backfill Rate",
+                    "description": "At what rate a reduction in virgin plastic production is replaced by increased recycling.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 50,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "recyclingLostBackfillRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Recycling Content Lost Consumption",
+                    "description": "At what rate consumption goes down due to price increase caused by increased minium recycled material.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 10,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "recyclingContentLostConsumption",
                     "template": "noop.pt",
                     "released": true,
                     "attrs": {},

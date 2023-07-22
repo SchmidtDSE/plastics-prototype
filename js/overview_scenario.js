@@ -39,7 +39,11 @@ class ScenarioPresenter {
         self._scenarios = scenarios;
         self._lastInputValues = null;
 
-        self._customScenario = {"name": "Custom", "values": []};
+        self._customScenario = {
+            "name": "Custom",
+            "values": [],
+            "description": "Policy choices you have made in the details tab.",
+        };
 
         self._createScenarios(self._scenarios);
         self._setupAddDialog();
@@ -92,7 +96,18 @@ class ScenarioPresenter {
             .property("disabled", (x) => x["name"] === "Custom");
 
         newLabels.append("span")
-            .html((scenario) => scenario["name"]);
+            .html((scenario) => scenario["name"] + " - ")
+            .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
+
+        newLabels.append("span")
+            .html("info")
+            .classed("info-target", true)
+            .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
+            .attr("tabindex", "0")
+            .attr("data-tippy-content", (scenario) => scenario["description"]);
+
+        // eslint-disable-next-line no-undef
+        tippy("[data-tippy-content]");
     }
 
     _setupAddDialog() {

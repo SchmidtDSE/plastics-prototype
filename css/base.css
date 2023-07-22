@@ -467,6 +467,10 @@ select {
     margin-bottom: 20px;
 }
 
+.overview .menu .info-target {
+    text-decoration: underline;
+}
+
 .overview .panel {
     background-color: white;
     padding: 5px;

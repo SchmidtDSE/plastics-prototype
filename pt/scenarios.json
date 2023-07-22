@@ -1,7 +1,21 @@
 {
     "scenarios": [
         {
+            "name": "40% Minimum Recycled Content",
+            "id": "minmium-recycled-content",
+            "description": "Policy which requires 40% recycled content by 2050.",
+            "values": [
+                {"lever": "chinaMinimumRecycledContent", "value": 40},
+                {"lever": "eu30MinimumRecycledContent", "value": 40},
+                {"lever": "naftaMinimumRecycledContent", "value": 40},
+                {"lever": "rowMinimumRecycledContent", "value": 40}
+            ],
+            "released": true
+        },
+        {
             "name": "40% Minimum Recycling Rate",
+            "id": "minmium-recycle-rate",
+            "description": "Policy which requires that 40% of plastic waste is recycled by 2050.",
             "values": [
                 {"lever": "chinaMinimumRecyclingRate", "value": 40},
                 {"lever": "eu30MinimumRecyclingRate", "value": 40},
@@ -12,6 +26,8 @@
         },
         {
             "name": "5% Maximum Mismanaged Rate",
+            "id": "maximum-mismanaged-rate",
+            "description": "Policy which requires that no more than 5% of plastic waste is mismanaged by 2050.",
             "values": [
                 {"lever": "chinaMaximumMismanagedRate", "value": 5},
                 {"lever": "eu30MaximumMismanagedRate", "value": 5},
@@ -22,6 +38,8 @@
         },
         {
             "name": "Cap to 2030 Annual Virgin Production",
+            "id": "cap-virgin",
+            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario.",
             "values": [
                 {"lever": "chinaVirginPlasticCap", "value": 210},
                 {"lever": "eu30VirginPlasticCap", "value": 110},
@@ -32,6 +50,8 @@
         },
         {
             "name": "Nivi Scratchpad at 50",
+            "id": "nivi-virgin",
+            "description": "Test lever for Nivedita.",
             "values": [
                 {"lever": "niviScrachpadInput", "value": 50}
             ],

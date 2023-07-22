@@ -19,8 +19,67 @@ var acutalDeltaMT = 0;
 change acutalDeltaMT by goalReductionMT over 2020 to 2050;  # Step 3
 var offset = -1 * acutalDeltaMT;
 
+# Split offset across recycling and reduced consumption
+var availableWaste = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT
+);
+
+var backfill = in.recyclingLostBackfillRate / 100;
+var offsetConsumption = offset * (1 - backfill);
+limit offsetConsumption to [-1 * availableWaste, 0];
+
+# Update the EOL for consumption
+distribute offsetConsumption across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;
+
+# Update the EOL for recycling backfill if possible
+var availableWasteToRecycle = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT
+);
+
+var offsetRecyclingNeeded = offset - offsetConsumption;
+
+# Ensure the recycling offset is possible
+var offsetRecycling = offsetRecyclingNeeded;
+limit offsetRecycling to [offset * backfill, 0];
+limit offsetRecycling to [-1 * availableWasteToRecycle, 0];
+
+# Apply recycling offset
+out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT - offsetRecycling;
+
+# If there wasn't enough to recycle, further reduce consumption
+var recyclingDeficit = offsetRecyclingNeeded - offsetRecycling;
+
+availableWaste = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT
+);
+
+limit recyclingDeficit to [-1 * availableWaste, 0];
+
+distribute recyclingDeficit across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;
+
+var offsetConsumptionWithRecyclingDeficit = offsetConsumption + recyclingDeficit;
+limit offsetConsumptionWithRecyclingDeficit to [, 0];
+
 # Update consumption
-distribute offset across [
+distribute offsetConsumptionWithRecyclingDeficit across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionTextitleMT,
@@ -33,19 +92,13 @@ distribute offset across [
 
 # Update production
 var priorImports = out.{{ region }}.netImportsMT;
-distribute offset across [
+distribute offsetConsumptionWithRecyclingDeficit across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
 var importsOffset = out.{{ region }}.netImportsMT - priorImports;
 
-# Update the EOL
-distribute offset across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
-] proportionally;
+limit importsOffset to [,0];
 
 # Offset exports elsewhere
 distribute importsOffset across [
