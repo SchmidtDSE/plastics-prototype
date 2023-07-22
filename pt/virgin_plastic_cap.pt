@@ -19,8 +19,13 @@ var acutalDeltaMT = 0;
 change acutalDeltaMT by goalReductionMT over 2020 to 2050;  # Step 3
 var offset = -1 * acutalDeltaMT;
 
+# Split offset across recycling and reduced consumption
+var backfill = in.recyclingBackfillRate / 100;
+var offsetRecycling = offset * backfill;
+var offsetConsumption = offset * (1 - backfill);
+
 # Update consumption
-distribute offset across [
+distribute offsetConsumption across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionTextitleMT,
@@ -33,19 +38,20 @@ distribute offset across [
 
 # Update production
 var priorImports = out.{{ region }}.netImportsMT;
-distribute offset across [
+distribute offsetConsumption across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
 var importsOffset = out.{{ region }}.netImportsMT - priorImports;
 
 # Update the EOL
-distribute offset across [
+distribute offsetConsumption across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolMismanagedMT
 ] proportionally;
+
+out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT + offsetRecycling;
 
 # Offset exports elsewhere
 distribute importsOffset across [

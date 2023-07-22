@@ -143,7 +143,75 @@
             "label": "Production",
             "levers": [
                 {
-                    "name": "China Virgin Plastic Cap",
+                    "name": "China Minimum Recycled Content",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Minimum Recycled Content",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Minimum Recycled Content",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Minimum Recycled Content",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Virgin Plastic Production Cap",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -160,7 +228,7 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "EU 30 Virgin Plastic Cap",
+                    "name": "EU 30 Virgin Plastic Production Cap",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -177,7 +245,7 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "NAFTA Virgin Plastic Cap",
+                    "name": "NAFTA Virgin Plastic Production Cap",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -194,7 +262,7 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "ROW Virgin Plastic Cap",
+                    "name": "ROW Virgin Plastic Production Cap",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -224,6 +292,19 @@
                     "step": 5,
                     "units": "%",
                     "variable": "recyclingDisplacementRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Recycling Backfill Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 50,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "recyclingBackfillRate",
                     "template": "noop.pt",
                     "released": true,
                     "attrs": {},

@@ -1,0 +1,67 @@
+# Determine target
+var targetRate = in.{{ region }}MinimumRecycledContent / 100;
+
+# Determine current recycled content, using current year recycling as
+# approximation
+var totalConsumption = (
+  out.{{ region }}.consumptionPackagingMT + 
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextitleMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransporationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT
+);
+var recycledContent = out.{{ region }}.eolRecyclingMT;
+
+# Determine how much recycled content is missing
+var neededRecycledContentRate = targetRate * totalConsumption;
+var neededAdditionalRecycledContent = (
+  neededRecycledContentRate -
+  recycledContent
+);
+limit neededAdditionalRecycledContent to [0,];
+
+# Determine how much delta to apply
+var actualRecycledDelta = 0;
+change actualRecycledDelta by neededAdditionalRecycledContent over 2020 to 2050;
+
+# Limit change to available plastic in other fates
+var totalOtherFates = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT
+);
+limit actualRecycledDelta to [0, totalOtherFates];
+
+# Increase recycling and determine offset
+out.{{ region }}.eolRecyclingMT = (
+  out.{{ region }}.eolRecyclingMT +
+  actualRecycledDelta
+);
+var offsetProduction = actualRecycledDelta * -1;
+
+# Apply offset to EOL
+distribute offsetProduction across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Apply offset to production
+var priorImports = out.{{ region }}.netImportsMT;
+
+distribute offsetProduction across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+
+var changeImports = out.{{ region }}.netImportsMT - priorImports;
+
+# Apply offset to exports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
