@@ -58,6 +58,7 @@ distribute offsetProduction across [
 ] proportionally;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
+limit changeImports to [, 0];
 
 # Apply offset to exports
 distribute changeImports across [
