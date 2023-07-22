@@ -54,11 +54,11 @@
             "description": "Apply a tax of 3 USD cents per pound of virgin plastic production inflation adjusted.",
             "values": [
                 {"lever": "chinaVirginTaxCents", "value": 3},
-                {"lever": "eu30VirginTaxCents", "value": 110},
-                {"lever": "naftaVirginTaxCents", "value": 110},
-                {"lever": "rowVirginTaxCents", "value": 210}
+                {"lever": "eu30VirginTaxCents", "value": 3},
+                {"lever": "naftaVirginTaxCents", "value": 3},
+                {"lever": "rowVirginTaxCents", "value": 3}
             ],
-            "released": true
+            "released": false
         },
         {
             "name": "Nivi Scratchpad at 50",

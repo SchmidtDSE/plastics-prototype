@@ -310,7 +310,7 @@
                     "units": "cents",
                     "forcePlus": false,
                     "variable": "chinaVirginTaxCents",
-                    "template": "minimum_recycled_content.pt",
+                    "template": "virgin_tax.pt",
                     "released": false,
                     "attrs": {
                         "region": "china",
@@ -328,7 +328,7 @@
                     "units": "cents",
                     "forcePlus": false,
                     "variable": "eu30VirginTaxCents",
-                    "template": "minimum_recycled_content.pt",
+                    "template": "virgin_tax.pt",
                     "released": false,
                     "attrs": {
                         "region": "eu30",
@@ -346,7 +346,7 @@
                     "units": "cents",
                     "forcePlus": false,
                     "variable": "naftaVirginTaxCents",
-                    "template": "minimum_recycled_content.pt",
+                    "template": "virgin_tax.pt",
                     "released": false,
                     "attrs": {
                         "region": "nafta",
@@ -364,7 +364,7 @@
                     "units": "cents",
                     "forcePlus": false,
                     "variable": "rowVirginTaxCents",
-                    "template": "minimum_recycled_content.pt",
+                    "template": "virgin_tax.pt",
                     "released": false,
                     "attrs": {
                         "region": "row",
@@ -425,7 +425,7 @@
                     "description": "What percent demand will decrease for each cent per pound of tax added per pound of plastic.",
                     "min": 0,
                     "max": 20,
-                    "default": 8,
+                    "default": 10,
                     "step": 1,
                     "units": "%",
                     "variable": "percentDecreasePerCent",
