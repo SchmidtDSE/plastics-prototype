@@ -42,7 +42,7 @@ class ScenarioPresenter {
         self._customScenario = {
             "name": "Custom",
             "values": [],
-            "description": "Policy choices you have made in the details tab."
+            "description": "Policy choices you have made in the details tab.",
         };
 
         self._createScenarios(self._scenarios);
