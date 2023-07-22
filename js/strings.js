@@ -29,6 +29,7 @@ STRINGS.set("domesticProductionMT", "Domestic");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
+STRINGS.set(DISPLAY_TYPES.cumulative, "Cumulative Million Tons from 2010");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "Plastic Waste");
 STRINGS.set(DISPLAY_STAGES.production, "Production");
@@ -38,4 +39,10 @@ STRINGS.set(GOALS.consumptionEmissions, "Consumption Emissions");
 STRINGS.set(GOALS.landfillWaste, "Landfill Waste");
 STRINGS.set(GOALS.mismanagedWaste, "Mismanaged Waste");
 
-export {STRINGS};
+const UNITS = new Map();
+
+UNITS.set(DISPLAY_TYPES.amount, "Million Metric Tons");
+UNITS.set(DISPLAY_TYPES.percent, "% of Region");
+UNITS.set(DISPLAY_TYPES.cumulative, "Million Metric Tons");
+
+export {STRINGS, UNITS};

@@ -76,6 +76,16 @@ class TimeseriesPresenter {
         const selectedYear = selection.getYear();
         const colorScale = self._colorScales.get(selection.getDisplayStage());
 
+        const determineStep = () => {
+            if (selection.getDisplayType() == DISPLAY_TYPES.percent) {
+                return 20;
+            } else if (selection.getDisplayType() == DISPLAY_TYPES.amount) {
+                return 50
+            } else {
+                return 2000;
+            }
+        };
+
         // Determine units
         const unitsStr = isPercent ? "%" : "MT";
 
@@ -86,7 +96,7 @@ class TimeseriesPresenter {
         const listenerLayer = self._d3Selection.select("#listener-layer");
 
         // Make vertical scale
-        const verticalStep = isPercent ? 20 : 100;
+        const verticalStep = determineStep();
         const height = self._targetSvg.getBoundingClientRect().height;
         const yearValues = Array.from(states.values()).map((state) => {
             const out = state.get("out").get(region);
@@ -157,7 +167,9 @@ class TimeseriesPresenter {
 
             const boundUpdated = axisLayer.selectAll(".value-tick");
 
-            boundUpdated.attr("y", (amount) => verticalScale(amount));
+            boundUpdated
+                .attr("y", (amount) => verticalScale(amount))
+                .attr("x", maxSumValue > 10000 ? 54 : 50);
         };
 
         const updateYearAxis = () => {
