@@ -80,7 +80,7 @@ class TimeseriesPresenter {
             if (selection.getDisplayType() == DISPLAY_TYPES.percent) {
                 return 20;
             } else if (selection.getDisplayType() == DISPLAY_TYPES.amount) {
-                return 50
+                return 50;
             } else {
                 return 2000;
             }

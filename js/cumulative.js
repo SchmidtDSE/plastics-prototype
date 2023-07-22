@@ -1,5 +1,5 @@
 function makeCumulative(target) {
-   const priorValues = new Map();
+    const priorValues = new Map();
 
     const years = Array.of(...target.keys());
     years.sort();

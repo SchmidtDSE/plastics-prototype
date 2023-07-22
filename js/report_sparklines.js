@@ -100,7 +100,7 @@ class SparklinePresenter {
                 .filter((datum) => datum["year"] >= startYear)
                 .filter((datum) => datum["year"] <= endYear);
         };
-attrs
+        attrs;
         const updateLabels = () => {
             self._d3Selection.select(".start-year-label")
                 .html(startYear);
