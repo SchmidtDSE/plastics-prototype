@@ -27,7 +27,7 @@ STRINGS.set("netImportsMT", "Net Imports");
 STRINGS.set("netExportsMT", "Net Exports");
 STRINGS.set("domesticProductionMT", "Domestic");
 
-STRINGS.set(DISPLAY_TYPES.amount, "Million Metric Tons");
+STRINGS.set(DISPLAY_TYPES.amount, "Annual Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
 STRINGS.set(DISPLAY_TYPES.cumulative, "Cumulative Million Tons from 2010");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
