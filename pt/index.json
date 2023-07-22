@@ -297,6 +297,84 @@
             ]
         },
         {
+            "name": "tax",
+            "label": "Tax",
+            "levers": [
+                {
+                    "name": "China Virgin Tax Cents per Lb",
+                    "description": "The amount of tax in USD cents per pound of plastic in China adjusting for inflation by 2050.",
+                    "min": 0,
+                    "max": 8,
+                    "default": 0,
+                    "step": 0.1,
+                    "units": "cents",
+                    "forcePlus": false,
+                    "variable": "chinaVirginTaxCents",
+                    "template": "virgin_tax.pt",
+                    "released": false,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Virgin Tax Cents per Lb",
+                    "description": "The amount of tax in USD cents per pound of plastic in EU 30 adjusting for inflation by 2050.",
+                    "min": 0,
+                    "max": 8,
+                    "default": 0,
+                    "step": 0.1,
+                    "units": "cents",
+                    "forcePlus": false,
+                    "variable": "eu30VirginTaxCents",
+                    "template": "virgin_tax.pt",
+                    "released": false,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Virgin Tax Cents per Lb",
+                    "description": "The amount of tax in USD cents per pound of plastic in NAFTA adjusting for inflation by 2050.",
+                    "min": 0,
+                    "max": 8,
+                    "default": 0,
+                    "step": 0.1,
+                    "units": "cents",
+                    "forcePlus": false,
+                    "variable": "naftaVirginTaxCents",
+                    "template": "virgin_tax.pt",
+                    "released": false,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Virgin Tax Cents per Lb",
+                    "description": "The amount of tax in USD cents per pound of plastic in rest of world adjusting for inflation by 2050.",
+                    "min": 0,
+                    "max": 8,
+                    "default": 0,
+                    "step": 0.1,
+                    "units": "cents",
+                    "forcePlus": false,
+                    "variable": "rowVirginTaxCents",
+                    "template": "virgin_tax.pt",
+                    "released": false,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                }
+            ]
+        },
+        {
             "name": "assumptions",
             "label": "Assumptions",
             "levers": [
@@ -343,7 +421,22 @@
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {
+                    "name": "Demand Decrease per Cent Virgin Tax",
+                    "description": "What percent demand will decrease for each cent per pound of tax added per pound of plastic.",
+                    "min": 0,
+                    "max": 20,
+                    "default": 10,
+                    "step": 1,
+                    "units": "%",
+                    "variable": "percentDecreasePerCent",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
                     "name": "Nivi Scratchpad",
+                    "description": "Testing.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
