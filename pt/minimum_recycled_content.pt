@@ -32,9 +32,9 @@ var actualRecycledDelta = 0;
 change actualRecycledDelta by neededAdditionalRecycledContent over 2020 to 2050;
 
 # Determine how much consumption is lost due to price increase
-var backfill = in.recyclingContentBackfillRate / 100;
-var lostConsumption = actualRecycledDelta * (1 - backfill);
-actualRecycledDelta = actualRecycledDelta * backfill;
+var lostConsumptionRate = in.recyclingContentLostConsumption / 100;
+var lostConsumption = actualRecycledDelta * lostConsumptionRate;
+actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (

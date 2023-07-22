@@ -10,4 +10,6 @@ mkdir -p third_party
 [ ! -e third_party/handlebars.min.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js -O third_party/handlebars.min.js
 [ ! -e third_party/tabby-ui.min.css ] && wget https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0.3/dist/css/tabby-ui.min.css -O third_party/tabby-ui.min.css
 [ ! -e third_party/tabby.min.js ] && wget https://cdn.jsdelivr.net/gh/cferdinandi/tabby@12.0.3/dist/js/tabby.min.js -O third_party/tabby.min.js
+[ ! -e third_party/popper.min.js ] && wget https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js -O third_party/popper.min.js
+[ ! -e third_party/tippy.min.js ] && wget https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js -O third_party/tippy.min.js
 echo "Installed deps."
