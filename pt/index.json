@@ -1,8 +1,8 @@
 {
     "categories": [
         {
-            "name": "recycling",
-            "label": "Recycling",
+            "name": "management",
+            "label": "Waste Management",
             "levers": [
                 {
                     "name": "China Min Recycling Rate",
