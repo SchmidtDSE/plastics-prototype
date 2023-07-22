@@ -17,7 +17,7 @@ var mismanagedDelta = targetMismanaged - projected;
 # the policy so don't increase mismanaged.
 limit mismanagedDelta to [,0];
 
-# Update the projected value for mismanaged
+# Update the projected value for mismanaged assuming gradual compliance
 change projected by mismanagedDelta over 2020 to 2050;
 out.{{ region }}.eolMismanagedMT = projected;
 

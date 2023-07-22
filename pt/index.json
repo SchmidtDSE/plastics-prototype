@@ -298,13 +298,26 @@
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {
-                    "name": "Recycling Backfill Rate",
+                    "name": "Recycling Lost Virgin Backfill Rate",
                     "min": 0,
                     "max": 100,
                     "default": 50,
                     "step": 5,
                     "units": "%",
-                    "variable": "recyclingBackfillRate",
+                    "variable": "recyclingLostBackfillRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Recycling Content Backfill Rate",
+                    "min": 0,
+                    "max": 100,
+                    "default": 90,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "recyclingContentBackfillRate",
                     "template": "noop.pt",
                     "released": true,
                     "attrs": {},

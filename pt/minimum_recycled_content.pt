@@ -1,5 +1,9 @@
 # Determine target
-var targetRate = in.{{ region }}MinimumRecycledContent / 100;
+var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
+
+# Determine how much delta to apply (assume phase in)
+var targetRate = 0;
+change targetRate by targetRateGoal over 2020 to 2050;
 
 # Determine current recycled content, using current year recycling as
 # approximation
@@ -23,9 +27,14 @@ var neededAdditionalRecycledContent = (
 );
 limit neededAdditionalRecycledContent to [0,];
 
-# Determine how much delta to apply
+# Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
 change actualRecycledDelta by neededAdditionalRecycledContent over 2020 to 2050;
+
+# Determine how much consumption is lost due to price increase
+var backfill = in.recyclingContentBackfillRate / 100;
+var lostConsumption = actualRecycledDelta * (1 - backfill);
+actualRecycledDelta = actualRecycledDelta * backfill;
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
@@ -42,14 +51,14 @@ out.{{ region }}.eolRecyclingMT = (
 );
 var offsetProduction = actualRecycledDelta * -1;
 
-# Apply offset to EOL
+# Apply offset for filled to EOL
 distribute offsetProduction across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT
 ] proportionally;
 
-# Apply offset to production
+# Apply offset for filled to production
 var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetProduction across [
@@ -60,7 +69,48 @@ distribute offsetProduction across [
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
 
-# Apply offset to exports
+# Apply offset for filled to exports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Determine offset for consumption lost due to increased minimums
+var lostConsumptionOffset = lostConsumption * -1;
+
+# Apply offset for unfilled to consumption
+distribute lostConsumptionOffset across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Apply offset for unfilled to EOL
+distribute lostConsumptionOffset across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;
+
+# Apply offset for unfilled to production
+priorImports = out.{{ region }}.netImportsMT;
+
+distribute lostConsumptionOffset across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+
+changeImports = out.{{ region }}.netImportsMT - priorImports;
+limit changeImports to [, 0];
+
+# Apply offset for unfilled to exports
 distribute changeImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}

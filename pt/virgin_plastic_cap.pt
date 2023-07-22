@@ -27,7 +27,7 @@ var availableWaste = (
   out.{{ region }}.eolRecyclingMT
 );
 
-var backfill = in.recyclingBackfillRate / 100;
+var backfill = in.recyclingLostBackfillRate / 100;
 var offsetConsumption = offset * (1 - backfill);
 limit offsetConsumption to [-1 * availableWaste, 0];
 

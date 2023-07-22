@@ -1,4 +1,7 @@
-var targetRate = in.{{ region }}MinimumRecyclingRate / 100;
+# Assume phase in
+var targetRateGoal = in.{{ region }}MinimumRecyclingRate / 100;
+var targetRate = 0;
+change targetRate by targetRateGoal over 2020 to 2050;
 var displacementRate = in.recyclingDisplacementRate / 100;
 limit targetRate to [0, 1];
 
@@ -15,7 +18,7 @@ var targetMT = totalWaste * targetRate;
 var shortageMT = targetMT - out.{{ region }}.eolRecyclingMT;
 limit shortageMT to [0,];
 
-# Apply the change to recycling
+# Apply the change to recycling - assume gradual compliance
 var newRecyclingMT = out.{{ region }}.eolRecyclingMT;
 change newRecyclingMT by shortageMT over 2025 to 2050;
 var currentChange = newRecyclingMT - out.{{ region }}.eolRecyclingMT;
