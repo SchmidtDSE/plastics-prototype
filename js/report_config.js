@@ -110,7 +110,7 @@ class ConfigPresenter {
         self._d3Selection
             .select(".type-select")
             .selectAll(".type")
-            .data([DISPLAY_TYPES.amount, DISPLAY_TYPES.percent])
+            .data([DISPLAY_TYPES.amount, DISPLAY_TYPES.percent, DISPLAY_TYPES.cumulative])
             .enter()
             .append("option")
             .attr("value", (x) => x)

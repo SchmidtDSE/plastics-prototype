@@ -1,5 +1,5 @@
 import {ALL_REGIONS, DISPLAY_TYPES} from "const";
-import {STRINGS} from "strings";
+import {STRINGS, UNITS} from "strings";
 
 
 class GoalPresenter {
@@ -17,11 +17,11 @@ class GoalPresenter {
     update(stateSet, selection) {
         const self = this;
 
-        const unitsStrRaw = STRINGS.get(selection.getDisplayType());
+        const unitsStrRaw = UNITS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
         const smallDisplay = window.innerWidth < 1650;
-        const isMetricTons = unitsStrRaw === "Million Metric Tons";
+        const isMetricTons = unitsStrRaw.includes("Tons");
         const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();

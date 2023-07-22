@@ -1,4 +1,5 @@
 import {CACHE_BUSTER, DEFAULT_YEAR, GOALS} from "const";
+import {makeCumulative} from "cumulative";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {ScenarioPresenter} from "overview_scenario";
@@ -16,6 +17,9 @@ class OverviewPresenter {
         self._onYearChange = onYearChange;
         self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
+
+        self._cumulativeSwitch = self._targetDiv.querySelector(".cumulative-select");
+        self._cumulativeSwitch.addEventListener("change", () => self._onCumulativeSwitch());
 
         const rawScorecordDiv = self._targetDiv.querySelector(".raw-scorecard");
         self._rawScorecardPresenter = new ScorecardPresenter(
@@ -46,6 +50,11 @@ class OverviewPresenter {
         );
     }
 
+    getCumulativeEnabled() {
+        const self = this;
+        return self._cumulativeSwitch.value === "cumulative";
+    }
+
     setYear(year) {
         const self = this;
 
@@ -55,6 +64,11 @@ class OverviewPresenter {
 
     render(businessAsUsuals, withInterventions) {
         const self = this;
+
+        if (self.getCumulativeEnabled()) {
+            businessAsUsuals = makeCumulative(businessAsUsuals);
+            withInterventions = makeCumulative(withInterventions);
+        }
 
         const currentYear = withInterventions.get(self._year);
         const relative = getRelative(withInterventions, businessAsUsuals);
@@ -84,9 +98,15 @@ class OverviewPresenter {
             rawGoalsBau,
             rawGoalsIntervention,
             self._year,
+            self.getCumulativeEnabled(),
         );
 
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
+    }
+
+    _onCumulativeSwitch() {
+        const self = this;
+        self._onRequestRender();
     }
 
     _onGoalChange(newGoal) {

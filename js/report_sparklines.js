@@ -50,14 +50,23 @@ class SparklinePresenter {
         const allValues = allStates.map((x) => x.values())
             .flatMap((x) => Array.from(x));
 
+        let attrs = null;
+        if (selection.getDisplayStage() == DISPLAY_STAGES.consumption) {
+            attrs = CONSUMPTION_ATTRS;
+        } else if (selection.getDisplayStage() == DISPLAY_STAGES.production) {
+            attrs = PRODUCTION_ATTRS;
+        } else {
+            attrs = EOL_ATTRS;
+        }
+
         const yearValues = allValues.map((state) => {
             const out = state.get("out").get(region);
 
-            const maxPositive = ALL_ATTRS.map((attr) => out.get(attr))
+            const maxPositive = attrs.map((attr) => out.get(attr))
                 .filter((x) => x > 0)
                 .reduce((a, b) => a > b ? a : b, 0);
 
-            const maxNegative = ALL_ATTRS.map((attr) => out.get(attr))
+            const maxNegative = attrs.map((attr) => out.get(attr))
                 .filter((x) => x < 0)
                 .map((x) => Math.abs(x))
                 .reduce((a, b) => a > b ? a : b, 0);
@@ -91,7 +100,7 @@ class SparklinePresenter {
                 .filter((datum) => datum["year"] >= startYear)
                 .filter((datum) => datum["year"] <= endYear);
         };
-
+        attrs;
         const updateLabels = () => {
             self._d3Selection.select(".start-year-label")
                 .html(startYear);
@@ -100,13 +109,16 @@ class SparklinePresenter {
                 .html(endYear);
 
             self._d3Selection.select(".min-value-label")
-                .html(minValue);
+                .html(minValue)
+                .attr("x", maxValue >= 1000 ? 30 : 20);
 
             self._d3Selection.select(".max-value-label")
-                .html(maxValue);
+                .html(maxValue)
+                .attr("x", maxValue >= 1000 ? 30 : 20);
 
             self._d3Selection.select(".units-value-label")
-                .html(isPercent ? "%" : "MT");
+                .html(isPercent ? "%" : "MT")
+                .attr("x", maxValue >= 1000 ? 30 : 20);
         };
 
         const updateIndicator = () => {

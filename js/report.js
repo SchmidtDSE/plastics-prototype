@@ -7,6 +7,7 @@ import {
     EOL_ATTRS,
     PRODUCTION_ATTRS,
 } from "const";
+import {makeCumulative} from "cumulative";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {BubblegraphPresenter} from "report_bubble";
@@ -132,11 +133,12 @@ class ReportPresenter {
 
         const displayType = self._selection.getDisplayType();
         const showingBauDelta = self._selection.getShowBauDelta();
-        const usingPercent = displayType == DISPLAY_TYPES.percent;
 
         const getTransformedMaybe = (target) => {
-            if (usingPercent) {
+            if (displayType == DISPLAY_TYPES.percent) {
                 return self._getPercents(target);
+            } else if (displayType == DISPLAY_TYPES.cumulative) {
+                return makeCumulative(target);
             } else {
                 return target;
             }

@@ -7,7 +7,7 @@ import {
     PRODUCTION_ATTRS,
     STANDARD_ATTR_NAMES,
 } from "const";
-import {STRINGS} from "strings";
+import {STRINGS, UNITS} from "strings";
 
 
 class StagePresenter {
@@ -71,10 +71,10 @@ class StagePresenter {
         const selected = selection.getDisplayStage() == self._stage;
         const attrs = STANDARD_ATTR_NAMES.get(self._stage);
 
-        const unitsStrRaw = STRINGS.get(selection.getDisplayType());
+        const unitsStrRaw = UNITS.get(selection.getDisplayType());
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
-        const isMetricTons = unitsStrRaw === "Million Metric Tons";
+        const isMetricTons = unitsStrRaw.includes("Tons");
         const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();
