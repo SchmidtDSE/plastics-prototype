@@ -1,3 +1,6 @@
+# Note the original recycling before intervention
+var originalRecyclingMT = out.{{ region }}.eolRecyclingMT;
+
 # Assume phase in
 var targetRateGoal = in.{{ region }}MinimumRecyclingRate / 100;
 var targetRate = 0;
@@ -15,13 +18,13 @@ var totalWaste = (
 
 # Get the delta needed to achieve the goal
 var targetMT = totalWaste * targetRate;
-var shortageMT = targetMT - out.{{ region }}.eolRecyclingMT;
+var shortageMT = targetMT - originalRecyclingMT;
 limit shortageMT to [0,];
 
 # Apply the change to recycling - assume gradual compliance
-var newRecyclingMT = out.{{ region }}.eolRecyclingMT;
+var newRecyclingMT = originalRecyclingMT;
 change newRecyclingMT by shortageMT over 2025 to 2050;
-var currentChange = newRecyclingMT - out.{{ region }}.eolRecyclingMT;
+var currentChange = newRecyclingMT - originalRecyclingMT;
 out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Offset the change in the other EOL types
@@ -32,10 +35,16 @@ distribute offsetMT across [
   out.{{ region }}.eolMismanagedMT
 ] proportionally;
 
+# Assume lagging by three years for production and consumption
+var lagYears = 3;
+var newRecyclingMTLag = originalRecyclingMT;
+change newRecyclingMTLag by shortageMT over 2025 + lagYears to 2050 + lagYears;
+var lagChange = newRecyclingMTLag - originalRecyclingMT;
+
 # Inductive demand - the part that isn't displaced.
-var displacedPlasticsMT = displacementRate * currentChange;
+var displacedPlasticsMT = displacementRate * lagChange;
 var inductiveDemandRate = 1 - displacementRate;
-var newInductivePlasticsMT = inductiveDemandRate * currentChange;
+var newInductivePlasticsMT = inductiveDemandRate * lagChange;
 
 # Bump consumption by inductive demand
 distribute newInductivePlasticsMT across [

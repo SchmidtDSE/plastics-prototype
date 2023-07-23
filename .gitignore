@@ -16,3 +16,5 @@ third_party
 index.html
 preview.html
 test/harness.html
+
+.gitpod.yml

@@ -37,7 +37,7 @@
             "released": true
         },
         {
-            "name": "Cap to 2030 Annual Virgin Production",
+            "name": "Cap to 2030 Virgin Production",
             "id": "cap-virgin",
             "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario.",
             "values": [
