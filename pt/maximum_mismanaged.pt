@@ -1,15 +1,15 @@
 # Figuring out the target value
 var targetMismanagedRate = in.{{region}}MaximumMismanagedRate / 100;
 var totalWaste = (
-  out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.eolIncinerationMT +
-  out.{{ region }}.eolLandfillMT +
-  out.{{ region }}.eolRecyclingMT
+  out.{{region}}.eolMismanagedMT +
+  out.{{region}}.eolIncinerationMT +
+  out.{{region}}.eolLandfillMT +
+  out.{{region}}.eolRecyclingMT
 );
 var targetMismanaged = targetMismanagedRate * totalWaste;
 
 # Figuring out the delta
-var projected = out.{{ region }}.eolMismanagedMT; # BAU
+var projected = out.{{region}}.eolMismanagedMT; # BAU
 var mismanagedDelta = targetMismanaged - projected;
 
 # Don't make it worse: if projected was smaller
@@ -19,12 +19,32 @@ limit mismanagedDelta to [,0];
 
 # Update the projected value for mismanaged assuming gradual compliance
 change projected by mismanagedDelta over 2020 to 2050;
-out.{{ region }}.eolMismanagedMT = projected;
+out.{{region}}.eolMismanagedMT = projected;
 
 # Distribute to the other fates
+var priorRecycling = out.{{region}}.eolRecyclingMT;
 var otherDelta = -1 * mismanagedDelta;
 distribute otherDelta across [
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{region}}.eolIncinerationMT,
+  out.{{region}}.eolLandfillMT,
+  out.{{region}}.eolRecyclingMT
+] proportionally;
+var newRecycling = out.{{region}}.eolRecyclingMT;
+var recyclingDelta = newRecycling - priorRecycling;
+
+# Drop production
+var productionOffset = -1 * recyclingDelta;
+var priorImports = out.{{region}}.netImportsMT;
+distribute productionOffset across [
+  out.{{region}}.netImportsMT,
+  out.{{region}}.domesticProductionMT
+] proportionally;
+var newImports = out.{{region}}.netImportsMT;
+var importsDelta = newImports - priorImports;
+
+# Drop exports elsewhere
+distribute importsDelta across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
 ] proportionally;

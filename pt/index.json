@@ -89,7 +89,8 @@
                     "template": "maximum_mismanaged.pt",
                     "released": true,
                     "attrs": {
-                        "region": "china"
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
                     },
                     "url": ""
                 },
@@ -106,7 +107,8 @@
                     "template": "maximum_mismanaged.pt",
                     "released": true,
                     "attrs": {
-                        "region": "eu30"
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
                     },
                     "url": ""
                 },
@@ -123,7 +125,8 @@
                     "template": "maximum_mismanaged.pt",
                     "released": true,
                     "attrs": {
-                        "region": "nafta"
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
                     },
                     "url": ""
                 },
@@ -140,7 +143,8 @@
                     "template": "maximum_mismanaged.pt",
                     "released": true,
                     "attrs": {
-                        "region": "row"
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
                     },
                     "url": ""
                 }
