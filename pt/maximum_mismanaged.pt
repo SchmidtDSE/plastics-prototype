@@ -60,6 +60,7 @@ var recyclingDeltaDelayed = newRecyclingDelayed - priorRecycling;
 # Determine inductive demand
 var displacementRate = in.recyclingDisplacementRate / 100;
 var displacedPlasticsMT = displacementRate * recyclingDeltaDelayed;
+var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * recyclingDeltaDelayed;
 
@@ -85,15 +86,15 @@ distribute newInductivePlasticsMT across [
 
 # Offset production local
 var priorImports = out.{{ region }}.netImportsMT;
-distribute displacedPlasticsMT across [
+distribute displacedPlasticsOffsetMT across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
 var newImportsAbs = out.{{ region }}.netImportsMT;
 
 # Offset exports elsewhere
-var newImports = newImportsAbs - priorImports;
-distribute newImports across [
+var importsDelta = newImportsAbs - priorImports;
+distribute importsDelta across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}

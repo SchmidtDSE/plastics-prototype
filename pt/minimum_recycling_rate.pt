@@ -43,6 +43,7 @@ var lagChange = newRecyclingMTLag - originalRecyclingMT;
 
 # Inductive demand - the part that isn't displaced.
 var displacedPlasticsMT = displacementRate * lagChange;
+var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * lagChange;
 
@@ -68,7 +69,7 @@ distribute newInductivePlasticsMT across [
 
 # Offset production local
 var priorImports = out.{{ region }}.netImportsMT;
-distribute displacedPlasticsMT across [
+distribute displacedPlasticsOffsetMT across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
