@@ -1,15 +1,15 @@
 # Figuring out the target value
 var targetMismanagedRate = in.{{region}}MaximumMismanagedRate / 100;
 var totalWaste = (
-  out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.eolIncinerationMT +
-  out.{{ region }}.eolLandfillMT +
-  out.{{ region }}.eolRecyclingMT
+  out.{{region}}.eolMismanagedMT +
+  out.{{region}}.eolIncinerationMT +
+  out.{{region}}.eolLandfillMT +
+  out.{{region}}.eolRecyclingMT
 );
 var targetMismanaged = targetMismanagedRate * totalWaste;
 
 # Figuring out the delta
-var projected = out.{{ region }}.eolMismanagedMT; # BAU
+var projected = out.{{region}}.eolMismanagedMT; # BAU
 var mismanagedDelta = targetMismanaged - projected;
 
 # Don't make it worse: if projected was smaller
@@ -18,13 +18,58 @@ var mismanagedDelta = targetMismanaged - projected;
 limit mismanagedDelta to [,0];
 
 # Update the projected value for mismanaged assuming gradual compliance
-change projected by mismanagedDelta over 2020 to 2050;
-out.{{ region }}.eolMismanagedMT = projected;
+var misManagedDeltaGradual = 0;
+change misManagedDeltaGradual by mismanagedDelta over 2020 to 2050;
 
-# Distribute to the other fates
-var otherDelta = -1 * mismanagedDelta;
+# Apply
+out.{{region}}.eolMismanagedMT = projected + misManagedDeltaGradual;
+
+# Record the prior EOLs before updates
+var priorRecycling = out.{{region}}.eolRecyclingMT;
+var priorIncineration = out.{{region}}.eolIncinerationMT;
+var priorLandfill = out.{{region}}.eolLandfillMT;
+
+# Distribute to the other fates - immediate
+var otherDelta = -1 * misManagedDeltaGradual;
 distribute otherDelta across [
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{region}}.eolIncinerationMT,
+  out.{{region}}.eolLandfillMT,
+  out.{{region}}.eolRecyclingMT
+] proportionally;
+
+# Delay change to production by 3 years
+var delay = 3;
+var misManagedDeltaGradualDelayed = 0;
+change misManagedDeltaGradualDelayed by mismanagedDelta over 2020 + delay to 2050 + delay;
+
+# Determine recycling delta delayed for production
+var newRecyclingDelayed = priorRecycling;
+var newIncinerationDelayed = priorIncineration;
+var newLandfillDelayed = priorLandfill;
+
+var otherDeltaDelayed = -1 * misManagedDeltaGradualDelayed;
+
+distribute otherDeltaDelayed across [
+  newRecyclingDelayed,
+  newIncinerationDelayed,
+  newLandfillDelayed
+] proportionally;
+
+var recyclingDeltaDelayed = newRecyclingDelayed - priorRecycling;
+
+# Drop production - delayed
+var productionOffset = -1 * recyclingDeltaDelayed;
+var priorImports = out.{{region}}.netImportsMT;
+distribute productionOffset across [
+  out.{{region}}.netImportsMT,
+  out.{{region}}.domesticProductionMT
+] proportionally;
+var newImports = out.{{region}}.netImportsMT;
+var importsDelta = newImports - priorImports;
+
+# Drop exports elsewhere
+distribute importsDelta across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
 ] proportionally;
