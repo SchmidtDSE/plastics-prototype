@@ -7,7 +7,7 @@ import {
     EOL_ATTRS,
     PRODUCTION_ATTRS,
 } from "const";
-import {makeCumulative} from "cumulative";
+import {makeCumulative} from "transformation";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {BubblegraphPresenter} from "report_bubble";

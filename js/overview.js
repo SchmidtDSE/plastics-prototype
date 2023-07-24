@@ -1,5 +1,5 @@
 import {CACHE_BUSTER, DEFAULT_YEAR, GOALS} from "const";
-import {makeCumulative} from "cumulative";
+import {makeCumulative, makeYearDelta} from "transformation";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {ScenarioPresenter} from "overview_scenario";
@@ -18,8 +18,8 @@ class OverviewPresenter {
         self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
 
-        self._cumulativeSwitch = self._targetDiv.querySelector(".cumulative-select");
-        self._cumulativeSwitch.addEventListener("change", () => self._onCumulativeSwitch());
+        self._metricSwitch = self._targetDiv.querySelector(".metric-select");
+        self._metricSwitch.addEventListener("change", () => self._onMetricSwitch());
 
         const rawScorecordDiv = self._targetDiv.querySelector(".raw-scorecard");
         self._rawScorecardPresenter = new ScorecardPresenter(
@@ -52,7 +52,12 @@ class OverviewPresenter {
 
     getCumulativeEnabled() {
         const self = this;
-        return self._cumulativeSwitch.value === "cumulative";
+        return self._metricSwitch.value === "cumulative";
+    }
+
+    getYearDeltaEnabled() {
+        const self = this;
+        return self._metricSwitch.value === "reference";
     }
 
     setYear(year) {
@@ -68,6 +73,10 @@ class OverviewPresenter {
         if (self.getCumulativeEnabled()) {
             businessAsUsuals = makeCumulative(businessAsUsuals);
             withInterventions = makeCumulative(withInterventions);
+        } else if (self.getYearDeltaEnabled()) {
+            const baseline = businessAsUsuals.get(2023);
+            businessAsUsuals = makeYearDelta(businessAsUsuals, baseline);
+            withInterventions = makeYearDelta(withInterventions, baseline);
         }
 
         const currentYear = withInterventions.get(self._year);
@@ -104,7 +113,7 @@ class OverviewPresenter {
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
     }
 
-    _onCumulativeSwitch() {
+    _onMetricSwitch() {
         const self = this;
         self._onRequestRender();
     }

@@ -69,15 +69,28 @@ class TimeDeltaPresenter {
         const unitsLong = unitsInfo["long"];
         const units = unitsInfo["short"];
 
-        const getMax = (target) => {
+        const getSummary = (target, reducer) => {
             return Array.from(target.values())
                 .map((state) => state.get(region).get(self._attrName))
-                .reduce((a, b) => a > b ? a : b, 0);
+                .reduce(reducer, 0);
         };
 
-        const maxValueNative = Math.max(getMax(businessAsUsuals), getMax(withInterventions));
+        const getMax = (target) => getSummary(target, (a, b) => a > b ? a : b);
+        const getMin = (target) => getSummary(target, (a, b) => a < b ? a : b);
+
+        const maxValueNative = Math.max(
+            getMax(businessAsUsuals),
+            getMax(withInterventions)
+        );
         const maxValue = Math.ceil(maxValueNative / step) * step;
-        const minValue = 0;
+
+        const minValueNative = Math.min(
+            getMin(businessAsUsuals),
+            getMin(withInterventions)
+        );
+        const minValueRounded = Math.ceil(Math.abs(minValueNative) / step) * step;
+        const hasNegtive = minValueNative < 0;
+        const minValue = hasNegtive ? -1 * minValueRounded : 0;
 
         const horizontalScale = self._getD3().scaleLinear()
             .domain([startYear, endYear])
@@ -125,7 +138,7 @@ class TimeDeltaPresenter {
             const boundUpdated = self._d3Selection.select(".value-labels").selectAll(".value-tick");
 
             boundUpdated
-                .attr("y", (amount) => verticalScale(amount))
+                .attr("y", (amount) => verticalScale(amount) + 5)
                 .html((x) => x + " " + units)
                 .attr("x", sparseTicks ? 60 : 50);
         };
@@ -249,8 +262,16 @@ class TimeDeltaPresenter {
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
         };
 
+        const updateAxisRect = () => {
+            self._d3Selection.select(".zero-line")
+                .transition()
+                .attr("opacity", hasNegtive ? 1 : 0)
+                .attr("y", verticalScale(0));
+        };
+
         updateValueAxis();
         updateYearAxis();
+        updateAxisRect();
         updateIndicator();
         updateLines();
         updateHoverTargets();
@@ -267,6 +288,15 @@ class TimeDeltaPresenter {
             .getBoundingClientRect();
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
+
+        targetSvg.append("rect")
+            .classed("zero-line", true)
+            .attr("x", 71)
+            .attr("y", totalHeight)
+            .attr("width", totalWidth - 91 - 71)
+            .attr("height", 1)
+            .attr("fill", "#E0E0E0")
+            .attr("opacity", 0);
 
         targetSvg.append("g").classed("year-labels", true);
         targetSvg.append("g").classed("value-labels", true);
