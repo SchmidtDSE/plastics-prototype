@@ -99,7 +99,7 @@ class ScenarioPresenter {
             .html((scenario) => scenario["name"] + " - ")
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
 
-        newLabels.append("span")
+        newDivs.append("span")
             .html("info")
             .classed("info-target", true)
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
