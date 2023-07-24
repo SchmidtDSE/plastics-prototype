@@ -4,6 +4,46 @@ Prototype for the plastics decision support tool with transparent intervention c
 
 <br>
 
+## Variables
+Built-in variables for the interventions scripts take the following form:
+
+- **in.**: Variables like `in.chinaMinimumRecyclingRate` refer to the levers that a user can manipulate in the sliders.
+- **out.**: Variables like `out.china.consumptionPackagingMT` refer to the outputs from the model. These should be modified by the interventions to change the visualizations.
+
+The regions for `out.region` are as follows:
+
+ - global
+ - china
+ - eu30
+ - nafta
+ - row
+
+The consumption amounts are as follows (like `out.china.consumptionPackagingMT`):
+
+ - consumptionPackagingMT
+ - consumptionConstructionMT
+ - consumptionTextitleMT
+ - consumptionHouseholdLeisureSportsMT
+ - consumptionElectronicMT
+ - consumptionTransporationMT
+ - consumptionAgricultureMT
+ - consumptionOtherMT
+
+The end of life attributes are as follows (like `out.eu30.eolLandfillMT`):
+
+ - eolLandfillMT
+ - eolIncinerationMT
+ - eolMismanagedMT
+ - eolRecyclingMT
+
+Finally, production are as follows (like `out.nafta.netImportsMT`):
+
+ - netImportsMT
+ - netExportsMT
+ - domesticProductionMT
+
+<br>
+
 ## Open source
 Uses the following:
 
