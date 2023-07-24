@@ -57,19 +57,45 @@ distribute otherDeltaDelayed across [
 
 var recyclingDeltaDelayed = newRecyclingDelayed - priorRecycling;
 
-# Drop production - delayed
-var productionOffset = -1 * recyclingDeltaDelayed;
-var priorImports = out.{{region}}.netImportsMT;
-distribute productionOffset across [
-  out.{{region}}.netImportsMT,
-  out.{{region}}.domesticProductionMT
-] proportionally;
-var newImports = out.{{region}}.netImportsMT;
-var importsDelta = newImports - priorImports;
+# Determine inductive demand
+var displacementRate = in.recyclingDisplacementRate / 100;
+var displacedPlasticsMT = displacementRate * recyclingDeltaDelayed;
+var inductiveDemandRate = 1 - displacementRate;
+var newInductivePlasticsMT = inductiveDemandRate * recyclingDeltaDelayed;
 
-# Drop exports elsewhere
-distribute importsDelta across [
+# Bump consumption by inductive demand
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Bump EOL by inductive demand
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Offset production local
+var priorImports = out.{{ region }}.netImportsMT;
+distribute displacedPlasticsMT across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+var newImportsAbs = out.{{ region }}.netImportsMT;
+
+# Offset exports elsewhere
+var newImports = newImportsAbs - priorImports;
+distribute newImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
+
