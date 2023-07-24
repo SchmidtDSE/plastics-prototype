@@ -47,4 +47,43 @@ function makeCumulative(target) {
     return allNewOutputs;
 }
 
-export {makeCumulative};
+
+function makeYearDelta(target, baseline) {
+    const years = Array.of(...target.keys());
+
+    const allNewOutputs = new Map();
+    years.forEach((year) => {
+        const yearTarget = target.get(year);
+        const oldOut = yearTarget.get("out");
+        const newOut = new Map();
+
+        Array.of(...oldOut.keys()).forEach((region) => {
+            const oldRegionOut = oldOut.get(region);
+            const newRegionOut = new Map();
+
+            console.log(baseline);
+            const baselineRegion = baseline.get("out").get(region);
+
+            Array.of(...oldRegionOut.entries()).forEach((entry) => {
+                const attrName = entry[0];
+                const oldValue = entry[1];
+
+                const newValue = oldValue - baselineRegion.get(attrName);
+                newRegionOut.set(attrName, newValue);
+            });
+
+            newOut.set(region, newRegionOut);
+        });
+
+        const decoratedOut = new Map();
+        decoratedOut.set("out", newOut);
+        decoratedOut.set("in", yearTarget.get("in"));
+
+        allNewOutputs.set(year, decoratedOut);
+    });
+
+    return allNewOutputs;
+}
+
+
+export {makeCumulative, makeYearDelta};
