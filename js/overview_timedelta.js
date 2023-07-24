@@ -80,13 +80,13 @@ class TimeDeltaPresenter {
 
         const maxValueNative = Math.max(
             getMax(businessAsUsuals),
-            getMax(withInterventions)
+            getMax(withInterventions),
         );
         const maxValue = Math.ceil(maxValueNative / step) * step;
 
         const minValueNative = Math.min(
             getMin(businessAsUsuals),
-            getMin(withInterventions)
+            getMin(withInterventions),
         );
         const minValueRounded = Math.ceil(Math.abs(minValueNative) / step) * step;
         const hasNegtive = minValueNative < 0;
