@@ -170,6 +170,7 @@ class BubblegraphPresenter {
         const maxRegionValue = info
             .filter((x) => x["region"] !== "global")
             .map((x) => x["value"])
+            .map((x) => Math.abs(x))
             .reduce((a, b) => a > b ? a : b, 1);
 
         const maxGlobalValue = info
