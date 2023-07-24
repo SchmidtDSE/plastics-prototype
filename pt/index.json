@@ -1,156 +1,6 @@
 {
     "categories": [
         {
-            "name": "management",
-            "label": "Waste Management",
-            "levers": [
-                {
-                    "name": "China Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in China by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "chinaMinimumRecyclingRate",
-                    "template": "minimum_recycling_rate.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "china",
-                        "otherRegions": ["eu30", "nafta", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "EU 30 Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in EU 30 by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "eu30MinimumRecyclingRate",
-                    "template": "minimum_recycling_rate.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "eu30",
-                        "otherRegions": ["china", "nafta", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "NAFTA Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in NAFTA by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "naftaMinimumRecyclingRate",
-                    "template": "minimum_recycling_rate.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "nafta",
-                        "otherRegions": ["china", "eu30", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "ROW Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in rest of world by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "rowMinimumRecyclingRate",
-                    "template": "minimum_recycling_rate.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "row",
-                        "otherRegions": ["china", "eu30", "nafta"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "China Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in China by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 100,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "chinaMaximumMismanagedRate",
-                    "template": "maximum_mismanaged.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "china",
-                        "otherRegions": ["eu30", "nafta", "row"]
-                    },
-                    "url": ""
-                },
-                {
-                    "name": "EU 30 Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in EU 30 by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 100,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "eu30MaximumMismanagedRate",
-                    "template": "maximum_mismanaged.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "eu30",
-                        "otherRegions": ["china", "nafta", "row"]
-                    },
-                    "url": ""
-                },
-                {
-                    "name": "NAFTA Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in NAFTA by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 100,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "naftaMaximumMismanagedRate",
-                    "template": "maximum_mismanaged.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "nafta",
-                        "otherRegions": ["china", "eu30", "row"]
-                    },
-                    "url": ""
-                },
-                {
-                    "name": "ROW Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in rest of world by 2050.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 100,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "rowMaximumMismanagedRate",
-                    "template": "maximum_mismanaged.pt",
-                    "released": true,
-                    "attrs": {
-                        "region": "row",
-                        "otherRegions": ["china", "eu30", "nafta"]
-                    },
-                    "url": ""
-                }
-            ]
-        },
-        {
             "name": "production",
             "label": "Production",
             "levers": [
@@ -297,6 +147,156 @@
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                }
+            ]
+        },
+        {
+            "name": "management",
+            "label": "Waste Management",
+            "levers": [
+                {
+                    "name": "China Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in China by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in EU 30 by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in NAFTA by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Min Recycling Rate",
+                    "description": "The minumum recycling rate for waste in rest of world by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in China by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "EU 30 Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in EU 30 by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "NAFTA Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in NAFTA by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": ""
+                },
+                {
+                    "name": "ROW Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in rest of world by 2050.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "released": true,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": ""
                 }
             ]
         },
