@@ -46,8 +46,8 @@ class ScorecardPresenter {
             );
 
             setBody(
-                "total-consumption-card",
-                goals.get("global").get("totalConsumption"),
+                "total-waste-card",
+                goals.get("global").get("totalWaste"),
             );
         };
 
