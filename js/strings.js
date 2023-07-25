@@ -38,6 +38,7 @@ STRINGS.set(GOALS.productionEmissions, "Production Emissions");
 STRINGS.set(GOALS.consumptionEmissions, "Consumption Emissions");
 STRINGS.set(GOALS.landfillWaste, "Landfill Waste");
 STRINGS.set(GOALS.mismanagedWaste, "Mismanaged Waste");
+STRINGS.set(GOALS.totalWaste, "Total Waste");
 
 const UNITS = new Map();
 

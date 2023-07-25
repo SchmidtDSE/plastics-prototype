@@ -43,6 +43,16 @@ function getGoals(target) {
                 "value": total,
             };
         },
+        (output) => {
+            const total = EOL_ATTRS
+                .map((x) => output.get(x))
+                .reduce((a, b) => a + b);
+
+            return {
+                "goal": "totalWaste",
+                "value": total,
+            };
+        },
     ];
 
     const goals = new Map();
