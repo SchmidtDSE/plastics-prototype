@@ -22,12 +22,18 @@ class ScorecardPresenter {
 
         const updateBody = () => {
             const setBody = (cardClass, value) => {
-                const card = self._targetDiv.querySelector("." + cardClass);
-                const body = card.querySelector(".body");
                 const valueRounded = Math.round(value * 10) / 10;
                 const prefix = self._prefix && valueRounded >= 0 ? "+" : "";
                 const valueStr = prefix + valueRounded;
-                body.innerHTML = valueStr;
+
+                const target = self._getD3().select("#" + self._targetDiv.id)
+                    .select("." + cardClass)
+                    .select(".body");
+
+                target.text(valueStr);
+                target.style("opacity", 0)
+                    .transition()
+                    .style("opacity", 1);
             };
 
             setBody(
@@ -64,6 +70,12 @@ class ScorecardPresenter {
         updateYear();
         updateBody();
         updateHighlight();
+    }
+
+    _getD3() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return d3;
     }
 }
 
