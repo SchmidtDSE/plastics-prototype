@@ -110,10 +110,13 @@ class StagePresenter {
             const title = self._targetDiv.querySelector(".description");
             const subtitle = self._targetDiv.querySelector(".subtitle");
 
+            const regionName = selection.getRegion();
+            const regionStr = regionName === "row" ? "RoW" : STRINGS.get(regionName);
+
             const titleText = STRINGS.get(self._stage);
             const subtitleText = [
                 selection.getYear() + "",
-                STRINGS.get(selection.getRegion()),
+                regionStr,
             ].join(" ");
 
             title.innerHTML = titleText;
