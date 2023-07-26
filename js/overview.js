@@ -2,6 +2,7 @@ import {CACHE_BUSTER, DEFAULT_YEAR, GOALS} from "const";
 import {makeCumulative, makeYearDelta} from "transformation";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
+import {runIntro} from "intro";
 import {ScenarioPresenter} from "overview_scenario";
 import {ScorecardPresenter} from "overview_scorecard";
 import {TimeDeltaPresenter} from "overview_timedelta";
@@ -53,6 +54,8 @@ class OverviewPresenter {
             self._goal,
             (year) => self._onYearChange(year),
         );
+
+        self._setupTutorial();
     }
 
     getCumulativeEnabled() {
@@ -116,6 +119,17 @@ class OverviewPresenter {
         );
 
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
+    }
+
+    _setupTutorial() {
+        const self = this;
+
+        const nextButton = self._targetDiv.querySelector(".tutorial-next-button");
+
+        nextButton.addEventListener("click", (event) => {
+            runIntro(self._targetDiv.id);
+            event.preventDefault();
+        });
     }
 
     _onMetricSwitch() {
