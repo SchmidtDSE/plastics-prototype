@@ -592,6 +592,10 @@ select {
     font-size: 14px;
 }
 
+.tutorial .tutorial-cta {
+    font-weight: bold;
+}
+
 .tutorial .tutorial-next {
     padding-bottom: 5px;
 }
