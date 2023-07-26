@@ -70,7 +70,7 @@ class StagePresenter {
     update(stateSet, selection) {
         const self = this;
 
-        const smallDisplay = window.innerWidth < 1000;
+        const smallDisplay = window.innerWidth < 1500;
 
         const selected = selection.getDisplayStage() == self._stage;
         const attrs = STANDARD_ATTR_NAMES.get(self._stage);
