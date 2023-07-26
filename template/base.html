@@ -29,10 +29,10 @@
                             </h3>
                             <div class="tutorial">
                                 <p>
-                                    Hello! This tool lets you explore plastics outcomes under different policy scenarios. We will start with waste so, for example, trying to reduce the amount of plastic waste that is incinerated each year or added to landfill.
+                                    Hello! This tool lets you explore plastics outcomes under different policy scenarios. We will start with waste. For example, we will try to reduce the amount of plastic waste that is incinerated or added to landfill in each year.
                                 </p>
                                 <p>
-                                    I've configured the dropdown menus above to have this tool first look at the annual production of a particlarly problematic type of waste: mismanaged waste. For example, This includes plastic waste on the side of the street or thrown in the ocean. 
+                                    I've configured the dropdown menus above to have this tool first look at the annual generation of a particlarly problematic type of waste: mismanaged waste. This includes, for example, plastic waste on the side of the street or thrown in the ocean. 
                                 </p>
                                 <p>
                                     Click next to enable the visualization below which will allow you to turn different policies on and off, seeing their impact on four waste metrics we are trying to reduce.
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="scorecard overview-section last relative-scorecard" id="relative-scorecard">
-                            <div class="post-intro-early">
+                            <div class="post-intro">
                                 <h3>Impact of Policies on Global <span class="year">2049</span> Plastics Projections</h3>
                             </div>
                             <div class="cards">
@@ -141,8 +141,22 @@
                                     <div class="delta-check-holder">
                                         <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
                                     </div>
+                                    <div class="tutorial">
+                                        <p>
+                                            Hello! This second details tab allows you to continue your work from the first overview tab, seeing the impacts of policies across more metrics and at a regional level. For example, in addition to waste, you can change to other dimensions like consumption by sector.
+                                        </p>
+                                        <p>
+                                            Your policy selections from the first tab are active in the visualization below. Note that a checkbox above also allows you visualize the change from business as usual in addition to the raw projections given your selected policy scenario.
+                                        </p>
+                                        <p>
+                                            Click next to enable the visualization below and explore the categories of detailed policy interventions, further editing your selections from the overview tab.
+                                        </p>
+                                        <div class="tutorial-next">
+                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div id="gloals-container" class="goals-container">
+                                <div id="gloals-container" class="goals-container post-intro">
                                     <div class="goal-container inner top even" id="mismanaged-waste-goal-container">
                                         <h3>Mismanaged Waste</h3>
                                         <div class="bars"></div>
@@ -160,7 +174,7 @@
                                         <div class="bars"></div>
                                     </div>
                                 </div>
-                                <div id="region-container" class="region-container">
+                                <div id="region-container" class="region-container post-intro post-intro-early">
                                     <div id="current-year-container" class="current-year-container">
                                         <div id="eol-container" class="stage-container">
                                             <div class="subtitle"></div>
@@ -187,7 +201,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="timeseries-container" class="timeseries-container">
+                                    <div id="timeseries-container" class="timeseries-container post-intro post-intro-early">
                                         <h3 class="title">Timeseries</h3>
                                         <div class="slope-check-holder">
                                             <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
@@ -202,7 +216,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="bubblegraph-container" class="bubblegraph-container">
+                                <div id="bubblegraph-container" class="bubblegraph-container post-intro">
                                     <h3 class="title"></h3>
                                     <div class="slope-check-holder">
                                         <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
@@ -212,13 +226,13 @@
                             </div>
                         </div>
                         <div class="panel">
-                            <div id="buttons-panel" class="right-panel">
+                            <div id="buttons-panel" class="right-panel post-intro">
                                 <h3>Policy</h3>
                                 <div class="link-holder"><a href="#overview" id="overview-cta">Return to overview >></a></div>
                                 <div class="link-holder"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
                                 <div class="link-holder"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
                             </div>
-                            <div id="levers-panel" class="right-panel">
+                            <div id="levers-panel" class="right-panel post-intro">
                                 <div id="levers-panel-inner"></div>
                                 <div class="lever-section" id="prototype">
                                     <details id="lever-section-prototype">
@@ -251,7 +265,7 @@
                                     </details>
                                 </div>
                             </div>
-                            <div id="layout-panel" class="right-panel">
+                            <div id="layout-panel" class="right-panel post-intro">
                                 <h3>Layout</h3>
                                 <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
                                 <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>

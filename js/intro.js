@@ -4,20 +4,20 @@ function runIntro(targetId) {
 
     d3Selection.selectAll(".post-intro-early")
         .transition()
-        .delay(500)
+        .delay(250)
         .duration(500)
         .style("opacity", 1);
 
     d3Selection.selectAll(".post-intro")
         .transition()
-        .delay(1250)
+        .delay(1000)
         .duration(500)
         .style("opacity", 1);
 
 
     setTimeout(
         () => d3Selection.select(".tutorial").style("display", "none"),
-        1750
+        1500
     );
 }
 

@@ -7,6 +7,7 @@ import {
     EOL_ATTRS,
     PRODUCTION_ATTRS,
 } from "const";
+import {runIntro} from "intro";
 import {makeCumulative} from "transformation";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
@@ -112,6 +113,7 @@ class ReportPresenter {
 
         self.rebuildViz();
         self._setupResizeListener();
+        self._setupTutorial();
     }
 
     setYear(year) {
@@ -422,6 +424,19 @@ class ReportPresenter {
     _getGoals(target, selection) {
         const self = this;
         return getGoals(target);
+    }
+
+    _setupTutorial() {
+        const self = this;
+
+        const targetDiv = document.getElementById("detailed");
+
+        const nextButton = targetDiv.querySelector(".tutorial-next-button");
+
+        nextButton.addEventListener("click", (event) => {
+            runIntro("detailed");
+            event.preventDefault();
+        });
     }
 }
 
