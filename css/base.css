@@ -589,6 +589,7 @@ select {
     text-align: left;
     padding-top: 15px;
     padding-bottom: 10px;
+    font-size: 14px;
 }
 
 .tutorial .tutorial-next {
