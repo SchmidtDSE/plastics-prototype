@@ -33,6 +33,7 @@ class ScorecardPresenter {
                 target.text(valueStr);
                 target.style("opacity", 0)
                     .transition()
+                    .duration(750)
                     .style("opacity", 1);
             };
 

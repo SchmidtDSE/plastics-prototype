@@ -180,6 +180,7 @@ class TimeDeltaPresenter {
 
             self._d3Selection.select(".year-indicator-group")
                 .transition()
+                .duration(750)
                 .attr("transform", "translate(" + newX + " 16)");
 
             self._d3Selection.select(".selected-year-label")
@@ -192,6 +193,7 @@ class TimeDeltaPresenter {
             const bauY = verticalScale(bauValue) - 16;
             self._d3Selection.select(".current-bau-value-indicator")
                 .transition()
+                .duration(750)
                 .attr("cy", bauY);
 
             const interventionValue = withInterventions.get(selectedYear)
@@ -202,6 +204,7 @@ class TimeDeltaPresenter {
             const distance = Math.abs(bauY - interventionY);
             self._d3Selection.select(".current-intervention-value-indicator")
                 .transition()
+                .duration(750)
                 .attr("cy", interventionY);
 
             const interventionValueDisplay = self._d3Selection.select(
@@ -209,6 +212,7 @@ class TimeDeltaPresenter {
             );
 
             interventionValueDisplay.transition()
+                .duration(750)
                 .attr("transform", "translate(8 " + (interventionY - 15) + ")")
                 .style("opacity", distance < 1 ? 0 : 1);
 
@@ -217,6 +221,7 @@ class TimeDeltaPresenter {
 
             const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
             bauValueDisplay.transition()
+                .duration(750)
                 .attr("transform", "translate(8 " + (bauY - 15) + ")")
                 .style("opacity", distance < 1 ? 0 : 1);
 
@@ -228,6 +233,7 @@ class TimeDeltaPresenter {
 
             self._d3Selection.select(".legend")
                 .transition()
+                .duration(750)
                 .style("opacity", distance > 0 ? 1 : 0);
         };
 
@@ -237,10 +243,12 @@ class TimeDeltaPresenter {
 
             self._d3Selection.select(".bau-glyph")
                 .transition()
+                .duration(750)
                 .attr("d", pathGenerator(bauData));
 
             self._d3Selection.select(".projection-glyph")
                 .transition()
+                .duration(750)
                 .attr("d", pathGenerator(projectionData));
         };
 
@@ -280,6 +288,7 @@ class TimeDeltaPresenter {
         const updateAxisRect = () => {
             self._d3Selection.select(".zero-line")
                 .transition()
+                .duration(750)
                 .attr("opacity", hasNegtive ? 1 : 0)
                 .attr("y", verticalScale(0));
         };
