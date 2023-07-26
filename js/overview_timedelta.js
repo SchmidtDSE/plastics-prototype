@@ -194,10 +194,6 @@ class TimeDeltaPresenter {
                 .transition()
                 .attr("cy", bauY);
 
-            const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
-            bauValueDisplay.transition().attr("transform", "translate(8 " + (bauY - 15) + ")");
-            bauValueDisplay.select(".value").html(Math.round(bauValue) + " " + units);
-
             const interventionValue = withInterventions.get(selectedYear)
                 .get(region)
                 .get(self._attrName);
@@ -214,10 +210,25 @@ class TimeDeltaPresenter {
 
             interventionValueDisplay.transition()
                 .attr("transform", "translate(8 " + (interventionY - 15) + ")")
-                .style("opacity", distance < 30 ? 0 : 1);
+                .style("opacity", distance < 1 ? 0 : 1);
 
             interventionValueDisplay.select(".value")
                 .html(Math.round(interventionValue) + " " + units);
+
+            const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
+            bauValueDisplay.transition()
+                .attr("transform", "translate(8 " + (bauY - 15) + ")")
+                .style("opacity", distance < 1 ? 0 : 1);
+
+            bauValueDisplay.select(".value").html(Math.round(bauValue) + " " + units);
+
+            if (distance > 0) {
+                self._d3Selection.select(".legend").style("display", "block");
+            }
+
+            self._d3Selection.select(".legend")
+                .transition()
+                .style("opacity", distance > 0 ? 1 : 0);
         };
 
         const updateLines = () => {
@@ -284,6 +295,8 @@ class TimeDeltaPresenter {
 
     _initElements() {
         const self = this;
+
+        self._d3Selection.select(".legend").style("display", "none");
 
         const targetSvg = self._d3Selection.select(".body");
         targetSvg.html("");
