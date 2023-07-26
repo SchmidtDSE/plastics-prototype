@@ -17,7 +17,7 @@ function runIntro(targetId) {
 
     setTimeout(
         () => d3Selection.select(".tutorial").style("display", "none"),
-        1500
+        1500,
     );
 }
 
