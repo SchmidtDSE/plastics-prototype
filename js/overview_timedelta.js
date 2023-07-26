@@ -180,6 +180,7 @@ class TimeDeltaPresenter {
 
             self._d3Selection.select(".year-indicator-group")
                 .transition()
+                .duration(750)
                 .attr("transform", "translate(" + newX + " 16)");
 
             self._d3Selection.select(".selected-year-label")
@@ -192,11 +193,8 @@ class TimeDeltaPresenter {
             const bauY = verticalScale(bauValue) - 16;
             self._d3Selection.select(".current-bau-value-indicator")
                 .transition()
+                .duration(750)
                 .attr("cy", bauY);
-
-            const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
-            bauValueDisplay.transition().attr("transform", "translate(8 " + (bauY - 15) + ")");
-            bauValueDisplay.select(".value").html(Math.round(bauValue) + " " + units);
 
             const interventionValue = withInterventions.get(selectedYear)
                 .get(region)
@@ -206,6 +204,7 @@ class TimeDeltaPresenter {
             const distance = Math.abs(bauY - interventionY);
             self._d3Selection.select(".current-intervention-value-indicator")
                 .transition()
+                .duration(750)
                 .attr("cy", interventionY);
 
             const interventionValueDisplay = self._d3Selection.select(
@@ -213,11 +212,29 @@ class TimeDeltaPresenter {
             );
 
             interventionValueDisplay.transition()
+                .duration(750)
                 .attr("transform", "translate(8 " + (interventionY - 15) + ")")
-                .style("opacity", distance < 30 ? 0 : 1);
+                .style("opacity", distance < 1 ? 0 : 1);
 
             interventionValueDisplay.select(".value")
                 .html(Math.round(interventionValue) + " " + units);
+
+            const bauValueDisplay = self._d3Selection.select(".current-bau-value-display");
+            bauValueDisplay.transition()
+                .duration(750)
+                .attr("transform", "translate(8 " + (bauY - 15) + ")")
+                .style("opacity", distance < 1 ? 0 : 1);
+
+            bauValueDisplay.select(".value").html(Math.round(bauValue) + " " + units);
+
+            if (distance > 0) {
+                self._d3Selection.select(".legend").style("display", "block");
+            }
+
+            self._d3Selection.select(".legend")
+                .transition()
+                .duration(750)
+                .style("opacity", distance > 0 ? 1 : 0);
         };
 
         const updateLines = () => {
@@ -226,10 +243,12 @@ class TimeDeltaPresenter {
 
             self._d3Selection.select(".bau-glyph")
                 .transition()
+                .duration(750)
                 .attr("d", pathGenerator(bauData));
 
             self._d3Selection.select(".projection-glyph")
                 .transition()
+                .duration(750)
                 .attr("d", pathGenerator(projectionData));
         };
 
@@ -269,6 +288,7 @@ class TimeDeltaPresenter {
         const updateAxisRect = () => {
             self._d3Selection.select(".zero-line")
                 .transition()
+                .duration(750)
                 .attr("opacity", hasNegtive ? 1 : 0)
                 .attr("y", verticalScale(0));
         };
@@ -284,6 +304,8 @@ class TimeDeltaPresenter {
 
     _initElements() {
         const self = this;
+
+        self._d3Selection.select(".legend").style("display", "none");
 
         const targetSvg = self._d3Selection.select(".body");
         targetSvg.html("");

@@ -1,0 +1,41 @@
+# Use assumption for percent consumption decrease per cent
+var rateDecreaseGoal = in.{{region}}VirginTaxCents * in.percentDecreasePerCent / 100;
+
+# Assume gradually applied
+var rateDecrease = 0;
+change rateDecrease by rateDecreaseGoal over 2020 to 2050;
+
+# Determine by how much to reduce consumption
+var totalWaste = (
+  out.{{region}}.eolLandfillMT +
+  out.{{region}}.eolIncinerationMT +
+  out.{{region}}.eolMismanagedMT +
+  out.{{region}}.eolRecyclingMT
+);
+var reduction = rateDecrease * totalWaste;
+var offset = -1 * reduction;
+
+# Reduce EOL
+distribute offset across [
+  out.{{region}}.eolLandfillMT,
+  out.{{region}}.eolIncinerationMT,
+  out.{{region}}.eolMismanagedMT,
+  out.{{region}}.eolRecyclingMT
+] proportionally;
+
+# Reduce production
+var priorImports = out.{{region}}.netImportsMT;
+
+distribute offset across [
+  out.{{region}}.netExportsMT,
+  out.{{region}}.domesticProductionMT
+] proportionally;
+
+var changeImports = out.{{region}}.netImportsMT - priorImports;
+
+# Reduce exports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;

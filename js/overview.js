@@ -2,6 +2,7 @@ import {CACHE_BUSTER, DEFAULT_YEAR, GOALS} from "const";
 import {makeCumulative, makeYearDelta} from "transformation";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
+import {runIntro} from "intro";
 import {ScenarioPresenter} from "overview_scenario";
 import {ScorecardPresenter} from "overview_scorecard";
 import {TimeDeltaPresenter} from "overview_timedelta";
@@ -17,6 +18,11 @@ class OverviewPresenter {
         self._onYearChange = onYearChange;
         self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
+
+        self._goalSelector = self._targetDiv.querySelector(".goal-select");
+        self._goalSelector.addEventListener("change", () => {
+            self._onGoalChange(self._goalSelector.value);
+        });
 
         self._metricSwitch = self._targetDiv.querySelector(".metric-select");
         self._metricSwitch.addEventListener("change", () => self._onMetricSwitch());
@@ -48,6 +54,8 @@ class OverviewPresenter {
             self._goal,
             (year) => self._onYearChange(year),
         );
+
+        self._setupTutorial();
     }
 
     getCumulativeEnabled() {
@@ -113,6 +121,17 @@ class OverviewPresenter {
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
     }
 
+    _setupTutorial() {
+        const self = this;
+
+        const nextButton = self._targetDiv.querySelector(".tutorial-next-button");
+
+        nextButton.addEventListener("click", (event) => {
+            runIntro(self._targetDiv.id);
+            event.preventDefault();
+        });
+    }
+
     _onMetricSwitch() {
         const self = this;
         self._onRequestRender();
@@ -122,6 +141,7 @@ class OverviewPresenter {
         const self = this;
         self._goal = newGoal;
         self._timedeltaPresenter.setAttr(newGoal);
+        self._goalSelector.value = newGoal;
         self._onRequestRender();
     }
 }

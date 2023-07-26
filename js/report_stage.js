@@ -27,6 +27,10 @@ class StagePresenter {
             self._onStageChange(self._stage);
         });
 
+        self._targetDiv.addEventListener("click", () => {
+            self._onStageChange(self._stage);
+        });
+
         // Color scales
         const colorScaleConstructors = new Map();
 
@@ -66,7 +70,7 @@ class StagePresenter {
     update(stateSet, selection) {
         const self = this;
 
-        const smallDisplay = window.innerWidth < 1200;
+        const smallDisplay = window.innerWidth < 1000;
 
         const selected = selection.getDisplayStage() == self._stage;
         const attrs = STANDARD_ATTR_NAMES.get(self._stage);
@@ -90,7 +94,14 @@ class StagePresenter {
             .domain([minValue, maxValue])
             .range([0, self._targetDiv.getBoundingClientRect().width - 7]);
 
-        const updateRadio = () => {
+        const updateSelected = () => {
+            if (selected) {
+                self._targetDiv.classList.add("selected");
+                self._targetDiv.classList.remove("unselected");
+            } else {
+                self._targetDiv.classList.remove("selected");
+                self._targetDiv.classList.add("unselected");
+            }
             const radio = self._targetDiv.querySelector(".stage-radio");
             radio.checked = selected;
         };
@@ -99,10 +110,13 @@ class StagePresenter {
             const title = self._targetDiv.querySelector(".description");
             const subtitle = self._targetDiv.querySelector(".subtitle");
 
+            const regionName = selection.getRegion();
+            const regionStr = regionName === "row" ? "RoW" : STRINGS.get(regionName);
+
             const titleText = STRINGS.get(self._stage);
             const subtitleText = [
                 selection.getYear() + "",
-                STRINGS.get(selection.getRegion()),
+                regionStr,
             ].join(" ");
 
             title.innerHTML = titleText;
@@ -207,7 +221,7 @@ class StagePresenter {
             }
         };
 
-        updateRadio();
+        updateSelected();
         updateTitle();
         updateBars();
     }

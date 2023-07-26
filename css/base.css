@@ -259,6 +259,15 @@ select {
     margin-right: 5px;
 }
 
+.output-section .region-container .current-year-container .stage-container.unselected {
+    opacity: 0.6;
+}
+
+.output-section .region-container .current-year-container .stage-container.unselected:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
 .output-section .region-container .current-year-container .stage-container .bar {
     margin-top: 3px;
     width: 100%;
@@ -553,6 +562,10 @@ select {
     fill: #C0C0C0;
 }
 
+.post-intro {
+    opacity: 0.2;
+}
+
 .right-panel {
     background-color: white;
     padding: 5px;
@@ -570,6 +583,23 @@ select {
 
 .slider {
     width: 100%;
+}
+
+.tutorial {
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+.tutorial .tutorial-next {
+    padding-bottom: 5px;
+}
+
+.tutorial .tutorial-next a {
+    animation: flash 2s linear infinite;
+    padding: 4px;
+    border: 2px solid #C0C0C0;
+    border-radius: 4px;
 }
 
 #add-dialog {
@@ -701,7 +731,7 @@ select {
 
 @media (max-width: 699px) {
     .output-section .goals-container {
-        max-height: 213px;
+        max-height: 235px;
         overflow-y: auto;
     }
 
@@ -883,5 +913,19 @@ select {
 @media (max-width: 480px) {
     [role="tab"][aria-selected="true"] {
         border-bottom: 1px solid black;
+    }
+}
+
+@keyframes flash {
+    0% {
+        opacity: 0.6;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.6;
     }
 }
