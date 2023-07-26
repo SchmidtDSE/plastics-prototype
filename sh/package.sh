@@ -2,6 +2,7 @@ mkdir -p deploy
 cp -r css deploy/css
 cp -r data deploy/data
 cp -r font deploy/font
+cp -r img deploy/img
 cp -r js deploy/js
 cp -r pt deploy/pt
 cp -r template deploy/template
