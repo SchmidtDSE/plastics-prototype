@@ -64,7 +64,7 @@ class ScenarioPresenter {
                     const leverName = variable["lever"];
                     const expectedValue = variable["value"];
                     const actualValue = inputValues.get(leverName);
-                    return Math.abs(expectedValue - actualValue) < 0.00001;
+                    return Math.abs(expectedValue - actualValue) > 0.00001;
                 });
                 const numNonMatched = nonMatched.length;
                 return numNonMatched == 0;
