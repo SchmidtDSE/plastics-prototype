@@ -30,11 +30,13 @@ class ScorecardPresenter {
                     .select("." + cardClass)
                     .select(".body");
 
-                target.text(valueStr);
-                target.style("opacity", 0)
-                    .transition()
-                    .duration(750)
-                    .style("opacity", 1);
+                if (target.text() !== valueStr) {
+                    target.text(valueStr);
+                    target.style("opacity", 0)
+                        .transition()
+                        .duration(750)
+                        .style("opacity", 1);
+                }
             };
 
             setBody(

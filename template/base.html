@@ -13,12 +13,19 @@
                         <div class="overview-section cumulative-toggle">
                             <h3>
                                 Showing Plastic
-                                <select class="metric-select">
-                                    <option value="annual">Annually</option>
-                                    <option value="cumulative">Cumulative from 2010</option>
-                                    <option value="reference">Annual Difference to 2023</option>
+                                <select class="goal-select">
+                                    <option value="mismanagedWaste" selected>Mismanaged Waste</option>
+                                    <option value="incineratedWaste">Incinerated Waste</option>
+                                    <option value="landfillWaste">Landfill Waste</option>
+                                    <option value="totalWaste">Total Waste</option>
                                 </select>
-                                in Million Metric Tons.
+                                as
+                                <select class="metric-select">
+                                    <option value="annual" selected>Annual</option>
+                                    <option value="cumulative">Cumulative from 2010 in</option>
+                                    <option value="reference">Annual Difference to 2023 in</option>
+                                </select>
+                                Million Metric Tons.
                             </h3>
                         </div>
                         <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">

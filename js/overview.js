@@ -18,6 +18,11 @@ class OverviewPresenter {
         self._goal = GOALS.mismanagedWaste;
         self._year = DEFAULT_YEAR;
 
+        self._goalSelector = self._targetDiv.querySelector(".goal-select");
+        self._goalSelector.addEventListener("change", () => {
+            self._onGoalChange(self._goalSelector.value);
+        });
+
         self._metricSwitch = self._targetDiv.querySelector(".metric-select");
         self._metricSwitch.addEventListener("change", () => self._onMetricSwitch());
 
@@ -122,6 +127,7 @@ class OverviewPresenter {
         const self = this;
         self._goal = newGoal;
         self._timedeltaPresenter.setAttr(newGoal);
+        self._goalSelector.value = newGoal;
         self._onRequestRender();
     }
 }
