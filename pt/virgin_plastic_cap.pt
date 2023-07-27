@@ -27,8 +27,8 @@ var availableWaste = (
   out.{{ region }}.eolRecyclingMT
 );
 
-var backfill = in.recyclingLostBackfillRate / 100;
-var offsetConsumption = offset * (1 - backfill);
+var backfillRate = in.recyclingLostBackfillRate / 100;
+var offsetConsumption = offset * (1 - backfillRate);
 limit offsetConsumption to [-1 * availableWaste, 0];
 
 # Update the EOL for consumption
@@ -50,11 +50,17 @@ var offsetRecyclingNeeded = offset - offsetConsumption;
 
 # Ensure the recycling offset is possible
 var offsetRecycling = offsetRecyclingNeeded;
-limit offsetRecycling to [offset * backfill, 0];
+limit offsetRecycling to [offset * backfillRate, 0];
 limit offsetRecycling to [-1 * availableWasteToRecycle, 0];
 
 # Apply recycling offset
 out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT - offsetRecycling;
+
+distribute offsetRecycling across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
 
 # If there wasn't enough to recycle, further reduce consumption
 var recyclingDeficit = offsetRecyclingNeeded - offsetRecycling;
