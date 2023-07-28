@@ -1,18 +1,6 @@
 {
     "scenarios": [
         {
-            "name": "40% Minimum Recycled Content",
-            "id": "minmium-recycled-content",
-            "description": "Policy which requires 40% recycled content by 2050.",
-            "values": [
-                {"lever": "chinaMinimumRecycledContent", "value": 40},
-                {"lever": "eu30MinimumRecycledContent", "value": 40},
-                {"lever": "naftaMinimumRecycledContent", "value": 40},
-                {"lever": "rowMinimumRecycledContent", "value": 40}
-            ],
-            "released": true
-        },
-        {
             "name": "40% Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
             "description": "Policy which requires that 40% of plastic waste is recycled by 2050.",
@@ -25,14 +13,14 @@
             "released": true
         },
         {
-            "name": "Waste Management Investment",
-            "id": "maximum-mismanaged-rate",
-            "description": "Policy which expands global waste management infrastructure, bringing mismanaged waste down to 5% globally by 2050.",
+            "name": "40% Minimum Recycled Content",
+            "id": "minmium-recycled-content",
+            "description": "Policy which requires 40% recycled content by 2050.",
             "values": [
-                {"lever": "chinaMaximumMismanagedRate", "value": 5},
-                {"lever": "eu30MaximumMismanagedRate", "value": 5},
-                {"lever": "naftaMaximumMismanagedRate", "value": 5},
-                {"lever": "rowMaximumMismanagedRate", "value": 5}
+                {"lever": "chinaMinimumRecycledContent", "value": 40},
+                {"lever": "eu30MinimumRecycledContent", "value": 40},
+                {"lever": "naftaMinimumRecycledContent", "value": 40},
+                {"lever": "rowMinimumRecycledContent", "value": 40}
             ],
             "released": true
         },
@@ -45,6 +33,30 @@
                 {"lever": "eu30VirginPlasticCap", "value": 110},
                 {"lever": "naftaVirginPlasticCap", "value": 110},
                 {"lever": "rowVirginPlasticCap", "value": 210}
+            ],
+            "released": true
+        },
+        {
+            "name": "Ban Polystyrene Packaging",
+            "id": "ban-eps-packaging",
+            "description": "Policy which globally bans polystyrene in packaging by 2050.",
+            "values": [
+                {"lever": "chinaPercentReduceEps", "value": 100},
+                {"lever": "eu30PercentReduceEps", "value": 100},
+                {"lever": "naftaPercentReduceEps", "value": 100},
+                {"lever": "rowPercentReduceEps", "value": 100}
+            ],
+            "released": true
+        },
+        {
+            "name": "Waste Management Investment",
+            "id": "maximum-mismanaged-rate",
+            "description": "Policy which expands global waste management infrastructure, bringing mismanaged waste down to 5% globally by 2050.",
+            "values": [
+                {"lever": "chinaMaximumMismanagedRate", "value": 5},
+                {"lever": "eu30MaximumMismanagedRate", "value": 5},
+                {"lever": "naftaMaximumMismanagedRate", "value": 5},
+                {"lever": "rowMaximumMismanagedRate", "value": 5}
             ],
             "released": true
         },

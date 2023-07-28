@@ -1,0 +1,1 @@
+var precentRemoved = in.{{ region }}PercentReduceEps / 100;
