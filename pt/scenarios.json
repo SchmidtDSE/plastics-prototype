@@ -25,9 +25,9 @@
             "released": true
         },
         {
-            "name": "15% Waste Management Investment",
+            "name": "Waste Management Investment",
             "id": "maximum-mismanaged-rate",
-            "description": "Policy which expands global waste management infrastructure by 15%, bringing mismanaged waste down to 5% globally by 2050.",
+            "description": "Policy which expands global waste management infrastructure, bringing mismanaged waste down to 5% globally by 2050.",
             "values": [
                 {"lever": "chinaMaximumMismanagedRate", "value": 5},
                 {"lever": "eu30MaximumMismanagedRate", "value": 5},
