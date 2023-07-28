@@ -1,0 +1,34 @@
+# Determine how much material we are dropping
+var epsReductionPercent = in.{{ region }}PercentReduceEps / 100;
+var percentPackagingEps = 0.034;
+var originalPackagingMT = out.{{ region }}.consumptionPackagingMT;
+var reducedMaterialMT = originalPackagingMT * percentPackagingEps * epsReductionPercent;
+var offsetMT = -1 * reducedMaterialMT;
+
+# Apply change to consumption
+out.{{ region }}.consumptionPackagingMT = originalPackagingMT + offsetMT;
+
+# Apply change to waste
+distribute offsetMT across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Apply change to production
+var priorImports = out.{{ region }}.netImportsMT;
+
+distribute offsetMT across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+
+var changeImports = out.{{ region }}.netImportsMT - priorImports;
+
+# Apply change to trade
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
