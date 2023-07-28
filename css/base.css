@@ -901,15 +901,15 @@ select {
     }
 }
 
-@media (min-width: 1000px) {
-    .overview .middle {
-        grid-template-columns: 25% 75%;
-    }
-}
-
 @media (min-width: 1200px) {
     .overview .cards .card {
         max-width: 250px;
+    }
+}
+
+@media (min-width: 1300px) {
+    .overview .middle {
+        grid-template-columns: 25% 75%;
     }
 }
 

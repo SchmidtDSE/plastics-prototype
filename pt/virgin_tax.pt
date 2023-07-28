@@ -3,7 +3,7 @@ var rateDecreaseGoal = in.{{region}}VirginTaxCents * in.percentDecreasePerCent /
 
 # Assume gradually applied
 var rateDecrease = 0;
-change rateDecrease by rateDecreaseGoal over 2020 to 2050;
+change rateDecrease by rateDecreaseGoal over 2024 to 2050;
 
 # Determine by how much to reduce consumption
 var totalWaste = (

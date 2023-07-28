@@ -3,7 +3,8 @@ var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
-change targetRate by targetRateGoal over 2020 to 2050;
+var yearsToRecycle = 3;
+change targetRate by targetRateGoal over 2024 + yearsToRecycle to 2050;
 
 # Determine current recycled content, using current year recycling as
 # approximation
@@ -29,7 +30,7 @@ limit neededAdditionalRecycledContent to [0,];
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
-change actualRecycledDelta by neededAdditionalRecycledContent over 2020 to 2050;
+change actualRecycledDelta by neededAdditionalRecycledContent over 2024 to 2050;
 
 # Determine how much consumption is lost due to price increase
 var lostConsumptionRate = in.recyclingContentLostConsumption / 100;
