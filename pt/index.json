@@ -6,7 +6,7 @@
             "levers": [
                 {
                     "name": "China EPS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for China. Use 100% for ban.",
+                    "description": "Percent reduction in extruded polystyrene used in packaging for China. Use 100% for ban.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -24,7 +24,7 @@
                 },
                 {
                     "name": "EU 30 EPS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for EU 30. Use 100% for ban.",
+                    "description": "Percent reduction in extruded polystyrene used in packaging for EU 30. Use 100% for ban.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -42,7 +42,7 @@
                 },
                 {
                     "name": "NAFTA EPS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for NAFTA. Use 100% for ban.",
+                    "description": "Percent reduction in extruded polystyrene used in packaging for NAFTA. Use 100% for ban.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -60,7 +60,7 @@
                 },
                 {
                     "name": "ROW EPS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for rest of world. Use 100% for ban.",
+                    "description": "Percent reduction in extruded polystyrene used in packaging for rest of world. Use 100% for ban.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
