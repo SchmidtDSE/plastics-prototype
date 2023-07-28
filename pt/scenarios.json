@@ -25,9 +25,9 @@
             "released": true
         },
         {
-            "name": "5% Maximum Mismanaged Rate",
+            "name": "15% Waste Management Investment",
             "id": "maximum-mismanaged-rate",
-            "description": "Policy which requires that no more than 5% of plastic waste is mismanaged by 2050.",
+            "description": "Policy which expands global waste management infrastructure by 15%, bringing mismanaged waste down to 5% globally by 2050.",
             "values": [
                 {"lever": "chinaMaximumMismanagedRate", "value": 5},
                 {"lever": "eu30MaximumMismanagedRate", "value": 5},
