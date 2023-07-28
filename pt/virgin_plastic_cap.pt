@@ -16,7 +16,7 @@ limit goalReductionMT to [0,];
 
 # Make that change happen over time
 var acutalDeltaMT = 0;
-change acutalDeltaMT by goalReductionMT over 2020 to 2050;  # Step 3
+change acutalDeltaMT by goalReductionMT over 2024 to 2050;  # Step 3
 var offset = -1 * acutalDeltaMT;
 
 # Split offset across recycling and reduced consumption
