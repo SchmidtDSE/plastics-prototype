@@ -1,6 +1,10 @@
 <div class="lever-section">
     <details id="lever-section-{{name}}">
         <summary class="lever-section-title">{{ label }}</summary>
-        <p class="section-levers">{{{ innerHtml }}}</p>
+        <p class="section-levers">
+            <div class="section-levers-inner" data-simplebar data-simplebar-auto-hide="false">
+                {{{ innerHtml }}}
+            </div>
+        </p>
     </details>
 </div>

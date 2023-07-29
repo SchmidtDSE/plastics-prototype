@@ -250,6 +250,7 @@ select {
 .output-section .region-container .current-year-container {
     max-height: 512px;
     overflow-y: auto;
+    padding-right: 10px;
 }
 
 .output-section .region-container .current-year-container .stage-container {
@@ -325,7 +326,8 @@ select {
 }
 
 .output-section .region-container .timeseries-container {
-    margin-right: 10px;
+    padding-right: 10px;
+    margin-right: 5px;
     max-height: 502px;
     overflow-y: auto;
     padding-top: 5px;
@@ -667,11 +669,6 @@ select {
     font-size: 21px;
 }
 
-#levers-panel .lever-section {
-    margin-top: 15px;
-    margin-bottom: 30px;
-}
-
 #levers-panel .slider-holder {
     margin-top: 15px;
     margin-bottom: 30px;
@@ -793,7 +790,13 @@ select {
         display: grid;
         column-gap: 10px;
         grid-template-columns: 65% 35%;
-        width: 99%;
+        width: 98%;
+    }
+
+    .panel-box.active .section-levers-inner {
+        padding-right: 10px;
+        max-height: 445px;
+        overflow-y: auto;
     }
 }
 
