@@ -176,7 +176,7 @@ select {
     font-size: 16px;
 }
 
-.output-section .goals-container {
+.output-section .goals-container-outer {
     border-bottom: 1px dotted black;
 }
 
@@ -732,7 +732,7 @@ select {
 /* Responsive for top of details tab with goals */
 
 @media (max-width: 699px) {
-    .output-section .goals-container {
+    .output-section .goals-container-outer {
         max-height: 235px;
         overflow-y: auto;
     }
