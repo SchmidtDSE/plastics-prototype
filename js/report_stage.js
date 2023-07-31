@@ -164,7 +164,11 @@ class StagePresenter {
                     if (smallDisplay && labelRaw === "House, Leis, Sport") {
                         return "Household";
                     } else if (labelRaw === "Domestic" && isProduction) {
-                        return "Stays in Region";
+                        if (selection.getRegion() === "global") {
+                            return "Overall";
+                        } else {
+                            return "Stays in Region";
+                        }
                     } else if (labelRaw === "Net Export" && isProduction) {
                         return "Traded";
                     } else {
