@@ -16,7 +16,8 @@ var totalConsumption = (
   out.{{ region }}.consumptionElectronicMT + 
   out.{{ region }}.consumptionTransporationMT + 
   out.{{ region }}.consumptionAgricultureMT + 
-  out.{{ region }}.consumptionOtherMT
+  out.{{ region }}.consumptionOtherMT + 
+  out.{{ region }}.netExportsMT
 );
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
@@ -64,6 +65,7 @@ var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
+  out.{{ region }}.netExportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
 
@@ -89,7 +91,8 @@ distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
   out.{{ region }}.consumptionTextitleMT,
-  out.{{ region }}.consumptionOtherMT
+  out.{{ region }}.consumptionOtherMT,
+  out.{{ region }}.netExportsMT
 ] proportionally;
 
 # Apply offset for unfilled to EOL
@@ -105,7 +108,8 @@ priorImports = out.{{ region }}.netImportsMT;
 
 distribute lostConsumptionOffset across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.domesticProductionMT,
+  out.{{ region }}.netExportsMT
 ] proportionally;
 
 changeImports = out.{{ region }}.netImportsMT - priorImports;
