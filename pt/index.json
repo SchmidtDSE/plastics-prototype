@@ -493,7 +493,7 @@
                     "description": "At what rate consumption goes down due to price increase caused by increased minium recycled material.",
                     "min": 0,
                     "max": 100,
-                    "default": 10,
+                    "default": 0,
                     "step": 5,
                     "units": "%",
                     "variable": "recyclingContentLostConsumption",
