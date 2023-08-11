@@ -108,8 +108,7 @@ priorImports = out.{{ region }}.netImportsMT;
 
 distribute lostConsumptionOffset across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT,
-  out.{{ region }}.netExportsMT
+  out.{{ region }}.domesticProductionMT
 ] proportionally;
 
 changeImports = out.{{ region }}.netImportsMT - priorImports;
