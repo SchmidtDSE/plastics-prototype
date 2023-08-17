@@ -190,7 +190,7 @@ class ReportPresenter {
         self._landfillWastePresenter.update(resultSet, self._selection);
         self._mismanagedWastePresenter.update(resultSet, self._selection);
         self._incineratedWastePresenter.update(resultSet, self._selection);
-        self._totalWastePresenter.update(resultSet, self._selection);
+        self._recyclingPresenter.update(resultSet, self._selection);
         self._bubblegraphPresenter.update(resultSet, self._selection);
         self._configPresenter.update(resultSet, self._selection);
         self._consumptionStagePresenter.update(resultSet, self._selection);
@@ -261,10 +261,10 @@ class ReportPresenter {
             () => self._onRequestRender(),
         );
 
-        const totalWasteDiv = document.getElementById("total-waste-goal-container");
-        self._totalWastePresenter = new GoalPresenter(
-            totalWasteDiv,
-            "totalWaste",
+        const recyclingDiv = document.getElementById("recycling-goal-container");
+        self._recyclingPresenter = new GoalPresenter(
+            recyclingDiv,
+            "recycling",
             (region) => self._onRegionChange(region),
             () => self._onRequestRender(),
         );
