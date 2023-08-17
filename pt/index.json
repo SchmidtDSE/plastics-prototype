@@ -461,6 +461,20 @@
             "label": "Assumptions",
             "levers": [
                 {
+                    "name": "Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "variable": "yieldLoss",
+                    "template": "noop.pt",
+                    "released": true,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
                     "name": "Recycling Displacement Rate",
                     "description": "How much of virgin plastic production is reduced or displaced by newly available recycled material.",
                     "min": 0,

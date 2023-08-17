@@ -37,9 +37,10 @@ distribute offsetMT across [
 
 # Assume lagging by three years for production and consumption
 var lagYears = 3;
+var recoveryRate = (1 - in.yieldLoss / 100);
 var newRecyclingMTLag = originalRecyclingMT;
 change newRecyclingMTLag by shortageMT over 2024 + lagYears to 2050 + lagYears;
-var lagChange = newRecyclingMTLag - originalRecyclingMT;
+var lagChange = (newRecyclingMTLag - originalRecyclingMT) * recoveryRate;
 
 # Inductive demand - the part that isn't displaced.
 var displacedPlasticsMT = displacementRate * lagChange;
