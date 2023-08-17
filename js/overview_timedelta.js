@@ -62,6 +62,10 @@ class TimeDeltaPresenter {
             {"short": "MT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
+            GOALS.recycling,
+            {"short": "MT", "long": "Million Metric Tons"},
+        );
+        unitOptions.set(
             GOALS.totalWaste,
             {"short": "MT", "long": "Million Metric Tons"},
         );

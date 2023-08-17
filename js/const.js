@@ -69,6 +69,7 @@ const GOALS = {
     consumptionEmissions: "consumptionEmissions",
     landfillWaste: "landfillWaste",
     mismanagedWaste: "mismanagedWaste",
+    recycling: "recycling",
     incineratedWaste: "incineratedWaste",
     totalConsumption: "totalConsumption",
     totalWaste: "totalWaste",

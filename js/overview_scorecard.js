@@ -55,8 +55,8 @@ class ScorecardPresenter {
             );
 
             setBody(
-                "total-waste-card",
-                goals.get("global").get("totalWaste"),
+                "recycling-card",
+                goals.get("global").get("recycling"),
             );
         };
 

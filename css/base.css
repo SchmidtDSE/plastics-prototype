@@ -90,6 +90,13 @@ select {
     min-width: 300px;
 }
 
+.info-img {
+    height: 14px;
+    margin-top: 0px;
+    position: relative;
+    top: 3px;
+}
+
 .output-section {
     margin: 3px 3px 30px 3px;
     padding: 5px;

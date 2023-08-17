@@ -23,6 +23,12 @@ function getGoals(target) {
         },
         (output) => {
             return {
+                "goal": "recycling",
+                "value": output.get("eolRecyclingMT"),
+            };
+        },
+        (output) => {
+            return {
                 "goal": "productionEmissions",
                 "value": 123,
             };

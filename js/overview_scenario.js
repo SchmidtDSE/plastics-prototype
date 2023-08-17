@@ -100,7 +100,7 @@ class ScenarioPresenter {
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
 
         newDivs.append("span")
-            .html("info")
+            .html("<img alt='info' src='/img/info.png' class='info-img'>")
             .classed("info-target", true)
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
             .attr("tabindex", "0")
