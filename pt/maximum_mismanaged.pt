@@ -55,7 +55,8 @@ distribute otherDeltaDelayed across [
   newLandfillDelayed
 ] proportionally;
 
-var recyclingDeltaDelayed = newRecyclingDelayed - priorRecycling;
+var recovery = (1 - in.yieldLoss / 100);
+var recyclingDeltaDelayed = (newRecyclingDelayed - priorRecycling) * recovery;
 
 # Determine inductive demand
 var displacementRate = in.recyclingDisplacementRate / 100;

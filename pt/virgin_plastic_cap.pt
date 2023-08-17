@@ -46,7 +46,8 @@ var availableWasteToRecycle = (
   out.{{ region }}.eolMismanagedMT
 );
 
-var offsetRecyclingNeeded = offset - offsetConsumption;
+var recoveryRate = (1 - in.yieldLoss / 100);
+var offsetRecyclingNeeded = (offset - offsetConsumption) / recoveryRate;
 
 # Ensure the recycling offset is possible
 var offsetRecycling = offsetRecyclingNeeded;
