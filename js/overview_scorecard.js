@@ -29,8 +29,6 @@ class ScorecardPresenter {
                 const target = self._getD3().select("#" + self._targetDiv.id)
                     .select("." + cardClass)
                     .select(".body");
-                
-                console.log("#" + self._targetDiv.id, "." + cardClass, target);
 
                 if (target.text() !== valueStr) {
                     target.text(valueStr);
