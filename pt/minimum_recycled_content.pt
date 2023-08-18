@@ -3,7 +3,7 @@ var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
-var yearsToRecycle = in.recyclingDelay;
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var delayStart = in.startYear + yearsToRecycle;
 var delayEnd = in.endYear;
 change targetRate by targetRateGoal over delayStart to delayEnd;
@@ -26,25 +26,42 @@ var recycledContent = out.{{ region }}.eolRecyclingMT;
 # Determine how much recycled content is missing
 var recoveryRate = (1 - in.yieldLoss / 100);
 var neededRecycledContentRate = targetRate * totalConsumption / recoveryRate;
-var neededAdditionalRecycledContent = (
+var neededMarginRecycling = (
   neededRecycledContentRate -
   recycledContent
 );
-limit neededAdditionalRecycledContent to [0,];
+limit neededMarginRecycling to [0,];
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
-change actualRecycledDelta by neededAdditionalRecycledContent over delayStart to delayEnd;
+change actualRecycledDelta by neededMarginRecycling over delayStart to delayEnd;
+
+# Determine how much delta is expected after consumption to waste lifecycle
+var actualRecycledDeltaLifecycle = 0;
+var lifecycleDuration = lifecycle of [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYear + lifecycleDuration;
+change actualRecycledDeltaLifecycle by neededMarginRecycling over lifecycleStart to lifecycleEnd;
 
 # Determine the delta to apply to waste (leading due to circulatity delay)
 var actualRecycledDeltaLeading = 0;
-var leadStart = in.startYear - in.recyclingDelay;
-var leadDelay = in.endYear - in.recyclingDelay;
-change actualRecycledDeltaLeading by neededAdditionalRecycledContent over leadStart to leadDelay;
+var leadStart = in.startYear - yearsToRecycle;
+var leadDelay = in.endYear - yearsToRecycle;
+change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
 
 # Determine how much consumption is lost due to price increase
 var lostConsumptionRate = in.recyclingContentLostConsumption / 100;
 var lostConsumption = actualRecycledDelta * lostConsumptionRate;
+var lostConsumptionLifecycle = actualRecycledDeltaLifecycle * lostConsumptionRate;
 actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
 
 # Anticipate the leading / anticipatory change in recycling
@@ -95,6 +112,7 @@ distribute changeImports across [
 
 # Determine offset for consumption lost due to increased minimums
 var lostConsumptionOffset = lostConsumption * -1;
+var lostConsumptionOffsetLifecycle = lostConsumptionLifecycle * -1;
 
 # Apply offset for unfilled to consumption
 distribute lostConsumptionOffset across [
@@ -105,12 +123,11 @@ distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
   out.{{ region }}.consumptionTextitleMT,
-  out.{{ region }}.consumptionOtherMT,
-  out.{{ region }}.netExportsMT
+  out.{{ region }}.consumptionOtherMT
 ] proportionally;
 
 # Apply offset for unfilled to EOL
-distribute lostConsumptionOffset across [
+distribute lostConsumptionOffsetLifecycle across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT,

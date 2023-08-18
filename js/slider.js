@@ -1,4 +1,4 @@
-import {CACHE_BUSTER, MAX_YEAR} from "const";
+import {CACHE_BUSTER} from "const";
 import {addGlobalToState} from "geotools";
 import {getGoals} from "goals";
 import {STRINGS} from "strings";

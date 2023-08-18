@@ -61,7 +61,6 @@ function makeYearDelta(target, baseline) {
             const oldRegionOut = oldOut.get(region);
             const newRegionOut = new Map();
 
-            console.log(baseline);
             const baselineRegion = baseline.get("out").get(region);
 
             Array.of(...oldRegionOut.entries()).forEach((entry) => {

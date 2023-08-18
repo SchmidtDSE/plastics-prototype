@@ -37,12 +37,28 @@ distribute otherDelta across [
   out.{{region}}.eolRecyclingMT
 ] proportionally;
 
-# Delay change to production.
-var delay = in.recyclingDelay;
+# Delay change to production
+var delayProduction = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var misManagedDeltaGradualDelayed = 0;
-var delayStart = in.startYear + delay;
-var delayEnd = in.endYear + delay;
+var delayStart = in.startYear + delayProduction;
+var delayEnd = in.endYear + delayProduction;
 change misManagedDeltaGradualDelayed by mismanagedDelta over delayStart to delayEnd;
+
+# Delay change to production's new waste
+var delayLifecycle = lifecycle of [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionOtherMT
+] + delayProduction;
+var misManagedDeltaGradualLifecycle = 0;
+var lifecycleStart = in.startYear + delayLifecycle;
+var lifecycleEnd = in.endYear + delayLifecycle;
+change misManagedDeltaGradualLifecycle by mismanagedDelta over lifecycleStart to lifecycleEnd;
 
 # Determine recycling delta delayed for production
 var newRecyclingDelayed = priorRecycling;
@@ -57,8 +73,23 @@ distribute otherDeltaDelayed across [
   newLandfillDelayed
 ] proportionally;
 
+# Determine recycling delta delayed for waste after increased production
+var lifecycleRecyclingDelayed = priorRecycling;
+var lifecycleIncinerationDelayed = priorIncineration;
+var lifecycleLandfillDelayed = priorLandfill;
+
+var otherDeltaLifecycle = -1 * misManagedDeltaGradualLifecycle;
+
+distribute otherDeltaLifecycle across [
+  lifecycleRecyclingDelayed,
+  lifecycleIncinerationDelayed,
+  lifecycleLandfillDelayed
+] proportionally;
+
+# Apply recovery
 var recovery = (1 - in.yieldLoss / 100);
 var recyclingDeltaDelayed = (newRecyclingDelayed - priorRecycling) * recovery;
+var recyclingDeltaLifecycle = (lifecycleRecyclingDelayed - priorRecycling) * recovery;
 
 # Determine inductive demand
 var displacementRate = in.recyclingDisplacementRate / 100;
@@ -66,6 +97,7 @@ var displacedPlasticsMT = displacementRate * recyclingDeltaDelayed;
 var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * recyclingDeltaDelayed;
+var newInductivePlasticsMTLifecycle = inductiveDemandRate * recyclingDeltaLifecycle;
 
 # Bump consumption by inductive demand
 distribute newInductivePlasticsMT across [
@@ -80,7 +112,7 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Bump EOL by inductive demand
-distribute newInductivePlasticsMT across [
+distribute newInductivePlasticsMTLifecycle across [
   out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,

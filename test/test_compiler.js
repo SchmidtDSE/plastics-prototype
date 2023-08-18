@@ -232,6 +232,48 @@ function buildCompilerTest() {
             assert.ok(workspace.get("out").get("testB") == 24);
         });
 
+        QUnit.test("lifecycle waste", function(assert) {
+            const workspace = buildWorkspace();
+            workspace.get("in").set("recyclingDelay", 1);
+            const code = [
+                "out.test = lifecycle of [ out.china.eolRecyclingMT ];"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") == 1);
+        });
+
+        QUnit.test("lifecycle consumption", function(assert) {
+            const workspace = buildWorkspace();
+
+            workspace.get("out").set("china", new Map());
+            workspace.get("out").get("china").set("consumptionPackagingMT", 2);
+            workspace.get("out").get("china").set("consumptionConstructionMT", 3);
+
+            workspace.get("in").set("consumptionPackagingLifecycle", 1);
+            workspace.get("in").set("consumptionConstructionLifecycle", 10);
+
+            const code = [
+                "out.test = lifecycle of [",
+                "out.china.consumptionPackagingMT,",
+                "out.china.consumptionConstructionMT",
+                "];"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            const expected = (1 * 2 + 10 * 3) / (2 + 3);
+            const delta = Math.abs(workspace.get("out").get("test") - expected);
+            assert.ok(delta < 0.0001);
+        });
+
         QUnit.test("target before end", function(assert) {
             const workspace = buildWorkspace(2035);
             const code = [

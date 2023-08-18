@@ -1,3 +1,5 @@
+import {CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
+
 // eslint-disable-next-line no-undef
 const toolkit = PlasticsLang.getToolkit();
 
@@ -100,6 +102,88 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
         return (state) => {
             return self._getValue(raw, state);
+        };
+    }
+
+    visitLifecycleExpression(ctx) {
+        const self = this;
+
+        return ctx.getChild(0).accept(self);
+    }
+
+    visitLifecycle(ctx) {
+        const self = this;
+
+        const numIdentifiers = Math.ceil((ctx.getChildCount() - 4) / 2.0);
+        const identifiers = [];
+        for (let i = 0; i < numIdentifiers; i++) {
+            const childIndex = i * 2 + 3;
+            const identifier = ctx.getChild(childIndex).getText();
+            if (!identifier.startsWith("out.")) {
+                throw "Identifier for lifecycle must be in out.";
+            }
+            identifiers.push(identifier);
+        }
+
+        const getVarName = (varFullName) => {
+            const varPieces = varFullName.split(".");
+            const varName = varPieces[varPieces.length - 1];
+            return varName;
+        };
+
+        const makeHas = (target) => {
+            return (varFullName) => {
+                const varName = getVarName(varFullName);
+                return target.includes(varName);
+            };
+        };
+        const wasteIdentifiers = identifiers.filter(makeHas(EOL_ATTRS));
+        const consumptionIdentifiers = identifiers.filter(makeHas(CONSUMPTION_ATTRS));
+
+        if (wasteIdentifiers.length > 0 && consumptionIdentifiers.length > 0) {
+            throw "Cannot mix lifetimes of waste and consumption";
+        }
+
+        const nonMatched = identifiers.filter((x) => !wasteIdentifiers.includes(x))
+            .filter((x) => !consumptionIdentifiers.includes(x));
+
+        if (nonMatched.length > 0) {
+            throw "Could not find lifetimes for " + nonMatched[0];
+        }
+
+        const getLifecycleForWaste = (state) => {
+            return self._getValue("in.recyclingDelay", state);
+        };
+
+        const getLifecycleForConsumption = (state) => {
+            const getLeverName = (identifier) => {
+                return getVarName(identifier).replace("MT", "Lifecycle");
+            };
+
+            const lifetimes = consumptionIdentifiers.map(getLeverName)
+                .map((x) => "in." + x)
+                .map((x) => self._getValue(x, state));
+
+            const weights = consumptionIdentifiers.map((x) => {
+                return self._getValue(x, state);
+            });
+
+            const numIdentifiers = consumptionIdentifiers.length;
+            let runningTotal = 0;
+            let totalWeights = 0;
+            for (let i = 0; i < numIdentifiers; i++) {
+                runningTotal += lifetimes[i] * weights[i];
+                totalWeights += weights[i];
+            }
+            return runningTotal / totalWeights;
+        };
+
+        return (state) => {
+            if (wasteIdentifiers.length > 0) {
+                return getLifecycleForWaste(state);
+            } else {
+                return getLifecycleForConsumption(state);
+            }
         };
     }
 
@@ -267,7 +351,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const valueExpression = ctx.value.accept(self);
         const methodName = ctx.method.text;
 
-        const numIdentifiers = Math.ceil((ctx.getChildCount() - 5) / 2.0);
+        const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 2.0);
         const identifiers = [];
         for (let i = 0; i < numIdentifiers; i++) {
             const childIndex = i * 2 + 4;

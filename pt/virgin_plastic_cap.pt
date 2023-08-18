@@ -19,10 +19,28 @@ var acutalDeltaMT = 0;
 change acutalDeltaMT by goalReductionMT over in.startYear to in.endYear;
 var offset = -1 * acutalDeltaMT;
 
+# Also keep track of impact with lifecycle delay
+var acutalDeltaLifecycleMT = 0;
+var lifecycleDuration = lifecycle of [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYear + lifecycleDuration;
+change acutalDeltaLifecycleMT by goalReductionMT over lifecycleStart to lifecycleEnd;
+var offsetLifecycle = -1 * acutalDeltaLifecycleMT;
+
 # Also track the leading recycling needed
 var acutalDeltaMTDelay = 0;
-var leadStart = in.startYear - in.recyclingDelay;
-var leadEnd = in.endYear - in.recyclingDelay;
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
+var leadStart = in.startYear - yearsToRecycle;
+var leadEnd = in.endYear - yearsToRecycle;
 change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
 var offsetLeading = -1 * acutalDeltaMT;
 
@@ -34,12 +52,17 @@ var availableWaste = (
   out.{{ region }}.eolRecyclingMT
 );
 
+# Determine offset for immediate effects
 var backfillRate = in.recyclingLostBackfillRate / 100;
 var offsetConsumption = offset * (1 - backfillRate);
 limit offsetConsumption to [-1 * availableWaste, 0];
 
-# Update the EOL for consumption
-distribute offsetConsumption across [
+# Determine offset with lifecycle delay
+var offsetConsumptionLifecycle = offsetLifecycle * (1 - backfillRate);
+limit offsetConsumptionLifecycle to [-1 * availableWaste, 0];
+
+# Update the EOL for consumption with lifecycle delay
+distribute offsetConsumptionLifecycle across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT,
