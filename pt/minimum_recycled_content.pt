@@ -39,13 +39,13 @@ change actualRecycledDelta by neededMarginRecycling over delayStart to delayEnd;
 # Determine how much delta is expected after consumption to waste lifecycle
 var actualRecycledDeltaLifecycle = 0;
 var lifecycleDuration = lifecycle of [
-  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionElectronicMT,
-  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
-  out.{{ region }}.consumactualRecycledDeltaLifecycleactualRecycledDeltaLifecycleptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
   out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionOtherMT
 ];
 var lifecycleStart = in.startYear + lifecycleDuration;

@@ -143,13 +143,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         if (wasteIdentifiers.length > 0 && consumptionIdentifiers.length > 0) {
             throw "Cannot mix lifetimes of waste and consumption";
         }
-
+        
         const nonMatched = identifiers.filter((x) => !wasteIdentifiers.includes(x))
             .filter((x) => !consumptionIdentifiers.includes(x));
 
         if (nonMatched.length > 0) {
-            const nonMatchedStr = nonMatched.join(", ");
-            throw "Could not find lifetimes for " + nonMatchedStr;
+            throw "Could not find lifetimes for " + nonMatched[0];
         }
 
         const getLifecycleForWaste = (state) => {
