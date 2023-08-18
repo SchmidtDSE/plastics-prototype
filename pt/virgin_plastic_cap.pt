@@ -21,7 +21,7 @@ var offset = -1 * acutalDeltaMT;
 
 # Also keep track of impact with lifecycle delay
 var acutalDeltaLifecycleMT = 0;
-var lifecycleDuration = [
+var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionTextitleMT,
