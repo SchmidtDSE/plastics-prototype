@@ -16,7 +16,14 @@ limit goalReductionMT to [0,];
 
 # Make that change happen over time
 var acutalDeltaMT = 0;
-change acutalDeltaMT by goalReductionMT over 2024 to 2050;  # Step 3
+change acutalDeltaMT by goalReductionMT over in.startYear to in.endYear;
+var offset = -1 * acutalDeltaMT;
+
+# Also track the leading recycling needed
+var acutalDeltaMTDelay = 0;
+var leadStart = in.startYear - in.recyclingDelay;
+var leadEnd = in.endYear - in.recyclingDelay;
+change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
 var offset = -1 * acutalDeltaMT;
 
 # Split offset across recycling and reduced consumption
@@ -46,12 +53,13 @@ var availableWasteToRecycle = (
   out.{{ region }}.eolMismanagedMT
 );
 
+# Determine how much overall recycling would be needed
 var recoveryRate = (1 - in.yieldLoss / 100);
-var offsetRecyclingNeeded = (offset - offsetConsumption) / recoveryRate;
+var offsetRecyclingNeededPreRecovery = offsetLeading - offsetConsumption;
+var offsetRecyclingNeeded = offsetRecyclingNeededPreRecovery / recoveryRate;
 
 # Ensure the recycling offset is possible
 var offsetRecycling = offsetRecyclingNeeded;
-limit offsetRecycling to [offset * backfillRate, 0];
 limit offsetRecycling to [-1 * availableWasteToRecycle, 0];
 
 # Apply recycling offset
@@ -82,7 +90,7 @@ distribute recyclingDeficit across [
   out.{{ region }}.eolRecyclingMT
 ] proportionally;
 
-var offsetConsumptionWithRecyclingDeficit = offsetConsumption + recyclingDeficit;
+var offsetConsumptionWithRecyclingDeficit = offsetConsumption + recyclingDeficit * recoveryRate;
 limit offsetConsumptionWithRecyclingDeficit to [, 0];
 
 # Update consumption

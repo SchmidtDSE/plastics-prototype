@@ -4,7 +4,7 @@ var originalRecyclingMT = out.{{ region }}.eolRecyclingMT;
 # Assume phase in
 var targetRateGoal = in.{{ region }}MinimumRecyclingRate / 100;
 var targetRate = 0;
-change targetRate by targetRateGoal over 2024 to 2050;
+change targetRate by targetRateGoal over in.startYear to in.endYear;
 var displacementRate = in.recyclingDisplacementRate / 100;
 limit targetRate to [0, 1];
 
@@ -23,7 +23,7 @@ limit shortageMT to [0,];
 
 # Apply the change to recycling - assume gradual compliance
 var newRecyclingMT = originalRecyclingMT;
-change newRecyclingMT by shortageMT over 2024 to 2050;
+change newRecyclingMT by shortageMT over in.startYear to in.endYear;
 var currentChange = newRecyclingMT - originalRecyclingMT;
 out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
@@ -36,10 +36,12 @@ distribute offsetMT across [
 ] proportionally;
 
 # Assume lagging by three years for production and consumption
-var lagYears = 3;
+var lagYears = in.recyclingDelay;
 var recoveryRate = (1 - in.yieldLoss / 100);
 var newRecyclingMTLag = originalRecyclingMT;
-change newRecyclingMTLag by shortageMT over 2024 + lagYears to 2050 + lagYears;
+var lagStart = in.startYear + lagYears;
+var lagEnd = in.endYear + lagYears;
+change newRecyclingMTLag by shortageMT over lagStart to lagEnd;
 var lagChange = (newRecyclingMTLag - originalRecyclingMT) * recoveryRate;
 
 # Inductive demand - the part that isn't displaced.
