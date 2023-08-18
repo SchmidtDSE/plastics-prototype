@@ -123,7 +123,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const varPieces = varFullName.split(".");
             const varName = varPieces[varPieces.length - 1];
             return varName;
-        }
+        };
 
         const makeHas = (target) => {
             return (varFullName) => {
@@ -144,7 +144,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
         const nonMatched = identifiers.filter(makeNotHas(wasteIdentifiers))
             .filter(makeNotHas(consumptionIdentifiers));
-        
+
         if (nonMatched.length > 0) {
             const nonMatchedStr = nonMatched.join(", ");
             throw "Could not find lifetimes for " + nonMatchedStr;
@@ -162,7 +162,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const lifetimes = consumptionIdentifiers.map(getLeverName)
                 .map((x) => "in." + x)
                 .map((x) => self._getValue(x, state));
-            
+
             const weights = consumptionIdentifiers.map((x) => {
                 return self._getValue(x, state);
             });
