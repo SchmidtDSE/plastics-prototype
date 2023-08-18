@@ -38,8 +38,8 @@ change actualRecycledDelta by neededAdditionalRecycledContent over delayStart to
 
 # Determine the delta to apply to waste (leading due to circulatity delay)
 var actualRecycledDeltaLeading = 0;
-var leadStart = 2024 - in.recyclingDelay;
-var leadDelay = 2050 - in.recyclingDelay;
+var leadStart = in.startYear - in.recyclingDelay;
+var leadDelay = in.endYear - in.recyclingDelay;
 change actualRecycledDeltaLeading by neededAdditionalRecycledContent over leadStart to leadDelay;
 
 # Determine how much consumption is lost due to price increase
