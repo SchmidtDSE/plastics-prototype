@@ -24,7 +24,7 @@ var acutalDeltaMTDelay = 0;
 var leadStart = in.startYear - in.recyclingDelay;
 var leadEnd = in.endYear - in.recyclingDelay;
 change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
-var offset = -1 * acutalDeltaMT;
+var offsetLeading = -1 * acutalDeltaMT;
 
 # Split offset across recycling and reduced consumption
 var availableWaste = (
