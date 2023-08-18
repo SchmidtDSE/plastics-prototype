@@ -504,7 +504,7 @@
                 },
                 {
                     "name": "Recycling Circularity Delay",
-                    "description": "How long it takes from recycling collection to use in new products.",
+                    "description": "How long it takes from recycling collection to use in new products for newly added or removed recycling.",
                     "min": 0,
                     "max": 2,
                     "default": 1,
@@ -560,7 +560,7 @@
                 },
                 {
                     "name": "Packaging Lifetime",
-                    "description": "The number of years before packaging products become waste on average.",
+                    "description": "The number of years before packaging products become waste on average for newly added or removed packaging plastic products.",
                     "min": 0,
                     "max": 3,
                     "default": 0.5,
@@ -574,7 +574,7 @@
                 },
                 {
                     "name": "Construction Lifetime",
-                    "description": "The number of years before construction products become waste on average.",
+                    "description": "The number of years before construction products become waste on average for newly added or removed construction plastic products.",
                     "min": 0,
                     "max": 40,
                     "default": 35,
@@ -588,7 +588,7 @@
                 },
                 {
                     "name": "Textitle Lifetime",
-                    "description": "The number of years before textitle products become waste on average.",
+                    "description": "The number of years before textitle products become waste on average for newly added or removed textile plastic products.",
                     "min": 0,
                     "max": 10,
                     "default": 5,
@@ -602,7 +602,7 @@
                 },
                 {
                     "name": "HLS Lifetime",
-                    "description": "The number of years before household, leisure, sports products become waste on average.",
+                    "description": "The number of years before household, leisure, sports products become waste on average for newly added or removed HLS plastic products.",
                     "min": 0,
                     "max": 10,
                     "default": 3,
@@ -616,7 +616,7 @@
                 },
                 {
                     "name": "Electronic Lifetime",
-                    "description": "The number of years before electronic products become waste on average.",
+                    "description": "The number of years before electronic products become waste on average for newly added or removed electronic plastic products.",
                     "min": 0,
                     "max": 15,
                     "default": 8,
@@ -630,7 +630,7 @@
                 },
                 {
                     "name": "Transporation Lifetime",
-                    "description": "The number of years before transporation products become waste on average.",
+                    "description": "The number of years before transporation products become waste on average for newly added or removed transportation plastic products.",
                     "min": 0,
                     "max": 20,
                     "default": 13,
@@ -644,7 +644,7 @@
                 },
                 {
                     "name": "Agriculture Lifetime",
-                    "description": "The number of years before agriculture products become waste on average.",
+                    "description": "The number of years before agriculture products become waste on average for newly added or removed agriculture plastic products.",
                     "min": 0,
                     "max": 5,
                     "default": 2,
@@ -658,7 +658,7 @@
                 },
                 {
                     "name": "Other Lifetime",
-                    "description": "The number of years before other products become waste on average.",
+                    "description": "The number of years before other products become waste on average for newly added or removed other plastic products.",
                     "min": 0,
                     "max": 10,
                     "default": 5,
