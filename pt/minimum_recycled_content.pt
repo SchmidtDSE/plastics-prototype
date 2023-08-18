@@ -3,8 +3,10 @@ var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
-var yearsToRecycle = 3;
-change targetRate by targetRateGoal over 2024 + yearsToRecycle to 2050;
+var yearsToRecycle = in.recyclingDelay;
+var delayStart = in.startYear + yearsToRecycle;
+var delayEnd = in.endYear;
+change targetRate by targetRateGoal over delayStart to delayEnd;
 
 # Determine current recycled content, using current year recycling as
 # approximation
@@ -32,12 +34,21 @@ limit neededAdditionalRecycledContent to [0,];
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
-change actualRecycledDelta by neededAdditionalRecycledContent over 2024 to 2050;
+change actualRecycledDelta by neededAdditionalRecycledContent over delayStart to delayEnd;
+
+# Determine the delta to apply to waste (leading due to circulatity delay)
+var actualRecycledDeltaLeading = 0;
+var leadStart = in.startYear - in.recyclingDelay;
+var leadDelay = in.endYear - in.recyclingDelay;
+change actualRecycledDeltaLeading by neededAdditionalRecycledContent over leadStart to leadDelay;
 
 # Determine how much consumption is lost due to price increase
 var lostConsumptionRate = in.recyclingContentLostConsumption / 100;
 var lostConsumption = actualRecycledDelta * lostConsumptionRate;
 actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
+
+# Anticipate the leading / anticipatory change in recycling
+actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
@@ -45,17 +56,19 @@ var totalOtherFates = (
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT
 );
-limit actualRecycledDelta to [0, totalOtherFates];
+limit actualRecycledDeltaLeading to [0, totalOtherFates];
+limit actualRecycledDelta to [0, actualRecycledDeltaLeading];
 
 # Increase recycling and determine offset
 out.{{ region }}.eolRecyclingMT = (
   out.{{ region }}.eolRecyclingMT +
-  actualRecycledDelta
+  actualRecycledDeltaLeading
 );
-var offsetProduction = actualRecycledDelta * -1;
+var offsetProduction = actualRecycledDelta * -1;  # Consumption
+var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
 # Apply offset for filled to EOL
-distribute offsetProduction across [
+distribute offsetProductionLeading across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT
