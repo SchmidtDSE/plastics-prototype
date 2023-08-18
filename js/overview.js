@@ -148,7 +148,7 @@ class OverviewPresenter {
             self._getCookiesManager().set(
                 "skip-overview-tutorial",
                 "yes",
-                {expires: 7}
+                {expires: 7},
             );
             event.preventDefault();
         });
