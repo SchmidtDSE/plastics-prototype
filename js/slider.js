@@ -457,7 +457,7 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
                         element,
                         onInputChange,
                         getSelection,
-                        config["priority"]
+                        config["priority"],
                     );
                 });
 
@@ -468,7 +468,7 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
                     document.getElementById("slider-holder-prototype"),
                     onInputChange,
                     getSelection,
-                    100
+                    100,
                 ));
 
                 resolve(presenters);
