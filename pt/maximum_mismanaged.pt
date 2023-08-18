@@ -89,7 +89,7 @@ distribute otherDeltaLifecycle across [
 # Apply recovery
 var recovery = (1 - in.yieldLoss / 100);
 var recyclingDeltaDelayed = (newRecyclingDelayed - priorRecycling) * recovery;
-var recyclingDeltaLifecycle = (newRecyclingLifecycle - priorRecycling) * recovery;
+var recyclingDeltaLifecycle = (lifecycleRecyclingDelayed - priorRecycling) * recovery;
 
 # Determine inductive demand
 var displacementRate = in.recyclingDisplacementRate / 100;

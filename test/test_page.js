@@ -5,7 +5,7 @@ import {Compiler} from "compiler";
 
 
 function buildPageTest() {
-    QUnit.module("compiler", function() {
+    QUnit.module("page", function() {
 
         function bootstrapPage() {
             return fetch("harness.html")

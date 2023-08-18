@@ -54,7 +54,6 @@ change actualRecycledDeltaLifecycle by neededMarginRecycling over lifecycleStart
 
 # Determine the delta to apply to waste (leading due to circulatity delay)
 var actualRecycledDeltaLeading = 0;
-var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var leadStart = in.startYear - yearsToRecycle;
 var leadDelay = in.endYear - yearsToRecycle;
 change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;

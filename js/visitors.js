@@ -108,10 +108,16 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     visitLifecycleExpression(ctx) {
         const self = this;
 
+        return ctx.getChild(0).accept(self);
+    }
+
+    visitLifecycle(ctx) {
+        const self = this;
+
         const numIdentifiers = Math.ceil((ctx.getChildCount() - 4) / 2.0);
         const identifiers = [];
         for (let i = 0; i < numIdentifiers; i++) {
-            const childIndex = i * 2 + 4;
+            const childIndex = i * 2 + 3;
             const identifier = ctx.getChild(childIndex).getText();
             if (!identifier.startsWith("out.")) {
                 throw "Identifier for lifecycle must be in out.";
@@ -133,17 +139,13 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
         const wasteIdentifiers = identifiers.filter(makeHas(EOL_ATTRS));
         const consumptionIdentifiers = identifiers.filter(makeHas(CONSUMPTION_ATTRS));
-
+        
         if (wasteIdentifiers.length > 0 && consumptionIdentifiers.length > 0) {
             throw "Cannot mix lifetimes of waste and consumption";
         }
 
-        const makeNotHas = (target) => {
-            const inner = makeHas(target);
-            return (x) => !inner(x);
-        };
-        const nonMatched = identifiers.filter(makeNotHas(wasteIdentifiers))
-            .filter(makeNotHas(consumptionIdentifiers));
+        const nonMatched = identifiers.filter((x) => !wasteIdentifiers.includes(x))
+            .filter((x) => !consumptionIdentifiers.includes(x));
 
         if (nonMatched.length > 0) {
             const nonMatchedStr = nonMatched.join(", ");
