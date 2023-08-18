@@ -96,7 +96,7 @@ class ScenarioPresenter {
             .property("disabled", (x) => x["name"] === "Custom");
 
         newLabels.append("span")
-            .html((scenario, i) => (i + 1) + ". " + scenario["name"] + " - ")
+            .html((scenario, i) => (i + 1) + ". " + scenario["name"] + " ")
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
 
         newDivs.append("span")
