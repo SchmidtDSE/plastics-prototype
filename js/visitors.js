@@ -139,11 +139,11 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
         const wasteIdentifiers = identifiers.filter(makeHas(EOL_ATTRS));
         const consumptionIdentifiers = identifiers.filter(makeHas(CONSUMPTION_ATTRS));
-        
+
         if (wasteIdentifiers.length > 0 && consumptionIdentifiers.length > 0) {
             throw "Cannot mix lifetimes of waste and consumption";
         }
-        
+
         const nonMatched = identifiers.filter((x) => !wasteIdentifiers.includes(x))
             .filter((x) => !consumptionIdentifiers.includes(x));
 
