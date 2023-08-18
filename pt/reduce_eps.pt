@@ -11,7 +11,7 @@ change offsetMT by offsetGoalMT over in.startYear to in.endYear;
 
 # Apply with lifetime offset for waste
 var offsetLifecycleMT = 0;
-var lifecycleDuration = lifecycle [ out.{{ region }}.consumptionPackagingMT ];
+var lifecycleDuration = lifecycle of [ out.{{ region }}.consumptionPackagingMT ];
 var lifecycleStart = in.startYear + lifecycleDuration;
 var lifecycleEnd = in.endYear + lifecycleDuration;
 change offsetLifecycleMT by offsetGoalMT over lifecycleStart to lifecycleEnd;

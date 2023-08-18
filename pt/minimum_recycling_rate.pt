@@ -38,14 +38,14 @@ distribute offsetMT across [
 # Assume lagging by three years for production and consumption
 var recoveryRate = (1 - in.yieldLoss / 100);
 
-var lagYears = lifecycle [ out.{{region}}.eolRecyclingMT ];
+var lagYears = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var newRecyclingMTLag = originalRecyclingMT;
 var lagStart = in.startYear + lagYears;
 var lagEnd = in.endYear + lagYears;
 change newRecyclingMTLag by shortageMT over lagStart to lagEnd;
 var lagChange = (newRecyclingMTLag - originalRecyclingMT) * recoveryRate;
 
-var lifecycleYears = lifecycle [
+var lifecycleYears = lifecycle of [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionElectronicMT,

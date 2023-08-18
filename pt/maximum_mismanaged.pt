@@ -38,14 +38,14 @@ distribute otherDelta across [
 ] proportionally;
 
 # Delay change to production
-var delayProduction = lifecycle [ out.{{region}}.eolRecyclingMT ];
+var delayProduction = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var misManagedDeltaGradualDelayed = 0;
 var delayStart = in.startYear + delayProduction;
 var delayEnd = in.endYear + delayProduction;
 change misManagedDeltaGradualDelayed by mismanagedDelta over delayStart to delayEnd;
 
 # Delay change to production's new waste
-var delayLifecycle = lifecycle [
+var delayLifecycle = lifecycle of [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionElectronicMT,

@@ -3,7 +3,7 @@ var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
-var yearsToRecycle = lifecycle [ out.{{region}}.eolRecyclingMT ];
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var delayStart = in.startYear + yearsToRecycle;
 var delayEnd = in.endYear;
 change targetRate by targetRateGoal over delayStart to delayEnd;
@@ -38,7 +38,7 @@ change actualRecycledDelta by neededMarginRecycling over delayStart to delayEnd;
 
 # Determine how much delta is expected after consumption to waste lifecycle
 var actualRecycledDeltaLifecycle = 0;
-var lifecycleDuration = lifecycle [
+var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionElectronicMT,
@@ -54,7 +54,7 @@ change actualRecycledDeltaLifecycle by neededMarginRecycling over lifecycleStart
 
 # Determine the delta to apply to waste (leading due to circulatity delay)
 var actualRecycledDeltaLeading = 0;
-var yearsToRecycle = lifecycle [ out.{{region}}.eolRecyclingMT ];
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var leadStart = in.startYear - yearsToRecycle;
 var leadDelay = in.endYear - yearsToRecycle;
 change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
