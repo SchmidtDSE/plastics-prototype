@@ -38,7 +38,7 @@ distribute otherDelta across [
 ] proportionally;
 
 # Delay change to production.
-var delay = in.recyclingDelay;
+var delay = lifecycle [ out.{{region}}.eolRecyclingMT ];
 var misManagedDeltaGradualDelayed = 0;
 var delayStart = in.startYear + delay;
 var delayEnd = in.endYear + delay;

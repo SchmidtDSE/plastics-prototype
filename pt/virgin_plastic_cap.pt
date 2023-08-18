@@ -21,8 +21,9 @@ var offset = -1 * acutalDeltaMT;
 
 # Also track the leading recycling needed
 var acutalDeltaMTDelay = 0;
-var leadStart = in.startYear - in.recyclingDelay;
-var leadEnd = in.endYear - in.recyclingDelay;
+var yearsToRecycle = lifecycle [ out.{{region}}.eolRecyclingMT ];
+var leadStart = in.startYear - yearsToRecycle;
+var leadEnd = in.endYear - yearsToRecycle;
 change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
 var offsetLeading = -1 * acutalDeltaMT;
 
