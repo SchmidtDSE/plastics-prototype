@@ -36,19 +36,37 @@ distribute offsetMT across [
 ] proportionally;
 
 # Assume lagging by three years for production and consumption
-var lagYears = lifecycle [ out.{{region}}.eolRecyclingMT ];
 var recoveryRate = (1 - in.yieldLoss / 100);
+
+var lagYears = lifecycle [ out.{{region}}.eolRecyclingMT ];
 var newRecyclingMTLag = originalRecyclingMT;
 var lagStart = in.startYear + lagYears;
 var lagEnd = in.endYear + lagYears;
 change newRecyclingMTLag by shortageMT over lagStart to lagEnd;
 var lagChange = (newRecyclingMTLag - originalRecyclingMT) * recoveryRate;
 
+var lifecycleYears = lifecycle [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionOtherMT
+] + lagYears;
+var newRecyclingMTLifecycle = originalRecyclingMT;
+var lifecycleStart = in.startYear + lifecycleYears;
+var lifecycleEnd = in.endYear + lifecycleYears;
+change newRecyclingMTLifecycle by shortageMT over lifecycleStart to lifecycleEnd;
+var lifecycleChange = (newRecyclingMTLifecycle - originalRecyclingMT) * recoveryRate;
+
 # Inductive demand - the part that isn't displaced.
 var displacedPlasticsMT = displacementRate * lagChange;
 var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * lagChange;
+var newInductiveLifecycleMT = inductiveDemandRate * lifecycleChange;
 
 # Bump consumption by inductive demand
 distribute newInductivePlasticsMT across [
@@ -63,7 +81,7 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Bump EOL by inductive demand
-distribute newInductivePlasticsMT across [
+distribute newInductiveLifecycleMT across [
   out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,

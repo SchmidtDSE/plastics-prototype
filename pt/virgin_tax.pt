@@ -2,21 +2,62 @@
 var rateDecreaseGoal = in.{{region}}VirginTaxCents * in.percentDecreasePerCent / 100;
 
 # Assume gradually applied
-var rateDecrease = 0;
-change rateDecrease by rateDecreaseGoal over in.startYear to in.endYear;
+var rateDecreaseConsumption = 0;
+change rateDecreaseConsumption by rateDecreaseGoal over in.startYear to in.endYear;
+
+var rateDecreaseWaste = 0;
+var lifecycleDuration = [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYear + lifecycleDuration;
+change rateDecreaseWaste by rateDecreaseGoal over lifecycleStart to lifecycleEnd;
 
 # Determine by how much to reduce consumption
+var totalConsumption = (
+  out.{{ region }}.consumptionPackagingMT +
+  out.{{ region }}.consumptionConstructionMT +
+  out.{{ region }}.consumptionTextitleMT +
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT +
+  out.{{ region }}.consumptionElectronicMT +
+  out.{{ region }}.consumptionTransporationMT +
+  out.{{ region }}.consumptionAgricultureMT +
+  out.{{ region }}.consumptionOtherMT
+);
+var reductionConsumption = rateDecreaseConsumption * totalConsumption;
+var offsetConsumption = -1 * reductionConsumption;
+
+# Determine by how much to reduce waste
 var totalWaste = (
   out.{{region}}.eolLandfillMT +
   out.{{region}}.eolIncinerationMT +
   out.{{region}}.eolMismanagedMT +
   out.{{region}}.eolRecyclingMT
 );
-var reduction = rateDecrease * totalWaste;
-var offset = -1 * reduction;
+var reductionWaste = rateDecreaseWaste * totalWaste;
+var offsetWaste = -1 * reductionWaste;
 
-# Reduce EOL
-distribute offset across [
+# Reduce consumption
+distribute offsetConsumption across [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+];
+
+# Reduce waste
+distribute offsetWaste across [
   out.{{region}}.eolLandfillMT,
   out.{{region}}.eolIncinerationMT,
   out.{{region}}.eolMismanagedMT,
@@ -26,7 +67,7 @@ distribute offset across [
 # Reduce production
 var priorImports = out.{{region}}.netImportsMT;
 
-distribute offset across [
+distribute offsetConsumption across [
   out.{{region}}.netExportsMT,
   out.{{region}}.domesticProductionMT
 ] proportionally;

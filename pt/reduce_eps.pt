@@ -3,13 +3,24 @@ var epsReductionPercent = in.{{ region }}PercentReduceEps / 100;
 var percentPackagingEps = 0.034;
 var originalPackagingMT = out.{{ region }}.consumptionPackagingMT;
 var reducedMaterialMT = originalPackagingMT * percentPackagingEps * epsReductionPercent;
-var offsetMT = -1 * reducedMaterialMT;
+var offsetGoalMT = -1 * reducedMaterialMT;
+
+# Apply gradually for immediate effects
+var offsetMT = 0;
+change offsetMT by offsetGoalMT over in.startYear to in.endYear;
+
+# Apply with lifetime offset for waste
+var offsetLifecycleMT = 0;
+var lifecycleDuration = lifecycle [ out.{{ region }}.consumptionPackagingMT ];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYear + lifecycleDuration;
+change offsetLifecycleMT by offsetGoalMT over lifecycleStart to lifecycleEnd;
 
 # Apply change to consumption
 out.{{ region }}.consumptionPackagingMT = originalPackagingMT + offsetMT;
 
 # Apply change to waste
-distribute offsetMT across [
+distribute offsetLifecycleMT across [
   out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
