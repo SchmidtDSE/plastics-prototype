@@ -136,10 +136,20 @@ class OverviewPresenter {
     _setupTutorial() {
         const self = this;
 
+        if (self._getCookiesManager().get("skip-overview-tutorial") === "yes") {
+            runIntro(self._targetDiv.id);
+            return;
+        }
+
         const nextButton = self._targetDiv.querySelector(".tutorial-next-button");
 
         nextButton.addEventListener("click", (event) => {
             runIntro(self._targetDiv.id);
+            self._getCookiesManager().set(
+                "skip-overview-tutorial",
+                "yes",
+                {expires: 7},
+            );
             event.preventDefault();
         });
     }
@@ -194,6 +204,12 @@ class OverviewPresenter {
 
         const fullCsv = headerRowStr + "\n" + content;
         return "data:text/csv;charset=UTF-8," + encodeURIComponent(fullCsv);
+    }
+
+    _getCookiesManager() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return Cookies;
     }
 }
 

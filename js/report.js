@@ -429,6 +429,11 @@ class ReportPresenter {
     _setupTutorial() {
         const self = this;
 
+        if (self._getCookiesManager().get("skip-report-tutorial") === "yes") {
+            runIntro("detailed");
+            return;
+        }
+
         const targetDiv = document.getElementById("detailed");
 
         const nextButton = targetDiv.querySelector(".tutorial-next-button");
@@ -436,7 +441,19 @@ class ReportPresenter {
         nextButton.addEventListener("click", (event) => {
             runIntro("detailed");
             event.preventDefault();
+
+            self._getCookiesManager().set(
+                "skip-report-tutorial",
+                "yes",
+                {expires: 7},
+            );
         });
+    }
+
+    _getCookiesManager() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return Cookies;
     }
 }
 
