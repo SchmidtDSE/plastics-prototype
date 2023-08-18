@@ -159,7 +159,7 @@ class OverviewPresenter {
 
     _buildDownload(withInterventions) {
         const attrs = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
-        
+
         const headerRow = ["year"];
         attrs.forEach((attr) => {
             ALL_REGIONS.forEach((region) => {
@@ -177,7 +177,7 @@ class OverviewPresenter {
                         retObj[region + "." + attr] = outputs.get(region).get(attr);
                     });
                 });
-                return retObj
+                return retObj;
             })
             .map((record) => {
                 const outputLinear = [record["year"]];
@@ -191,7 +191,7 @@ class OverviewPresenter {
             .map((recordLinear) => recordLinear.map((x) => x + ""))
             .map((recordLinear) => recordLinear.join(","))
             .join("\n");
-        
+
         const fullCsv = headerRowStr + "\n" + content;
         return "data:text/csv;charset=UTF-8," + encodeURIComponent(fullCsv);
     }
