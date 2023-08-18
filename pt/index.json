@@ -16,6 +16,7 @@
                     "variable": "chinaPercentReduceEps",
                     "template": "reduce_eps.pt",
                     "released": true,
+                    "priority": 1,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -34,6 +35,7 @@
                     "variable": "eu30PercentReduceEps",
                     "template": "reduce_eps.pt",
                     "released": true,
+                    "priority": 1,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -52,6 +54,7 @@
                     "variable": "naftaPercentReduceEps",
                     "template": "reduce_eps.pt",
                     "released": true,
+                    "priority": 1,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -70,6 +73,7 @@
                     "variable": "rowPercentReduceEps",
                     "template": "reduce_eps.pt",
                     "released": true,
+                    "priority": 1,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -94,6 +98,7 @@
                     "variable": "chinaMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -112,6 +117,7 @@
                     "variable": "eu30MinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -130,6 +136,7 @@
                     "variable": "naftaMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -148,6 +155,7 @@
                     "variable": "rowMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -166,6 +174,7 @@
                     "variable": "chinaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -184,6 +193,7 @@
                     "variable": "eu30VirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -202,6 +212,7 @@
                     "variable": "naftaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -220,6 +231,7 @@
                     "variable": "rowVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
+                    "priority": 2,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -244,6 +256,7 @@
                     "variable": "chinaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -262,6 +275,7 @@
                     "variable": "eu30MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -280,6 +294,7 @@
                     "variable": "naftaMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -298,6 +313,7 @@
                     "variable": "rowMinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -316,6 +332,7 @@
                     "variable": "chinaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -334,6 +351,7 @@
                     "variable": "eu30MaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -352,6 +370,7 @@
                     "variable": "naftaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -370,6 +389,7 @@
                     "variable": "rowMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
+                    "priority": 3,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -394,6 +414,7 @@
                     "variable": "chinaVirginTaxCents",
                     "template": "virgin_tax.pt",
                     "released": false,
+                    "priority": 4,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -412,6 +433,7 @@
                     "variable": "eu30VirginTaxCents",
                     "template": "virgin_tax.pt",
                     "released": false,
+                    "priority": 4,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -430,6 +452,7 @@
                     "variable": "naftaVirginTaxCents",
                     "template": "virgin_tax.pt",
                     "released": false,
+                    "priority": 4,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -448,6 +471,7 @@
                     "variable": "rowVirginTaxCents",
                     "template": "virgin_tax.pt",
                     "released": false,
+                    "priority": 4,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -471,6 +495,7 @@
                     "variable": "startYear",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -485,6 +510,7 @@
                     "variable": "endYear",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -499,6 +525,7 @@
                     "variable": "yieldLoss",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -513,6 +540,7 @@
                     "variable": "recyclingDelay",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -527,6 +555,7 @@
                     "variable": "recyclingDisplacementRate",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -541,6 +570,7 @@
                     "variable": "recyclingLostBackfillRate",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -555,6 +585,7 @@
                     "variable": "recyclingContentLostConsumption",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -569,6 +600,7 @@
                     "variable": "consumptionPackagingLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -583,6 +615,7 @@
                     "variable": "consumptionConstructionLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -597,6 +630,7 @@
                     "variable": "consumptionTextitleLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -611,6 +645,7 @@
                     "variable": "consumptionHouseholdLeisureSportsLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -625,6 +660,7 @@
                     "variable": "consumptionElectronicLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -639,6 +675,7 @@
                     "variable": "consumptionTransporationLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -653,6 +690,7 @@
                     "variable": "consumptionAgricultureLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -667,6 +705,7 @@
                     "variable": "consumptionOtherLifecycle",
                     "template": "noop.pt",
                     "released": true,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -681,6 +720,7 @@
                     "variable": "percentDecreasePerCent",
                     "template": "noop.pt",
                     "released": false,
+                    "priority": 5,
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
@@ -695,6 +735,7 @@
                     "variable": "niviScrachpadInput",
                     "template": "nivi_scratchpad.pt",
                     "released": false,
+                    "priority": 5,
                     "attrs": {},
                     "url": ""
                 }
