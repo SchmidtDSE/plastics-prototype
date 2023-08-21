@@ -89,6 +89,8 @@ class Driver {
                 self._levers = values[3];
                 self._overviewPresenter = values[4];
 
+                self._levers.sort((a, b) => a.getPriority() - b.getPriority());
+
                 self._leversByName = new Map();
                 self._levers.forEach((lever) => {
                     self._leversByName.set(lever.getVariable(), lever);

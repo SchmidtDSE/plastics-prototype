@@ -5,7 +5,8 @@ import {STRINGS} from "strings";
 
 
 class SliderPresenter {
-    constructor(buildState, compileProgram, config, rootElement, onChange, getSelection) {
+    constructor(buildState, compileProgram, config, rootElement, onChange,
+        getSelection, priority) {
         const self = this;
 
         self._config = config;
@@ -15,6 +16,7 @@ class SliderPresenter {
         self._compileProgram = compileProgram;
         self._getSelection = getSelection;
         self._programCache = null;
+        self._priority = priority;
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
@@ -105,6 +107,11 @@ class SliderPresenter {
     reset() {
         const self = this;
         self.setValue(self._config["default"]);
+    }
+
+    getPriority() {
+        const self = this;
+        return self._priority;
     }
 
     _attachListeners() {
@@ -450,6 +457,7 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
                         element,
                         onInputChange,
                         getSelection,
+                        config["priority"],
                     );
                 });
 
@@ -460,6 +468,7 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
                     document.getElementById("slider-holder-prototype"),
                     onInputChange,
                     getSelection,
+                    100,
                 ));
 
                 resolve(presenters);
