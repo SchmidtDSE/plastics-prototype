@@ -1,8 +1,8 @@
 # Determine how much material we are dropping
-var epsReductionPercent = in.{{ region }}PercentReduceEps / 100;
-var percentPackagingEps = 0.034;
+var psReductionPercent = in.{{ region }}PercentReducePs / 100;
+var percentPackagingPs = 0.034;
 var originalPackagingMT = out.{{ region }}.consumptionPackagingMT;
-var reducedMaterialMT = originalPackagingMT * percentPackagingEps * epsReductionPercent;
+var reducedMaterialMT = originalPackagingMT * percentPackagingPs * psReductionPercent;
 var offsetGoalMT = -1 * reducedMaterialMT;
 
 # Apply gradually for immediate effects

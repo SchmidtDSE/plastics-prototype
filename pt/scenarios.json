@@ -37,14 +37,14 @@
             "released": true
         },
         {
-            "name": "Ban Expanded Polystyrene Packaging",
-            "id": "ban-eps-packaging",
-            "description": "Policy which globally bans expanded polystyrene in packaging by 2050.",
+            "name": "Ban Polystyrene Packaging",
+            "id": "ban-ps-packaging",
+            "description": "Policy which globally bans polystyrene in packaging by 2050.",
             "values": [
-                {"lever": "chinaPercentReduceEps", "value": 100},
-                {"lever": "eu30PercentReduceEps", "value": 100},
-                {"lever": "naftaPercentReduceEps", "value": 100},
-                {"lever": "rowPercentReduceEps", "value": 100}
+                {"lever": "chinaPercentReducePs", "value": 100},
+                {"lever": "eu30PercentReducePs", "value": 100},
+                {"lever": "naftaPercentReducePs", "value": 100},
+                {"lever": "rowPercentReducePs", "value": 100}
             ],
             "released": true
         },
