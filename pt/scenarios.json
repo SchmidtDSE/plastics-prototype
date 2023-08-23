@@ -49,6 +49,18 @@
             "released": true
         },
         {
+            "name": "100 Billion USD Recycling Investment",
+            "id": "recycling-investment",
+            "description": "Policy which expands plastic recycling infrastructure globally through investment.",
+            "values": [
+                {"lever": "chinaRecyclingInvestment", "value": 25},
+                {"lever": "eu30RecyclingInvestment", "value": 25},
+                {"lever": "naftaRecyclingInvestment", "value": 25},
+                {"lever": "rowRecyclingInvestment", "value": 25}
+            ],
+            "released": true
+        },
+        {
             "name": "Waste Management Investment",
             "id": "maximum-mismanaged-rate",
             "description": "Policy which expands global waste management infrastructure, bringing mismanaged waste down to 5% globally by 2050.",
@@ -58,7 +70,7 @@
                 {"lever": "naftaMaximumMismanagedRate", "value": 5},
                 {"lever": "rowMaximumMismanagedRate", "value": 5}
             ],
-            "released": true
+            "released": false
         },
         {
             "name": "3 Cents per Pound Virgin Plastic Tax",
