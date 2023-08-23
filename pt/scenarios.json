@@ -58,7 +58,7 @@
                 {"lever": "naftaMaximumMismanagedRate", "value": 5},
                 {"lever": "rowMaximumMismanagedRate", "value": 5}
             ],
-            "released": true
+            "released": false
         },
         {
             "name": "3 Cents per Pound Virgin Plastic Tax",
