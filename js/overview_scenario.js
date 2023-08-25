@@ -60,14 +60,38 @@ class ScenarioPresenter {
             .select(".menu-check")
             .property("checked", (scenario) => {
                 const variables = scenario["values"];
-                const nonMatched = variables.filter((variable) => {
-                    const leverName = variable["lever"];
-                    const expectedValue = variable["value"];
-                    const actualValue = inputValues.get(leverName);
-                    return Math.abs(expectedValue - actualValue) > 0.0000001;
-                });
-                const numNonMatched = nonMatched.length;
-                return numNonMatched == 0;
+                if (scenario["config"] === undefined) {
+                    const nonMatched = variables.filter((variable) => {
+                        const leverName = variable["lever"];
+                        const expectedValue = variable["value"];
+                        const actualValue = inputValues.get(leverName);
+                        return Math.abs(expectedValue - actualValue) > 0.00001;
+                    });
+                    const numNonMatched = nonMatched.length;
+                    return numNonMatched == 0;
+                } else {
+                    const config = scenario["config"];
+                    const matchingOptions = config["options"].filter((option) => {
+                        const nonMatched = variables.filter((variable) => {
+                            const mulitplier = option / config["default"];
+                            const leverName = variable["lever"];
+                            const expectedValue = variable["baseValue"] * mulitplier;
+                            const actualValue = inputValues.get(leverName);
+                            return Math.abs(expectedValue - actualValue) > 0.00001;
+                        });
+                        const numNonMatched = nonMatched.length;
+                        return numNonMatched == 0;
+                    });
+                    if (matchingOptions.length == 0) {
+                        return false;
+                    } else {
+                        document.getElementById(
+                            "inner-select-" + scenario["id"]
+                        ).value = matchingOptions[0];
+                        return true;
+                    }
+                }
+                
             });
     }
 
@@ -139,9 +163,15 @@ class ScenarioPresenter {
             const config = scenario["config"];
             const mulitplier = elem.value / config["default"];
 
-            scenario["values"].forEach((x) => {
-                x["value"] = x["baseValue"] * mulitplier;
+            const newValues = scenario["values"].map((x) => {
+                return {
+                    "lever": x["lever"],
+                    "value": x["baseValue"] * mulitplier,
+                    "baseValue": x["baseValue"]
+                };
             });
+
+            scenario["values"] = newValues;
 
             const checkbox = document.getElementById(scenarioId + "-menu-check");
             const isChecked = checkbox.checked;
