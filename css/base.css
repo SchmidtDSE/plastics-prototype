@@ -496,6 +496,14 @@ select {
     margin-bottom: 20px;
 }
 
+.overview .menu table, .overview .menu td {
+    border: 1px solid white;
+}
+
+.overview .menu td {
+    padding-bottom: 5px;
+}
+
 .overview .menu .info-target {
     text-decoration: underline;
 }
