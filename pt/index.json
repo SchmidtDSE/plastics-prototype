@@ -407,6 +407,158 @@
             "label": "Waste",
             "levers": [
                 {
+                    "name": "China Incineration Investment",
+                    "description": "Investment in expanded incineration infrastructure for China including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "chinaIncinerationInvestment",
+                    "template": "incineration_investment.pt",
+                    "released": true,
+                    "priority": 2.0,
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Incineration Investment",
+                    "description": "Investment in expanded incineration infrastructure for EU 30 including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "eu30IncinerationInvestment",
+                    "template": "incineration_investment.pt",
+                    "released": true,
+                    "priority": 2.0,
+                    "attrs": {
+                        "region": "eu30"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Incineration Investment",
+                    "description": "Investment in expanded incineration infrastructure for NAFTA including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "naftaIncinerationInvestment",
+                    "template": "incineration_investment.pt",
+                    "released": true,
+                    "priority": 2.0,
+                    "attrs": {
+                        "region": "nafta"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Incineration Investment",
+                    "description": "Investment in expanded incineration infrastructure for ROW including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "rowIncinerationInvestment",
+                    "template": "incineration_investment.pt",
+                    "released": true,
+                    "priority": 2.0,
+                    "attrs": {
+                        "region": "row"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Landfill Investment",
+                    "description": "Investment in expanded landfill infrastructure for China including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "chinaLandfillInvestment",
+                    "template": "landfill_investment.pt",
+                    "released": true,
+                    "priority": 2.1,
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Landfill Investment",
+                    "description": "Investment in expanded landfill infrastructure for EU 30 including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "eu30LandfillInvestment",
+                    "template": "landfill_investment.pt",
+                    "released": true,
+                    "priority": 2.1,
+                    "attrs": {
+                        "region": "eu30"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Landfill Investment",
+                    "description": "Investment in expanded landfill infrastructure for NAFTA including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "naftaLandfillInvestment",
+                    "template": "landfill_investment.pt",
+                    "released": true,
+                    "priority": 2.1,
+                    "attrs": {
+                        "region": "nafta"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Landfill Investment",
+                    "description": "Investment in expanded landfill infrastructure for ROW including both collection and processing.",
+                    "min": 0,
+                    "max": 25,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "rowLandfillInvestment",
+                    "template": "landfill_investment.pt",
+                    "released": true,
+                    "priority": 2.1,
+                    "attrs": {
+                        "region": "row"
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
                     "name": "China Maximum Mismanaged Rate",
                     "description": "The maximum percent of waste mismanaged for waste in China by 2050.",
                     "min": 0,
@@ -418,7 +570,7 @@
                     "variable": "chinaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
-                    "priority": 2,
+                    "priority": 2.2,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -437,7 +589,7 @@
                     "variable": "eu30MaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
-                    "priority": 2,
+                    "priority": 2.2,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -456,7 +608,7 @@
                     "variable": "naftaMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
-                    "priority": 2,
+                    "priority": 2.2,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -475,7 +627,7 @@
                     "variable": "rowMaximumMismanagedRate",
                     "template": "maximum_mismanaged.pt",
                     "released": true,
-                    "priority": 2,
+                    "priority": 2.2,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -567,8 +719,8 @@
             ]
         },
         {
-            "name": "assumptions",
-            "label": "Assumptions",
+            "name": "financialAssumptions",
+            "label": "Financial Assumptions",
             "levers": [
                 {
                     "name": "China Recycling Cost",
@@ -580,22 +732,6 @@
                     "units": "USD per ton",
                     "forcePlus": false,
                     "variable": "chinaRecyclingCost",
-                    "template": "noop.pt",
-                    "released": true,
-                    "priority": 5,
-                    "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
-                },
-                {
-                    "name": "NAFTA Recycling Cost",
-                    "description": "How much does it cost to recycle one ton of plastics in NAFTA.",
-                    "min": 500,
-                    "max": 1200,
-                    "default": 960,
-                    "step": 5,
-                    "units": "USD per ton",
-                    "forcePlus": false,
-                    "variable": "naftaRecyclingCost",
                     "template": "noop.pt",
                     "released": true,
                     "priority": 5,
@@ -619,6 +755,22 @@
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {
+                    "name": "NAFTA Recycling Cost",
+                    "description": "How much does it cost to recycle one ton of plastics in NAFTA.",
+                    "min": 500,
+                    "max": 1200,
+                    "default": 960,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "naftaRecyclingCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
                     "name": "ROW Recycling Cost",
                     "description": "How much does it cost to recycle one ton of plastics in the rest of world.",
                     "min": 500,
@@ -634,6 +786,140 @@
                     "attrs": {},
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
+                {
+                    "name": "China Incineration Cost",
+                    "description": "How much does it cost to incinerate one ton of plastics in China.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 150,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "chinaIncinerationCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "EU 30 Incineration Cost",
+                    "description": "How much does it cost to incinerate one ton of plastics in EU 30.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 290,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "eu30IncinerationCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "NAFTA Incineration Cost",
+                    "description": "How much does it cost to incinerate one ton of plastics in NAFTA.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 220,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "naftaIncinerationCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "ROW Incineration Cost",
+                    "description": "How much does it cost to incinerate one ton of plastics in rest of world.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 100,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "rowIncinerationCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "China Landfill Cost",
+                    "description": "How much does it cost to landfill one ton of plastics in China.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 170,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "chinaLandfillCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "EU 30 Landfill Cost",
+                    "description": "How much does it cost to landfill one ton of plastics in EU 30.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 80,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "eu30LandfillCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "NAFTA Landfill Cost",
+                    "description": "How much does it cost to landfill one ton of plastics in NAFTA.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 190,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "naftaLandfillCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "ROW Landfill Cost",
+                    "description": "How much does it cost to landfill one ton of plastics in rest of world.",
+                    "min": 50,
+                    "max": 300,
+                    "default": 220,
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "rowLandfillCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                }
+            ]
+        },
+        {
+            "name": "systemAssumptions",
+            "label": "System Assumptions",
+            "levers": [
                 {
                     "name": "Recycling Yield Loss",
                     "description": "How much of recycling is lost before it is recirculated into new products.",
@@ -708,6 +994,38 @@
                     "units": "%",
                     "forcePlus": false,
                     "variable": "recyclingContentLostConsumption",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Incineration Plastic Percent",
+                    "description": "What percent of new incineration capacity would go to plastics.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 16,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "incinerationPlasticPercent",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 5,
+                    "attrs": {},
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "Landfill Plastic Percent",
+                    "description": "What percent of new landfill capacity would go to plastics.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 19,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "landfillPlasticPercent",
                     "template": "noop.pt",
                     "released": true,
                     "priority": 5,

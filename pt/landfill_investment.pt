@@ -1,0 +1,15 @@
+# Determine impact of investment
+var investmentMillions = in.{{ region }}LandfillInvestment * 1000;
+var newOverallCapacity = investmentMillions / in.{{ region }}LandfillCost;
+var newCapacityTarget = newOverallCapacity * in.landfillPlasticPercent / 100;
+
+# Determine new capacity
+var newCapacity = 0;
+change newCapacity by newCapacityTarget over in.startYear to in.endYear;
+
+# Ensure limits maintained
+limit newCapacity to [0, out.{{ region }}.eolMismanagedMT];
+
+# Redirect mismanaged to landfill
+out.{{ region }}.eolMismanagedMT = out.{{ region }}.eolMismanagedMT - newCapacity;
+out.{{ region }}.eolLandfillMT = out.{{ region }}.eolLandfillMT + newCapacity;
