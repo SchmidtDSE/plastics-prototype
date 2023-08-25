@@ -64,7 +64,7 @@ class ScenarioPresenter {
                     const leverName = variable["lever"];
                     const expectedValue = variable["value"];
                     const actualValue = inputValues.get(leverName);
-                    return Math.abs(expectedValue - actualValue) > 0.00001;
+                    return Math.abs(expectedValue - actualValue) > 0.0000001;
                 });
                 const numNonMatched = nonMatched.length;
                 return numNonMatched == 0;
@@ -92,12 +92,35 @@ class ScenarioPresenter {
                 self._onPolicyChangeCallback(scenario, this.checked);
             })
             .classed("custom-menu-check", (x) => x["name"] === "Custom")
-            .property("disabled", (x) => x["name"] === "Custom");
+            .property("disabled", (x) => x["name"] === "Custom")
+            .attr("id", (scenario) => scenario["id"] + "-menu-check")
+            .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-label");
 
         const newLabels = newRows.append("td").append("label");
 
         newLabels.append("span")
-            .html((scenario, i) => scenario["name"] + " ")
+            .html((scenario, i) => {
+                if (scenario["config"] === undefined) {
+                    return scenario["name"].replaceAll("<option>", "") + " ";
+                } else {
+                    const defaultVal = scenario["config"]["default"];
+                    const options = scenario["config"]["options"].map((x) => {
+                        const selectedStr = defaultVal === x ? "selected" : "";
+                        const start = "<option value=\"" + x + "\"" + selectedStr + ">";
+                        const end = x + "</option>";
+                        return start + end;
+                    });
+                    const selectStart = [
+                        "<select ",
+                        "class=\"check-dropdown\" id=\"inner-select-",
+                        scenario["id"],
+                        "\">"
+                    ].join("");
+                    const select = selectStart + "\n" + options.join("\n") + "\n</select>";
+                    return scenario["name"].replaceAll("<option>", select) + " ";
+                }
+            })
+            .attr("id", (scenario) => scenario["id"] + "-menu-check-label")
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
 
         newLabels.append("span")
@@ -106,6 +129,24 @@ class ScenarioPresenter {
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
             .attr("tabindex", "0")
             .attr("data-tippy-content", (scenario) => scenario["description"]);
+        
+        d3.selectAll(".check-dropdown").on("change", function() {
+            // eslint-disable-next-line no-invalid-this
+            const elem = this;
+
+            const scenarioId = elem.id.replace("inner-select-", "");
+            const scenario = scenarios.filter((x) => x["id"] === scenarioId)[0];
+            const config = scenario["config"];
+            const mulitplier = elem.value / config["default"];
+
+            scenario["values"].forEach((x) => {
+                x["value"] = x["baseValue"] * mulitplier;
+            });
+
+            const checkbox = document.getElementById(scenarioId + "-menu-check");
+            const isChecked = checkbox.checked;
+            self._onPolicyChangeCallback(scenario, isChecked);
+        });
 
         // eslint-disable-next-line no-undef
         tippy("[data-tippy-content]");
