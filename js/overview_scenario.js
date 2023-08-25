@@ -86,12 +86,11 @@ class ScenarioPresenter {
                         return false;
                     } else {
                         document.getElementById(
-                            "inner-select-" + scenario["id"]
+                            "inner-select-" + scenario["id"],
                         ).value = matchingOptions[0];
                         return true;
                     }
                 }
-                
             });
     }
 
@@ -167,7 +166,7 @@ class ScenarioPresenter {
                 return {
                     "lever": x["lever"],
                     "value": x["baseValue"] * mulitplier,
-                    "baseValue": x["baseValue"]
+                    "baseValue": x["baseValue"],
                 };
             });
 
