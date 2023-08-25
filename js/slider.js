@@ -186,7 +186,9 @@ class SliderPresenter {
         const value = parseFloat(innerSlider.value);
         const units = " " + self._config["units"];
         const plus = self._config["forcePlus"] == false ? "" : "+";
-        const valueStr = value >= 0 ? (plus + value + units) : (value + units);
+        const decimals = self._config["decimals"];
+        const valueDec = decimals === undefined ? value : value.toFixed(decimals);
+        const valueStr = value >= 0 ? (plus + valueDec + units) : (valueDec + units);
         self._rootElement.querySelector(".delta-display").innerHTML = valueStr;
     }
 
