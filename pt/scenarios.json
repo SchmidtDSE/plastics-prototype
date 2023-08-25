@@ -1,26 +1,34 @@
 {
     "scenarios": [
         {
-            "name": "40% Minimum Recycling Rate",
+            "name": "<option> % Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
-            "description": "Policy which requires that 40% of plastic waste is recycled by 2050.",
+            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050.",
+            "config": {
+                "options": [20, 40, 60],
+                "default": 40
+            },
             "values": [
-                {"lever": "chinaMinimumRecyclingRate", "value": 40},
-                {"lever": "eu30MinimumRecyclingRate", "value": 40},
-                {"lever": "naftaMinimumRecyclingRate", "value": 40},
-                {"lever": "rowMinimumRecyclingRate", "value": 40}
+                {"lever": "chinaMinimumRecyclingRate", "value": 40, "baseValue": 40},
+                {"lever": "eu30MinimumRecyclingRate", "value": 40, "baseValue": 40},
+                {"lever": "naftaMinimumRecyclingRate", "value": 40, "baseValue": 40},
+                {"lever": "rowMinimumRecyclingRate", "value": 40, "baseValue": 40}
             ],
             "released": true
         },
         {
-            "name": "40% Minimum Recycled Content",
+            "name": "<option> % Minimum Recycled Content",
             "id": "minmium-recycled-content",
-            "description": "Policy which requires 40% recycled content by 2050.",
+            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050.",
+            "config": {
+                "options": [20, 40, 60],
+                "default": 40
+            },
             "values": [
-                {"lever": "chinaMinimumRecycledContent", "value": 40},
-                {"lever": "eu30MinimumRecycledContent", "value": 40},
-                {"lever": "naftaMinimumRecycledContent", "value": 40},
-                {"lever": "rowMinimumRecycledContent", "value": 40}
+                {"lever": "chinaMinimumRecycledContent", "value": 40, "baseValue": 40},
+                {"lever": "eu30MinimumRecycledContent", "value": 40, "baseValue": 40},
+                {"lever": "naftaMinimumRecycledContent", "value": 40, "baseValue": 40},
+                {"lever": "rowMinimumRecycledContent", "value": 40, "baseValue": 40}
             ],
             "released": true
         },
@@ -49,44 +57,40 @@
             "released": true
         },
         {
-            "name": "100 Billion USD for Plastic Recycling",
+            "name": "<option> Billion USD for Plastic Recycling",
             "id": "recycling-investment",
             "description": "Policy which expands plastic recycling infrastructure globally through investment.",
+            "config": {
+                "options": [10, 50, 100],
+                "default": 50
+            },
             "values": [
-                {"lever": "chinaRecyclingInvestment", "value": 25},
-                {"lever": "eu30RecyclingInvestment", "value": 25},
-                {"lever": "naftaRecyclingInvestment", "value": 25},
-                {"lever": "rowRecyclingInvestment", "value": 25}
+                {"lever": "chinaRecyclingInvestment", "value": 12.5, "baseValue": 12.5},
+                {"lever": "eu30RecyclingInvestment", "value": 12.5, "baseValue": 12.5},
+                {"lever": "naftaRecyclingInvestment", "value": 12.5, "baseValue": 12.5},
+                {"lever": "rowRecyclingInvestment", "value": 12.5, "baseValue": 12.5}
             ],
             "released": true
         },
         {
-            "name": "100 Billion USD for Waste Management",
+            "name": "<option> Billion USD for Waste Management",
             "id": "waste-investment",
             "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment.",
+            "config": {
+                "options": [10, 50, 100],
+                "default": 50
+            },
             "values": [
-                {"lever": "chinaLandfillInvestment", "value": 12.5},
-                {"lever": "eu30LandfillInvestment", "value": 12.5},
-                {"lever": "naftaLandfillInvestment", "value": 12.5},
-                {"lever": "rowLandfillInvestment", "value": 12.5},
-                {"lever": "chinaIncinerationInvestment", "value": 12.5},
-                {"lever": "eu30IncinerationInvestment", "value": 12.5},
-                {"lever": "naftaIncinerationInvestment", "value": 12.5},
-                {"lever": "rowIncinerationInvestment", "value": 12.5}
+                {"lever": "chinaLandfillInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "eu30LandfillInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "naftaLandfillInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "rowLandfillInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "chinaIncinerationInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "eu30IncinerationInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "naftaIncinerationInvestment", "value": 6.25, "baseValue": 6.25},
+                {"lever": "rowIncinerationInvestment", "value": 6.25, "baseValue": 6.25}
             ],
             "released": true
-        },
-        {
-            "name": "Waste Management Investment",
-            "id": "maximum-mismanaged-rate",
-            "description": "Policy which expands global waste management infrastructure, bringing mismanaged waste down to 5% globally by 2050.",
-            "values": [
-                {"lever": "chinaMaximumMismanagedRate", "value": 5},
-                {"lever": "eu30MaximumMismanagedRate", "value": 5},
-                {"lever": "naftaMaximumMismanagedRate", "value": 5},
-                {"lever": "rowMaximumMismanagedRate", "value": 5}
-            ],
-            "released": false
         },
         {
             "name": "3 Cents per Pound Virgin Plastic Tax",
