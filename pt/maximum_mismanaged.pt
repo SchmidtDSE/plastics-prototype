@@ -93,7 +93,7 @@ var recyclingDeltaLifecycle = (lifecycleRecyclingDelayed - priorRecycling) * rec
 
 # Determine inductive demand
 var displacementRate = in.recyclingDisplacementRate / 100;
-var displacedPlasticsMT = displacementRate * recyclingDeltaDelayed;
+var displacedPlasticsMT = recyclingDeltaDelayed;
 var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * recyclingDeltaDelayed;

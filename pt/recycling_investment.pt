@@ -20,7 +20,8 @@ var totalOtherWaste = (
 limit additionalWasteCapacity to [0, totalOtherWaste];
 
 # Run timeseries, assume lifetime distribution afterwards
-var additionalProductionCapacity = 0;
+var consumptionDeltaDelay = 0;
+var prodDeltaDelay = 0;
 
 var lifetimeYears = lifecycle of [
   out.{{ region }}.consumptionAgricultureMT,
@@ -36,11 +37,12 @@ var startConsumptionYear = startWasteYear + lifetimeYears;
 var endConsumptionYear = endWasteYear + lifetimeYears;
 
 var displacementRate = in.recyclingDisplacementRate / 100;
-var prodReduction = displacementRate * additionalWasteCapacity;
+var prodReduction = additionalWasteCapacity;
 var prodInductive = (1 - displacementRate) * additionalWasteCapacity;
 var prodDelta = prodInductive - prodReduction;
 
-change additionalProductionCapacity by prodDelta over startConsumptionYear to endConsumptionYear;
+change consumptionDeltaDelay by prodInductive over startConsumptionYear to endConsumptionYear;
+change prodDeltaDelay by prodDelta over startConsumptionYear to endConsumptionYear;
 
 # Update waste
 distribute -1 * additionalWasteCapacity across [
@@ -52,7 +54,7 @@ distribute -1 * additionalWasteCapacity across [
 out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT + additionalWasteCapacity;
 
 # Update consumption
-distribute prodDelta across [
+distribute consumptionDeltaDelay across [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
   out.{{ region }}.consumptionElectronicMT,
@@ -66,7 +68,7 @@ distribute prodDelta across [
 # Update imports / production
 var importsBefore = out.{{ region }}.netImportsMT;
 
-distribute prodDelta across [
+distribute prodDeltaDelay across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
