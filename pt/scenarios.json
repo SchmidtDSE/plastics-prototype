@@ -49,7 +49,7 @@
             "released": true
         },
         {
-            "name": "100 Billion USD Recycling Investment",
+            "name": "100 Billion USD for Plastic Recycling",
             "id": "recycling-investment",
             "description": "Policy which expands plastic recycling infrastructure globally through investment.",
             "values": [
@@ -57,6 +57,22 @@
                 {"lever": "eu30RecyclingInvestment", "value": 25},
                 {"lever": "naftaRecyclingInvestment", "value": 25},
                 {"lever": "rowRecyclingInvestment", "value": 25}
+            ],
+            "released": true
+        },
+        {
+            "name": "100 Billion USD for Waste Management",
+            "id": "waste-investment",
+            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment.",
+            "values": [
+                {"lever": "chinaLandfillInvestment", "value": 12.5},
+                {"lever": "eu30LandfillInvestment", "value": 12.5},
+                {"lever": "naftaLandfillInvestment", "value": 12.5},
+                {"lever": "rowLandfillInvestment", "value": 12.5},
+                {"lever": "chinaIncinerationInvestment", "value": 12.5},
+                {"lever": "eu30IncinerationInvestment", "value": 12.5},
+                {"lever": "naftaIncinerationInvestment", "value": 12.5},
+                {"lever": "rowIncinerationInvestment", "value": 12.5}
             ],
             "released": true
         },
