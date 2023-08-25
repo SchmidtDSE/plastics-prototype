@@ -114,7 +114,7 @@ class ScenarioPresenter {
                         "<select ",
                         "class=\"check-dropdown\" id=\"inner-select-",
                         scenario["id"],
-                        "\">"
+                        "\">",
                     ].join("");
                     const select = selectStart + "\n" + options.join("\n") + "\n</select>";
                     return scenario["name"].replaceAll("<option>", select) + " ";
@@ -129,7 +129,7 @@ class ScenarioPresenter {
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
             .attr("tabindex", "0")
             .attr("data-tippy-content", (scenario) => scenario["description"]);
-        
+
         d3.selectAll(".check-dropdown").on("change", function() {
             // eslint-disable-next-line no-invalid-this
             const elem = this;
