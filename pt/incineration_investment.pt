@@ -1,0 +1,23 @@
+# Determine impact of investment
+var investmentMillions = in.{{ region }}IncinerationInvestment * 1000;
+var newCapacityTarget = investmentMillions / in.{{ region }}IncinerationCost;
+
+# Determine new capacity
+var newCapacity = 0;
+change newCapacity by newCapacityTarget over in.startYear to in.endYear;
+
+# Ensure limits maintained
+var availableToIncinerate = (
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolLandfillMT
+);
+limit newCapacity to [0, availableToIncinerate];
+
+# Remove from other EOLs
+distribute -1 * newCapacity across [
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolLandfillMT
+] proportionally;
+
+# Redirect to incineration
+out.{{ region }}.eolIncinerationMT = out.{{ region }}.eolIncinerationMT + newCapacity;
