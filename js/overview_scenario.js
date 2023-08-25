@@ -76,16 +76,15 @@ class ScenarioPresenter {
 
         self._d3Selection.select(".menu").html("");
 
-        const newDivs = self._d3Selection.select(".menu")
+        const newRows = self._d3Selection.select(".menu")
+            .append("table")
             .selectAll(".menu-option")
             .data(scenarios.concat([self._customScenario]))
             .enter()
-            .append("div")
+            .append("tr")
             .classed("menu-option", true);
 
-        const newLabels = newDivs.append("label");
-
-        newLabels.append("input")
+        newRows.append("td").append("input")
             .attr("type", "checkbox")
             .classed("menu-check", true)
             .on("change", function(event, scenario) {
@@ -95,11 +94,13 @@ class ScenarioPresenter {
             .classed("custom-menu-check", (x) => x["name"] === "Custom")
             .property("disabled", (x) => x["name"] === "Custom");
 
+        const newLabels = newRows.append("td").append("label");
+
         newLabels.append("span")
-            .html((scenario, i) => (i + 1) + ". " + scenario["name"] + " ")
+            .html((scenario, i) => scenario["name"] + " ")
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-info");
 
-        newDivs.append("span")
+        newLabels.append("span")
             .html("<img alt='info' src='/img/info.png' class='info-img'>")
             .classed("info-target", true)
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
