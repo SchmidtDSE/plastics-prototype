@@ -3,7 +3,7 @@
         {
             "name": "<option> % Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
-            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050.",
+            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
                 "options": [20, 40, 60],
                 "default": 40
@@ -19,7 +19,7 @@
         {
             "name": "<option> % Minimum Recycled Content",
             "id": "minmium-recycled-content",
-            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050.",
+            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
                 "options": [20, 40, 60],
                 "default": 40
@@ -59,7 +59,7 @@
         {
             "name": "<option> Billion USD for Plastic Recycling",
             "id": "recycling-investment",
-            "description": "Policy which expands plastic recycling infrastructure globally through investment.",
+            "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
                 "options": [10, 50, 100],
                 "default": 50
@@ -75,7 +75,7 @@
         {
             "name": "<option> Billion USD for Waste Management",
             "id": "waste-investment",
-            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment.",
+            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
                 "options": [10, 50, 100],
                 "default": 50
