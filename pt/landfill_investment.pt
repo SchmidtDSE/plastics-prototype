@@ -1,6 +1,7 @@
 # Determine impact of investment
 var investmentMillions = in.{{ region }}LandfillInvestment * 1000;
-var newCapacityTarget = investmentMillions / in.{{ region }}LandfillCost;
+var newOverallCapacity = investmentMillions / in.{{ region }}LandfillCost;
+var newCapacityTarget = newOverallCapacity * in.landfillPlasticPercent / 100;
 
 # Determine new capacity
 var newCapacity = 0;
