@@ -56,15 +56,15 @@ class BubblegraphPresenter {
         // Vertical scales
         const verticalScaleEol = self._getD3().scaleBand()
             .domain(EOL_ATTRS)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         const verticalScaleConsumption = self._getD3().scaleBand()
             .domain(CONSUMPTION_ATTRS)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         const verticalScaleProduction = self._getD3().scaleBand()
             .domain(PRODUCTION_ATTRS)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         self._verticalScales = new Map();
         self._verticalScales.set(DISPLAY_STAGES.eol, verticalScaleEol);
@@ -75,17 +75,17 @@ class BubblegraphPresenter {
         const eolIndicies = EOL_ATTRS.map((x, i) => i);
         const verticalIndexScaleEol = self._getD3().scaleBand()
             .domain(eolIndicies)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         const consumptionIndicies = CONSUMPTION_ATTRS.map((x, i) => i);
         const verticalIndexScaleConsumption = self._getD3().scaleBand()
             .domain(consumptionIndicies)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         const productionIndicies = PRODUCTION_ATTRS.map((x, i) => i);
         const verticalIndexScaleProduction = self._getD3().scaleBand()
             .domain(productionIndicies)
-            .range([30, self._svgHeight - 20]);
+            .range([50, self._svgHeight - 10]);
 
         self._verticalIndexScales = new Map();
         self._verticalIndexScales.set(DISPLAY_STAGES.eol, verticalIndexScaleEol);
@@ -264,6 +264,13 @@ class BubblegraphPresenter {
                 })
                 .on("click", (event, datum) => self._onRegionChange(datum));
 
+            newGroups.append("ellipse")
+                .classed("radio", true)
+                .attr("cx", self._horizontalScale.step() / 2)
+                .attr("cy", 13)
+                .attr("rx", 6)
+                .attr("ry", 6);
+
             newGroups.append("rect")
                 .classed("active-indicator", true)
                 .attr("x", 5)
@@ -273,7 +280,7 @@ class BubblegraphPresenter {
 
             newGroups.append("text")
                 .attr("x", self._horizontalScale.step() / 2)
-                .attr("y", 20)
+                .attr("y", 30)
                 .classed("label", true)
                 .text((datum) => {
                     const rawText = STRINGS.get(datum);
