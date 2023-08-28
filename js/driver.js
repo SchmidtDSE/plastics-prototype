@@ -52,8 +52,11 @@ class Driver {
                 self._onInputChange();
             }, false);
 
-            document.getElementById("detailed-cta").addEventListener("click", (event) => {
-                self._tabs.toggle("#detailed");
+            Array.of(...document.querySelectorAll(".detailed-cta")).forEach((elem) => {
+                elem.addEventListener("click", (event) => {
+                    self._tabs.toggle("#detailed");
+                    event.preventDefault();
+                });
             });
 
             document.getElementById("overview-cta").addEventListener("click", (event) => {
@@ -230,7 +233,7 @@ class Driver {
         if (self._pauseUiLoop) {
             self._redrawTimeout = setTimeout(() => {
                 execute();
-            }, 150);
+            }, 50);
         } else {
             execute();
         }
