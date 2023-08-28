@@ -120,7 +120,7 @@ select {
 
 .output-section .bubblegraph {
     width: 100%;
-    height: 320px;
+    height: 335px;
     min-width: 520px;
 }
 
@@ -166,14 +166,26 @@ select {
     stroke: #A0A0A0;
 }
 
-.output-section .bubblegraph .region-intro.inactive:hover .active-indicator {
+.output-section .bubblegraph .region-intro.active .radio {
+    fill: #707070;
+    stroke: none;
+}
+
+.output-section .bubblegraph .region-intro.inactive .radio {
+    fill: none;
+    stroke-width: 2;
     stroke: #C0C0C0;
-    cursor: pointer;
 }
 
 .output-section .bubblegraph .region-intro.inactive:hover .active-indicator {
     stroke: #C0C0C0;
     cursor: pointer;
+}
+
+.output-section .bubblegraph .region-intro.inactive:hover .radio {
+    fill: none;
+    stroke-width: 2;
+    stroke: #707070;
 }
 
 .output-section .bubblegraph .region-intro .label {
