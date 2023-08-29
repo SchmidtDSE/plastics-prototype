@@ -5,7 +5,11 @@
             "id": "minmium-recycle-rate",
             "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
-                "options": [20, 40, 60],
+                "options": [
+                    {"name": "20", "value": 20},
+                    {"name": "40", "value": 40},
+                    {"name": "60", "value": 60}
+                ],
                 "default": 40
             },
             "values": [
@@ -21,7 +25,11 @@
             "id": "minmium-recycled-content",
             "description": "Policy which requires a certain percent of products are made with recycled materials by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
-                "options": [20, 40, 60],
+                "options": [
+                    {"name": "20", "value": 20},
+                    {"name": "40", "value": 40},
+                    {"name": "60", "value": 60}
+                ],
                 "default": 40
             },
             "values": [
@@ -61,7 +69,11 @@
             "id": "recycling-investment",
             "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab.",
             "config": {
-                "options": [10, 50, 100],
+                "options": [
+                    {"name": "10", "value": 10},
+                    {"name": "50", "value": 50},
+                    {"name": "100", "value": 100}
+                ],
                 "default": 50
             },
             "values": [
@@ -77,7 +89,11 @@
             "id": "waste-investment",
             "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. Try out levels beyond those listed in the dropdown or configure the split between landfill / incineration by going to the details tab.",
             "config": {
-                "options": [10, 50, 100],
+                "options": [
+                    {"name": "10", "value": 10},
+                    {"name": "50", "value": 50},
+                    {"name": "100", "value": 100}
+                ],
                 "default": 50
             },
             "values": [
@@ -93,16 +109,24 @@
             "released": true
         },
         {
-            "name": "3 Cents per Pound Virgin Plastic Tax",
+            "name": "<option> Packaging Consumption Tax",
             "id": "tax-virgin",
-            "description": "Apply a tax of 3 USD cents per pound of virgin plastic production inflation adjusted.",
+            "description": "Apply a consumption tax on plastic packaging per article. This is scaled across regions to have roughly the same consumption effect on each region so a tax of 5 cents in NAFTA may be 4 cents in China. To configure specific region-level taxes, go to the details tab. Low corresopnds to a 2 cent tax in NAFTA, moderate is 5 cents, and high is 10 cents all USD.",
+            "config": {
+                "options": [
+                    {"name": "Low", "value": 2},
+                    {"name": "Moderate", "value": 5},
+                    {"name": "High", "value": 10}
+                ],
+                "default": 5
+            },
             "values": [
-                {"lever": "chinaVirginTaxCents", "value": 3},
-                {"lever": "eu30VirginTaxCents", "value": 3},
-                {"lever": "naftaVirginTaxCents", "value": 3},
-                {"lever": "rowVirginTaxCents", "value": 3}
+                {"lever": "chinaPackagingTax", "value": 5, "baseValue": 5},
+                {"lever": "eu30PackagingTax", "value": 4, "baseValue": 4},
+                {"lever": "naftaPackagingTax", "value": 11, "baseValue": 11},
+                {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}
             ],
-            "released": false
+            "released": true
         },
         {
             "name": "Nivi Scratchpad at 50",

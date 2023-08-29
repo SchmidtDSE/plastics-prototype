@@ -1,0 +1,44 @@
+# Determine change immediate
+var percentDecreaseEnd = in.{{ region }}PackagingTax * in.{{ region }}PackagingConsumptionDecrease / 100;
+inspect percentDecreaseEnd;
+limit percentDecreaseEnd to [0, 1];
+var percentDecrease = 0;
+change percentDecrease by percentDecreaseEnd over in.startYear to in.endYear;
+
+# Determine change delayed
+var delayYears = lifecycle of [out.{{ region }}.consumptionPackagingMT];
+inspect delayYears;
+var percentDecreaseDelay = 0;
+var startYearDelay = in.startYear + delayYears;
+var endYearDelay = in.endYear + delayYears;
+change percentDecreaseDelay by percentDecreaseEnd over startYearDelay to endYearDelay;
+
+# Reduce consumption
+var originalConsumption = out.{{ region }}.consumptionPackagingMT;
+var reducedConsumption = originalConsumption * percentDecrease;
+out.{{ region }}.consumptionPackagingMT = out.{{ region }}.consumptionPackagingMT - reducedConsumption;
+
+# Reduce imports
+var originalImports = out.{{ region }}.netImportsMT;
+distribute -1 * reducedConsumption across [
+  out.{{ region }}.domesticProductionMT,
+  out.{{ region }}.netImportsMT
+] proportionally;
+var changeImports = out.{{ region }}.netImportsMT - originalImports;
+
+# Reduce exports elsewhere
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Reduce waste on delay
+var reducedWaste = originalConsumption * percentDecreaseDelay;
+
+distribute -1 * reducedWaste across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
+] proportionally;

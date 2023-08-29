@@ -71,17 +71,19 @@ class ScenarioPresenter {
                     return numNonMatched == 0;
                 } else {
                     const config = scenario["config"];
-                    const matchingOptions = config["options"].filter((option) => {
-                        const nonMatched = variables.filter((variable) => {
-                            const mulitplier = option / config["default"];
-                            const leverName = variable["lever"];
-                            const expectedValue = variable["baseValue"] * mulitplier;
-                            const actualValue = inputValues.get(leverName);
-                            return Math.abs(expectedValue - actualValue) > 0.00001;
+                    const matchingOptions = config["options"]
+                        .map((x) => x["value"])
+                        .filter((option) => {
+                            const nonMatched = variables.filter((variable) => {
+                                const mulitplier = option / config["default"];
+                                const leverName = variable["lever"];
+                                const expectedValue = variable["baseValue"] * mulitplier;
+                                const actualValue = inputValues.get(leverName);
+                                return Math.abs(expectedValue - actualValue) > 0.00001;
+                            });
+                            const numNonMatched = nonMatched.length;
+                            return numNonMatched == 0;
                         });
-                        const numNonMatched = nonMatched.length;
-                        return numNonMatched == 0;
-                    });
                     if (matchingOptions.length == 0) {
                         return false;
                     } else {
@@ -128,9 +130,9 @@ class ScenarioPresenter {
                 } else {
                     const defaultVal = scenario["config"]["default"];
                     const options = scenario["config"]["options"].map((x) => {
-                        const selectedStr = defaultVal === x ? "selected" : "";
-                        const start = "<option value=\"" + x + "\"" + selectedStr + ">";
-                        const end = x + "</option>";
+                        const selectedStr = defaultVal === x["value"] ? "selected" : "";
+                        const start = "<option value=\"" + x["value"] + "\" " + selectedStr + ">";
+                        const end = x["name"] + "</option>";
                         return start + end;
                     });
                     const selectStart = [
