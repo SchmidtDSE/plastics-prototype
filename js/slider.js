@@ -270,8 +270,8 @@ class SliderPresenter {
             const deltaIncinerated = getDelta("incineratedWaste");
             setText(deltaIncinerated, ".goal-table-incinerated-waste");
 
-            const deltaTotalConsumption = getDelta("totalConsumption");
-            setText(deltaTotalConsumption, ".goal-table-total-consumption");
+            const deltaTotalConsumption = getDelta("recycling");
+            setText(deltaTotalConsumption, ".goal-table-recycling");
         };
 
         showTable();

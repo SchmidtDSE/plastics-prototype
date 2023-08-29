@@ -121,9 +121,9 @@
                 "default": 5
             },
             "values": [
-                {"lever": "chinaPackagingTax", "value": 5, "baseValue": 5},
-                {"lever": "eu30PackagingTax", "value": 4, "baseValue": 4},
-                {"lever": "naftaPackagingTax", "value": 11, "baseValue": 11},
+                {"lever": "chinaPackagingTax", "value": 4, "baseValue": 4},
+                {"lever": "eu30PackagingTax", "value": 11, "baseValue": 11},
+                {"lever": "naftaPackagingTax", "value": 5, "baseValue": 5},
                 {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}
             ],
             "released": true
