@@ -1,7 +1,7 @@
 # Determine impact of investment
 var investmentMillions = in.{{ region }}IncinerationInvestment * 1000;
 var newOverallCapacity = investmentMillions / in.{{ region }}IncinerationCost;
-var newCapacityTarget = newOverallCapacity * in.incinerationPlasticPercent / 100;
+var newCapacityTarget = newOverallCapacity * in.{{ region }}IncinerationPlasticPercent / 100;
 
 # Determine new capacity
 var newCapacity = 0;
