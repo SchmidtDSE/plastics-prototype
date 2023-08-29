@@ -75,7 +75,7 @@
         {
             "name": "<option> Billion USD for Waste Management",
             "id": "waste-investment",
-            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab.",
+            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. Try out levels beyond those listed in the dropdown or configure the split between landfill / incineration by going to the details tab.",
             "config": {
                 "options": [10, 50, 100],
                 "default": 50
