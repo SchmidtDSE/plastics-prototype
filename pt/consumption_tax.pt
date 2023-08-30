@@ -1,12 +1,9 @@
+# Determine formula
+var smoothing = in.packagingTaxSmoothing;
+var rate = (0.5 * smoothing / (in.{{ region }}PackagingTaxRef * smoothing)^0.5)^2;
+
 # Determine change immediate
-var percentDecreaseEnd = in.{{ region }}PackagingTax * in.{{ region }}PackagingConsumptionDecrease / 100;
-
-var percentDeltaThreshold = percentDecreaseEnd - in.reducedConsumptionTaxTractionThreshold / 100;
-limit percentDeltaThreshold to [0, 1];
-
-var lostTraction = percentDeltaThreshold * in.reducedConsumptionTaxTractionAmount / 100;
-percentDecreaseEnd = percentDecreaseEnd - lostTraction;
-
+var percentDecreaseEnd = (in.{{ region }}PackagingTax * rate * smoothing)^0.5 / smoothing;
 limit percentDecreaseEnd to [0, 1];
 var percentDecrease = 0;
 change percentDecrease by percentDecreaseEnd over in.startYear to in.endYear;
