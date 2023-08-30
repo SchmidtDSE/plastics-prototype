@@ -3,11 +3,9 @@ var percentDecreaseEnd = in.{{ region }}PackagingTax * in.{{ region }}PackagingC
 
 var percentDeltaThreshold = percentDecreaseEnd - in.reducedConsumptionTaxTractionThreshold / 100;
 limit percentDeltaThreshold to [0, 1];
-inspect percentDeltaThreshold;
 
 var lostTraction = percentDeltaThreshold * in.reducedConsumptionTaxTractionAmount / 100;
 percentDecreaseEnd = percentDecreaseEnd - lostTraction;
-inspect percentDecreaseEnd;
 
 limit percentDecreaseEnd to [0, 1];
 var percentDecrease = 0;
