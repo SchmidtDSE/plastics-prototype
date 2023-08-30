@@ -22,7 +22,7 @@ The consumption amounts are as follows (like `out.china.consumptionPackagingMT`)
 
  - consumptionPackagingMT
  - consumptionConstructionMT
- - consumptionTextitleMT
+ - consumptionTextileMT
  - consumptionHouseholdLeisureSportsMT
  - consumptionElectronicMT
  - consumptionTransporationMT

@@ -2,7 +2,7 @@
 var totalConsumption = (
   out.{{ region }}.consumptionPackagingMT + 
   out.{{ region }}.consumptionConstructionMT + 
-  out.{{ region }}.consumptionTextitleMT + 
+  out.{{ region }}.consumptionTextileMT + 
   out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
   out.{{ region }}.consumptionElectronicMT + 
   out.{{ region }}.consumptionTransporationMT + 
@@ -24,7 +24,7 @@ var acutalDeltaLifecycleMT = 0;
 var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionTransporationMT,
@@ -120,7 +120,7 @@ limit offsetConsumptionWithRecyclingDeficit to [, 0];
 distribute offsetConsumptionWithRecyclingDeficit across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionTransporationMT,

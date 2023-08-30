@@ -52,7 +52,7 @@ var delayLifecycle = lifecycle of [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] + delayProduction;
 var misManagedDeltaGradualLifecycle = 0;
@@ -107,7 +107,7 @@ distribute newInductivePlasticsMT across [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
 

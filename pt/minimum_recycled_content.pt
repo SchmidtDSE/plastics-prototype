@@ -13,7 +13,7 @@ change targetRate by targetRateGoal over delayStart to delayEnd;
 var totalConsumption = (
   out.{{ region }}.consumptionPackagingMT + 
   out.{{ region }}.consumptionConstructionMT + 
-  out.{{ region }}.consumptionTextitleMT + 
+  out.{{ region }}.consumptionTextileMT + 
   out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
   out.{{ region }}.consumptionElectronicMT + 
   out.{{ region }}.consumptionTransporationMT + 
@@ -41,7 +41,7 @@ var actualRecycledDeltaLifecycle = 0;
 var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionTransporationMT,
@@ -122,7 +122,7 @@ distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
 

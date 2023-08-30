@@ -52,7 +52,7 @@ var lifecycleYears = lifecycle of [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] + lagYears;
 var newRecyclingMTLifecycle = originalRecyclingMT;
@@ -76,7 +76,7 @@ distribute newInductivePlasticsMT across [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
 

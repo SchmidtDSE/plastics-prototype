@@ -9,7 +9,7 @@ var rateDecreaseWaste = 0;
 var lifecycleDuration = [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionTransporationMT,
@@ -24,7 +24,7 @@ change rateDecreaseWaste by rateDecreaseGoal over lifecycleStart to lifecycleEnd
 var totalConsumption = (
   out.{{ region }}.consumptionPackagingMT +
   out.{{ region }}.consumptionConstructionMT +
-  out.{{ region }}.consumptionTextitleMT +
+  out.{{ region }}.consumptionTextileMT +
   out.{{ region }}.consumptionHouseholdLeisureSportsMT +
   out.{{ region }}.consumptionElectronicMT +
   out.{{ region }}.consumptionTransporationMT +
@@ -48,7 +48,7 @@ var offsetWaste = -1 * reductionWaste;
 distribute offsetConsumption across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionTransporationMT,
