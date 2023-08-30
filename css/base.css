@@ -942,7 +942,7 @@ select {
     .overview .middle {
         display: grid;
         column-gap: 10px;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 42% 58%;
         width: 99%;
         border-bottom: 1px dotted black;
     }
@@ -956,6 +956,12 @@ select {
     }
 }
 
+@media (min-width: 1000px) {
+    .overview .middle {
+        grid-template-columns: 40% 60%;
+    }
+}
+
 @media (min-width: 1200px) {
     .overview .cards .card {
         max-width: 250px;
@@ -964,7 +970,7 @@ select {
 
 @media (min-width: 1300px) {
     .overview .middle {
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 30% 70%;
     }
 }
 

@@ -294,6 +294,7 @@ class TimeDeltaPresenter {
                 .transition()
                 .duration(750)
                 .attr("opacity", hasNegtive ? 1 : 0)
+                .attr("width", totalWidth - 91 - 71)
                 .attr("y", verticalScale(0));
         };
 
