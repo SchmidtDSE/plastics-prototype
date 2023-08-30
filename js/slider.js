@@ -377,7 +377,42 @@ function getHandlebars() {
 
 
 function buildSliders(includeDevelopment, buildState, compileProgram, onInputChange, getSelection) {
-    const listingFuture = fetch("/pt/index.json?v=" + CACHE_BUSTER)
+    const promiseCache = new Map();
+
+    const fetchSafe = (url, isJson) => {
+        return new Promise((resolve) => {
+            const parsedFuture = fetch(url).then((result) => {
+                if (isJson) {
+                    return result.json();
+                } else {
+                    return result.text();
+                }
+            });
+            parsedFuture.then((x) => {
+                resolve({
+                    "json": () => x,
+                    "text": () => x,
+                });
+            });
+        });
+    };
+
+    const fetchCache = (url, isJson) => {
+        if (url.startsWith("/pt/noop.pt?v=")) {
+            return new Promise((resolve) => {
+                resolve({"text": () => ""});
+            });
+        }
+
+        if (promiseCache.has(url)) {
+            return promiseCache.get(url);
+        }
+
+        promiseCache.set(url, fetchSafe(url, isJson));
+        return promiseCache.get(url);
+    };
+
+    const listingFuture = fetchCache("/pt/index.json?v=" + CACHE_BUSTER, true)
         .then((x) => x.json())
         .then((x) => {
             x["categories"].forEach((category) => {
@@ -392,18 +427,18 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
             return x;
         });
 
-    const leverTemplateFuture = fetch("/template/slider.html?v=" + CACHE_BUSTER)
+    const leverTemplateFuture = fetchCache("/template/slider.html?v=" + CACHE_BUSTER, false)
         .then((x) => x.text())
         .then((x) => getHandlebars().compile(x));
 
-    const sectionTemplateFuture = fetch("/template/section.html?v=" + CACHE_BUSTER)
+    const sectionTemplateFuture = fetchCache("/template/section.html?v=" + CACHE_BUSTER, false)
         .then((x) => x.text())
         .then((x) => getHandlebars().compile(x));
 
 
     const renderLever = (config, htmlTemplate) => {
         const templateUrl = "/pt/" + config["template"] + "?v=" + CACHE_BUSTER;
-        return fetch(templateUrl).then((x) => x.text())
+        return fetchCache(templateUrl, false).then((x) => x.text())
             .then((x) => getHandlebars().compile(x))
             .then((codeTemplate) => codeTemplate(config["attrs"]))
             .then((code) => {
