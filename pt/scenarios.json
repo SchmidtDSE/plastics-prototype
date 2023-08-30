@@ -90,21 +90,21 @@
             "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. Try out levels beyond those listed in the dropdown or configure the split between landfill / incineration by going to the details tab.",
             "config": {
                 "options": [
-                    {"name": "10", "value": 10},
+                    {"name": "25", "value": 25},
                     {"name": "50", "value": 50},
                     {"name": "100", "value": 100}
                 ],
                 "default": 50
             },
             "values": [
-                {"lever": "chinaLandfillInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "eu30LandfillInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "naftaLandfillInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "rowLandfillInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "chinaIncinerationInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "eu30IncinerationInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "naftaIncinerationInvestment", "value": 6.25, "baseValue": 6.25},
-                {"lever": "rowIncinerationInvestment", "value": 6.25, "baseValue": 6.25}
+                {"lever": "chinaLandfillInvestment", "value": 1, "baseValue": 1},
+                {"lever": "eu30LandfillInvestment", "value": 1, "baseValue": 1},
+                {"lever": "naftaLandfillInvestment", "value": 1, "baseValue": 1},
+                {"lever": "rowLandfillInvestment", "value": 22, "baseValue": 22},
+                {"lever": "chinaIncinerationInvestment", "value": 1, "baseValue": 1},
+                {"lever": "eu30IncinerationInvestment", "value": 1, "baseValue": 1},
+                {"lever": "naftaIncinerationInvestment", "value": 1, "baseValue": 1},
+                {"lever": "rowIncinerationInvestment", "value": 22, "baseValue": 22}
             ],
             "released": true
         },
