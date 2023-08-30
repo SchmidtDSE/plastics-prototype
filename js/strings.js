@@ -20,7 +20,7 @@ STRINGS.set("consumptionElectronicMT", "Electronic");
 STRINGS.set("consumptionHouseholdLeisureSportsMT", "House, Leis, Sport");
 STRINGS.set("consumptionPackagingMT", "Packaging");
 STRINGS.set("consumptionTransporationMT", "Transporation");
-STRINGS.set("consumptionTextitleMT", "Textitle");
+STRINGS.set("consumptionTextileMT", "Textile");
 STRINGS.set("consumptionOtherMT", "Other");
 
 STRINGS.set("netImportsMT", "Net Imports");

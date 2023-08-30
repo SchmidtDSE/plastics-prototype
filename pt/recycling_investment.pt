@@ -30,7 +30,7 @@ var lifetimeYears = lifecycle of [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ];
 var startConsumptionYear = startWasteYear + lifetimeYears;
@@ -61,7 +61,7 @@ distribute consumptionDeltaDelay across [
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
-  out.{{ region }}.consumptionTextitleMT,
+  out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
 

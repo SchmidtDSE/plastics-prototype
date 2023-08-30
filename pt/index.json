@@ -1290,15 +1290,15 @@
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {
-                    "name": "Textitle Lifetime",
-                    "description": "The number of years before textitle products become waste on average for newly added or removed textile plastic products.",
+                    "name": "Textile Lifetime",
+                    "description": "The number of years before textile products become waste on average for newly added or removed textile plastic products.",
                     "min": 0,
                     "max": 10,
                     "default": 5,
                     "step": 1,
                     "units": "years",
                     "forcePlus": false,
-                    "variable": "consumptionTextitleLifecycle",
+                    "variable": "consumptionTextileLifecycle",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,

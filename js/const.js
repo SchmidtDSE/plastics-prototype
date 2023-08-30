@@ -9,7 +9,7 @@ const ALL_REGIONS = [
 const CONSUMPTION_ATTRS = [
     "consumptionPackagingMT",
     "consumptionConstructionMT",
-    "consumptionTextitleMT",
+    "consumptionTextileMT",
     "consumptionHouseholdLeisureSportsMT",
     "consumptionElectronicMT",
     "consumptionTransporationMT",

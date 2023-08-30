@@ -18,11 +18,11 @@ The regions for `out.region` are as follows:
  - nafta
  - row
 
-The consumption amounts are as follows (like `out.china.consumptionPackagingMT`):
+The sectorial consumption amounts are as follows (like `out.china.consumptionPackagingMT`):
 
  - consumptionPackagingMT
  - consumptionConstructionMT
- - consumptionTextitleMT
+ - consumptionTextileMT
  - consumptionHouseholdLeisureSportsMT
  - consumptionElectronicMT
  - consumptionTransporationMT
