@@ -111,20 +111,21 @@
         {
             "name": "<option> Packaging Consumption Tax",
             "id": "tax-virgin",
-            "description": "Apply a consumption tax on plastic packaging per article. This is scaled across regions to have roughly the same consumption effect on each region so a tax of 5 cents in NAFTA may be 4 cents in China. To configure specific region-level taxes, go to the details tab. Low corresopnds to a 2 cent tax in NAFTA, moderate is 5 cents, and high is 10 cents all USD.",
+            "description": "Apply a consumption tax on plastic packaging per article. This is scaled across regions to have roughly the same consumption effect on each region so a tax of 5 cents in NAFTA may be 4 cents in China. To configure specific region-level taxes, go to the details tab. Very low corresopnds to a 2 cent tax in NAFTA, low is 5 cents, moderate is 10 cents, and high is 15 cents all USD.",
             "config": {
                 "options": [
-                    {"name": "Low", "value": 2},
-                    {"name": "Moderate", "value": 5},
-                    {"name": "High", "value": 10}
+                    {"name": "Very Low", "value": 2},
+                    {"name": "Low", "value": 5},
+                    {"name": "Moderate", "value": 10},
+                    {"name": "High", "value": 15}
                 ],
-                "default": 5
+                "default": 10
             },
             "values": [
-                {"lever": "chinaPackagingTax", "value": 4, "baseValue": 4},
-                {"lever": "eu30PackagingTax", "value": 11, "baseValue": 11},
-                {"lever": "naftaPackagingTax", "value": 5, "baseValue": 5},
-                {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}
+                {"lever": "chinaPackagingTax", "value": 8, "baseValue": 8},
+                {"lever": "eu30PackagingTax", "value": 22, "baseValue": 22},
+                {"lever": "naftaPackagingTax", "value": 10, "baseValue": 10},
+                {"lever": "rowPackagingTax", "value": 4, "baseValue": 4}
             ],
             "released": true
         },

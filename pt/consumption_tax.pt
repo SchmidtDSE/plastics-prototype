@@ -1,13 +1,20 @@
 # Determine change immediate
 var percentDecreaseEnd = in.{{ region }}PackagingTax * in.{{ region }}PackagingConsumptionDecrease / 100;
+
+var percentDeltaThreshold = percentDecreaseEnd - in.reducedConsumptionTaxTractionThreshold / 100;
+limit percentDeltaThreshold to [0, 1];
+inspect percentDeltaThreshold;
+
+var lostTraction = percentDeltaThreshold * in.reducedConsumptionTaxTractionAmount / 100;
+percentDecreaseEnd = percentDecreaseEnd - lostTraction;
 inspect percentDecreaseEnd;
+
 limit percentDecreaseEnd to [0, 1];
 var percentDecrease = 0;
 change percentDecrease by percentDecreaseEnd over in.startYear to in.endYear;
 
 # Determine change delayed
 var delayYears = lifecycle of [out.{{ region }}.consumptionPackagingMT];
-inspect delayYears;
 var percentDecreaseDelay = 0;
 var startYearDelay = in.startYear + delayYears;
 var endYearDelay = in.endYear + delayYears;
