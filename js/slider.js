@@ -391,18 +391,16 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
             parsedFuture.then((x) => {
                 resolve({
                     "json": () => x,
-                    "text": () => x
+                    "text": () => x,
                 });
             });
         });
-    }
+    };
 
     const fetchCache = (url, isJson) => {
         if (url.startsWith("/pt/noop.pt?v=")) {
             return new Promise((resolve) => {
-                resolve({
-                    "text": () => ""
-                });
+                resolve({"text": () => ""});
             });
         }
 
