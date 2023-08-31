@@ -5,7 +5,7 @@ var newCapacityTarget = newOverallCapacity * in.{{ region }}IncinerationPlasticP
 
 # Determine new capacity
 var newCapacity = 0;
-change newCapacity by newCapacityTarget over in.startYear to in.endYear;
+change newCapacity by newCapacityTarget over in.startYear to in.endYearGradual;
 
 # Ensure limits maintained
 var availableToIncinerate = (

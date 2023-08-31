@@ -19,7 +19,7 @@ limit mismanagedDelta to [,0];
 
 # Update the projected value for mismanaged assuming gradual compliance
 var misManagedDeltaGradual = 0;
-change misManagedDeltaGradual by mismanagedDelta over in.startYear to in.endYear;
+change misManagedDeltaGradual by mismanagedDelta over in.startYear to in.endYearGradual;
 
 # Apply
 out.{{region}}.eolMismanagedMT = projected + misManagedDeltaGradual;
@@ -41,7 +41,7 @@ distribute otherDelta across [
 var delayProduction = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var misManagedDeltaGradualDelayed = 0;
 var delayStart = in.startYear + delayProduction;
-var delayEnd = in.endYear + delayProduction;
+var delayEnd = in.endYearGradual + delayProduction;
 change misManagedDeltaGradualDelayed by mismanagedDelta over delayStart to delayEnd;
 
 # Delay change to production's new waste
@@ -57,7 +57,7 @@ var delayLifecycle = lifecycle of [
 ] + delayProduction;
 var misManagedDeltaGradualLifecycle = 0;
 var lifecycleStart = in.startYear + delayLifecycle;
-var lifecycleEnd = in.endYear + delayLifecycle;
+var lifecycleEnd = in.endYearGradual + delayLifecycle;
 change misManagedDeltaGradualLifecycle by mismanagedDelta over lifecycleStart to lifecycleEnd;
 
 # Determine recycling delta delayed for production

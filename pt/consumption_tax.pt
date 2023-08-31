@@ -6,18 +6,19 @@ var rate = (0.5 * smoothing / (in.{{ region }}PackagingTaxRef * smoothing)^0.5)^
 var percentDecreaseEnd = (in.{{ region }}PackagingTax * rate * smoothing)^0.5 / smoothing;
 limit percentDecreaseEnd to [0, 1];
 var percentDecrease = 0;
-change percentDecrease by percentDecreaseEnd over in.startYear to in.endYear;
+change percentDecrease by percentDecreaseEnd over in.startYear to in.endYearImmediate;
 
 # Determine change delayed
 var delayYears = lifecycle of [out.{{ region }}.consumptionPackagingMT];
 var percentDecreaseDelay = 0;
 var startYearDelay = in.startYear + delayYears;
-var endYearDelay = in.endYear + delayYears;
+var endYearDelay = in.endYearImmediate + delayYears;
 change percentDecreaseDelay by percentDecreaseEnd over startYearDelay to endYearDelay;
 
 # Reduce consumption
 var originalConsumption = out.{{ region }}.consumptionPackagingMT;
 var reducedConsumption = originalConsumption * percentDecrease;
+limit reducedConsumption to [0,];
 out.{{ region }}.consumptionPackagingMT = out.{{ region }}.consumptionPackagingMT - reducedConsumption;
 
 # Reduce imports
@@ -37,6 +38,7 @@ distribute changeImports across [
 
 # Reduce waste on delay
 var reducedWaste = originalConsumption * percentDecreaseDelay;
+limit reducedWaste to [0,];
 
 distribute -1 * reducedWaste across [
   out.{{ region }}.eolLandfillMT,
