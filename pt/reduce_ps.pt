@@ -7,13 +7,13 @@ var offsetGoalMT = -1 * reducedMaterialMT;
 
 # Apply gradually for immediate effects
 var offsetMT = 0;
-change offsetMT by offsetGoalMT over in.startYear to in.endYear;
+change offsetMT by offsetGoalMT over in.startYear to in.endYearImmediate;
 
 # Apply with lifetime offset for waste
 var offsetLifecycleMT = 0;
 var lifecycleDuration = lifecycle of [ out.{{ region }}.consumptionPackagingMT ];
 var lifecycleStart = in.startYear + lifecycleDuration;
-var lifecycleEnd = in.endYear + lifecycleDuration;
+var lifecycleEnd = in.endYearImmediate + lifecycleDuration;
 change offsetLifecycleMT by offsetGoalMT over lifecycleStart to lifecycleEnd;
 
 # Apply change to consumption

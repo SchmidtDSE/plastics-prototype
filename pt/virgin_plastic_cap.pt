@@ -16,7 +16,7 @@ limit goalReductionMT to [0,];
 
 # Make that change happen over time
 var acutalDeltaMT = 0;
-change acutalDeltaMT by goalReductionMT over in.startYear to in.endYear;
+change acutalDeltaMT by goalReductionMT over in.startYear to in.endYearGradual;
 var offset = -1 * acutalDeltaMT;
 
 # Also keep track of impact with lifecycle delay
@@ -32,7 +32,7 @@ var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionOtherMT
 ];
 var lifecycleStart = in.startYear + lifecycleDuration;
-var lifecycleEnd = in.endYear + lifecycleDuration;
+var lifecycleEnd = in.endYearGradual + lifecycleDuration;
 change acutalDeltaLifecycleMT by goalReductionMT over lifecycleStart to lifecycleEnd;
 var offsetLifecycle = -1 * acutalDeltaLifecycleMT;
 
@@ -40,7 +40,7 @@ var offsetLifecycle = -1 * acutalDeltaLifecycleMT;
 var acutalDeltaMTDelay = 0;
 var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var leadStart = in.startYear - yearsToRecycle;
-var leadEnd = in.endYear - yearsToRecycle;
+var leadEnd = in.endYearGradual - yearsToRecycle;
 change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
 var offsetLeading = -1 * acutalDeltaMT;
 

@@ -3,7 +3,7 @@ var rateDecreaseGoal = in.{{region}}VirginTaxCents * in.percentDecreasePerCent /
 
 # Assume gradually applied
 var rateDecreaseConsumption = 0;
-change rateDecreaseConsumption by rateDecreaseGoal over in.startYear to in.endYear;
+change rateDecreaseConsumption by rateDecreaseGoal over in.startYear to in.endYearImmediate;
 
 var rateDecreaseWaste = 0;
 var lifecycleDuration = [
@@ -17,7 +17,7 @@ var lifecycleDuration = [
   out.{{ region }}.consumptionOtherMT
 ];
 var lifecycleStart = in.startYear + lifecycleDuration;
-var lifecycleEnd = in.endYear + lifecycleDuration;
+var lifecycleEnd = in.endYearImmediate + lifecycleDuration;
 change rateDecreaseWaste by rateDecreaseGoal over lifecycleStart to lifecycleEnd;
 
 # Determine by how much to reduce consumption

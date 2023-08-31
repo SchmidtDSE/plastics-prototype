@@ -7,7 +7,7 @@ var additionalCapacityEnd = investmentMillions * recyclingMTPerMillion;
 var additionalWasteCapacity = 0;
 
 var startWasteYear = in.startYear;
-var endWasteYear = in.endYear;
+var endWasteYear = in.endYearGradual;
 
 change additionalWasteCapacity by additionalCapacityEnd over startWasteYear to endWasteYear;
 

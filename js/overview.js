@@ -60,6 +60,7 @@ class OverviewPresenter {
         self._timedeltaPresenter = new TimeDeltaPresenter(
             timedeltaDiv,
             self._goal,
+            self._metricSwitch.value,
             (year) => self._onYearChange(year),
         );
 
@@ -156,6 +157,7 @@ class OverviewPresenter {
 
     _onMetricSwitch() {
         const self = this;
+        self._timedeltaPresenter.setMetric(self._metricSwitch.value);
         self._onRequestRender();
     }
 

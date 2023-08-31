@@ -7,10 +7,11 @@ import {STRINGS} from "strings";
 
 
 class TimeDeltaPresenter {
-    constructor(targetDiv, attrName, onYearChange) {
+    constructor(targetDiv, attrName, metricName, onYearChange) {
         const self = this;
 
         self._attrName = attrName;
+        self._metricName = metricName;
         self._color = "#1f78b4";
         self._targetDiv = targetDiv;
         self._onYearChange = onYearChange;
@@ -22,6 +23,11 @@ class TimeDeltaPresenter {
     setAttr(newAttr) {
         const self = this;
         self._attrName = newAttr;
+    }
+
+    setMetric(newMetric) {
+        const self = this;
+        self._metricName = newMetric;
     }
 
     render(businessAsUsuals, withInterventions, selectedYear, sparseTicks) {
@@ -282,8 +288,9 @@ class TimeDeltaPresenter {
         const updateTitle = () => {
             const newTitle = [
                 "Global",
+                self._metricName === "cumulative" ? "Cumulative" : "Annual Rate of",
                 STRINGS.get(self._attrName),
-                "Over Time by",
+                "as",
                 unitsLong,
             ].join(" ");
             self._targetDiv.querySelector(".title").innerHTML = newTitle;

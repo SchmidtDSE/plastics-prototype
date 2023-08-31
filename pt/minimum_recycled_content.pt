@@ -5,7 +5,7 @@ var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
 var targetRate = 0;
 var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var delayStart = in.startYear + yearsToRecycle;
-var delayEnd = in.endYear;
+var delayEnd = in.endYearGradual;
 change targetRate by targetRateGoal over delayStart to delayEnd;
 
 # Determine current recycled content, using current year recycling as
@@ -49,13 +49,13 @@ var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionOtherMT
 ];
 var lifecycleStart = in.startYear + lifecycleDuration;
-var lifecycleEnd = in.endYear + lifecycleDuration;
+var lifecycleEnd = in.endYearGradual + lifecycleDuration;
 change actualRecycledDeltaLifecycle by neededMarginRecycling over lifecycleStart to lifecycleEnd;
 
 # Determine the delta to apply to waste (leading due to circulatity delay)
 var actualRecycledDeltaLeading = 0;
 var leadStart = in.startYear - yearsToRecycle;
-var leadDelay = in.endYear - yearsToRecycle;
+var leadDelay = in.endYearGradual - yearsToRecycle;
 change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
 
 # Determine how much consumption is lost due to price increase

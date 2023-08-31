@@ -5,7 +5,7 @@ var newCapacityTarget = newOverallCapacity * in.{{ region }}LandfillPlasticPerce
 
 # Determine new capacity
 var newCapacity = 0;
-change newCapacity by newCapacityTarget over in.startYear to in.endYear;
+change newCapacity by newCapacityTarget over in.startYear to in.endYearGradual;
 
 # Ensure limits maintained
 limit newCapacity to [0, out.{{ region }}.eolMismanagedMT];
