@@ -6,7 +6,7 @@
             "levers": [
                 {
                     "name": "China PS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for China. Use 100% for ban.",
+                    "description": "Percent reduction in polystyrene used in packaging for China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "EU 30 PS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for EU 30. Use 100% for ban.",
+                    "description": "Percent reduction in polystyrene used in packaging for EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -44,7 +44,7 @@
                 },
                 {
                     "name": "NAFTA PS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for NAFTA. Use 100% for ban.",
+                    "description": "Percent reduction in polystyrene used in packaging for NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -63,7 +63,7 @@
                 },
                 {
                     "name": "ROW PS Packaging Reduction",
-                    "description": "Percent reduction in polystyrene used in packaging for rest of world. Use 100% for ban.",
+                    "description": "Percent reduction in polystyrene used in packaging for rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -88,7 +88,7 @@
             "levers": [
                 {
                     "name": "China Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in China.",
+                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -107,7 +107,7 @@
                 },
                 {
                     "name": "EU 30 Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in EU 30.",
+                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -126,7 +126,7 @@
                 },
                 {
                     "name": "NAFTA Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in NAFTA.",
+                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -145,7 +145,7 @@
                 },
                 {
                     "name": "ROW Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in rest of world.",
+                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -164,7 +164,7 @@
                 },
                 {
                     "name": "China Virgin Plastic Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in China.",
+                    "description": "Maximum million tons of annual virgin plastic production in China. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -183,7 +183,7 @@
                 },
                 {
                     "name": "EU 30 Virgin Plastic Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in EU 30.",
+                    "description": "Maximum million tons of annual virgin plastic production in EU 30. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -202,7 +202,7 @@
                 },
                 {
                     "name": "NAFTA Virgin Plastic Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in NAFTA.",
+                    "description": "Maximum million tons of annual virgin plastic production in NAFTA. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -221,7 +221,7 @@
                 },
                 {
                     "name": "ROW Virgin Plastic Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in rest of world.",
+                    "description": "Maximum million tons of annual virgin plastic production in rest of world. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 500,
                     "default": 500,
@@ -246,7 +246,7 @@
             "levers": [
                 {
                     "name": "China Recycling Investment",
-                    "description": "Investment in expanded recycling infrastructure for China including both collection and processing.",
+                    "description": "Investment in expanded recycling infrastructure for China including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -266,7 +266,7 @@
                 },
                 {
                     "name": "EU 30 Recycling Investment",
-                    "description": "Investment in expanded recycling infrastructure for EU 30 including both collection and processing.",
+                    "description": "Investment in expanded recycling infrastructure for EU 30 including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -286,7 +286,7 @@
                 },
                 {
                     "name": "NAFTA Recycling Investment",
-                    "description": "Investment in expanded recycling infrastructure for NAFTA including both collection and processing.",
+                    "description": "Investment in expanded recycling infrastructure for NAFTA including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -306,7 +306,7 @@
                 },
                 {
                     "name": "ROW Recycling Investment",
-                    "description": "Investment in expanded recycling infrastructure for rest of world including both collection and processing.",
+                    "description": "Investment in expanded recycling infrastructure for rest of world including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -326,7 +326,7 @@
                 },
                 {
                     "name": "China Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in China.",
+                    "description": "The minumum recycling rate for waste in China. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -345,7 +345,7 @@
                 },
                 {
                     "name": "EU 30 Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in EU 30.",
+                    "description": "The minumum recycling rate for waste in EU 30. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -364,7 +364,7 @@
                 },
                 {
                     "name": "NAFTA Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in NAFTA.",
+                    "description": "The minumum recycling rate for waste in NAFTA. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -383,7 +383,7 @@
                 },
                 {
                     "name": "ROW Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in rest of world.",
+                    "description": "The minumum recycling rate for waste in rest of world. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -408,7 +408,7 @@
             "levers": [
                 {
                     "name": "China Incineration Investment",
-                    "description": "Investment in expanded incineration infrastructure for China including both collection and processing.",
+                    "description": "Investment in expanded incineration infrastructure for China including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -427,7 +427,7 @@
                 },
                 {
                     "name": "EU 30 Incineration Investment",
-                    "description": "Investment in expanded incineration infrastructure for EU 30 including both collection and processing.",
+                    "description": "Investment in expanded incineration infrastructure for EU 30 including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -446,7 +446,7 @@
                 },
                 {
                     "name": "NAFTA Incineration Investment",
-                    "description": "Investment in expanded incineration infrastructure for NAFTA including both collection and processing.",
+                    "description": "Investment in expanded incineration infrastructure for NAFTA including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -465,7 +465,7 @@
                 },
                 {
                     "name": "ROW Incineration Investment",
-                    "description": "Investment in expanded incineration infrastructure for ROW including both collection and processing.",
+                    "description": "Investment in expanded incineration infrastructure for ROW including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -484,7 +484,7 @@
                 },
                 {
                     "name": "China Landfill Investment",
-                    "description": "Investment in expanded landfill infrastructure for China including both collection and processing.",
+                    "description": "Investment in expanded landfill infrastructure for China including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -503,7 +503,7 @@
                 },
                 {
                     "name": "EU 30 Landfill Investment",
-                    "description": "Investment in expanded landfill infrastructure for EU 30 including both collection and processing.",
+                    "description": "Investment in expanded landfill infrastructure for EU 30 including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -522,7 +522,7 @@
                 },
                 {
                     "name": "NAFTA Landfill Investment",
-                    "description": "Investment in expanded landfill infrastructure for NAFTA including both collection and processing.",
+                    "description": "Investment in expanded landfill infrastructure for NAFTA including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -541,7 +541,7 @@
                 },
                 {
                     "name": "ROW Landfill Investment",
-                    "description": "Investment in expanded landfill infrastructure for ROW including both collection and processing.",
+                    "description": "Investment in expanded landfill infrastructure for ROW including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -560,7 +560,7 @@
                 },
                 {
                     "name": "China Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in China.",
+                    "description": "The maximum percent of waste mismanaged for waste in China. Assumes gradual imposition of mandate.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -579,7 +579,7 @@
                 },
                 {
                     "name": "EU 30 Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in EU 30.",
+                    "description": "The maximum percent of waste mismanaged for waste in EU 30. Assumes gradual imposition of mandate.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -598,7 +598,7 @@
                 },
                 {
                     "name": "NAFTA Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in NAFTA.",
+                    "description": "The maximum percent of waste mismanaged for waste in NAFTA. Assumes gradual imposition of mandate.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -617,7 +617,7 @@
                 },
                 {
                     "name": "ROW Maximum Mismanaged Rate",
-                    "description": "The maximum percent of waste mismanaged for waste in rest of world.",
+                    "description": "The maximum percent of waste mismanaged for waste in rest of world. Assumes gradual imposition of mandate.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -642,7 +642,7 @@
             "levers": [
                 {
                     "name": "China Packaging Consumption Tax",
-                    "description": "The amount of tax per article imposed as a consumption tax in China.",
+                    "description": "The amount of tax per article imposed as a consumption tax in China. Assumes this is a more immediate policy with short phase in.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -662,7 +662,7 @@
                 },
                 {
                     "name": "EU 30 Packaging Consumption Tax",
-                    "description": "The amount of tax per article imposed as a consumption tax in EU 30.",
+                    "description": "The amount of tax per article imposed as a consumption tax in EU 30. Assumes this is a more immediate policy with short phase in.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -682,7 +682,7 @@
                 },
                 {
                     "name": "NAFTA Packaging Consumption Tax",
-                    "description": "The amount of tax per article imposed as a consumption tax in NAFTA.",
+                    "description": "The amount of tax per article imposed as a consumption tax in NAFTA. Assumes this is a more immediate policy with short phase in.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
@@ -702,7 +702,7 @@
                 },
                 {
                     "name": "ROW Packaging Consumption Tax",
-                    "description": "The amount of tax per article imposed as a consumption tax in rest of world.",
+                    "description": "The amount of tax per article imposed as a consumption tax in rest of world. Assumes this is a more immediate policy with short phase in.",
                     "min": 0,
                     "max": 50,
                     "default": 0,
