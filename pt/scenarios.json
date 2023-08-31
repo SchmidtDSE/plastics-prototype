@@ -3,7 +3,7 @@
         {
             "name": "<option> % Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
-            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
+            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
             "config": {
                 "options": [
                     {"name": "20", "value": 20},
@@ -23,7 +23,7 @@
         {
             "name": "<option> % Minimum Recycled Content",
             "id": "minmium-recycled-content",
-            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050. Try out levels beyond those listed in the dropdown by going to the details tab.",
+            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
             "config": {
                 "options": [
                     {"name": "20", "value": 20},
@@ -43,7 +43,7 @@
         {
             "name": "Cap to 2030 Virgin Production",
             "id": "cap-virgin",
-            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario.",
+            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
             "values": [
                 {"lever": "chinaVirginPlasticCap", "value": 210},
                 {"lever": "eu30VirginPlasticCap", "value": 110},
@@ -55,7 +55,7 @@
         {
             "name": "Ban Polystyrene Packaging",
             "id": "ban-ps-packaging",
-            "description": "Policy which globally bans polystyrene in packaging by 2050.",
+            "description": "Policy which globally bans polystyrene in packaging by 2050. Assumes a shorter term implementation and compliance.",
             "values": [
                 {"lever": "chinaPercentReducePs", "value": 100},
                 {"lever": "eu30PercentReducePs", "value": 100},
@@ -67,7 +67,7 @@
         {
             "name": "<option> Billion USD for Plastic Recycling",
             "id": "recycling-investment",
-            "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab.",
+            "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes gradual deployment of capital and realization of benefits.",
             "config": {
                 "options": [
                     {"name": "10", "value": 10},
@@ -87,7 +87,7 @@
         {
             "name": "<option> Billion USD for Waste Management",
             "id": "waste-investment",
-            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. It is weighted towards regions where more of the mismanaged waste is projected. Try out levels beyond those listed in the dropdown, configure the split between landfill / incineration, or specify individual region-level investments by going to the details tab.",
+            "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. It is weighted towards regions where more of the mismanaged waste is projected. Try out levels beyond those listed in the dropdown, configure the split between landfill / incineration, or specify individual region-level investments by going to the details tab. Assumes gradual deployment of capital and realization of benefits.",
             "config": {
                 "options": [
                     {"name": "25", "value": 25},
@@ -111,7 +111,7 @@
         {
             "name": "<option> Packaging Consumption Tax",
             "id": "tax-virgin",
-            "description": "Apply a consumption tax on plastic packaging per article. This is scaled across regions to have roughly the same consumption effect on each region so a tax of 5 cents in NAFTA may be 4 cents in China. To configure specific region-level taxes, go to the details tab. Very low corresopnds to a 2 cent tax in NAFTA, low is 5 cents, moderate is 10 cents, and high is 15 cents all USD.",
+            "description": "Apply a consumption tax on plastic packaging per article. This is scaled across regions to have roughly the same consumption effect on each region so a tax of 5 cents in NAFTA may be 4 cents in China. To configure specific region-level taxes, go to the details tab. Very low corresopnds to a 2 cent tax in NAFTA, low is 5 cents, moderate is 10 cents, and high is 15 cents all USD. Assumes a shorter term implementation and compliance.",
             "config": {
                 "options": [
                     {"name": "Very Low", "value": 2},
