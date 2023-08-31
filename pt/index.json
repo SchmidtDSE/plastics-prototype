@@ -1014,7 +1014,7 @@
                     "description": "At what year the phase in of bans and taxes would be complete. This includes time for compliance.",
                     "min": 2026,
                     "max": 2050,
-                    "default": 2035,
+                    "default": 2030,
                     "step": 1,
                     "units": "",
                     "forcePlus": false,
