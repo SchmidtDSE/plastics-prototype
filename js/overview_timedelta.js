@@ -288,7 +288,7 @@ class TimeDeltaPresenter {
         const updateTitle = () => {
             const newTitle = [
                 "Global",
-                self._metricName === "cumulative" ? "Cumulative" : "Rate of",
+                self._metricName === "cumulative" ? "Cumulative" : "Annual Rate of",
                 STRINGS.get(self._attrName),
                 "as",
                 unitsLong,
