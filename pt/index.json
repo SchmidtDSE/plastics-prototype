@@ -16,7 +16,7 @@
                     "variable": "chinaPercentReducePs",
                     "template": "reduce_ps.pt",
                     "released": true,
-                    "priority": -2,
+                    "priority": -3,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -35,7 +35,7 @@
                     "variable": "eu30PercentReducePs",
                     "template": "reduce_ps.pt",
                     "released": true,
-                    "priority": -2,
+                    "priority": -3,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -54,7 +54,7 @@
                     "variable": "naftaPercentReducePs",
                     "template": "reduce_ps.pt",
                     "released": true,
-                    "priority": -2,
+                    "priority": -3,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -73,7 +73,7 @@
                     "variable": "rowPercentReducePs",
                     "template": "reduce_ps.pt",
                     "released": true,
-                    "priority": -2,
+                    "priority": -3,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -174,7 +174,7 @@
                     "variable": "chinaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
-                    "priority": -1,
+                    "priority": -2,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -193,7 +193,7 @@
                     "variable": "eu30VirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
-                    "priority": -1,
+                    "priority": -2,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -212,7 +212,7 @@
                     "variable": "naftaVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
-                    "priority": -1,
+                    "priority": -2,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -231,7 +231,7 @@
                     "variable": "rowVirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
-                    "priority": -1,
+                    "priority": -2,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -653,7 +653,7 @@
                     "variable": "chinaPackagingTax",
                     "template": "consumption_tax.pt",
                     "released": true,
-                    "priority": 5,
+                    "priority": -1,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -673,7 +673,7 @@
                     "variable": "eu30PackagingTax",
                     "template": "consumption_tax.pt",
                     "released": true,
-                    "priority": 5,
+                    "priority": -1,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -693,7 +693,7 @@
                     "variable": "naftaPackagingTax",
                     "template": "consumption_tax.pt",
                     "released": true,
-                    "priority": 5,
+                    "priority": -1,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -713,7 +713,7 @@
                     "variable": "rowPackagingTax",
                     "template": "consumption_tax.pt",
                     "released": true,
-                    "priority": 5,
+                    "priority": -1,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
