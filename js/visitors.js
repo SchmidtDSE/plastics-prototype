@@ -80,7 +80,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const self = this;
 
         const priorExpression = ctx.getChild(0).accept(self);
-        let opFunc = (a, b) => Math.pow(a, b);
+        const opFunc = (a, b) => Math.pow(a, b);
         const afterExpression = ctx.getChild(2).accept(self);
 
         return (state) => {
