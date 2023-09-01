@@ -91,7 +91,7 @@ lifecycle: LIFECYCLE_ OF_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_;
 
 expression: number # simpleExpression
   | identifier # simpleIdentifier
-  | expression op=(POW_) expression  # powExpression
+  | expression POW_ expression  # powExpression
   | expression op=(MULT_ | DIV_) expression  # multiplyExpression
   | expression op=(ADD_ | SUB_) expression # additionExpression
   | lifecycle # lifecycleExpression
