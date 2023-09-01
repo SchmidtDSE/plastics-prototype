@@ -72,6 +72,23 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     }
 
     /**
+     * Visit expression which raises to a power.
+     *
+     * @return Function which takes in a State object and returns a float.
+     */
+    visitPowExpression(ctx) {
+        const self = this;
+
+        const priorExpression = ctx.getChild(0).accept(self);
+        let opFunc = (a, b) => Math.pow(a, b);
+        const afterExpression = ctx.getChild(2).accept(self);
+
+        return (state) => {
+            return opFunc(priorExpression(state), afterExpression(state));
+        };
+    }
+
+    /**
      * Visit expression which multiplies or divides two other expressions.
      *
      * @return Function which takes in a State object and returns a float.
@@ -85,8 +102,6 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             opFunc = (a, b) => a * b;
         } else if (ctx.op.text === "/") {
             opFunc = (a, b) => a / b;
-        } else if (ctx.op.text === "^") {
-            opFunc = (a, b) => Math.pow(a, b);
         }
         const afterExpression = ctx.getChild(2).accept(self);
 
