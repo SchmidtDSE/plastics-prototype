@@ -989,7 +989,7 @@
                 {
                     "name": "Packaging Tax Smoothing",
                     "description": "How much of a bend in the response curve expected for a packaging tax where reduction = sqrt(tax * regional factor) / smoothing. A higher number expects smaller returns on additionally heightened tax (the rate of return in terms of behavior change diminishes faster).",
-                    "min": 0,
+                    "min": 1,
                     "max": 3,
                     "default": 2,
                     "step": 0.1,
