@@ -90,7 +90,7 @@ distribute newInductiveLifecycleMT across [
 
 # Offset production local
 var priorImports = out.{{ region }}.netImportsMT;
-distribute displacedPlasticsOffsetMT across [
+distribute newInductivePlasticsMT across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
