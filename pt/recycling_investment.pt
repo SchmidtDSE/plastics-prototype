@@ -39,10 +39,8 @@ var endConsumptionYear = endWasteYear + lifetimeYears;
 var displacementRate = in.recyclingDisplacementRate / 100;
 var prodReduction = additionalWasteCapacity;
 var prodInductive = (1 - displacementRate) * additionalWasteCapacity;
-var prodDelta = prodInductive - prodReduction;
 
 change consumptionDeltaDelay by prodInductive over startConsumptionYear to endConsumptionYear;
-change prodDeltaDelay by prodDelta over startConsumptionYear to endConsumptionYear;
 
 # Update waste
 distribute -1 * additionalWasteCapacity across [
@@ -68,7 +66,7 @@ distribute consumptionDeltaDelay across [
 # Update imports / production
 var importsBefore = out.{{ region }}.netImportsMT;
 
-distribute prodDeltaDelay across [
+distribute consumptionDeltaDelay across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.domesticProductionMT
 ] proportionally;
