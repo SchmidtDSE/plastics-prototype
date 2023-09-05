@@ -202,6 +202,37 @@ class SliderPresenter {
         self._onInputChangeInProgress();
         self._refreshTable();
         self._onChange();
+        self._checkContextInfo();
+    }
+
+    _checkContextInfo() {
+        const self = this;
+
+        if (self._config["context"] === undefined) {
+            return;
+        }
+
+        const contextInfo = self._config["context"];
+        const value = self.getValue();
+        const minValue = contextInfo["min"];
+        const maxValue = contextInfo["max"];
+        const showContextInfo = value >= minValue && value <= maxValue;
+        if (showContextInfo) {
+            self._rootElement.querySelector(
+                ".info-indicator",
+            ).style.display = "inline-block";
+
+            const contextInfoElem = self._rootElement.querySelector(".context-info");
+            contextInfoElem.style.display = "block";
+            contextInfoElem.innerHTML = contextInfo["message"];
+        } else {
+            self._rootElement.querySelector(
+                ".info-indicator",
+            ).style.display = "none";
+            self._rootElement.querySelector(
+                ".context-info",
+            ).style.display = "none";
+        }
     }
 
     _refreshTable(data) {
