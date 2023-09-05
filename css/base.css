@@ -678,6 +678,16 @@ select {
     margin-left: 15px;
 }
 
+#levers-panel .context-info {
+    font-weight: bold;
+    display: none;
+    background-color: #555;
+    color: white;
+    margin: 2px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
 #levers-panel .slider-context {
     color: #505050;
 }
@@ -704,6 +714,10 @@ select {
 }
 
 #levers-panel .error-indicator {
+    display: none;
+}
+
+#levers-panel .info-indicator {
     display: none;
 }
 

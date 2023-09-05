@@ -1,5 +1,11 @@
 <div class="slider-holder" id="slider-holder-{{variable}}">
-    <div><span class="error-indicator">⚠️</span><label for="input-{{variable}}"><span id="title-{{variable}}">{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span></label></div>
+    <div>
+        <span class="error-indicator">⚠️</span>
+        <span class="info-indicator">🛈</span>
+        <label for="input-{{variable}}">
+            <span id="title-{{variable}}">{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span>
+        </label>
+    </div>
     <input type="range" min="{{ min }}" max="{{ max }}" value="{{ default }}" class="slider" id="input-{{variable}}" step="{{ step }}">
     <div class="slider-context">
         <table class="goals-table">
@@ -21,6 +27,7 @@
                 <td class="goal-table-recycling"></td>
             </tr>
         </table>
+        <div class="context-info"></div>
         <details>
             <summary>About {{ name }}</summary>
             <p>
