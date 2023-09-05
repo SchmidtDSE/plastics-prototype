@@ -219,18 +219,18 @@ class SliderPresenter {
         const showContextInfo = value >= minValue && value <= maxValue;
         if (showContextInfo) {
             self._rootElement.querySelector(
-                ".info-indicator"
+                ".info-indicator",
             ).style.display = "inline-block";
-            
+
             const contextInfoElem = self._rootElement.querySelector(".context-info");
             contextInfoElem.style.display = "block";
             contextInfoElem.innerHTML = contextInfo["message"];
         } else {
             self._rootElement.querySelector(
-                ".info-indicator"
+                ".info-indicator",
             ).style.display = "none";
             self._rootElement.querySelector(
-                ".context-info"
+                ".context-info",
             ).style.display = "none";
         }
     }
