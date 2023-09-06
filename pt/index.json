@@ -1083,7 +1083,7 @@
                 {
                     "name": "Policy Start Year",
                     "description": "Year in which policies start having an effect.",
-                    "min": 2024,
+                    "min": 2025,
                     "max": 2029,
                     "default": 2025,
                     "step": 1,
