@@ -743,8 +743,8 @@
             ]
         },
         {
-            "name": "existing",
-            "label": "Existing Policies",
+            "name": "pending",
+            "label": "Pending Policies",
             "levers": [
                 {
                     "name": "EU Landfill Directive",

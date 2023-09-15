@@ -2,7 +2,7 @@
     "scenarios": [
         {
             "name": "Existing Policies Fullfilled",
-            "description": "Major known policies with specific targets which have started implementation. This includes, for example, the EU Landfill Directive. Checking this indicates that one is assuming those targets are met.",
+            "description": "Major known policies with specific targets which have been ratified and started implementation. This includes, for example, the EU Landfill Directive. Checking this indicates that one is assuming those targets are met and the policies are fulfilled.",
             "values": [
                 {"lever": "euLandfillDirective", "value": 10},
                 {"lever": "chinaIncinerationTarget", "value": 37}
