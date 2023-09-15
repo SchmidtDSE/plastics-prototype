@@ -23,6 +23,5 @@ out.eu30.eolLandfillMT = out.eu30.eolLandfillMT - requiredReduction;
 # Offset in other fates
 distribute requiredReduction across [
   out.eu30.eolIncinerationMT,
-  out.eu30.eolMismanagedMT,
   out.eu30.eolRecyclingMT
 ] proportionally;

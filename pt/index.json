@@ -752,6 +752,7 @@
                     "min": 0,
                     "max": 100,
                     "default": 10,
+                    "unselectDefault": 100,
                     "step": 5,
                     "units": "% Max Landfill",
                     "forcePlus": false,

@@ -46,7 +46,11 @@ class SliderPresenter {
 
     resetToDefault() {
         const self = this;
-        self.setValue(self._config["default"]);
+        if (self._config["unselectDefault"] === undefined) {
+            self.setValue(self._config["default"]);
+        } else {
+            self.setValue(self._config["unselectDefault"]);
+        }
     }
 
     getProgram() {

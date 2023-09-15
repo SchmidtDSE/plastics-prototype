@@ -128,6 +128,15 @@
             "released": true
         },
         {
+            "name": "Existing Policies",
+            "description": "Major known policies with specific targets which have started implementation. This includes, for example, the EU Landfill Directive.",
+            "values": [
+                {"lever": "euLandfillDirective", "value": 10}
+            ],
+            "released": true,
+            "default": true
+        },
+        {
             "name": "Nivi Scratchpad at 50",
             "id": "nivi-virgin",
             "description": "Test lever for Nivedita.",
