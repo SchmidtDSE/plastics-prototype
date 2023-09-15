@@ -8,7 +8,7 @@
                 {"lever": "chinaIncinerationTarget", "value": 37}
             ],
             "released": true,
-            "default": false
+            "default": true
         },
         {
             "name": "Cap to 2030 Virgin Production",
