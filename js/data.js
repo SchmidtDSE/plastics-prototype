@@ -66,7 +66,7 @@ function buildDataLayer(getLevers) {
         const sourceOverride = urlParams.has("source");
 
         const filename = sourceOverride ? urlParams.get("source") : "web.csv";
-        
+
         // eslint-disable-next-line no-undef
         Papa.parse("/data/" + filename + "?v=" + CACHE_BUSTER, {
             download: true,
