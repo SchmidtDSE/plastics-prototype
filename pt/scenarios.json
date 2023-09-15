@@ -128,10 +128,11 @@
             "released": true
         },
         {
-            "name": "Existing Policies",
-            "description": "Major known policies with specific targets which have started implementation. This includes, for example, the EU Landfill Directive.",
+            "name": "Existing Policies Fullfilled",
+            "description": "Major known policies with specific targets which have started implementation. This includes, for example, the EU Landfill Directive. Checking this indicates that one is assuming those targets are met.",
             "values": [
-                {"lever": "euLandfillDirective", "value": 10}
+                {"lever": "euLandfillDirective", "value": 10},
+                {"lever": "chinaIncinerationTarget", "value": 37}
             ],
             "released": true,
             "default": true
