@@ -1,0 +1,28 @@
+# Determine target in percent
+var goalPercent = in.chinaIncinerationTarget / 100;
+var minimumPercent = 0;
+change minimumPercent by goalPercent over 2020 to 2025;
+
+# Determine target in MT
+var totalWaste = (
+  out.china.eolLandfillMT +
+  out.china.eolIncinerationMT +
+  out.china.eolMismanagedMT +
+  out.china.eolRecyclingMT
+);
+var minIncineration = totalWaste * minimumPercent;
+
+# Determine change required
+var originalIncineration = out.china.eolIncinerationMT;
+var requiredIncrease = minIncineration - originalIncineration;
+limit requiredIncrease to [0,];
+
+# Apply change to landfill
+out.china.eolIncinerationMT = out.china.eolIncinerationMT + requiredIncrease;
+
+# Offset in other fates
+distribute -1 * requiredIncrease across [
+  out.china.eolMismanagedMT,
+  out.china.eolLandfillMT,
+  out.china.eolRecyclingMT
+] proportionally;

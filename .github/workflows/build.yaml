@@ -42,7 +42,7 @@ jobs:
           path: data
           repo: SchmidtDSE/plastics-pipeline
       - name: Move web CSV
-        run: mv data/Pipeline\ Result/overview.csv data/web.csv
+        run: bash move_data.sh
       - name: Build
         shell: bash
         run: |
@@ -91,7 +91,7 @@ jobs:
           path: data
           repo: SchmidtDSE/plastics-pipeline
       - name: Move web CSV
-        run: mv data/Pipeline\ Result/overview.csv data/web.csv
+        run: bash move_data.sh
       - name: Build
         shell: bash
         run: |

@@ -62,8 +62,13 @@ class DataLayer {
 
 function buildDataLayer(getLevers) {
     const dataFuture = new Promise((resolve) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const sourceOverride = urlParams.has("source");
+
+        const filename = sourceOverride ? urlParams.get("source") : "web.csv";
+
         // eslint-disable-next-line no-undef
-        Papa.parse("/data/web.csv?v=" + CACHE_BUSTER, {
+        Papa.parse("/data/" + filename + "?v=" + CACHE_BUSTER, {
             download: true,
             header: true,
             complete: (results) => resolve(results["data"]),
