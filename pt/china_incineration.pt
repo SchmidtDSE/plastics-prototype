@@ -11,7 +11,7 @@ var totalWaste = (
   out.china.eolRecyclingMT
 );
 var currentPercent = out.china.eolIncinerationMT / totalWaste;
-var minIncineration = totalWaste * (percentIncrease + currentPercent);
+var minIncineration = totalWaste * ((1 + percentIncrease) * currentPercent);
 
 # Determine change required
 var originalIncineration = out.china.eolIncinerationMT;
