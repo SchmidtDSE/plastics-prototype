@@ -827,44 +827,6 @@
             ]
         },
         {
-            "name": "pending",
-            "label": "Pending Policies",
-            "levers": [
-                {
-                    "name": "EU Landfill Directive",
-                    "description": "The EU Landfill Directive limits landfill to 10% by 2035.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 100,
-                    "unselectDefault": 100,
-                    "step": 5,
-                    "units": "% Max Landfill",
-                    "forcePlus": false,
-                    "variable": "euLandfillDirective",
-                    "template": "eu_landfill_directive.pt",
-                    "released": true,
-                    "priority": -4,
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "China Incineration Expansion",
-                    "description": "China is expanding its incineration capacity by roughly 37%.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "unselectDefault": 0,
-                    "step": 1,
-                    "units": "% Incineration",
-                    "forcePlus": false,
-                    "variable": "chinaIncinerationTarget",
-                    "template": "china_incineration.pt",
-                    "released": true,
-                    "priority": -4,
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                }
-            ]
-        },
-        {
             "name": "financialAssumptions",
             "label": "Financial Assumptions",
             "levers": [
