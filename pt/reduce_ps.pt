@@ -1,6 +1,6 @@
 # Determine how much material we are dropping
 var psReductionPercent = in.{{ region }}PercentReducePs / 100;
-var percentPackagingPs = {{ percentPS }}; # Dependent on region
+var percentPackagingPs = {{ percentPS }} / 100; # Dependent on region
 var originalPackagingMT = out.{{ region }}.consumptionPackagingMT;
 var reducedMaterialMT = originalPackagingMT * percentPackagingPs * psReductionPercent;
 var offsetGoalMT = -1 * reducedMaterialMT;

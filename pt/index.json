@@ -20,7 +20,7 @@
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"],
-                        "percentPS": 0.3
+                        "percentPS": 1.3
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
@@ -40,7 +40,7 @@
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
-                        "percentPS": 0.52
+                        "percentPS": 5.3
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
@@ -60,7 +60,7 @@
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
-                        "percentPS": 0.29
+                        "percentPS": 0.3
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
@@ -80,7 +80,7 @@
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],
-                        "percentPS": 0.22
+                        "percentPS": 1.6
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 }
