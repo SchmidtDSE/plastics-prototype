@@ -5,13 +5,13 @@
             "label": "Products",
             "levers": [
                 {
-                    "name": "China PS Packaging Reduction",
+                    "name": "China PS Packaging",
                     "description": "Percent reduction in polystyrene used in packaging for China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "chinaPercentReducePs",
                     "template": "reduce_ps.pt",
@@ -25,13 +25,13 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "EU 30 PS Packaging Reduction",
+                    "name": "EU 30 PS Packaging",
                     "description": "Percent reduction in polystyrene used in packaging for EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "eu30PercentReducePs",
                     "template": "reduce_ps.pt",
@@ -45,13 +45,13 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "NAFTA PS Packaging Reduction",
+                    "name": "NAFTA PS Packaging",
                     "description": "Percent reduction in polystyrene used in packaging for NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "naftaPercentReducePs",
                     "template": "reduce_ps.pt",
@@ -65,13 +65,13 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "ROW PS Packaging Reduction",
+                    "name": "ROW PS Packaging",
                     "description": "Percent reduction in polystyrene used in packaging for rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "rowPercentReducePs",
                     "template": "reduce_ps.pt",
@@ -85,13 +85,13 @@
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "China Other Problematic Packaging Reduction",
-                    "description": "Percent reduction in other packaging polymers of concern in China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "China Other Single Use Packaging",
+                    "description": "Percent reduction in other single use packaging (other than polystyrene) in China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "chinaPercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -100,18 +100,19 @@
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"],
-                        "percent": 47.8
+                        "percent": 47.8,
+                        "percentPS": 1.3
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "EU 30 Other Problematic Packaging Reduction",
-                    "description": "Percent reduction in other packaging polymers of concern in EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "EU 30 Other Single Use Packaging",
+                    "description": "Percent reduction in other single use packaging (other than polystyrene) in EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "eu30PercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -120,18 +121,19 @@
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
-                        "percent": 31.0
+                        "percent": 31.0,
+                        "percentPS": 2.2
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "NAFTA Other Problematic Packaging Reduction",
-                    "description": "Percent reduction in other packaging polymers of concern in NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "NAFTA Other Single Use Packaging",
+                    "description": "Percent reduction in other single use packaging (other than polystyrene) in NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "naftaPercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -140,18 +142,19 @@
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
-                        "percent": 46.2
+                        "percent": 46.2,
+                        "percentPS": 1.7
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
                 {
-                    "name": "ROW Other Problematic Packaging Reduction",
-                    "description": "Percent reduction in other packaging polymers of concern in rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "ROW Other Single Use Packaging",
+                    "description": "Percent reduction in other single use packaging (other than polystyrene) in rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "%",
+                    "units": "% Reduction",
                     "forcePlus": false,
                     "variable": "rowPercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -160,7 +163,8 @@
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],
-                        "percent": 48.3
+                        "percent": 48.3,
+                        "percentPS": 1.7
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 }

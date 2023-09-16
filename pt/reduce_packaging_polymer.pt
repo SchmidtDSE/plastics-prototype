@@ -1,8 +1,15 @@
-# Determine how much material we are dropping
+# Determine how much material we are dropping - PS
+var psReductionPercent = in.{{ region }}PercentReducePs / 100;
+var percentPackagingPs = {{ percentPS }} / 100 * psReductionPercent; # Dependent on region
+
+# Determine how much material we are dropping - other
 var reductionPercent = in.{{ region }}PercentReduceProblematicPackaging / 100;
-var percentPackagingImpacted = {{ percent }} / 100; # Dependent on region
+var percentPackagingImpacted = {{ percent }} / 100 * reductionPercent; # Dependent on region
+
+# Determine how much material we are dropping - overall
+var percentPackagingImpactedTotal = percentPackagingImpacted + percentPackagingPs;
 var originalPackagingMT = out.{{ region }}.consumptionPackagingMT;
-var reducedMaterialMT = originalPackagingMT * percentPackagingImpacted * reductionPercent;
+var reducedMaterialMT = originalPackagingMT * percentPackagingImpactedTotal;
 var offsetGoalMT = -1 * reducedMaterialMT;
 
 # Apply gradually for immediate effects
