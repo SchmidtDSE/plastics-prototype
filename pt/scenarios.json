@@ -65,6 +65,18 @@
             "released": true
         },
         {
+            "name": "Ban Other Problematic Packaging",
+            "id": "ban-ps-packaging",
+            "description": "Policy which globally bans non-polystyrene problematic polymers in packaging by 2050. Assumes a shorter term implementation and compliance.",
+            "values": [
+                {"lever": "chinaPercentReduceProblematicPackaging", "value": 100},
+                {"lever": "eu30PercentReduceProblematicPackaging", "value": 100},
+                {"lever": "naftaPercentReduceProblematicPackaging", "value": 100},
+                {"lever": "rowPercentReduceProblematicPackaging", "value": 100}
+            ],
+            "released": true
+        },
+        {
             "name": "<option> Billion USD for Plastic Recycling",
             "id": "recycling-investment",
             "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes gradual deployment of capital and realization of benefits.",

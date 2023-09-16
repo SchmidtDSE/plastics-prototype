@@ -40,7 +40,7 @@
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
-                        "percentPS": 5.3
+                        "percentPS": 2.2
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
@@ -60,7 +60,7 @@
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
-                        "percentPS": 0.3
+                        "percentPS": 1.7
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 },
@@ -80,7 +80,87 @@
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],
-                        "percentPS": 1.6
+                        "percentPS": 1.7
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Other Problematic Packaging Reduction",
+                    "description": "Percent reduction in other packaging polymers of concern in China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaPercentReduceProblematicPackaging",
+                    "template": "reduce_packaging_polymer.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"],
+                        "percent": 47.8
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Other Problematic Packaging Reduction",
+                    "description": "Percent reduction in other packaging polymers of concern in EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30PercentReduceProblematicPackaging",
+                    "template": "reduce_packaging_polymer.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"],
+                        "percent": 31.0
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Other Problematic Packaging Reduction",
+                    "description": "Percent reduction in other packaging polymers of concern in NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaPercentReduceProblematicPackaging",
+                    "template": "reduce_packaging_polymer.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"],
+                        "percent": 46.2
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Other Problematic Packaging Reduction",
+                    "description": "Percent reduction in other packaging polymers of concern in rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowPercentReduceProblematicPackaging",
+                    "template": "reduce_packaging_polymer.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"],
+                        "percent": 48.3
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 }
