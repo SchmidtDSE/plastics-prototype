@@ -1,14 +1,16 @@
 {
     "scenarios": [
         {
-            "name": "Existing Policies Fullfilled",
-            "description": "Major known policies with specific targets which have been ratified and started implementation but not yet complete. This includes, for example, the EU Landfill Directive. Checking this indicates that one is assuming those targets are met and the policies are fulfilled.",
+            "name": "Cap to 2030 Virgin Production",
+            "id": "cap-virgin",
+            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
             "values": [
-                {"lever": "euLandfillDirective", "value": 10},
-                {"lever": "chinaIncinerationTarget", "value": 37}
+                {"lever": "chinaVirginPlasticCap", "value": 210},
+                {"lever": "eu30VirginPlasticCap", "value": 110},
+                {"lever": "naftaVirginPlasticCap", "value": 110},
+                {"lever": "rowVirginPlasticCap", "value": 210}
             ],
-            "released": true,
-            "default": false
+            "released": true
         },
         {
             "name": "<option> % Minimum Recycling Rate",
@@ -47,18 +49,6 @@
                 {"lever": "eu30MinimumRecycledContent", "value": 30, "baseValue": 30},
                 {"lever": "naftaMinimumRecycledContent", "value": 30, "baseValue": 30},
                 {"lever": "rowMinimumRecycledContent", "value": 30, "baseValue": 30}
-            ],
-            "released": true
-        },
-        {
-            "name": "Cap to 2030 Virgin Production",
-            "id": "cap-virgin",
-            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
-            "values": [
-                {"lever": "chinaVirginPlasticCap", "value": 210},
-                {"lever": "eu30VirginPlasticCap", "value": 110},
-                {"lever": "naftaVirginPlasticCap", "value": 110},
-                {"lever": "rowVirginPlasticCap", "value": 210}
             ],
             "released": true
         },
@@ -136,6 +126,16 @@
                 {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}
             ],
             "released": true
+        },
+        {
+            "name": "Existing Policies Fullfilled",
+            "description": "Major known policies with specific targets which have been ratified and started implementation but not yet complete. This includes, for example, the EU Landfill Directive. Checking this indicates that one is assuming those targets are met and the policies are fulfilled.",
+            "values": [
+                {"lever": "euLandfillDirective", "value": 10},
+                {"lever": "chinaIncinerationTarget", "value": 37}
+            ],
+            "released": true,
+            "default": false
         },
         {
             "name": "Nivi Scratchpad at 50",

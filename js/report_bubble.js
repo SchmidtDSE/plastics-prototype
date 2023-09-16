@@ -210,7 +210,7 @@ class BubblegraphPresenter {
             const typeString = STRINGS.get(selection.getDisplayType());
             const text = [
                 stageString,
-                "by Country in",
+                "by Region in",
                 selection.getYear() + " as",
                 typeString,
             ].join(" ");
