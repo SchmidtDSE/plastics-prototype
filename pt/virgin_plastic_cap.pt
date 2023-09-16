@@ -1,4 +1,4 @@
-# Determine the delta
+# Determine the approximate amount non-recycled
 var totalConsumption = (
   out.{{ region }}.consumptionPackagingMT + 
   out.{{ region }}.consumptionConstructionMT + 
@@ -9,9 +9,17 @@ var totalConsumption = (
   out.{{ region }}.consumptionAgricultureMT + 
   out.{{ region }}.consumptionOtherMT
 );
+var approxRecyclingPercent = out.{{ region }}.eolRecyclingMT / (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT
+);
+var approxVirginPercent = 1 - approxRecyclingPercent;
+var totalVirgin = approxVirginPercent * totalConsumption;
 
 # User set goals
-var goalReductionMT = totalConsumption - in.{{ region }}VirginPlasticCap;
+var goalReductionMT = totalVirgin - in.{{ region }}VirginPlasticCap;
 limit goalReductionMT to [0,];
 
 # Make that change happen over time

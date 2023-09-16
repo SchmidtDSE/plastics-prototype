@@ -1,18 +1,6 @@
 {
     "scenarios": [
         {
-            "name": "Cap to 2030 Virgin Production",
-            "id": "cap-virgin",
-            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
-            "values": [
-                {"lever": "chinaVirginPlasticCap", "value": 210},
-                {"lever": "eu30VirginPlasticCap", "value": 110},
-                {"lever": "naftaVirginPlasticCap", "value": 110},
-                {"lever": "rowVirginPlasticCap", "value": 210}
-            ],
-            "released": true
-        },
-        {
             "name": "<option> % Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
             "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
@@ -49,6 +37,18 @@
                 {"lever": "eu30MinimumRecycledContent", "value": 30, "baseValue": 30},
                 {"lever": "naftaMinimumRecycledContent", "value": 30, "baseValue": 30},
                 {"lever": "rowMinimumRecycledContent", "value": 30, "baseValue": 30}
+            ],
+            "released": true
+        },
+        {
+            "name": "Cap to 2030 Virgin Production",
+            "id": "cap-virgin",
+            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
+            "values": [
+                {"lever": "chinaVirginPlasticCap", "value": 145},
+                {"lever": "eu30VirginPlasticCap", "value": 60},
+                {"lever": "naftaVirginPlasticCap", "value": 92},
+                {"lever": "rowVirginPlasticCap", "value": 169}
             ],
             "released": true
         },
