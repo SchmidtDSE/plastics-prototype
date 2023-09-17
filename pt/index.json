@@ -729,7 +729,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/maximum_mismanaged_rate.pdf"
                 },
                 {
                     "name": "EU 30 Maximum Mismanaged Rate",
@@ -748,7 +748,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/maximum_mismanaged_rate.pdf"
                 },
                 {
                     "name": "NAFTA Maximum Mismanaged Rate",
@@ -767,7 +767,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/maximum_mismanaged_rate.pdf"
                 },
                 {
                     "name": "ROW Maximum Mismanaged Rate",
@@ -786,7 +786,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/maximum_mismanaged_rate.pdf"
                 }
             ]
         },
