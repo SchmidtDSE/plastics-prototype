@@ -65,20 +65,28 @@
             "released": true
         },
         {
-            "name": "Ban Other Single Use Packaging",
-            "id": "ban-ps-packaging",
+            "name": "<option> Reduced Single Use Packaging",
+            "id": "ban-single-use",
             "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.",
+            "config": {
+                "options": [
+                    {"name": "30%", "value": 30},
+                    {"name": "60%", "value": 60},
+                    {"name": "90%", "value": 90}
+                ],
+                "default": 60
+            },
             "values": [
-                {"lever": "chinaPercentReduceProblematicPackaging", "value": 100},
-                {"lever": "eu30PercentReduceProblematicPackaging", "value": 100},
-                {"lever": "naftaPercentReduceProblematicPackaging", "value": 100},
-                {"lever": "rowPercentReduceProblematicPackaging", "value": 100}
+                {"lever": "chinaPercentReduceProblematicPackaging", "value": 60, "baseValue": 60},
+                {"lever": "eu30PercentReduceProblematicPackaging", "value": 60, "baseValue": 60},
+                {"lever": "naftaPercentReduceProblematicPackaging", "value": 60, "baseValue": 60},
+                {"lever": "rowPercentReduceProblematicPackaging", "value": 60, "baseValue": 60}
             ],
             "released": true
         },
         {
             "name": "<option> Reduced Additives",
-            "id": "recycling-investment",
+            "id": "reduced-additives",
             "description": "Policy which removes a percent of plastic additives across all sectors. This not only lowers production but can make recycling interventions more powerful through reduced yield loss.",
             "config": {
                 "options": [
