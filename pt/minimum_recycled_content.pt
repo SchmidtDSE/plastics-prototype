@@ -24,7 +24,7 @@ var totalConsumption = (
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
 # Determine how much recycled content is missing
-var recoveryRate = (1 - in.yieldLoss / 100);
+var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
 var neededRecycledContentRate = targetRate * totalConsumption / recoveryRate;
 var neededMarginRecycling = (
   neededRecycledContentRate -

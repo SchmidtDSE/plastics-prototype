@@ -167,6 +167,86 @@
                         "percentPS": 1.7
                     },
                     "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "China Additives",
+                    "description": "Percent reduction in additives in China. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "chinaAdditivesPercentReduction",
+                    "template": "additives.pt",
+                    "released": true,
+                    "priority": -5,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"],
+                        "percent": 3.3
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Additives",
+                    "description": "Percent reduction in additives in EU 30. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "eu30AdditivesPercentReduction",
+                    "template": "additives.pt",
+                    "released": true,
+                    "priority": -5,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"],
+                        "percent": 7.2
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Additives",
+                    "description": "Percent reduction in additives in NAFTA. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "naftaAdditivesPercentReduction",
+                    "template": "additives.pt",
+                    "released": true,
+                    "priority": -5,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"],
+                        "percent": 8.1
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Additives",
+                    "description": "Percent reduction in additives in rest of world. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "rowAdditivesPercentReduction",
+                    "template": "additives.pt",
+                    "released": true,
+                    "priority": -5,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"],
+                        "percent": 8.4
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
                 }
             ]
         },
@@ -174,82 +254,6 @@
             "name": "production",
             "label": "Production",
             "levers": [
-                {
-                    "name": "China Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "chinaMinimumRecycledContent",
-                    "template": "minimum_recycled_content.pt",
-                    "released": true,
-                    "priority": 4,
-                    "attrs": {
-                        "region": "china",
-                        "otherRegions": ["eu30", "nafta", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "EU 30 Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "eu30MinimumRecycledContent",
-                    "template": "minimum_recycled_content.pt",
-                    "released": true,
-                    "priority": 4,
-                    "attrs": {
-                        "region": "eu30",
-                        "otherRegions": ["china", "nafta", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "NAFTA Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "naftaMinimumRecycledContent",
-                    "template": "minimum_recycled_content.pt",
-                    "released": true,
-                    "priority": 4,
-                    "attrs": {
-                        "region": "nafta",
-                        "otherRegions": ["china", "eu30", "row"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
-                {
-                    "name": "ROW Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "rowMinimumRecycledContent",
-                    "template": "minimum_recycled_content.pt",
-                    "released": true,
-                    "priority": 4,
-                    "attrs": {
-                        "region": "row",
-                        "otherRegions": ["china", "eu30", "nafta"]
-                    },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
-                },
                 {
                     "name": "China Virgin Plastic Production Cap",
                     "description": "Maximum million tons of annual virgin plastic production in China. Assumes gradually introduced cap and compliance.",
@@ -332,6 +336,82 @@
             "name": "recycling",
             "label": "Recycling",
             "levers": [
+                {
+                    "name": "China Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "EU 30 Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30MinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "NAFTA Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
+                {
+                    "name": "ROW Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowMinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                },
                 {
                     "name": "China Recycling Investment",
                     "description": "Investment in expanded recycling infrastructure for China including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
@@ -1217,19 +1297,75 @@
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {
-                    "name": "Recycling Yield Loss",
-                    "description": "How much of recycling is lost before it is recirculated into new products.",
+                    "name": "China Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products in China.",
                     "min": 0,
                     "max": 100,
                     "default": 20,
                     "step": 5,
                     "units": "%",
                     "forcePlus": false,
-                    "variable": "yieldLoss",
-                    "template": "noop.pt",
+                    "variable": "chinaYieldLoss",
+                    "template": "yield_loss.pt",
                     "released": true,
-                    "priority": -100,
-                    "attrs": {},
+                    "priority": -4,
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "EU 30 Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products in the EU 30.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30YieldLoss",
+                    "template": "yield_loss.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "eu30"
+                    },
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "NAFTA Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products in NAFTA.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaYieldLoss",
+                    "template": "yield_loss.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "nafta"
+                    },
+                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                },
+                {
+                    "name": "ROW Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products in rest of world.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowYieldLoss",
+                    "template": "yield_loss.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "row"
+                    },
                     "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
                 },
                 {

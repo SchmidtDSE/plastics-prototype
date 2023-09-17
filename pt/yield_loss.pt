@@ -1,0 +1,4 @@
+var additivesReductionPercent = in.{{ region }}AdditivesPercentReduction / 100;
+limit additivesReductionPercent to [0, 1];
+var expectedReduction = additivesReductionPercent * 0.5;
+in.{{ region }}YieldLoss = in.{{ region }}YieldLoss * (1 - expectedReduction);

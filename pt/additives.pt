@@ -1,0 +1,74 @@
+# Determine how much material we are dropping
+var reductionPercent = in.{{ region }}AdditivesPercentReduction / 100;
+var totalPriorConsumption = (
+  out.{{ region }}.consumptionAgricultureMT +
+  out.{{ region }}.consumptionConstructionMT +
+  out.{{ region }}.consumptionElectronicMT +
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT +
+  out.{{ region }}.consumptionPackagingMT +
+  out.{{ region }}.consumptionTransporationMT +
+  out.{{ region }}.consumptionTextileMT +
+  out.{{ region }}.consumptionOtherMT
+);
+var regionAdditives = {{ percent }} / 100;  # Specific to region
+limit regionAdditives to [0, 1];
+var offsetGoalMT = -1 * totalPriorConsumption * reductionPercent * regionAdditives;
+
+# Apply gradually for immediate effects
+var offsetMT = 0;
+change offsetMT by offsetGoalMT over in.startYear to in.endYearImmediate;
+limit offsetMT to [,0];
+
+# Apply to consumption
+distribute offsetMT across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Apply with lifetime offset for waste
+var offsetLifecycleMT = 0;
+var lifecycleDuration = lifecycle of [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionOtherMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYearImmediate + lifecycleDuration;
+change offsetLifecycleMT by offsetGoalMT over lifecycleStart to lifecycleEnd;
+limit offsetLifecycleMT to [,0];
+
+# Apply change to waste
+distribute offsetLifecycleMT across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Apply change to production
+var priorImports = out.{{ region }}.netImportsMT;
+
+distribute offsetMT across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.domesticProductionMT
+] proportionally;
+
+var changeImports = out.{{ region }}.netImportsMT - priorImports;
+
+# Apply change to trade
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
