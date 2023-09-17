@@ -1,10 +1,10 @@
 # Determine how much material we are dropping - PS
 var psReductionPercent = in.{{ region }}PercentReducePs / 100;
-var percentPackagingPs = {{ percentPS }} / 100 * psReductionPercent; # Dependent on region
+var percentPackagingPs = in.{{ region }}PercentPS / 100 * psReductionPercent; # Dependent on region
 
 # Determine how much material we are dropping - other
 var reductionPercent = in.{{ region }}PercentReduceProblematicPackaging / 100;
-var percentPackagingImpacted = {{ percent }} / 100 * reductionPercent; # Dependent on region
+var percentPackagingImpacted = in.{{ region }}PercentSingleUse / 100 * reductionPercent; # Dependent on region
 
 # Determine how much material we are dropping - overall
 var percentPackagingImpactedTotal = percentPackagingImpacted + percentPackagingPs;
