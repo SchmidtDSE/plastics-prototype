@@ -173,7 +173,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "EU 30 Additives",
@@ -192,7 +192,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "NAFTA Additives",
@@ -212,7 +212,7 @@
                         "otherRegions": ["china", "eu30", "row"],
                         "percent": 8.1
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "ROW Additives",
@@ -232,7 +232,7 @@
                         "otherRegions": ["china", "eu30", "nafta"],
                         "percent": 8.4
                     },
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 }
             ]
         },
@@ -1829,7 +1829,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "EU 30 Plastics Additives Percent",
@@ -1846,7 +1846,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "NAFTA Plastics Additives Percent",
@@ -1863,7 +1863,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
                     "name": "ROW Plastics Additives Percent",
@@ -1880,7 +1880,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "about:blank"
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 }
             ]
         }
