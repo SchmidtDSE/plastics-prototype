@@ -21,7 +21,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "EU 30 PS Packaging",
@@ -40,7 +40,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "NAFTA PS Packaging",
@@ -59,7 +59,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "ROW PS Packaging",
@@ -78,7 +78,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "China Other Single Use Packaging",
@@ -97,7 +97,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "EU 30 Other Single Use Packaging",
@@ -116,7 +116,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "NAFTA Other Single Use Packaging",
@@ -135,7 +135,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "ROW Other Single Use Packaging",
@@ -154,7 +154,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "China Additives",
@@ -173,7 +173,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "about:blank"
                 },
                 {
                     "name": "EU 30 Additives",
@@ -192,7 +192,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "about:blank"
                 },
                 {
                     "name": "NAFTA Additives",
@@ -212,7 +212,7 @@
                         "otherRegions": ["china", "eu30", "row"],
                         "percent": 8.1
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "about:blank"
                 },
                 {
                     "name": "ROW Additives",
@@ -232,7 +232,7 @@
                         "otherRegions": ["china", "eu30", "nafta"],
                         "percent": 8.4
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "about:blank"
                 }
             ]
         },
@@ -257,7 +257,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
                 },
                 {
                     "name": "EU 30 Virgin Plastic Production Cap",
@@ -276,7 +276,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
                 },
                 {
                     "name": "NAFTA Virgin Plastic Production Cap",
@@ -295,7 +295,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
                 },
                 {
                     "name": "ROW Virgin Plastic Production Cap",
@@ -314,7 +314,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
                 }
             ]
         },
@@ -339,7 +339,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
                     "name": "EU 30 Minimum Recycled Content",
@@ -358,7 +358,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
                     "name": "NAFTA Minimum Recycled Content",
@@ -377,7 +377,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
                     "name": "ROW Minimum Recycled Content",
@@ -396,7 +396,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
                     "name": "China Recycling Investment",
@@ -416,7 +416,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {
                     "name": "EU 30 Recycling Investment",
@@ -436,7 +436,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {
                     "name": "NAFTA Recycling Investment",
@@ -456,7 +456,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {
                     "name": "ROW Recycling Investment",
@@ -476,7 +476,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {
                     "name": "China Min Recycling Rate",
@@ -495,7 +495,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
                     "name": "EU 30 Min Recycling Rate",
@@ -514,7 +514,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
                     "name": "NAFTA Min Recycling Rate",
@@ -533,7 +533,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
                     "name": "ROW Min Recycling Rate",
@@ -552,7 +552,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 }
             ]
         },
@@ -577,7 +577,7 @@
                     "attrs": {
                         "region": "china"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "EU 30 Incineration Investment",
@@ -596,7 +596,7 @@
                     "attrs": {
                         "region": "eu30"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "NAFTA Incineration Investment",
@@ -615,7 +615,7 @@
                     "attrs": {
                         "region": "nafta"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "ROW Incineration Investment",
@@ -634,7 +634,7 @@
                     "attrs": {
                         "region": "row"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "China Landfill Investment",
@@ -653,7 +653,7 @@
                     "attrs": {
                         "region": "china"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "EU 30 Landfill Investment",
@@ -672,7 +672,7 @@
                     "attrs": {
                         "region": "eu30"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "NAFTA Landfill Investment",
@@ -691,7 +691,7 @@
                     "attrs": {
                         "region": "nafta"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "ROW Landfill Investment",
@@ -710,7 +710,7 @@
                     "attrs": {
                         "region": "row"
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "China Maximum Mismanaged Rate",
@@ -729,7 +729,7 @@
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
                     },
-                    "url": ""
+                    "url": "about:blank"
                 },
                 {
                     "name": "EU 30 Maximum Mismanaged Rate",
@@ -748,7 +748,7 @@
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
                     },
-                    "url": ""
+                    "url": "about:blank"
                 },
                 {
                     "name": "NAFTA Maximum Mismanaged Rate",
@@ -767,7 +767,7 @@
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
                     },
-                    "url": ""
+                    "url": "about:blank"
                 },
                 {
                     "name": "ROW Maximum Mismanaged Rate",
@@ -786,7 +786,7 @@
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
                     },
-                    "url": ""
+                    "url": "about:blank"
                 }
             ]
         },
@@ -817,7 +817,7 @@
                         "max": 75,
                         "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "EU 30 Packaging Consumption Tax",
@@ -842,7 +842,7 @@
                         "max": 75,
                         "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "NAFTA Packaging Consumption Tax",
@@ -867,7 +867,7 @@
                         "max": 75,
                         "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "ROW Packaging Consumption Tax",
@@ -892,7 +892,7 @@
                         "max": 75,
                         "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
                     },
-                    "url": "https://gist.github.com/sampottinger/4eec4f6d2b9239d08b75dfc2a6ffc680"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 }
             ]
         },
@@ -914,7 +914,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_invsetment.pdf"
                 },
                 {
                     "name": "EU 30 Recycling Cost",
@@ -930,7 +930,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_invsetment.pdf"
                 },
                 {
                     "name": "NAFTA Recycling Cost",
@@ -946,7 +946,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_invsetment.pdf"
                 },
                 {
                     "name": "ROW Recycling Cost",
@@ -962,7 +962,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/recycling_invsetment.pdf"
                 },
                 {
                     "name": "China Incineration Cost",
@@ -978,7 +978,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "EU 30 Incineration Cost",
@@ -994,7 +994,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "NAFTA Incineration Cost",
@@ -1010,7 +1010,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "ROW Incineration Cost",
@@ -1026,7 +1026,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "China Landfill Cost",
@@ -1042,7 +1042,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "EU 30 Landfill Cost",
@@ -1058,7 +1058,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "NAFTA Landfill Cost",
@@ -1074,7 +1074,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "ROW Landfill Cost",
@@ -1090,7 +1090,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "China Packaging Tax Power",
@@ -1107,7 +1107,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "China Packaging Tax Multiplier",
@@ -1124,7 +1124,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "EU 30 Packaging Tax Power",
@@ -1141,7 +1141,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "EU 30 Packaging Tax Multiplier",
@@ -1158,7 +1158,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "NAFTA Packaging Tax Power",
@@ -1175,7 +1175,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "NAFTA Packaging Tax Multiplier",
@@ -1192,7 +1192,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "RoW Packaging Tax Power",
@@ -1209,7 +1209,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
                     "name": "RoW Packaging Tax Multiplier",
@@ -1226,7 +1226,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 }
             ]
         },
@@ -1248,7 +1248,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Immediate Policy Complete Year",
@@ -1264,7 +1264,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Gradual Policy Complete Year",
@@ -1280,7 +1280,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "China Recycling Yield Loss",
@@ -1298,7 +1298,7 @@
                     "attrs": {
                         "region": "china"
                     },
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "EU 30 Recycling Yield Loss",
@@ -1316,7 +1316,7 @@
                     "attrs": {
                         "region": "eu30"
                     },
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "NAFTA Recycling Yield Loss",
@@ -1334,7 +1334,7 @@
                     "attrs": {
                         "region": "nafta"
                     },
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "ROW Recycling Yield Loss",
@@ -1352,7 +1352,7 @@
                     "attrs": {
                         "region": "row"
                     },
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "Recycling Circularity Delay",
@@ -1368,7 +1368,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Recycling Displacement Rate",
@@ -1384,7 +1384,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "Recycling Lost Virgin Backfill Rate",
@@ -1400,7 +1400,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/vergin_plastic_cap.pdf"
                 },
                 {
                     "name": "Recycling Content Lost Consumption",
@@ -1416,7 +1416,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
                     "name": "China Incineration Plastic Percent",
@@ -1433,7 +1433,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "EU 30 Incineration Plastic Percent",
@@ -1450,7 +1450,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "NAFTA Incineration Plastic Percent",
@@ -1467,7 +1467,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "ROW Incineration Plastic Percent",
@@ -1484,7 +1484,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
                 },
                 {
                     "name": "China Landfill Plastic Percent",
@@ -1501,7 +1501,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "EU 30 Landfill Plastic Percent",
@@ -1518,7 +1518,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "NAFTA Landfill Plastic Percent",
@@ -1535,7 +1535,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "ROW Landfill Plastic Percent",
@@ -1552,7 +1552,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
                 },
                 {
                     "name": "Packaging Lifetime",
@@ -1568,7 +1568,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Construction Lifetime",
@@ -1584,7 +1584,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Textile Lifetime",
@@ -1600,7 +1600,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "HLS Lifetime",
@@ -1616,7 +1616,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Electronic Lifetime",
@@ -1632,7 +1632,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Transporation Lifetime",
@@ -1648,7 +1648,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Agriculture Lifetime",
@@ -1664,7 +1664,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "Other Lifetime",
@@ -1680,7 +1680,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
                 },
                 {
                     "name": "China Packaging Polystyrene Percent",
@@ -1697,7 +1697,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "EU 30 Packaging Polystyrene Percent",
@@ -1714,7 +1714,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "NAFTA Packaging Polystyrene Percent",
@@ -1731,7 +1731,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "ROW Packaging Polystyrene Percent",
@@ -1748,7 +1748,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "China Packaging Single Use Percent",
@@ -1764,7 +1764,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "EU 30 Packaging Single Use Percent",
@@ -1780,7 +1780,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "NAFTA Packaging Single Use Percent",
@@ -1796,7 +1796,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "ROW Packaging Single Use Percent",
@@ -1812,7 +1812,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {
                     "name": "China Plastics Additives Percent",
@@ -1829,7 +1829,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "about:blank"
                 },
                 {
                     "name": "EU 30 Plastics Additives Percent",
@@ -1846,7 +1846,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "about:blank"
                 },
                 {
                     "name": "NAFTA Plastics Additives Percent",
@@ -1863,7 +1863,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
+                    "url": "about:blank"
                 },
                 {
                     "name": "ROW Plastics Additives Percent",
@@ -1880,38 +1880,7 @@
                     "released": true,
                     "priority": -100,
                     "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
-                },
-                {
-                    "name": "Demand Decrease per Cent Virgin Tax",
-                    "description": "What percent demand will decrease for each cent per pound of tax added per pound of plastic.",
-                    "min": 0,
-                    "max": 20,
-                    "default": 10,
-                    "step": 1,
-                    "units": "%",
-                    "forcePlus": false,
-                    "variable": "percentDecreasePerCent",
-                    "template": "noop.pt",
-                    "released": false,
-                    "priority": -100,
-                    "attrs": {},
-                    "url": "https://gist.github.com/sampottinger/52f0f21187fb70466a73f0a611f96c7c"
-                },
-                {
-                    "name": "Nivi Scratchpad",
-                    "description": "Testing.",
-                    "min": 0,
-                    "max": 100,
-                    "default": 0,
-                    "step": 5,
-                    "units": "%",
-                    "variable": "niviScrachpadInput",
-                    "template": "nivi_scratchpad.pt",
-                    "released": false,
-                    "priority": -100,
-                    "attrs": {},
-                    "url": ""
+                    "url": "about:blank"
                 }
             ]
         }
