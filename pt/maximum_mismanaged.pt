@@ -87,7 +87,7 @@ distribute otherDeltaLifecycle across [
 ] proportionally;
 
 # Apply recovery
-var recovery = (1 - in.yieldLoss / 100);
+var recovery = (1 - in.{{ region }}YieldLoss / 100);
 var recyclingDeltaDelayed = (newRecyclingDelayed - priorRecycling) * recovery;
 var recyclingDeltaLifecycle = (lifecycleRecyclingDelayed - priorRecycling) * recovery;
 

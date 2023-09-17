@@ -85,7 +85,7 @@ var availableWasteToRecycle = (
 );
 
 # Determine how much overall recycling would be needed
-var recoveryRate = (1 - in.yieldLoss / 100);
+var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
 var offsetRecyclingNeededPreRecovery = offsetLeading - offsetConsumption;
 var offsetRecyclingNeeded = offsetRecyclingNeededPreRecovery / recoveryRate;
 

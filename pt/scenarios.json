@@ -3,7 +3,7 @@
         {
             "name": "<option> % Minimum Recycling Rate",
             "id": "minmium-recycle-rate",
-            "description": "Policy which requires that a certain percent of plastic waste is recycled by 2050. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
+            "description": "Policy which requires that a certain percent of plastic waste is recycled. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
             "config": {
                 "options": [
                     {"name": "20", "value": 20},
@@ -23,7 +23,7 @@
         {
             "name": "<option> % Minimum Recycled Content",
             "id": "minmium-recycled-content",
-            "description": "Policy which requires a certain percent of products are made with recycled materials by 2050. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
+            "description": "Policy which requires a certain percent of products are made with recycled materials. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
             "config": {
                 "options": [
                     {"name": "20", "value": 20},
@@ -43,7 +43,7 @@
         {
             "name": "Cap to 2030 Virgin Production",
             "id": "cap-virgin",
-            "description": "Require that annual virgin plastic production is capped to 2030 levels by 2050. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
+            "description": "Require that annual virgin plastic production is capped to 2030 levels. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
             "values": [
                 {"lever": "chinaVirginPlasticCap", "value": 145},
                 {"lever": "eu30VirginPlasticCap", "value": 60},
@@ -55,7 +55,7 @@
         {
             "name": "Ban Polystyrene Packaging",
             "id": "ban-ps-packaging",
-            "description": "Policy which globally bans polystyrene in packaging by 2050. Assumes a shorter term implementation and compliance.",
+            "description": "Policy which globally bans polystyrene in packaging. Assumes a shorter term implementation and compliance.",
             "values": [
                 {"lever": "chinaPercentReducePs", "value": 100},
                 {"lever": "eu30PercentReducePs", "value": 100},
@@ -67,12 +67,32 @@
         {
             "name": "Ban Other Single Use Packaging",
             "id": "ban-ps-packaging",
-            "description": "Policy which globally bans most other non-polystyrene single use packaging by 2050. Assumes a shorter term implementation and compliance.",
+            "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.",
             "values": [
                 {"lever": "chinaPercentReduceProblematicPackaging", "value": 100},
                 {"lever": "eu30PercentReduceProblematicPackaging", "value": 100},
                 {"lever": "naftaPercentReduceProblematicPackaging", "value": 100},
                 {"lever": "rowPercentReduceProblematicPackaging", "value": 100}
+            ],
+            "released": true
+        },
+        {
+            "name": "<option> Reduced Additives",
+            "id": "recycling-investment",
+            "description": "Policy which removes a percent of plastic additives across all sectors. This not only lowers production but can make recycling interventions more powerful through reduced yield loss.",
+            "config": {
+                "options": [
+                    {"name": "30%", "value": 30},
+                    {"name": "60%", "value": 60},
+                    {"name": "90%", "value": 90}
+                ],
+                "default": 60
+            },
+            "values": [
+                {"lever": "chinaAdditivesPercentReduction", "value": 60, "baseValue": 60},
+                {"lever": "eu30AdditivesPercentReduction", "value": 60, "baseValue": 60},
+                {"lever": "naftaAdditivesPercentReduction", "value": 60, "baseValue": 60},
+                {"lever": "rowAdditivesPercentReduction", "value": 60, "baseValue": 60}
             ],
             "released": true
         },
