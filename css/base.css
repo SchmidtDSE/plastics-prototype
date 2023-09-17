@@ -661,6 +661,13 @@ select {
     font-size: 16px;
 }
 
+.warning {
+    padding: 5px;
+    margin: 1px;
+    border: 1px solid #F9A900;
+    border-radius: 2px;
+}
+
 #add-dialog {
     width: 70%;
 }

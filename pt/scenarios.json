@@ -166,15 +166,6 @@
                 {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}
             ],
             "released": true
-        },
-        {
-            "name": "Nivi Scratchpad at 50",
-            "id": "nivi-virgin",
-            "description": "Test lever for Nivedita.",
-            "values": [
-                {"lever": "niviScrachpadInput", "value": 50}
-            ],
-            "released": false
         }
     ]
 }

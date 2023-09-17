@@ -10,7 +10,7 @@ var totalPriorConsumption = (
   out.{{ region }}.consumptionTextileMT +
   out.{{ region }}.consumptionOtherMT
 );
-var regionAdditives = {{ percent }} / 100;  # Specific to region
+var regionAdditives = in.{{ region }}PercentAdditives / 100;  # Specific to region
 limit regionAdditives to [0, 1];
 var offsetGoalMT = -1 * totalPriorConsumption * reductionPercent * regionAdditives;
 

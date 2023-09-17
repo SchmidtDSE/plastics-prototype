@@ -121,9 +121,9 @@ class ScenarioPresenter {
             .attr("id", (scenario) => scenario["id"] + "-menu-check")
             .attr("aria-describedby", (scenario) => scenario["id"] + "-menu-check-label");
 
-        const newLabels = newRows.append("td").append("label");
+        const newLabels = newRows.append("td");
 
-        newLabels.append("span")
+        newLabels.append("label").append("span")
             .html((scenario, i) => {
                 if (scenario["config"] === undefined) {
                     return scenario["name"].replaceAll("<option>", "") + " ";
