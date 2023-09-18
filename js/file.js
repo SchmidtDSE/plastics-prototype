@@ -19,7 +19,12 @@ const LOAD_QUESTION_MSG = [
 const LOAD_CONFIRM_MSG = "Saved policy selections loaded.";
 const NO_SAVE_MSG = "No local saved policy selections found.";
 const RESET_CONFIRM_MSG = "This will clear all of your policy selections. Do you want to continue?";
-const IRRECOVERABLE_ERROR_MSG = "Sorry! An error ocurred getting data from the server. Please reload and try again. Code: ";
+const IRRECOVERABLE_ERROR_MSG = [
+    "Sorry!",
+    "An error ocurred getting data from the server.",
+    "Please reload and try again.",
+    "Code: "
+].join(" ");
 
 let irrecoverableErrorShown = false;
 
@@ -201,14 +206,14 @@ function fetchWithRetry(url) {
 
         const execute = () => {
             fetch(url)
-                .then(response => {
+                .then((response) => {
                     if (response.ok) {
                         resolve(response);
                     } else {
                         makeTry(reponse.status);
                     }
                 })
-                .catch(error => {
+                .catch((error) => {
                     makeTry(-100);
                 });
         };
