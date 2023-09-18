@@ -23,7 +23,7 @@ const IRRECOVERABLE_ERROR_MSG = [
     "Sorry!",
     "An error ocurred getting data from the server.",
     "Please reload and try again.",
-    "Code: "
+    "Code: ",
 ].join(" ");
 
 let irrecoverableErrorShown = false;
