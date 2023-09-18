@@ -696,6 +696,11 @@ select {
     width: 90%;
 }
 
+#browser-warning {
+    background-color: white;
+    margin-bottom: 30px;
+}
+
 #buttons-panel .link-holder {
     margin-bottom: 5px;
     margin-top: 5px;
