@@ -225,7 +225,7 @@ function fetchWithRetry(url) {
                 return;
             } else if (tries > 0) {
                 tries += 1;
-                setTimeout(execute, Math.random() * (5000 - 1000) + 1000);
+                setTimeout(execute, Math.random() * (10000 - 1000) + 1000);
             } else {
                 tries += 1;
                 execute();
