@@ -1,5 +1,5 @@
 import {main} from 'driver';
-
+import {fetchWithRetry} from 'file';
 
 import {Compiler} from "compiler";
 
@@ -8,7 +8,7 @@ function buildPageTest() {
     QUnit.module("page", function() {
 
         function bootstrapPage() {
-            return fetch("harness.html")
+            return fetchWithRetry("harness.html")
                 .then((x) => x.text())
                 .then((x) => {
                     document.getElementById("ui-harness").innerHTML = x;
