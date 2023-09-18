@@ -220,7 +220,18 @@ class Driver {
             clearTimeout(self._redrawTimeout);
         }
 
+        const reschedule = () => {
+            self._redrawTimeout = setTimeout(() => {
+                execute();
+            }, 50);
+        };
+
         const execute = () => {
+            if (self._dataLayer === null) {
+                reschedule();
+                return;
+            }
+
             const businessAsUsual = self._getStates(false);
             const withInterventions = self._getStates(true);
 
@@ -231,9 +242,7 @@ class Driver {
 
         // Give the UI loop a minute to catch up from OS
         if (self._pauseUiLoop) {
-            self._redrawTimeout = setTimeout(() => {
-                execute();
-            }, 50);
+            reschedule();
         } else {
             execute();
         }
