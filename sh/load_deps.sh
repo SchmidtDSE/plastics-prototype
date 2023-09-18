@@ -20,4 +20,6 @@ mkdir -p third_party
 
 [ ! -e third_party/es-module-shims.js ] && wget https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js -O third_party/es-module-shims.js
 
+[ ! -e third_party/ua-parser.min.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/1.0.36/ua-parser.min.js -O third_party/ua-parser.min.js
+
 echo "Installed deps."

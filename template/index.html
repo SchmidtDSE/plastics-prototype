@@ -17,10 +17,62 @@
 
         $target
 
+        <!-- Check for errors -->
         <script src="https://js.sentry-cdn.com/2ee7c86623d4fda26896db4fd757096f.min.js" crossorigin="anonymous"></script>
 
-        <script type="text/javascript" src="third_party/es-module-shims.js"></script>
+        <!-- Check browser and load shim -->
+        <script type="text/javascript" src="third_party/ua-parser.min.js"></script>
+        <script type="text/javascript">
+            var SUPPORTED_OPTIONS = {
+                "Microsoft Edge": 100,
+                "Edge": 100,
+                "Firefox": 106,
+                "Chrome": 100,
+                "Opera": 86,
+                "Safari": 12,
+                "Mobile Safari": 14,
+                "Mobile Chrome": 92,
+                "Mobile Firefox": 114
+            };
 
+
+            function isSupported() {
+                try {
+                    var uap = new UAParser();
+                    var result = uap.getResult();
+                    var browser = result.browser;
+
+                    if (SUPPORTED_OPTIONS[browser.name] === undefined) {
+                        return false;
+                    }
+
+                    var minVersion = SUPPORTED_OPTIONS[browser.name];
+                    var majorVersion = parseFloat(browser.major);
+
+                    if (majorVersion < minVersion) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } catch {
+                    return false;
+                }
+            }
+
+
+            function checkBrowser() {
+                if (isSupported()) {
+                    document.getElementById("browser-warning").style.display = "none";
+                }
+            }
+
+
+            checkBrowser();
+        </script>
+        <script type="text/javascript" src="third_party/es-module-shims.js"></script>
+        <script type="text/javascript" src="third_party/pollyfill.min.js?v=EPOCH"></script>
+
+        <!-- Load third party open source dependencies -->
         <script type="text/javascript" src="third_party/ace.min.js"></script>
         <script type="text/javascript" src="third_party/js.cookie.min.js"></script>
         <script type="text/javascript" src="third_party/d3.min.js"></script>
@@ -31,8 +83,7 @@
         <script type="text/javascript" src="third_party/tabby.min.js"></script>
         <script type="text/javascript" src="third_party/tippy.min.js"></script>
 
-        <script type="text/javascript" src="third_party/pollyfill.min.js?v=EPOCH"></script>
-
+        <!-- Load application -->
         <script type="text/javascript" src="./js/plastics_lang.js?v=EPOCH"></script>
 
         <script type="importmap">
