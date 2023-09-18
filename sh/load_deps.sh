@@ -16,7 +16,7 @@ mkdir -p third_party
 [ ! -e third_party/tippy.min.js ] && wget https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js -O third_party/tippy.min.js
 [ ! -e third_party/js.cookie.min.js ] && wget https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js -O third_party/js.cookie.min.js
 
-[ ! -e third_party/pollyfill.min.js ] && wget https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver -O third_party/pollyfill.min.js
+[ ! -e third_party/pollyfill.min.js ] && wget https://polyfill.io/v3/polyfill.min.js?features=es2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019%2Ces2020%2Ces2021%2Ces2022%2Ces5%2Ces6%2Ces7 -O third_party/pollyfill.min.js
 
 [ ! -e third_party/es-module-shims.js ] && wget https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js -O third_party/es-module-shims.js
 
