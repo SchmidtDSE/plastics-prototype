@@ -17,4 +17,7 @@ mkdir -p third_party
 [ ! -e third_party/js.cookie.min.js ] && wget https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js -O third_party/js.cookie.min.js
 
 [ ! -e third_party/pollyfill.min.js ] && wget https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver -O third_party/pollyfill.min.js
+
+[ ! -e third_party/es-module-shims.js ] && wget https://ga.jspm.io/npm:es-module-shims@1.8.0/dist/es-module-shims.js -O third_party/es-module-shims.js
+
 echo "Installed deps."
