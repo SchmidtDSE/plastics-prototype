@@ -1,4 +1,5 @@
 import {CACHE_BUSTER} from "const";
+import {fetchWithRetry} from "file";
 import {addGlobalToState} from "geotools";
 import {getGoals} from "goals";
 import {STRINGS} from "strings";
@@ -94,7 +95,7 @@ class SliderPresenter {
             return;
         }
 
-        const leverTemplateFuture = fetch("/template/variables.html?v=" + CACHE_BUSTER)
+        const leverTemplateFuture = fetchWithRetry("/template/variables.html?v=" + CACHE_BUSTER)
             .then((x) => x.text())
             .then((x) => getHandlebars().compile(x))
             .then((template) => {
@@ -416,7 +417,7 @@ function buildSliders(includeDevelopment, buildState, compileProgram, onInputCha
 
     const fetchSafe = (url, isJson) => {
         return new Promise((resolve) => {
-            const parsedFuture = fetch(url).then((result) => {
+            const parsedFuture = fetchWithRetry(url).then((result) => {
                 if (isJson) {
                     return result.json();
                 } else {

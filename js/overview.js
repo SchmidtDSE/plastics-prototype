@@ -8,6 +8,7 @@ import {
     PRODUCTION_ATTRS,
 } from "const";
 import {makeCumulative, makeYearDelta} from "transformation";
+import {fetchWithRetry} from "file";
 import {getRelative} from "geotools";
 import {getGoals} from "goals";
 import {runIntro} from "intro";
@@ -218,7 +219,7 @@ class OverviewPresenter {
 
 function buildOverviewPresenter(includeDevelopment, onRequestRerender, onPolicyChange,
     onYearChange) {
-    return fetch("/pt/scenarios.json?v=" + CACHE_BUSTER)
+    return fetchWithRetry("/pt/scenarios.json?v=" + CACHE_BUSTER)
         .then((x) => x.json())
         .then((x) => x["scenarios"])
         .then((x) => x.filter((scenario) => {

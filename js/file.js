@@ -19,6 +19,9 @@ const LOAD_QUESTION_MSG = [
 const LOAD_CONFIRM_MSG = "Saved policy selections loaded.";
 const NO_SAVE_MSG = "No local saved policy selections found.";
 const RESET_CONFIRM_MSG = "This will clear all of your policy selections. Do you want to continue?";
+const IRRECOVERABLE_ERROR_MSG = "Sorry! An error ocurred getting data from the server. Please reload and try again. Code: ";
+
+let irrecoverableErrorShown = false;
 
 
 function writeInputsToString(leversByVariable) {
@@ -192,4 +195,41 @@ class FilePresenter {
 }
 
 
-export {FilePresenter, writeInputsToString, loadInputsFromString};
+function fetchWithRetry(url) {
+    return new Promise((resolve, reject) => {
+        let tries = 0;
+
+        const execute = () => {
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        resolve(response);
+                    } else {
+                        makeTry(reponse.status);
+                    }
+                })
+                .catch(error => {
+                    makeTry(-100);
+                });
+        };
+
+        const makeTry = (statusCode) => {
+            if (tries == 3 && !irrecoverableErrorShown) {
+                alert(IRRECOVERABLE_ERROR_MSG + statusCode);
+                irrecoverableErrorShown = true;
+                return;
+            } else if (tries > 0) {
+                tries += 1;
+                setTimeout(execute, Math.random() * (5000 - 1000) + 1000);
+            } else {
+                tries += 1;
+                execute();
+            }
+        };
+
+        makeTry(200);
+    });
+}
+
+
+export {FilePresenter, writeInputsToString, loadInputsFromString, fetchWithRetry};
