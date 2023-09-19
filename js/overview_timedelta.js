@@ -57,27 +57,27 @@ class TimeDeltaPresenter {
         );
         unitOptions.set(
             GOALS.landfillWaste,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.mismanagedWaste,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.incineratedWaste,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.recycling,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.totalWaste,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.totalConsumption,
-            {"short": "MT", "long": "Million Metric Tons"},
+            {"short": "MMT", "long": "Million Metric Tons"},
         );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];

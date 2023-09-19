@@ -79,7 +79,7 @@ class StagePresenter {
         const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
         const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
         const isMetricTons = unitsStrRaw.includes("Tons");
-        const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
+        const unitsStr = (smallDisplay && isMetricTons) ? " MMT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();
         const regionData = state.get("out").get(selection.getRegion());

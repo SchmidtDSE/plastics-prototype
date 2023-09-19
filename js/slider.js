@@ -290,7 +290,7 @@ class SliderPresenter {
 
             const getText = (value) => {
                 const prefix = value >= 0 ? "+" : "";
-                return prefix + value + " MT";
+                return prefix + value + " MMT";
             };
 
             const setText = (value, selector) => {
