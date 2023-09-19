@@ -117,7 +117,7 @@ class SparklinePresenter {
                 .attr("x", maxValue >= 1000 ? 30 : 20);
 
             self._d3Selection.select(".units-value-label")
-                .html(isPercent ? "%" : "MT")
+                .html(isPercent ? "%" : "MMT")
                 .attr("x", maxValue >= 1000 ? 30 : 20);
         };
 
@@ -212,7 +212,7 @@ class SparklinePresenter {
         targetSvg.append("text")
             .attr("x", 20)
             .attr("y", totalHeight / 2)
-            .html("MT")
+            .html("MMT")
             .classed("units-value-label", true)
             .classed("value-label", true)
             .classed("spark-label", true);

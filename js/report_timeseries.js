@@ -87,7 +87,7 @@ class TimeseriesPresenter {
         };
 
         // Determine units
-        const unitsStr = isPercent ? "%" : "MT";
+        const unitsStr = isPercent ? "%" : "MMT";
 
         // Get layers
         const axisLayer = self._d3Selection.select("#axis-layer");
@@ -131,7 +131,7 @@ class TimeseriesPresenter {
         }
         const horizontalScale = self._getD3().scaleBand()
             .domain(years)
-            .range([55, width - 15])
+            .range([67, width - 15])
             .paddingInner(0.1);
 
         // Make updates
@@ -169,7 +169,7 @@ class TimeseriesPresenter {
 
             boundUpdated
                 .attr("y", (amount) => verticalScale(amount))
-                .attr("x", maxSumValue > 10000 ? 54 : 50);
+                .attr("x", maxSumValue > 10000 ? 64 : 55);
         };
 
         const updateYearAxis = () => {

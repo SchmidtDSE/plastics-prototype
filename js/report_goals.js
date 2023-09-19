@@ -22,7 +22,7 @@ class GoalPresenter {
         const unitsStrLong = (isPercent ? "" : " ") + unitsStrRaw;
         const smallDisplay = window.innerWidth < 1650;
         const isMetricTons = unitsStrRaw.includes("Tons");
-        const unitsStr = (smallDisplay && isMetricTons) ? " MT" : unitsStrLong;
+        const unitsStr = (smallDisplay && isMetricTons) ? " MMT" : unitsStrLong;
 
         const state = stateSet.getWithIntervention();
 
