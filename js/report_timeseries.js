@@ -87,7 +87,7 @@ class TimeseriesPresenter {
         };
 
         // Determine units
-        const unitsStr = isPercent ? "%" : "MT";
+        const unitsStr = isPercent ? "%" : "MMT";
 
         // Get layers
         const axisLayer = self._d3Selection.select("#axis-layer");
