@@ -314,6 +314,10 @@ select {
     margin-right: 5px;
 }
 
+.output-section .region-container .current-year-container .stage-container .warning {
+    margin-bottom: 10px;
+}
+
 .output-section .region-container .current-year-container .stage-container.unselected {
     opacity: 0.6;
 }
@@ -686,6 +690,10 @@ select {
     margin: 1px;
     border: 1px solid #F9A900;
     border-radius: 2px;
+}
+
+.warning.small {
+    font-size: 11px;
 }
 
 #add-dialog {
