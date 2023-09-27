@@ -20,8 +20,8 @@ const CONSUMPTION_ATTRS = [
 const EOL_ATTRS = [
     "eolLandfillMT",
     "eolIncinerationMT",
-    "eolMismanagedMT",
     "eolRecyclingMT",
+    "eolMismanagedMT",
 ];
 
 const PRODUCTION_ATTRS = [
@@ -33,8 +33,8 @@ const PRODUCTION_ATTRS = [
 const COLORS = [
     "#a6cee3",
     "#1f78b4",
-    "#b2df8a",
     "#33a02c",
+    "#b2df8a",
     "#fb9a99",
     "#e31a1c",
     "#fdbf6f",
@@ -44,8 +44,8 @@ const COLORS = [
 const TEXT_COLORS = [
     "#333333",
     "#F0F0F0",
-    "#333333",
     "#F0F0F0",
+    "#333333",
     "#333333",
     "#F0F0F0",
     "#333333",
