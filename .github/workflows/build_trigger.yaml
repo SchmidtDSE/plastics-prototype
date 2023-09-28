@@ -59,6 +59,47 @@ jobs:
           "./sh/install_browser.sh"
       - name: Run unit tests
         run: grunt
+  testFigures:
+    environment: build
+    runs-on: ubuntu-latest
+    name: Test Figures
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+      - name: Install Processing
+        run: bash support/install_processing.sh
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{ secrets.CROSS_TOKEN }}
+          workflow: pipelines.yaml
+          workflow_conclusion: success
+          branch: main
+          path: data
+          repo: SchmidtDSE/plastics-pipeline
+      - name: Render lines
+        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+      - name: Render butterfly
+        run: bash support/render_butterfly.sh
+      - name: Check outputs
+        run: bash support/check_image_outputs.sh
+      - name: Snapshot images
+        run: zip -r img.zip img
+      - uses: actions/upload-artifact@v3
+        with:
+          name: img-snapshot
+          path: img.zip
+          if-no-files-found: error
   deploy:
     name: Deploy
     environment: deploy
@@ -88,6 +129,16 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+      - name: Install Processing
+        run: bash support/install_processing.sh
+      - name: Render lines
+        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+      - name: Render butterfly
+        run: bash support/render_butterfly.sh
+      - name: Check outputs
+        run: bash support/check_image_outputs.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
