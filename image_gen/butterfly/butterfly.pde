@@ -5,6 +5,15 @@ Dataset dataset;
 
 void setup() {
   size(1000, 700);
+  try {
+    runSketch();
+  } catch (Exception e) {
+    println("Error: " + e);
+  }
+}
+
+
+void runSketch() {
   loadSemiconstants();
 
   if (args == null || args.length != 2) {
