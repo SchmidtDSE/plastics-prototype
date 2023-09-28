@@ -67,7 +67,7 @@ def main():
             totalConsumptionMT,
             totalConsumptionMT / populationMillions AS perCapitaTons,
             totalConsumptionMT / gdp AS perGdpTons,
-            gdp,
+            gdpSum,
             populationMillions
         FROM
             (
