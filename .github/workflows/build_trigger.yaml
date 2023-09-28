@@ -134,7 +134,9 @@ jobs:
         with:
           name: img-snapshot
       - name: Unzip images
-        run: support/unzip_images.sh
+        run: bash support/unzip_images.sh
+      - name: Check images
+        run: bash support/check_image_outputs.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
