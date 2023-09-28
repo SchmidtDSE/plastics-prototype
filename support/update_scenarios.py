@@ -22,7 +22,14 @@ def main():
             region = region_record['region']
             consumption_keys = filter(lambda x: 'consumption' in x, region_record.keys())
             total = sum(map(lambda x: float(region_record[x]), consumption_keys))
-            totals[region] = total
+            percentRecycling = float(region_record['eolRecyclingMT']) / (
+                float(region_record['eolLandfillMT']) +
+                float(region_record['eolIncinerationMT']) +
+                float(region_record['eolMismanagedMT']) +
+                float(region_record['eolRecyclingMT'])
+            )
+            percentVirigin = 1 - percentRecycling
+            totals[region] = total * percentVirigin
 
     with open(scenarios_loc) as f:
         scenarios = json.load(f)
