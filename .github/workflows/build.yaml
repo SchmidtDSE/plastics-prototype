@@ -96,6 +96,13 @@ jobs:
         run: bash support/render_butterfly.sh
       - name: Check outputs
         run: bash support/check_image_outputs.sh
+      - name: Snapshot images
+        run: zip -r img.zip img
+      - uses: actions/upload-artifact@v3
+        with:
+          name: img-snapshot
+          path: img.zip
+          if-no-files-found: error
   deploy:
     name: Deploy
     environment: deploy
