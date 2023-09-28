@@ -93,7 +93,7 @@ jobs:
       - name: Render lines
         run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
       - name: Render butterfly
-        run: $PWD/processing-4.3/processing-java --sketch=butterfly --output=/tmp/butteflybuild --force --run $PWD/data/Pipeline\ Result/combined.db $PWD/img
+        run: bash support/render_butterfly.sh
       - name: Check outputs
         run: bash support/check_image_outputs.sh
   deploy:
