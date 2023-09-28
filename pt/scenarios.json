@@ -45,10 +45,10 @@
             "id": "cap-virgin",
             "description": "Require that annual virgin plastic production is capped to 2030 levels. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
             "values": [
-                {"lever": "chinaVirginPlasticCap", "value": 145},
-                {"lever": "eu30VirginPlasticCap", "value": 60},
-                {"lever": "naftaVirginPlasticCap", "value": 95},
-                {"lever": "rowVirginPlasticCap", "value": 160}
+                {"lever": "chinaVirginPlasticCap", "value": 123},
+                {"lever": "eu30VirginPlasticCap", "value": 123},
+                {"lever": "naftaVirginPlasticCap", "value": 123},
+                {"lever": "rowVirginPlasticCap", "value": 123}
             ],
             "released": true
         },

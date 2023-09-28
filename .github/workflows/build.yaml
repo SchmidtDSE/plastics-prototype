@@ -55,6 +55,8 @@ jobs:
         run: |
           chmod +x "./sh/load_deps.sh"
           "./sh/load_deps.sh"
+      - name: Update scenarios
+        run: bash support/update_scenarios_default.sh
       - name: Install browser
         shell: bash
         run: |
@@ -153,6 +155,8 @@ jobs:
         run: |
           chmod +x "./sh/load_deps.sh"
           "./sh/load_deps.sh"
+      - name: Update scenarios
+        run: bash support/update_scenarios_default.sh
       - name: Package website
         shell: bash
         run: |
