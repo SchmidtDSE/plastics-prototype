@@ -9,8 +9,6 @@ void setup() {
     runSketch();
   } catch (Exception e) {
     println("Error: " + e);
-  } catch (RuntimeException e) {
-    println("Error: " + e);
   }
 }
 
