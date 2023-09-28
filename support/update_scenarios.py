@@ -31,7 +31,7 @@ def main():
         filter(lambda x: x['id'] == 'cap-virgin', scenarios['scenarios'])
     )[0]
     for value in cap_scenario['values']:
-        region = value['lever'].replace('PercentReducePs', '')
+        region = value['lever'].replace('VirginPlasticCap', '')
         total = totals[region]
         value['value'] = round(total / 5) * 5
 
