@@ -66,28 +66,33 @@ def main():
             region,
             totalConsumptionMT,
             totalConsumptionMT / populationMillions AS perCapitaTons,
-            totalConsumptionMT / gdp AS perGdpTons,
-            gdp,
+            totalConsumptionMT / gdpSum AS perGdpTons,
+            gdpSum,
             populationMillions
         FROM
             (
                 SELECT
-                    region AS region,
-                    year AS year,
+                    project_ml.region AS region,
+                    project_ml.year AS year,
                     (
-                        consumptionAgricultureMT +
-                        consumptionConstructionMT +
-                        consumptionElectronicMT +
-                        consumptionHouseholdLeisureSportsMT +
-                        consumptionOtherMT +
-                        consumptionPackagingMT +
-                        consumptionTextileMT +
-                        consumptionTransporationMT
+                        project_ml.consumptionAgricultureMT +
+                        project_ml.consumptionConstructionMT +
+                        project_ml.consumptionElectronicMT +
+                        project_ml.consumptionHouseholdLeisureSportsMT +
+                        project_ml.consumptionOtherMT +
+                        project_ml.consumptionPackagingMT +
+                        project_ml.consumptionTextileMT +
+                        project_ml.consumptionTransporationMT
                     ) AS totalConsumptionMT,
-                    population AS populationMillions,
-                    gdp
+                    project_ml.population AS populationMillions,
+                    gdp.gdpSum AS gdpSum
                 FROM
                     project_ml
+                INNER JOIN
+                    gdp
+                ON
+                    project_ml.region = gdp.region
+                    AND project_ml.year = gdp.year
             )
         ''',
         database
