@@ -131,6 +131,16 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+      - name: Install Processing
+        run: bash support/install_processing.sh
+      - name: Render lines
+        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+      - name: Render butterfly
+        run: bash support/render_butterfly.sh
+      - name: Check outputs
+        run: bash support/check_image_outputs.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
