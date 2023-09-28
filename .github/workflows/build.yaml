@@ -6,10 +6,10 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  testApp:
     environment: build
     runs-on: ubuntu-latest
-    name: Test
+    name: Test App
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -62,6 +62,36 @@ jobs:
           "./sh/install_browser.sh"
       - name: Run unit tests
         run: grunt
+  testFigures:
+    environment: build
+    runs-on: ubuntu-latest
+    name: Test App
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+      - name: Install Processing
+        run: bash support/install_processing.sh
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          github_token: ${{ secrets.CROSS_TOKEN }}
+          workflow: pipelines.yaml
+          workflow_conclusion: success
+          branch: main
+          path: data
+          repo: SchmidtDSE/plastics-pipeline
+      - name: Render lines
+        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+      - name: Render butterfly
+        run: $PWD/processing-4.3/processing-java --sketch=butterfly --output=/tmp/butteflybuild --force --run $PWD/data/Pipeline\ Result/combined.db $PWD/img
+      - name: Check outputs
+        run: bash support/check_image_outputs.sh
   deploy:
     name: Deploy
     environment: deploy
