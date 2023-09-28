@@ -27,7 +27,9 @@ def main():
     with open(scenarios_loc) as f:
         scenarios = json.load(f)
 
-    cap_scenario = filter(lambda x: x['id'] == 'cap-virgin', scenarios['scenarios'])
+    cap_scenario = list(
+        filter(lambda x: x['id'] == 'cap-virgin', scenarios['scenarios'])
+    )[0]
     for value in cap_scenario['values']:
         region = value['lever'].replace('PercentReducePs', '')
         total = totals[region]
