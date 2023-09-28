@@ -59,10 +59,10 @@ jobs:
           "./sh/install_browser.sh"
       - name: Run unit tests
         run: grunt
-  testFigures:
+  buildFigures:
     environment: build
     runs-on: ubuntu-latest
-    name: Test Figures
+    name: Build Figures
     steps:
       - name: Checkout
         uses: actions/checkout@v3
