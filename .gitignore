@@ -7,7 +7,6 @@ intermediate/PlasticsLangLexer.*
 intermediate/PlasticsLangListener.js
 intermediate/PlasticsLangVisitor.js
 intermediate/PlasticsLangParser.js
-js/plastics_lang.js
 language/*.jar
 test/qunit.css
 test/qunit.min.js
@@ -23,5 +22,9 @@ img/line.png
 img/waste.png
 img/consumption.png
 
-js/standalone_visitors.js
+js/plastics_lang.js
 js/visitors.js
+
+js_standalone/const.js
+js_standalone/plastics_lang.js
+js_standalone/standalone_visitors.js

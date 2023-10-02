@@ -5,7 +5,7 @@ USAGE_STR = 'python preprocess_visitors.py [template] [content] [output]'
 
 
 def main():
-    if len(sys.argv) ! = NUM_ARGS + 1:
+    if len(sys.argv) != NUM_ARGS + 1:
         print(USAGE_STR)
         sys.exit(1)
     
