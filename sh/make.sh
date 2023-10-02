@@ -11,4 +11,5 @@ cd ..
 
 cp intermediate/static/plasticslang.js js/plastics_lang.js
 
-python support/preprocess_visitors.py 
+python support/preprocess_visitors.py js/standalone_visitors_base.js_template js/compile_visitor.js_template js/standalone_visitors.js
+python support/preprocess_visitors.py js/visitors_base.js_template js/compile_visitor.js_template js/visitors.js

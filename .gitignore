@@ -22,3 +22,6 @@ test/harness.html
 img/line.png
 img/waste.png
 img/consumption.png
+
+js/standalone_visitors.js
+js/visitors.js
