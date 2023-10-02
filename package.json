@@ -2,7 +2,8 @@
   "name": "plastics-lang",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode=development"
+    "build": "webpack --mode=production",
+    "standalone": "node js/standalone.js"
   },
   "dependencies": {
     "antlr4": "^4.13.0",
