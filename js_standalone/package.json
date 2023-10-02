@@ -1,14 +1,12 @@
 {
-  "name": "plastics-lang",
+  "name": "plastics-lang-standalone",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
-    "build": "webpack --mode=production"
+    "standalone": "node engine/standalone.js"
   },
   "dependencies": {
     "antlr4": "^4.13.0",
-    "grunt": "^1.5.2",
-    "grunt-contrib-connect": "^3.0.0",
-    "grunt-contrib-qunit": "^6.1.0",
     "package.json": "^0.0.0"
   },
   "devDependencies": {
@@ -17,8 +15,6 @@
     "@babel/preset-env": "^7.16.5",
     "babel-loader": "^9.1.2",
     "eslint": "^8.44.0",
-    "eslint-config-google": "^0.14.0",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
+    "eslint-config-google": "^0.14.0"
   }
 }

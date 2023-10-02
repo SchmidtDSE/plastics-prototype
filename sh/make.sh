@@ -9,10 +9,11 @@ cd intermediate
 npm run build
 cd ..
 
-cp intermediate/static/plasticslang.js js/plastics_lang.js
+cp intermediate/static/plasticslang.js js/plastics_lang
+python support/preprocess_visitors.py js/visitors_base.js_template js/compile_visitor.js_template js/visitors.js.js
 
-cp intermediate/static/plasticslang.js js_standalone/plastics_lang.js
-cp js/const.js js_standalone/const.js
+cp intermediate/static/plasticslang.js js_standalone/engine/plastics_lang.js
+cp js/const.js js_standalone/engine/const.js
 
-python support/preprocess_visitors.py js_standalone/standalone_visitors_base.js_template js/compile_visitor.js_template js_standalone/standalone_visitors.js
-python support/preprocess_visitors.py js/visitors_base.js_template js/compile_visitor.js_template js/visitors.js
+python support/preprocess_visitors.py js_standalone/engine/standalone_visitors_base.js_template js/compile_visitor.js_template js_standalone/engine/standalone_visitors.js
+python support/preprocess_visitors.py js_standalone/engine/plastics_lang_bootstrap.js_template js_standalone/engine/plastics_lang.js js_standalone/engine/plastics_lang_bootstrap.js

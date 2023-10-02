@@ -1,11 +1,11 @@
 import {CONSUMPTION_ATTRS, EOL_ATTRS} from "./const.js";
-import {PlasticsLang} from "./plastics_lang.js";
+import {PlasticsLang} from "./plastics_lang_bootstrap.js";
 
 // eslint-disable-next-line no-undef
 const toolkit = PlasticsLang.getToolkit();
 
 
-{{ VISITOR_CODE }}
+{{ CODE }}
 
 
 export {toolkit, CompileVisitor};

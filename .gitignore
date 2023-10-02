@@ -25,6 +25,7 @@ img/consumption.png
 js/plastics_lang.js
 js/visitors.js
 
-js_standalone/const.js
-js_standalone/plastics_lang.js
-js_standalone/standalone_visitors.js
+js_standalone/engine/const.js
+js_standalone/engine/plastics_lang.js
+js_standalone/engine/standalone_visitors.js
+js_standalone/engine/plastics_lang_bootstrap.js

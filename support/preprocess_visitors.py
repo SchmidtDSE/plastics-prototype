@@ -19,7 +19,7 @@ def main():
     with open(content_loc) as f:
         content = f.read()
     
-    rendered = template_source.replace('{{ VISITOR_CODE }}', content)
+    rendered = template_source.replace('{{ CODE }}', content)
 
     with open(output_loc, 'w') as f:
         f.write(rendered)
