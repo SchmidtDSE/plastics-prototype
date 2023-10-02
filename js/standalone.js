@@ -1,1 +1,1 @@
-import {CompileVisitor} from "./standalone_visitors.js"
+import {CompileVisitor} from "./standalone_visitors.js";

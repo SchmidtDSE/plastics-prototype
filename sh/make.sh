@@ -10,3 +10,5 @@ npm run build
 cd ..
 
 cp intermediate/static/plasticslang.js js/plastics_lang.js
+
+python support/preprocess_visitors.py 

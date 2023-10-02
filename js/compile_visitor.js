@@ -1,9 +1,3 @@
-import {CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
-
-// eslint-disable-next-line no-undef
-const toolkit = PlasticsLang.getToolkit();
-
-
 /**
  * Visitor which compiles the PT program to JS functions.
  *
@@ -487,5 +481,3 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         container.set(finalPiece, result);
     }
 }
-
-export {toolkit, CompileVisitor};
