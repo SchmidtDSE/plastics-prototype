@@ -1,0 +1,10 @@
+import {CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
+
+// eslint-disable-next-line no-undef
+const toolkit = PlasticsLang.getToolkit();
+
+
+{{ CODE }}
+
+
+export {toolkit, CompileVisitor};
