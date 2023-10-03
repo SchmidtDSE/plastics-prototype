@@ -27,7 +27,7 @@ jobs:
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Render templates
-        run: bash sh/render_template.sh
+        run: bash support/render_template.sh
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
@@ -43,22 +43,22 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          chmod +x "./sh/make.sh"
-          chmod +x "./sh/npm_install.sh"
-          "./sh/npm_install.sh"
-          "./sh/make.sh"
+          chmod +x "./support/make.sh"
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
+          "./support/make.sh"
       - name: Install JS deps
         shell: bash
         run: |
-          chmod +x "./sh/load_deps.sh"
-          "./sh/load_deps.sh"
+          chmod +x "./support/load_deps.sh"
+          "./support/load_deps.sh"
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
       - name: Install browser
         shell: bash
         run: |
-          chmod +x "./sh/install_browser.sh"
-          "./sh/install_browser.sh"
+          chmod +x "./support/install_browser.sh"
+          "./support/install_browser.sh"
       - name: Run unit tests
         run: grunt
   buildFigures:
@@ -120,7 +120,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Render templates
-        run: bash sh/render_template.sh
+        run: bash support/render_template.sh
       - name: Download artifact
         id: download-artifact
         uses: dawidd6/action-download-artifact@v2
@@ -144,22 +144,22 @@ jobs:
       - name: Build
         shell: bash
         run: |
-          chmod +x "./sh/make.sh"
-          chmod +x "./sh/npm_install.sh"
-          "./sh/npm_install.sh"
-          "./sh/make.sh"
+          chmod +x "./support/make.sh"
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
+          "./support/make.sh"
       - name: Install JS deps
         shell: bash
         run: |
-          chmod +x "./sh/load_deps.sh"
-          "./sh/load_deps.sh"
+          chmod +x "./support/load_deps.sh"
+          "./support/load_deps.sh"
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
       - name: Package website
         shell: bash
         run: |
-          chmod +x "./sh/package.sh"
-          "./sh/package.sh"
+          chmod +x "./support/package.sh"
+          "./support/package.sh"
       - name: Upload
         uses: Creepios/sftp-action@v1.0.3
         with:
