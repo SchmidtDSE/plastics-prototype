@@ -1,7 +1,9 @@
 import fs from "fs";
-import papaparse from "papaparse";
 
-import {CompileVisitor} from "./standalone_visitors.js";
+import papaparse from "papaparse";
+import handlebars from "handlebars";
+
+import {CompileVisitor, toolkit} from "./standalone_visitors.js";
 
 const DATA_ATTRS = [
     "eolRecyclingMT",
@@ -21,20 +23,18 @@ const DATA_ATTRS = [
     "domesticProductionMT"
 ];
 
-const NUM_ARGS = 1;
-const USAGE_STR = "USAGE: npm run standalone [job]";
+const NUM_ARGS = 2;
+const USAGE_STR = "USAGE: npm run standalone [job] [output]";
 
 
 function loadJson(loc) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(loc, "utf8", (error, data) => {
-            if (error){
-               reject(error);
-               return;
-            }
-            resolve(JSON.parse(data));
-        });
-    });
+    return fs.promises.readFile(loc)
+        .then((data) => JSON.parse(data));
+}
+
+
+function writeJson(payload, loc) {
+    return fs.promises.writeFile(loc, JSON.stringify(payload));
 }
 
 
@@ -127,11 +127,127 @@ function buildWorkspace(jobInfo) {
 
 
 function buildLevers(jobInfo) {
-    const loadLever = (loc) => {
-        return fs.promises.open(loc, "r")
-            .then(fileBuffer => fileBuffer.toString())
-            .then()
+    const parseProgram = (input) => {
+        if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
+            return null;
+        }
+
+        const errors = [];
+
+        const chars = new toolkit.antlr4.InputStream(input);
+        const lexer = new toolkit.PlasticsLangLexer(chars);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener({
+            syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
+                const result = `(line ${line}, col ${column}): ${msg}`;
+                errors.push(result);
+            },
+        });
+
+        const tokens = new toolkit.antlr4.CommonTokenStream(lexer);
+        const parser = new toolkit.PlasticsLangParser(tokens);
+
+        parser.buildParsePlastics = true;
+        parser.removeErrorListeners();
+        parser.addErrorListener({
+            syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
+                const result = `(line ${line}, col ${column}): ${msg}`;
+                errors.push(result);
+            },
+        });
+
+        const programUncompiled = parser.program();
+
+        if (errors.length > 0) {
+            throw errors[0];
+        }
+
+        const program = programUncompiled.accept(new CompileVisitor());
+        if (errors.length > 0) {
+            throw errors[0];
+        }
+
+        return program;
     };
+
+    const loadProgram = (loc, templateVals) => {
+        return fs.promises.readFile(loc)
+            .then((x) => x.toString())
+            .then((x) => handlebars.compile(x))
+            .then((x) => x(templateVals))
+            .then(parseProgram);
+    };
+
+    const baseUrl = jobInfo["levers"];
+
+    return loadJson(baseUrl + "/index.json")
+        .then((rawResult) => {
+            return rawResult["categories"].flatMap(
+                (category) => category["levers"]
+            );
+        })
+        .then((leversRaw) => {
+            return new Promise((resolve, reject) => {
+                const programFutures = leversRaw.map((raw) => {
+                    const fullUrl = baseUrl + "/" + raw["template"];
+                    const templateVals = raw["attrs"];
+                    return {
+                        "url": fullUrl,
+                        "templateVals": templateVals
+                    };
+                }).map((x) => loadProgram(x["url"], x["templateVals"]));
+                
+                Promise.all(programFutures).then((programs) => {
+                    for (let i = 0; i < programs.length; i++) {
+                        leversRaw[i]["compiled"] = programs[i];
+                    }
+
+                    resolve(leversRaw);
+                }, reject);
+            });
+        });
+}
+
+
+function consolidateWorkspace(workspace, levers) {
+    workspace.set("levers", levers);
+
+    const workspaceInputs = workspace.get("in");
+
+    levers.forEach((lever) => {
+        const defaultValue = lever["default"];
+        const variableName = lever["variable"];
+        if (!workspaceInputs.has(variableName)) {
+            workspaceInputs.set(variableName, defaultValue);
+        }
+    });
+
+    return workspace;
+}
+
+
+function executeWorkspace(workspace) {
+    const levers = workspace.get("levers");
+    levers.filter((x) => x["compiled"] !== null).forEach((lever) => {
+        workspace.set("local", new Map());
+        workspace.set("inspect", []);
+        lever["compiled"](workspace);
+    });
+    return workspace;
+}
+
+
+function serializeOutputs(workspace) {
+    const output = {};
+    const regions = workspace.get("out");
+    regions.forEach((regionVars, region) => {
+        const regionOutput = {};
+        regionVars.forEach((value, name) => {
+            regionOutput[name] = value;
+        });
+        output[region] = regionOutput;
+    });
+    return output;
 }
 
 
@@ -142,13 +258,26 @@ function main() {
     }
 
     const jobLoc = process.argv[2];
-
+    const outputLoc = process.argv[3];
     const jobFuture = loadJson(jobLoc);
 
-    jobFuture.then(buildWorkspace).then(
-        (result) => { console.log("done"); },
-        (error) => { console.error("error: " + error); }
-    );
+    const futureWorkspace = jobFuture.then(buildWorkspace);
+    const futureLevers = jobFuture.then(buildLevers).then((levers) => {
+        levers.sort((a, b) => { a.priority - b.priority });
+        return levers;
+    });
+
+    const downstreamFutures = [futureWorkspace, futureLevers];
+
+    Promise.all(downstreamFutures)
+        .then((x) => consolidateWorkspace(x[0], x[1]))
+        .then(executeWorkspace)
+        .then(serializeOutputs)
+        .then((workspace) => writeJson(workspace, outputLoc))
+        .then(
+            (x) => console.log("done"),
+            (x) => console.log("error: " + x)
+        );
 }
 
 
