@@ -107,6 +107,11 @@ jobs:
         run: bash support/update_scenarios_default.sh
       - name: Execute example
         run: bash support/execute_standalone_example.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: standalone-example
+          path: js_standalone/test_output.json
+          if-no-files-found: error
   buildFigures:
     environment: build
     runs-on: ubuntu-latest
