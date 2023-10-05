@@ -1,0 +1,11 @@
+{
+    "levers": "../pt",
+    "data": "../data/web.csv",
+    "year": 2050,
+    "inputs": [
+        {"lever": "chinaMinimumRecycledContent", "value": 30},
+        {"lever": "eu30MinimumRecycledContent", "value": 30},
+        {"lever": "naftaMinimumRecycledContent", "value": 30},
+        {"lever": "rowMinimumRecycledContent", "value": 30}
+    ]
+}
