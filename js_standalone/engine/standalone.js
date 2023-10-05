@@ -20,7 +20,7 @@ const DATA_ATTRS = [
     "consumptionOtherMT",
     "netImportsMT",
     "netExportsMT",
-    "domesticProductionMT"
+    "domesticProductionMT",
 ];
 
 const NUM_ARGS = 2;
@@ -42,12 +42,12 @@ function buildWorkspace(jobInfo) {
     const loadOutputData = (loc, targetYear) => {
         const loadRawData = () => {
             const results = [];
-    
+
             return new Promise((resolve, reject) => {
                 fs.createReadStream(loc)
                     .pipe(papaparse.parse(
                         papaparse.NODE_STREAM_INPUT,
-                        { header: true }
+                        {header: true},
                     ))
                     .on("data", (data) => {
                         const year = parseInt(data["year"]);
@@ -64,26 +64,26 @@ function buildWorkspace(jobInfo) {
                     });
             });
         };
-    
+
         const createOutputs = (rawData) => {
             const workspaceOut = new Map();
             rawData.forEach((row) => {
                 const region = row["region"];
-                
+
                 if (!workspaceOut.has(region)) {
                     workspaceOut.set(region, new Map());
                 }
-                
+
                 const workspaceRegion = workspaceOut.get(region);
                 DATA_ATTRS.forEach((attr) => {
                     const value = parseFloat(row[attr]);
                     workspaceRegion.set(attr, value);
                 });
             });
-            
+
             return workspaceOut;
         };
-    
+
         return loadRawData().then(createOutputs);
     };
 
@@ -96,7 +96,7 @@ function buildWorkspace(jobInfo) {
             resolve(inputMap);
         });
     };
-    
+
     const loadMeta = (targetYear) => {
         return new Promise((resolve) => {
             const workspaceMeta = new Map();
@@ -108,7 +108,7 @@ function buildWorkspace(jobInfo) {
     const promises = [
         loadOutputData(jobInfo["data"], jobInfo["year"]),
         loadInputs(jobInfo["inputs"]),
-        loadMeta(jobInfo["year"])
+        loadMeta(jobInfo["year"]),
     ];
 
     return Promise.all(promises).then((results) => {
@@ -183,7 +183,7 @@ function buildLevers(jobInfo) {
     return loadJson(baseUrl + "/index.json")
         .then((rawResult) => {
             return rawResult["categories"].flatMap(
-                (category) => category["levers"]
+                (category) => category["levers"],
             );
         })
         .then((leversRaw) => {
@@ -193,10 +193,10 @@ function buildLevers(jobInfo) {
                     const templateVals = raw["attrs"];
                     return {
                         "url": fullUrl,
-                        "templateVals": templateVals
+                        "templateVals": templateVals,
                     };
                 }).map((x) => loadProgram(x["url"], x["templateVals"]));
-                
+
                 Promise.all(programFutures).then((programs) => {
                     for (let i = 0; i < programs.length; i++) {
                         leversRaw[i]["compiled"] = programs[i];
@@ -263,7 +263,9 @@ function main() {
 
     const futureWorkspace = jobFuture.then(buildWorkspace);
     const futureLevers = jobFuture.then(buildLevers).then((levers) => {
-        levers.sort((a, b) => { a.priority - b.priority });
+        levers.sort((a, b) => {
+            a.priority - b.priority;
+        });
         return levers;
     });
 
@@ -276,7 +278,7 @@ function main() {
         .then((workspace) => writeJson(workspace, outputLoc))
         .then(
             (x) => console.log("done"),
-            (x) => console.log("error: " + x)
+            (x) => console.log("error: " + x),
         );
 }
 
