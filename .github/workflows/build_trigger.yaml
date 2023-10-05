@@ -102,6 +102,10 @@ jobs:
         run: cd js_standalone; npm install
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
+      - name: Execute example
+        run: cd js_standalone; npm run standalone ./example.json ./test_output.json
+      - name: Check output
+        run: "[ ! -e test_output ] && exit 1"
   buildFigures:
     environment: build
     runs-on: ubuntu-latest
