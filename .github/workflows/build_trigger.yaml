@@ -105,7 +105,7 @@ jobs:
       - name: Execute example
         run: cd js_standalone; npm run standalone ./example.json ./test_output.json
       - name: Check output
-        run: "[ ! -e test_output ] && exit 1"
+        run: "[ ! -e test_output.json ] && exit 1"
   buildFigures:
     environment: build
     runs-on: ubuntu-latest
