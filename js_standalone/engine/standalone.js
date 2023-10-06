@@ -34,7 +34,7 @@ function loadJson(loc) {
 
 
 function writeJson(payload, loc) {
-    return fs.promises.writeFile(loc, JSON.stringify(payload));
+    return fs.promises.writeFile(loc, JSON.stringify(payload, null, 4));
 }
 
 
