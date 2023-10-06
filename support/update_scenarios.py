@@ -4,6 +4,7 @@ import sys
 
 NUM_ARGS = 2
 USAGE_STR = 'python update_scenarios.py [data csv] [scenarios]'
+TARGET_YEAR = 2025
 
 
 def main():
@@ -17,7 +18,7 @@ def main():
     totals = {}
     with open(data_loc) as f:
         input_data = csv.DictReader(f)
-        data_2030 = filter(lambda x: int(x['year']) == 2030, input_data)
+        data_2030 = filter(lambda x: int(x['year']) == TARGET_YEAR, input_data)
         for region_record in data_2030:
             region = region_record['region']
             consumption_keys = filter(lambda x: 'consumption' in x, region_record.keys())
@@ -43,7 +44,7 @@ def main():
         value['value'] = round(total / 5) * 5
 
     with open(scenarios_loc, 'w') as f:
-        json.dump(scenarios, f)
+        json.dump(scenarios, f, indent=2)
     
 
 
