@@ -1,3 +1,5 @@
+"""Script to build the standalone tasks in CI / CD."""
+
 import json
 import os
 import sys
@@ -22,8 +24,11 @@ SCENARIOS = {
         'minmium-recycle-rate': 40
     },
     'highAmbition': {
+        'cap-virgin': 1,
+        'minmium-recycled-content': 40,
         'recycling-investment': 100,
-        'waste-investment': 100
+        'waste-investment': 100,
+        'tax-virgin': 2
     },
     'all': {
         'minmium-recycle-rate': 40,

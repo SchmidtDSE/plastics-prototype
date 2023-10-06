@@ -92,7 +92,14 @@ class Driver {
                 self._levers = values[3];
                 self._overviewPresenter = values[4];
 
-                self._levers.sort((a, b) => a.getPriority() - b.getPriority());
+                self._levers.sort((a, b) => {
+                    const diff = a.getPriority() - b.getPriority();
+                    if (Math.abs(diff) < 0.00001) {
+                        return a.getVariable().localeCompare(b.getVariable());
+                    } else {
+                        return diff;
+                    }
+                });
 
                 self._leversByName = new Map();
                 self._levers.forEach((lever) => {
