@@ -34,7 +34,7 @@ function loadJson(loc) {
 
 
 function writeJson(payload, loc) {
-    return fs.promises.writeFile(loc, JSON.stringify(payload));
+    return fs.promises.writeFile(loc, JSON.stringify(payload, null, 4));
 }
 
 
@@ -264,7 +264,12 @@ function main() {
     const futureWorkspace = jobFuture.then(buildWorkspace);
     const futureLevers = jobFuture.then(buildLevers).then((levers) => {
         levers.sort((a, b) => {
-            a.priority - b.priority;
+            const diff = a["priority"] - b["priority"];
+            if (Math.abs(diff) < 0.00001) {
+                return a["variable"].localeCompare(b["variable"]);
+            } else {
+                return diff;
+            }
         });
         return levers;
     });

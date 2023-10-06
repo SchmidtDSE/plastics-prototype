@@ -1,1 +1,383 @@
-{"scenarios": [{"name": "<option> % Minimum Recycling Rate", "id": "minmium-recycle-rate", "description": "Policy which requires that a certain percent of plastic waste is recycled. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.", "config": {"options": [{"name": "20", "value": 20}, {"name": "30", "value": 30}, {"name": "40", "value": 40}], "default": 30}, "values": [{"lever": "chinaMinimumRecyclingRate", "value": 30, "baseValue": 30}, {"lever": "eu30MinimumRecyclingRate", "value": 30, "baseValue": 30}, {"lever": "naftaMinimumRecyclingRate", "value": 30, "baseValue": 30}, {"lever": "rowMinimumRecyclingRate", "value": 30, "baseValue": 30}], "released": true}, {"name": "<option> % Minimum Recycled Content", "id": "minmium-recycled-content", "description": "Policy which requires a certain percent of products are made with recycled materials. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.", "config": {"options": [{"name": "20", "value": 20}, {"name": "30", "value": 30}, {"name": "40", "value": 40}], "default": 30}, "values": [{"lever": "chinaMinimumRecycledContent", "value": 30, "baseValue": 30}, {"lever": "eu30MinimumRecycledContent", "value": 30, "baseValue": 30}, {"lever": "naftaMinimumRecycledContent", "value": 30, "baseValue": 30}, {"lever": "rowMinimumRecycledContent", "value": 30, "baseValue": 30}], "released": true}, {"name": "Cap to 2030 Virgin Production", "id": "cap-virgin", "description": "Require that annual virgin plastic production is capped to 2030 levels. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.", "values": [{"lever": "chinaVirginPlasticCap", "value": 150}, {"lever": "eu30VirginPlasticCap", "value": 60}, {"lever": "naftaVirginPlasticCap", "value": 95}, {"lever": "rowVirginPlasticCap", "value": 160}], "released": true}, {"name": "Ban Polystyrene Packaging", "id": "ban-ps-packaging", "description": "Policy which globally bans polystyrene in packaging. Assumes a shorter term implementation and compliance.", "values": [{"lever": "chinaPercentReducePs", "value": 100}, {"lever": "eu30PercentReducePs", "value": 100}, {"lever": "naftaPercentReducePs", "value": 100}, {"lever": "rowPercentReducePs", "value": 100}], "released": true}, {"name": "<option> % Reduced Single Use Packaging", "id": "ban-single-use", "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.", "config": {"options": [{"name": "30", "value": 30}, {"name": "60", "value": 60}, {"name": "90", "value": 90}], "default": 60}, "values": [{"lever": "chinaPercentReduceProblematicPackaging", "value": 60, "baseValue": 60}, {"lever": "eu30PercentReduceProblematicPackaging", "value": 60, "baseValue": 60}, {"lever": "naftaPercentReduceProblematicPackaging", "value": 60, "baseValue": 60}, {"lever": "rowPercentReduceProblematicPackaging", "value": 60, "baseValue": 60}], "released": true}, {"name": "<option> % Reduced Additives", "id": "reduced-additives", "description": "Policy which removes a percent of plastic additives across all sectors. This not only lowers production but can make recycling interventions more powerful through reduced yield loss.", "config": {"options": [{"name": "30", "value": 30}, {"name": "60", "value": 60}, {"name": "90", "value": 90}], "default": 60}, "values": [{"lever": "chinaAdditivesPercentReduction", "value": 60, "baseValue": 60}, {"lever": "eu30AdditivesPercentReduction", "value": 60, "baseValue": 60}, {"lever": "naftaAdditivesPercentReduction", "value": 60, "baseValue": 60}, {"lever": "rowAdditivesPercentReduction", "value": 60, "baseValue": 60}], "released": true}, {"name": "<option> Billion USD for Plastic Recycling", "id": "recycling-investment", "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes gradual deployment of capital and realization of benefits.", "config": {"options": [{"name": "10", "value": 10}, {"name": "50", "value": 50}, {"name": "100", "value": 100}], "default": 50}, "values": [{"lever": "chinaRecyclingInvestment", "value": 12.5, "baseValue": 12.5}, {"lever": "eu30RecyclingInvestment", "value": 12.5, "baseValue": 12.5}, {"lever": "naftaRecyclingInvestment", "value": 12.5, "baseValue": 12.5}, {"lever": "rowRecyclingInvestment", "value": 12.5, "baseValue": 12.5}], "released": true}, {"name": "<option> Billion USD for Waste Infrastructure", "id": "waste-investment", "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. It is weighted towards regions where more of the mismanaged waste is projected. Try out levels beyond those listed in the dropdown, configure the split between landfill / incineration, or specify individual region-level investments by going to the details tab. Assumes gradual deployment of capital and realization of benefits.", "config": {"options": [{"name": "25", "value": 25}, {"name": "50", "value": 50}, {"name": "100", "value": 100}], "default": 50}, "values": [{"lever": "chinaLandfillInvestment", "value": 1, "baseValue": 1}, {"lever": "eu30LandfillInvestment", "value": 1, "baseValue": 1}, {"lever": "naftaLandfillInvestment", "value": 1, "baseValue": 1}, {"lever": "rowLandfillInvestment", "value": 22, "baseValue": 22}, {"lever": "chinaIncinerationInvestment", "value": 1, "baseValue": 1}, {"lever": "eu30IncinerationInvestment", "value": 1, "baseValue": 1}, {"lever": "naftaIncinerationInvestment", "value": 1, "baseValue": 1}, {"lever": "rowIncinerationInvestment", "value": 22, "baseValue": 22}], "released": true}, {"name": "<option> Packaging Consumption Tax", "id": "tax-virgin", "description": "Apply a consumption tax on plastic packaging per article. This applies region-specific taxation levels and, to configure specific region-level taxes, go to the details tab. Assumes a shorter term implementation and compliance.", "config": {"options": [{"name": "Low", "value": 1}, {"name": "High", "value": 2}], "default": 1}, "values": [{"lever": "chinaPackagingTax", "value": 3, "baseValue": 3}, {"lever": "eu30PackagingTax", "value": 22, "baseValue": 22}, {"lever": "naftaPackagingTax", "value": 5, "baseValue": 5}, {"lever": "rowPackagingTax", "value": 2, "baseValue": 2}], "released": true}]}
+{
+  "scenarios": [
+    {
+      "name": "<option> % Minimum Recycling Rate",
+      "id": "minmium-recycle-rate",
+      "description": "Policy which requires that a certain percent of plastic waste is recycled. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
+      "config": {
+        "options": [
+          {
+            "name": "20",
+            "value": 20
+          },
+          {
+            "name": "30",
+            "value": 30
+          },
+          {
+            "name": "40",
+            "value": 40
+          }
+        ],
+        "default": 30
+      },
+      "values": [
+        {
+          "lever": "chinaMinimumRecyclingRate",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "eu30MinimumRecyclingRate",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "naftaMinimumRecyclingRate",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "rowMinimumRecyclingRate",
+          "value": 30,
+          "baseValue": 30
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> % Minimum Recycled Content",
+      "id": "minmium-recycled-content",
+      "description": "Policy which requires a certain percent of products are made with recycled materials. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
+      "config": {
+        "options": [
+          {
+            "name": "20",
+            "value": 20
+          },
+          {
+            "name": "30",
+            "value": 30
+          },
+          {
+            "name": "40",
+            "value": 40
+          }
+        ],
+        "default": 30
+      },
+      "values": [
+        {
+          "lever": "chinaMinimumRecycledContent",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "eu30MinimumRecycledContent",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "naftaMinimumRecycledContent",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "rowMinimumRecycledContent",
+          "value": 30,
+          "baseValue": 30
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "Cap to 2030 Virgin Production",
+      "id": "cap-virgin",
+      "description": "Require that annual virgin plastic production is capped to 2030 levels. The caps are set to match roughly 2030 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
+      "values": [
+        {
+          "lever": "chinaVirginPlasticCap",
+          "value": 150
+        },
+        {
+          "lever": "eu30VirginPlasticCap",
+          "value": 60
+        },
+        {
+          "lever": "naftaVirginPlasticCap",
+          "value": 95
+        },
+        {
+          "lever": "rowVirginPlasticCap",
+          "value": 160
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "Ban Polystyrene Packaging",
+      "id": "ban-ps-packaging",
+      "description": "Policy which globally bans polystyrene in packaging. Assumes a shorter term implementation and compliance.",
+      "values": [
+        {
+          "lever": "chinaPercentReducePs",
+          "value": 100
+        },
+        {
+          "lever": "eu30PercentReducePs",
+          "value": 100
+        },
+        {
+          "lever": "naftaPercentReducePs",
+          "value": 100
+        },
+        {
+          "lever": "rowPercentReducePs",
+          "value": 100
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> % Reduced Single Use Packaging",
+      "id": "ban-single-use",
+      "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.",
+      "config": {
+        "options": [
+          {
+            "name": "30",
+            "value": 30
+          },
+          {
+            "name": "60",
+            "value": 60
+          },
+          {
+            "name": "90",
+            "value": 90
+          }
+        ],
+        "default": 60
+      },
+      "values": [
+        {
+          "lever": "chinaPercentReduceProblematicPackaging",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "eu30PercentReduceProblematicPackaging",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "naftaPercentReduceProblematicPackaging",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "rowPercentReduceProblematicPackaging",
+          "value": 60,
+          "baseValue": 60
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> % Reduced Additives",
+      "id": "reduced-additives",
+      "description": "Policy which removes a percent of plastic additives across all sectors. This not only lowers production but can make recycling interventions more powerful through reduced yield loss.",
+      "config": {
+        "options": [
+          {
+            "name": "30",
+            "value": 30
+          },
+          {
+            "name": "60",
+            "value": 60
+          },
+          {
+            "name": "90",
+            "value": 90
+          }
+        ],
+        "default": 60
+      },
+      "values": [
+        {
+          "lever": "chinaAdditivesPercentReduction",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "eu30AdditivesPercentReduction",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "naftaAdditivesPercentReduction",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "rowAdditivesPercentReduction",
+          "value": 60,
+          "baseValue": 60
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> Billion USD for Plastic Recycling",
+      "id": "recycling-investment",
+      "description": "Policy which expands plastic recycling infrastructure globally through investment. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes gradual deployment of capital and realization of benefits.",
+      "config": {
+        "options": [
+          {
+            "name": "10",
+            "value": 10
+          },
+          {
+            "name": "50",
+            "value": 50
+          },
+          {
+            "name": "100",
+            "value": 100
+          }
+        ],
+        "default": 50
+      },
+      "values": [
+        {
+          "lever": "chinaRecyclingInvestment",
+          "value": 12.5,
+          "baseValue": 12.5
+        },
+        {
+          "lever": "eu30RecyclingInvestment",
+          "value": 12.5,
+          "baseValue": 12.5
+        },
+        {
+          "lever": "naftaRecyclingInvestment",
+          "value": 12.5,
+          "baseValue": 12.5
+        },
+        {
+          "lever": "rowRecyclingInvestment",
+          "value": 12.5,
+          "baseValue": 12.5
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> Billion USD for Waste Infrastructure",
+      "id": "waste-investment",
+      "description": "Policy which expands waste management (incineration and landfill) infrastructure globally through investment. It is weighted towards regions where more of the mismanaged waste is projected. Try out levels beyond those listed in the dropdown, configure the split between landfill / incineration, or specify individual region-level investments by going to the details tab. Assumes gradual deployment of capital and realization of benefits.",
+      "config": {
+        "options": [
+          {
+            "name": "25",
+            "value": 25
+          },
+          {
+            "name": "50",
+            "value": 50
+          },
+          {
+            "name": "100",
+            "value": 100
+          }
+        ],
+        "default": 50
+      },
+      "values": [
+        {
+          "lever": "chinaLandfillInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "eu30LandfillInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "naftaLandfillInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "rowLandfillInvestment",
+          "value": 22,
+          "baseValue": 22
+        },
+        {
+          "lever": "chinaIncinerationInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "eu30IncinerationInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "naftaIncinerationInvestment",
+          "value": 1,
+          "baseValue": 1
+        },
+        {
+          "lever": "rowIncinerationInvestment",
+          "value": 22,
+          "baseValue": 22
+        }
+      ],
+      "released": true
+    },
+    {
+      "name": "<option> Packaging Consumption Tax",
+      "id": "tax-virgin",
+      "description": "Apply a consumption tax on plastic packaging per article. This applies region-specific taxation levels and, to configure specific region-level taxes, go to the details tab. Assumes a shorter term implementation and compliance.",
+      "config": {
+        "options": [
+          {
+            "name": "Low",
+            "value": 1
+          },
+          {
+            "name": "High",
+            "value": 2
+          }
+        ],
+        "default": 1
+      },
+      "values": [
+        {
+          "lever": "chinaPackagingTax",
+          "value": 3,
+          "baseValue": 3
+        },
+        {
+          "lever": "eu30PackagingTax",
+          "value": 22,
+          "baseValue": 22
+        },
+        {
+          "lever": "naftaPackagingTax",
+          "value": 5,
+          "baseValue": 5
+        },
+        {
+          "lever": "rowPackagingTax",
+          "value": 2,
+          "baseValue": 2
+        }
+      ],
+      "released": true
+    }
+  ]
+}
