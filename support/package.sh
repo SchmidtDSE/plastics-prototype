@@ -7,6 +7,7 @@ cp -r js deploy/js
 cp -r pt deploy/pt
 cp -r template deploy/template
 cp -r third_party deploy/third_party
+cp -r standalone_tasks deploy/standalone_tasks
 cp index.html deploy
 cp preview.html deploy
 epoch=$(date +%s)
