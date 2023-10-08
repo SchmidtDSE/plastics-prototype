@@ -15,8 +15,20 @@
 
                 <div id="overview" class="overview">
                     <div class="panel overview-panel" id="overview-panel">
+                        <div class="tutorial">
+                            <p class="warning">
+                                ⚠️ Warning: Using preliminary model results. Things may change.
+                            </p>
+                            <p class="tutorial-cta">🏁 Start here:</p>
+                            <p>
+                                Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. Click next to enable the visualization and combine different policies to reduce waste.
+                            </p>
+                            <div class="tutorial-next">
+                                <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                            </div>
+                        </div>
                         <div class="overview-section cumulative-toggle">
-                            <h3>
+                            <h3 class="post-intro post-intro-early">
                                 Showing Plastic
                                 <select class="goal-select">
                                     <option value="mismanagedWaste" selected>Mismanaged Waste</option>
@@ -32,21 +44,6 @@
                                 </select>
                                 Million Metric Tons.
                             </h3>
-                            <div class="tutorial">
-                                <p class="warning">
-                                    ⚠️ Warning: Using preliminary model results. Things may change.
-                                </p>
-                                <p class="tutorial-cta">🏁 Start here:</p>
-                                <p>
-                                    This tool lets you explore plastics outcomes under different policy scenarios. We will start with waste and we've configured the dropdown menus above to have this tool first look at the annual generation of a particlarly problematic type of waste: mismanaged waste. This includes, for example, plastic waste in the ocean. 
-                                </p>
-                                <p>
-                                    Click next to enable the visualization below where you can turn different policies on and off as well as select from the four waste types to explore the effects of those policies. After working in this overview, consider going to the details tab.
-                                </p>
-                                <div class="tutorial-next">
-                                    <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                                </div>
-                            </div>
                         </div>
                         <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
                             <div class="post-intro">
@@ -54,24 +51,28 @@
                             </div>
                             <div class="cards">
                                 <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
-                                    <div class="title">Mismanaged Waste <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="title"><label for="mismanaged-radio-overview-top">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
+                                    <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-top" class="overview-radio" name="overview-metric-top" value="mismanaged" ></div>
                                 </div>
                                 <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
-                                    <div class="title">Incinerated Waste <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="title"><label for="incinerated-radio-overview-top">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
+                                    <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-top" class="overview-radio" name="overview-metric-top" value="incinerated" ></div>
                                 </div>
                                 <div class="card landfill-waste-card post-intro" goal="landfillWaste">
-                                    <div class="title">Landfill Waste <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="title"><label for="landfill-radio-overview-top">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
+                                    <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-top" class="overview-radio" name="overview-metric-top" value="landfill" ></div>
                                 </div>
                                 <div class="card recycling-card post-intro" goal="recycling">
-                                    <div class="title">Recycling <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
+                                    <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-top" class="overview-radio" name="overview-metric-top" value="recycling" ></div>
                                 </div>
                             </div>
                         </div>
@@ -101,22 +102,26 @@
                             </div>
                             <div class="cards">
                                  <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
-                                    <div class="title">Mismanaged Waste <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="mismanaged" ></div>
+                                    <div class="title"><label for="mismanaged-radio-overview-bottom">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
                                 </div>
                                 <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
-                                    <div class="title">Incinerated Waste <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="incinerated" ></div>
+                                    <div class="title"><label for="incinerated-radio-overview-bottom">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
                                 </div>
                                 <div class="card landfill-waste-card post-intro" goal="landfillWaste">
-                                    <div class="title">Landfill Waste <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="landfill" ></div>
+                                    <div class="title"><label for="landfill-radio-overview-bottom">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
                                 </div>
                                 <div class="card recycling-card post-intro" goal="recycling">
-                                    <div class="title">Recycling <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                    <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="recycling" ></div>
+                                    <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" src="/img/info.png" class="info-img"></span></div>
                                     <div class="body">1234</div>
                                     <div class="footer">Million Metric Tons</div>
                                 </div>
@@ -130,7 +135,16 @@
                         <div class="panel">
                             <div class="output-section">
                                 <div id="config-container" class="config-container">
-                                    <h3>
+                                    <div class="tutorial">
+                                        <p class="tutorial-cta">🏁 Start here:</p>
+                                        <p>
+                                            Exposing additional metrics like sectorial consumption at a regional level, this tab refines your policy options from the first tab, allowing you full control to craft your own unique interventinos. Click next to enable the exploration.
+                                        </p>
+                                        <div class="tutorial-next">
+                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                                        </div>
+                                    </div>
+                                    <h3 class="post-intro post-intro-early">
                                         <span>Showing</span>
                                         <select class="stage-select" id="stage-select">
                                         </select>
@@ -145,23 +159,8 @@
                                         </select>
                                         <span>.</span>
                                     </h3>
-                                    <div class="delta-check-holder">
+                                    <div class="delta-check-holder post-intro">
                                         <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
-                                    </div>
-                                    <div class="tutorial">
-                                        <p class="tutorial-cta">🏁 Start here:</p>
-                                        <p>
-                                            This second details tab allows you to continue your work from the first overview tab, seeing the impacts of policies across more metrics and at a regional level. For example, in addition to waste, you can change to other dimensions like consumption by sector.
-                                        </p>
-                                        <p>
-                                            Your policy selections from the first tab are active in the visualization below. Note that a checkbox above also allows you visualize the change from business as usual in addition to the raw projections given your selected policy scenario.
-                                        </p>
-                                        <p>
-                                            Click next to enable the visualization below and explore the categories of detailed policy interventions, further editing your selections from the overview tab.
-                                        </p>
-                                        <div class="tutorial-next">
-                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">

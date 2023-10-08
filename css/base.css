@@ -14,7 +14,7 @@ a:hover, a:active {
 
 header {
     padding-bottom: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 header h1 {
@@ -637,6 +637,10 @@ select {
     fill: #C0C0C0;
 }
 
+.overview-radio-holder {
+    text-align: center;
+}
+
 .post-intro {
     opacity: 0.2;
 }
@@ -662,7 +666,6 @@ select {
 
 .tutorial {
     text-align: left;
-    padding-top: 15px;
     padding-bottom: 10px;
     font-size: 14px;
 }
@@ -817,6 +820,18 @@ select {
     margin-top: 3px;
     border: 1px solid #C0C0C0;
     border-collapse: collapse;
+}
+
+#raw-scorecard .overview-radio-holder {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dotted #505050;
+}
+
+#relative-scorecard .overview-radio-holder {
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #505050;
 }
 
 
