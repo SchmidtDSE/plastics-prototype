@@ -15,8 +15,20 @@
 
                 <div id="overview" class="overview">
                     <div class="panel overview-panel" id="overview-panel">
+                        <div class="tutorial">
+                            <p class="warning">
+                                ⚠️ Warning: Using preliminary model results. Things may change.
+                            </p>
+                            <p class="tutorial-cta">🏁 Start here:</p>
+                            <p>
+                                Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. Click next to enable the visualization and combine different policies to reduce waste.
+                            </p>
+                            <div class="tutorial-next">
+                                <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                            </div>
+                        </div>
                         <div class="overview-section cumulative-toggle">
-                            <h3>
+                            <h3 class="post-intro post-intro-early">
                                 Showing Plastic
                                 <select class="goal-select">
                                     <option value="mismanagedWaste" selected>Mismanaged Waste</option>
@@ -32,21 +44,6 @@
                                 </select>
                                 Million Metric Tons.
                             </h3>
-                            <div class="tutorial">
-                                <p class="warning">
-                                    ⚠️ Warning: Using preliminary model results. Things may change.
-                                </p>
-                                <p class="tutorial-cta">🏁 Start here:</p>
-                                <p>
-                                    This tool lets you explore plastics outcomes under different policy scenarios. We will start with waste and we've configured the dropdown menus above to have this tool first look at the annual generation of a particlarly problematic type of waste: mismanaged waste. This includes, for example, plastic waste in the ocean. 
-                                </p>
-                                <p>
-                                    Click next to enable the visualization below where you can turn different policies on and off as well as select from the four waste types to explore the effects of those policies. After working in this overview, consider going to the details tab.
-                                </p>
-                                <div class="tutorial-next">
-                                    <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                                </div>
-                            </div>
                         </div>
                         <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
                             <div class="post-intro">
@@ -130,7 +127,16 @@
                         <div class="panel">
                             <div class="output-section">
                                 <div id="config-container" class="config-container">
-                                    <h3>
+                                    <div class="tutorial">
+                                        <p class="tutorial-cta">🏁 Start here:</p>
+                                        <p>
+                                            Exposing additional metrics like sectorial consumption at a regional level, this tab refines your policy options from the first tab, allowing you full control to craft your own unique interventinos. Click next to enable the exploration.
+                                        </p>
+                                        <div class="tutorial-next">
+                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                                        </div>
+                                    </div>
+                                    <h3 class="post-intro post-intro-early">
                                         <span>Showing</span>
                                         <select class="stage-select" id="stage-select">
                                         </select>
@@ -145,23 +151,8 @@
                                         </select>
                                         <span>.</span>
                                     </h3>
-                                    <div class="delta-check-holder">
+                                    <div class="delta-check-holder post-intro">
                                         <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
-                                    </div>
-                                    <div class="tutorial">
-                                        <p class="tutorial-cta">🏁 Start here:</p>
-                                        <p>
-                                            This second details tab allows you to continue your work from the first overview tab, seeing the impacts of policies across more metrics and at a regional level. For example, in addition to waste, you can change to other dimensions like consumption by sector.
-                                        </p>
-                                        <p>
-                                            Your policy selections from the first tab are active in the visualization below. Note that a checkbox above also allows you visualize the change from business as usual in addition to the raw projections given your selected policy scenario.
-                                        </p>
-                                        <p>
-                                            Click next to enable the visualization below and explore the categories of detailed policy interventions, further editing your selections from the overview tab.
-                                        </p>
-                                        <div class="tutorial-next">
-                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">

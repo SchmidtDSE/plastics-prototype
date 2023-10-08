@@ -14,7 +14,7 @@ a:hover, a:active {
 
 header {
     padding-bottom: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 header h1 {
@@ -662,7 +662,6 @@ select {
 
 .tutorial {
     text-align: left;
-    padding-top: 15px;
     padding-bottom: 10px;
     font-size: 14px;
 }
