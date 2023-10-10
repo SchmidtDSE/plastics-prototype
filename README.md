@@ -96,8 +96,10 @@ Note that the following may be invoked as executables like via the command line 
 
 Finally, thanks to the following some basic boilerplates or inspiration:
 
- - Bret Victor's [Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
+ - [ANTLR Mega Tutorial](https://github.com/gabriele-tomassetti/antlr-mega-tutorial) by Gabriele Tomassetti under the [MIT License](https://github.com/gabriele-tomassetti/antlr-mega-tutorial/blob/master/LICENSE.md)).
+ - ([arithmetic](https://github.com/antlr/grammars-v4/blob/master/arithmetic/arithmetic.g4) by Tom Everett under inline BSD License.
+ - Bret Victor's [Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII).
  - Fernando Pérez's work on [reproducible research](https://www.youtube.com/watch?t=1521&v=GUyt_VXU8Aw&feature=youtu.be).
- - Maggie Appleton's [Programming Portals](https://maggieappleton.com/programming-portals)
- - [PlantLang](https://github.com/sampottinger/PlantLang) under the [MIT License](https://github.com/sampottinger/PlantLang/blob/main/LICENSE.txt) and, specifically, its linked resources ([arithmetic](https://github.com/antlr/grammars-v4/blob/master/arithmetic/arithmetic.g4) by Tom Everett under inline BSD License as well as the [ANTLR Mega Tutorial](https://github.com/gabriele-tomassetti/antlr-mega-tutorial) by Gabriele Tomassetti under the [MIT License](https://github.com/gabriele-tomassetti/antlr-mega-tutorial/blob/master/LICENSE.md)).
+ - Maggie Appleton's [Programming Portals](https://maggieappleton.com/programming-portals).
+ - [PlantLang](https://github.com/sampottinger/PlantLang) under the [MIT License](https://github.com/sampottinger/PlantLang/blob/main/LICENSE.txt).
  - [Pyafscgap](https://pyafscgap.org/) under the [BSD License](https://github.com/SchmidtDSE/afscgap/blob/main/LICENSE.md).
