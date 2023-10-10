@@ -1,6 +1,6 @@
 Plastics Prototype
 ===============================================================================
-Prototype for the plastics decision support tool with transparent intervention code / authoring.
+Prototype for the plastics decision support tool with transparent intervention code / authoring. The tool is primarily available at [https://global-plastics-tool.org/](https://global-plastics-tool.org/).
 
 <br>
 
@@ -25,9 +25,23 @@ See the [pt subdirectory](https://github.com/SchmidtDSE/plastics-prototype/tree/
 
 <br>
 
-Local Environment
+Container Environment
 --------------------------------------------------------------------------------
-To run the tool locally, some prerequisites are required:
+A containerized environment is available for both local execution of the application as well as development.
+
+### Containerized execution
+The application can be run through a Docker container. Having installed [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04):
+
+This will build the application as well as generate the static [supporting graphs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and selected [static scenario outputs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone).
+
+### Containerized development
+Note that a containerized cloud development environment is also available. See `.gitpod.yml` and [GitPod](https://gitpod.io/) for more details. After opening the repository, start running the application with `python -m http.server`.
+
+<br>
+
+Manual Environment
+--------------------------------------------------------------------------------
+To run the tool locally with a custom or manual environment setup, some prerequisites are required:
 
  - [Java](https://adoptium.net/) allows for ANTLR source generation as required for the plastics intervention language.
  - [Node](https://nodejs.org/en) is required in order to run grunt and webpack, enabling preparation of the front-end.
@@ -45,7 +59,13 @@ Note that optional static visualizations are also available under [image_gen](ht
 
 Deployment
 --------------------------------------------------------------------------------
+There are two options for deploying the application.
+
+### CI / CD
 CI / CD can deploy changes after they merge to `main`, releasing to the [public version](https://global-plastics-tool.org/). Note that this tool does not have a backend and the contents of this repository simply need to be hosted as static files after building (see `support/setup_local.sh` for a minimal build).
+
+### Container
+The Docker container can also be deployed to various different environments. By default, it will host the static files on port 80 but this may require port forwarding in your hosting environment.
 
 <br>
 
@@ -68,6 +88,7 @@ The project uses the following:
 
  - [ANTLR](https://www.antlr.org/index.html) under the [BSD License](https://www.antlr.org/license.html).
  - [Ace Editor](https://ace.c9.io/) under the [BSD License](https://github.com/ajaxorg/ace/blob/master/LICENSE).
+ - [ColorBrewer](https://colorbrewer2.org) under the [Apache v2 License](https://github.com/axismaps/colorbrewer/blob/master/LICENCE.txt).
  - [d3](https://d3js.org/) under the [ISC License](https://github.com/d3/d3/blob/main/LICENSE).
  - [es-module-shims](https://www.npmjs.com/package/es-module-shims) under the [MIT License](https://github.com/guybedford/es-module-shims/blob/main/LICENSE).
  - [Handlebars](https://handlebarsjs.com/) under the [MIT License](https://github.com/handlebars-lang/handlebars.js/blob/master/LICENSE).
@@ -94,7 +115,11 @@ Note that the following may be invoked as executables like via the command line 
  - [Processing](https://processing.org/) under the [GPL License](https://github.com/benfry/processing4/blob/main/LICENSE.md).
  - [Webpack](https://webpack.js.org/) under the [MIT License](https://github.com/webpack/webpack/blob/main/LICENSE).
 
-Finally, thanks to the following some basic boilerplates or inspiration:
+Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the following:
+
+Meanwhile, the optional containerized environment uses the following:
+
+Finally, thanks to the following some basic boilerplates / inspiration:
 
  - [ANTLR Mega Tutorial](https://github.com/gabriele-tomassetti/antlr-mega-tutorial) by Gabriele Tomassetti under the [MIT License](https://github.com/gabriele-tomassetti/antlr-mega-tutorial/blob/master/LICENSE.md).
  - [arithmetic](https://github.com/antlr/grammars-v4/blob/master/arithmetic/arithmetic.g4) by Tom Everett under inline BSD License.
