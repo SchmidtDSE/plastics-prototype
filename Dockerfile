@@ -22,13 +22,5 @@ RUN bash support/setup_local.sh
 RUN bash support/install_processing.sh
 RUN bash support/run_scenarios_standalone.sh
 RUN bash support/render_line_graphs.sh
-
-WORKDIR /workspace/js_standalone
-
-WORKDIR $HOME/workspace
-
-RUN bash support/run_scenarios_standalone.sh
-
+RUN bash support/render_butterfly.sh
 RUN bash support/package.sh
-
-RUN systemctl enable nginx

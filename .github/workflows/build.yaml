@@ -148,6 +148,8 @@ jobs:
           repo: SchmidtDSE/plastics-pipeline
       - name: Move database
         run: mv data/Pipeline\ Result/combined.db data/combined.db
+      - name: Move overview
+        run: mv data/Pipeline\ Result/overview_ml.csv data/overview_ml.csv
       - name: Render lines
         run: bash support/render_line_graphs.sh
       - name: Render butterfly

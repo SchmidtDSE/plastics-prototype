@@ -69,7 +69,7 @@ There are two options for deploying the application.
 CI / CD can deploy changes after they merge to `main`, releasing to the [public version](https://global-plastics-tool.org/). Note that this tool does not have a backend and the contents of this repository simply need to be hosted as static files after building (see `support/setup_local.sh` for a minimal build).
 
 ### Container
-The Docker container can also be deployed to various different environments. By default, it will use [nginx](https://nginx.org/en/) to host the static files on port 8080 but this may require port forwarding in your hosting environment.
+The Docker container can also be deployed to various different environments. By default, it will use [nginx](https://nginx.org/en/) to host the static files on port 8080 but this may require port forwarding in your hosting environment. Furthermore, it does not run in a daemon. Please adjust `Dockerfile` and `docker-compose.yml` to fit your desired secuirty profile and hosting environment before deployment.
 
 <br>
 
