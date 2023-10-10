@@ -52,6 +52,8 @@ class Driver {
                 self._onInputChange();
             }, false);
 
+            new Tabby("[data-sub-tabs]");
+
             Array.of(...document.querySelectorAll(".detailed-cta")).forEach((elem) => {
                 elem.addEventListener("click", (event) => {
                     self._tabs.toggle("#detailed");
