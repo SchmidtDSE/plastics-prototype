@@ -22,8 +22,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Render templates
@@ -75,8 +73,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact

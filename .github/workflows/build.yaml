@@ -23,8 +23,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Check configuration
@@ -78,8 +76,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
@@ -150,8 +146,10 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Move database
+        run: mv data/Pipeline\ Result/combined.db data/combined.db
       - name: Render lines
-        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+        run: bash support/render_line_graphs.sh
       - name: Render butterfly
         run: bash support/render_butterfly.sh
       - name: Check outputs

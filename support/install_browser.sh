@@ -1,1 +1,1 @@
-sudo apt install -y chromium-browser
+apt install -y chromium-browser

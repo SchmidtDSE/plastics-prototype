@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+    nginx:
+        container_name: globalplasticstool
+        image: globalplasticstool
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        ports:
+            - "8080:8080"

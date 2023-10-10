@@ -30,7 +30,11 @@ Container Environment
 A containerized environment is available for both local execution of the application as well as development.
 
 ### Containerized execution
-The application can be run through a Docker container. Having installed [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04):
+The application can be run through a Docker container:
+
+ - [Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
+ - Build the environment: `docker compose up --build`
+ - Navigate to localhost:8080 in your browser
 
 This will build the application as well as generate the static [supporting graphs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and selected [static scenario outputs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone).
 
@@ -65,7 +69,7 @@ There are two options for deploying the application.
 CI / CD can deploy changes after they merge to `main`, releasing to the [public version](https://global-plastics-tool.org/). Note that this tool does not have a backend and the contents of this repository simply need to be hosted as static files after building (see `support/setup_local.sh` for a minimal build).
 
 ### Container
-The Docker container can also be deployed to various different environments. By default, it will host the static files on port 80 but this may require port forwarding in your hosting environment.
+The Docker container can also be deployed to various different environments. By default, it will use [nginx](https://nginx.org/en/) to host the static files on port 8080 but this may require port forwarding in your hosting environment.
 
 <br>
 
@@ -118,6 +122,10 @@ Note that the following may be invoked as executables like via the command line 
 Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the following:
 
 Meanwhile, the optional containerized environment uses the following:
+
+ - [Docker]()
+ - [Docker Compose]()
+ - [Nginx]()
 
 Finally, thanks to the following some basic boilerplates / inspiration:
 

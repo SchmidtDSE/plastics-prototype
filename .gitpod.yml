@@ -1,0 +1,2 @@
+tasks:
+  - init: bash support/setup_cde.sh
