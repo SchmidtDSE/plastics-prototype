@@ -23,8 +23,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
+      - name: Install node deps
+        run: bash ./support/npm_install.sh
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Check configuration
@@ -44,24 +44,13 @@ jobs:
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
-        shell: bash
-        run: |
-          chmod +x "./support/make.sh"
-          chmod +x "./support/npm_install.sh"
-          "./support/npm_install.sh"
-          "./support/make.sh"
+        run: bash ./support/make.sh
       - name: Install JS deps
-        shell: bash
-        run: |
-          chmod +x "./support/load_deps.sh"
-          "./support/load_deps.sh"
+        run: bash ./support/load_deps.sh
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
       - name: Install browser
-        shell: bash
-        run: |
-          chmod +x "./support/install_browser.sh"
-          "./support/install_browser.sh"
+        run: sudo bash ./support/install_browser.sh
       - name: Run unit tests
         run: grunt
   runStandalone:
@@ -78,8 +67,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Install node dev requirements
-        run: npm install --dev
+      - name: Install node deps
+        run: bash ./support/npm_install.sh
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
@@ -95,12 +84,7 @@ jobs:
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
-        shell: bash
-        run: |
-          chmod +x "./support/make.sh"
-          chmod +x "./support/npm_install.sh"
-          "./support/npm_install.sh"
-          "./support/make.sh"
+        run: bash ./support/make.sh
       - name: Install JS deps
         run: cd js_standalone; npm install
       - name: Update scenarios
@@ -136,6 +120,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        run: bash ./support/npm_install.sh
       - name: Install Python deps
         run: pip install -r requirements.txt
       - name: Install Processing
@@ -150,8 +136,12 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Move database
+        run: mv data/Pipeline\ Result/combined.db data/combined.db
+      - name: Move overview
+        run: mv data/Pipeline\ Result/overview_ml.csv data/overview_ml.csv
       - name: Render lines
-        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+        run: bash support/render_line_graphs.sh
       - name: Render butterfly
         run: bash support/render_butterfly.sh
       - name: Check outputs
@@ -179,6 +169,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        run: bash ./support/npm_install.sh
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
@@ -210,24 +202,13 @@ jobs:
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
-        shell: bash
-        run: |
-          chmod +x "./support/make.sh"
-          chmod +x "./support/npm_install.sh"
-          "./support/npm_install.sh"
-          "./support/make.sh"
+        run: bash ./support/make.sh
       - name: Install JS deps
-        shell: bash
-        run: |
-          chmod +x "./support/load_deps.sh"
-          "./support/load_deps.sh"
+        run: bash ./support/load_deps.sh
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
       - name: Package website
-        shell: bash
-        run: |
-          chmod +x "./support/package.sh"
-          "./support/package.sh"
+        run: bash ./support/package.sh
       - name: Upload
         uses: Creepios/sftp-action@v1.0.3
         with:

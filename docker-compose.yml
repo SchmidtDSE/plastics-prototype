@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+    globalplasticstool:
+        command: nginx -g 'daemon off;'
+        container_name: globalplasticstool
+        image: globalplasticstool
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8080:8080"

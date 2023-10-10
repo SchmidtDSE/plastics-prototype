@@ -1,1 +1,4 @@
-npm install package.json
+npm install --dev
+
+cd js_standalone
+npm install --dev
