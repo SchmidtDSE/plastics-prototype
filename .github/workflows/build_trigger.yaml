@@ -11,19 +11,29 @@ jobs:
   test:
     environment: build
     runs-on: ubuntu-latest
-    name: Test web
+    name: Test App
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install Node
         uses: actions/setup-node@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' 
       - name: Install Java
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Run lint
         run: npx eslint ./js/*.js
+      - name: Check configuration
+        run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
@@ -59,10 +69,10 @@ jobs:
           "./support/install_browser.sh"
       - name: Run unit tests
         run: grunt
-  testStandalone:
+  runStandalone:
     environment: build
     runs-on: ubuntu-latest
-    name: Test Standalone
+    name: Run Standalone
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -73,6 +83,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
@@ -99,13 +114,26 @@ jobs:
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
       - name: Execute example
-        run: cd js_standalone; npm run standalone ./example.json ./test_output.json
-      - name: Check output
-        run: "[ ! -e js_standalone/test_output.json ] && exit 1"
+        run: bash support/execute_standalone_example.sh
+      - uses: actions/upload-artifact@v3
+        with:
+          name: standalone-example
+          path: js_standalone/test_output.json
+          if-no-files-found: error
+      - name: Execute all
+        run: bash support/run_scenarios_standalone.sh
+      - name: Zip standalone results
+        run: zip -r standalone_tasks.zip standalone_tasks
+      - uses: actions/upload-artifact@v3
+        with:
+          name: standalone-all
+          path: standalone_tasks.zip
+          if-no-files-found: error
   buildFigures:
     environment: build
     runs-on: ubuntu-latest
     name: Build Figures
+    needs: [runStandalone]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -116,6 +144,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Install Python deps
         run: pip install -r requirements.txt
       - name: Install Processing
@@ -130,8 +163,12 @@ jobs:
           branch: main
           path: data
           repo: SchmidtDSE/plastics-pipeline
+      - name: Move database
+        run: mv data/Pipeline\ Result/combined.db data/combined.db
+      - name: Move overview
+        run: mv data/Pipeline\ Result/overview_ml.csv data/overview_ml.csv
       - name: Render lines
-        run: python image_gen/line.py data/Pipeline\ Result/combined.db img/line.png
+        run: bash support/render_line_graphs.sh
       - name: Render butterfly
         run: bash support/render_butterfly.sh
       - name: Check outputs
@@ -147,12 +184,10 @@ jobs:
     name: Deploy Web
     environment: deploy
     runs-on: ubuntu-latest
-    needs: [test, buildFigures]
+    needs: [test, runStandalone, buildFigures]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          ref: 'main'
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -160,6 +195,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
@@ -180,14 +220,20 @@ jobs:
         run: bash support/unzip_images.sh
       - name: Check images
         run: bash support/check_image_outputs.sh
+      - name: Download standalone
+        uses: actions/download-artifact@v3
+        with:
+          name: standalone-all
+      - name: Unzip standalone results
+        run: bash support/unzip_standalone.sh
+      - name: Check standalone results
+        run: bash support/check_standalone.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
         shell: bash
         run: |
           chmod +x "./support/make.sh"
-          chmod +x "./support/npm_install.sh"
-          "./support/npm_install.sh"
           "./support/make.sh"
       - name: Install JS deps
         shell: bash

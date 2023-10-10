@@ -35,6 +35,7 @@ The application can be run through a Docker container:
  - [Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
  - Build the environment: `docker compose up --build`
  - Navigate to localhost:8080 in your browser
+ - Stop the container: `docker compose down`
 
 This will build the application as well as generate the static [supporting graphs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and selected [static scenario outputs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone).
 
@@ -115,6 +116,7 @@ Note that the following may be invoked as executables like via the command line 
  - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect) under the 
  - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-connect) under the [MIT License](https://github.com/gruntjs/grunt-contrib-connect/blob/main/LICENSE-MIT).
  - [Node](https://nodejs.org/en) under an [open source set of licenses](https://github.com/nodejs/node/blob/main/LICENSE).
+ - [npm](https://www.npmjs.com/) under [Artistic v2 License](https://docs.npmjs.com/policies/npm-license).
  - [OpenJDK](https://openjdk.org/) under the [GPL License](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
  - [Processing](https://processing.org/) under the [GPL License](https://github.com/benfry/processing4/blob/main/LICENSE.md).
  - [Webpack](https://webpack.js.org/) under the [MIT License](https://github.com/webpack/webpack/blob/main/LICENSE).

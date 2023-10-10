@@ -23,6 +23,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Check configuration
@@ -76,6 +81,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
@@ -132,6 +142,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Install Python deps
         run: pip install -r requirements.txt
       - name: Install Processing
@@ -179,6 +194,11 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Install node deps
+        shell: bash
+        run: |
+          chmod +x "./support/npm_install.sh"
+          "./support/npm_install.sh"
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
@@ -213,8 +233,6 @@ jobs:
         shell: bash
         run: |
           chmod +x "./support/make.sh"
-          chmod +x "./support/npm_install.sh"
-          "./support/npm_install.sh"
           "./support/make.sh"
       - name: Install JS deps
         shell: bash
