@@ -18,7 +18,6 @@ Usage
 --------------------------------------------------------------------------------
 The stand-alone engine may be used either interactively through Node or through JSON files generated during CI / CD. This section covers the use of pre-generated files. Specifically, common scenarios are pre-calculated during the CI / CD process and available for use with a simple HTTP GET. The following files are available for individual policy scenarios:
 
- - [banPsPackaging.json](https://global-plastics-tool.org/standalone_tasks/banPsPackaging.json): The result of having banned polystyrene packaging.
  - [banSingleUse.json](https://global-plastics-tool.org/standalone_tasks/banSingleUse.json): The result of having reduced single use packaging by 90%.
  - [capVirgin.json](https://global-plastics-tool.org/standalone_tasks/capVirgin.json): The result of having capped virgin plastic production to 2030 business as ususal levels.
  - [minimumRecycledContent.json](https://global-plastics-tool.org/standalone_tasks/minimumRecycledContent.json): The result of a 40% minimum recycled content mandate for new products.

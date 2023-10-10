@@ -3,7 +3,7 @@
     {
       "name": "<option> % Reduced Single Use Packaging",
       "id": "ban-single-use",
-      "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.",
+      "description": "Policy which globally reduces most single use packaging. Assumes a shorter term implementation and compliance.",
       "config": {
         "options": [
           {
@@ -39,6 +39,26 @@
         },
         {
           "lever": "rowPercentReduceProblematicPackaging",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "chinaPercentReducePs",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "eu30PercentReducePs",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "naftaPercentReducePs",
+          "value": 60,
+          "baseValue": 60
+        },
+        {
+          "lever": "rowPercentReducePs",
           "value": 60,
           "baseValue": 60
         }
@@ -86,30 +106,6 @@
           "lever": "rowAdditivesPercentReduction",
           "value": 60,
           "baseValue": 60
-        }
-      ],
-      "released": true
-    },
-    {
-      "name": "Ban Polystyrene Packaging",
-      "id": "ban-ps-packaging",
-      "description": "Policy which globally bans polystyrene in packaging. Assumes a shorter term implementation and compliance.",
-      "values": [
-        {
-          "lever": "chinaPercentReducePs",
-          "value": 100
-        },
-        {
-          "lever": "eu30PercentReducePs",
-          "value": 100
-        },
-        {
-          "lever": "naftaPercentReducePs",
-          "value": 100
-        },
-        {
-          "lever": "rowPercentReducePs",
-          "value": 100
         }
       ],
       "released": true
