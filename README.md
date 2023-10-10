@@ -51,7 +51,14 @@ CI / CD can deploy changes after they merge to `main`, releasing to the [public 
 
 Development standards
 --------------------------------------------------------------------------------
-Front-end tests are supported through Grunt (`grunt`) and eslint (`npx eslint ./js/*.js`). Note that CI / CD may execute other tests and all pull requests should be passing all test and lint operations before merge. When in doubt, please follow the [JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html). Reviewers may also impose certain requirements around usability and accessibility as to be discussed during reviews.
+This project uses the following:
+
+ - Primarily, front-end tests are supported through Grunt (`grunt`) and QUnit. Meanwhile style is generally enforced eslint (`npx eslint ./js/*.js`).
+ - Note that CI / CD may execute other tests and all pull requests should be passing all test and lint operations before merge.
+ - When in doubt, please follow the [JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html).
+ - Reviewers may also impose certain requirements around usability and accessibility as to be discussed during reviews.
+
+Please be kind. Open source is an act of love.
 
 <br>
 
@@ -61,36 +68,36 @@ The project uses the following:
 
  - [ANTLR](https://www.antlr.org/index.html) under the [BSD License](https://www.antlr.org/license.html).
  - [Ace Editor](https://ace.c9.io/) under the [BSD License](https://github.com/ajaxorg/ace/blob/master/LICENSE).
- - d3
- - es-module-shims
- - Grunt
- - grunt-contrib-connect
- - grunt-contrib-qunit
- - Handlebars
- - League Spartan
- - Matplotlib
- - Node
- - OpenJDK
- - Pandas
- - PapaParse
- - Polyfill
- - Popper
- - Processing
- - Qunit
+ - [d3](https://d3js.org/) under the [ISC License](https://github.com/d3/d3/blob/main/LICENSE).
+ - [es-module-shims](https://www.npmjs.com/package/es-module-shims) under the [MIT License](https://github.com/guybedford/es-module-shims/blob/main/LICENSE).
+ - [Handlebars](https://handlebarsjs.com/) under the [MIT License](https://github.com/handlebars-lang/handlebars.js/blob/master/LICENSE).
+ - [League Spartan](https://www.theleagueofmoveabletype.com/league-spartan) under the [OFL License](https://opensource.org/license/ofl-1-1/).
+ - [Matplotlib](https://matplotlib.org/) under the [PSF License](https://matplotlib.org/stable/users/project/license.html).
+ - [Pandas](https://pandas.pydata.org/) under the [BSD License](https://github.com/pandas-dev/pandas/blob/main/LICENSE).
+ - [Papa Parse](https://www.papaparse.com/) under the [MIT License](https://github.com/mholt/PapaParse/blob/master/LICENSE).
+ - [Polyfill.io](https://polyfill.io/v3/) under the [MIT License](https://github.com/JakeChampion/polyfill-service/blob/main/LICENSE.md).
+ - [Popper](https://popper.js.org/) under the [MIT License](https://github.com/floating-ui/floating-ui/blob/master/LICENSE).
+ - [Qunit](https://qunitjs.com/) under the [MIT License](https://github.com/qunitjs/qunit/blob/main/LICENSE.txt).
  - [Select CSS](https://stackoverflow.com/questions/38788848) under [CC-BY-SA](https://stackoverflow.com/help/licensing).
- - Simplebar
- - Tabby
- - Tippy
- - ua-parser
- - Weback
+ - [Simplebar](https://grsmto.github.io/simplebar/) under the [MIT License](https://github.com/Grsmto/simplebar/blob/master/LICENSE).
+ - [Tabby](https://github.com/cferdinandi/tabby) under the [MIT License](https://github.com/cferdinandi/tabby/blob/master/LICENSE.md).
+ - [Tippy](https://atomiks.github.io/tippyjs/) under the [MIT License](https://github.com/atomiks/tippyjs/blob/master/LICENSE).
+ - [ua-parser 1.0.36](https://uaparser.js.org/) under the [MIT License](https://www.npmjs.com/package/ua-parser-js).
 
-Inspired by:
+Note that the following may be invoked as executables like via the command line through CI / CD or by users of this tool but are not statically linked with the tool (and are not used during the execution of the web-based interactive tool):
 
- - Maggie Appleton's [Programming Portals](https://maggieappleton.com/programming-portals)
- - Fernando Pérez's work on [reproducible research](https://www.youtube.com/watch?t=1521&v=GUyt_VXU8Aw&feature=youtu.be).
+ - [Grunt](https://gruntjs.com/) under the [MIT License](https://github.com/gruntjs/grunt/blob/main/LICENSE).
+ - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect) under the 
+ - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-connect) under the [MIT License](https://github.com/gruntjs/grunt-contrib-connect/blob/main/LICENSE-MIT).
+ - [Node](https://nodejs.org/en) under an [open source set of licenses](https://github.com/nodejs/node/blob/main/LICENSE).
+ - [OpenJDK](https://openjdk.org/) under the [GPL License](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+ - [Processing](https://processing.org/) under the [GPL License](https://github.com/benfry/processing4/blob/main/LICENSE.md).
+ - [Webpack](https://webpack.js.org/) under the [MIT License](https://github.com/webpack/webpack/blob/main/LICENSE).
+
+Finally, thanks to the following some basic boilerplates or inspiration:
+
  - Bret Victor's [Inventing on Principle](https://www.youtube.com/watch?v=PUv66718DII)
-
-Finally, thanks to the following some basic boilerplates:
-
+ - Fernando Pérez's work on [reproducible research](https://www.youtube.com/watch?t=1521&v=GUyt_VXU8Aw&feature=youtu.be).
+ - Maggie Appleton's [Programming Portals](https://maggieappleton.com/programming-portals)
  - [PlantLang](https://github.com/sampottinger/PlantLang) under the [MIT License](https://github.com/sampottinger/PlantLang/blob/main/LICENSE.txt) and, specifically, its linked resources ([arithmetic](https://github.com/antlr/grammars-v4/blob/master/arithmetic/arithmetic.g4) by Tom Everett under inline BSD License as well as the [ANTLR Mega Tutorial](https://github.com/gabriele-tomassetti/antlr-mega-tutorial) by Gabriele Tomassetti under the [MIT License](https://github.com/gabriele-tomassetti/antlr-mega-tutorial/blob/master/LICENSE.md)).
  - [Pyafscgap](https://pyafscgap.org/) under the [BSD License](https://github.com/SchmidtDSE/afscgap/blob/main/LICENSE.md).
