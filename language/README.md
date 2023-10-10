@@ -1,0 +1,5 @@
+Language
+================================================================================
+This directory contains the [ANTLR](https://www.antlr.org/) definition for plastics language. This is a domain specific language in which policy interventions are implemented. These scripts can be executed in browser as described at [project root](https://github.com/SchmidtDSE/plastics-prototype/tree/main) or outside the browser with Node as described in [js_standalone](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone). The interpreter is implemented in `js/visitors_base.js_template`.
+
+Note that this describes the language grammar. For the actual interventions code see the [pt](https://github.com/SchmidtDSE/plastics-prototype/tree/main/pt) directory. This directory also includes information on how to write code in plastics language.
