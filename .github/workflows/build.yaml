@@ -64,7 +64,7 @@ jobs:
         shell: bash
         run: |
           chmod +x "./support/install_browser.sh"
-          "./support/install_browser.sh"
+          "sudo ./support/install_browser.sh"
       - name: Run unit tests
         run: grunt
   runStandalone:

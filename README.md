@@ -125,9 +125,9 @@ Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) als
 
 Meanwhile, the optional containerized environment uses the following:
 
- - [Docker]()
- - [Docker Compose]()
- - [Nginx]()
+ - [Docker](https://docs.docker.com/engine/) under the [Apache v2 License](https://github.com/moby/moby/blob/master/LICENSE).
+ - [Docker Compose](https://docs.docker.com/compose/) under the [Apache v2 License](https://github.com/docker/compose/blob/main/LICENSE).
+ - [Nginx](https://nginx.org/en/) under a [BSD-like License](https://nginx.org/LICENSE).
 
 Finally, thanks to the following some basic boilerplates / inspiration:
 
