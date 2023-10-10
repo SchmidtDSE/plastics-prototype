@@ -287,40 +287,143 @@
 
                 <div id="about" class="about">
                     <div class="about-panel">
-                        <p>
+                        <ul data-sub-tabs>
+                            <li><a data-tabby-default href="#about-overview">Introduction</a></li>
+                            <li><a href="#about-model">Model</a></li>
+                            <li><a href="#about-contact">Contact</a></li>
+                            <li><a href="#about-privacy">Privacy</a></li>
+                            <li><a href="#about-license">License</a></li>
+                            <li><a href="#about-people">People</a></li>
+                        </ul>
+                        <div id="about-overview">
                             <h3>About</h3>
-                            A joint project of the <a href="https://bosl.ucsb.edu/">Benioff Ocean Science Laboratory</a> and the <a href="https://dse.berkeley.edu/">Eric and Wendy Schmidt Center for Data Science & Environment</a>. This interactive simulation environment allows decision makers to craft policies while exploring the projected impacts of those interventions. Open source on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>.
-                        </p>
-                        <p>
-                            <h3>Model Information</h3>
-                            Model version 2023.05 (pre-release). Last updated 2023-10-06.
-                        </p>
-                        <p>
-                            <h3>Contact Information</h3>
-                            Please <a href="mailto:info@global-plastics-tool.org">email us</a> for questions and other inquires including for requests regarding privacy and your data.
-                        </p>
-                        <p>
-                            <h3>Privacy</h3>
-                            This webpage respects your privacy and collects as little information as possible while still providing a positive user experience. By using the application, you agree to the following... This application records standard server access information for security and stability reasons, including to prevent abuse. This is a common practice employed by many websites necessary for maintaing application function. This information includes:
-                            
+                            This project allows users to explore different plastics outcomes under various policy scenarios, offering the ability to craft highly customized policy packages and to build new policy interventions through an embedded programming environment. A joint project of:
                             <ul>
-                                <li>IP addresses which describe from which location and internet connection the application is accessed.</li>
-                                <li>User agent strings which provide basic information about the device and software ("browser") used to access the site.</li>
-                                <li>The requested URLs which are unique identifiers for data and other resources requested from our servers.</li>
+                                <li><a href="https://bosl.ucsb.edu/">Benioff Ocean Science Laboratory</a> at University of California Santa Barbara</li>
+                                <li><a href="https://dse.berkeley.edu/">Eric and Wendy Schmidt Center for Data Science & Environment</a> at University of California Berkeley</li>
                             </ul>
                             
-                            These logs are maintained for security reasons and to ensure strong application performance but are anonymized within 7 days of collection. These anonymized statistics are maintained indefinently as aggregated information for us to understand usage patterns in order to improve the service and maintain its performance. The anonymized data may also include error or bug reports. That said, and no other presonal identifying information is collected including email address, phone number, race, ethnicity, age, etc. Furthermore, please note that:
+                            Open source on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>.
+                        </div>
+                        <div id="about-model">
+                            <h3>Model Information</h3>
+                            This uses a mixture of techniques to accomplish both projection of business as usual as well as simulate different policy interventions.
+
+                            <ul>
+                                <li>Consumption is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
+                                <li>Waste is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
+                                <li>Trade is modeled through support vector regression and sues historic data as well as GDP per-capita and population projections.</li>
+                                <li>Interventions are mechanistic as described in their <a href="https://github.com/SchmidtDSE/plastics-interventions-doc">intervention supporting documentation</a>.</li>
+                            </ul>
+
+                            For further documentation see:
                             
                             <ul>
-                                <li>Personally identifying information is never shared or sold.</li>
-                                <li>Anonymized data do not include specific IP addresses.
-                                <li>IP address is not retained past 7 days except in the case of a large number of requests in which case it may be retained for security / abuse prevention.</li>
-                                <li>No information we collect is used for advertising.</li>
-                                <li>Though we do not ask users their age to respect their privacy, this webpage is intended for those 18 years and older.</li>
-                            </ul> 
+                                <li><a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">Pipeline repository</a> for more information about the business as usual model.</li>
+                                <li><a href="https://github.com/SchmidtDSE/plastics-interventions-doc" target="_blank">Interventions document repository</a> for high level information about the interventions and their design.</li>
+                                <li>The <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/pt" target="_blank">pt subdirectory</a> for technical information and code for interventions.</li>
+                            </ul>
                             
-                            Finally, we save very limited data to your device. First, cookies are small text files saved to your computer to maintain data such as preferences between website sessions. This application uses essential cookies to support the core function of the application to, for example, prevent showing explanatory text multiple times and improve user experience. These cookies are required by the application to function. That said, cookies are not used for tracking, advertising, or analytics. Second, some browsers may save temporary copies of our data and code for performance reasons through a process called "caching" which can be controlled through your browser settings. Finally, other use of local storage is optional in specific application features but is engaged only after your confirmation. Local storage is used, for example, for saving and loading policy scenarios.
-                        </p>
+                            Model version 2023.12 (pre-release). Last updated 2023-10-06.
+                        </div>
+                        <div id="about-contact">
+                            <h3>Contact Information</h3>
+                            We have multiple methods of following up:
+
+                            <ul>
+                                <li>For general communication about this tool including for inquires regarding privacy and data, please send an email to our <a href="mailto:info@global-plastics-tool.org">project inbox</a>.</li>
+                                <li>For feature requests, bug reports, and code contributions, please visit the <a href="https://github.com/SchmidtDSE/plastics-prototype/issues" target="_blank">project issue tracker</a>. Thank you for your contribution.</li>
+                                <li>To contact the UC Santa Barbara team specifically, see the <a href="https://bosl.ucsb.edu/contact/" target="_blank">BOSL contact form</a>.</li>
+                                <li>To contact the UC Berkeley team, see the <a href="https://dse.berkeley.edu/contact">DSE contact form</a>.</li>
+                            </ul>
+                        </div>
+                        <div id="about-privacy">
+                            <p>
+                                <h3>Privacy Introduction</h3>
+                                This webpage respects your privacy and collects as little information as possible while still providing a positive user experience. By using the application, you agree to the following.
+                            </p>
+
+                            <p>
+                                <h3>Data Collection</h3>
+                                This application records standard server access logs for security and stability reasons, including to prevent abuse. This is a common practice employed by many websites necessary for maintaing application function. This information includes:
+                            
+                                <ul>
+                                    <li>IP addresses which describe from which location and internet connection the application is accessed.</li>
+                                    <li>User agent strings which provide basic information about the device and software ("browser") used to access the site.</li>
+                                    <li>The requested URLs which are unique identifiers for data and other resources requested from our servers.</li>
+                                </ul>
+
+                                These logs are maintained for security reasons and to ensure strong application performance but are anonymized within 7 days of collection. These anonymized statistics are maintained indefinently as aggregated information for us to understand usage patterns in order to improve the service and maintain its performance. The anonymized data may also include error or bug reports. That said, and no other presonal identifying information is collected including email address, phone number, race, ethnicity, age, etc. Furthermore, please note that:
+                            
+                                <ul>
+                                    <li>Personally identifying information is never shared or sold.</li>
+                                    <li>Anonymized data do not include specific IP addresses.
+                                    <li>IP address is not retained past 7 days except in the case of a large number of requests in which case it may be retained for security / abuse prevention.</li>
+                                    <li>No information we collect is used for advertising.</li>
+                                    <li>Though we do not ask users their age to respect their privacy, this webpage is intended for those 18 years and older.</li>
+                                </ul> 
+                            </p>
+                            
+                            <p>
+                                <h3>Data Storage</h3>
+                                We save very limited data to your device and that data is not used to track you.
+                                
+                                <ul>
+                                    <li>Cookies are small text files saved to your computer to maintain data such as preferences between website sessions. This application uses essential cookies to support the core function of the application to, for example, prevent showing explanatory text multiple times and improve user experience. These cookies are required by the application to function.</li>
+                                    <li>There are no non-essential cookies for this application and cookies are not used for tracking, advertising, or analytics.</li>
+                                    <li>Some browsers may save temporary copies of our data and code for performance reasons through a process called "caching" which can be controlled through your browser settings. This application may use "cache-busters" to inform your browser when new versions of application resources are available.</li>
+                                    <li>Other use of local storage is optional in specific application features but is engaged only after your confirmation. Local storage is used, for example, for saving and loading policy scenarios.</li>
+                                </ul>
+
+                                By using this application, you agree to the transfer of standard server access logs and anonymized statistics as described above to be transferred to data centers based within the United States of America.
+                            </p>
+
+                            <p>
+                                <h3>Security and Access</h3>
+                                We take security seriously. Communication between your device and our servers is encrypted with secure socket layer SSL. Access to non-anonymized logs and the configuration / code for the application is limited to the current maintainers of the project, automated systems we've constructed for running the application, and our subprocessors. Note that anonymized data may be shared with project partners for the purposes of tracking project success and impact.
+                            </p>
+
+                            <p>
+                                <h3>Subprocessors</h3>
+                                See <a href="https://www.dreamhost.com/legal/customer-data-processing-addendum/" target="_blank">DreamHost CDPA</a> for more information about our web host / subprocessor.
+                            </p>
+
+                            <p>
+                                <h3>Updates</h3>
+                                This statement was last updated on 2023-10-10. Updates to this policy will be posted to this page.
+                            </p>
+                        </div>
+                        <div id="about-license">
+                            <h3>License (Open Source)</h3>
+                            This project's source is available on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>. See below for licensing details:
+
+                            <ul>
+                                <li>Source code is available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#source" target="_blank">BSD License</a>.</li>
+                                <li>Data including exports from this tool are made available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC BY-NC 4.0 License</a>.</li>
+                            </ul>
+
+                            This application uses a number of open source components as described in the <a href="https://github.com/SchmidtDSE/plastics-prototype#open-source" target="_blank">project readme</a>.
+                        </div>
+                        <div id="about-people">
+                            <h3>People</h3>
+                            The copyright for this software and exported is "(c) 2023 Regents of University of California" and our <a href="mailto:info@global-plastics-tool.org">central inbox</a> can be used to contact us with any inquires. A big thank you to the extended team:
+
+                            <ul>
+                                <li><a href="https://www.linkedin.com/in/elijahbaker" target="_blank">Elijah Baker</a> <span class="affiliation">BOSL, UCSB</span>: Policy research.</li>
+                                <li><a href="https://www.linkedin.com/in/nivedita-r-biyani-ph-d-5115228" target="_blank">Nivedita Biyani</a> <span class="affiliation">BOSL, UCSB</span>: Policy research, policy modeling, business as usual modeling, plastics domain knowledge.</li>
+                                <li><a href="https://www.carlboettiger.info/" target="_blank">Carl Boettiger</a> <span class="affiliation">DSE, UC Berkeley</span>: Advisor.</li>
+                                <li><a href="https://dse.berkeley.edu/people/magali-de-bruyn" target="_blank">Magali de Bruyn</a> <span class="affiliation">DSE, UC Berkeley</span>: CI / CD.</li>
+                                <li><a href="https://www.rolandgeyer.com/" target="_blank">Roland Geyer</a> <span class="affiliation">UCSB</span>: Principal investigator, business as usual modeling, policy modeling, policy research, plastics domain knowledge.</li>
+                                <li><a href="https://dse.berkeley.edu/people/kevin-koy" target="_blank">Kevin Koy</a> <span class="affiliation">DSE, UC Berkeley</span>: Executive leadership, advisor.</li>
+                                <li><a href="http://cieramartinez.org/" target="_blank">Ciera Martinez</a> <span class="affiliation">DSE, UC Berkeley</span>: Program management, communications, outreach, advisor.</li>
+                                <li><a href="https://labs.eemb.ucsb.edu/mccauley/doug/index.html" target="_blank">Douglas McCauley</a> <span class="affiliation">BOSL, DSE, UCSB, UC Berkeley</span>: Executive leadership, policy modeling, policy reserach, communications, outreach, media.</li>
+                                <li><a href="https://www.linkedin.com/in/mollyrmorse" target="_blank">Molly Morse</a> <span class="affiliation">BOSL, UCSB</span>: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
+                                <li><a href="https://www.linkedin.com/in/neil-nathan" target="_blank">Neil Nathan</a> <span class="affiliation">BOSL, UCSB</span>: Communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
+                                <li><a href="https://gleap.org" target="_blank">Sam Pottinger</a> <span class="affiliation">DSE, UC Berkeley</span>: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD.</li>
+                            </ul>
+
+                            Note that other collaborators may have contributed to the broader constellation of related projects and are listed in related publications.
+                        </div>
                     </div>
                 </div>
             </div>

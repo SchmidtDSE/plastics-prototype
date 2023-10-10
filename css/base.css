@@ -79,6 +79,25 @@ select {
     margin: 3px 3px 20px 3px;
 }
 
+.about-panel [role="tab"][aria-selected="true"] {
+    background-color: #505050;
+    border: none;
+    color: white;
+    border-radius: 10px;
+}
+
+.about-panel [role="tablist"] {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted #505050;
+    text-align: center;
+}
+
+.about-panel [role="tablist"] a {
+    color: black;
+    border-radius: 20px;
+}
+
 .cookie-note {
     color: #707070;
 }
@@ -697,6 +716,19 @@ select {
 
 .warning.small {
     font-size: 11px;
+}
+
+#about-people ul {
+    line-height: 1.5;
+}
+
+#about-people .affiliation {
+    color: white;
+    font-size: 10px;
+    background-color: #A0A0C0;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 2px;
 }
 
 #add-dialog {

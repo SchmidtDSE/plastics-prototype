@@ -31,3 +31,6 @@ js_standalone/engine/plastics_lang_bootstrap.js
 standalone_tasks
 
 package-lock.json
+
+processing-4.3-linux-x64.tgz
+processing-4.3
