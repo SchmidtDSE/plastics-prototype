@@ -25,6 +25,8 @@ const EOL_ATTRS = [
 ];
 
 const PRODUCTION_ATTRS = [
+    "netWasteImportMT",
+    "netWasteExportMT",
     "netImportsMT",
     "netExportsMT",
     "domesticProductionMT",
