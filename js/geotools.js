@@ -13,7 +13,7 @@ function addGlobalToState(state) {
                     "netImportsMT",
                     "netExportsMT",
                     "netWasteImportMT",
-                    "netWasteExportMT"
+                    "netWasteExportMT",
                 ];
                 if (ATTRS_TO_ZERO.indexOf(attr) != -1) {
                     return 0;
