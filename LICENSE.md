@@ -2,7 +2,7 @@ License
 ================================================================================
 The source code in this repository and the data made available through this repo / tool are licensed separately.
 
-Source code
+Source
 --------------------------------------------------------------------------------
 Source code is made available under the BSD License:
 
