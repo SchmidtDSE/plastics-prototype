@@ -13,6 +13,7 @@ class Driver {
         const self = this;
 
         self._tabs = null;
+        self._subtabs = null;
         self._compiler = null;
         self._dataLayer = null;
         self._reportPresenter = null;
@@ -52,7 +53,13 @@ class Driver {
                 self._onInputChange();
             }, false);
 
-            new Tabby("[data-sub-tabs]");
+            self._subtabs = new Tabby("[data-sub-tabs]");
+
+            self._updateTabVisibility();
+
+            window.addEventListener("hashchange", (event) => {
+                self._updateTabVisibility();
+            });
 
             Array.of(...document.querySelectorAll(".detailed-cta")).forEach((elem) => {
                 elem.addEventListener("click", (event) => {
@@ -311,6 +318,23 @@ class Driver {
         const self = this;
         // eslint-disable-next-line no-undef
         return d3;
+    }
+
+    _updateTabVisibility() {
+        const self = this;
+        const hash = window.location.hash;
+        if (hash === "") {
+            return;
+        }
+
+        if (hash.startsWith("#overview")) {
+            self._tabs.toggle("#overview");
+        } else if (hash.startsWith("#detailed")) {
+            self._tabs.toggle("#detailed");
+        } else if (hash.startsWith("#about")) {
+            self._tabs.toggle("#about");
+            self._subtabs.toggle(hash);
+        }
     }
 }
 
