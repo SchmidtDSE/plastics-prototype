@@ -186,7 +186,7 @@ class SparklinePresenter {
         const boundingBox = self._targetDiv.querySelector(".sparkline")
             .getBoundingClientRect();
         const totalWidth = boundingBox.width;
-        const totalHeight = boundingBox.height;
+        const totalHeight = boundingBox.height < 1 ? 100 : boundingBox.height;
 
         targetSvg.append("text")
             .attr("x", 35)
