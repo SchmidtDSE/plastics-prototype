@@ -12,6 +12,11 @@ a:hover, a:active {
     text-decoration: underline;
 }
 
+footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
 header {
     padding-bottom: 5px;
     margin-bottom: 25px;
