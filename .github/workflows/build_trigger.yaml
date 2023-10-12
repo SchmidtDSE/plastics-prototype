@@ -27,10 +27,10 @@ jobs:
           java-version: '11'
       - name: Install node deps
         run: bash ./support/npm_install.sh
+      - name: Preprocess
+        run: bash support/preprocess_visitors.sh
       - name: Run lint
         run: npx eslint ./js/*.js
-      - name: Run lint template
-        run: npx eslint ./js/compile_visitor.js_template
       - name: Check configuration
         run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Render templates
