@@ -409,7 +409,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
             identifiers.forEach((identifierPair) => {
                 const identifier = identifierPair["identifier"];
-                const scaleGetter = identifierPair["scale"]
+                const scaleGetter = identifierPair["scale"];
                 const beforeValue = self._getValue(identifier, state);
                 const scaleValue = scaleGetter(state);
                 const change = getChange(scaleValue);
