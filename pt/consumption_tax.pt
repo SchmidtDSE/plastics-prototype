@@ -41,10 +41,14 @@ var reducedWaste = originalConsumption * percentDecreaseDelay;
 limit reducedWaste to [0,];
 
 var changeWasteOverall = -1 * reducedWaste;
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute changeWasteOverall across [
   out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
-  in.{{ region }}.{{ region }}DeltaWasteExport by out.{{ region }}.netWasteExportMT
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;

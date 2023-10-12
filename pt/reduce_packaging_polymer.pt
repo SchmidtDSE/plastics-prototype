@@ -27,12 +27,17 @@ change offsetLifecycleMT by offsetGoalMT over lifecycleStart to lifecycleEnd;
 out.{{ region }}.consumptionPackagingMT = originalPackagingMT + offsetMT;
 
 # Apply change to waste
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 limit offsetLifecycleMT to [,0];
 distribute offsetLifecycleMT across [
-  out.{{ region }}.eolRecyclingMT,
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Apply change to production

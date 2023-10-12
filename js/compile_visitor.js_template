@@ -405,7 +405,9 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 return 1 / identifiers.length * valueToDistribute;
             };
 
-            const getChange = isLinear ? getChangeLinear : getChangeProportional;
+            const isLinearEffective = isLinear || totalTargetsValue == 0;
+
+            const getChange = isLinearEffective ? getChangeLinear : getChangeProportional;
 
             identifiers.forEach((identifierPair) => {
                 const identifier = identifierPair["identifier"];
@@ -414,7 +416,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 const scaleValue = scaleGetter(state);
                 const change = getChange(scaleValue);
                 const newValue = beforeValue + change;
-                if (beforeValue != 0) {
+                if (isLinearEffective || beforeValue != 0) {
                     self._setValue(identifier, newValue, state);
                 }
             });

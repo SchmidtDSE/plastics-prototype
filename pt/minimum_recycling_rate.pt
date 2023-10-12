@@ -30,11 +30,15 @@ out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Offset the change in the other EOL types
 var offsetMT = -1 * currentChange;
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute offsetMT across [
   out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
-  in.{{ region }}.{{ region }}DeltaWasteExport by out.{{ region }}.netWasteExportMT
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Assume lagging by three years for production and consumption
@@ -83,12 +87,16 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Bump EOL by inductive demand
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute newInductiveLifecycleMT across [
   out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
-  in.{{ region }}.{{ region }}DeltaWasteExport by out.{{ region }}.netWasteExportMT
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Offset production local
