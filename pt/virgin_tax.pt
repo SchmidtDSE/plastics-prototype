@@ -36,10 +36,11 @@ var offsetConsumption = -1 * reductionConsumption;
 
 # Determine by how much to reduce waste
 var totalWaste = (
-  out.{{region}}.eolLandfillMT +
-  out.{{region}}.eolIncinerationMT +
-  out.{{region}}.eolMismanagedMT +
-  out.{{region}}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT + 
+  out.{{ region }}.netWasteExportMT
 );
 var reductionWaste = rateDecreaseWaste * totalWaste;
 var offsetWaste = -1 * reductionWaste;
@@ -58,10 +59,10 @@ distribute offsetConsumption across [
 
 # Reduce waste
 distribute offsetWaste across [
-  out.{{region}}.eolLandfillMT,
-  out.{{region}}.eolIncinerationMT,
-  out.{{region}}.eolMismanagedMT,
-  out.{{region}}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT
 ] proportionally;
 
 # Reduce production

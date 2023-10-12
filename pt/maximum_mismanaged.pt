@@ -4,7 +4,8 @@ var totalWaste = (
   out.{{region}}.eolMismanagedMT +
   out.{{region}}.eolIncinerationMT +
   out.{{region}}.eolLandfillMT +
-  out.{{region}}.eolRecyclingMT
+  out.{{region}}.eolRecyclingMT +
+  out.{{region}}.netWasteExportMT
 );
 var targetMismanaged = targetMismanagedRate * totalWaste;
 

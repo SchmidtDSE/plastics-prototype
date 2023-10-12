@@ -86,9 +86,10 @@ var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
 # Apply offset for filled to EOL
 distribute offsetProductionLeading across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}.{{ region }}DeltaWasteExport by out.{{ region }}.netWasteExportMT
 ] proportionally;
 
 # Apply offset for filled to production
@@ -128,10 +129,11 @@ distribute lostConsumptionOffset across [
 
 # Apply offset for unfilled to EOL
 distribute lostConsumptionOffsetLifecycle across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}.{{ region }}DeltaWasteExport by out.{{ region }}.netWasteExportMT
 ] proportionally;
 
 # Apply offset for unfilled to production

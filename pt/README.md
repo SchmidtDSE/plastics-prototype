@@ -98,7 +98,8 @@ var totalWaste = (
   out.eu30.eolMismanagedMT +
   out.eu30.eolIncinerationMT +
   out.eu30.eolLandfillMT +
-  out.eu30.eolRecyclingMT
+  out.eu30.eolRecyclingMT +
+  out.eu30.netWasteExportMT
 );
 ```
 
