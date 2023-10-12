@@ -109,7 +109,10 @@ limitop: LIMIT_ operand=identifier TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # c
   | LIMIT_ operand=identifier TO_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_  # callBound
   ;
 
-distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_);
+distribute:
+  | DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_) # distributeDirect
+  | DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier BY_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_) # distributeDirect
+  ;
 
 inspect: INSPECT_ value=expression;
 

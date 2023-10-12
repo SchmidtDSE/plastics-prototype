@@ -29,6 +29,8 @@ jobs:
         run: bash ./support/npm_install.sh
       - name: Run lint
         run: npx eslint ./js/*.js
+      - name: Run lint template
+        run: npx eslint ./js/*.js_template
       - name: Check configuration
         run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Render templates
