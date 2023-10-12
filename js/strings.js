@@ -23,10 +23,10 @@ STRINGS.set("consumptionTransporationMT", "Transporation");
 STRINGS.set("consumptionTextileMT", "Textile");
 STRINGS.set("consumptionOtherMT", "Other");
 
-STRINGS.set("netImportsMT", "Net Imports (Goods)");
-STRINGS.set("netExportsMT", "Net Exports (Goods)");
-STRINGS.set("netWasteImportMT", "Net Imports (Waste)");
-STRINGS.set("netWasteExportMT", "Net Exports (Waste)");
+STRINGS.set("netImportsMT", "Net Import (Good/Mat)");
+STRINGS.set("netExportsMT", "Net Export (Good/Mat)");
+STRINGS.set("netWasteImportMT", "Net Import (Waste)");
+STRINGS.set("netWasteExportMT", "Net Export (Waste)");
 STRINGS.set("domesticProductionMT", "Domestic");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Annual Million Metric Tons");
