@@ -7,4 +7,5 @@ const toolkit = PlasticsLang.getToolkit();
 {{ CODE }}
 
 
+// eslint-disable-next-line no-undef
 export {toolkit, CompileVisitor};

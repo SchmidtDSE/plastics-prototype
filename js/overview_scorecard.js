@@ -64,7 +64,6 @@ class ScorecardPresenter {
             self._targetDiv.querySelectorAll(".card").forEach((card) => {
                 if (card.getAttribute("goal") === selectedGoal) {
                     card.classList.add("active");
-                    console.log(card.querySelector(".overview-radio"));
                     card.querySelector(".overview-radio").checked = true;
                 } else {
                     card.classList.remove("active");

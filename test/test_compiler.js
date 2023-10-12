@@ -232,6 +232,26 @@ function buildCompilerTest() {
             assert.ok(workspace.get("out").get("testB") == 24);
         });
 
+        QUnit.test("distribute proportionally indirect", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var a = 10;",
+                "var b = 20;",
+                "var c = 6;",
+                "distribute c across [a by 100, b by 200] proportionally;",
+                "out.testA = a;",
+                "out.testB = b;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("testA") == 12);
+            assert.ok(workspace.get("out").get("testB") == 24);
+        });
+
         QUnit.test("lifecycle waste", function(assert) {
             const workspace = buildWorkspace();
             workspace.get("in").set("recyclingDelay", 1);

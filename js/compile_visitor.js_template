@@ -354,17 +354,33 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
-    visitDistribute(ctx) {
+    visitDistributeDirect(ctx) {
         const self = this;
+        const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 2.0);
+        return self.visitDistributeStrategy(ctx, numIdentifiers, false);
+    }
+
+    visitDistributeIndirect(ctx) {
+        const self = this;
+        const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 4.0);
+        return self.visitDistributeStrategy(ctx, numIdentifiers, true);
+    }
+
+    visitDistributeStrategy(ctx, numIdentifiers, hasBy) {
+        const self = this;
+
+        const elementsPerIdentifier = hasBy ? 4 : 2;
 
         const valueExpression = ctx.value.accept(self);
         const methodName = ctx.method.text;
-
-        const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 2.0);
         const identifiers = [];
         for (let i = 0; i < numIdentifiers; i++) {
-            const childIndex = i * 2 + 4;
-            identifiers.push(ctx.getChild(childIndex).getText());
+            const childIndex = i * elementsPerIdentifier + 4;
+            const scaleIndex = childIndex + 2;
+            const identifier = ctx.getChild(childIndex).getText();
+            const getIdVal = (state) => self._getValue(identifier, state);
+            const scaleGetter = hasBy ? ctx.getChild(scaleIndex).accept(self) : getIdVal;
+            identifiers.push({"identifier": identifier, "scale": scaleGetter});
         }
 
         const isLinear = methodName === "linearly";
@@ -376,12 +392,13 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 return;
             }
 
-            const totalTargetsValue = identifiers.map((identifier) => {
-                return self._getValue(identifier, state);
+            const totalTargetsValue = identifiers.map((identifierPair) => {
+                const scaleGetter = identifierPair["scale"];
+                return scaleGetter(state);
             }).reduce((a, b) => a + b);
 
-            const getChangeProportional = (beforeValue) => {
-                return beforeValue / totalTargetsValue * valueToDistribute;
+            const getChangeProportional = (scaleValue) => {
+                return scaleValue / totalTargetsValue * valueToDistribute;
             };
 
             const getChangeLinear = (beforeValue) => {
@@ -390,9 +407,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
             const getChange = isLinear ? getChangeLinear : getChangeProportional;
 
-            identifiers.forEach((identifier) => {
+            identifiers.forEach((identifierPair) => {
+                const identifier = identifierPair["identifier"];
+                const scaleGetter = identifierPair["scale"];
                 const beforeValue = self._getValue(identifier, state);
-                const change = getChange(beforeValue);
+                const scaleValue = scaleGetter(state);
+                const change = getChange(scaleValue);
                 const newValue = beforeValue + change;
                 if (beforeValue != 0) {
                     self._setValue(identifier, newValue, state);

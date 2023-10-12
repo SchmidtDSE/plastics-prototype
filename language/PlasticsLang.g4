@@ -106,10 +106,12 @@ assignment: identifier EQ_ expression;
 
 limitop: LIMIT_ operand=identifier TO_ LBRAC_ limit=expression COMMA_ RBRAC_ # callMax
   | LIMIT_ operand=identifier TO_ LBRAC_ COMMA_ limit=expression RBRAC_ # callMin
-  | LIMIT_ operand=identifier TO_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_  # callBound
+  | LIMIT_ operand=identifier TO_ LBRAC_ lower=expression COMMA_ upper=expression RBRAC_ # callBound
   ;
 
-distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_);
+distribute: DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_) # distributeDirect
+  | DISTRIBUTE_ value=expression ACROSS_ LBRAC_ identifier BY_ expression (COMMA_ identifier BY_ expression)* RBRAC_ method=(PROPORTIONALLY_ | LINEARLY_) # distributeIndirect
+  ;
 
 inspect: INSPECT_ value=expression;
 
