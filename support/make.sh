@@ -9,4 +9,4 @@ cd intermediate
 npm run build
 cd ..
 
-bash preprocess_visitors.sh
+bash support/preprocess_visitors.sh
