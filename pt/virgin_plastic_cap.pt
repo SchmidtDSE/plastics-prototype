@@ -9,11 +9,16 @@ var totalConsumption = (
   out.{{ region }}.consumptionAgricultureMT + 
   out.{{ region }}.consumptionOtherMT
 );
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 var approxRecyclingPercent = out.{{ region }}.eolRecyclingMT / (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolRecyclingMT +
+  effectiveWasteExport
 );
 var approxVirginPercent = 1 - approxRecyclingPercent;
 var totalVirgin = approxVirginPercent * totalConsumption;
@@ -53,11 +58,16 @@ change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
 var offsetLeading = -1 * acutalDeltaMT;
 
 # Split offset across recycling and reduced consumption
+effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 var availableWaste = (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolRecyclingMT +
+  effectiveWasteExport
 );
 
 # Determine offset for immediate effects
@@ -70,11 +80,16 @@ var offsetConsumptionLifecycle = offsetLifecycle * (1 - backfillRate);
 limit offsetConsumptionLifecycle to [-1 * availableWaste, 0];
 
 # Update the EOL for consumption with lifecycle delay
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute offsetConsumptionLifecycle across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Update the EOL for recycling backfill if possible
@@ -96,10 +111,15 @@ limit offsetRecycling to [-1 * availableWasteToRecycle, 0];
 # Apply recycling offset
 out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT - offsetRecycling;
 
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute offsetRecycling across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # If there wasn't enough to recycle, further reduce consumption
@@ -114,11 +134,16 @@ availableWaste = (
 
 limit recyclingDeficit to [-1 * availableWaste, 0];
 
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute recyclingDeficit across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 var offsetConsumptionWithRecyclingDeficit = offsetConsumption + recyclingDeficit * recoveryRate;

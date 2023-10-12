@@ -232,6 +232,26 @@ function buildCompilerTest() {
             assert.ok(workspace.get("out").get("testB") == 24);
         });
 
+        QUnit.test("distribute proportionally zero", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var a = 0;",
+                "var b = 0;",
+                "var c = 6;",
+                "distribute c across [a, b] proportionally;",
+                "out.testA = a;",
+                "out.testB = b;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("testA") == 3);
+            assert.ok(workspace.get("out").get("testB") == 3);
+        });
+
         QUnit.test("distribute proportionally indirect", function(assert) {
             const workspace = buildWorkspace();
             const code = [

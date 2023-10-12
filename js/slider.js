@@ -335,7 +335,7 @@ class SliderPresenter {
         command.bindKey = enabled ? command.bindKeyOriginal : null;
         editor.commands.addCommand(command);
         // special case for backspace and delete which will be called from
-        // textarea if not handled by main commandb binding
+        // textarea if not handled by main command binding
         if (!enabled) {
             let key = command.bindKeyOriginal;
             if (key && typeof key == "object") {

@@ -71,7 +71,8 @@ actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRa
 var totalOtherFates = (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.netExportsMT
 );
 limit actualRecycledDeltaLeading to [0, totalOtherFates];
 limit actualRecycledDelta to [0, actualRecycledDeltaLeading];
@@ -85,10 +86,15 @@ var offsetProduction = actualRecycledDelta * -1;  # Consumption
 var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
 # Apply offset for filled to EOL
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute offsetProductionLeading across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Apply offset for filled to production
@@ -127,11 +133,16 @@ distribute lostConsumptionOffset across [
 ] proportionally;
 
 # Apply offset for unfilled to EOL
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute lostConsumptionOffsetLifecycle across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT,
-  out.{{ region }}.eolRecyclingMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Apply offset for unfilled to production

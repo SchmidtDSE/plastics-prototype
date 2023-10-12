@@ -897,6 +897,172 @@
             ]
         },
         {
+            "name": "trade",
+            "label": "Trade",
+            "levers": [
+                {
+                    "name": "China Change Waste Imports",
+                    "description": "The amount by which to change China's waste imports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "chinaDeltaWasteImport",
+                    "template": "delta_waste_import.pt",
+                    "released": true,
+                    "priority": 101,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "EU 30 Change Waste Imports",
+                    "description": "The amount by which to change EU 30's waste imports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "eu30DeltaWasteImport",
+                    "template": "delta_waste_import.pt",
+                    "released": true,
+                    "priority": 101,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "NAFTA Change Waste Imports",
+                    "description": "The amount by which to change NAFTA's waste imports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "naftaDeltaWasteImport",
+                    "template": "delta_waste_import.pt",
+                    "released": true,
+                    "priority": 101,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "RoW Change Waste Imports",
+                    "description": "The amount by which to change waste imports in rest of world.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "rowDeltaWasteImport",
+                    "template": "delta_waste_import.pt",
+                    "released": true,
+                    "priority": 101,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "China Change Waste Exports",
+                    "description": "The amount by which to change China's waste exports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "chinaDeltaWasteExport",
+                    "template": "delta_waste_export.pt",
+                    "released": true,
+                    "priority": 100,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "EU 30 Change Waste Exports",
+                    "description": "The amount by which to change EU 30's waste exports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "eu30DeltaWasteExport",
+                    "template": "delta_waste_export.pt",
+                    "released": true,
+                    "priority": 100,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "NAFTA Change Waste Exports",
+                    "description": "The amount by which to change NAFTA's waste exports.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "naftaDeltaWasteExport",
+                    "template": "delta_waste_export.pt",
+                    "released": true,
+                    "priority": 100,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "RoW Change Waste Exports",
+                    "description": "The amount by which to change waste exports in rest of world.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "rowDeltaWasteExport",
+                    "template": "delta_waste_export.pt",
+                    "released": true,
+                    "priority": 100,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                }
+            ]
+        },
+        {
             "name": "financialAssumptions",
             "label": "Financial Assumptions",
             "levers": [

@@ -9,11 +9,16 @@ var displacementRate = in.recyclingDisplacementRate / 100;
 limit targetRate to [0, 1];
 
 # Get the total waste
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 var totalWaste = (
   out.{{ region }}.eolRecyclingMT +
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolMismanagedMT +
+  effectiveWasteExport
 );
 
 # Get the delta needed to achieve the goal
@@ -29,10 +34,15 @@ out.{{ region }}.eolRecyclingMT = newRecyclingMT;
 
 # Offset the change in the other EOL types
 var offsetMT = -1 * currentChange;
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute offsetMT across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Assume lagging by three years for production and consumption
@@ -81,11 +91,16 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Bump EOL by inductive demand
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute newInductiveLifecycleMT across [
-  out.{{ region }}.eolRecyclingMT,
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 # Offset production local

@@ -1,10 +1,16 @@
 # Figuring out the target value
+var effectivePriorExports = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+
 var targetMismanagedRate = in.{{region}}MaximumMismanagedRate / 100;
 var totalWaste = (
   out.{{region}}.eolMismanagedMT +
   out.{{region}}.eolIncinerationMT +
   out.{{region}}.eolLandfillMT +
-  out.{{region}}.eolRecyclingMT
+  out.{{region}}.eolRecyclingMT +
+  effectivePriorExports
 );
 var targetMismanaged = targetMismanagedRate * totalWaste;
 
@@ -32,9 +38,10 @@ var priorLandfill = out.{{region}}.eolLandfillMT;
 # Distribute to the other fates - immediate
 var otherDelta = -1 * misManagedDeltaGradual;
 distribute otherDelta across [
-  out.{{region}}.eolIncinerationMT,
-  out.{{region}}.eolLandfillMT,
-  out.{{region}}.eolRecyclingMT
+  out.{{region}}.eolIncinerationMT by out.{{region}}.eolIncinerationMT,
+  out.{{region}}.eolLandfillMT by out.{{region}}.eolLandfillMT,
+  out.{{region}}.eolRecyclingMT by out.{{region}}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by effectivePriorExports
 ] proportionally;
 
 # Delay change to production
@@ -64,26 +71,30 @@ change misManagedDeltaGradualLifecycle by mismanagedDelta over lifecycleStart to
 var newRecyclingDelayed = priorRecycling;
 var newIncinerationDelayed = priorIncineration;
 var newLandfillDelayed = priorLandfill;
+var newExportDelayed = effectivePriorExports;
 
 var otherDeltaDelayed = -1 * misManagedDeltaGradualDelayed;
 
 distribute otherDeltaDelayed across [
   newRecyclingDelayed,
   newIncinerationDelayed,
-  newLandfillDelayed
+  newLandfillDelayed,
+  newExportDelayed
 ] proportionally;
 
 # Determine recycling delta delayed for waste after increased production
 var lifecycleRecyclingDelayed = priorRecycling;
 var lifecycleIncinerationDelayed = priorIncineration;
 var lifecycleLandfillDelayed = priorLandfill;
+var lifecycleExportDelayed = effectivePriorExports;
 
 var otherDeltaLifecycle = -1 * misManagedDeltaGradualLifecycle;
 
 distribute otherDeltaLifecycle across [
   lifecycleRecyclingDelayed,
   lifecycleIncinerationDelayed,
-  lifecycleLandfillDelayed
+  lifecycleLandfillDelayed,
+  lifecycleExportDelayed
 ] proportionally;
 
 # Apply recovery
@@ -112,11 +123,17 @@ distribute newInductivePlasticsMT across [
 ] proportionally;
 
 # Bump EOL by inductive demand
+var newEffectivePriorExports = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+
 distribute newInductivePlasticsMTLifecycle across [
-  out.{{ region }}.eolRecyclingMT,
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by newEffectivePriorExports
 ] proportionally;
 
 # Offset production local

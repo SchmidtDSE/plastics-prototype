@@ -1,0 +1,8 @@
+var delta = in.{{ region }}DeltaWasteExport;
+
+# Update imports elsewhere
+distribute delta across [
+  {{#each otherRegions}}
+  in.{{this}}DeltaWasteImport{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;

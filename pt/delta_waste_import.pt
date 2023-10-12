@@ -1,0 +1,22 @@
+var delta = in.{{ region }}DeltaWasteImport - in.{{ region }}DeltaWasteExport;
+
+# Determine new net trade
+var curNetTrade = out.{{ region }}.netWasteImportMT - out.{{ region }}.netWasteExportMT;
+var newNetTrade = curNetTrade + delta;
+
+# Apply to overall numbers
+var newImport = newNetTrade;
+limit newImport to [0,];
+out.{{ region }}.netWasteImportMT = newImport;
+
+var newExport = newNetTrade;
+limit newExport to [,0];
+out.{{ region }}.netWasteExportMT = -1 * newExport;
+
+# Update the EOL values
+distribute delta across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;

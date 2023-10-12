@@ -43,10 +43,15 @@ var prodInductive = (1 - displacementRate) * additionalWasteCapacity;
 change consumptionDeltaDelay by prodInductive over startConsumptionYear to endConsumptionYear;
 
 # Update waste
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 distribute -1 * additionalWasteCapacity across [
-  out.{{ region }}.eolLandfillMT,
-  out.{{ region }}.eolIncinerationMT,
-  out.{{ region }}.eolMismanagedMT
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
 out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT + additionalWasteCapacity;

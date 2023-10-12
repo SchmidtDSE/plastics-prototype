@@ -204,8 +204,10 @@ class Driver {
                 state.set("inspect", []);
                 program(state);
 
-                const inspects = state.get("inspect");
-                lever.showInspects(inspects);
+                if (year === 2050) {
+                    const inspects = state.get("inspect");
+                    lever.showInspects(inspects);
+                }
             });
 
             self._addGlobalToState(state);
