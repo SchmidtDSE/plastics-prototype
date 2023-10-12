@@ -378,8 +378,9 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const childIndex = i * elementsPerIdentifier + 4;
             const scaleIndex = childIndex + 2;
             const identifier = ctx.getChild(childIndex).getText();
-            const scaleId = hasBy ? ctx.getChild(scaleIndex).getText() : identifier;
-            identifiers.push({"identifier": identifier, "scale": scaleId});
+            const getIdVal = (state) => self._getValue(identifier, state);
+            const scaleGetter = hasBy ? ctx.getChild(scaleIndex).accept(self) : getIdVal;
+            identifiers.push({"identifier": identifier, "scale": scaleGetter});
         }
 
         const isLinear = methodName === "linearly";
@@ -392,8 +393,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             }
 
             const totalTargetsValue = identifiers.map((identifierPair) => {
-                const scaleId = identifierPair["scale"];
-                return self._getValue(scaleId, state);
+                const scaleGetter = identifierPair["scale"];
+                return scaleGetter(state);
             }).reduce((a, b) => a + b);
 
             const getChangeProportional = (scaleValue) => {
@@ -407,10 +408,10 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const getChange = isLinear ? getChangeLinear : getChangeProportional;
 
             identifiers.forEach((identifierPair) => {
-                const identifier = identifierPair["target"];
-                const scaleId = identifierPair["scale"]
+                const identifier = identifierPair["identifier"];
+                const scaleGetter = identifierPair["scale"]
                 const beforeValue = self._getValue(identifier, state);
-                const scaleValue = self._getValue(scaleId, state);
+                const scaleValue = scaleGetter(state);
                 const change = getChange(scaleValue);
                 const newValue = beforeValue + change;
                 if (beforeValue != 0) {
