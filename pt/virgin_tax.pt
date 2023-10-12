@@ -35,12 +35,16 @@ var reductionConsumption = rateDecreaseConsumption * totalConsumption;
 var offsetConsumption = -1 * reductionConsumption;
 
 # Determine by how much to reduce waste
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 var totalWaste = (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT +
   out.{{ region }}.eolRecyclingMT + 
-  out.{{ region }}.netWasteExportMT
+  effectiveWasteExport
 );
 var reductionWaste = rateDecreaseWaste * totalWaste;
 var offsetWaste = -1 * reductionWaste;

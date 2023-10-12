@@ -9,12 +9,16 @@ var displacementRate = in.recyclingDisplacementRate / 100;
 limit targetRate to [0, 1];
 
 # Get the total waste
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
 var totalWaste = (
   out.{{ region }}.eolRecyclingMT +
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.netWasteExportMT
+  effectiveWasteExport
 );
 
 # Get the delta needed to achieve the goal
