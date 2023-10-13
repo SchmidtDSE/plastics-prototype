@@ -38,6 +38,7 @@ class ScenarioPresenter {
         self._onPolicyChangeCallback = onPolicyChange;
         self._scenarios = scenarios;
         self._lastInputValues = null;
+        self._tippyPrior = null;
 
         self._customScenario = {
             "name": "Custom",
@@ -155,6 +156,7 @@ class ScenarioPresenter {
             .classed("info-target", true)
             .attr("id", (scenario) => scenario["id"] + "-menu-check-info")
             .attr("tabindex", "0")
+            .classed("scenario-tippy", true)
             .attr("data-tippy-content", (scenario) => scenario["description"]);
 
         d3.selectAll(".check-dropdown").on("change", function() {
@@ -181,8 +183,11 @@ class ScenarioPresenter {
             self._onPolicyChangeCallback(scenario, isChecked);
         });
 
+        if (self._tippyPrior !== null) {
+            self._tippyPrior.forEach((x) => x.destroy());
+        }
         // eslint-disable-next-line no-undef
-        tippy("[data-tippy-content]");
+        self._tippyPrior = tippy(".scenario-tippy");
     }
 
     _setupAddDialog() {

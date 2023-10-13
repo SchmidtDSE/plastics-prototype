@@ -25,6 +25,7 @@ class BubblegraphPresenter {
         self._targetDiv = targetDiv;
         self._targetSvg = self._targetDiv.querySelector(".bubblegraph");
         self._targetSvgId = self._targetSvg.id;
+        self._tippyPrior = null;
 
         // Setup svg
         self._d3Selection = self._getD3().select("#" + self._targetSvgId);
@@ -219,7 +220,10 @@ class BubblegraphPresenter {
 
         const updateTitle = () => {
             const titleElement = self._targetDiv.querySelector(".title");
-            titleElement.textContent = getTitle();
+            const titleContent = getTitle();
+            titleElement.textContent = titleContent;
+            self._targetDiv.querySelector(".bubblegraph")
+                .setAttribute("aria-label", titleContent);
         };
 
         const updateMetricLabels = () => {
@@ -560,8 +564,15 @@ class BubblegraphPresenter {
                 attrDescriptions.join(", "),
             ].join(" ");
 
+            if (self._tippyPrior !== null) {
+                self._tippyPrior.destroy();
+            }
+
             // eslint-disable-next-line no-undef
-            tippy("#detailed-bubble-description-dynamic", {"content": message});
+            self._tippyPrior = tippy(
+                "#detailed-bubble-description-dynamic",
+                {"content": message}
+            );
         };
 
         updateTitle();

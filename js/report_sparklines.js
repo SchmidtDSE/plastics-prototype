@@ -171,10 +171,29 @@ class SparklinePresenter {
                 .on("click", (event, year) => self._onYearChange(year));
         };
 
+        const updateDescription = () => {
+            const value = stateSet.getAllWithInterventions().get(selectedYear)
+                .get("out")
+                .get(region)
+                .get(self._attrName);
+            const valueRounded = Math.round(value * 10) / 10;
+            const labelContent = [
+                STRINGS.get(self._attrName) + ":",
+                valueRounded,
+                isPercent ? "%" : "MMT",
+                "in",
+                selectedYear,
+                "with interventions."
+            ].join(" ");
+            self._d3Selection.select(".sparkline")
+                .attr("aria-label", labelContent);
+        };
+
         updateLabels();
         updateIndicator();
         updateLines();
         updateHoverTargets();
+        updateDescription();
     }
 
     _initElements() {
