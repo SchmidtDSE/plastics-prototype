@@ -335,17 +335,19 @@ class TimeseriesPresenter {
 
             const showingDelta = document.getElementById("show-delta").checked;
             const deltaStr = "Displaying changes or deltas due to interventions.";
-            const regStr = "Displaying values after applying policies."
+            const regStr = "Displaying values after applying policies.";
+            const modeStr = showingDelta ? deltaStr : regStr;
 
             const message = [
                 "Timeseries chart titled",
                 getTitle() + ".",
-                regStr,
+                modeStr,
                 "Having selected",
                 selectedYear + ",",
                 "it reports the following:",
                 attrDescriptions,
             ].join(" ");
+            
             // eslint-disable-next-line no-undef
             tippy("#detailed-timeseries-description-dynamic", {"content": message});
         };
