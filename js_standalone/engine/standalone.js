@@ -21,6 +21,8 @@ const DATA_ATTRS = [
     "netImportsMT",
     "netExportsMT",
     "domesticProductionMT",
+    "netWasteExportMT",
+    "netWasteImportMT",
 ];
 
 const NUM_ARGS = 2;
