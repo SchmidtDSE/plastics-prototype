@@ -352,7 +352,7 @@ class TimeseriesPresenter {
             ].join(" ");
 
             if (self._tippyPrior !== null) {
-                self._tippyPrior.destroy();
+                self._tippyPrior.forEach((x) => x.destroy());
             }
 
             // eslint-disable-next-line no-undef
