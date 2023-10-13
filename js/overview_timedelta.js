@@ -293,7 +293,7 @@ class TimeDeltaPresenter {
                 "as",
                 unitsLong,
             ].join(" ");
-        }
+        };
 
         const updateTitle = () => {
             const newTitle = getTitle();
@@ -315,7 +315,7 @@ class TimeDeltaPresenter {
                     .get(region)
                     .get(self._attrName);
                 return Math.round(value * 10) / 10 + " MMT";
-            }
+            };
 
             const message = [
                 "Timeseries chart titled",
@@ -326,7 +326,7 @@ class TimeDeltaPresenter {
                 getValueText(withInterventions),
                 "in selected policy scenario",
                 "for",
-                selectedYear + "."
+                selectedYear + ".",
             ].join(" ");
             // eslint-disable-next-line no-undef
             tippy("#overview-timeseries-description-dynamic", {"content": message});

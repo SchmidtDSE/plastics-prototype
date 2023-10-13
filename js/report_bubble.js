@@ -215,7 +215,7 @@ class BubblegraphPresenter {
                 typeString,
             ].join(" ");
             return text;
-        }
+        };
 
         const updateTitle = () => {
             const titleElement = self._targetDiv.querySelector(".title");

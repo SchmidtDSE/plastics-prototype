@@ -141,7 +141,7 @@ class TimeseriesPresenter {
                 STRINGS.get(selection.getDisplayStage()),
                 "in",
                 STRINGS.get(selection.getDisplayType()),
-            ].join(" ")
+            ].join(" ");
         };
 
         // Make updates
@@ -347,7 +347,7 @@ class TimeseriesPresenter {
                 "it reports the following:",
                 attrDescriptions,
             ].join(" ");
-            
+
             // eslint-disable-next-line no-undef
             tippy("#detailed-timeseries-description-dynamic", {"content": message});
         };
