@@ -571,7 +571,7 @@ class BubblegraphPresenter {
             // eslint-disable-next-line no-undef
             self._tippyPrior = tippy(
                 "#detailed-bubble-description-dynamic",
-                {"content": message}
+                {"content": message},
             );
         };
 

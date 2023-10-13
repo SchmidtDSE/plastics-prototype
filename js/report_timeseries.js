@@ -358,7 +358,7 @@ class TimeseriesPresenter {
             // eslint-disable-next-line no-undef
             self._tippyPrior = tippy(
                 "#detailed-timeseries-description-dynamic",
-                {"content": message}
+                {"content": message},
             );
         };
 

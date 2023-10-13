@@ -183,7 +183,7 @@ class SparklinePresenter {
                 isPercent ? "%" : "MMT",
                 "in",
                 selectedYear,
-                "with interventions."
+                "with interventions.",
             ].join(" ");
             self._d3Selection.select(".sparkline")
                 .attr("aria-label", labelContent);
