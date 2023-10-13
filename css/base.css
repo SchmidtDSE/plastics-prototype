@@ -32,7 +32,7 @@ html {
     font-size: 16px;
 }
 
-h3 select {
+h2 select {
     font-size: 14px;
 }
 
@@ -129,7 +129,7 @@ select {
     top: 1px;
 }
 
-h3 .info-img {
+h2 .info-img {
     height: 18px;
     margin-top: 0px;
     position: relative;
@@ -163,7 +163,7 @@ h3 .info-img {
     background-color: white;
 }
 
-.output-section h3 {
+.output-section h2 {
     font-size: 18px;
     margin: 10px 0 0 0;
     margin-bottom: 8px;
@@ -683,7 +683,7 @@ h3 .info-img {
     margin: 3px 3px 20px 3px;
 }
 
-.right-panel h3 {
+.right-panel h2 {
     margin-top: 7px;
 }
 
@@ -896,7 +896,7 @@ h3 .info-img {
 /* Responsive for details tab overall */
 
 @media (max-width: 1200px) {
-    .output-section h3 {
+    .output-section h2 {
         font-size: 15px;
     }
 
