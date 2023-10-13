@@ -20,6 +20,7 @@ class TimeseriesPresenter {
         self._targetDiv = targetDiv;
         self._onYearChange = onYearChange;
         self._requestRender = requestRender;
+        self._tippyPrior = null;
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
         self._d3Selection = self._getD3().select("#" + self._targetSvg.id);
@@ -149,6 +150,8 @@ class TimeseriesPresenter {
             const title = self._targetDiv.querySelector(".title");
             const text = getTitle();
             title.innerHTML = text;
+
+            self._d3Selection.attr("aria-label", "Graph of: " + text);
         };
 
         const updateValueAxis = () => {
@@ -348,8 +351,15 @@ class TimeseriesPresenter {
                 attrDescriptions,
             ].join(" ");
 
+            if (self._tippyPrior !== null) {
+                self._tippyPrior.forEach((x) => x.destroy());
+            }
+
             // eslint-disable-next-line no-undef
-            tippy("#detailed-timeseries-description-dynamic", {"content": message});
+            self._tippyPrior = tippy(
+                "#detailed-timeseries-description-dynamic",
+                {"content": message},
+            );
         };
 
         updateTitle();

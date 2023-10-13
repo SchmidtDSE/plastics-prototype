@@ -9,7 +9,7 @@ import {buildSliders} from "slider";
 
 
 class Driver {
-    constructor() {
+    constructor(disableDelay) {
         const self = this;
 
         self._tabs = null;
@@ -20,6 +20,7 @@ class Driver {
         self._overviewPresenter = null;
         self._levers = null;
         self._redrawTimeout = null;
+        self._disableDelay = disableDelay;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -252,9 +253,13 @@ class Driver {
         }
 
         const reschedule = () => {
-            self._redrawTimeout = setTimeout(() => {
+            if (self._disableDelay) {
                 execute();
-            }, 50);
+            } else {
+                self._redrawTimeout = setTimeout(() => {
+                    execute();
+                }, 25);
+            }
         };
 
         const execute = () => {
@@ -281,10 +286,15 @@ class Driver {
 
     _updateOutputs(businessAsUsual, withInterventions) {
         const self = this;
-        setTimeout(() => {
+        if (self._disableDelay) {
             self._reportPresenter.render(businessAsUsual, withInterventions);
             self._overviewPresenter.render(businessAsUsual, withInterventions);
-        }, 25);
+        } else {
+            setTimeout(() => {
+                self._reportPresenter.render(businessAsUsual, withInterventions);
+                self._overviewPresenter.render(businessAsUsual, withInterventions);
+            }, 25);
+        }
     }
 
     _addGlobalToState(state) {
@@ -358,8 +368,8 @@ class Driver {
 }
 
 
-function main(shouldPause, includeDevelopment) {
-    const driver = new Driver();
+function main(shouldPause, includeDevelopment, disableDelay) {
+    const driver = new Driver(disableDelay);
     driver.setPauseUiLoop(shouldPause);
     return driver.init(includeDevelopment);
 }

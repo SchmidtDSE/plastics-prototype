@@ -16,6 +16,7 @@ class TimeDeltaPresenter {
         self._targetDiv = targetDiv;
         self._onYearChange = onYearChange;
         self._d3Selection = self._getD3().select("#" + targetDiv.id);
+        self._tippyPrior = null;
 
         self._initElements();
     }
@@ -298,6 +299,8 @@ class TimeDeltaPresenter {
         const updateTitle = () => {
             const newTitle = getTitle();
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
+            self._d3Selection.select(".body")
+                .attr("aria-label", "Graph of: " + newTitle);
         };
 
         const updateAxisRect = () => {
@@ -328,8 +331,15 @@ class TimeDeltaPresenter {
                 "for",
                 selectedYear + ".",
             ].join(" ");
+
+            if (self._tippyPrior !== null) {
+                self._tippyPrior.forEach((x) => x.destroy());
+            }
             // eslint-disable-next-line no-undef
-            tippy("#overview-timeseries-description-dynamic", {"content": message});
+            self._tippyPrior = tippy(
+                "#overview-timeseries-description-dynamic",
+                {"content": message},
+            );
         };
 
         updateValueAxis();
