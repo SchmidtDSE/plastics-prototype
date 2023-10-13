@@ -285,14 +285,18 @@ class TimeDeltaPresenter {
                 .on("click", (event, year) => self._onYearChange(year));
         };
 
-        const updateTitle = () => {
-            const newTitle = [
+        const getTitle = () => {
+            return [
                 "Global",
                 self._metricName === "cumulative" ? "Cumulative" : "Annual Rate of",
                 STRINGS.get(self._attrName),
                 "as",
                 unitsLong,
             ].join(" ");
+        }
+
+        const updateTitle = () => {
+            const newTitle = getTitle();
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
         };
 
@@ -305,6 +309,29 @@ class TimeDeltaPresenter {
                 .attr("y", verticalScale(0));
         };
 
+        const updateDescription = () => {
+            const getValueText = (target) => {
+                const value = target.get(selectedYear)
+                    .get(region)
+                    .get(self._attrName);
+                return Math.round(value * 10) / 10 + " MMT";
+            }
+
+            const message = [
+                "Timeseries chart titled",
+                getTitle() + ".",
+                "It shows",
+                getValueText(businessAsUsuals),
+                "in business as usual and",
+                getValueText(withInterventions),
+                "in selected policy scenario",
+                "for",
+                selectedYear + "."
+            ].join(" ");
+            // eslint-disable-next-line no-undef
+            tippy("#overview-timeseries-description-dynamic", {"content": message});
+        };
+
         updateValueAxis();
         updateYearAxis();
         updateAxisRect();
@@ -312,6 +339,7 @@ class TimeDeltaPresenter {
         updateLines();
         updateHoverTargets();
         updateTitle();
+        updateDescription();
     }
 
     _initElements() {

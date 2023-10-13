@@ -1,4 +1,4 @@
-        <main>
+        <div>
             <p class="warning" id="browser-warning">
                 ⚠️ Warning: Your browser may not be supported. Though we try to test across multiple devices and browsers, we have not tried it on your specific version. If you run into issues, please consider using <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a>.
             </p>
@@ -7,430 +7,490 @@
                 <span class="loader"></span> Loading please wait...
             </div>
             <div id="loaded">
-                <ul data-tabs>
-                    <li><a data-tabby-default href="#overview">Overview</a></li>
-                    <li><a href="#detailed">Details</a></li>
-                    <li><a href="#about">About</a></li>
-                </ul>
+                <nav>
+                    <ul data-tabs>
+                        <li><a data-tabby-default href="#overview">Overview</a></li>
+                        <li><a href="#detailed">Details</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#toc">Contents</a></li>
+                    </ul>
+                </nav>
 
-                <div id="overview" class="overview">
-                    <div class="panel overview-panel" id="overview-panel">
-                        <div class="tutorial">
-                            <p class="warning">
-                                ⚠️ Warning: Using preliminary model results. Things may change.
-                            </p>
-                            <p class="tutorial-cta">🏁 Start here:</p>
-                            <p>
-                                Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. Click next to enable the visualization and combine different policies to reduce waste.
-                            </p>
-                            <div class="tutorial-next">
-                                <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                            </div>
-                        </div>
-                        <div class="overview-section cumulative-toggle">
-                            <h3 class="post-intro post-intro-early">
-                                Showing Plastic
-                                <select class="goal-select">
-                                    <option value="mismanagedWaste" selected>Mismanaged Waste</option>
-                                    <option value="incineratedWaste">Incinerated Waste</option>
-                                    <option value="landfillWaste">Landfill Waste</option>
-                                    <option value="recycling">Recycling</option>
-                                </select>
-                                as
-                                <select class="metric-select">
-                                    <option value="annual" selected>Annual</option>
-                                    <option value="cumulative">Cumulative from 2010 in</option>
-                                    <option value="reference">Annual Difference to 2023 in</option>
-                                </select>
-                                Million Metric Tons.
-                            </h3>
-                        </div>
-                        <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
-                            <div class="post-intro">
-                                <h3>Global <span class="year">2049</span> Plastics Projections</h3>
-                            </div>
-                            <div class="cards">
-                                <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
-                                    <div class="title"><label for="mismanaged-radio-overview-top">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                    <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-top" class="overview-radio" name="overview-metric-top" value="mismanaged" ></div>
-                                </div>
-                                <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
-                                    <div class="title"><label for="incinerated-radio-overview-top">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                    <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-top" class="overview-radio" name="overview-metric-top" value="incinerated" ></div>
-                                </div>
-                                <div class="card landfill-waste-card post-intro" goal="landfillWaste">
-                                    <div class="title"><label for="landfill-radio-overview-top">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                    <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-top" class="overview-radio" name="overview-metric-top" value="landfill" ></div>
-                                </div>
-                                <div class="card recycling-card post-intro" goal="recycling">
-                                    <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                    <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-top" class="overview-radio" name="overview-metric-top" value="recycling" ></div>
+                <main id="main">
+                    <div id="overview" class="overview">
+                        <div class="panel overview-panel" id="overview-panel">
+                            <div class="tutorial">
+                                <p class="warning">
+                                    ⚠️ Warning: Using preliminary model results. Things may change.
+                                </p>
+                                <p class="tutorial-cta">🏁 Start here:</p>
+                                <p>
+                                    Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. Click next to enable the visualization and combine different policies to reduce waste.
+                                </p>
+                                <div class="tutorial-next">
+                                    <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="middle">
-                            <div class="scenarios overview-section post-intro" id="scenarios">
-                                <h3>Policies</h3>
-                                <div class="menu"></div>
-                                <div class="cta">
-                                    <div class="action"><a href="#detailed" class="detailed-cta">Customize policy details >></a></div>
-                                    <div class="action"><a href="#add-policy" id="add-policy-link">Add policy option >></a></div>
-                                    <div class="action"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                    <div class="action"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
-                                </div>
+                            <div class="overview-section cumulative-toggle">
+                                <h3 class="post-intro post-intro-early" id="overview-anchor-selector">
+                                    Showing Plastic
+                                    <select class="goal-select">
+                                        <option value="mismanagedWaste" selected>Mismanaged Waste</option>
+                                        <option value="incineratedWaste">Incinerated Waste</option>
+                                        <option value="landfillWaste">Landfill Waste</option>
+                                        <option value="recycling">Recycling</option>
+                                    </select>
+                                    as
+                                    <select class="metric-select">
+                                        <option value="annual" selected>Annual</option>
+                                        <option value="cumulative">Cumulative from 2010 in</option>
+                                        <option value="reference">Annual Difference to 2023 in</option>
+                                    </select>
+                                    Million Metric Tons.
+                                </h3>
                             </div>
-                            <div class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries">
-                                <h3 class="title">Global Metrics over Time</h3>
-                                <svg class="body"></svg>
-                                <div class="cta-holder"><a href="#detailed" class="detailed-cta">Go to detailed projections >></a></div>
-                                <div class="legend">
-                                    <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="scorecard overview-section last relative-scorecard" id="relative-scorecard">
-                            <div class="post-intro">
-                                <h3>Impact of Policies on Global <span class="year">2049</span> Plastics Projections</h3>
-                            </div>
-                            <div class="cards">
-                                 <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
-                                    <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="mismanaged" ></div>
-                                    <div class="title"><label for="mismanaged-radio-overview-bottom">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                </div>
-                                <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
-                                    <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="incinerated" ></div>
-                                    <div class="title"><label for="incinerated-radio-overview-bottom">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                </div>
-                                <div class="card landfill-waste-card post-intro" goal="landfillWaste">
-                                    <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="landfill" ></div>
-                                    <div class="title"><label for="landfill-radio-overview-bottom">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                </div>
-                                <div class="card recycling-card post-intro" goal="recycling">
-                                    <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="recycling" ></div>
-                                    <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" src="/img/info.png" class="info-img"></span></div>
-                                    <div class="body">1234</div>
-                                    <div class="footer">Million Metric Tons</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="detailed">
-                    <div class="panel-box active" id="panel-box">
-                        <div class="panel">
-                            <div class="output-section">
-                                <div id="config-container" class="config-container">
-                                    <div class="tutorial">
-                                        <p class="tutorial-cta">🏁 Start here:</p>
-                                        <p>
-                                            Exposing additional metrics like sectorial consumption at a regional level, this tab refines your policy options from the first tab, allowing you full control to craft your own unique interventinos. Click next to enable the exploration.
-                                        </p>
-                                        <div class="tutorial-next">
-                                            <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
-                                        </div>
+                            <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
+                                <div id="overview-anchor-summary">
+                                    <div class="post-intro">
+                                        <h3>Global <span class="year">2049</span> Plastics Projections</h3>
                                     </div>
-                                    <h3 class="post-intro post-intro-early">
-                                        <span>Showing</span>
-                                        <select class="stage-select" id="stage-select">
-                                        </select>
-                                        <span>in</span>
-                                        <select class="region-select" id="region-select">
-                                        </select>
-                                        <span>at</span>
-                                        <select class="year-select" id="year-select">
-                                        </select>
-                                        <span>as</span>
-                                        <select class="type-select" id="type-select">
-                                        </select>
-                                        <span>.</span>
-                                    </h3>
-                                    <div class="delta-check-holder post-intro">
-                                        <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
-                                    </div>
-                                </div>
-                                <div class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">
-                                    <div id="gloals-container" class="goals-container post-intro">
-                                        <div class="goal-container inner top even" id="mismanaged-waste-goal-container">
-                                            <h3>Mismanaged Waste</h3>
-                                            <div class="bars"></div>
+                                    <div class="cards">
+                                        <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
+                                            <div class="title"><label for="mismanaged-radio-overview-top">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                            <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-top" class="overview-radio" name="overview-metric-top" value="mismanaged" ></div>
                                         </div>
-                                        <div class="goal-container inner top odd" id="incinerated-waste-goal-container">
-                                            <h3>Incinerated Waste</h3>
-                                            <div class="bars"></div>
+                                        <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
+                                            <div class="title"><label for="incinerated-radio-overview-top">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                            <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-top" class="overview-radio" name="overview-metric-top" value="incinerated" ></div>
                                         </div>
-                                        <div class="goal-container inner even" id="landfill-waste-goal-container">
-                                            <h3>Landfill Waste</h3>
-                                            <div class="bars"></div>
+                                        <div class="card landfill-waste-card post-intro" goal="landfillWaste">
+                                            <div class="title"><label for="landfill-radio-overview-top">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                            <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-top" class="overview-radio" name="overview-metric-top" value="landfill" ></div>
                                         </div>
-                                        <div class="goal-container odd" id="recycling-goal-container">
-                                            <h3>Recycling</h3>
-                                            <div class="bars"></div>
+                                        <div class="card recycling-card post-intro" goal="recycling">
+                                            <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                            <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-top" class="overview-radio" name="overview-metric-top" value="recycling" ></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="region-container" class="region-container post-intro post-intro-early">
-                                    <div id="current-year-container" class="current-year-container" data-simplebar data-simplebar-auto-hide="false">
-                                        <div id="eol-container" class="stage-container">
-                                            <div class="subtitle"></div>
-                                            <h3><span class="description">EOL</span></h3>
-                                            <div class="bars"></div>
-                                            <div class="check-holder">
-                                                <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
-                                            </div>
-                                        </div>
-                                        <div id="production-container" class="stage-container">
-                                            <div class="subtitle"></div>
-                                            <h3><span class="description">Production</span></h3>
-                                            <div class="warning small">⚠️ Net trade under construction.</div>
-                                            <div class="bars"></div>
-                                            <div class="check-holder">
-                                                <label for="production-radio"><input type="radio" class="stage-radio" id="production-radio" value="production"> Show Production</label>
-                                            </div>
-                                        </div>
-                                        <div id="consumption-container" class="stage-container">
-                                            <div class="subtitle"></div>
-                                            <h3><span class="description">Consumption</span></h3>
-                                            <div class="bars"></div>
-                                            <div class="check-holder">
-                                                <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
-                                            </div>
+                            </div>
+                            <div class="middle">
+                                <div class="scenarios overview-section post-intro" id="scenarios">
+                                    <div id="overview-anchor-scenarios">
+                                        <h3>Policies</h3>
+                                        <div class="menu"></div>
+                                        <div class="cta" id="overview-anchor-file">
+                                            <div class="action"><a href="#detailed" class="detailed-cta">Customize policy details >></a></div>
+                                            <div class="action"><a href="#add-policy" id="add-policy-link">Add policy option >></a></div>
+                                            <div class="action"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
+                                            <div class="action"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
                                         </div>
                                     </div>
-                                    <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false">
-                                        <h3 class="title">Timeseries</h3>
-                                        <div class="slope-check-holder">
-                                            <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
-                                        </div>
-                                        <div>
-                                            <svg class="timeseries" id="timeseries"></svg>
-                                        </div>
-                                        <div class="sparklines-section" id="sparklines-section">
-                                        </div>
+                                </div>
+                                <div class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries">
+                                    <div id="overview-anchor-timeseries">
+                                        <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h3>
+                                        <svg class="body" aria-describedby="overview-timeseries-description-dynamic"></svg>
+                                        <div class="cta-holder"><a href="#detailed" class="detailed-cta">Go to detailed projections >></a></div>
                                         <div class="legend">
-                                            <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                            <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
                                         </div>
                                     </div>
                                 </div>
-                                <div id="bubblegraph-container" class="bubblegraph-container post-intro" data-simplebar data-simplebar-auto-hide="false">
-                                    <h3 class="title"></h3>
-                                    <div class="slope-check-holder">
-                                        <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
+                            </div>
+                            <div class="scorecard overview-section last relative-scorecard" id="relative-scorecard">
+                                <div id="overview-anchor-deltas">
+                                    <div class="post-intro">
+                                        <h3>Impact of Policies on Global <span class="year">2049</span> Plastics Projections</h3>
                                     </div>
-                                    <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
+                                    <div class="cards">
+                                        <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
+                                            <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="mismanaged" ></div>
+                                            <div class="title"><label for="mismanaged-radio-overview-bottom">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                        </div>
+                                        <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
+                                            <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="incinerated" ></div>
+                                            <div class="title"><label for="incinerated-radio-overview-bottom">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                        </div>
+                                        <div class="card landfill-waste-card post-intro" goal="landfillWaste">
+                                            <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="landfill" ></div>
+                                            <div class="title"><label for="landfill-radio-overview-bottom">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                        </div>
+                                        <div class="card recycling-card post-intro" goal="recycling">
+                                            <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="recycling" ></div>
+                                            <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="body">1234</div>
+                                            <div class="footer">Million Metric Tons</div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="panel">
-                            <div id="buttons-panel" class="right-panel post-intro">
-                                <h3>Policy</h3>
-                                <div class="link-holder"><a href="#overview" id="overview-cta">Return to overview >></a></div>
-                                <div class="link-holder"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                <div class="link-holder"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
-                                <div class="link-holder"><a href="#download" class="download-link">Download Projections >></a></div>
-                            </div>
-                            <div id="levers-panel" class="right-panel post-intro">
-                                <div id="levers-panel-inner"></div>
-                                <div class="lever-section" id="prototype">
-                                    <details id="lever-section-prototype">
-                                        <summary class="lever-section-title">Prototype</summary>
-                                        <p class="section-levers">
-                                            <div class="slider-holder" id="slider-holder-prototype">
-                                                <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
-                                                <input type="number" value="0" class="slider" id="input-prototype">
-                                                <table class="goals-table">
-                                                    <tr>
-                                                        <td></td>
-                                                        <td><span class="goal-table-year"></span> Production Emissions</td>
-                                                        <td><span class="goal-table-year"></span> Consumption Emissions</td>
-                                                        <td><span class="goal-table-year"></span> Landfill Waste</td>
-                                                        <td><span class="goal-table-year"></span> Recycling</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="global-table-region"></td>
-                                                        <td class="goal-table-mismanaged-waste"></td>
-                                                        <td class="goal-table-incinerated-waste"></td>
-                                                        <td class="goal-table-landfill-waste"></td>
-                                                        <td class="goal-table-recycling"></td>
-                                                    </tr>
-                                                </table>
-                                                <div class="status-display"></div>
-                                                <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
-                                                <div class="inspects-area"></div>
-                                            </div>
-                                        </p>
-                                    </details>
-                                </div>
-                            </div>
-                            <div id="layout-panel" class="right-panel post-intro">
-                                <h3>Layout</h3>
-                                <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
-                                <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="about" class="about">
-                    <div class="about-panel">
-                        <ul data-sub-tabs>
-                            <li><a data-tabby-default href="#about-overview">Introduction</a></li>
-                            <li><a href="#about-model">Model</a></li>
-                            <li><a href="#about-contact">Contact</a></li>
-                            <li><a href="#about-privacy">Privacy</a></li>
-                            <li><a href="#about-license">License</a></li>
-                            <li><a href="#about-people">People</a></li>
-                        </ul>
-                        <div id="about-overview">
-                            <h3>About</h3>
-                            This project allows users to explore different plastics outcomes under various policy scenarios, offering the ability to craft highly customized policy packages and to build new policy interventions through an embedded programming environment. This website is a deployment of <a href="https://github.com/SchmidtDSE/plastics-prototype">open source code</a> built as a joint project of:
-                            <ul>
-                                <li><a href="https://bosl.ucsb.edu/">Benioff Ocean Science Laboratory</a> at University of California Santa Barbara</li>
-                                <li><a href="https://dse.berkeley.edu/">Eric and Wendy Schmidt Center for Data Science & Environment</a> at University of California Berkeley</li>
-                            </ul>
-                            
-                            Open source on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>.
+                    <div id="detailed">
+                        <div class="panel-box active" id="panel-box">
+                            <div class="panel">
+                                <div class="output-section">
+                                    <div id="config-container" class="config-container">
+                                        <div class="tutorial">
+                                            <p class="tutorial-cta">🏁 Start here:</p>
+                                            <p>
+                                                Exposing additional metrics like sectorial consumption at a regional level, this tab refines your policy options from the first tab, allowing you full control to craft your own unique interventinos. Click next to enable the exploration.
+                                            </p>
+                                            <div class="tutorial-next">
+                                                <a class="tutorial-next-button" href="#raw-scorecard">Next >></a>
+                                            </div>
+                                        </div>
+                                        <div id="detailed-anchor-controls">
+                                            <h3 class="post-intro post-intro-early">
+                                                <span>Showing</span>
+                                                <select class="stage-select" id="stage-select">
+                                                </select>
+                                                <span>in</span>
+                                                <select class="region-select" id="region-select">
+                                                </select>
+                                                <span>at</span>
+                                                <select class="year-select" id="year-select">
+                                                </select>
+                                                <span>as</span>
+                                                <select class="type-select" id="type-select">
+                                                </select>
+                                                <span>.</span>
+                                            </h3>
+                                            <div class="delta-check-holder post-intro">
+                                                <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">
+                                        <div id="gloals-container" class="goals-container post-intro">
+                                            <div class="goal-container inner top even" id="mismanaged-waste-goal-container">
+                                                <h3>Mismanaged Waste</h3>
+                                                <div class="bars"></div>
+                                            </div>
+                                            <div class="goal-container inner top odd" id="incinerated-waste-goal-container">
+                                                <h3>Incinerated Waste</h3>
+                                                <div class="bars"></div>
+                                            </div>
+                                            <div class="goal-container inner even" id="landfill-waste-goal-container">
+                                                <h3>Landfill Waste</h3>
+                                                <div class="bars"></div>
+                                            </div>
+                                            <div class="goal-container odd" id="recycling-goal-container">
+                                                <h3>Recycling</h3>
+                                                <div class="bars"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="region-container" class="region-container post-intro post-intro-early">
+                                        <div id="current-year-container" class="current-year-container" data-simplebar data-simplebar-auto-hide="false">
+                                            <div id="eol-container" class="stage-container">
+                                                <div id="detailed-anchor-waste-summary">
+                                                    <div class="subtitle"></div>
+                                                    <h3><span class="description">EOL</span></h3>
+                                                    <div class="bars"></div>
+                                                    <div class="check-holder">
+                                                        <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="production-container" class="stage-container">
+                                                <div id="detailed-anchor-production-summary">
+                                                    <div class="subtitle"></div>
+                                                    <h3><span class="description">Production</span></h3>
+                                                    <div class="warning small">⚠️ Net trade under construction.</div>
+                                                    <div class="bars"></div>
+                                                    <div class="check-holder">
+                                                        <label for="production-radio"><input type="radio" class="stage-radio" id="production-radio" value="production"> Show Production</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="consumption-container" class="stage-container">
+                                                <div id="detailed-anchor-consumption-summary">
+                                                    <div class="subtitle"></div>
+                                                    <h3><span class="description">Consumption</span></h3>
+                                                    <div class="bars"></div>
+                                                    <div class="check-holder">
+                                                        <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false">
+                                            <div id="detailed-anchor-timeseries">
+                                                <h3 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h3>
+                                                <div class="slope-check-holder">
+                                                    <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
+                                                </div>
+                                                <div>
+                                                    <svg class="timeseries" id="timeseries"></svg>
+                                                </div>
+                                                <div class="sparklines-section" id="sparklines-section">
+                                                </div>
+                                                <div class="legend">
+                                                    <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="bubblegraph-container" class="bubblegraph-container post-intro" data-simplebar data-simplebar-auto-hide="false">
+                                        <div id="detailed-anchor-cross-region">
+                                            <h3 class="title"></h3>
+                                            <div class="slope-check-holder">
+                                                <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
+                                            </div>
+                                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div id="buttons-panel" class="right-panel post-intro">
+                                    <div id="detailed-anchor-policy-file">
+                                        <h3>Policy</h3>
+                                        <div class="link-holder"><a href="#overview" id="overview-cta">Return to overview >></a></div>
+                                        <div class="link-holder"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
+                                        <div class="link-holder"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
+                                        <div class="link-holder"><a href="#download" class="download-link">Download Projections >></a></div>
+                                    </div>
+                                </div>
+                                <div id="levers-panel" class="right-panel post-intro">
+                                    <div id="detailed-anchor-policy-customization">
+                                        <div id="levers-panel-inner"></div>
+                                        <div class="lever-section" id="prototype">
+                                            <details id="lever-section-prototype">
+                                                <summary class="lever-section-title">Prototype</summary>
+                                                <p class="section-levers">
+                                                    <div class="slider-holder" id="slider-holder-prototype">
+                                                        <div id="prototype-intro"><span class="error-indicator">⚠️</span><label for="input-prototype"><span id="title-{{variable}}">Value of in.prototype</span>: <span class="delta-display" id="display-prototype"></span></label></div>
+                                                        <input type="number" value="0" class="slider" id="input-prototype">
+                                                        <table class="goals-table">
+                                                            <tr>
+                                                                <td></td>
+                                                                <td><span class="goal-table-year"></span> Production Emissions</td>
+                                                                <td><span class="goal-table-year"></span> Consumption Emissions</td>
+                                                                <td><span class="goal-table-year"></span> Landfill Waste</td>
+                                                                <td><span class="goal-table-year"></span> Recycling</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="global-table-region"></td>
+                                                                <td class="goal-table-mismanaged-waste"></td>
+                                                                <td class="goal-table-incinerated-waste"></td>
+                                                                <td class="goal-table-landfill-waste"></td>
+                                                                <td class="goal-table-recycling"></td>
+                                                            </tr>
+                                                        </table>
+                                                        <div class="status-display"></div>
+                                                        <div class="editor" id="editor-prototype">var test = in.prototype + 10;</div>
+                                                        <div class="inspects-area"></div>
+                                                    </div>
+                                                </p>
+                                            </details>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="layout-panel" class="right-panel post-intro">
+                                    <h3>Layout</h3>
+                                    <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
+                                    <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="about-model">
-                            <h3>Model Information</h3>
-                            This uses a mixture of techniques to accomplish both projection of business as usual as well as simulate different policy interventions.
+                    </div>
 
-                            <ul>
-                                <li>Consumption is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
-                                <li>Waste is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
-                                <li>Trade is modeled through support vector regression and sues historic data as well as GDP per-capita and population projections.</li>
-                                <li>Interventions are mechanistic as described in their <a href="https://github.com/SchmidtDSE/plastics-interventions-doc">intervention supporting documentation</a>.</li>
+                    <div id="about" class="about">
+                        <div class="about-panel">
+                            <ul data-sub-tabs>
+                                <li><a data-tabby-default href="#about-overview">Introduction</a></li>
+                                <li><a href="#about-model">Model</a></li>
+                                <li><a href="#about-contact">Contact</a></li>
+                                <li><a href="#about-privacy">Privacy</a></li>
+                                <li><a href="#about-license">License</a></li>
+                                <li><a href="#about-people">People</a></li>
                             </ul>
-
-                            For further documentation see:
-                            
-                            <ul>
-                                <li><a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">Pipeline repository</a> for more information about the business as usual model.</li>
-                                <li><a href="https://github.com/SchmidtDSE/plastics-interventions-doc" target="_blank">Interventions document repository</a> for high level information about the interventions and their design.</li>
-                                <li>The <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/pt" target="_blank">pt subdirectory</a> for technical information and code for interventions.</li>
-                            </ul>
-                            
-                            Model version 2023.17 (pre-release). Last updated 2023-10-11.
-                        </div>
-                        <div id="about-contact">
-                            <h3>Contact Information</h3>
-                            We have multiple methods of following up:
-
-                            <ul>
-                                <li>For general communication about this tool including for inquires regarding privacy and data, please send an email to our <a href="mailto:info@global-plastics-tool.org">project inbox</a>.</li>
-                                <li>For feature requests, bug reports, and code contributions, please visit the <a href="https://github.com/SchmidtDSE/plastics-prototype/issues" target="_blank">project issue tracker</a>. Thank you for your contribution.</li>
-                                <li>To contact the UC Santa Barbara team specifically, see the <a href="https://bosl.ucsb.edu/contact/" target="_blank">BOSL contact form</a>.</li>
-                                <li>To contact the UC Berkeley team, see the <a href="https://dse.berkeley.edu/contact">DSE contact form</a>.</li>
-                            </ul>
-                        </div>
-                        <div id="about-privacy">
-                            <p>
-                                <h3>Privacy Introduction</h3>
-                                This webpage respects your privacy and collects as little information as possible while still providing a positive user experience. By using the application, you agree to the following.
-                            </p>
-
-                            <p>
-                                <h3>Data Collection</h3>
-                                This application records standard server access logs for security and stability reasons, including to prevent abuse. This is a common practice employed by many websites necessary for maintaing application function. This information includes:
-                            
+                            <div id="about-overview">
+                                <h3>About</h3>
+                                This project allows users to explore different plastics outcomes under various policy scenarios, offering the ability to craft highly customized policy packages and to build new policy interventions through an embedded programming environment. This website is a deployment of <a href="https://github.com/SchmidtDSE/plastics-prototype">open source code</a> built as a joint project of:
                                 <ul>
-                                    <li>IP addresses which describe from which location and internet connection the application is accessed.</li>
-                                    <li>User agent strings which provide basic information about the device and software ("browser") used to access the site.</li>
-                                    <li>The requested URLs which are unique identifiers for data and other resources requested from our servers.</li>
+                                    <li><a href="https://bosl.ucsb.edu/">Benioff Ocean Science Laboratory</a> at University of California Santa Barbara</li>
+                                    <li><a href="https://dse.berkeley.edu/">Eric and Wendy Schmidt Center for Data Science & Environment</a> at University of California Berkeley</li>
+                                </ul>
+                                
+                                Open source on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>.
+                            </div>
+                            <div id="about-model">
+                                <h3>Model Information</h3>
+                                This uses a mixture of techniques to accomplish both projection of business as usual as well as simulate different policy interventions.
+
+                                <ul>
+                                    <li>Consumption is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
+                                    <li>Waste is modeled through random forest and uses historic data as well as GDP per-capita and population projections.</li>
+                                    <li>Trade is modeled through support vector regression and sues historic data as well as GDP per-capita and population projections.</li>
+                                    <li>Interventions are mechanistic as described in their <a href="https://github.com/SchmidtDSE/plastics-interventions-doc">intervention supporting documentation</a>.</li>
                                 </ul>
 
-                                These logs are maintained for security reasons and to ensure strong application performance but are anonymized within 7 days of collection. These anonymized statistics are maintained indefinently as aggregated information for us to understand usage patterns in order to improve the service and maintain its performance. The anonymized data may also include error or bug reports. That said, and no other presonal identifying information is collected including email address, phone number, race, ethnicity, age, etc. Furthermore, please note that:
-                            
-                                <ul>
-                                    <li>Personally identifying information is never shared or sold.</li>
-                                    <li>Anonymized data do not include specific IP addresses.
-                                    <li>IP address is not retained past 7 days except for security / abuse prevention purposes if potential unusual behavior is deteced like in the case of a large number of requests.</li>
-                                    <li>No information we collect is used for advertising.</li>
-                                    <li>Though we do not ask users their age to respect their privacy, this webpage is intended for those 18 years and older.</li>
-                                </ul> 
-                            </p>
-                            
-                            <p>
-                                <h3>Data Storage</h3>
-                                We save very limited data to your device and that data is not used to track you.
+                                For further documentation see:
                                 
                                 <ul>
-                                    <li>Cookies are small text files saved to your computer to maintain data such as preferences between website sessions. This application uses essential cookies to support the core function of the application to, for example, prevent showing explanatory text multiple times and improve user experience. These cookies are required by the application to function.</li>
-                                    <li>There are no non-essential cookies for this application and cookies are not used for tracking, advertising, or analytics.</li>
-                                    <li>Some browsers may save temporary copies of our data and code for performance reasons through a process called "caching" which can be controlled through your browser settings. This application may use "cache-busters" to inform your browser when new versions of application resources are available.</li>
-                                    <li>Other use of local storage is optional in specific application features but is engaged only after your confirmation. Local storage is used, for example, for saving and loading policy scenarios.</li>
+                                    <li><a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">Pipeline repository</a> for more information about the business as usual model.</li>
+                                    <li><a href="https://github.com/SchmidtDSE/plastics-interventions-doc" target="_blank">Interventions document repository</a> for high level information about the interventions and their design.</li>
+                                    <li>The <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/pt" target="_blank">pt subdirectory</a> for technical information and code for interventions.</li>
+                                </ul>
+                                
+                                Model version 2023.17 (pre-release). Last updated 2023-10-11.
+                            </div>
+                            <div id="about-contact">
+                                <h3>Contact Information</h3>
+                                We have multiple methods of following up:
+
+                                <ul>
+                                    <li>For general communication about this tool including for inquires regarding privacy and data, please send an email to our <a href="mailto:info@global-plastics-tool.org">project inbox</a>.</li>
+                                    <li>For feature requests, bug reports, and code contributions, please visit the <a href="https://github.com/SchmidtDSE/plastics-prototype/issues" target="_blank">project issue tracker</a>. Thank you for your contribution.</li>
+                                    <li>To contact the UC Santa Barbara team specifically, see the <a href="https://bosl.ucsb.edu/contact/" target="_blank">BOSL contact form</a>.</li>
+                                    <li>To contact the UC Berkeley team, see the <a href="https://dse.berkeley.edu/contact">DSE contact form</a>.</li>
+                                </ul>
+                            </div>
+                            <div id="about-privacy">
+                                <p>
+                                    <h3>Privacy Introduction</h3>
+                                    This webpage respects your privacy and collects as little information as possible while still providing a positive user experience. By using the application, you agree to the following.
+                                </p>
+
+                                <p>
+                                    <h3>Data Collection</h3>
+                                    This application records standard server access logs for security and stability reasons, including to prevent abuse. This is a common practice employed by many websites necessary for maintaing application function. This information includes:
+                                
+                                    <ul>
+                                        <li>IP addresses which describe from which location and internet connection the application is accessed.</li>
+                                        <li>User agent strings which provide basic information about the device and software ("browser") used to access the site.</li>
+                                        <li>The requested URLs which are unique identifiers for data and other resources requested from our servers.</li>
+                                    </ul>
+
+                                    These logs are maintained for security reasons and to ensure strong application performance but are anonymized within 7 days of collection. These anonymized statistics are maintained indefinently as aggregated information for us to understand usage patterns in order to improve the service and maintain its performance. The anonymized data may also include error or bug reports. That said, and no other presonal identifying information is collected including email address, phone number, race, ethnicity, age, etc. Furthermore, please note that:
+                                
+                                    <ul>
+                                        <li>Personally identifying information is never shared or sold.</li>
+                                        <li>Anonymized data do not include specific IP addresses.
+                                        <li>IP address is not retained past 7 days except for security / abuse prevention purposes if potential unusual behavior is deteced like in the case of a large number of requests.</li>
+                                        <li>No information we collect is used for advertising.</li>
+                                        <li>Though we do not ask users their age to respect their privacy, this webpage is intended for those 18 years and older.</li>
+                                    </ul> 
+                                </p>
+                                
+                                <p>
+                                    <h3>Data Storage</h3>
+                                    We save very limited data to your device and that data is not used to track you.
+                                    
+                                    <ul>
+                                        <li>Cookies are small text files saved to your computer to maintain data such as preferences between website sessions. This application uses essential cookies to support the core function of the application to, for example, prevent showing explanatory text multiple times and improve user experience. These cookies are required by the application to function.</li>
+                                        <li>There are no non-essential cookies for this application and cookies are not used for tracking, advertising, or analytics.</li>
+                                        <li>Some browsers may save temporary copies of our data and code for performance reasons through a process called "caching" which can be controlled through your browser settings. This application may use "cache-busters" to inform your browser when new versions of application resources are available.</li>
+                                        <li>Other use of local storage is optional in specific application features but is engaged only after your confirmation. Local storage is used, for example, for saving and loading policy scenarios.</li>
+                                    </ul>
+
+                                    By using this application, you agree to the transfer of standard server access logs and anonymized statistics as described above to be transferred to data centers based within the United States of America.
+                                </p>
+
+                                <p>
+                                    <h3>Security and Access</h3>
+                                    We take security seriously. Communication between your device and our servers is encrypted with secure socket layer SSL. Access to non-anonymized logs and the configuration / code for the application is limited to the current maintainers of the project, automated systems we've constructed for running the application, and our subprocessors. Note that anonymized data may be shared with project partners for the purposes of tracking project success and impact.
+                                </p>
+
+                                <p>
+                                    <h3>Subprocessors</h3>
+                                    See <a href="https://www.dreamhost.com/legal/customer-data-processing-addendum/" target="_blank">DreamHost CDPA</a> for more information about our web host / subprocessor.
+                                </p>
+
+                                <p>
+                                    <h3>Updates</h3>
+                                    This statement was last updated on 2023-10-11. Updates to this policy will be posted to this page.
+                                </p>
+                            </div>
+                            <div id="about-license">
+                                <h3>License and Terms</h3>
+                                This project's source is available on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>. See below for licensing details:
+
+                                <ul>
+                                    <li>Application and source code are available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#source" target="_blank">BSD License</a>.</li>
+                                    <li>Data including exports from this tool are made available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC BY-NC 4.0 License</a>.</li>
                                 </ul>
 
-                                By using this application, you agree to the transfer of standard server access logs and anonymized statistics as described above to be transferred to data centers based within the United States of America.
-                            </p>
+                                This application uses a number of open source components as described in the <a href="https://github.com/SchmidtDSE/plastics-prototype#open-source" target="_blank">project readme</a>.
+                            </div>
+                            <div id="about-people">
+                                <h3>People</h3>
+                                The copyright for this software and exported is "(c) 2023 Regents of University of California" and our <a href="mailto:info@global-plastics-tool.org">central inbox</a> can be used to contact us with any inquires. A big thank you to the extended team:
 
-                            <p>
-                                <h3>Security and Access</h3>
-                                We take security seriously. Communication between your device and our servers is encrypted with secure socket layer SSL. Access to non-anonymized logs and the configuration / code for the application is limited to the current maintainers of the project, automated systems we've constructed for running the application, and our subprocessors. Note that anonymized data may be shared with project partners for the purposes of tracking project success and impact.
-                            </p>
+                                <ul>
+                                    <li><a href="https://www.linkedin.com/in/elijahbaker" target="_blank">Elijah Baker</a> <span class="affiliation">BOSL, UCSB</span>: Policy research.</li>
+                                    <li><a href="https://www.linkedin.com/in/nivedita-r-biyani-ph-d-5115228" target="_blank">Nivedita Biyani</a> <span class="affiliation">BOSL, UCSB</span>: Policy research, policy modeling, business as usual modeling, plastics domain knowledge.</li>
+                                    <li><a href="https://www.carlboettiger.info/" target="_blank">Carl Boettiger</a> <span class="affiliation">DSE, UC Berkeley</span>: Advisor.</li>
+                                    <li><a href="https://dse.berkeley.edu/people/magali-de-bruyn" target="_blank">Magali de Bruyn</a> <span class="affiliation">DSE, UC Berkeley</span>: CI / CD.</li>
+                                    <li><a href="https://www.rolandgeyer.com/" target="_blank">Roland Geyer</a> <span class="affiliation">UCSB</span>: Principal investigator, business as usual modeling, policy modeling, policy research, plastics domain knowledge.</li>
+                                    <li><a href="https://dse.berkeley.edu/people/kevin-koy" target="_blank">Kevin Koy</a> <span class="affiliation">DSE, UC Berkeley</span>: Executive leadership, advisor.</li>
+                                    <li><a href="http://cieramartinez.org/" target="_blank">Ciera Martinez</a> <span class="affiliation">DSE, UC Berkeley</span>: Program management, communications, outreach, advisor.</li>
+                                    <li><a href="https://labs.eemb.ucsb.edu/mccauley/doug/index.html" target="_blank">Douglas McCauley</a> <span class="affiliation">BOSL, DSE, UCSB, UC Berkeley</span>: Executive leadership, policy modeling, policy reserach, communications, outreach, media.</li>
+                                    <li><a href="https://www.linkedin.com/in/mollyrmorse" target="_blank">Molly Morse</a> <span class="affiliation">BOSL, UCSB</span>: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
+                                    <li><a href="https://www.linkedin.com/in/neil-nathan" target="_blank">Neil Nathan</a> <span class="affiliation">BOSL, UCSB</span>: Communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
+                                    <li><a href="https://gleap.org" target="_blank">Sam Pottinger</a> <span class="affiliation">DSE, UC Berkeley</span>: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD.</li>
+                                </ul>
 
-                            <p>
-                                <h3>Subprocessors</h3>
-                                See <a href="https://www.dreamhost.com/legal/customer-data-processing-addendum/" target="_blank">DreamHost CDPA</a> for more information about our web host / subprocessor.
-                            </p>
-
-                            <p>
-                                <h3>Updates</h3>
-                                This statement was last updated on 2023-10-11. Updates to this policy will be posted to this page.
-                            </p>
-                        </div>
-                        <div id="about-license">
-                            <h3>License and Terms</h3>
-                            This project's source is available on GitHub at <a href="https://github.com/SchmidtDSE/plastics-prototype">SchmidtDSE/plastics-prototype</a>. See below for licensing details:
-
-                            <ul>
-                                <li>Application and source code are available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#source" target="_blank">BSD License</a>.</li>
-                                <li>Data including exports from this tool are made available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC BY-NC 4.0 License</a>.</li>
-                            </ul>
-
-                            This application uses a number of open source components as described in the <a href="https://github.com/SchmidtDSE/plastics-prototype#open-source" target="_blank">project readme</a>.
-                        </div>
-                        <div id="about-people">
-                            <h3>People</h3>
-                            The copyright for this software and exported is "(c) 2023 Regents of University of California" and our <a href="mailto:info@global-plastics-tool.org">central inbox</a> can be used to contact us with any inquires. A big thank you to the extended team:
-
-                            <ul>
-                                <li><a href="https://www.linkedin.com/in/elijahbaker" target="_blank">Elijah Baker</a> <span class="affiliation">BOSL, UCSB</span>: Policy research.</li>
-                                <li><a href="https://www.linkedin.com/in/nivedita-r-biyani-ph-d-5115228" target="_blank">Nivedita Biyani</a> <span class="affiliation">BOSL, UCSB</span>: Policy research, policy modeling, business as usual modeling, plastics domain knowledge.</li>
-                                <li><a href="https://www.carlboettiger.info/" target="_blank">Carl Boettiger</a> <span class="affiliation">DSE, UC Berkeley</span>: Advisor.</li>
-                                <li><a href="https://dse.berkeley.edu/people/magali-de-bruyn" target="_blank">Magali de Bruyn</a> <span class="affiliation">DSE, UC Berkeley</span>: CI / CD.</li>
-                                <li><a href="https://www.rolandgeyer.com/" target="_blank">Roland Geyer</a> <span class="affiliation">UCSB</span>: Principal investigator, business as usual modeling, policy modeling, policy research, plastics domain knowledge.</li>
-                                <li><a href="https://dse.berkeley.edu/people/kevin-koy" target="_blank">Kevin Koy</a> <span class="affiliation">DSE, UC Berkeley</span>: Executive leadership, advisor.</li>
-                                <li><a href="http://cieramartinez.org/" target="_blank">Ciera Martinez</a> <span class="affiliation">DSE, UC Berkeley</span>: Program management, communications, outreach, advisor.</li>
-                                <li><a href="https://labs.eemb.ucsb.edu/mccauley/doug/index.html" target="_blank">Douglas McCauley</a> <span class="affiliation">BOSL, DSE, UCSB, UC Berkeley</span>: Executive leadership, policy modeling, policy reserach, communications, outreach, media.</li>
-                                <li><a href="https://www.linkedin.com/in/mollyrmorse" target="_blank">Molly Morse</a> <span class="affiliation">BOSL, UCSB</span>: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
-                                <li><a href="https://www.linkedin.com/in/neil-nathan" target="_blank">Neil Nathan</a> <span class="affiliation">BOSL, UCSB</span>: Communications, outreach, media, data visualization (landing page), UX / design (landing page).</li>
-                                <li><a href="https://gleap.org" target="_blank">Sam Pottinger</a> <span class="affiliation">DSE, UC Berkeley</span>: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD.</li>
-                            </ul>
-
-                            Note that other collaborators may have contributed to the broader constellation of related projects and are listed in related publications.
+                                Note that other collaborators may have contributed to the broader constellation of related projects and are listed in related publications.
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <div id="toc">
+                        <div class="about-panel">
+                            <h3>Table of Contents</h3>
+                            <ul>
+                                <li><a class="toc-link" href="#about">About</a></li>
+                                <li><a class="toc-link" href="#about-contact">About: Contact information</a></li>
+                                <li><a class="toc-link" href="#about-license">About: License</a></li>
+                                <li><a class="toc-link" href="#about-model">About: Model</a></li>
+                                <li><a class="toc-link" href="#about-people">About: People</a></li>
+                                <li><a class="toc-link" href="#about-privacy">About: Privacy</a></li>
+                                <li><a class="toc-link" href="#about-overview">About: Tool overview</a></li>
+                                <li><a class="toc-link" href="#detailed">Details</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-controls">Details: Controls for visualization</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-policy-file">Details: Controls for file</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-controls">Details: Consumption summary</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-cross-region">Details: Cross-region visualization</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-policy-customization">Details: Policy customization / fine-tuning</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-production-summary">Details: Production summary</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-waste-summary">Details: Waste summary</a></li>
+                                <li><a class="toc-link" href="#detailed-anchor-timeseries">Details: Timeseries graph</a></li>
+                                <li><a class="toc-link" href="#overview-panel">Overview</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-selector">Overview: Controls for policy</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-file">Overview: Controls for file</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-deltas">Overview: Impact of policies</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-scenarios">Overview: Policy scenario selector</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-summary">Overview: Summary statistics</a></li>
+                                <li><a class="toc-link" href="#overview-anchor-timeseries">Overview: Timeseries graph</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </main>
             </div>
-        </main>
+        </div>
 
         <footer>
-            <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a>
+            <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a>
         </footer>
 
         <dialog id="add-dialog">

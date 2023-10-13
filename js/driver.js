@@ -68,6 +68,19 @@ class Driver {
                 });
             });
 
+            Array.of(...document.querySelectorAll(".toc-link")).forEach((elem) => {
+                elem.addEventListener("click", (event) => {
+                    const getLast = (x) => x[x.length - 1];
+                    const locationAnchorSplit = window.location.hash.split("#");
+                    const locationAnchor = getLast(locationAnchorSplit);
+                    const hrefAnchorSplit = elem.href.split("#");
+                    const hrefAnchor = getLast(hrefAnchorSplit);
+                    if (locationAnchor === hrefAnchor) {
+                        self._updateTabVisibility();
+                    }
+                });
+            });
+
             document.getElementById("overview-cta").addEventListener("click", (event) => {
                 self._tabs.toggle("#overview");
             });
@@ -268,8 +281,10 @@ class Driver {
 
     _updateOutputs(businessAsUsual, withInterventions) {
         const self = this;
-        self._reportPresenter.render(businessAsUsual, withInterventions);
-        self._overviewPresenter.render(businessAsUsual, withInterventions);
+        setTimeout(() => {
+            self._reportPresenter.render(businessAsUsual, withInterventions);
+            self._overviewPresenter.render(businessAsUsual, withInterventions);
+        }, 25);
     }
 
     _addGlobalToState(state) {
@@ -284,7 +299,7 @@ class Driver {
             setTimeout(() => {
                 self._reportPresenter.rebuildViz();
                 self._onInputChange();
-            }, 50);
+            }, 25);
         };
 
         document.getElementById("side-by-side-radio").addEventListener("click", () => {
@@ -336,6 +351,8 @@ class Driver {
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);
+        } else if (hash.startsWith("#toc")) {
+            self._tabs.toggle("#toc");
         }
     }
 }
