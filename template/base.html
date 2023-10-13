@@ -98,7 +98,7 @@
                                 <div class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries">
                                     <div id="overview-anchor-timeseries">
                                         <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h3>
-                                        <svg class="body" aria-describedby="overview-timeseries-description-dynamic"></svg>
+                                        <svg class="body" aria-details="overview-timeseries-description"></svg>
                                         <div class="cta-holder"><a href="#detailed" class="detailed-cta">Go to detailed projections >></a></div>
                                         <div class="legend">
                                             <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
@@ -205,7 +205,7 @@
                                                     <h3><span class="description">EOL</span></h3>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
-                                                        <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol"> Show Waste</label>
+                                                        <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol" name="detailed-metric-side"> Show Waste</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,7 +216,7 @@
                                                     <div class="warning small">⚠️ Net trade under construction.</div>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
-                                                        <label for="production-radio"><input type="radio" class="stage-radio" id="production-radio" value="production"> Show Production</label>
+                                                        <label for="production-radio"><input type="radio" class="stage-radio" id="production-radio" value="production" name="detailed-metric-side"> Show Production</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -226,7 +226,7 @@
                                                     <h3><span class="description">Consumption</span></h3>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
-                                                        <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption"> Show Consumption</label>
+                                                        <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption" name="detailed-metric-side"> Show Consumption</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -238,7 +238,7 @@
                                                     <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
                                                 </div>
                                                 <div>
-                                                    <svg class="timeseries" id="timeseries"></svg>
+                                                    <svg class="timeseries" id="timeseries" aria-details="detailed-timeseries-description"></svg>
                                                 </div>
                                                 <div class="sparklines-section" id="sparklines-section">
                                                 </div>
@@ -254,7 +254,7 @@
                                             <div class="slope-check-holder">
                                                 <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
                                             </div>
-                                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph"></svg>
+                                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph" aria-details="detailed-bubble-description"></svg>
                                         </div>
                                     </div>
                                 </div>
