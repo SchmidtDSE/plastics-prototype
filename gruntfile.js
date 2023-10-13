@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                     urls: [
                         'http://localhost:8000/test/test.html'
                     ],
-                    timeout: 300000
+                    timeout: 60000
                 }
             }
         }
