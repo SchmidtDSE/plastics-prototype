@@ -134,16 +134,20 @@ class TimeseriesPresenter {
             .range([67, width - 15])
             .paddingInner(0.1);
 
-        // Make updates
-        const updateTitle = () => {
-            const title = self._targetDiv.querySelector(".title");
-            const text = [
+        const getTitle = () => {
+            return [
                 STRINGS.get(selection.getRegion()),
                 "Annual",
                 STRINGS.get(selection.getDisplayStage()),
                 "in",
                 STRINGS.get(selection.getDisplayType()),
             ].join(" ");
+        };
+
+        // Make updates
+        const updateTitle = () => {
+            const title = self._targetDiv.querySelector(".title");
+            const text = getTitle();
             title.innerHTML = text;
         };
 
@@ -318,12 +322,43 @@ class TimeseriesPresenter {
                 .attr("height", height - 25 - 30);
         };
 
+        const updateDescription = () => {
+            const title = getTitle();
+
+            const values = states.get(selectedYear).get("out").get(region);
+
+            const attrDescriptions = attrNames.map((attr) => {
+                const value = Math.round(values.get(attr) / 10) * 10;
+                const valueStr = value + " " + unitsStr;
+                return valueStr + " for " + STRINGS.get(attr);
+            }).join(", ") + ".";
+
+            const showingDelta = document.getElementById("show-delta").checked;
+            const deltaStr = "Displaying changes or deltas due to interventions.";
+            const regStr = "Displaying values after applying policies.";
+            const modeStr = showingDelta ? deltaStr : regStr;
+
+            const message = [
+                "Timeseries chart titled",
+                getTitle() + ".",
+                modeStr,
+                "Having selected",
+                selectedYear + ",",
+                "it reports the following:",
+                attrDescriptions,
+            ].join(" ");
+
+            // eslint-disable-next-line no-undef
+            tippy("#detailed-timeseries-description-dynamic", {"content": message});
+        };
+
         updateTitle();
         updateValueAxis();
         updateYearAxis();
         updateYearIndicator();
         updateBars();
         updateListeners();
+        updateDescription();
     }
 
     _getD3() {

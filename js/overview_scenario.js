@@ -123,7 +123,9 @@ class ScenarioPresenter {
 
         const newLabels = newRows.append("td");
 
-        newLabels.append("label").append("span")
+        newLabels.append("label")
+            .attr("for", (scenario) => scenario["id"] + "-menu-check")
+            .append("span")
             .html((scenario, i) => {
                 if (scenario["config"] === undefined) {
                     return scenario["name"].replaceAll("<option>", "") + " ";

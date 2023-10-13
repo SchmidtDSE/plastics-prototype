@@ -3,6 +3,7 @@ import {
     COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
+    DISPLAY_TYPES,
     EOL_ATTRS,
     PRODUCTION_ATTRS,
     TEXT_COLORS,
@@ -204,8 +205,7 @@ class BubblegraphPresenter {
         const bubbleLayer = self._d3Selection.select(".bubble-layer");
         const labelLayer = self._d3Selection.select(".label-layer");
 
-        const updateTitle = () => {
-            const titleElement = self._targetDiv.querySelector(".title");
+        const getTitle = () => {
             const stageString = STRINGS.get(selection.getDisplayStage());
             const typeString = STRINGS.get(selection.getDisplayType());
             const text = [
@@ -214,8 +214,12 @@ class BubblegraphPresenter {
                 selection.getYear() + " as",
                 typeString,
             ].join(" ");
+            return text;
+        };
 
-            titleElement.textContent = text;
+        const updateTitle = () => {
+            const titleElement = self._targetDiv.querySelector(".title");
+            titleElement.textContent = getTitle();
         };
 
         const updateMetricLabels = () => {
@@ -528,11 +532,44 @@ class BubblegraphPresenter {
                 .style("opacity", (x) => x["region"] === "global" ? 1 : 0);
         };
 
+        const updateDescription = () => {
+            const title = getTitle();
+
+            const showingDelta = document.getElementById("show-delta").checked;
+            const deltaStr = "Displaying changes or deltas due to interventions.";
+            const regStr = "Displaying values after applying policies.";
+            const modeStr = showingDelta ? deltaStr : regStr;
+
+            // Determine units
+            const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
+            const unitsStr = isPercent ? "%" : "MMT";
+
+            const attrDescriptions = self._attrNames.get(displayStage).map((attr) => {
+                const value = outputData.get(selection.getRegion()).get(attr);
+                const valueRounded = Math.round(value * 10) / 10 + " " + unitsStr;
+                return valueRounded + " for " + STRINGS.get(attr);
+            });
+
+            const message = [
+                "Bubble chart titled",
+                getTitle() + ".",
+                modeStr,
+                "Having selected",
+                selection.getYear() + ",",
+                "it reports the following:",
+                attrDescriptions.join(", "),
+            ].join(" ");
+
+            // eslint-disable-next-line no-undef
+            tippy("#detailed-bubble-description-dynamic", {"content": message});
+        };
+
         updateTitle();
         updateMetricLabels();
         updateRegionLabels();
         updateLines();
         updateBubbles();
+        updateDescription();
     }
 
     _getD3() {
