@@ -15,7 +15,10 @@ function buildPageTest() {
                     return x;
                 })
                 .then((text) => {
-                    return main(false, true);
+                    return new Promise((resolve, reject) => {
+                        main(false, true);
+                        setTimeout(resolve, 1000);
+                    });
                 });
         }
 
