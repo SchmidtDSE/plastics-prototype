@@ -32,6 +32,14 @@ html {
     font-size: 16px;
 }
 
+h1 {
+    font-size: 24px;
+}
+
+h2 {
+    font-size: 20px;
+}
+
 h2 select {
     font-size: 14px;
 }
@@ -672,10 +680,6 @@ h2 .info-img {
     text-align: center;
 }
 
-.post-intro {
-    opacity: 0.2;
-}
-
 .right-panel {
     background-color: white;
     padding: 5px;
@@ -713,6 +717,11 @@ h2 .info-img {
     text-align: left;
     padding-bottom: 10px;
     font-size: 14px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+    margin: 15px;
+    margin-bottom: 25px;
+    padding: 5px;
+    border: 1px solid #C0C0C0;
 }
 
 .tutorial .tutorial-cta {
