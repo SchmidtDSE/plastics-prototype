@@ -129,6 +129,8 @@ jobs:
         run: bash support/install_processing.sh
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
+      - name: Ensure data folder
+        run: mkdir data
       - name: Move database
         run: mv pipeline/combined.db data/combined.db
       - name: Move overview
