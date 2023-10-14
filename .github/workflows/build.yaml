@@ -6,10 +6,22 @@ permissions:
   contents: read
 
 jobs:
+  checkArtifact:
+    environment: build
+    runs-on: ubuntu-latest
+    name: Check Pipeline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download artifact
+        run: bash support/get_pipeline_output.sh
+      - name: Move data
+        run: bash support/move_data.sh
   test:
     environment: build
     runs-on: ubuntu-latest
     name: Test App
+    needs: [checkArtifact]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,16 +46,8 @@ jobs:
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
-      - name: Move web CSV
+        run: bash support/get_pipeline_output.sh
+      - name: Move data
         run: bash support/move_data.sh
       - name: Build
         run: bash ./support/make.sh
@@ -59,6 +63,7 @@ jobs:
     environment: build
     runs-on: ubuntu-latest
     name: Run Standalone
+    needs: [checkArtifact]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -74,16 +79,8 @@ jobs:
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
-      - name: Move web CSV
+        run: bash support/get_pipeline_output.sh
+      - name: Move data
         run: bash support/move_data.sh
       - name: Build
         run: bash ./support/make.sh
@@ -129,19 +126,11 @@ jobs:
       - name: Install Processing
         run: bash support/install_processing.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Move database
-        run: mv data/Pipeline\ Result/combined.db data/combined.db
+        run: mv pipeline/combined.db data/combined.db
       - name: Move overview
-        run: mv data/Pipeline\ Result/overview_ml.csv data/overview_ml.csv
+        run: mv pipeline/overview_ml.csv data/overview_ml.csv
       - name: Render lines
         run: bash support/render_line_graphs.sh
       - name: Render butterfly
@@ -176,15 +165,7 @@ jobs:
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Download images
         uses: actions/download-artifact@v3
         with:
@@ -201,7 +182,7 @@ jobs:
         run: bash support/unzip_standalone.sh
       - name: Check standalone results
         run: bash support/check_standalone.sh
-      - name: Move web CSV
+      - name: Move data
         run: bash support/move_data.sh
       - name: Build
         run: bash ./support/make.sh

@@ -1,7 +1,7 @@
 mkdir data
-wget --user plastics --password kSno3GeK https://global-plastics-tool.org/data/web.csv -O ./data/web.csv
-wget --user plastics --password kSno3GeK https://global-plastics-tool.org/data/combined.db -O ./data/combined.db
-wget --user plastics --password kSno3GeK https://global-plastics-tool.org/data/overview_ml.csv -O ./data/overview_ml.csv
+
+bash support/get_pipeline_output.sh
+bash support/move_data.sh
 
 bash support/npm_install.sh
 bash support/render_template.sh
