@@ -8,4 +8,3 @@ done
 cd ..
 
 python support/scenarios_overview.py ./standalone_tasks/scenarios_overview.csv ./standalone_tasks/*.json
-cp ./standalone_tasks/scenarios_overview.csv ./data/scenarios_overview.csv
