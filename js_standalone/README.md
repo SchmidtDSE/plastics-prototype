@@ -21,18 +21,17 @@ The stand-alone engine may be used either interactively through Node or through 
  - [banPsPackaging.json](https://global-plastics-tool.org/standalone_tasks/banPsPackaging.json): The result of having banned polystyrene packaging.
  - [banSingleUse.json](https://global-plastics-tool.org/standalone_tasks/banSingleUse.json): The result of having reduced single use packaging by 90%.
  - [capVirgin.json](https://global-plastics-tool.org/standalone_tasks/capVirgin.json): The result of having capped virgin plastic production to 2030 business as ususal levels.
- - [minimumRecycledContent.json](https://global-plastics-tool.org/standalone_tasks/minimumRecycledContent.json): The result of a 40% minimum recycled content mandate for new products.
- - [minimumRecyclingRate.json](https://global-plastics-tool.org/standalone_tasks/minimumRecyclingRate.json): The result of a 40% minimum recycling collectino rate mandate.
+ - [minimumRecycledContent.json](https://global-plastics-tool.org/standalone_tasks/minimumRecycledContent.json): The result of a 30% minimum recycled content mandate for new products.
+ - [minimumRecyclingRate.json](https://global-plastics-tool.org/standalone_tasks/minimumRecyclingRate.json): The result of a 30% minimum recycling collectino rate mandate.
  - [recyclingInvestment.json](https://global-plastics-tool.org/standalone_tasks/recyclingInvestment.json): The result of 100B investment in recycling collection and infrastructure.
- - [reducedAdditives.json](https://global-plastics-tool.org/standalone_tasks/reducedAdditives.json): The result of 90% reduction in additives.
- - [taxVirigin.json](https://global-plastics-tool.org/standalone_tasks/taxVirigin.json): The result of a high consumption tax (see tool for more details).
+ - [reducedAdditives.json](https://global-plastics-tool.org/standalone_tasks/reducedAdditives.json): The result of 60% reduction in additives.
+ - [taxVirigin.json](https://global-plastics-tool.org/standalone_tasks/taxVirigin.json): The result of a low consumption tax (see tool for more details).
  - [wasteInvestment.json](https://global-plastics-tool.org/standalone_tasks/wasteInvestment.json): The result of 100B investment in non-recycling waste management including incineration and landfill.
 
 Furthermore, the following describe complex multi-intervention scenarios:
 
- - [all.json](https://global-plastics-tool.org/standalone_tasks/all.json): The result of all 9 policy scenarios checked turned up to the highest allowed levels.
- - [highAmbition.json](https://global-plastics-tool.org/standalone_tasks/highAmbition.json): The result of a cap and tax scheme which represents the combination of 2030 virgin production cap, 40% minimum recycled content, 100B investment in recycling, and 100B investment in other waste infrastructure, and a high consumption tax.
- - [lowAmbition.json](https://global-plastics-tool.org/standalone_tasks/lowAmbition.json): The result of "commonly discussed interventions" that includes ban of polystyrene packaging, 90% reduction in single use plastics, 90% reduced additives, and 40% minimum recycling rate.
+ - [highAmbition.json](https://global-plastics-tool.org/standalone_tasks/highAmbition.json): All interventions at full strength.
+ - [lowAmbition.json](https://global-plastics-tool.org/standalone_tasks/lowAmbition.json): 30% reduction in single use packaging, 30% reduction in additives, 20% minimum recycling rate mandate, 20% minimum recycled content mandate, $10 billion USD investment in plastic recycling, and $25 billion USD investment in waste infrastructure.
 
 <br>
 
