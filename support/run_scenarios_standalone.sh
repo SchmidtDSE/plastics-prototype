@@ -6,3 +6,4 @@ for file in ../standalone_tasks/*.json; do
     npm run standalone "$file" "$file"
 done
 
+python support/scenarios_overview.py ./data/scenarios_overview.csv ./standalone_tasks/*.json

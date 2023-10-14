@@ -18,19 +18,14 @@ SCENARIOS = {
     'wasteInvestment': {'waste-investment': 100},
     'taxVirgin': {'tax-virgin': 2},
     'lowAmbition': {
-        'ban-ps-packaging': 1,
-        'ban-single-use': 90,
-        'reduced-additives': 90,
-        'minmium-recycle-rate': 40
+        'minmium-recycle-rate': 20,
+        'minmium-recycled-content': 20,
+        'ban-single-use': 30,
+        'reduced-additives': 30,
+        'recycling-investment': 10,
+        'waste-investment': 25
     },
     'highAmbition': {
-        'cap-virgin': 1,
-        'minmium-recycled-content': 40,
-        'recycling-investment': 100,
-        'waste-investment': 100,
-        'tax-virgin': 2
-    },
-    'all': {
         'minmium-recycle-rate': 40,
         'minmium-recycled-content': 40,
         'cap-virgin': 1,
