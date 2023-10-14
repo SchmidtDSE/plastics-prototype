@@ -36,15 +36,7 @@ jobs:
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
@@ -76,15 +68,7 @@ jobs:
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Move web CSV
         run: bash support/move_data.sh
       - name: Build
@@ -131,19 +115,11 @@ jobs:
       - name: Install Processing
         run: bash support/install_processing.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Move database
-        run: mv data/Pipeline\ Result/combined.db data/combined.db
+        run: mv pipeline/combined.db data/combined.db
       - name: Move overview
-        run: mv data/Pipeline\ Result/overview_ml.csv data/overview_ml.csv
+        run: mv pipeline/overview_ml.csv data/overview_ml.csv
       - name: Render lines
         run: bash support/render_line_graphs.sh
       - name: Render butterfly
@@ -177,15 +153,7 @@ jobs:
       - name: Render templates
         run: bash support/render_template.sh
       - name: Download artifact
-        id: download-artifact
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.CROSS_TOKEN }}
-          workflow: pipelines.yaml
-          workflow_conclusion: success
-          branch: main
-          path: data
-          repo: SchmidtDSE/plastics-pipeline
+        run: bash support/get_pipeline_output.sh
       - name: Download images
         uses: actions/download-artifact@v3
         with:
