@@ -6,10 +6,20 @@ permissions:
   contents: read
 
 jobs:
+  checkArtifact:
+    environment: build
+    runs-on: ubuntu-latest
+    name: Check Pipeline
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download artifact
+        run: bash support/get_pipeline_output.sh
   test:
     environment: build
     runs-on: ubuntu-latest
     name: Test App
+    needs: [checkArtifact]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -51,6 +61,7 @@ jobs:
     environment: build
     runs-on: ubuntu-latest
     name: Run Standalone
+    needs: [checkArtifact]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
