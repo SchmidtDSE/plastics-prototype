@@ -7,4 +7,5 @@ for file in ../standalone_tasks/*.json; do
 done
 cd ..
 
-python support/scenarios_overview.py ./data/scenarios_overview.csv ./standalone_tasks/*.json
+python support/scenarios_overview.py ./standalone_tasks/scenarios_overview.csv ./standalone_tasks/*.json
+cp ./standalone_tasks/scenarios_overview.csv ./data/scenarios_overview.csv
