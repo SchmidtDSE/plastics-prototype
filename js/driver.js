@@ -50,7 +50,7 @@ class Driver {
                 if (self._reportPresenter !== null) {
                     self._reportPresenter.rebuildViz();
                 }
-                
+
                 if (event.target.href.indexOf("#detailed") != -1) {
                     document.querySelector(".custom-menu-check").checked = true;
                 }
