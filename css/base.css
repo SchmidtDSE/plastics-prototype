@@ -33,15 +33,19 @@ html {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 26px;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 18px;
 }
 
 h2 select {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 table, th, td {
@@ -90,6 +94,7 @@ select {
     padding: 5px;
     border: 1px solid #A0A0A0;
     margin: 3px 3px 20px 3px;
+    line-height: 1.5;
 }
 
 .about-panel [role="tab"][aria-selected="true"] {
@@ -109,6 +114,19 @@ select {
 .about-panel [role="tablist"] a {
     color: black;
     border-radius: 20px;
+}
+
+.about-panel .about-embed-section {
+    border-bottom: 1px dotted #C0C0C0;
+    padding-top: 10px;
+    padding-bottom: 25px;
+}
+
+.about-panel .image-box {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dotted #C0C0C0;
 }
 
 .cookie-note {

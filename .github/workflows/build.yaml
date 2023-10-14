@@ -164,8 +164,6 @@ jobs:
           java-version: '11'
       - name: Install node deps
         run: bash ./support/npm_install.sh
-      - name: Render templates
-        run: bash support/render_template.sh
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Download images
@@ -188,6 +186,8 @@ jobs:
         run: bash support/move_data.sh
       - name: Build
         run: bash ./support/make.sh
+      - name: Render templates
+        run: bash support/render_template.sh
       - name: Install JS deps
         run: bash ./support/load_deps.sh
       - name: Update scenarios

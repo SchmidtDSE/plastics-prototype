@@ -47,14 +47,18 @@ class Driver {
             // eslint-disable-next-line no-undef
             self._tabs = new Tabby("[data-tabs]");
             document.addEventListener("tabby", (event) => {
-                self._reportPresenter.rebuildViz();
+                if (self._reportPresenter !== null) {
+                    self._reportPresenter.rebuildViz();
+                }
+
                 if (event.target.href.indexOf("#detailed") != -1) {
                     document.querySelector(".custom-menu-check").checked = true;
                 }
                 self._onInputChange();
             }, false);
 
-            self._subtabs = new Tabby("[data-sub-tabs]");
+            self._subtabs = new Tabby("[data-sub-tabs-about]");
+            self._subtabs_guide = new Tabby("[data-sub-tabs-guide]");
 
             self._updateTabVisibility();
 
@@ -358,9 +362,14 @@ class Driver {
             self._tabs.toggle("#overview");
         } else if (hash.startsWith("#detailed")) {
             self._tabs.toggle("#detailed");
+        } else if (hash.startsWith("#downloads")) {
+            self._tabs.toggle("#downloads");
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);
+        } else if (hash.startsWith("#guide")) {
+            self._tabs.toggle("#guide");
+            self._subtabs_guide.toggle(hash);
         } else if (hash.startsWith("#toc")) {
             self._tabs.toggle("#toc");
         }

@@ -8,29 +8,24 @@ NUM_ARGS = 3
 USAGE_STR = 'USAGE: python build_scenarios.py [scenarios json] [job template] [output dir]'
 
 SCENARIOS = {
-    'minimumRecyclingRate': {'minmium-recycle-rate': 40},
-    'minimumRecycledContent': {'minmium-recycled-content': 40},
+    'minimumRecyclingRate': {'minmium-recycle-rate': 30},
+    'minimumRecycledContent': {'minmium-recycled-content': 30},
     'capVirgin': {'cap-virgin': 1},
     'banPsPackaging': {'ban-ps-packaging': 1},
     'banSingleUse': {'ban-single-use': 90},
-    'reducedAdditives': {'reduced-additives': 90},
+    'reducedAdditives': {'reduced-additives': 60},
     'recyclingInvestment': {'recycling-investment': 100},
     'wasteInvestment': {'waste-investment': 100},
-    'taxVirgin': {'tax-virgin': 2},
+    'taxVirgin': {'tax-virgin': 1},
     'lowAmbition': {
-        'ban-ps-packaging': 1,
-        'ban-single-use': 90,
-        'reduced-additives': 90,
-        'minmium-recycle-rate': 40
+        'minmium-recycle-rate': 20,
+        'minmium-recycled-content': 20,
+        'ban-single-use': 30,
+        'reduced-additives': 30,
+        'recycling-investment': 10,
+        'waste-investment': 25
     },
     'highAmbition': {
-        'cap-virgin': 1,
-        'minmium-recycled-content': 40,
-        'recycling-investment': 100,
-        'waste-investment': 100,
-        'tax-virgin': 2
-    },
-    'all': {
         'minmium-recycle-rate': 40,
         'minmium-recycled-content': 40,
         'cap-virgin': 1,
@@ -40,7 +35,9 @@ SCENARIOS = {
         'recycling-investment': 100,
         'waste-investment': 100,
         'tax-virgin': 2
-    }
+    },
+    'businessAsUsual': {},
+    'businessAsUsual2024': {}
 }
 
 
@@ -88,6 +85,12 @@ def main():
                     })
             
         job_template['inputs'] = inputs
+
+        if name.endswith('2024'):
+            job_template['year'] = 2024
+        else:
+            job_template['year'] = 2050
+        
         output_path = os.path.join(output_dir, name + '.json')
         with open(output_path, 'w') as f:
             json.dump(job_template, f)
