@@ -35,7 +35,9 @@ SCENARIOS = {
         'recycling-investment': 100,
         'waste-investment': 100,
         'tax-virgin': 2
-    }
+    },
+    'businessAsUsual': {},
+    'businessAsUsual2024': {}
 }
 
 
@@ -83,6 +85,12 @@ def main():
                     })
             
         job_template['inputs'] = inputs
+
+        if name.endswith('2024'):
+            job_template['year'] = 2024
+        else:
+            job_template['year'] = 2050
+        
         output_path = os.path.join(output_dir, name + '.json')
         with open(output_path, 'w') as f:
             json.dump(job_template, f)
