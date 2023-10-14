@@ -358,6 +358,8 @@ class Driver {
             self._tabs.toggle("#overview");
         } else if (hash.startsWith("#detailed")) {
             self._tabs.toggle("#detailed");
+        } else if (hash.startsWith("#downloads")) {
+            self._tabs.toggle("#downloads");
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);

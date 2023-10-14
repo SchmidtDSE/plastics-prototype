@@ -33,11 +33,15 @@ html {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 26px;
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 22px;
+}
+
+h3 {
+    font-size: 18px;
 }
 
 h2 select {
@@ -109,6 +113,12 @@ select {
 .about-panel [role="tablist"] a {
     color: black;
     border-radius: 20px;
+}
+
+.about-panel .about-embed-section {
+    border-bottom: 1px dotted #C0C0C0;
+    padding-top: 10px;
+    padding-bottom: 25px;
 }
 
 .cookie-note {

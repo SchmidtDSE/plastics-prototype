@@ -11,6 +11,7 @@
                     <ul data-tabs>
                         <li><a data-tabby-default href="#overview">Overview</a></li>
                         <li><a href="#detailed">Details</a></li>
+                        <li><a href="#downloads">Downloads</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#toc">Contents</a></li>
                     </ul>
@@ -25,7 +26,7 @@
                                 </p>
                                 <p class="tutorial-cta">🏁 Start here:</p>
                                 <p>
-                                    Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. Click next to enable the visualization and combine different policies to reduce waste.
+                                    Exploring plastics outcomes under different policy scenarios, this tool starts with mismanaged waste like plastic in the ocean. This overview tab allows you to combine different high level policies to reduce waste.
                                 </p>
                                 <div class="tutorial-next">
                                     <a class="tutorial-next-button" href="#raw-scorecard">Close Message</a>
@@ -313,6 +314,52 @@
                         </div>
                     </div>
 
+                    <div id="downloads" class="about">
+                        <div class="about-panel">
+                            <div class="about-embed-section">
+                                <h2>Downloads</h2>
+                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>.
+                            </div>
+                            <div class="about-embed-section" id="downloads-bau">
+                                <h3>Business as Usual</h3>
+                                The <a href="/data/overview_ml.csv" target="_blank">Business as Usual CSV File</a> describes longitudinal projections if no policy intervention is used. This is the same as looking at the results while leaving all of the policy levers in their default values and leaving the overview checkboxes unchecked.
+                            </div>
+                            <div class="about-embed-section" id="downloads-summaries">
+                                <h3>Policy Summaries</h3>
+                                The <a href="/data/scenarios_overview.csv" target="_blank">Policy Scenarios CSV File</a> describes the 2050 outcomes for the following common policy selections where a single policy is included in the simulation at a time:
+
+                                <ul>
+                                    <li>banPsPackaging: The result of having banned polystyrene packaging.</li>
+                                    <li>banSingleUse: The result of having reduced single use packaging by 90%.</li>
+                                    <li>capVirgin: The result of having capped virgin plastic production to 2025 business as ususal levels.</li>
+                                    <li>minimumRecycledContent: The result of a 30% minimum recycled content mandate for new products.</li>
+                                    <li>minimumRecyclingRate: The result of a 30% minimum recycling collection rate mandate.</li>
+                                    <li>recyclingInvestment: The result of 100B USD investment in recycling collection and infrastructure.</li>
+                                    <li>reducedAdditives: The result of 60% reduction in additives.</li>
+                                    <li>taxVirigin: The result of a low consumption tax (see tool for more details).</li>
+                                    <li>wasteInvestment: The result of 100B USD investment in non-recycling waste management including incineration and landfill.</li>
+                                </ul>
+
+                                Furthermore, the following describe complex multi-intervention scenarios:
+
+                                <ul>
+                                    <li>lowAmbition: 30% reduction in single use packaging, 30% reduction in additives, 20% minimum recycling rate mandate, 20% minimum recycled content mandate, $10 billion USD investment in plastic recycling, and $25 billion USD investment in waste infrastructure.</li>
+                                    <li>highAmbition: All interventions or "checkboxes" on the <a href="#overview">overview</a> tab at full strength.</li>
+                                </ul>
+
+                                Keep in mind that policy outcomes cannot be added together because some policies may overlap with each other like for mimnum recycled content and minimum recycling (collection) rate. Therefore, to combine policies, users need to either leverage this web application or use the <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone" target="_blank">stand alone engine</a>.
+                            </div>
+                            <div class="about-embed-section" id="downloads-pieeline">
+                                <h3>Pipeline Detailed Outputs</h3>
+                                The output of the machine learning pipeline including a comprehensive SQLite database can be found in the <a href="/datapipeline.zip">Data Pipeline Zip File</a>.
+                            </div>
+                            <div class="about-embed-section" id="downloads-standalone">
+                                <h3>Stand-Alone Engine</h3>
+                                Additional JSON files are also available for download and this tool's simulation can be run outside the browser from the command line. See the <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone" target="_blank">stand alone execution README</a> for more details.
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="about" class="about">
                         <div class="about-panel">
                             <ul data-sub-tabs>
@@ -366,13 +413,13 @@
                                 </ul>
                             </div>
                             <div id="about-privacy">
-                                <p>
-                                    <h2>Privacy Introduction</h2>
+                                <div class="about-embed-section">
+                                    <h2>Privacy</h2>
                                     This webpage respects your privacy and collects as little information as possible while still providing a positive user experience. By using the application, you agree to the following.
-                                </p>
+                                </div>
 
-                                <p>
-                                    <h2>Data Collection</h2>
+                                <div class="about-embed-section">
+                                    <h3>Data Collection</h3>
                                     This application records standard server access logs for security and stability reasons, including to prevent abuse. This is a common practice employed by many websites necessary for maintaing application function. This information includes:
                                 
                                     <ul>
@@ -390,10 +437,10 @@
                                         <li>No information we collect is used for advertising.</li>
                                         <li>Though we do not ask users their age to respect their privacy, this webpage is intended for those 18 years and older.</li>
                                     </ul> 
-                                </p>
+                                </div>
                                 
-                                <p>
-                                    <h2>Data Storage</h2>
+                                <div class="about-embed-section">
+                                    <h3>Data Storage</h3>
                                     We save very limited data to your device and that data is not used to track you.
                                     
                                     <ul>
@@ -404,22 +451,22 @@
                                     </ul>
 
                                     By using this application, you agree to the transfer of standard server access logs and anonymized statistics as described above to be transferred to data centers based within the United States of America.
-                                </p>
+                                </div>
 
-                                <p>
-                                    <h2>Security and Access</h2>
+                                <div class="about-embed-section">
+                                    <h3>Security and Access</h3>
                                     We take security seriously. Communication between your device and our servers is encrypted with secure socket layer SSL. Access to non-anonymized logs and the configuration / code for the application is limited to the current maintainers of the project, automated systems we've constructed for running the application, and our subprocessors. Note that anonymized data may be shared with project partners for the purposes of tracking project success and impact.
-                                </p>
+                                </div>
 
-                                <p>
-                                    <h2>Subprocessors</h2>
+                                <div class="about-embed-section">
+                                    <h3>Subprocessors</h3>
                                     See <a href="https://www.dreamhost.com/legal/customer-data-processing-addendum/" target="_blank">DreamHost CDPA</a> for more information about our web host / subprocessor.
-                                </p>
+                                </div>
 
-                                <p>
-                                    <h2>Updates</h2>
-                                    This statement was last updated on 2023-10-11. Updates to this policy will be posted to this page.
-                                </p>
+                                <div class="about-embed-section">
+                                    <h3>Updates</h3>
+                                    This statement's content was last updated on 2023-10-14. Updates to this policy will be posted to this page.
+                                </div>
                             </div>
                             <div id="about-license">
                                 <h2>License and Terms</h2>
@@ -428,6 +475,7 @@
                                 <ul>
                                     <li>Application and source code are available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#source" target="_blank">BSD License</a>.</li>
                                     <li>Data including exports from this tool are made available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC BY-NC 4.0 License</a>.</li>
+                                    <li>The content of this website is available under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC BY-NC 4.0 License</a>.</li>
                                 </ul>
 
                                 This application uses a number of open source components as described in the <a href="https://github.com/SchmidtDSE/plastics-prototype#open-source" target="_blank">project readme</a>.
@@ -475,6 +523,11 @@
                                 <li><a class="toc-link" href="#detailed-anchor-production-summary">Details: Production summary</a></li>
                                 <li><a class="toc-link" href="#detailed-anchor-waste-summary">Details: Waste summary</a></li>
                                 <li><a class="toc-link" href="#detailed-anchor-timeseries">Details: Timeseries graph</a></li>
+                                <li><a class="toc-link" href="#downloads">Downloads</a></li>
+                                <li><a class="toc-link" href="#downloads-bau">Downloads: Business as usual projections</a></li>
+                                <li><a class="toc-link" href="#downloads-pipeline">Downloads: Pipeline outputs</a></li>
+                                <li><a class="toc-link" href="#downloads-standalone">Downloads: Standalone engine</a></li>
+                                <li><a class="toc-link" href="#downloads-summaries">Downloads: Summaries of policy scenarios</a></li>
                                 <li><a class="toc-link" href="#overview-panel">Overview</a></li>
                                 <li><a class="toc-link" href="#overview-anchor-selector">Overview: Controls for policy</a></li>
                                 <li><a class="toc-link" href="#overview-anchor-file">Overview: Controls for file</a></li>

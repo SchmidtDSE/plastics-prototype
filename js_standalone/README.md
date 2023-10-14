@@ -20,9 +20,9 @@ The stand-alone engine may be used either interactively through Node or through 
 
  - [banPsPackaging.json](https://global-plastics-tool.org/standalone_tasks/banPsPackaging.json): The result of having banned polystyrene packaging.
  - [banSingleUse.json](https://global-plastics-tool.org/standalone_tasks/banSingleUse.json): The result of having reduced single use packaging by 90%.
- - [capVirgin.json](https://global-plastics-tool.org/standalone_tasks/capVirgin.json): The result of having capped virgin plastic production to 2030 business as ususal levels.
+ - [capVirgin.json](https://global-plastics-tool.org/standalone_tasks/capVirgin.json): The result of having capped virgin plastic production to 2025 business as ususal levels.
  - [minimumRecycledContent.json](https://global-plastics-tool.org/standalone_tasks/minimumRecycledContent.json): The result of a 30% minimum recycled content mandate for new products.
- - [minimumRecyclingRate.json](https://global-plastics-tool.org/standalone_tasks/minimumRecyclingRate.json): The result of a 30% minimum recycling collectino rate mandate.
+ - [minimumRecyclingRate.json](https://global-plastics-tool.org/standalone_tasks/minimumRecyclingRate.json): The result of a 30% minimum recycling collection rate mandate.
  - [recyclingInvestment.json](https://global-plastics-tool.org/standalone_tasks/recyclingInvestment.json): The result of 100B investment in recycling collection and infrastructure.
  - [reducedAdditives.json](https://global-plastics-tool.org/standalone_tasks/reducedAdditives.json): The result of 60% reduction in additives.
  - [taxVirigin.json](https://global-plastics-tool.org/standalone_tasks/taxVirigin.json): The result of a low consumption tax (see tool for more details).
