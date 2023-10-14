@@ -327,7 +327,7 @@
                             </div>
                             <div class="about-embed-section" id="downloads-summaries">
                                 <h3>Policy Summaries</h3>
-                                The <a href="/data/scenarios_overview.csv" target="_blank">Policy Scenarios CSV File</a> describes the 2050 outcomes for the following common policy selections where a single policy is included in the simulation at a time:
+                                The <a href="/data/scenarios_overview.csv" target="_blank">Policy Scenarios CSV File</a> describes the 2050 outcomes (unless another year is specified) for the following common policy selections where a single policy is included in the simulation at a time:
 
                                 <ul>
                                     <li>banPsPackaging: The result of having banned polystyrene packaging.</li>
@@ -341,11 +341,18 @@
                                     <li>wasteInvestment: The result of 100B USD investment in non-recycling waste management including incineration and landfill.</li>
                                 </ul>
 
-                                Furthermore, the following describe complex multi-intervention scenarios:
+                                Furthermore, this CSV includes the following which describe complex multi-intervention scenarios:
 
                                 <ul>
                                     <li>lowAmbition: 30% reduction in single use packaging, 30% reduction in additives, 20% minimum recycling rate mandate, 20% minimum recycled content mandate, 10 billion USD investment in plastic recycling, and 25 billion USD investment in waste infrastructure.</li>
                                     <li>highAmbition: All interventions or "checkboxes" on the <a href="#overview">overview</a> tab at full strength.</li>
+                                </ul>
+
+                                Finally, this CSV also provides these benchmarks for reference:
+
+                                <ul>
+                                    <li>businessAsUsual: 2050 results without any policy intervention.</li>
+                                    <li>businessAsUsual2024: 2024 results without any policy intervention.</li>
                                 </ul>
 
                                 Keep in mind that policy outcomes cannot be added together because some policies may overlap with each other like for mimnum recycled content and minimum recycling (collection) rate. Therefore, to combine policies, users need to either leverage this web application or use the <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone" target="_blank">stand alone engine</a>.
@@ -619,6 +626,12 @@
                                 <li><a class="toc-link" href="#downloads-pipeline">Downloads: Pipeline outputs</a></li>
                                 <li><a class="toc-link" href="#downloads-standalone">Downloads: Standalone engine</a></li>
                                 <li><a class="toc-link" href="#downloads-summaries">Downloads: Summaries of policy scenarios</a></li>
+                                <li><a class="toc-link" href="#guide">Guide</a></li>
+                                <li><a class="toc-link" href="#guide-consumption">Guide: Consumption</a></li>
+                                <li><a class="toc-link" href="#guide-intro">Guide: Introduction and start page</a></li>
+                                <li><a class="toc-link" href="#guide-policy">Guide: Policy</a></li>
+                                <li><a class="toc-link" href="#guide-resources">Guide: Resources</a></li>
+                                <li><a class="toc-link" href="#guide-waste">Guide: Waste</a></li>
                                 <li><a class="toc-link" href="#overview-panel">Overview</a></li>
                                 <li><a class="toc-link" href="#overview-anchor-selector">Overview: Controls for policy</a></li>
                                 <li><a class="toc-link" href="#overview-anchor-file">Overview: Controls for file</a></li>
