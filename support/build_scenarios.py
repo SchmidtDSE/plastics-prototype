@@ -8,15 +8,15 @@ NUM_ARGS = 3
 USAGE_STR = 'USAGE: python build_scenarios.py [scenarios json] [job template] [output dir]'
 
 SCENARIOS = {
-    'minimumRecyclingRate': {'minmium-recycle-rate': 40},
-    'minimumRecycledContent': {'minmium-recycled-content': 40},
+    'minimumRecyclingRate': {'minmium-recycle-rate': 30},
+    'minimumRecycledContent': {'minmium-recycled-content': 30},
     'capVirgin': {'cap-virgin': 1},
     'banPsPackaging': {'ban-ps-packaging': 1},
     'banSingleUse': {'ban-single-use': 90},
-    'reducedAdditives': {'reduced-additives': 90},
+    'reducedAdditives': {'reduced-additives': 60},
     'recyclingInvestment': {'recycling-investment': 100},
     'wasteInvestment': {'waste-investment': 100},
-    'taxVirgin': {'tax-virgin': 2},
+    'taxVirgin': {'tax-virgin': 1},
     'lowAmbition': {
         'minmium-recycle-rate': 20,
         'minmium-recycled-content': 20,
