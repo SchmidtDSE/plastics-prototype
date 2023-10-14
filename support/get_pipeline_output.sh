@@ -7,3 +7,4 @@ mv /tmp/pipeline_staging/output pipeline
 ls pipeline
 echo "== Checking moved contents =="
 [ ! -e pipeline/combined.db ] && exit 2;
+echo "== Loaded pipeline results =="
