@@ -49,7 +49,7 @@ class TimeDeltaPresenter {
 
         const boundingBox = self._targetDiv.querySelector(".body")
             .getBoundingClientRect();
-        
+
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
 
@@ -313,12 +313,12 @@ class TimeDeltaPresenter {
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
             self._d3Selection.select(".body")
                 .attr("aria-label", "Graph of: " + newTitle);
-            
+
             const ariaLabelContent = [
                 newTitle + ".",
                 "Highlighted year: " + selectedYear + ".",
                 "Use arrow keys to change year.",
-                "Tab in for data."
+                "Tab in for data.",
             ].join(" ");
 
             self._targetDiv.setAttribute("aria-label", ariaLabelContent);
@@ -495,13 +495,13 @@ class TimeDeltaPresenter {
 
         targetSvg.append("g")
             .classed("timedelta-hover-targets", true);
-        
+
         // Accessible change year
         self._targetDiv.addEventListener("keydown", (event) => {
             if (self._lastYear === null) {
                 return;
             }
-            
+
             if (event.key === "ArrowRight") {
                 self._onYearChange(self._lastYear + 1);
             } else if (event.key === "ArrowLeft") {

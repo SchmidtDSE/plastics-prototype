@@ -63,7 +63,7 @@ class Driver {
                 history.pushState(
                     null,
                     null,
-                    "#" + event.target.href.split("#")[1]
+                    "#" + event.target.href.split("#")[1],
                 );
                 self._onInputChange();
             }, false);

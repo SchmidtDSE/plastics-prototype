@@ -70,7 +70,7 @@ class TimeseriesPresenter {
             if (self._lastYear === null) {
                 return;
             }
-            
+
             if (event.key === "ArrowRight") {
                 self._onYearChange(self._lastYear + 1);
             } else if (event.key === "ArrowLeft") {
@@ -391,7 +391,7 @@ class TimeseriesPresenter {
                 getTitle() + ".",
                 "Highlighted year: " + selectedYear + ".",
                 "Use arrow keys to change year.",
-                "Tab in for data."
+                "Tab in for data.",
             ].join(" ");
 
             self._targetDiv.setAttribute("aria-label", ariaLabelContent);

@@ -247,7 +247,7 @@ class BubblegraphPresenter {
             titleElement.textContent = titleContent;
             self._targetDiv.querySelector(".bubblegraph")
                 .setAttribute("aria-label", titleContent);
-            
+
             const topAriaLabelContent = [
                 titleContent + ".",
                 "Highlighted region: " + selection.getRegion() + ".",
@@ -256,7 +256,7 @@ class BubblegraphPresenter {
                 "n for NAFTA,",
                 "r for rest of world",
                 "and g for global.",
-                "Tab in for data."
+                "Tab in for data.",
             ].join(" ");
 
             self._targetDiv.setAttribute("aria-label", topAriaLabelContent);
