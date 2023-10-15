@@ -461,6 +461,19 @@ h2 .info-img {
     padding-bottom: 5px;
 }
 
+.output-section .region-container .timeseries-container:focus {
+    border: 1px dotted #505050;
+}
+
+.output-section .region-container .timeseries-container .instructions-keyboard {
+    display: none;
+}
+
+.output-section .region-container .timeseries-container:focus .instructions-keyboard {
+    display: block;
+    margin-bottom: 10px;
+}
+
 .output-section .region-container .timeseries-container .sparklines-section {
     display: grid;
     column-gap: 20px;
@@ -630,6 +643,10 @@ h2 .info-img {
     text-align: center;
 }
 
+.overview .overview-timeseries:focus {
+    border: 1px dotted #505050;
+}
+
 .overview .overview-timeseries .body {
     height: 400px;
     width: 99%;
@@ -656,6 +673,15 @@ h2 .info-img {
 .overview .overview-timeseries .current-value-display .value {
     font-size: 13px;
     fill: #1f78b4;
+}
+
+.overview .overview-timeseries .instructions-keyboard {
+    display: none;
+}
+
+.overview .overview-timeseries:focus .instructions-keyboard {
+    display: block;
+    margin-bottom: 15px;
 }
 
 .overview .overview-timeseries .timedelta-label {

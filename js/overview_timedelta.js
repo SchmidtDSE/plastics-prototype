@@ -15,6 +15,7 @@ class TimeDeltaPresenter {
         self._color = "#1f78b4";
         self._targetDiv = targetDiv;
         self._onYearChange = onYearChange;
+        self._lastYear = null;
         self._d3Selection = self._getD3().select("#" + targetDiv.id);
         self._tippyPrior = null;
         self._message = "Loading...";
@@ -42,10 +43,13 @@ class TimeDeltaPresenter {
     render(businessAsUsuals, withInterventions, selectedYear, sparseTicks) {
         const self = this;
 
+        self._lastYear = selectedYear;
+
         const step = sparseTicks ? 1000 : 50;
 
         const boundingBox = self._targetDiv.querySelector(".body")
             .getBoundingClientRect();
+        
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
 
@@ -309,6 +313,11 @@ class TimeDeltaPresenter {
             self._targetDiv.querySelector(".title").innerHTML = newTitle;
             self._d3Selection.select(".body")
                 .attr("aria-label", "Graph of: " + newTitle);
+            
+            self._targetDiv.setAttribute(
+                "aria-label",
+                "Graph of: " + newTitle + ". Highlighted year: " + selectedYear
+            );
         };
 
         const updateAxisRect = () => {
@@ -482,6 +491,19 @@ class TimeDeltaPresenter {
 
         targetSvg.append("g")
             .classed("timedelta-hover-targets", true);
+        
+        // Accessible change year
+        self._targetDiv.addEventListener("keydown", (event) => {
+            if (self._lastYear === null) {
+                return;
+            }
+            
+            if (event.key === "ArrowRight") {
+                self._onYearChange(self._lastYear + 1);
+            } else if (event.key === "ArrowLeft") {
+                self._onYearChange(self._lastYear - 1);
+            }
+        });
     }
 
     _getShowHistory() {

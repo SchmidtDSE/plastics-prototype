@@ -21,6 +21,7 @@ class TimeseriesPresenter {
         self._onYearChange = onYearChange;
         self._requestRender = requestRender;
         self._tippyPrior = null;
+        self._lastYear = null;
         self._message = "Loading...";
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
@@ -63,6 +64,19 @@ class TimeseriesPresenter {
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
+
+        // Accessible change year
+        self._targetDiv.addEventListener("keydown", (event) => {
+            if (self._lastYear === null) {
+                return;
+            }
+            
+            if (event.key === "ArrowRight") {
+                self._onYearChange(self._lastYear + 1);
+            } else if (event.key === "ArrowLeft") {
+                self._onYearChange(self._lastYear - 1);
+            }
+        });
     }
 
     cleanUp() {
@@ -84,6 +98,8 @@ class TimeseriesPresenter {
         const showHistorical = historicalCheck.checked;
         const selectedYear = selection.getYear();
         const colorScale = self._colorScales.get(selection.getDisplayStage());
+
+        self._lastYear = selectedYear;
 
         const determineStep = () => {
             if (selection.getDisplayType() == DISPLAY_TYPES.percent) {
@@ -370,6 +386,11 @@ class TimeseriesPresenter {
             } else {
                 self._tippyPrior.forEach((x) => x.setContent(self._message));
             }
+
+            self._targetDiv.setAttribute(
+                "aria-label",
+                getTitle() + ". Highlighted year: " + selectedYear
+            );
         };
 
         updateTitle();

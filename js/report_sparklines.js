@@ -102,6 +102,7 @@ class SparklinePresenter {
         };
         attrs;
         const updateLabels = () => {
+            const shiftLabels = (maxValue >= 1000 || !isPercent);
             self._d3Selection.select(".start-year-label")
                 .html(startYear);
 
@@ -110,15 +111,15 @@ class SparklinePresenter {
 
             self._d3Selection.select(".min-value-label")
                 .html(minValue)
-                .attr("x", maxValue >= 1000 ? 30 : 20);
+                .attr("x", shiftLabels ? 28 : 20);
 
             self._d3Selection.select(".max-value-label")
                 .html(maxValue)
-                .attr("x", maxValue >= 1000 ? 30 : 20);
+                .attr("x", shiftLabels ? 28 : 20);
 
             self._d3Selection.select(".units-value-label")
                 .html(isPercent ? "%" : "MMT")
-                .attr("x", maxValue >= 1000 ? 30 : 20);
+                .attr("x", shiftLabels ? 30 : 20);
         };
 
         const updateIndicator = () => {
