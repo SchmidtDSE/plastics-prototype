@@ -126,6 +126,9 @@ def main():
 
     mismanaged_additives = get_fate(2050, results_dir, policy='reducedAdditives')
     delta_additives = mismanaged_additives - mismanaged_2050
+    
+    mismanaged_tax_virgin = get_fate(2050, results_dir, policy='taxVirgin')
+    delta_tax_virgin = mismanaged_tax_virgin - mismanaged_2050
 
     bau_recycle = get_fate(2050, results_dir, fate='eolRecyclingMT')
     invest_recycle = get_fate(
@@ -178,6 +181,7 @@ def main():
         ),
         'investWastePercentMismanaged': round(invest_waste_percent, ndigits=1),
         'investWasteMismanaged': round(invest_waste_mismanaged, ndigits=1),
+        'deltaTaxVirgin': round(delta_tax_virgin, ndigits=1)
     }
 
     with open(template_loc) as f:
