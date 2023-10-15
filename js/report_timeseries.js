@@ -21,6 +21,7 @@ class TimeseriesPresenter {
         self._onYearChange = onYearChange;
         self._requestRender = requestRender;
         self._tippyPrior = null;
+        self._message = "Loading...";
 
         self._targetSvg = self._targetDiv.querySelector(".timeseries");
         self._d3Selection = self._getD3().select("#" + self._targetSvg.id);
@@ -62,6 +63,13 @@ class TimeseriesPresenter {
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
+    }
+
+    cleanUp() {
+        const self = this;
+        if (self._tippyPrior !== null) {
+            self._tippyPrior.forEach((x) => x.destroy());
+        }
     }
 
     update(stateSet, selection) {
@@ -351,15 +359,17 @@ class TimeseriesPresenter {
                 attrDescriptions,
             ].join(" ");
 
-            if (self._tippyPrior !== null) {
-                self._tippyPrior.forEach((x) => x.destroy());
-            }
+            self._message = message;
 
-            // eslint-disable-next-line no-undef
-            self._tippyPrior = tippy(
-                "#detailed-timeseries-description-dynamic",
-                {"content": message},
-            );
+            if (self._tippyPrior === null) {
+                // eslint-disable-next-line no-undef
+                self._tippyPrior = tippy(
+                    "#detailed-timeseries-description-dynamic",
+                    {"content": self._message},
+                );
+            } else {
+                self._tippyPrior.forEach((x) => x.setContent(self._message));
+            }
         };
 
         updateTitle();

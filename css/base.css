@@ -37,15 +37,15 @@ h1 {
 }
 
 h2 {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 h3 {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 h2 select {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 table, th, td {
@@ -433,7 +433,7 @@ h2 .info-img {
     font-weight: bold;
     float: right;
     margin-top: 3px;
-    margin-right: 5px;
+    margin-right: 2px;
 }
 
 .output-section .region-container .current-year-container #production-container {
@@ -932,9 +932,9 @@ h2 .info-img {
     }
 
     .output-section .region-container .current-year-container .stage-container .subtitle {
-        font-size: 13px;
+        font-size: 11px;
         margin-right: 2px;
-        margin-top: 12px;
+        margin-top: 2px;
     }
 }
 
@@ -954,6 +954,10 @@ h2 .info-img {
 
     .output-section .goal-container.inner {
         border-bottom: 1px dotted #505050;
+    }
+
+    .output-section .region-container .current-year-container .stage-container .subtitle {
+        margin-right: 10px;
     }
 }
 

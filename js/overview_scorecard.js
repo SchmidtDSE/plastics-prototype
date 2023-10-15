@@ -5,6 +5,7 @@ class ScorecardPresenter {
         self._targetDiv = targetDiv;
         self._onGoalChange = onGoalChange;
         self._prefix = prefix;
+        self._tippyPrior = null;
 
         self._targetDiv.querySelectorAll(".card").forEach((card) => {
             card.addEventListener("click", () => {
@@ -15,6 +16,13 @@ class ScorecardPresenter {
 
     render(year, goals, selectedGoal) {
         const self = this;
+
+        if (self._tippyPrior === null) {
+            // eslint-disable-next-line no-undef
+            self._tippyPrior = tippy(
+                self._targetDiv.querySelectorAll(".info-target"),
+            );
+        }
 
         const updateYear = () => {
             self._targetDiv.querySelector(".year").innerHTML = year;

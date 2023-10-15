@@ -183,11 +183,10 @@ class ScenarioPresenter {
             self._onPolicyChangeCallback(scenario, isChecked);
         });
 
-        if (self._tippyPrior !== null) {
-            self._tippyPrior.forEach((x) => x.destroy());
+        if (self._tippyPrior === null) {
+            // eslint-disable-next-line no-undef
+            self._tippyPrior = tippy(".scenario-tippy");
         }
-        // eslint-disable-next-line no-undef
-        self._tippyPrior = tippy(".scenario-tippy");
     }
 
     _setupAddDialog() {

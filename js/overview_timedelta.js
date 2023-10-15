@@ -17,8 +17,16 @@ class TimeDeltaPresenter {
         self._onYearChange = onYearChange;
         self._d3Selection = self._getD3().select("#" + targetDiv.id);
         self._tippyPrior = null;
+        self._message = "Loading...";
 
         self._initElements();
+    }
+
+    cleanUp() {
+        const self = this;
+        if (self._tippyPrior !== null) {
+            self._tippyPrior.forEach((x) => x.destroy());
+        }
     }
 
     setAttr(newAttr) {
@@ -332,14 +340,17 @@ class TimeDeltaPresenter {
                 selectedYear + ".",
             ].join(" ");
 
-            if (self._tippyPrior !== null) {
-                self._tippyPrior.forEach((x) => x.destroy());
+            self._message = message;
+
+            if (self._tippyPrior === null) {
+                // eslint-disable-next-line no-undef
+                self._tippyPrior = tippy(
+                    "#overview-timeseries-description-dynamic",
+                    {"content": self._message},
+                );
+            } else {
+                self._tippyPrior.forEach((x) => x.setContent(self._message));
             }
-            // eslint-disable-next-line no-undef
-            self._tippyPrior = tippy(
-                "#overview-timeseries-description-dynamic",
-                {"content": message},
-            );
         };
 
         updateValueAxis();

@@ -26,6 +26,7 @@ class BubblegraphPresenter {
         self._targetSvg = self._targetDiv.querySelector(".bubblegraph");
         self._targetSvgId = self._targetSvg.id;
         self._tippyPrior = null;
+        self._message = "Loading...";
 
         // Setup svg
         self._d3Selection = self._getD3().select("#" + self._targetSvgId);
@@ -141,6 +142,13 @@ class BubblegraphPresenter {
         self._textColorScales.set(DISPLAY_STAGES.eol, textColorScalesEol);
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
         self._textColorScales.set(DISPLAY_STAGES.production, textColorScalesProduction);
+    }
+
+    cleanUp() {
+        const self = this;
+        if (self._tippyPrior !== null) {
+            self._tippyPrior.forEach((x) => x.destroy());
+        }
     }
 
     update(stateSet, selection) {
@@ -564,15 +572,17 @@ class BubblegraphPresenter {
                 attrDescriptions.join(", "),
             ].join(" ");
 
-            if (self._tippyPrior !== null) {
-                self._tippyPrior.forEach((x) => x.destroy());
-            }
+            self._message = message;
 
-            // eslint-disable-next-line no-undef
-            self._tippyPrior = tippy(
-                "#detailed-bubble-description-dynamic",
-                {"content": message},
-            );
+            if (self._tippyPrior === null) {
+                // eslint-disable-next-line no-undef
+                self._tippyPrior = tippy(
+                    "#detailed-bubble-description-dynamic",
+                    {"content": self._message},
+                );
+            } else {
+                self._tippyPrior.forEach((x) => x.setContent(self._message));
+            }
         };
 
         updateTitle();
