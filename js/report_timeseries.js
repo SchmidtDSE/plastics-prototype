@@ -371,7 +371,7 @@ class TimeseriesPresenter {
                 modeStr,
                 "Having selected",
                 selectedYear + ",",
-                "it reports the following:",
+                "it reports the following as stacked bars from top to bottom:",
                 attrDescriptions,
             ].join(" ");
 
