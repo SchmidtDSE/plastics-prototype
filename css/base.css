@@ -129,6 +129,10 @@ select {
     border-top: 1px dotted #505050;
 }
 
+.about-panel .image-box img {
+    max-width: 90%;
+}
+
 .cookie-note {
     color: #707070;
 }
