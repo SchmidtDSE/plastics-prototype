@@ -383,9 +383,17 @@ h2 .info-img {
     opacity: 0.6;
 }
 
+.output-section .region-container .current-year-container .stage-container.unselected .value {
+    color: #111111 !important;
+}
+
 .output-section .region-container .current-year-container .stage-container.unselected:hover {
     opacity: 1;
     cursor: pointer;
+}
+
+.output-section .region-container .current-year-container .stage-container.unselected:hover .value {
+    color: #505050 !important;
 }
 
 .output-section .region-container .current-year-container .stage-container .bar {
