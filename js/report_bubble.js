@@ -142,6 +142,21 @@ class BubblegraphPresenter {
         self._textColorScales.set(DISPLAY_STAGES.eol, textColorScalesEol);
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
         self._textColorScales.set(DISPLAY_STAGES.production, textColorScalesProduction);
+
+        // Accessible change year
+        self._targetDiv.addEventListener("keydown", (event) => {
+            if (event.key === "c") {
+                self._onRegionChange("china");
+            } else if (event.key === "e") {
+                self._onRegionChange("eu30");
+            } else if (event.key === "n") {
+                self._onRegionChange("nafta");
+            } else if (event.key === "r") {
+                self._onRegionChange("row");
+            } else if (event.key === "g") {
+                self._onRegionChange("global");
+            }
+        });
     }
 
     cleanUp() {
@@ -232,6 +247,19 @@ class BubblegraphPresenter {
             titleElement.textContent = titleContent;
             self._targetDiv.querySelector(".bubblegraph")
                 .setAttribute("aria-label", titleContent);
+            
+            const topAriaLabelContent = [
+                titleContent + ".",
+                "Highlighted region: " + selection.getRegion() + ".",
+                "Press c for China,",
+                "e for EU 30,",
+                "n for NAFTA,",
+                "r for rest of world",
+                "and g for global.",
+                "Tab in for data."
+            ].join(" ");
+
+            self._targetDiv.setAttribute("aria-label", topAriaLabelContent);
         };
 
         const updateMetricLabels = () => {

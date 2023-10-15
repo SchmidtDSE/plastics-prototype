@@ -317,7 +317,8 @@ class TimeDeltaPresenter {
             const ariaLabelContent = [
                 newTitle + ".",
                 "Highlighted year: " + selectedYear + ".",
-                "Use arrow keys to change year."
+                "Use arrow keys to change year.",
+                "Tab in for data."
             ].join(" ");
 
             self._targetDiv.setAttribute("aria-label", ariaLabelContent);

@@ -274,6 +274,19 @@ h2 .info-img {
     dominant-baseline: middle;
 }
 
+.output-section .bubblegraph-container:focus {
+    border: 1px dotted #505050;
+}
+
+.output-section .bubblegraph-container .instructions-keyboard {
+    display: none;
+}
+
+.output-section .bubblegraph-container:focus .instructions-keyboard {
+    display: block;
+    margin-bottom: 10px;
+}
+
 .output-section .bubblegraph-container .slope-check-holder {
     margin-bottom: 5px;
 }
