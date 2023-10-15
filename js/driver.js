@@ -47,6 +47,10 @@ class Driver {
         return new Promise((outerResolve) => {
             // eslint-disable-next-line no-undef
             self._tabs = new Tabby("[data-tabs]");
+
+            self._subtabs = new Tabby("[data-sub-tabs-about]");
+            self._subtabs_guide = new Tabby("[data-sub-tabs-guide]");
+
             document.addEventListener("tabby", (event) => {
                 if (self._reportPresenter !== null) {
                     self._reportPresenter.rebuildViz();
@@ -55,11 +59,14 @@ class Driver {
                 if (event.target.href.indexOf("#detailed") != -1) {
                     document.querySelector(".custom-menu-check").checked = true;
                 }
+
+                history.pushState(
+                    null,
+                    null,
+                    "#" + event.target.href.split("#")[1]
+                );
                 self._onInputChange();
             }, false);
-
-            self._subtabs = new Tabby("[data-sub-tabs-about]");
-            self._subtabs_guide = new Tabby("[data-sub-tabs-guide]");
 
             self._updateTabVisibility();
 
