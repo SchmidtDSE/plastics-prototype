@@ -26,6 +26,7 @@ class BubblegraphPresenter {
         self._targetSvg = self._targetDiv.querySelector(".bubblegraph");
         self._targetSvgId = self._targetSvg.id;
         self._tippyPrior = null;
+        self._message = "Loading...";
 
         // Setup svg
         self._d3Selection = self._getD3().select("#" + self._targetSvgId);
@@ -141,6 +142,28 @@ class BubblegraphPresenter {
         self._textColorScales.set(DISPLAY_STAGES.eol, textColorScalesEol);
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
         self._textColorScales.set(DISPLAY_STAGES.production, textColorScalesProduction);
+
+        // Accessible change year
+        self._targetDiv.addEventListener("keydown", (event) => {
+            if (event.key === "c") {
+                self._onRegionChange("china");
+            } else if (event.key === "e") {
+                self._onRegionChange("eu30");
+            } else if (event.key === "n") {
+                self._onRegionChange("nafta");
+            } else if (event.key === "r") {
+                self._onRegionChange("row");
+            } else if (event.key === "g") {
+                self._onRegionChange("global");
+            }
+        });
+    }
+
+    cleanUp() {
+        const self = this;
+        if (self._tippyPrior !== null) {
+            self._tippyPrior.forEach((x) => x.destroy());
+        }
     }
 
     update(stateSet, selection) {
@@ -224,6 +247,19 @@ class BubblegraphPresenter {
             titleElement.textContent = titleContent;
             self._targetDiv.querySelector(".bubblegraph")
                 .setAttribute("aria-label", titleContent);
+
+            const topAriaLabelContent = [
+                titleContent + ".",
+                "Highlighted region: " + selection.getRegion() + ".",
+                "Press c for China,",
+                "e for EU 30,",
+                "n for NAFTA,",
+                "r for rest of world",
+                "and g for global.",
+                "Tab in for data.",
+            ].join(" ");
+
+            self._targetDiv.setAttribute("aria-label", topAriaLabelContent);
         };
 
         const updateMetricLabels = () => {
@@ -564,15 +600,17 @@ class BubblegraphPresenter {
                 attrDescriptions.join(", "),
             ].join(" ");
 
-            if (self._tippyPrior !== null) {
-                self._tippyPrior.forEach((x) => x.destroy());
-            }
+            self._message = message;
 
-            // eslint-disable-next-line no-undef
-            self._tippyPrior = tippy(
-                "#detailed-bubble-description-dynamic",
-                {"content": message},
-            );
+            if (self._tippyPrior === null) {
+                // eslint-disable-next-line no-undef
+                self._tippyPrior = tippy(
+                    "#detailed-bubble-description-dynamic",
+                    {"content": self._message},
+                );
+            } else {
+                self._tippyPrior.forEach((x) => x.setContent(self._message));
+            }
         };
 
         updateTitle();

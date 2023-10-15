@@ -29,6 +29,7 @@ class StagePresenter {
 
         self._targetDiv.addEventListener("click", () => {
             self._onStageChange(self._stage);
+            radio.checked = true;
         });
 
         // Color scales

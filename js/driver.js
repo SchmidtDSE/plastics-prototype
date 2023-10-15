@@ -20,6 +20,7 @@ class Driver {
         self._overviewPresenter = null;
         self._levers = null;
         self._redrawTimeout = null;
+        self._latestRequest = null;
         self._disableDelay = disableDelay;
 
         self._historicYears = [];
@@ -46,6 +47,10 @@ class Driver {
         return new Promise((outerResolve) => {
             // eslint-disable-next-line no-undef
             self._tabs = new Tabby("[data-tabs]");
+
+            self._subtabs = new Tabby("[data-sub-tabs-about]");
+            self._subtabs_guide = new Tabby("[data-sub-tabs-guide]");
+
             document.addEventListener("tabby", (event) => {
                 if (self._reportPresenter !== null) {
                     self._reportPresenter.rebuildViz();
@@ -54,11 +59,14 @@ class Driver {
                 if (event.target.href.indexOf("#detailed") != -1) {
                     document.querySelector(".custom-menu-check").checked = true;
                 }
+
+                history.pushState(
+                    null,
+                    null,
+                    "#" + event.target.href.split("#")[1],
+                );
                 self._onInputChange();
             }, false);
-
-            self._subtabs = new Tabby("[data-sub-tabs-about]");
-            self._subtabs_guide = new Tabby("[data-sub-tabs-guide]");
 
             self._updateTabVisibility();
 
@@ -260,13 +268,15 @@ class Driver {
             if (self._disableDelay) {
                 execute();
             } else {
+                const timestamp = new Date().getTime();
+                self._latestRequest = timestamp;
                 self._redrawTimeout = setTimeout(() => {
-                    execute();
+                    execute(timestamp);
                 }, 25);
             }
         };
 
-        const execute = () => {
+        const execute = (timestamp) => {
             if (self._dataLayer === null) {
                 reschedule();
                 return;
@@ -275,8 +285,7 @@ class Driver {
             const businessAsUsual = self._getStates(false);
             const withInterventions = self._getStates(true);
 
-            self._updateOutputs(businessAsUsual, withInterventions);
-            self._levers.forEach((lever) => lever.refreshSelection());
+            self._updateOutputs(businessAsUsual, withInterventions, timestamp);
             self._redrawTimeout = null;
         };
 
@@ -288,16 +297,32 @@ class Driver {
         }
     }
 
-    _updateOutputs(businessAsUsual, withInterventions) {
+    _updateOutputs(businessAsUsual, withInterventions, timestamp) {
         const self = this;
-        if (self._disableDelay) {
+
+        const executeReport = () => {
             self._reportPresenter.render(businessAsUsual, withInterventions);
             self._overviewPresenter.render(businessAsUsual, withInterventions);
+        };
+
+        const executeLevers = () => {
+            self._levers.forEach((lever) => lever.refreshSelection());
+        };
+
+        if (self._disableDelay) {
+            executeReport();
+            executeLevers();
         } else {
             setTimeout(() => {
-                self._reportPresenter.render(businessAsUsual, withInterventions);
-                self._overviewPresenter.render(businessAsUsual, withInterventions);
+                if (timestamp == self._latestRequest) {
+                    executeReport();
+                }
             }, 25);
+            setTimeout(() => {
+                if (timestamp == self._latestRequest) {
+                    executeLevers();
+                }
+            }, 1500);
         }
     }
 

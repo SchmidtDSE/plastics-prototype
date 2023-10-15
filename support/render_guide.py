@@ -116,16 +116,19 @@ def main():
     mrr_percent = get_percent_change(mismanaged_2050, mismanaged_mrr)
 
     mismanaged_ps = get_fate(2050, results_dir, policy='banPsPackaging')
-    delta_ps = mismanaged_2050 - mismanaged_ps
+    delta_ps = mismanaged_ps - mismanaged_2050
 
     mismanaged_single_use = get_fate(2050, results_dir, policy='banSingleUse')
-    delta_single_use = mismanaged_2050 - mismanaged_single_use
+    delta_single_use = mismanaged_single_use - mismanaged_2050
 
     high_ambition_total = get_total_consumption(2050, results_dir, policy='highAmbition')
     high_ambition_mismanaged = get_fate(2050, results_dir, policy='highAmbition')
 
     mismanaged_additives = get_fate(2050, results_dir, policy='reducedAdditives')
-    delta_additives = mismanaged_2050 - mismanaged_additives
+    delta_additives = mismanaged_additives - mismanaged_2050
+    
+    mismanaged_tax_virgin = get_fate(2050, results_dir, policy='taxVirgin')
+    delta_tax_virgin = mismanaged_tax_virgin - mismanaged_2050
 
     bau_recycle = get_fate(2050, results_dir, fate='eolRecyclingMT')
     invest_recycle = get_fate(
@@ -178,6 +181,7 @@ def main():
         ),
         'investWastePercentMismanaged': round(invest_waste_percent, ndigits=1),
         'investWasteMismanaged': round(invest_waste_mismanaged, ndigits=1),
+        'deltaTaxVirgin': round(delta_tax_virgin, ndigits=1)
     }
 
     with open(template_loc) as f:

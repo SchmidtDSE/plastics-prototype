@@ -111,6 +111,18 @@ class ReportPresenter {
             false,
         );
 
+        self._landfillWastePresenter = null;
+        self._mismanagedWastePresenter = null;
+        self._incineratedWastePresenter = null;
+        self._recyclingPresenter = null;
+        self._bubblegraphPresenter = null;
+        self._configPresenter = null;
+        self._consumptionStagePresenter = null;
+        self._productionStagePresenter = null;
+        self._eolStagePresenter = null;
+        self._timeseriesPresenter = null;
+        self._sparklineSet = null;
+
         self.rebuildViz();
         self._setupResizeListener();
         self._setupTutorial();
@@ -270,6 +282,9 @@ class ReportPresenter {
         );
 
         const bubblegraphDiv = document.getElementById("bubblegraph-container");
+        if (self._bubblegraphPresenter !== null) {
+            self._bubblegraphPresenter.cleanUp();
+        }
         self._bubblegraphPresenter = new BubblegraphPresenter(
             bubblegraphDiv,
             (region) => self._onRegionChange(region),
@@ -311,6 +326,9 @@ class ReportPresenter {
         );
 
         const timeseriesDiv = document.getElementById("timeseries-container");
+        if (self._timeseriesPresenter !== null) {
+            self._timeseriesPresenter.cleanUp();
+        }
         self._timeseriesPresenter = new TimeseriesPresenter(
             timeseriesDiv,
             (year) => self._onYearChange(year),
