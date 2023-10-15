@@ -9,6 +9,7 @@ class ScorecardPresenter {
 
         self._targetDiv.querySelectorAll(".card").forEach((card) => {
             card.addEventListener("click", () => {
+                card.querySelector(".overview-radio").checked = true;
                 self._onGoalChange(card.getAttribute("goal"));
             });
         });

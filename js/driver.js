@@ -300,20 +300,29 @@ class Driver {
     _updateOutputs(businessAsUsual, withInterventions, timestamp) {
         const self = this;
 
-        const execute = () => {
+        const executeReport = () => {
             self._reportPresenter.render(businessAsUsual, withInterventions);
             self._overviewPresenter.render(businessAsUsual, withInterventions);
+        };
+
+        const executeLevers = () => {
             self._levers.forEach((lever) => lever.refreshSelection());
         };
 
         if (self._disableDelay) {
-            execute();
+            executeReport();
+            executeLevers();
         } else {
             setTimeout(() => {
                 if (timestamp == self._latestRequest) {
-                    execute();
+                    executeReport();
                 }
             }, 25);
+            setTimeout(() => {
+                if (timestamp == self._latestRequest) {
+                    executeLevers();
+                }
+            }, 1500);
         }
     }
 
