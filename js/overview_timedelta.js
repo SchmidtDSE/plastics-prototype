@@ -314,10 +314,13 @@ class TimeDeltaPresenter {
             self._d3Selection.select(".body")
                 .attr("aria-label", "Graph of: " + newTitle);
             
-            self._targetDiv.setAttribute(
-                "aria-label",
-                "Graph of: " + newTitle + ". Highlighted year: " + selectedYear
-            );
+            const ariaLabelContent = [
+                newTitle + ".",
+                "Highlighted year: " + selectedYear + ".",
+                "Use arrow keys to change year."
+            ].join(" ");
+
+            self._targetDiv.setAttribute("aria-label", ariaLabelContent);
         };
 
         const updateAxisRect = () => {

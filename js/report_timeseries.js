@@ -387,10 +387,13 @@ class TimeseriesPresenter {
                 self._tippyPrior.forEach((x) => x.setContent(self._message));
             }
 
-            self._targetDiv.setAttribute(
-                "aria-label",
-                getTitle() + ". Highlighted year: " + selectedYear
-            );
+            const ariaLabelContent = [
+                getTitle() + ".",
+                "Highlighted year: " + selectedYear + ".",
+                "Use arrow keys to change year."
+            ].join(" ");
+
+            self._targetDiv.setAttribute("aria-label", ariaLabelContent);
         };
 
         updateTitle();
