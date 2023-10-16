@@ -1,4 +1,5 @@
 import json
+import math
 import os
 import string
 import sys
@@ -6,6 +7,10 @@ import sys
 USAGE_STR = 'python render_guide.py [template] [output] [standalone dir]'
 NUM_ARGS = 3
 DEFAULT_YEAR = 2050
+NEW_YORK_AREA = 59.1
+EMPTY_BOTTLE_MASS = 0.000023
+ML_TO_KM = 0.0000000000005  #500mL is 0.0000000000005 cubic km
+MILES_PER_KM = 0.6213712
 
 
 def get_total_consumption(year, results_dir, region='global',
@@ -75,6 +80,20 @@ def get_fate(year, results_dir, region='global', policy='businessAsUsual',
 
 def get_percent_change(before, after):
     return (after - before) / before * 100
+
+
+def get_cone_height(mismanaged_waste_mmt):
+    city_area = NEW_YORK_AREA
+    cone_radius = math.sqrt(city_area / math.pi)
+    mismanaged_mass = mismanaged_waste_mmt * 1000000
+    number_bottles = (mismanaged_mass/EMPTY_BOTTLE_MASS)
+    mismanaged_volume = number_bottles * ML_TO_KM
+    cone_height = (3 * mismanaged_volume) / (math.pi * (cone_radius**2))
+    return cone_height
+
+
+def km_to_miles(km_valu):
+    return MILES_PER_KM * km_valu
 
 
 def main():
@@ -151,6 +170,19 @@ def main():
     invest_waste_mismanaged = get_fate(2050, results_dir, policy='wasteInvestment')
     invest_waste_percent = get_percent_change(mismanaged_2050, invest_waste_mismanaged)
 
+    tower_bau_mass = sum(map(
+        lambda year: get_fate(year, results_dir),
+        range(2010, 2051)
+    ))
+    tower_intervention_mass = sum(map(
+        lambda year: get_fate(year, results_dir, policy='highAmbition'),
+        range(2010, 2051)
+    ))
+    tower_bau_km = get_cone_height(tower_bau_mass)
+    tower_intervention_km = get_cone_height(tower_intervention_mass)
+    tower_bau_miles = km_to_miles(tower_bau_km)
+    tower_intervention_miles = km_to_miles(tower_intervention_km)
+
     template_vals = {
         'totalConsumptionChange': round(total_consumption_change, ndigits=1),
         'totalConsumption2024': round(total_consumption_2024, ndigits=1),
@@ -181,7 +213,13 @@ def main():
         ),
         'investWastePercentMismanaged': round(invest_waste_percent, ndigits=1),
         'investWasteMismanaged': round(invest_waste_mismanaged, ndigits=1),
-        'deltaTaxVirgin': round(delta_tax_virgin, ndigits=1)
+        'deltaTaxVirgin': round(delta_tax_virgin, ndigits=1),
+        'towerInterventionMiles': round(tower_intervention_miles, ndigits=1),
+        'towerInterventionKm': round(tower_intervention_km, ndigits=1),
+        'towerBauMiles': round(tower_bau_miles, ndigits=1),
+        'towerBauKm': round(tower_bau_km, ndigits=1),
+        'towerBauMass': round(tower_bau_mass, ndigits=1),
+        'towerInterventionMass': round(tower_intervention_mass, ndigits=1)
     }
 
     with open(template_loc) as f:

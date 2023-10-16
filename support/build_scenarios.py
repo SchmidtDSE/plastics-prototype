@@ -8,36 +8,59 @@ NUM_ARGS = 3
 USAGE_STR = 'USAGE: python build_scenarios.py [scenarios json] [job template] [output dir]'
 
 SCENARIOS = {
-    'minimumRecyclingRate': {'minmium-recycle-rate': 30},
-    'minimumRecycledContent': {'minmium-recycled-content': 30},
-    'capVirgin': {'cap-virgin': 1},
-    'banPsPackaging': {'ban-ps-packaging': 1},
-    'banSingleUse': {'ban-single-use': 90},
-    'reducedAdditives': {'reduced-additives': 60},
-    'recyclingInvestment': {'recycling-investment': 100},
-    'wasteInvestment': {'waste-investment': 100},
-    'taxVirgin': {'tax-virgin': 1},
-    'lowAmbition': {
-        'minmium-recycle-rate': 20,
-        'minmium-recycled-content': 20,
-        'ban-single-use': 30,
-        'reduced-additives': 30,
-        'recycling-investment': 10,
-        'waste-investment': 25
+    "snapshot": {
+        'minimumRecyclingRate': {'minmium-recycle-rate': 30},
+        'minimumRecycledContent': {'minmium-recycled-content': 30},
+        'capVirgin': {'cap-virgin': 1},
+        'banPsPackaging': {'ban-ps-packaging': 1},
+        'banSingleUse': {'ban-single-use': 90},
+        'reducedAdditives': {'reduced-additives': 60},
+        'recyclingInvestment': {'recycling-investment': 100},
+        'wasteInvestment': {'waste-investment': 100},
+        'taxVirgin': {'tax-virgin': 1},
+        'lowAmbition': {
+            'minmium-recycle-rate': 20,
+            'minmium-recycled-content': 20,
+            'ban-single-use': 30,
+            'reduced-additives': 30,
+            'recycling-investment': 10,
+            'waste-investment': 25
+        },
+        'highAmbition': {
+            'minmium-recycle-rate': 40,
+            'minmium-recycled-content': 40,
+            'cap-virgin': 1,
+            'ban-ps-packaging': 1,
+            'ban-single-use': 90,
+            'reduced-additives': 90,
+            'recycling-investment': 100,
+            'waste-investment': 100,
+            'tax-virgin': 2
+        },
+        'businessAsUsual': {}
     },
-    'highAmbition': {
-        'minmium-recycle-rate': 40,
-        'minmium-recycled-content': 40,
-        'cap-virgin': 1,
-        'ban-ps-packaging': 1,
-        'ban-single-use': 90,
-        'reduced-additives': 90,
-        'recycling-investment': 100,
-        'waste-investment': 100,
-        'tax-virgin': 2
-    },
-    'businessAsUsual': {},
-    'businessAsUsual2024': {}
+    "timeseries": {
+        'lowAmbition': {
+            'minmium-recycle-rate': 20,
+            'minmium-recycled-content': 20,
+            'ban-single-use': 30,
+            'reduced-additives': 30,
+            'recycling-investment': 10,
+            'waste-investment': 25
+        },
+        'highAmbition': {
+            'minmium-recycle-rate': 40,
+            'minmium-recycled-content': 40,
+            'cap-virgin': 1,
+            'ban-ps-packaging': 1,
+            'ban-single-use': 90,
+            'reduced-additives': 90,
+            'recycling-investment': 100,
+            'waste-investment': 100,
+            'tax-virgin': 2
+        },
+        'businessAsUsual': {}
+    }
 }
 
 
@@ -61,39 +84,45 @@ def main():
     with open(job_template_loc) as f:
         job_template = json.load(f)
     
-    for name in SCENARIOS:
-        scenario_info = SCENARIOS[name]
-        inputs = []
+    for timeseries_type in SCENARIOS:
+        for name in SCENARIOS[timeseries_type]:
+            scenario_info = SCENARIOS[timeseries_type][name]
+            inputs = []
 
-        for key in scenario_info:
-            scenario_value = scenario_info[key]
-            scenario = get_scenario(key, scenarios_json)
-            
-            if 'config' in scenario:
-                base_value = scenario['config']['default']
-                multiplier = scenario_value / base_value
-                for value in scenario['values']:
-                    inputs.append({
-                        'lever': value['lever'],
-                        'value': value['baseValue'] * multiplier
-                    })
+            for key in scenario_info:
+                scenario_value = scenario_info[key]
+                scenario = get_scenario(key, scenarios_json)
+                
+                if 'config' in scenario:
+                    base_value = scenario['config']['default']
+                    multiplier = scenario_value / base_value
+                    for value in scenario['values']:
+                        inputs.append({
+                            'lever': value['lever'],
+                            'value': value['baseValue'] * multiplier
+                        })
+                else:
+                    for value in scenario['values']:
+                        inputs.append({
+                            'lever': value['lever'],
+                            'value': value['value']
+                        })
+                
+            job_template['inputs'] = inputs
+
+            if timeseries_type == 'snapshot':
+                years = [2050]
             else:
-                for value in scenario['values']:
-                    inputs.append({
-                        'lever': value['lever'],
-                        'value': value['value']
-                    })
+                years = range(2010, 2050)
             
-        job_template['inputs'] = inputs
-
-        if name.endswith('2024'):
-            job_template['year'] = 2024
-        else:
-            job_template['year'] = 2050
-        
-        output_path = os.path.join(output_dir, name + '.json')
-        with open(output_path, 'w') as f:
-            json.dump(job_template, f)
+            for year in years:
+                if year != 2050:
+                    full_name = '%s%d' % (name, year)
+                else:
+                    full_name = name
+                output_path = os.path.join(output_dir, full_name + '.json')
+                with open(output_path, 'w') as f:
+                    json.dump(job_template, f)
 
 
 if __name__ == '__main__':
