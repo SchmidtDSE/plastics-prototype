@@ -54,6 +54,12 @@ List<String> WASTE_TOP_GROUPS;
 String CONSUMPTION_BOTTOM_GROUP;
 String WASTE_BOTTOM_GROUP;
 
+/**
+ * Load constants which need the sketch to be initalized first.
+ * 
+ * Load constants which need the sketch to be initalized first where these are pseudo-constants
+ * that should not change but cannot be initalized statically.
+ */
 void loadSemiconstants() {
   TITLE_FONT = loadFont("Lato-Medium-20.vlw");
   BODY_FONT = loadFont("Lato-Medium-12.vlw");

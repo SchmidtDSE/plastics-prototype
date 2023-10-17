@@ -1,13 +1,32 @@
+/**
+ * Logic to render the butterfly plot.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
+
+/**
+ * Horizontal butterfly plot.
+ */
 class Butterfly {
   
   private final Task task;
   private final Dataset dataset;
   
+  /**
+   * Create a new butterfly plot.
+   * 
+   * @param newTask Configuration with which the butterfly plot should be rendered.
+   * @param newDataset The dataset from which the butterfly plot will be rendered.
+   */
   public Butterfly(Task newTask, Dataset newDataset) {
     task = newTask;
     dataset = newDataset;
   }
   
+  /**
+   * Draw this plot.
+   */
   public void drawButterfly() {
     pushMatrix();
     pushStyle();
@@ -19,6 +38,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the data content of this plot without the axes.
+   */
   private void drawBody() {
     pushMatrix();
     pushStyle();
@@ -30,6 +52,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the bar chart going up.
+   */
   private void drawTop() {
     pushMatrix();
     pushStyle();
@@ -72,6 +97,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the bar chart going down.
+   */
   private void drawBottom() {
     pushMatrix();
     pushStyle();
@@ -110,6 +138,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the axes and chart contextual elements.
+   */
   private void drawAxes() {
     pushMatrix();
     pushStyle();
@@ -122,6 +153,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the horizontal axis.
+   */
   private void drawXAxis() {
     pushMatrix();
     pushStyle();
@@ -149,6 +183,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the vertical axis.
+   */
   private void drawYAxis() {
     pushMatrix();
     pushStyle();
@@ -210,6 +247,9 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Draw the title.
+   */
   private void drawTitle() {
     pushMatrix();
     pushStyle();
@@ -226,6 +266,12 @@ class Butterfly {
     popMatrix();
   }
   
+  /**
+   * Get the x coordinate for a glyph like a bar.
+   * 
+   * @param year The year that the glyph represents.
+   * @return Horizontal coordinate in pixels at which the glyph should be drawn.
+   */
   private float getX(int year) {
     return map(
       year,
@@ -236,6 +282,14 @@ class Butterfly {
     );
   }
   
+  /**
+   * Get the y coordinate for a glyph like height for a a bar.
+   * 
+   * @param value The value being rendered / represented by the glyph.
+   * @param top Flag indicating if this is for the top or bottom chart component in the butterfly.
+   *  True means the top chart and false means the bottom chart.
+   * @return Vertical coordinate in pixels at which or to which the glyph should be drawn.
+   */
   private float getY(float value, boolean top) {
     float valueMapped = top ? value : -1 * value;
     return map(
@@ -250,6 +304,9 @@ class Butterfly {
 }
 
 
+/**
+ * Legend for a horizontal butterfly plot.
+ */
 class Legend {
 
   private final Task task;
@@ -257,6 +314,14 @@ class Legend {
   private final int y;
   private final Dataset dataset;
   
+  /**
+   * Create a new legend.
+   * 
+   * @param newTask The configuration of the butterfly plot for which this legend is drawn.
+   * @param newX The horizontal coordinate at which the legend should be drawn.
+   * @param newY The vertical coordinate at which the legend should be drawn.
+   * @param newDataset The dataset represented by the butterfly plot for which this legend is drawn.
+   */
   public Legend(Task newTask, int newX, int newY, Dataset newDataset) {
     task = newTask;
     x = newX;
@@ -264,6 +329,9 @@ class Legend {
     dataset = newDataset;
   }
   
+  /**
+   * Draw this legend.
+   */
   public void drawLegend() {
     pushMatrix();
     pushStyle();
@@ -291,6 +359,9 @@ class Legend {
     popMatrix();
   }
   
+  /**
+   * Draw the label for single group with an embedded bar chart.
+   */
   public void drawGroup(String group, float curY) {
     pushMatrix();
     pushStyle();
