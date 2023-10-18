@@ -1,3 +1,9 @@
+/**
+ * Presenter which manages the scenario check box / sceneario builder on the overview tab.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 import {loadInputsFromString} from "file";
 
 const NO_CUSTOM_MSG = "Please make policy changes first and then try adding a new policy option";
@@ -5,23 +11,50 @@ const URL_MSG = "Please enter the share URL of the policy to add as a new option
 const CANCEL_MSG = "Cancelled adding policy option.";
 
 
+/**
+ * Lever structure which is not available to the user but represents a lever value internally.
+ *
+ * Lever structure which is not available to the user but represents a lever value internally like
+ * helping facilitate adding new scenario checkboxes.
+ */
 class VirtualLever {
+    /**
+     * Create a new lever structure not shown to the user.
+     *
+     * @param variable The name of the variable to include in the new scenario.
+     * @param value The value of the variable to include in the new scenario.
+     */
     constructor(variable, value) {
         const self = this;
         self._variable = variable;
         self._value = value;
     }
 
+    /**
+     * Get the name of the variable represented by this structure.
+     *
+     * @returns Name of the variable represented by this lever.
+     */
     getVariable() {
         const self = this;
         return self._variable;
     }
 
+    /**
+     * Get the current value of this lever.
+     *
+     * @returns The current virtual value of this lever.
+     */
     getValue() {
         const self = this;
         return self._value;
     }
 
+    /**
+     * Set the value of this lever.
+     *
+     * @param newValue The new value for this lever.
+     */
     setValue(newValue) {
         const self = this;
         self._value = newValue;
@@ -29,7 +62,19 @@ class VirtualLever {
 }
 
 
+/**
+ * Presenter which manages the scenario designer on the overview page.
+ */
 class ScenarioPresenter {
+    /**
+     * Create a new checkbox panel which serves as a scenario designer.
+     *
+     * @param targetDiv The div in which the panel is to be rendered.
+     * @param scenarios The scenario options to show the user.
+     * @param onPolicyChange Callback when the scenario selected by the user changes. Should take
+     *      a structure describing the scenario and a boolean indicating if that scenario component
+     *      is checked as on by the user.
+     */
     constructor(targetDiv, scenarios, onPolicyChange) {
         const self = this;
 
@@ -50,6 +95,11 @@ class ScenarioPresenter {
         self._setupAddDialog();
     }
 
+    /**
+     * Update the current policy scenario selected by the user in the tool.
+     *
+     * @param baseline The current policy scenario which can be further refined in this component.
+     */
     updateSelection(baseline) {
         const self = this;
         const inputValues = baseline.get("in");

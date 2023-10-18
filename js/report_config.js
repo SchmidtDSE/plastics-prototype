@@ -1,8 +1,33 @@
+/**
+ * Logic for the selection components appearing at the top of the detailed tab.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 import {ALL_REGIONS, DISPLAY_STAGES, DISPLAY_TYPES, HISTORY_START_YEAR, MAX_YEAR} from "const";
 import {STRINGS} from "strings";
 
 
+/**
+ * Presenter for the details tab selection configuration component.
+ *
+ * Presenter for the component at the top of the detailed tab which allows the user to refine the
+ * selection like year and region.
+ */
 class ConfigPresenter {
+    /**
+     * Create presenter to start managing the configuration section at the top of the detailed tab.
+     *
+     * @param targetDiv Div where the controls are rendered.
+     * @param onStageChange Callback to invoke if the stage (production, consumption, EOL) is
+     *      changed.
+     * @param onRegionChange Callback to invoke if the user changes the selected region.
+     * @param onYearChange Callback to invoke if the user changes the highlighted year.
+     * @param onTypeChange Callback to invoke if the user changes the type (like percent,
+     *      cumulative) of metric to show is updated by the user.
+     * @param onShowBauChange Callback to invoke if the user changes if change to business as usual
+     *      is highlighted.
+     */
     constructor(targetDiv, onStageChange, onRegionChange, onYearChange,
         onTypeChange, onShowBauChange) {
         const self = this;
@@ -30,6 +55,12 @@ class ConfigPresenter {
         self._setupBauCheck();
     }
 
+    /**
+     * Update the configuration display.
+     *
+     * @param stateSet The set of state Maps having gone through the policy simulation.
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 
@@ -40,6 +71,9 @@ class ConfigPresenter {
         self._showBauDeltaCheck.checked = selection.getShowBauDelta() ? 1 : 0;
     }
 
+    /**
+     * Allow the user to select the delta from BAU checkbox.
+     */
     showDeltaCheck() {
         const self = this;
         self._targetDiv.querySelector(".delta-check-holder").style.display = "block";

@@ -1,18 +1,43 @@
+/**
+ * Utilities to compile plastics language interventions.
+ *
+ * @license BSD, see LICENSE.md.
+ */
+
 import {CompileVisitor, toolkit} from "visitors";
 
 
+/**
+ * Structure contianing the result of attempting to compile a plastics language script.
+ */
 class CompileResult {
+    /**
+     * Create a new record of a compilation attempt.
+     *
+     * @param program The compiled program as a lambda if successful or null if unsuccessful.
+     * @param errors Any errors enountered or empty list if no errors.
+     */
     constructor(program, errors) {
         const self = this;
         self._program = program;
         self._errors = errors;
     }
 
+    /**
+     * Get the program as a lambda.
+     *
+     * @returns The compiled program as a lambda or null if compilation failed.
+     */
     getProgram() {
         const self = this;
         return self._program;
     }
 
+    /**
+     * Get errors encountered in compiling the plastics language script.
+     *
+     * @returns Errors or empty list if no errors.
+     */
     getErrors() {
         const self = this;
         return self._errors;
@@ -20,7 +45,17 @@ class CompileResult {
 }
 
 
+/**
+ * Utility to facilitate the compilation of plastics language scripts.
+ */
 class Compiler {
+    /**
+     * Compile a script.
+     *
+     * @param input The plastics language code to compile.
+     * @returns CompileResult describing the outcome of the compilation attempt and, if applicable,
+     *      the built lambda.
+     */
     compile(input) {
         const self = this;
 
@@ -68,6 +103,11 @@ class Compiler {
 }
 
 
+/**
+ * Build a new compiler.
+ *
+ * @returns Promise resolving to a new compiler utility.
+ */
 function buildCompiler() {
     return new Promise((resolve) => resolve(new Compiler()));
 }

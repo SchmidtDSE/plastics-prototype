@@ -1,3 +1,19 @@
+/**
+ * Post-processing logic for the projections.
+ *
+ * Post-processing logic for the projections, allowing for operations like making the projections
+ * relative to business as usual or cumulative.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
+
+/**
+ * Make the projections cumulative.
+ *
+ * @param target Multi-year proejction set from which to pull raw values.
+ * @returns New multi-year projection set with cumulative values.
+ */
 function makeCumulative(target) {
     const priorValues = new Map();
 
@@ -48,6 +64,12 @@ function makeCumulative(target) {
 }
 
 
+/**
+ * Make the projections relative to business as usual
+ *
+ * @param target Multi-year proejction set from which to pull raw values.
+ * @returns New multi-year projection set with deltas to BAU.
+ */
 function makeYearDelta(target, baseline) {
     const years = Array.of(...target.keys());
 

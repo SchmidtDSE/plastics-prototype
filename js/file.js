@@ -1,3 +1,10 @@
+/**
+ * Utilities for saving and loading tool state (configuration options) and requeesting remote
+ * resources.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 const SHARE_CONFIRM_MSG = [
     "A sharable URL with your policy selections has been copied to your",
     "clipboard. Paste and send that URL to share it with others.",
@@ -29,6 +36,12 @@ const IRRECOVERABLE_ERROR_MSG = [
 let irrecoverableErrorShown = false;
 
 
+/**
+ * Write the current state of the inputs / levers to a string.
+ *
+ * @param leversByVariable The levers in a Map indexed by variable name.
+ * @returns String serialization of inputs / levers current state.
+ */
 function writeInputsToString(leversByVariable) {
     return Array.of(...leversByVariable.values())
         .map((x) => {
@@ -40,6 +53,12 @@ function writeInputsToString(leversByVariable) {
 }
 
 
+/**
+ * Deserialize lever / input states from a string serialization.
+ *
+ * @param urlString The string from which to parse the tool state.
+ * @param leversByVariable The Map structure into which the serialization should be loaded.
+ */
 function loadInputsFromString(urlString, leversByVariable) {
     urlString.split("&")
         .map((param) => param.split("="))
@@ -59,7 +78,18 @@ function loadInputsFromString(urlString, leversByVariable) {
 }
 
 
+/**
+ * Presenter which manages state serialization.
+ */
 class FilePresenter {
+    /**
+     * Create a new pesenter to manage state persistence / serialization.
+     *
+     * @param leversByVariable Mapping from variable name to lever that this presenter should
+     *      operate on top of.
+     * @param onRequestRender Callback to invoke when this presenter needs the visualization
+     *      rerendered.
+     */
     constructor(leversByVariable, onRequestRender) {
         const self = this;
         self._leversByVariable = leversByVariable;
@@ -67,6 +97,9 @@ class FilePresenter {
         self._attachListeners();
     }
 
+    /**
+     * Attach event listeners like on share links.
+     */
     _attachListeners() {
         const self = this;
         document.querySelectorAll(".share-link").forEach((elem) => {
@@ -98,6 +131,13 @@ class FilePresenter {
         });
     }
 
+    /**
+     * Write the current tool state to the clipboard as a URL serialization.
+     *
+     * Write the current tool state to the clipboard as a URL serialization, informing the user that
+     * their clipboard has been updated. Note that this will update the browser location / URL with
+     * the current serialization.
+     */
     writeToClipboard() {
         const self = this;
         self.writeToUrl();
@@ -106,17 +146,26 @@ class FilePresenter {
         });
     }
 
+    /**
+     * Write the current tool state to the browser URL.
+     */
     writeToUrl() {
         const self = this;
         self._writeInputsToUrl(self._leversByVariable);
     }
 
+    /**
+     * Load the tool state from the current browser URL.
+     */
     loadFromUrl() {
         const self = this;
         self._loadInputsFromUrl(self._leversByVariable);
         self._onRequestRender();
     }
 
+    /**
+     * Write serialization of current tool state to browser local storage.
+     */
     writeToLocal() {
         const self = this;
 
@@ -130,6 +179,9 @@ class FilePresenter {
         alert(SAVE_CONFIRM_MSG);
     }
 
+    /**
+     * Load a tool state serialization from local browser storage.
+     */
     loadFromLocal() {
         const self = this;
 
@@ -147,6 +199,9 @@ class FilePresenter {
         self._onRequestRender();
     }
 
+    /**
+     * Reset the visualization to the default business as usual state.
+     */
     reset() {
         const self = this;
 
@@ -200,6 +255,12 @@ class FilePresenter {
 }
 
 
+/**
+ * Perform a HTTP Get with multiple retires.
+ *
+ * @param url The URL to request
+ * @returns Promise resolving to the fetch response.
+ */
 function fetchWithRetry(url) {
     return new Promise((resolve, reject) => {
         let tries = 0;
