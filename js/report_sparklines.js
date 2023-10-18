@@ -1,3 +1,9 @@
+/**
+ * Logic for the sparklines appearing below the lage timeseries chart on the details tab.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {
     ALL_ATTRS,
     COLORS,
@@ -13,8 +19,19 @@ import {
 } from "const";
 import {STRINGS} from "strings";
 
-
+/**
+ * Presenter for the details tab timeseries sparkline.
+ */
 class SparklinePresenter {
+
+    /**
+     * Create a new sparkline presenter to manage a new sparkline.
+     * 
+     * @param attrName The name of the attribute (like sector) being displayed by this presenter.
+     * @param color The color the line of this presenter should use.
+     * @param targetDiv The div where this presenter should render. 
+     * @param onYearChange Callback to invoke if the user changes the selected year.
+     */
     constructor(attrName, color, targetDiv, onYearChange) {
         const self = this;
 
@@ -27,6 +44,12 @@ class SparklinePresenter {
         self._initElements();
     }
 
+    /**
+     * Update the display.
+     * 
+     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 
@@ -288,7 +311,17 @@ class SparklinePresenter {
 }
 
 
+/**
+ * Presenter which manages a collection of individual sparkline presenters.
+ */
 class SparklinesSet {
+
+    /**
+     * Create a new set of sparklines each with a sparkline presenter.
+     * 
+     * @param targetDiv The div where the sparklines should be rendered.
+     * @param onYearChange Callback to invoke if the year selected by the user changes.
+     */
     constructor(targetDiv, onYearChange) {
         const self = this;
 
@@ -300,6 +333,12 @@ class SparklinesSet {
         self._sparklines = self._buildSparklines(onYearChange);
     }
 
+    /**
+     * Update the display.
+     * 
+     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 

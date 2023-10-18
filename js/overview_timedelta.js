@@ -1,3 +1,9 @@
+/**
+ * Logic for the timeseries chart on the overview tab.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {
     HISTORY_START_YEAR,
     MAX_YEAR,
@@ -6,7 +12,19 @@ import {
 import {STRINGS} from "strings";
 
 
+/**
+ * Presenter for the timeseries chart displayed on the overview tab. 
+ */
 class TimeDeltaPresenter {
+
+    /**
+     * Start running a new presenter for the overview timeseries chart.
+     * 
+     * @param targetDiv The div in which the chart is rendered.
+     * @param attrName The name of the metric (goal metric) to be displayed. See GOALS.
+     * @param metricName Name of metric treatment like cumulative.
+     * @param onYearChange Callback to invoke if the user changes the selected year.
+     */
     constructor(targetDiv, attrName, metricName, onYearChange) {
         const self = this;
 
@@ -23,6 +41,9 @@ class TimeDeltaPresenter {
         self._initElements();
     }
 
+    /**
+     * Clean up elements before the visualization is destroyed or reconstructed.
+     */
     cleanUp() {
         const self = this;
         if (self._tippyPrior !== null) {
@@ -30,16 +51,34 @@ class TimeDeltaPresenter {
         }
     }
 
+    /**
+     * Change the attribute being shown to the user.
+     * 
+     * @param newAttr THe name fo the new attribute like GOALS.mismanagedWaste.
+     */
     setAttr(newAttr) {
         const self = this;
         self._attrName = newAttr;
     }
 
+    /**
+     * Change the metric treatment being used.
+     * 
+     * @param newMetric The new metric treatment like cumulative.
+     */
     setMetric(newMetric) {
         const self = this;
         self._metricName = newMetric;
     }
 
+    /**
+     * Re-render this component.
+     * 
+     * @param businessAsUsuals The business as usual projections. 
+     * @param withInterventions The projections having applied the intervention scenario.
+     * @param selectedYear The year highlighted by the user.
+     * @param sparseTicks Flag indicating if the axis ticks should be spread out.
+     */
     render(businessAsUsuals, withInterventions, selectedYear, sparseTicks) {
         const self = this;
 

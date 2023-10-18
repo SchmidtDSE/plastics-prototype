@@ -81,6 +81,7 @@ This project uses the following:
  - Primarily, front-end tests are supported through Grunt (`grunt`) and QUnit. Meanwhile style is generally enforced eslint (`npx eslint ./js/*.js`).
  - Note that CI / CD may execute other tests and all pull requests should be passing all test and lint operations before merge.
  - When in doubt, please follow the [JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html).
+ - Try to provide docstrings / JSDoc for public members (note that the `support` directory is excluded from this requirement at this time).
  - Reviewers may also impose certain requirements around usability and accessibility as to be discussed during reviews.
 
 Please be kind. Open source is an act of love.

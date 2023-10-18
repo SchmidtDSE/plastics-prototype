@@ -1,8 +1,25 @@
+/**
+ * Logic for the goals summary components appearing at the top of the detailed tab.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {ALL_REGIONS, DISPLAY_TYPES} from "const";
 import {STRINGS, UNITS} from "strings";
 
 
+/**
+ * Presenter for a goal summary component appearing at the top of the detailed tab.
+ */
 class GoalPresenter {
+
+    /**
+     * 
+     * @param targetDiv  Div where the display is rendered. 
+     * @param goalName The name of the goal (see const.GOALS) being displayed by this presenter.
+     * @param onRegionChange Callback to invoke if the user changes the selected region.
+     * @param requestRender Callback to request visualization re-render.
+     */
     constructor(targetDiv, goalName, onRegionChange, requestRender) {
         const self = this;
 
@@ -14,6 +31,12 @@ class GoalPresenter {
         self._d3Selection = self._getD3().select("#" + targetDiv.id);
     }
 
+    /**
+     * Update the display.
+     * 
+     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 

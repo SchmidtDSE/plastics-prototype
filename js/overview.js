@@ -1,3 +1,10 @@
+/**
+ * Central presenter which manages the overview tab and the compontent presenters underneath.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
+
 import {
     ALL_REGIONS,
     CACHE_BUSTER,
@@ -17,7 +24,19 @@ import {ScorecardPresenter} from "overview_scorecard";
 import {TimeDeltaPresenter} from "overview_timedelta";
 
 
+/**
+ * Presenter to manage the overall overview tab.
+ */
 class OverviewPresenter {
+
+    /**
+     * Create a new presenter to start managing the overview tab.
+     * 
+     * @param scenarios The scenario component options to display on the overview tab.
+     * @param onRequestRender Callback to invoke when the visualization needs to be re-rendered.
+     * @param onPolicyChange Callback to invoke if the user has changed the policy scenario.
+     * @param onYearChange Callback to invoke if the user changed the year selection.
+     */
     constructor(scenarios, onRequestRender, onPolicyChange, onYearChange) {
         const self = this;
 
@@ -68,16 +87,31 @@ class OverviewPresenter {
         self._setupTutorial();
     }
 
+    /**
+     * Determine if the user has requested cumulative values to be displayed.
+     * 
+     * @returns True if should use cumulative values and false otherwise. 
+     */
     getCumulativeEnabled() {
         const self = this;
         return self._metricSwitch.value === "cumulative";
     }
 
+    /**
+     * Determine if the user has requested values be shown as a delta against the reference year.
+     * 
+     * @returns True if the reference should be used and false otherwise. 
+     */
     getYearDeltaEnabled() {
         const self = this;
         return self._metricSwitch.value === "reference";
     }
 
+    /**
+     * Update the year highlighted by the user.
+     * 
+     * @param year The new year to highlight.
+     */
     setYear(year) {
         const self = this;
 
@@ -85,6 +119,12 @@ class OverviewPresenter {
         self._onRequestRender();
     }
 
+    /**
+     * Re-render all of the components of the overview tab.
+     * 
+     * @param businessAsUsuals The business as usual projections.  
+     * @param withInterventions The projections having applied scenario interventions.
+     */
     render(businessAsUsuals, withInterventions) {
         const self = this;
 

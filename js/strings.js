@@ -1,3 +1,9 @@
+/**
+ * String constants with human readable text to explain visualization variables.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {DISPLAY_TYPES, DISPLAY_STAGES, GOALS} from "const";
 
 

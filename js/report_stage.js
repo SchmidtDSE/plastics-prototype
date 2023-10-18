@@ -1,3 +1,9 @@
+/**
+ * Logic for the combination menu / bar graph overview of different stages.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {
     COLORS,
     CONSUMPTION_ATTRS,
@@ -10,7 +16,22 @@ import {
 import {STRINGS, UNITS} from "strings";
 
 
+/**
+ * Presenter for the stage presenter which typically appears on the left side of the details tab.
+ * 
+ * Presenter which summaries different stages for the user and allows for selection from among those
+ * stages where stages include production, consumption, and waste / end of life.
+ */
 class StagePresenter {
+
+    /**
+     * Create a new stage presenter to manage the stage summary / selection widget.
+     * 
+     * @param targetDiv The div where the stage presenter / selector is rendered. 
+     * @param stage The stage currently selected like production.
+     * @param onStageChange Callback to invoke if the user changes the highlighted stage. 
+     * @param requestRender Callback to invoke if the visualiztation needs to be redrawn.
+     */
     constructor(targetDiv, stage, onStageChange, requestRender) {
         const self = this;
 
@@ -68,6 +89,12 @@ class StagePresenter {
         self._colorScale = colorScaleConstructors.get(self._stage)();
     }
 
+    /**
+     * Update the display.
+     * 
+     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 

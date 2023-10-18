@@ -1,3 +1,9 @@
+/**
+ * Logic for the large timeseries in the detailed tab.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import {
     COLORS,
     CONSUMPTION_ATTRS,
@@ -13,7 +19,18 @@ import {
 import {STRINGS} from "strings";
 
 
+/**
+ * Presenter to run the large timeseries plot in the details tab.
+ */
 class TimeseriesPresenter {
+
+    /**
+     * Create a new presenter to manage the large timeseries plot in the details tab.
+     * 
+     * @param targetDiv The div where the visualization is rendered.
+     * @param onYearChange Callback to invoke if the user changes the selected year.
+     * @param requestRender Callback to invoke if the whole visualization needs redraw.
+     */
     constructor(targetDiv, onYearChange, requestRender) {
         const self = this;
 
@@ -79,6 +96,9 @@ class TimeseriesPresenter {
         });
     }
 
+    /**
+     * Clean up elements before the visualization is destroyed or reconstructed.
+     */
     cleanUp() {
         const self = this;
         if (self._tippyPrior !== null) {
@@ -86,6 +106,12 @@ class TimeseriesPresenter {
         }
     }
 
+    /**
+     * Update the display.
+     * 
+     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 
