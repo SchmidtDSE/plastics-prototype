@@ -1,9 +1,9 @@
 /**
  * Utilities to generate state Maps for the plastics decision support tool.
- * 
+ *
  * Utilities to generate state Maps for the plastics decision support tool, objects fed into
  * plastics language scripts.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -12,16 +12,15 @@ import {CACHE_BUSTER} from "const";
 
 /**
  * Utility to operate on business as usual data, the records on which simulation is performed.
- * 
+ *
  * Utility to operate on business as usual data, the records on which simulation is performed. This
  * is technically a facade which allows for request of state objects (Map) which are fed into
  * plastics language scripts.
  */
 class DataLayer {
-
     /**
      * Create a new data management facade.
-     * 
+     *
      * @param baseline Raw business as usual data.
      * @param getLevers Function which returns the current state of the levers or policy sliders.
      *      Should return an interable over objects with getValue and getVariable methods like
@@ -46,8 +45,8 @@ class DataLayer {
 
     /**
      * Create a new state object (as Map).
-     * 
-     * @param year The year for which a state object should be built. 
+     *
+     * @param year The year for which a state object should be built.
      * @returns Newly constructed state object as a Map.
      */
     buildState(year) {
@@ -93,7 +92,7 @@ class DataLayer {
 
 /**
  * Build a data management facade
- * 
+ *
  * @param getLevers Function which returns the current state of the levers or policy sliders.
  *      Should return an interable over objects with getValue and getVariable methods like
  *      SliderPresenters.

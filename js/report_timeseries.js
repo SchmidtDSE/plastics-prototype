@@ -1,6 +1,6 @@
 /**
  * Logic for the large timeseries in the detailed tab.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -23,10 +23,9 @@ import {STRINGS} from "strings";
  * Presenter to run the large timeseries plot in the details tab.
  */
 class TimeseriesPresenter {
-
     /**
      * Create a new presenter to manage the large timeseries plot in the details tab.
-     * 
+     *
      * @param targetDiv The div where the visualization is rendered.
      * @param onYearChange Callback to invoke if the user changes the selected year.
      * @param requestRender Callback to invoke if the whole visualization needs redraw.
@@ -108,8 +107,8 @@ class TimeseriesPresenter {
 
     /**
      * Update the display.
-     * 
-     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     *
+     * @param stateSet The set of state Maps having gone through the policy simulation.
      * @param selection Structure describing the selections made by the user like year and region.
      */
     update(stateSet, selection) {

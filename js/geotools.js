@@ -1,6 +1,6 @@
 /**
  * Tools to calculate metrics and meta values by region.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -9,7 +9,7 @@ import {ALL_ATTRS} from "const";
 
 /**
  * Calculate global statistics from region statistics for a state Map
- * 
+ *
  * @param state The state Map in which the global statistics should be added.
  */
 function addGlobalToState(state) {
@@ -41,7 +41,7 @@ function addGlobalToState(state) {
 
 /**
  * Make a collection of year state Maps into percent differences.
- * 
+ *
  * @param target The new values.
  * @param reference The old values.
  * @returns The states with relative values.
@@ -64,7 +64,7 @@ function getRelative(target, reference) {
 
 /**
  * Convert a stat Map for a single year into percent change.
- * 
+ *
  * @param target The new values.
  * @param reference The old values.
  * @returns The newly constructed state object (Map).

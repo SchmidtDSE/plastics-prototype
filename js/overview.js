@@ -1,6 +1,6 @@
 /**
  * Central presenter which manages the overview tab and the compontent presenters underneath.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -28,10 +28,9 @@ import {TimeDeltaPresenter} from "overview_timedelta";
  * Presenter to manage the overall overview tab.
  */
 class OverviewPresenter {
-
     /**
      * Create a new presenter to start managing the overview tab.
-     * 
+     *
      * @param scenarios The scenario component options to display on the overview tab.
      * @param onRequestRender Callback to invoke when the visualization needs to be re-rendered.
      * @param onPolicyChange Callback to invoke if the user has changed the policy scenario.
@@ -89,8 +88,8 @@ class OverviewPresenter {
 
     /**
      * Determine if the user has requested cumulative values to be displayed.
-     * 
-     * @returns True if should use cumulative values and false otherwise. 
+     *
+     * @returns True if should use cumulative values and false otherwise.
      */
     getCumulativeEnabled() {
         const self = this;
@@ -99,8 +98,8 @@ class OverviewPresenter {
 
     /**
      * Determine if the user has requested values be shown as a delta against the reference year.
-     * 
-     * @returns True if the reference should be used and false otherwise. 
+     *
+     * @returns True if the reference should be used and false otherwise.
      */
     getYearDeltaEnabled() {
         const self = this;
@@ -109,7 +108,7 @@ class OverviewPresenter {
 
     /**
      * Update the year highlighted by the user.
-     * 
+     *
      * @param year The new year to highlight.
      */
     setYear(year) {
@@ -121,8 +120,8 @@ class OverviewPresenter {
 
     /**
      * Re-render all of the components of the overview tab.
-     * 
-     * @param businessAsUsuals The business as usual projections.  
+     *
+     * @param businessAsUsuals The business as usual projections.
      * @param withInterventions The projections having applied scenario interventions.
      */
     render(businessAsUsuals, withInterventions) {

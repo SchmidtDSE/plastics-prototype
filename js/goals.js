@@ -1,6 +1,6 @@
 /**
  * Utilities to calculate high level metrics elevated to the user as "goal" metrics.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -9,7 +9,7 @@ import {ALL_REGIONS, CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
 
 /**
  * Get the high level goal metrics.
- * 
+ *
  * @param target The state object (Map) for a year to be modified.
  * @returns Map from name of metric to goal metric value.
  */

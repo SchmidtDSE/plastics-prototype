@@ -1,6 +1,6 @@
 /**
  * Logic for a top line presenter which manages the details tab.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -29,16 +29,15 @@ import {TimeseriesPresenter} from "report_timeseries";
  * Structure describing the selection like region and year made by the user.
  */
 class ReportSelection {
-    
     /**
      * Create a new structure describing a visualization / report configuration made by the user.
-     * 
+     *
      * @param year The year to highlight.
      * @param region The region like nafta to highlight.
      * @param displayType The type of metric to display like amount (see DISPLAY_TYPES).
-     * @param displayStage The stage to display to the user like production. 
+     * @param displayStage The stage to display to the user like production.
      * @param showBauDelta Flag indicating if the user should be shown change from business as
-     *      usual. 
+     *      usual.
      */
     constructor(year, region, displayType, displayStage, showBauDelta) {
         const self = this;
@@ -52,7 +51,7 @@ class ReportSelection {
 
     /**
      * Get the year to highlight.
-     * 
+     *
      * @returns Year to be highlighted.
      */
     getYear() {
@@ -62,7 +61,7 @@ class ReportSelection {
 
     /**
      * Get the region to be highlighted.
-     * 
+     *
      * @returns The region like nafta to highlight.
      */
     getRegion() {
@@ -72,7 +71,7 @@ class ReportSelection {
 
     /**
      * Get the type of metric to show.
-     * 
+     *
      * @reutrns The type of metric to display like amount (see DISPLAY_TYPES).
      */
     getDisplayType() {
@@ -82,8 +81,8 @@ class ReportSelection {
 
     /**
      * Get the stage to highlight.
-     * 
-     * @returns The stage to display to the user like production. 
+     *
+     * @returns The stage to display to the user like production.
      */
     getDisplayStage() {
         const self = this;
@@ -92,7 +91,7 @@ class ReportSelection {
 
     /**
      * Determine if the user should be shown absolute values or changes from business as usual.
-     * 
+     *
      * @returns Flag indicating if the user should be shown change from business as usual. True if
      *      deltas from business as usual should be shown. False if absolute values.
      */
@@ -107,14 +106,13 @@ class ReportSelection {
  * Set of projections to display within the visualization.
  */
 class VizStateSet {
-
     /**
      * Collection of model / simulation outputs.
-     * 
+     *
      * @param businessAsUsualRaw Business as usual projections.
      * @param businessAsUsualTransformed Business as usual with post-processing of data.
      * @param withInterventionsRaw Projections after having applied scenario interventions.
-     * @param withInterventionsTransformed Projections with interventions after post-processing. 
+     * @param withInterventionsTransformed Projections with interventions after post-processing.
      * @param selectedYear The year to highlight.
      */
     constructor(businessAsUsualRaw, businessAsUsualTransformed,
@@ -129,8 +127,8 @@ class VizStateSet {
 
     /**
      * Get business as usual projections over time.
-     * 
-     * @param useRaw Flag indicating if post-processed data should be returned. 
+     *
+     * @param useRaw Flag indicating if post-processed data should be returned.
      * @returns Returns all years of business as usual projections.
      */
     getAllBusinessAsUsuals(useRaw) {
@@ -141,8 +139,8 @@ class VizStateSet {
 
     /**
      * Get business as usual projections for a year.
-     * 
-     * @param useRaw Flag indicating if post-processed data should be returned. 
+     *
+     * @param useRaw Flag indicating if post-processed data should be returned.
      * @param year The year for which projections should be returned.
      * @returns Returns a year of business as usual projections.
      */
@@ -155,8 +153,8 @@ class VizStateSet {
 
     /**
      * Get projections after applying interventions.
-     * 
-     * @param useRaw Flag indicating if post-processed data should be returned. 
+     *
+     * @param useRaw Flag indicating if post-processed data should be returned.
      * @returns Returns all years of intervention projections.
      */
     getAllWithInterventions(useRaw) {
@@ -167,8 +165,8 @@ class VizStateSet {
 
     /**
      * Get intervention projections for a year.
-     * 
-     * @param useRaw Flag indicating if post-processed data should be returned. 
+     *
+     * @param useRaw Flag indicating if post-processed data should be returned.
      * @param year The year for which projections should be returned.
      * @returns Returns a year of intervention projections.
      */
@@ -185,12 +183,11 @@ class VizStateSet {
  * Presenter which runs the details tab, coordinating among children presenters.
  */
 class ReportPresenter {
-
     /**
      * Create a new presenter to manage the details tab.
-     * 
-     * @param onRequestRender Callback to invoke if the visualization needs to be redrawn. 
-     * @param onYearChange Callback to invoke if the user changes the highlighted year. 
+     *
+     * @param onRequestRender Callback to invoke if the visualization needs to be redrawn.
+     * @param onYearChange Callback to invoke if the user changes the highlighted year.
      */
     constructor(onRequestRender, onYearChange) {
         const self = this;
@@ -225,8 +222,8 @@ class ReportPresenter {
 
     /**
      * Indicate the year to be highlighted in the report.
-     * 
-     * @param year New year to highlight. 
+     *
+     * @param year New year to highlight.
      */
     setYear(year) {
         const self = this;
@@ -244,9 +241,9 @@ class ReportPresenter {
 
     /**
      * Re-render this and all children presenters.
-     * 
-     * @param businessAsUsual The projections over time in business as usual. 
-     * @param withInterventions The projections over time with interventions applied. 
+     *
+     * @param businessAsUsual The projections over time in business as usual.
+     * @param withInterventions The projections over time with interventions applied.
      */
     render(businessAsUsual, withInterventions) {
         const self = this;
@@ -320,7 +317,7 @@ class ReportPresenter {
 
     /**
      * Get the current visualization configuration selected by the user.
-     * 
+     *
      * @returns A ReportSelection describing the current visualization configuration.
      */
     getSelection() {

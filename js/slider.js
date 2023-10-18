@@ -1,6 +1,6 @@
 /**
  * Logic graphical representation of simulation levers.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -15,18 +15,17 @@ import {STRINGS} from "strings";
  * Presenter which provides a slider representation of a simulation parameter (lever).
  */
 class SliderPresenter {
-
     /**
      * Create a new slider presenter.
-     * 
+     *
      * @param buildState Function to invoke to get a new state Map.
-     * @param compileProgram Function to invoke to compile a plastics language program. 
+     * @param compileProgram Function to invoke to compile a plastics language program.
      * @param config The lever configuratoin.
      * @param rootElement Element where this slider is to be rendered.
      * @param onChange Callback to invoke if the slider / lever value is changed.
      * @param getSelection Function to invoke to get the current visualization selection
      *      (ReportSelection).
-     * @param priority The priority level assigned to this lever. 
+     * @param priority The priority level assigned to this lever.
      */
     constructor(buildState, compileProgram, config, rootElement, onChange,
         getSelection, priority) {
@@ -51,8 +50,8 @@ class SliderPresenter {
 
     /**
      * Get the variable name represented by this lever.
-     * 
-     * @returns The name of the variable manipulated by this slider. 
+     *
+     * @returns The name of the variable manipulated by this slider.
      */
     getVariable() {
         const self = this;
@@ -61,8 +60,8 @@ class SliderPresenter {
 
     /**
      * Get the current value of this lever.
-     * 
-     * @returns Current value of this variable. 
+     *
+     * @returns Current value of this variable.
      */
     getValue() {
         const self = this;
@@ -72,8 +71,8 @@ class SliderPresenter {
 
     /**
      * Set the value of this variable.
-     * 
-     * @param value The new value to assign to this lever / slider. 
+     *
+     * @param value The new value to assign to this lever / slider.
      */
     setValue(value) {
         const self = this;
@@ -96,7 +95,7 @@ class SliderPresenter {
 
     /**
      * Compile the current program assigned to this lever.
-     * 
+     *
      * @returns The compilation of the current code for this lever which may be edited by the user.
      */
     getProgram() {
@@ -131,7 +130,7 @@ class SliderPresenter {
 
     /**
      * Show the inspection table for debugging.
-     * 
+     *
      * @param inspects Array describing the inspection results.
      */
     showInspects(inspects) {
@@ -172,7 +171,7 @@ class SliderPresenter {
 
     /**
      * Get the priority level associated with this lever.
-     * 
+     *
      * @returns Priority level assigned to this lever as an integer.
      */
     getPriority() {

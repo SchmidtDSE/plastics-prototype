@@ -1,6 +1,6 @@
 /**
  * String constants with human readable text to explain visualization variables.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 

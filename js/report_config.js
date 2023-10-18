@@ -1,6 +1,6 @@
 /**
  * Logic for the selection components appearing at the top of the detailed tab.
- * 
+ *
  * @license BSD, see LICENSE.md
  */
 
@@ -10,16 +10,15 @@ import {STRINGS} from "strings";
 
 /**
  * Presenter for the details tab selection configuration component.
- * 
+ *
  * Presenter for the component at the top of the detailed tab which allows the user to refine the
  * selection like year and region.
  */
 class ConfigPresenter {
-
     /**
-     * Create presenter to start managing the configuration section at the top of the detailed tab. 
-     * 
-     * @param targetDiv Div where the controls are rendered. 
+     * Create presenter to start managing the configuration section at the top of the detailed tab.
+     *
+     * @param targetDiv Div where the controls are rendered.
      * @param onStageChange Callback to invoke if the stage (production, consumption, EOL) is
      *      changed.
      * @param onRegionChange Callback to invoke if the user changes the selected region.
@@ -58,8 +57,8 @@ class ConfigPresenter {
 
     /**
      * Update the configuration display.
-     * 
-     * @param stateSet The set of state Maps having gone through the policy simulation. 
+     *
+     * @param stateSet The set of state Maps having gone through the policy simulation.
      * @param selection Structure describing the selections made by the user like year and region.
      */
     update(stateSet, selection) {
