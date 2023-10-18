@@ -1,3 +1,9 @@
+/**
+ * Common constants for the plastics decision support tool.
+ *
+ * @license BSD, see LICENSE.md.
+ */
+
 const ALL_REGIONS = [
     "global",
     "china",

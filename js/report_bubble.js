@@ -1,3 +1,9 @@
+/**
+ * Logic for the bubble chart appearing at the bottom of the detailed tab.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 import {
     ALL_REGIONS,
     COLORS,
@@ -15,7 +21,20 @@ import {STRINGS} from "strings";
 const ALL_REGIONS_SORTED = ALL_REGIONS.filter((x) => x !== "global").concat(["global"]);
 
 
+/**
+ * Presenter for the detailed tab bubblegraph.
+ *
+ * Presenter for the bubblegraph appearing at the bottom of the detailed tab which shows cross-
+ * regional information.
+ */
 class BubblegraphPresenter {
+    /**
+     * Create a new presenter to start managing the bubblegraph.
+     *
+     * @param targetDiv Div where the bubblegraph is rendered.
+     * @param onRegionChange Callback to invoke if the user changes the selected region.
+     * @param requestRender Callback to invoke if the visualizaiton needs to be redrawn.
+     */
     constructor(targetDiv, onRegionChange, requestRender) {
         const self = this;
 
@@ -159,6 +178,9 @@ class BubblegraphPresenter {
         });
     }
 
+    /**
+     * Clean up elements before the visualization is destroyed or reconstructed.
+     */
     cleanUp() {
         const self = this;
         if (self._tippyPrior !== null) {
@@ -166,6 +188,12 @@ class BubblegraphPresenter {
         }
     }
 
+    /**
+     * Re-render this graphic.
+     *
+     * @param stateSet The set of state Maps having gone through the policy simulation.
+     * @param selection Structure describing the selections made by the user like year and region.
+     */
     update(stateSet, selection) {
         const self = this;
 

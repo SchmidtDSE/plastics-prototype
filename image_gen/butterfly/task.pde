@@ -1,54 +1,176 @@
+/**
+ * Structures describing the configuration with which a butterfly plot should be drawn.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
+/**
+ * Task or set of configuration options with which a butterfly plot should be drawn.
+ */
 interface Task {
   
+  /**
+   * Get the title that should be displayed at the top of the butterfly plot.
+   * 
+   * @return Text to appear at the top of the plot.
+   */
   public String getTitle();
   
+  /**
+   * Get the label for the horizontal axis.
+   * 
+   * @return Text to appear on the x axis of the plot.
+   */
   public String getXLabel();
   
+  /**
+   * Get the label for the vertical axis.
+   * 
+   * @return Text to appear on the y axis of the plot.
+   */
   public String getYLabel();
   
+  /**
+   * Get the region for which the butterfly plot is being rendered.
+   * 
+   * @return Region like nafta.
+   */
   public String getRegion();
   
+  /**
+   * Get the list of groups to appear on the bar chart going upwards.
+   * 
+   * @return Groups with names like "Construction" to appear on the top component of the butterfly
+   *    plot.
+   */
   public List<String> getTopGroups();
   
+  /**
+   * Get the list of groups to appear on the bar chart going downwards.
+   * 
+   * @return Groups with names like "Construction" to appear on the bottom component of the
+   *    butterfly plot.
+   */
   public String getBottomGroup();
   
+  /**
+   * Get the color in which glyphs belonging to a group should be drawn.
+   * 
+   * @param groupName The name of the group like "Construction" for which a color is needed.
+   */
   public color getColor(String groupName);
   
+  /**
+   * Get the earliest year to be included in the plot.
+   * 
+   * @return The minimum year in the plot.
+   */
   public int getMinYear();
   
+  /**
+   * Get the latest year to be included in the plot.
+   * 
+   * @return The maximum year in the plot.
+   */
   public int getMaxYear();
   
+  /**
+   * Get the value at which the butterfly plot should split.
+   * 
+   * @return Get the value at which the butterfly plot should start the top and bottom components.
+   */
   public int getCenterValue();
   
+  /**
+   * Get the max value to show on the upwards axis.
+   * 
+   * @return Maximum value to draw in the axis labels for the top buttefly component.
+   */
   public int getMaxValueTop();
   
+  /**
+   * Get the max value to show on the downwards axis.
+   * 
+   * @return Maximum value to draw in the axis labels for the bottom buttefly component.
+   */
   public int getMaxValueBottom();
   
+  /**
+   * Get the increments between years.
+   * 
+   * @return Increment on the horizontal axis labels.
+   */
   public int getXStep();
   
+  /**
+   * Get the increments between values.
+   * 
+   * @return Increment on the vertical axis labels.
+   */
   public int getYStep();
   
+  /**
+   * Get the minimum x coordinate at which the plot should be drawn.
+   * 
+   * @return Starting horizontal coordinate in pixels.
+   */
   public int getMinX();
   
+  /**
+   * Get the maximum x coordinate at which the plot should be drawn.
+   * 
+   * @return Ending horizontal coordinate in pixels.
+   */
   public int getMaxX();
   
+  /**
+   * Get the minimum y coordinate at which the plot should be drawn.
+   * 
+   * @return Starting vertical coordinate in pixels.
+   */
   public int getMinY();
   
+  /**
+   * Get the maximum y coordinate at which the plot should be drawn.
+   * 
+   * @return Ending vertical coordinate in pixels.
+   */
   public int getMaxY();
   
+  /**
+   * Determine if this is the "hero" or highlighted image.
+   * 
+   * @return True if this is the hero image and false if a small multiple.
+   */
   public boolean isHero();
   
+  /**
+   * Determine if this graphic is showing consumption.
+   * 
+   * @return True if showing consumption and false if showing waste.
+   */
   public boolean isConsumption();
   
 }
 
 
+/**
+ * Standard butterfly task with parameters for flexible drawing.
+ */
 class TemplateTask implements Task {
   
   private final String metric;
   private final int groupNumber;
   private final String region;
   
+  /**
+   * Fill in a template for a task.
+   * 
+   * @param newMetric The metric like "waste" to be drawn.
+   * @param newGroupNumber The index or order of this plot within the bigger image. May be
+   *    HERO_GROUP.
+   * @param newRegion The region for which a butterfly plot is needed.
+   */
   public TemplateTask(String newMetric, int newGroupNumber, String newRegion) {
     metric = newMetric;
     groupNumber = newGroupNumber;

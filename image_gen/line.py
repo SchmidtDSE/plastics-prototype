@@ -1,3 +1,8 @@
+"""Script to generate a simple set of line plots for the guide section.
+
+License:
+    BSD, see LICENSE.md
+"""
 import sys
 import sqlite3
 
@@ -10,6 +15,11 @@ USAGE_STR = 'python line.py [database] [output png]'
 
 
 def hide_spines(ax):
+    """Convienence function to hide the spines.
+    
+    Args:
+        ax: The matplotlib axis in which to hide the spines.
+    """
     ax.spines['top'].set_visible(False)
     ax.spines['left'].set_visible(False)
     ax.spines['right'].set_visible(False)
@@ -17,6 +27,13 @@ def hide_spines(ax):
 
 
 def plot_region_consumption(ax, attribute, source):
+    """Plot the consumption for a region.
+    
+    Args:
+        ax: The matplotlib axes in which to add the plot.
+        attribute: The column with the consumption data to plot.
+        source: The frame from which data should be pulled.
+    """
     for region in ['china', 'eu30', 'nafta', 'row']:
         view = source[source['year'] >= 2010]
         region_data = view[view['region'] == region]
@@ -50,6 +67,7 @@ def plot_region_consumption(ax, attribute, source):
 
 
 def main():
+    """Main entry point to the script."""
     if len(sys.argv) != NUM_ARGS + 1:
         print(USAGE_STR)
         sys.exit(1)

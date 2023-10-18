@@ -1,8 +1,17 @@
+/**
+ * Simple sketch to draw a butterfly or stacked bar plot for consumption and waste by region.
+ * 
+ * @license BSD, see LICENSE.md
+ */
+
 import java.util.*;
 
 Dataset dataset;
 
 
+/**
+ * Run the sketch.
+ */
 void setup() {
   size(1000, 700);
   try {
@@ -13,6 +22,9 @@ void setup() {
 }
 
 
+/**
+ * Run the sketch without error catching.
+ */
 void runSketch() {
   loadSemiconstants();
 
@@ -67,6 +79,9 @@ void runSketch() {
 }
 
 
+/**
+ * Exit after having rendered the images.
+ */
 void draw() {
   exit();
 }

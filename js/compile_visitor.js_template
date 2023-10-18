@@ -1,15 +1,28 @@
 /**
- * Visitor which compiles the PT program to JS functions.
+ * Logic to interpret a plastics language script.
  *
- * Visitor which compiles the PT program to JS functions, returning a list of
- * functions which take in a State object and can be run in series one per
+ * @license BSD, see LICENSE.md.
+ * @note Thanks to https://snorristurluson.github.io/AntlrCalc/ for lambda formulation whose website
+ *      content is under MIT License (https://github.com/snorristurluson/snorristurluson.github.io/
+ *      blob/master/LICENSE). See README.md for other helpful resources related to this language and
+ *      ANTLR. In particular, interested developers should look at https://github.com/bkiers/
+ *      tiny-language-antlr4.
+ */
+
+
+/**
+ * Visitor which compiles the PT program to JS lambdas.
+ *
+ * Visitor which compiles the PT program to JS lambdas, returning a list of
+ * lambdas which take in a State object and can be run in series one per
  * program frame render.
  */
 class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit a number node with interpretation of number modifiers.
      *
-     * @return Function which takes in a State object and returns a float
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float
      *     corresponding to number value (literal) intended by the user.
      */
     visitNumber(ctx) {
@@ -31,7 +44,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit expression which adds or subtracts two other expressions.
      *
-     * @return Function which takes in a State object and returns a float.
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float.
      */
     visitAdditionExpression(ctx) {
         const self = this;
@@ -48,7 +62,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit expression which resolves to a single number.
      *
-     * @return Function which takes in a State object and returns a float.
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float.
      */
     visitSimpleExpression(ctx) {
         const self = this;
@@ -58,7 +73,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit expression which is inside parantheses.
      *
-     * @return Function which takes in a State object and returns a float.
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float.
      */
     visitParenExpression(ctx) {
         const self = this;
@@ -68,7 +84,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit expression which raises to a power.
      *
-     * @return Function which takes in a State object and returns a float.
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float.
      */
     visitPowExpression(ctx) {
         const self = this;
@@ -85,7 +102,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit expression which multiplies or divides two other expressions.
      *
-     * @return Function which takes in a State object and returns a float.
+     * @ctx ANTLR context.
+     * @return Lambda which takes in a State object and returns a float.
      */
     visitMultiplyExpression(ctx) {
         const self = this;
@@ -104,6 +122,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Visit an expression containing a variable identifier.
+     *
+     * @param ctx ANTLR context
+     * @returns Lambda which takes in a State and returns the value of the identifier.
+     */
     visitSimpleIdentifier(ctx) {
         const self = this;
 
@@ -114,12 +138,24 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Determine how long the lifecycle is for a set of goods.
+     *
+     * @param ctx ANTLR context
+     * @returns The mean lifecycle duration for the set of goods in years.
+     */
     visitLifecycleExpression(ctx) {
         const self = this;
 
         return ctx.getChild(0).accept(self);
     }
 
+    /**
+     * Determine how long the lifecycle is for a set of goods.
+     *
+     * @param ctx ANTLR context
+     * @returns The mean lifecycle duration for the set of goods in years.
+     */
     visitLifecycle(ctx) {
         const self = this;
 
@@ -196,6 +232,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Interpret a line of code which defines a local variable.
+     *
+     * @param ctx ANTLR context.
+     * @returns Local variable definition lambda.
+     */
     visitDefinition(ctx) {
         const self = this;
 
@@ -216,6 +258,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Interpret code which assigns a new value to a variable.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda which assigns a variable.
+     */
     visitAssignment(ctx) {
         const self = this;
 
@@ -261,6 +309,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Visit the condition of a conditional statement.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda to evaluate the condition.
+     */
     visitCondition(ctx) {
         const self = this;
 
@@ -286,6 +340,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Visit a conditional statement similar to a Python turninary operation.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda to evaluate the conditional.
+     */
     visitConditional(ctx) {
         const self = this;
 
@@ -302,6 +362,15 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Visit a statement which ensures a value is within a certain range, setting it to the max if
+     * too high or the minimum if too low.
+     *
+     * @param ctx ANTLR context
+     * @param opFunc Function taking in the value to cap and the cap level, returning the value
+     *      after applying the cap.
+     * @returns Lambda to evaluate the cap command.
+     */
     visitCallCap(ctx, opFunc) {
         const self = this;
 
@@ -317,16 +386,35 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Ensure a value is at or above a certain value.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda to enforce the minimum.
+     */
     visitCallMin(ctx) {
         const self = this;
         return self.visitCallCap(ctx, (a, b) => a < b ? a : b);
     }
 
+    /**
+     * Ensure a value is at or below a certain value.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda to enforce the maximum.
+     */
     visitCallMax(ctx) {
         const self = this;
         return self.visitCallCap(ctx, (a, b) => a > b ? a : b);
     }
 
+    /**
+     * Evaluate a two sided bound, ensuring a value is within a certain range by setting it to the
+     * max if too high or the minimum if too low.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda to enforce the bounds.
+     */
     visitCallBound(ctx) {
         const self = this;
 
@@ -354,18 +442,38 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Distribute a value across variables using the current variable values themselves as weights.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda which performs the distribution.
+     */
     visitDistributeDirect(ctx) {
         const self = this;
         const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 2.0);
         return self.visitDistributeStrategy(ctx, numIdentifiers, false);
     }
 
+    /**
+     * Distribute a value across variables using custom weights.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda which performs the distribution.
+     */
     visitDistributeIndirect(ctx) {
         const self = this;
         const numIdentifiers = Math.ceil((ctx.getChildCount() - 6) / 4.0);
         return self.visitDistributeStrategy(ctx, numIdentifiers, true);
     }
 
+    /**
+     * Helper function to execute a distribute command.
+     *
+     * @param ctx ANTLR context.
+     * @param numIdentifiers The number of identifiers to which the value is being distributed.
+     * @param hasBy True if custom weights and false if using the variable prior values as weights.
+     * @returns Lambda for fulfilling the distribution action.
+     */
     visitDistributeStrategy(ctx, numIdentifiers, hasBy) {
         const self = this;
 
@@ -423,6 +531,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     *
+     *
+     * @param ctx
+     * @returns
+     */
     visitInspect(ctx) {
         const self = this;
 
@@ -435,6 +549,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Generate a lambda to evaluate a change over time.
+     *
+     * @param ctx ANTLR context.
+     * @returns Lambda which performs the change over time.
+     */
     visitTarget(ctx) {
         const self = this;
 
@@ -467,6 +587,13 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Get the value of an identifier.
+     *
+     * @param raw Identifier name which may include nesting like out.nafta.
+     * @param state The state object in which to find this value.
+     * @returns The value of the identifier.
+     */
     _getValue(raw, state) {
         const resolved = raw.indexOf(".") == -1 ? "local." + raw : raw;
         const pieces = resolved.split(".");
@@ -480,6 +607,13 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return value;
     }
 
+    /**
+     * Set the value of an identifier.
+     *
+     * @param name Identifier name which may include nesting like out.nafta.
+     * @param result The value to assign.
+     * @param state The state object in which to find this value.
+     */
     _setValue(name, result, state) {
         const self = this;
 

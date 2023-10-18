@@ -1,3 +1,9 @@
+/**
+ * Entry point for the standalone engine.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 import fs from "fs";
 
 import papaparse from "papaparse";
@@ -29,17 +35,36 @@ const NUM_ARGS = 2;
 const USAGE_STR = "USAGE: npm run standalone [job] [output]";
 
 
+/**
+ * Load a JSON file with promises.
+ *
+ * @param loc File path
+ * @returns Promise resolving to parsed json.
+ */
 function loadJson(loc) {
     return fs.promises.readFile(loc)
         .then((data) => JSON.parse(data));
 }
 
 
+/**
+ * Write to a JSON file with promises.
+ *
+ * @param payload The contents to serialize and write.
+ * @param loc File path
+ * @returns Promise resolving after writing.
+ */
 function writeJson(payload, loc) {
     return fs.promises.writeFile(loc, JSON.stringify(payload, null, 4));
 }
 
 
+/**
+ * Scaffold the workspace.
+ *
+ * @param jobInfo Contents of the JSON job description file.
+ * @returns Promsie that resolves after the workspace is created.
+ */
 function buildWorkspace(jobInfo) {
     const loadOutputData = (loc, targetYear) => {
         const loadRawData = () => {
@@ -128,6 +153,12 @@ function buildWorkspace(jobInfo) {
 }
 
 
+/**
+ * Build lever representations.
+ *
+ * @param jobInfo Contents of the JSON job description file.
+ * @returns Promise resolving to the levers with compiled code.
+ */
 function buildLevers(jobInfo) {
     const parseProgram = (input) => {
         if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
@@ -211,6 +242,13 @@ function buildLevers(jobInfo) {
 }
 
 
+/**
+ * Add the levers to a workspace.
+ *
+ * @param workspace The workspace in which to add the levers.
+ * @param levers The levers to be added.
+ * @returns Reference to the workspace which has been modified in place.
+ */
 function consolidateWorkspace(workspace, levers) {
     workspace.set("levers", levers);
 
@@ -228,6 +266,12 @@ function consolidateWorkspace(workspace, levers) {
 }
 
 
+/**
+ * Execute all of the levers in a workspace.
+ *
+ * @param workspace The workspace in which to execute.
+ * @returns Reference to workspace which was modified in place.
+ */
 function executeWorkspace(workspace) {
     const levers = workspace.get("levers");
     levers.filter((x) => x["compiled"] !== null).forEach((lever) => {
@@ -239,6 +283,12 @@ function executeWorkspace(workspace) {
 }
 
 
+/**
+ * Serialize outputs from having run a simulation in the stand-alone engine.
+ *
+ * @param workspace The workspace to serialize.
+ * @returns The serialization (simple JS object).
+ */
 function serializeOutputs(workspace) {
     const output = {};
     const regions = workspace.get("out");
@@ -253,6 +303,9 @@ function serializeOutputs(workspace) {
 }
 
 
+/**
+ * Main script entry point
+ */
 function main() {
     if (process.argv.length != NUM_ARGS + 2) {
         console.error(USAGE_STR);

@@ -1,4 +1,21 @@
+/**
+ * Logic for overview scorecards.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
+
+/**
+ * Presenter for the scorecards which show high level goal metrics on the overview tab.
+ */
 class ScorecardPresenter {
+    /**
+     * Create a new scorecard presenter.
+     *
+     * @param targetDiv Div in which the scorecards are rendered.
+     * @param onGoalChange Callback if the user changes the highlighted goal metric.
+     * @param prefix Flag indicating if the plus / minus sign should be forced to be shown.
+     */
     constructor(targetDiv, onGoalChange, prefix) {
         const self = this;
 
@@ -15,6 +32,13 @@ class ScorecardPresenter {
         });
     }
 
+    /**
+     * Render the card or update it if already present.
+     *
+     * @param year Year for which the metrics are to be shown.
+     * @param goals The goal metric calculations.
+     * @param selectedGoal Goal currently highlighted by the user.
+     */
     render(year, goals, selectedGoal) {
         const self = this;
 

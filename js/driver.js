@@ -1,4 +1,10 @@
-import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+/**
+ * Entrypoint for the plastics decision support tool.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
+import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -8,7 +14,16 @@ import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
 
+/**
+ * Top level presenter that run delegation to component-level presenters.
+ */
 class Driver {
+    /**
+     * Create a new driver.
+     *
+     * @param disableDelay True if render delays for performace should be disabled and false
+     *      otherwise.
+     */
     constructor(disableDelay) {
         const self = this;
 
@@ -36,11 +51,23 @@ class Driver {
         self._pauseUiLoop = true;
     }
 
+    /**
+     * Indicate if UI updates should be paused like during bulk updates.
+     *
+     * @param shouldPause True if the UI updates should be paused and false otherwise.
+     */
     setPauseUiLoop(shouldPause) {
         const self = this;
         self._pauseUiLoop = shouldPause;
     }
 
+    /**
+     * Initialize the decision support tool.
+     *
+     * @param includeDevelopment True if unreleased levers should be included and false if they
+     *      should be hidden.
+     * @returns Promise which resolves after the initalization is complete.
+     */
     init(includeDevelopment) {
         const self = this;
 
@@ -164,11 +191,22 @@ class Driver {
         });
     }
 
+    /**
+     * Get a collection of SliderPresenters.
+     *
+     * @returns Levers in the visualization.
+     */
     _getLevers() {
         const self = this;
         return self._levers;
     }
 
+    /**
+     * Build a state Map for year which can be run through plastics language interventinos.
+     *
+     * @param year The year for which to build the state.
+     * @returns State as a Map.
+     */
     _buildState(year) {
         const self = this;
 
@@ -181,6 +219,11 @@ class Driver {
         return state;
     }
 
+    /**
+     * Build a state Map for the currently selected year.
+     *
+     * @returns State which can be fed into the plastics language scripts.
+     */
     _buildStateForCurrentYear() {
         const self = this;
 
@@ -190,11 +233,23 @@ class Driver {
         return state;
     }
 
+    /**
+     * Convienence function which can compile plastics language scripts to lambdas.
+     *
+     * @param code String code to be compiled.
+     * @returns Lambda compiled from the code.
+     */
     _compileProgram(code) {
         const self = this;
         return self._compiler.compile(code);
     }
 
+    /**
+     * Build states for all years in the simulation tool.
+     *
+     * @param runPrograms True if the scripts should be run and false otherwise.
+     * @returns Map from year to state Map for that year.
+     */
     _getStates(runPrograms) {
         const self = this;
 
@@ -243,12 +298,20 @@ class Driver {
         return states;
     }
 
+    /**
+     * Callback when the sliders / levers change.
+     */
     _onSlidersChange() {
         const self = this;
         self._reportPresenter.showDeltaCheck();
         self._onInputChange();
     }
 
+    /**
+     * Callback when the year selected in the simulation (highlighted) is changed.
+     *
+     * @param year The year to select in the tool.
+     */
     _onYearChange(year) {
         const self = this;
 
@@ -257,6 +320,9 @@ class Driver {
         self._onInputChange();
     }
 
+    /**
+     * Callback for when any visualization inputs (including levers) are changed.
+     */
     _onInputChange() {
         const self = this;
 
@@ -297,6 +363,14 @@ class Driver {
         }
     }
 
+    /**
+     * Update the output displays in the visualization.
+     *
+     * @param businessAsUsual Business as usual projections.
+     * @param withInterventions BAU projections after applying plastics scripts interventions.
+     * @param timestamp The timestamp for when this update was requested. This will be cancelled if
+     *      an update with a later timestamp is requested afterwards.
+     */
     _updateOutputs(businessAsUsual, withInterventions, timestamp) {
         const self = this;
 
@@ -326,11 +400,23 @@ class Driver {
         }
     }
 
+    /**
+     * Add global values to a state Map.
+     *
+     * @param state The state Map to which global values should be added.
+     * @returns The state Map after updated.
+     */
     _addGlobalToState(state) {
         const self = this;
         return addGlobalToState(state);
     }
 
+    /**
+     * Establish listeners for when the browser dimension changes.
+     *
+     * Establish listeners for when the browser dimension changes, causing an update in layout if
+     * needed.
+     */
     _setupLayoutListeners() {
         const self = this;
 
@@ -352,6 +438,14 @@ class Driver {
         });
     }
 
+    /**
+     * Callback when a policy has changed.
+     *
+     * @param change Structure (object) describing a change in different levers with name of lever
+     *      ("lever") and the new value ("value").
+     * @param selected True if the value of the lever should be updated to the value provided. False
+     *      if the lever should be reset to default.
+     */
     _onPolicyChange(change, selected) {
         const self = this;
 
@@ -370,12 +464,20 @@ class Driver {
         self._onInputChange();
     }
 
+    /**
+     * Get the d3 library entrypoint.
+     *
+     * @returns Get the d3 object.
+     */
     _getD3() {
         const self = this;
         // eslint-disable-next-line no-undef
         return d3;
     }
 
+    /**
+     * Update which set of tabs are selected based on window location hash.
+     */
     _updateTabVisibility() {
         const self = this;
         const hash = window.location.hash;
@@ -402,6 +504,17 @@ class Driver {
 }
 
 
+/**
+ * Start the decision support tool.
+ *
+ * @param shouldPause True if updates should be paused so that UI updates are disabled. False if
+ *      updates should be allowed at the start. This can be changed with setPauseUiLoop.
+ * @param includeDevelopment True if unreleased levers should be included and false if they should
+ *      be hidden.
+ * @param disableDelay Disable UI paauses between updates. True if updates should be instant and
+ *      false if the delays should be included.
+ * @returns Promise which resolves after initialization.
+ */
 function main(shouldPause, includeDevelopment, disableDelay) {
     const driver = new Driver(disableDelay);
     driver.setPauseUiLoop(shouldPause);
