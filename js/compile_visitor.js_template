@@ -1,6 +1,6 @@
 /**
  * Logic to interpret a plastics language script.
- * 
+ *
  * @license BSD, see LICENSE.md.
  * @note Thanks to https://snorristurluson.github.io/AntlrCalc/ for lambda formulation whose website
  *      content is under MIT License (https://github.com/snorristurluson/snorristurluson.github.io/
@@ -18,7 +18,6 @@
  * program frame render.
  */
 class CompileVisitor extends toolkit.PlasticsLangVisitor {
-
     /**
      * Visit a number node with interpretation of number modifiers.
      *
@@ -125,7 +124,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Visit an expression containing a variable identifier.
-     * 
+     *
      * @param ctx ANTLR context
      * @returns Lambda which takes in a State and returns the value of the identifier.
      */
@@ -141,7 +140,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Determine how long the lifecycle is for a set of goods.
-     * 
+     *
      * @param ctx ANTLR context
      * @returns The mean lifecycle duration for the set of goods in years.
      */
@@ -153,7 +152,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Determine how long the lifecycle is for a set of goods.
-     * 
+     *
      * @param ctx ANTLR context
      * @returns The mean lifecycle duration for the set of goods in years.
      */
@@ -235,7 +234,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Interpret a line of code which defines a local variable.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Local variable definition lambda.
      */
@@ -261,8 +260,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Interpret code which assigns a new value to a variable.
-     * 
-     * @param ctx ANTLR context. 
+     *
+     * @param ctx ANTLR context.
      * @returns Lambda which assigns a variable.
      */
     visitAssignment(ctx) {
@@ -312,7 +311,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Visit the condition of a conditional statement.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Lambda to evaluate the condition.
      */
@@ -343,7 +342,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Visit a conditional statement similar to a Python turninary operation.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Lambda to evaluate the conditional.
      */
@@ -366,8 +365,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Visit a statement which ensures a value is within a certain range, setting it to the max if
      * too high or the minimum if too low.
-     * 
-     * @param ctx ANTLR context 
+     *
+     * @param ctx ANTLR context
      * @param opFunc Function taking in the value to cap and the cap level, returning the value
      *      after applying the cap.
      * @returns Lambda to evaluate the cap command.
@@ -389,8 +388,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Ensure a value is at or above a certain value.
-     * 
-     * @param ctx ANTLR context. 
+     *
+     * @param ctx ANTLR context.
      * @returns Lambda to enforce the minimum.
      */
     visitCallMin(ctx) {
@@ -400,8 +399,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Ensure a value is at or below a certain value.
-     * 
-     * @param ctx ANTLR context. 
+     *
+     * @param ctx ANTLR context.
      * @returns Lambda to enforce the maximum.
      */
     visitCallMax(ctx) {
@@ -412,7 +411,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     /**
      * Evaluate a two sided bound, ensuring a value is within a certain range by setting it to the
      * max if too high or the minimum if too low.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Lambda to enforce the bounds.
      */
@@ -445,7 +444,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Distribute a value across variables using the current variable values themselves as weights.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Lambda which performs the distribution.
      */
@@ -457,7 +456,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Distribute a value across variables using custom weights.
-     * 
+     *
      * @param ctx ANTLR context.
      * @returns Lambda which performs the distribution.
      */
@@ -469,8 +468,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Helper function to execute a distribute command.
-     * 
-     * @param ctx ANTLR context. 
+     *
+     * @param ctx ANTLR context.
      * @param numIdentifiers The number of identifiers to which the value is being distributed.
      * @param hasBy True if custom weights and false if using the variable prior values as weights.
      * @returns Lambda for fulfilling the distribution action.
@@ -533,10 +532,10 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
     }
 
     /**
-     * 
-     * 
-     * @param ctx 
-     * @returns 
+     *
+     *
+     * @param ctx
+     * @returns
      */
     visitInspect(ctx) {
         const self = this;
@@ -552,8 +551,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Generate a lambda to evaluate a change over time.
-     * 
-     * @param ctx ANTLR context. 
+     *
+     * @param ctx ANTLR context.
      * @returns Lambda which performs the change over time.
      */
     visitTarget(ctx) {
@@ -590,8 +589,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Get the value of an identifier.
-     * 
-     * @param raw Identifier name which may include nesting like out.nafta. 
+     *
+     * @param raw Identifier name which may include nesting like out.nafta.
      * @param state The state object in which to find this value.
      * @returns The value of the identifier.
      */
@@ -610,8 +609,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Set the value of an identifier.
-     * 
-     * @param name Identifier name which may include nesting like out.nafta. 
+     *
+     * @param name Identifier name which may include nesting like out.nafta.
      * @param result The value to assign.
      * @param state The state object in which to find this value.
      */
