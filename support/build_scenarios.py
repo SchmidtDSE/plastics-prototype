@@ -120,6 +120,7 @@ def main():
                     full_name = '%s%d' % (name, year)
                 else:
                     full_name = name
+                job_template['year'] = year
                 output_path = os.path.join(output_dir, full_name + '.json')
                 with open(output_path, 'w') as f:
                     json.dump(job_template, f)
