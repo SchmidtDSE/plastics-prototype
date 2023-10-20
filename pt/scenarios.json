@@ -115,25 +115,49 @@
       "released": true
     },
     {
+      "name": "Ban Waste Trade",
+      "id": "ban-waste-trade",
+      "description": "Policy which globally bans waste trade. Assumes EOL fate propensities are stable and generally consistent within region.",
+      "values": [
+        {
+          "lever": "chinaWasteTradeReduction",
+          "value": 100
+        },
+        {
+          "lever": "eu30WasteTradeReduction",
+          "value": 100
+        },
+        {
+          "lever": "naftaWasteTradeReduction",
+          "value": 100
+        },
+        {
+          "lever": "rowWasteTradeReduction",
+          "value": 100
+        }
+      ],
+      "released": true
+    },
+    {
       "name": "Cap to 2025 Virgin Production",
       "id": "cap-virgin",
       "description": "Require that annual virgin plastic production is capped to 2025 levels. The caps are set to match roughly 2025 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
       "values": [
         {
           "lever": "chinaVirginPlasticCap",
-          "value": 140
+          "value": 145
         },
         {
           "lever": "eu30VirginPlasticCap",
-          "value": 60
+          "value": 55
         },
         {
           "lever": "naftaVirginPlasticCap",
-          "value": 85
+          "value": 90
         },
         {
           "lever": "rowVirginPlasticCap",
-          "value": 150
+          "value": 140
         }
       ],
       "released": true

@@ -901,6 +901,82 @@
             "label": "Trade",
             "levers": [
                 {
+                    "name": "China Reduce Waste Trade",
+                    "description": "The amount by which to change China's waste trade (imports and exports) such that 100% means waste trade ban.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaWasteTradeReduction",
+                    "template": "waste_trade.pt",
+                    "released": true,
+                    "priority": 99,
+                    "attrs": {
+                        "region": "china",
+                        "otherRegions": ["eu30", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "EU 30 Reduce Waste Trade",
+                    "description": "The amount by which to change EU 30's waste trade (imports and exports) such that 100% means waste trade ban.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30WasteTradeReduction",
+                    "template": "waste_trade.pt",
+                    "released": true,
+                    "priority": 99,
+                    "attrs": {
+                        "region": "eu30",
+                        "otherRegions": ["china", "nafta", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "NAFTA Reduce Waste Trade",
+                    "description": "The amount by which to change NAFTA's waste trade (imports and exports) such that 100% means waste trade ban.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaWasteTradeReduction",
+                    "template": "waste_trade.pt",
+                    "released": true,
+                    "priority": 99,
+                    "attrs": {
+                        "region": "nafta",
+                        "otherRegions": ["china", "eu30", "row"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
+                    "name": "RoW Reduce Waste Trade",
+                    "description": "The amount by which to change rest of world's waste trade (imports and exports) such that 100% means waste trade ban.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowWasteTradeReduction",
+                    "template": "waste_trade.pt",
+                    "released": true,
+                    "priority": 99,
+                    "attrs": {
+                        "region": "row",
+                        "otherRegions": ["china", "eu30", "nafta"]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {
                     "name": "China Change Waste Imports",
                     "description": "The amount by which to change China's waste imports.",
                     "min": 0,
