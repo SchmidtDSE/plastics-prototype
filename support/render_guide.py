@@ -149,6 +149,9 @@ def main():
     mismanaged_tax_virgin = get_fate(2050, results_dir, policy='taxVirgin')
     delta_tax_virgin = mismanaged_tax_virgin - mismanaged_2050
 
+    mismanaged_ban_waste_trade = get_fate(2050, results_dir, policy='banWasteTrade')
+    delta_ban_waste_trade = mismanaged_ban_waste_trade - mismanaged_2050
+
     bau_recycle = get_fate(2050, results_dir, fate='eolRecyclingMT')
     invest_recycle = get_fate(
         2050, 
@@ -219,7 +222,8 @@ def main():
         'towerBauMiles': round(tower_bau_miles, ndigits=1),
         'towerBauKm': round(tower_bau_km, ndigits=1),
         'towerBauMass': round(tower_bau_mass, ndigits=1),
-        'towerInterventionMass': round(tower_intervention_mass, ndigits=1)
+        'towerInterventionMass': round(tower_intervention_mass, ndigits=1),
+        'deltaBanWasteTrade': round(delta_ban_waste_trade, ndigits=1)
     }
 
     with open(template_loc) as f:

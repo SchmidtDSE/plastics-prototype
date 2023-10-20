@@ -7,6 +7,7 @@ RUN apt-get install -y openjdk-17-jdk openjdk-17-jre
 RUN apt-get install -y nodejs npm
 RUN apt-get install -y wget
 RUN apt-get install -y nginx
+RUN apt-get install -y unzip
 
 RUN npm install -g n
 RUN n 18.18.1

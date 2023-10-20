@@ -1,0 +1,19 @@
+# Determine overall effect
+var curImport = in.{{ region }}DeltaWasteImport + out.{{ region }}.netWasteImportMT;
+var curExport = in.{{ region }}DeltaWasteExport + out.{{ region }}.netWasteExportMT;
+
+# Determine reduction
+var reductionPercent = in.{{ region }}WasteTradeReduction / 100;
+var endImportReduction = curImport * reductionPercent;
+var endExportReduction = curExport * reductionPercent;
+
+# Timeseries
+var curImportReduction = 0;
+change curImportReduction by endImportReduction over in.startYear to in.endYearImmediate;
+
+var curExportReduction = 0;
+change curExportReduction by endExportReduction over in.startYear to in.endYearImmediate;
+
+# Apply
+in.{{ region }}DeltaWasteImport = in.{{ region }}DeltaWasteImport - curImportReduction;
+in.{{ region }}DeltaWasteExport = in.{{ region }}DeltaWasteExport - curExportReduction;
