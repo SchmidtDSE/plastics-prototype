@@ -18,6 +18,7 @@ SCENARIOS = {
         'recyclingInvestment': {'recycling-investment': 100},
         'wasteInvestment': {'waste-investment': 100},
         'taxVirgin': {'tax-virgin': 1},
+        'banWasteTrade': {'ban-waste-trade': 1},
         'lowAmbition': {
             'minmium-recycle-rate': 20,
             'minmium-recycled-content': 20,
@@ -35,7 +36,8 @@ SCENARIOS = {
             'reduced-additives': 90,
             'recycling-investment': 100,
             'waste-investment': 100,
-            'tax-virgin': 2
+            'tax-virgin': 2,
+            'ban-waste-trade': 1
         },
         'businessAsUsual': {}
     },
