@@ -73,7 +73,9 @@ function loadInputsFromString(urlString, leversByVariable) {
         .filter((x) => x["variable"] !== "prototype")
         .forEach((leverInfo) => {
             const lever = leversByVariable.get(leverInfo["variable"]);
-            lever.setValue(leverInfo["value"]);
+            if (lever !== undefined) {
+                lever.setValue(leverInfo["value"]);
+            }
         });
 }
 
