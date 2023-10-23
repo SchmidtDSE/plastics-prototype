@@ -1,6 +1,6 @@
 Plastics Prototype
 ===============================================================================
-Prototype for the plastics decision support tool with transparent intervention code / authoring. The tool is primarily available at [https://global-plastics-tool.org/](https://global-plastics-tool.org/).
+Prototype for the plastics decision support tool with transparent intervention code / authoring. The tool is primarily available at [https://global-plastics-tool.org/](https://global-plastics-tool.org/). This tool is in pre-release (like preprint), feedback welcome!
 
 <br>
 
