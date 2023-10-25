@@ -150,7 +150,7 @@ def main():
     ax[1].set_ylabel('Kg / Year')
 
     plot_region_consumption(ax[2], 'perGdpKg', source)
-    ax[2].set_title('Consumption / GDP')
+    ax[2].set_title('Consumption / GDP (2010 USD PPP)')
     ax[2].set_ylabel('Kg / USD')
 
     fig.savefig(output_loc, bbox_inches = 'tight')
