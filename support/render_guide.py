@@ -1,3 +1,4 @@
+import datetime
 import json
 import math
 import os
@@ -223,7 +224,8 @@ def main():
         'towerBauKm': round(tower_bau_km, ndigits=1),
         'towerBauMass': round(tower_bau_mass, ndigits=1),
         'towerInterventionMass': round(tower_intervention_mass, ndigits=1),
-        'deltaBanWasteTrade': round(delta_ban_waste_trade, ndigits=1)
+        'deltaBanWasteTrade': round(delta_ban_waste_trade, ndigits=1),
+        'epoch': round(datetime.datetime.now().timestamp())
     }
 
     with open(template_loc) as f:

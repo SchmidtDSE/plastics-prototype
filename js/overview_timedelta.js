@@ -315,6 +315,7 @@ class TimeDeltaPresenter {
 
         const updateHoverTargets = () => {
             const yearWidth = horizontalScale(2050) - horizontalScale(2049) - 2;
+            const effectiveHeight = totalHeight - 20 - 16;
             const years = [];
             for (let year = startYear; year <= endYear; year++) {
                 years.push(year);
@@ -330,9 +331,9 @@ class TimeDeltaPresenter {
                 .append("rect")
                 .classed("timedelta-hover-target", true)
                 .attr("x", (year) => horizontalScale(year) - yearWidth / 2)
-                .attr("width", yearWidth)
+                .attr("width", yearWidth < 0 ? 0 : yearWidth)
                 .attr("y", 16)
-                .attr("height", totalHeight - 20 - 16)
+                .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
                 .on("click", (event, year) => self._onYearChange(year));
         };
 
@@ -363,11 +364,12 @@ class TimeDeltaPresenter {
         };
 
         const updateAxisRect = () => {
+            const effectiveWidth = totalWidth - 91 - 71;
             self._d3Selection.select(".zero-line")
                 .transition()
                 .duration(750)
                 .attr("opacity", hasNegtive ? 1 : 0)
-                .attr("width", totalWidth - 91 - 71)
+                .attr("width", effectiveWidth < 0 ? 0 : effectiveWidth)
                 .attr("y", verticalScale(0));
         };
 
@@ -427,11 +429,12 @@ class TimeDeltaPresenter {
         const totalWidth = boundingBox.width;
         const totalHeight = boundingBox.height;
 
+        const effectiveWidth = totalWidth - 91 - 71;
         targetSvg.append("rect")
             .classed("zero-line", true)
             .attr("x", 71)
             .attr("y", totalHeight)
-            .attr("width", totalWidth - 91 - 71)
+            .attr("width", effectiveWidth < 0 ? 0 : effectiveWidth)
             .attr("height", 1)
             .attr("fill", "#E0E0E0")
             .attr("opacity", 0);
@@ -460,11 +463,12 @@ class TimeDeltaPresenter {
             .classed("year-label", true)
             .classed("timedelta-label", true);
 
+        const effectiveHeight = totalHeight - 20 - 16;
         yearIndicatorGroup.append("rect")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 1)
-            .attr("height", totalHeight - 20 - 16)
+            .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
             .classed("timedelta-year-indicator", true);
 
         const currentBauValueDisplay = yearIndicatorGroup.append("g")

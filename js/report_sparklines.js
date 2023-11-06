@@ -181,6 +181,7 @@ class SparklinePresenter {
             self._d3Selection.select(".spark-hover-targets")
                 .html("");
 
+            const effectiveHeight = totalHeight - 20 - 16;
             self._d3Selection.select(".spark-hover-targets")
                 .selectAll(".spark-hover-target")
                 .data(years)
@@ -188,9 +189,9 @@ class SparklinePresenter {
                 .append("rect")
                 .classed("spark-hover-target", true)
                 .attr("x", (year) => horizontalScale(year) - yearWidth / 2)
-                .attr("width", yearWidth)
+                .attr("width", yearWidth < 0 ? 0 : yearWidth)
                 .attr("y", 16)
-                .attr("height", totalHeight - 20 - 16)
+                .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
                 .on("click", (event, year) => self._onYearChange(year));
         };
 
@@ -273,11 +274,12 @@ class SparklinePresenter {
             .classed("year-label", true)
             .classed("spark-label", true);
 
+        const effectiveHeight = totalHeight - 20 - 16;
         targetSvg.append("rect")
             .attr("x", 35)
             .attr("y", 16)
             .attr("width", 1)
-            .attr("height", totalHeight - 20 - 16)
+            .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
             .classed("spark-year-indicator", true);
 
         targetSvg.append("path")
