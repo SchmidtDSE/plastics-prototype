@@ -463,11 +463,12 @@ class TimeDeltaPresenter {
             .classed("year-label", true)
             .classed("timedelta-label", true);
 
+        const effectiveHeight = totalHeight - 20 - 16;
         yearIndicatorGroup.append("rect")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 1)
-            .attr("height", totalHeight - 20 - 16)
+            .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
             .classed("timedelta-year-indicator", true);
 
         const currentBauValueDisplay = yearIndicatorGroup.append("g")

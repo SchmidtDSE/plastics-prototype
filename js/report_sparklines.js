@@ -274,11 +274,12 @@ class SparklinePresenter {
             .classed("year-label", true)
             .classed("spark-label", true);
 
+        const effectiveHeight = totalHeight - 20 - 16;
         targetSvg.append("rect")
             .attr("x", 35)
             .attr("y", 16)
             .attr("width", 1)
-            .attr("height", totalHeight - 20 - 16)
+            .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
             .classed("spark-year-indicator", true);
 
         targetSvg.append("path")

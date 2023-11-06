@@ -258,10 +258,11 @@ class TimeseriesPresenter {
                     .classed("year-indicator", true)
                     .attr("transform", "translate(50 0)");
 
+                const effectiveHeight = height - 25 - 30;
                 newGroup.append("rect")
                     .attr("width", 1)
                     .attr("y", 25)
-                    .attr("height", height - 25 - 30)
+                    .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight)
                     .attr("x", 0);
 
                 newGroup.append("text")
@@ -370,11 +371,12 @@ class TimeseriesPresenter {
                 });
 
             const effectiveWidth = horizontalScale.bandwidth() + 2;
+            const effectiveHeight = height - 25 - 30;
             const boundUpdated = listenerLayer.selectAll(".click-target");
             boundUpdated.attr("x", (year) => horizontalScale(year) - 1)
                 .attr("y", 25)
                 .attr("width", effectiveWidth < 0 ? 0 : effectiveWidth)
-                .attr("height", height - 25 - 30);
+                .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight);
         };
 
         const updateDescription = () => {

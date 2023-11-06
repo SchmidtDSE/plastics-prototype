@@ -448,7 +448,8 @@ class BubblegraphPresenter {
 
             const getWidth = (datum) => {
                 const value = Math.abs(datum["value"]);
-                return rectWidthScale(value);
+                const width = rectWidthScale(value);
+                return width < 0 ? 0 : width;
             };
 
             const bound = bubbleLayer.selectAll(".bubble")
