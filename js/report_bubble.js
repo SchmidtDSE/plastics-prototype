@@ -343,12 +343,14 @@ class BubblegraphPresenter {
                 .attr("rx", 6)
                 .attr("ry", 6);
 
+            const effectiveWidth = self._horizontalScale.step() - 10;
+            const effectiveHeight = self._svgHeight - 10;
             newGroups.append("rect")
                 .classed("active-indicator", true)
                 .attr("x", 5)
                 .attr("y", 5)
-                .attr("width", self._horizontalScale.step() - 10)
-                .attr("height", self._svgHeight - 10);
+                .attr("width", effectiveWidth < 0 ? 0 : effectiveWidth)
+                .attr("height", effectiveHeight < 0 ? 0 : effectiveHeight);
 
             newGroups.append("text")
                 .attr("x", self._horizontalScale.step() / 2)
@@ -446,7 +448,8 @@ class BubblegraphPresenter {
 
             const getWidth = (datum) => {
                 const value = Math.abs(datum["value"]);
-                return rectWidthScale(value);
+                const width = rectWidthScale(value);
+                return width < 0 ? 0 : width;
             };
 
             const bound = bubbleLayer.selectAll(".bubble")
