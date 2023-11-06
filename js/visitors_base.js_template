@@ -7,7 +7,13 @@
 import {CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
 
 // eslint-disable-next-line no-undef
-const toolkit = PlasticsLang.getToolkit();
+let toolkit = null;
+
+try {
+    toolkit = PlasticsLang.getToolkit();
+} catch {
+    alert('Sorry, we could could not initialize app. Your browser may be out of date.');
+}
 
 
 {{ CODE }}

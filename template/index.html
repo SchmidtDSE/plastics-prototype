@@ -39,6 +39,15 @@
         <!-- Check for errors -->
         <script src="https://js.sentry-cdn.com/2ee7c86623d4fda26896db4fd757096f.min.js" crossorigin="anonymous"></script>
 
+        <script type="text/javascript">
+            Sentry.init({
+                ignoreErrors: [
+                    // Spurious error from safe links scanner
+                    "Non-Error promise rejection captured with value: Object Not Found Matching Id:",
+                ],
+            });
+        </script>
+
         <!-- Check browser and load shim -->
         <script type="text/javascript" src="third_party/ua-parser.min.js"></script>
         <script type="text/javascript">
