@@ -558,7 +558,7 @@ class ReportPresenter {
     _setupTutorial() {
         const self = this;
 
-        if (self._getCookiesManager().get("skip-report-tutorial") === "yes") {
+        if (self._getCookiesManager().get("skip-report-tutorial") === "skip") {
             runIntro("detailed");
             return;
         }
@@ -573,7 +573,7 @@ class ReportPresenter {
 
             self._getCookiesManager().set(
                 "skip-report-tutorial",
-                "yes",
+                "skip",
                 {expires: 7},
             );
         });
