@@ -1,0 +1,62 @@
+/* TEAM */
+
+    Web Admin (Contact) and Core Researcher: Sam Pottinger
+    Site: gleap.org
+    Email: info@global-plastics-tool.org
+    Twitter: @SamSpotsTime
+    Bluesky: @sampottinger.com
+    LinkedIn: in/sampottinger
+    GitHub: @sampottinger
+    Role: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD, language engineering. Sam serves as the web admin.
+
+    Researcher: Elijah Baker
+    LinkedIn: @elijahbaker
+    Role: Policy Research.
+
+    Core Researcher: Nivedita Biyani
+    LinkedIn: in/nivedita-r-biyani-ph-d-5115228
+    GitHub: @Omnicon8
+    Role: Policy research, policy modeling, business as usual modeling, plastics domain knowledge.
+
+    Advisor: Carl Boettiger
+    Site: carlboettiger.info
+    GitHub: @cboettig
+    Mastedon: @cboettig@ecoevo.social
+    Role: Advisor.
+
+    CI / CD Assistance: Magali de Bruyn
+    Site: https://dse.berkeley.edu/people/magali-de-bruyn
+    LinkedIn: in/magalidebruyn
+    GitHub: @magalidebruyn
+    Role: CI / CD.
+
+    Principal Investigator: Roland Geyer
+    Site: www.rolandgeyer.com
+    Twitter: @rolandfgeyer
+    LinkedIn: in/roland-geyer-0628681a
+    Role: Principal investigator, business as usual modeling, policy modeling, policy research, plastics domain knowledge.
+
+    Advisor: Kevin Koy
+    Site: https://dse.berkeley.edu/people/kevin-koy
+    LinkedIn: in/kevin-koy
+    Role: Executive leadership, advisor.
+
+    Senior Program Management and Communications: Ciera Martinez
+    Site: cierareports.org
+    Twitter: @CieraReports
+    GitHub: @iamciera
+    Role: Program management, communications, outreach, advisor.
+
+    Lead Advisor: Douglas McCauley
+    Site: labs.eemb.ucsb.edu/mccauley/doug
+    Twitter: @McCauley_Lab
+    Role: Executive leadership, policy modeling, policy reserach, communications, outreach, media, data visualization, UX / design.
+
+    Senior Manager and Communications: Molly Morse
+    Site: bosl.ucsb.edu
+    LinkedIn: in/mollyrmorse
+    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).
+
+    Communications: Neil Nathan
+    LinkedIn: in/neil-nathan
+    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).

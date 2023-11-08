@@ -11,5 +11,6 @@ cp -r standalone_tasks deploy/standalone_tasks
 cp index.html deploy
 cp preview.html deploy
 cp robots.txt deploy
+cp humans.txt deploy
 epoch=$(date +%s)
 sed -i "s/EPOCH/${epoch}/g" deploy/index.html
