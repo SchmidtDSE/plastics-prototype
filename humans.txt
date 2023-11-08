@@ -60,3 +60,11 @@
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
     Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).
+
+
+/* SITE */
+
+    Last update: LAST_UPDATED
+    Language: English
+    Doctype: HTML5
+    Software: D3, Vanilla JS, ANTLR, see more at https://github.com/SchmidtDSE/plastics-prototype#open-source
