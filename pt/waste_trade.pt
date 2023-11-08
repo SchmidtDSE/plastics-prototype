@@ -10,9 +10,11 @@ var endExportReduction = curExport * reductionPercent;
 # Timeseries
 var curImportReduction = 0;
 change curImportReduction by endImportReduction over in.startYear to in.endYearImmediate;
+limit curImportReduction to [0,];
 
 var curExportReduction = 0;
 change curExportReduction by endExportReduction over in.startYear to in.endYearImmediate;
+limit curExportReduction to [0,];
 
 # Apply
 in.{{ region }}DeltaWasteImport = in.{{ region }}DeltaWasteImport - curImportReduction;

@@ -59,7 +59,8 @@ SCENARIOS = {
             'reduced-additives': 90,
             'recycling-investment': 100,
             'waste-investment': 100,
-            'tax-virgin': 2
+            'tax-virgin': 2,
+            'ban-waste-trade': 1
         },
         'businessAsUsual': {}
     }
@@ -114,8 +115,10 @@ def main():
 
             if timeseries_type == 'snapshot':
                 years = [2050]
-            else:
+            elif name == 'businessAsUsual':
                 years = range(2010, 2050)
+            else:
+                years = range(2024, 2050)  # Only spend time on projection years
             
             for year in years:
                 if year != 2050:

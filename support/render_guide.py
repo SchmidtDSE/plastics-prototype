@@ -34,7 +34,8 @@ def get_total_consumption(year, results_dir, region='global',
     if year == DEFAULT_YEAR:
         filename = policy + '.json'
     else:
-        filename = '%s%d.json' % (policy, year)
+        policy_effective = policy if year >= 2024 else 'businessAsUsual'
+        filename = '%s%d.json' % (policy_effective, year)
     
     with open(os.path.join(results_dir, filename)) as f:
         results = json.load(f)
@@ -71,7 +72,8 @@ def get_fate(year, results_dir, region='global', policy='businessAsUsual',
     if year == DEFAULT_YEAR:
         filename = policy + '.json'
     else:
-        filename = '%s%d.json' % (policy, year)
+        policy_effective = policy if year >= 2024 else 'businessAsUsual'
+        filename = '%s%d.json' % (policy_effective, year)
     
     with open(os.path.join(results_dir, filename)) as f:
         results = json.load(f)
@@ -174,18 +176,38 @@ def main():
     invest_waste_mismanaged = get_fate(2050, results_dir, policy='wasteInvestment')
     invest_waste_percent = get_percent_change(mismanaged_2050, invest_waste_mismanaged)
 
+    tower_bau_mass_annual = get_fate(2050, results_dir)
+    tower_bau_km_annual = get_cone_height(tower_bau_mass_annual)
+    tower_bau_miles_annual = km_to_miles(tower_bau_km_annual)
+
+    tower_intervention_mass_annual = get_fate(2050, results_dir, policy='highAmbition')
+    tower_intervention_km_annual = get_cone_height(tower_intervention_mass_annual)
+    tower_intervention_miles_annual = km_to_miles(tower_intervention_km_annual)
+
+    tower_intervention_low_mass_annual = get_fate(2050, results_dir, policy='lowAmbition')
+    tower_intervention_low_km_annual = get_cone_height(tower_intervention_low_mass_annual)
+    tower_intervention_low_miles_annual = km_to_miles(tower_intervention_low_km_annual)
+
     tower_bau_mass = sum(map(
         lambda year: get_fate(year, results_dir),
         range(2010, 2051)
     ))
+    tower_bau_km = get_cone_height(tower_bau_mass)
+    tower_bau_miles = km_to_miles(tower_bau_km)
+
     tower_intervention_mass = sum(map(
         lambda year: get_fate(year, results_dir, policy='highAmbition'),
         range(2010, 2051)
     ))
-    tower_bau_km = get_cone_height(tower_bau_mass)
     tower_intervention_km = get_cone_height(tower_intervention_mass)
-    tower_bau_miles = km_to_miles(tower_bau_km)
     tower_intervention_miles = km_to_miles(tower_intervention_km)
+
+    tower_intervention_low_mass = sum(map(
+        lambda year: get_fate(year, results_dir, policy='lowAmbition'),
+        range(2010, 2051)
+    ))
+    tower_intervention_low_km = get_cone_height(tower_intervention_low_mass)
+    tower_intervention_low_miles = km_to_miles(tower_intervention_low_km)
 
     template_vals = {
         'totalConsumptionChange': round(total_consumption_change, ndigits=1),
@@ -218,12 +240,24 @@ def main():
         'investWastePercentMismanaged': round(invest_waste_percent, ndigits=1),
         'investWasteMismanaged': round(invest_waste_mismanaged, ndigits=1),
         'deltaTaxVirgin': round(delta_tax_virgin, ndigits=1),
+        'towerInterventionMass': round(tower_intervention_mass),
         'towerInterventionMiles': round(tower_intervention_miles, ndigits=1),
         'towerInterventionKm': round(tower_intervention_km, ndigits=1),
+        'towerInterventionMassAnnual': round(tower_intervention_mass_annual, ndigits=1),
+        'towerInterventionMilesAnnual': round(tower_intervention_miles_annual, ndigits=2),
+        'towerInterventionKmAnnual': round(tower_intervention_km_annual, ndigits=2),
+        'towerInterventionLowMass': round(tower_intervention_low_mass),
+        'towerInterventionLowMiles': round(tower_intervention_low_miles, ndigits=2),
+        'towerInterventionLowKm': round(tower_intervention_low_km, ndigits=2),
+        'towerInterventionLowMassAnnual': round(tower_intervention_low_mass_annual, ndigits=1),
+        'towerInterventionLowMilesAnnual': round(tower_intervention_low_miles_annual, ndigits=2),
+        'towerInterventionLowKmAnnual': round(tower_intervention_low_km_annual, ndigits=2),
+        'towerBauMass': round(tower_bau_mass),
         'towerBauMiles': round(tower_bau_miles, ndigits=1),
         'towerBauKm': round(tower_bau_km, ndigits=1),
-        'towerBauMass': round(tower_bau_mass, ndigits=1),
-        'towerInterventionMass': round(tower_intervention_mass, ndigits=1),
+        'towerBauMassAnnual': round(tower_bau_mass_annual, ndigits=1),
+        'towerBauMilesAnnual': round(tower_bau_miles_annual, ndigits=2),
+        'towerBauKmAnnual': round(tower_bau_km_annual, ndigits=2),
         'deltaBanWasteTrade': round(delta_ban_waste_trade, ndigits=1),
         'epoch': round(datetime.datetime.now().timestamp())
     }
