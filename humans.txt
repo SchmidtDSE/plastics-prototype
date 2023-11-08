@@ -1,5 +1,4 @@
 /* TEAM */
-
     Web Admin (Contact) and Core Researcher: Sam Pottinger
     Site: gleap.org
     Email: info@global-plastics-tool.org
@@ -61,9 +60,7 @@
     LinkedIn: in/neil-nathan
     Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).
 
-
 /* SITE */
-
     Last update: LAST_UPDATED
     Language: English
     Doctype: HTML5
