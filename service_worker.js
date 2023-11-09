@@ -1,9 +1,10 @@
 /**
  * Simple service worker for the PWA which caches application resources.
- * 
- * See https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/Offline_Service_workers
+ *
+ * See https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Tutorials/js13kGames/
+ *     Offline_Service_workers
  * See https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Caching
- * 
+ *
  * @license BSD
  */
 
@@ -222,11 +223,11 @@ const ESSENTIAL_FILES = [
     "/humans.txt",
     "/manifest.json",
     "/service_worker.js",
-]
+];
 
 /**
  * Determine if the resource is allowed to be cached.
- * 
+ *
  * @returns True if cachable. False otherwise.
  */
 function isCacheable(request) {
@@ -236,7 +237,7 @@ function isCacheable(request) {
 
 /**
  * Make a request and update cache in background.
- * 
+ *
  * @param request The request to make after which the internal cache will be updated.
  * @returns Response
  */
@@ -281,7 +282,7 @@ self.addEventListener("install", (e) => {
     };
 
     console.log("[Service Worker] Cache Queued");
-    
+
     // In case someone is bouncing, don't add to download size
     setTimeout(preloadCache, 10000);
-  });
+});
