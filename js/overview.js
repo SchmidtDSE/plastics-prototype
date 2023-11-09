@@ -177,7 +177,7 @@ class OverviewPresenter {
     _setupTutorial() {
         const self = this;
 
-        if (self._getCookiesManager().get("skip-overview-tutorial") === "yes") {
+        if (self._getCookiesManager().get("skip-overview-tutorial") === "skip") {
             runIntro(self._targetDiv.id);
             return;
         }
@@ -188,7 +188,7 @@ class OverviewPresenter {
             runIntro(self._targetDiv.id);
             self._getCookiesManager().set(
                 "skip-overview-tutorial",
-                "yes",
+                "skip",
                 {expires: 7},
             );
             event.preventDefault();
