@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="css/base.css?v=EPOCH">
         <link rel="stylesheet" href="css/hide-details-goals.css?v=EPOCH">
 
+        <link rel="manifest" href="/manifest.json">
+
         <link rel="author" href="humans.txt" />
 
         <meta property="og:title" content="Global Plastics Tool" />
@@ -102,6 +104,9 @@
         <script type="text/javascript" src="third_party/es-module-shims.js"></script>
         <script type="text/javascript" src="third_party/pollyfill.min.js?v=EPOCH"></script>
 
+        <!-- Load Service Worker -->
+        <script type="text/javascript" src="./js/sw_load.js?v=EPOCH"></script>
+
         <!-- Load third party open source dependencies -->
         <script type="text/javascript" src="third_party/ace.min.js"></script>
         <script type="text/javascript" src="third_party/js.cookie.min.js"></script>
@@ -150,5 +155,6 @@
             import { main } from "driver";
             main(true, false, false);
         </script>
+
     </body>
 </html>
