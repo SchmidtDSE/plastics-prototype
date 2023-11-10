@@ -821,7 +821,7 @@ h2 .info-img {
 .tutorial .tutorial-next a {
     animation: flash 4s linear infinite;
     padding: 4px;
-    background-color: rgba(100, 100, 200, 0.7);
+    background-color: rgba(100, 100, 200);
     color: white;
     border-radius: 4px;
     font-size: 16px;
@@ -1209,18 +1209,18 @@ h2 .info-img {
 
 @keyframes flash {
     0% {
-        background-color: rgba(100, 100, 200, 0.6);
+        background-color: rgba(100, 100, 200, 1);
     }
 
-    20% {
+    40% {
         background-color: rgba(100, 100, 200, 1);
+    }
+
+    60% {
+        background-color: rgba(10, 10, 10, 1);
     }
 
     80% {
         background-color: rgba(100, 100, 200, 1);
-    }
-
-    100% {
-        background-color: rgba(100, 100, 200, 0.6);
     }
 }
