@@ -49,6 +49,10 @@ class Driver {
         }
 
         self._pauseUiLoop = true;
+
+        setTimeout(() => {
+            self._checkUpdate();
+        }, 5000);
     }
 
     /**
@@ -500,6 +504,42 @@ class Driver {
         } else if (hash.startsWith("#toc")) {
             self._tabs.toggle("#toc");
         }
+    }
+
+    /**
+     * Check for updates if network is available.
+     */
+    _checkUpdate() {
+        fetch("/js/version.txt")
+            .then((response) => {
+                if (!response.ok) {
+                    return;
+                }
+                return response.text();
+            })
+            .then((rawText) => rawText.trim())
+            .then((trimmedText) => parseFloat(trimmedText))
+            .then((newVersion) => {
+                const versionInput = document.getElementById("version-number");
+                const currentVersion = versionInput === null ? 0 : parseFloat(versionInput.value);
+
+                if (newVersion <= currentVersion) {
+                    return;
+                }
+
+                const updateMessagePieces = [
+                    "An updated version of this application is available.",
+                    "Updating will take about 1 minute.",
+                    "Do you want to update now?",
+                ];
+                const updatePromptMessage = updateMessagePieces.join(" ");
+
+                if (confirm(updatePromptMessage)) {
+                    location.reload();
+                } else {
+                    alert("Reload to update later.");
+                }
+            });
     }
 }
 
