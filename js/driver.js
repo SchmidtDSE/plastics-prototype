@@ -50,7 +50,9 @@ class Driver {
 
         self._pauseUiLoop = true;
 
-        self._checkUpdate();
+        setTimeout(() => {
+            self._checkUpdate();
+        }, 5000);
     }
 
     /**
