@@ -507,7 +507,7 @@ class Driver {
     }
 
     /**
-     *
+     * Check for updates if network is available.
      */
     _checkUpdate() {
         fetch("/js/version.txt")
