@@ -232,7 +232,11 @@ const ESSENTIAL_FILES = [
  */
 function isCacheable(request) {
     const url = new URL(request.url);
-    return url.host.indexOf("sentry-cdn.com") == -1;
+    const isSentry = url.host.indexOf("sentry-cdn.com") != -1;
+    const isTestFile = url.pathname.indexOf("version.txt") != -1;
+    const nonCachable = isSentry || isTestFile;
+    const isCacheable = !nonCachable;
+    return isCacheable;
 }
 
 /**
