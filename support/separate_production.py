@@ -75,8 +75,8 @@ def main():
 
         return record
 
-    allowed_records = filter(lambda x: x['year'] >= start_year)
-    transformed_records = map(lambda x: transform_record, allowed_records)
+    allowed_records = filter(lambda x: x['year'] >= start_year, flat_records)
+    transformed_records = map(transform_record, allowed_records)
 
     with open(output_loc, 'w') as f:
         writer = csv.DictWriter(f, fieldnames=OUTPUT_COLS)
