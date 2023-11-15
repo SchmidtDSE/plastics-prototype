@@ -106,7 +106,7 @@ distribute offsetProduction across [
   out.{{ region }}.primaryProductionMT
 ] proportionally;
 
-out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + offsetProduction;
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT - offsetProduction;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
