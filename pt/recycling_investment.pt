@@ -26,7 +26,7 @@ var prodDeltaDelay = 0;
 var lifetimeYears = lifecycle of [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
-  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionElerecoveryctronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionTransporationMT,
@@ -56,6 +56,16 @@ distribute -1 * additionalWasteCapacity across [
 
 out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT + additionalWasteCapacity;
 
+# Redirect primary to secondary
+var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
+var redirected = additionalWasteCapacity * recoveryRate;
+
+var newPrimary = out.{{ region }}.primaryProductionMT - redirected;
+out.{{ region }}.primaryProductionMT = newPrimary;
+
+var newSecondary = out.{{ region }}.secondaryProductionMT + redirected;
+out.{{ region }}.secondaryProductionMT = newSecondary;
+
 # Update consumption
 distribute consumptionDeltaDelay across [
   out.{{ region }}.consumptionAgricultureMT,
@@ -73,7 +83,7 @@ var importsBefore = out.{{ region }}.netImportsMT;
 
 distribute consumptionDeltaDelay across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT
 ] proportionally;
 
 var importsDelta = out.{{ region }}.netImportsMT - importsBefore;

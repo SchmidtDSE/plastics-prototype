@@ -103,8 +103,10 @@ var priorImports = out.{{ region }}.netImportsMT;
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.netExportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT
 ] proportionally;
+
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + offsetProduction;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
@@ -150,7 +152,8 @@ priorImports = out.{{ region }}.netImportsMT;
 
 distribute lostConsumptionOffset across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
 ] proportionally;
 
 changeImports = out.{{ region }}.netImportsMT - priorImports;

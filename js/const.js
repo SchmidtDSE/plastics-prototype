@@ -4,6 +4,7 @@
  * @license BSD, see LICENSE.md.
  */
 
+// Attributes
 const ALL_REGIONS = [
     "global",
     "china",
@@ -35,9 +36,13 @@ const PRODUCTION_ATTRS = [
     "netWasteExportMT",
     "netImportsMT",
     "netExportsMT",
-    "domesticProductionMT",
+    "primaryProductionMT",
+    "secondaryProductionMT",
 ];
 
+const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
+
+// Colors
 const COLORS = [
     "#a6cee3",
     "#1f78b4",
@@ -60,16 +65,21 @@ const TEXT_COLORS = [
     "#F0F0F0",
 ];
 
-const ALL_ATTRS = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
+// Separate primary and secondary
+const PIPELINE_EXPORT_START_YEAR = 2010;
+const RECYCLING_DELAY_ASSUMPTION = 1;
 
+// Years
 const DEFAULT_YEAR = 2050;
 const DEFAULT_REGION = ALL_REGIONS[0];
-const HISTORY_START_YEAR = 2010;
+const HISTORY_START_YEAR = PIPELINE_EXPORT_START_YEAR + RECYCLING_DELAY_ASSUMPTION;
 const START_YEAR = 2024;
 const MAX_YEAR = 2050;
 
+// Cache management
 const CACHE_BUSTER = Date.now();
 
+// Displays
 const DISPLAY_TYPES = {amount: 1, percent: 2, cumulative: 3};
 const DISPLAY_STAGES = {consumption: 4, eol: 5, production: 6};
 const GOALS = {

@@ -71,9 +71,16 @@ var lifecycleEnd = in.endYearGradual + lifecycleYears;
 change newRecyclingMTLifecycle by shortageMT over lifecycleStart to lifecycleEnd;
 var lifecycleChange = (newRecyclingMTLifecycle - originalRecyclingMT) * recoveryRate;
 
+# Redirect to secondary
+var displacedPlasticsMT = lagChange * displacementRate;
+
+var newPrimary = out.{{ region }}.primaryProductionMT - displacedPlasticsMT;
+out.{{ region }}.primaryProductionMT = newPrimary;
+
+var newSecondary = out.{{ region }}.secondaryProductionMT + displacedPlasticsMT;
+out.{{ region }}.secondaryProductionMT = newSecondary;
+
 # Inductive demand - the part that isn't displaced.
-var displacedPlasticsMT = lagChange;
-var displacedPlasticsOffsetMT = displacedPlasticsMT * -1;
 var inductiveDemandRate = 1 - displacementRate;
 var newInductivePlasticsMT = inductiveDemandRate * lagChange;
 var newInductiveLifecycleMT = inductiveDemandRate * lifecycleChange;
@@ -95,6 +102,9 @@ wasteExportWeight = (
   out.{{ region }}.netWasteExportMT +
   in.{{ region }}DeltaWasteExport
 );
+
+var beforeInducedRecycling = out.{{ region }}.eolRecyclingMT;
+
 distribute newInductiveLifecycleMT across [
   out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
@@ -103,12 +113,19 @@ distribute newInductiveLifecycleMT across [
   in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
+var afterInducedRecycling = out.{{ region }}.eolRecyclingMT;
+var inducedRecycling = afterInducedRecycling - beforeInducedRecycling;
+
 # Offset production local
 var priorImports = out.{{ region }}.netImportsMT;
-distribute newInductivePlasticsMT across [
+var inducedSecondary = inducedRecycling * recoveryRate;
+distribute newInductivePlasticsMT - inducedSecondary across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT
 ] proportionally;
+
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + inducedSecondary;
+
 var newImportsAbs = out.{{ region }}.netImportsMT;
 
 # Offset exports elsewhere
