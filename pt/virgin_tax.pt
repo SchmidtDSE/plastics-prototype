@@ -1,3 +1,7 @@
+# WARNING: This intervention is no longer maintained and may be incorrect.
+#          It is provided only for future reference.
+
+
 # Use assumption for percent consumption decrease per cent
 var rateDecreaseGoal = in.{{region}}VirginTaxCents * in.percentDecreasePerCent / 100;
 
@@ -79,7 +83,8 @@ var priorImports = out.{{region}}.netImportsMT;
 
 distribute offsetConsumption across [
   out.{{region}}.netExportsMT,
-  out.{{region}}.domesticProductionMT
+  out.{{region}}.primaryProductionMT,
+  out.{{region}}.secondaryProductionMT
 ] proportionally;
 
 var changeImports = out.{{region}}.netImportsMT - priorImports;

@@ -116,7 +116,7 @@ def main():
             if timeseries_type == 'snapshot':
                 years = [2050]
             elif name == 'businessAsUsual':
-                years = range(2010, 2050)
+                years = range(2011, 2050)
             else:
                 years = range(2024, 2050)  # Only spend time on projection years
             

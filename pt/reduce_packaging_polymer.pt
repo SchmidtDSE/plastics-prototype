@@ -45,7 +45,8 @@ var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetMT across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
 ] proportionally;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;

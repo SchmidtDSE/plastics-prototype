@@ -190,12 +190,6 @@ class StagePresenter {
                     const labelRaw = STRINGS.get(attr);
                     if (smallDisplay && labelRaw === "House, Leis, Sport") {
                         return "Household";
-                    } else if (labelRaw === "Domestic" && isProduction) {
-                        if (selection.getRegion() === "global") {
-                            return "Overall";
-                        } else {
-                            return "Stays in Region";
-                        }
                     } else if (labelRaw === "Net Export" && isProduction) {
                         return "Traded";
                     } else {

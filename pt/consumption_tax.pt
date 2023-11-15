@@ -24,7 +24,8 @@ out.{{ region }}.consumptionPackagingMT = out.{{ region }}.consumptionPackagingM
 # Reduce imports
 var originalImports = out.{{ region }}.netImportsMT;
 distribute -1 * reducedConsumption across [
-  out.{{ region }}.domesticProductionMT,
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT,
   out.{{ region }}.netImportsMT
 ] proportionally;
 var changeImports = out.{{ region }}.netImportsMT - originalImports;

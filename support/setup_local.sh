@@ -1,7 +1,7 @@
 mkdir data
 
 bash support/get_pipeline_output.sh
-bash support/move_data.sh
+bash support/prepare_data.sh
 
 bash support/npm_install.sh
 bash support/load_deps.sh

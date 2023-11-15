@@ -16,7 +16,7 @@ jobs:
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Move data
-        run: bash support/move_data.sh
+        run: bash support/prepare_data.sh
   test:
     environment: build
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Move data
-        run: bash support/move_data.sh
+        run: bash support/prepare_data.sh
       - name: Build
         run: bash ./support/make.sh
       - name: Install JS deps
@@ -81,7 +81,7 @@ jobs:
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Move data
-        run: bash support/move_data.sh
+        run: bash support/prepare_data.sh
       - name: Build
         run: bash ./support/make.sh
       - name: Install JS deps
@@ -183,7 +183,7 @@ jobs:
       - name: Check standalone results
         run: bash support/check_standalone.sh
       - name: Move data
-        run: bash support/move_data.sh
+        run: bash support/prepare_data.sh
       - name: Build
         run: bash ./support/make.sh
       - name: Render templates

@@ -35,7 +35,7 @@ def plot_region_consumption(ax, attribute, source):
         source: The frame from which data should be pulled.
     """
     for region in ['china', 'eu30', 'nafta', 'row']:
-        view = source[source['year'] >= 2010]
+        view = source[source['year'] >= 2011]
         region_data = view[view['region'] == region]
         region_data_initial = region_data[region_data['year'] <= 2020]
         region_data_projected = region_data[region_data['year'] >= 2020]

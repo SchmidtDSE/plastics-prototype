@@ -33,11 +33,12 @@ STRINGS.set("netImportsMT", "Net Import (Good/Mat)");
 STRINGS.set("netExportsMT", "Net Export (Good/Mat)");
 STRINGS.set("netWasteImportMT", "Net Import (Waste)");
 STRINGS.set("netWasteExportMT", "Net Export (Waste)");
-STRINGS.set("domesticProductionMT", "Domestic");
+STRINGS.set("primaryProductionMT", "Virgin Prod");
+STRINGS.set("secondaryProductionMT", "Secondary Prod");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Annual Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
-STRINGS.set(DISPLAY_TYPES.cumulative, "Cumulative Million Tons from 2010");
+STRINGS.set(DISPLAY_TYPES.cumulative, "Cumulative Million Tons from 2011");
 STRINGS.set(DISPLAY_STAGES.consumption, "Consumption");
 STRINGS.set(DISPLAY_STAGES.eol, "Plastic Waste");
 STRINGS.set(DISPLAY_STAGES.production, "Production");

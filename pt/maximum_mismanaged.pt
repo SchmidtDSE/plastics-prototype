@@ -140,7 +140,8 @@ distribute newInductivePlasticsMTLifecycle across [
 var priorImports = out.{{ region }}.netImportsMT;
 distribute displacedPlasticsOffsetMT across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
 ] proportionally;
 var newImportsAbs = out.{{ region }}.netImportsMT;
 
