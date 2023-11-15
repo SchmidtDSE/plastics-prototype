@@ -38,6 +38,10 @@ def get_key(year, region):
     return '%d\t%s' % (year, region)
 
 
+def strip_record(record):
+    return dict(map(lambda x: (x, record[x]), OUTPUT_COLS))
+
+
 def main():
     if len(sys.argv) != NUM_ARGS + 1:
         print(USAGE_STR)
@@ -74,14 +78,15 @@ def main():
         record['secondaryProductionMT'] = secondary
 
         return record
-
+    
     allowed_records = filter(lambda x: x['year'] >= start_year, flat_records)
     transformed_records = map(transform_record, allowed_records)
+    stripped_records = map(strip_record, transformed_records)
 
     with open(output_loc, 'w') as f:
         writer = csv.DictWriter(f, fieldnames=OUTPUT_COLS)
         writer.writeheader()
-        writer.writerows(transformed_records)
+        writer.writerows(stripped_records)
 
 
 if __name__ == '__main__':
