@@ -122,6 +122,13 @@ distribute offsetRecycling across [
   in.{{ region }}DeltaWasteExport by wasteExportWeight
 ] proportionally;
 
+# Redirect primary to secondary
+var primaryOffset = offsetRecycling * recoveryRate;
+out.{{ region }}.primaryProductionMT = out.{{ region }}.primaryProductionMT + primaryOffset;
+
+var secondaryOffset = -1 * primaryOffset;
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + secondaryOffset;
+
 # If there wasn't enough to recycle, further reduce consumption
 var recyclingDeficit = offsetRecyclingNeeded - offsetRecycling;
 
@@ -165,7 +172,8 @@ distribute offsetConsumptionWithRecyclingDeficit across [
 var priorImports = out.{{ region }}.netImportsMT;
 distribute offsetConsumptionWithRecyclingDeficit across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.domesticProductionMT
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
 ] proportionally;
 var importsOffset = out.{{ region }}.netImportsMT - priorImports;
 

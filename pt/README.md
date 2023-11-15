@@ -64,7 +64,8 @@ Finally, production are as follows (like `out.nafta.netImportsMT`):
 
  - netImportsMT
  - netExportsMT
- - domesticProductionMT
+ - primaryProductionMT
+ - secondaryProductionMT
 
 ### Execution
 The easiest way to execute plastic language scripts is through [the web tool](). See the prototype section of the details tab or modify any existing script by clicking on the more information link for that lever.

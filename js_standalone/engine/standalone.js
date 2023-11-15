@@ -26,7 +26,8 @@ const DATA_ATTRS = [
     "consumptionOtherMT",
     "netImportsMT",
     "netExportsMT",
-    "domesticProductionMT",
+    "primaryProductionMT",
+    "secondaryProductionMT",
     "netWasteExportMT",
     "netWasteImportMT",
 ];
