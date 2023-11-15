@@ -238,7 +238,7 @@ class StagePresenter {
                 .attr("x", horizontalScale(0))
                 .attr("height", selection.getShowBauDelta() ? 7 : 0);
 
-            const hideZeros = false; //isProduction && !selection.getShowBauDelta();
+            const hideZeros = isProduction && !selection.getShowBauDelta();
             if (hideZeros) {
                 boundUpdated.style("display", (attr) => {
                     const isZero = regionData.get(attr) == 0;

@@ -26,10 +26,12 @@ function addGlobalToState(state) {
                     "netWasteImportMT",
                     "netWasteExportMT",
                 ];
-                if (ATTRS_TO_ZERO.indexOf(attr) != -1) {
+
+                const originalValue = regionValues.get(attr);
+                if (ATTRS_TO_ZERO.indexOf(attr) != -1 && originalValue < 0) {
                     return 0;
                 } else {
-                    return regionValues.get(attr);
+                    return originalValue;
                 }
             })
             .reduce((a, b) => a + b);
