@@ -85,7 +85,7 @@ class ConfigPresenter {
         self._d3Selection
             .select(".stage-select")
             .selectAll(".stage")
-            .data([DISPLAY_STAGES.consumption, DISPLAY_STAGES.eol])
+            .data([DISPLAY_STAGES.consumption, DISPLAY_STAGES.eol, DISPLAY_STAGES.production])
             .enter()
             .append("option")
             .attr("value", (x) => x)
