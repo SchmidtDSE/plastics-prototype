@@ -22,13 +22,11 @@ function addGlobalToState(state) {
             .map((regionValues) => {
                 const ATTRS_TO_ZERO = [
                     "netImportsMT",
-                    "netExportsMT",
                     "netWasteImportMT",
-                    "netWasteExportMT",
                 ];
 
                 const originalValue = regionValues.get(attr);
-                if (ATTRS_TO_ZERO.indexOf(attr) != -1 && originalValue < 0) {
+                if (ATTRS_TO_ZERO.indexOf(attr) != -1) {
                     return 0;
                 } else {
                     return originalValue;
