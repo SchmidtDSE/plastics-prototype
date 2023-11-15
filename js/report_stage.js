@@ -185,13 +185,16 @@ class StagePresenter {
                 .selectAll(".bar");
 
             const isProduction = self._stage == DISPLAY_STAGES.production;
+            const isGlobal = selection.getRegion() === "global";
             boundUpdated.select(".label")
                 .html((attr) => {
                     const labelRaw = STRINGS.get(attr);
                     if (smallDisplay && labelRaw === "House, Leis, Sport") {
                         return "Household";
-                    } else if (labelRaw === "Net Export" && isProduction) {
-                        return "Traded";
+                    } else if (labelRaw === "Net Export (Good/Mat)" && isGlobal) {
+                        return "Goods in Trade";
+                    } else if (labelRaw === "Net Export (Waste)" && isGlobal) {
+                        return "Waste Trade";
                     } else {
                         return labelRaw;
                     }
