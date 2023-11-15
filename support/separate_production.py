@@ -71,7 +71,7 @@ def main():
         
         original_primary = record['domesticProductionMT']
         secondary_naive = input_recycling * (1 - yield_loss / 100)
-        secondary = original_primary if original_primary > secondary_naive else secondary_naive
+        secondary = original_primary if original_primary < secondary_naive else secondary_naive
         primary = original_primary - secondary
 
         record['primaryProductionMT'] = primary
