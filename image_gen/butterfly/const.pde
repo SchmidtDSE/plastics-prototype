@@ -10,7 +10,7 @@ final int BAR_PADDING_VERT_REGION = 0;
 
 final int HERO_GROUP = 0;
 
-final int MIN_YEAR = 2010;
+final int MIN_YEAR = 2011;
 final int MAX_YEAR = 2050;
 
 final int MAX_CONSUMPTION_BOTTOM_GLOBAL = BUTTERFLY_CONSUMPTION ? 300 : 0;

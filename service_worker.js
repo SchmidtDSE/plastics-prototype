@@ -185,7 +185,6 @@ const ESSENTIAL_FILES = [
     "/standalone_tasks/highAmbition2047.json",
     "/standalone_tasks/highAmbition2048.json",
     "/standalone_tasks/highAmbition2049.json",
-    "/standalone_tasks/businessAsUsual2010.json",
     "/standalone_tasks/businessAsUsual2011.json",
     "/standalone_tasks/businessAsUsual2012.json",
     "/standalone_tasks/businessAsUsual2013.json",

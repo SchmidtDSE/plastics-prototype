@@ -190,21 +190,21 @@ def main():
 
     tower_bau_mass = sum(map(
         lambda year: get_fate(year, results_dir),
-        range(2010, 2051)
+        range(2011, 2051)
     ))
     tower_bau_km = get_cone_height(tower_bau_mass)
     tower_bau_miles = km_to_miles(tower_bau_km)
 
     tower_intervention_mass = sum(map(
         lambda year: get_fate(year, results_dir, policy='highAmbition'),
-        range(2010, 2051)
+        range(2011, 2051)
     ))
     tower_intervention_km = get_cone_height(tower_intervention_mass)
     tower_intervention_miles = km_to_miles(tower_intervention_km)
 
     tower_intervention_low_mass = sum(map(
         lambda year: get_fate(year, results_dir, policy='lowAmbition'),
-        range(2010, 2051)
+        range(2011, 2051)
     ))
     tower_intervention_low_km = get_cone_height(tower_intervention_low_mass)
     tower_intervention_low_miles = km_to_miles(tower_intervention_low_km)
