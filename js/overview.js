@@ -169,9 +169,12 @@ class OverviewPresenter {
 
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
 
-        const downloadLink = document.querySelector(".download-link");
-        downloadLink.href = self._buildDownload(withInterventions);
-        downloadLink.download = "plasticsProjections.csv";
+        const downloadLinks = Array.of(...document.querySelectorAll(".download-link"));
+        const downloadContent = self._buildDownload(withInterventions);
+        downloadLinks.forEach((downloadLink) => {
+            downloadLink.href = downloadContent;
+            downloadLink.download = "plasticsProjections.csv";
+        });
     }
 
     _setupTutorial() {
