@@ -183,7 +183,7 @@ class StagePresenter {
 
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
-            
+
             const isGlobal = selection.getRegion() === "global";
             boundUpdated.select(".label")
                 .html((attr) => {
