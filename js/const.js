@@ -29,11 +29,11 @@ const EOL_ATTRS = [
     "eolIncinerationMT",
     "eolRecyclingMT",
     "eolMismanagedMT",
+    "netWasteImportMT",
+    "netWasteExportMT",
 ];
 
 const PRODUCTION_ATTRS = [
-    "netWasteImportMT",
-    "netWasteExportMT",
     "netImportsMT",
     "netExportsMT",
     "primaryProductionMT",

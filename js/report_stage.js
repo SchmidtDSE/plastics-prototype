@@ -184,7 +184,6 @@ class StagePresenter {
             const boundUpdated = self._d3Selection.select(".bars")
                 .selectAll(".bar");
 
-            const isProduction = self._stage == DISPLAY_STAGES.production;
             const isGlobal = selection.getRegion() === "global";
             boundUpdated.select(".label")
                 .html((attr) => {
@@ -241,7 +240,7 @@ class StagePresenter {
                 .attr("x", horizontalScale(0))
                 .attr("height", selection.getShowBauDelta() ? 7 : 0);
 
-            const hideZeros = isProduction && !selection.getShowBauDelta();
+            const hideZeros = !selection.getShowBauDelta();
             if (hideZeros) {
                 boundUpdated.style("display", (attr) => {
                     const isZero = regionData.get(attr) == 0;
