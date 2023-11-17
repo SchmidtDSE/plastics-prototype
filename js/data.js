@@ -9,6 +9,11 @@
 
 import {CACHE_BUSTER} from "const";
 
+const BAD_YEAR_MSG = [
+    "Whoops! It looks like the application needs to update.",
+    "Can the application reload now?"
+].join(" ");
+
 
 /**
  * Utility to operate on business as usual data, the records on which simulation is performed.
@@ -54,6 +59,13 @@ class DataLayer {
 
         const state = new Map();
         state.set("local", new Map());
+
+        // Check things
+        if (!self._baselineByYear.has(year)) {
+            if (confirm(BAD_YEAR_MSG)) {
+                window.location.reload();
+            }
+        }
 
         // Convert normal outputs
         const outputs = new Map();

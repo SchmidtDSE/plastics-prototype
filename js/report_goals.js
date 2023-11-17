@@ -50,8 +50,10 @@ class GoalPresenter {
 
         const regionData = new Map();
         ALL_REGIONS.forEach((region) => {
-            const value = state.get("goal").get(region).get(self._goalName);
-            regionData.set(region, value);
+            if (state.get("goal").has(region)) {
+                const value = state.get("goal").get(region).get(self._goalName);
+                regionData.set(region, value);
+            }
         });
 
         const maxValue = ALL_REGIONS.map((region) => regionData.get(region))
@@ -112,6 +114,10 @@ class GoalPresenter {
 
             boundUpdated.select(".value")
                 .html((region) => {
+                    if (!regionData.has(region)) {
+                        return "Not found.";
+                    }
+
                     const value = Math.round(regionData.get(region));
                     const valueStr = value + unitsStr;
                     if (selection.getShowBauDelta() && value >= 0) {
@@ -124,11 +130,19 @@ class GoalPresenter {
             boundUpdated.select(".glyph")
                 .transition()
                 .attr("width", (region) => {
+                    if (!regionData.has(region)) {
+                        return 0;
+                    }
+
                     const value = regionData.get(region);
                     const width = horizontalScale(value) - horizontalScale(0);
                     return Math.abs(width);
                 })
                 .attr("x", (region) => {
+                    if (!regionData.has(region)) {
+                        return horizontalScale(0);
+                    }
+
                     const value = regionData.get(region);
                     const width = horizontalScale(value) - horizontalScale(0);
                     if (width < 0) {
