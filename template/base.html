@@ -106,12 +106,12 @@
                                         </div>
                                     </div>
                                 </section>
-                                <section class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries" tabindex="0" aria-details="instructions-keyboard-overview-timeseries">
+                                <section class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries" tabindex="0" aria-describedby="instructions-keyboard-overview-timeseries">
                                     <div id="overview-anchor-timeseries">
                                         <div class="viz-option">
                                             <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                             <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
-                                            <svg class="body" aria-details="overview-timeseries-description"></svg>
+                                            <svg class="body" aria-describedby="overview-timeseries-description"></svg>
                                             <div class="cta-holder"><a href="#detailed" class="detailed-cta btn sec" id="explore-details-link">Explore detailed projections</a></div>
                                             <div class="legend">
                                                 <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
@@ -249,7 +249,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-details="instructions-keyboard-timeseries">
+                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-describedby="instructions-keyboard-timeseries">
                                             <div id="detailed-anchor-timeseries">
                                                 <h3 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                                 <div class="slope-check-holder">
@@ -258,7 +258,7 @@
                                                 <div class="viz-option">
                                                     <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
                                                     <div>
-                                                        <svg class="timeseries" id="timeseries" aria-details="detailed-timeseries-description"></svg>
+                                                        <svg class="timeseries" id="timeseries" aria-describedby="detailed-timeseries-description"></svg>
                                                     </div>
                                                     <div class="sparklines-section" id="sparklines-section">
                                                     </div>
@@ -280,7 +280,7 @@
                                                 <div class="slope-check-holder">
                                                     <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
                                                 </div>
-                                                <svg id="bubblegraph" class="bubblegraph" id="bubblegraph" aria-details="detailed-bubble-description"></svg>
+                                                <svg id="bubblegraph" class="bubblegraph" id="bubblegraph" aria-describedby="detailed-bubble-description"></svg>
                                             </div>
                                             <div class="table-option"></div>
                                         </div>
@@ -732,7 +732,7 @@
                             <div class="settings-section">
                                 <h3>Visualizations</h3>
                                 <p>
-                                    The tool will, by default, attempt to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-details_attribute" target="_blank">aria-details</a> will try to support use of the charts interactively paired with keyboard controls. However, for those with incompatible software where the visualizations do not perform well, users can instead replace them with a table. Note that all data may be exported as well.
+                                    The tool will, by default, attempt to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-describedby_attribute" target="_blank">aria-describedby</a> will try to support use of the charts interactively paired with keyboard controls. However, for those with incompatible software where the visualizations do not perform well or simply prefer a tabular format when the visuals become more sophisticated, users can instead replace them with a table. Note that all data may be exported as well.
                                 </p>
                                 <div>
                                     <div>
