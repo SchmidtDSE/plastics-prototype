@@ -56,6 +56,9 @@
     LinkedIn: in/mollyrmorse
     Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).
 
+    Advisor: Linda Nakasone
+    Role: Community-provided / volunteer report on possible accessibility growth areas.
+
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
     Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).

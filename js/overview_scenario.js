@@ -80,7 +80,11 @@ class ScenarioPresenter {
 
         self._targetDiv = targetDiv;
         self._d3Selection = self._getD3().select("#" + self._targetDiv.id);
-        self._onPolicyChangeCallback = onPolicyChange;
+        self._onPolicyChangeCallback = (scenario, isChecked) => {
+            // TODO: Move up layer
+            document.getElementById("explore-details-link").classList.remove("sec");
+            onPolicyChange(scenario, isChecked);
+        };
         self._scenarios = scenarios;
         self._lastInputValues = null;
         self._tippyPrior = null;

@@ -6,14 +6,14 @@
 
 import {
     ALL_REGIONS,
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
     EOL_ATTRS,
     PRODUCTION_ATTRS,
-    TEXT_COLORS,
     STANDARD_ATTR_NAMES,
+    getGlobalColors,
+    getGlobalTextColors,
 } from "const";
 
 import {STRINGS} from "strings";
@@ -115,21 +115,22 @@ class BubblegraphPresenter {
         self._verticalIndexScales.set(DISPLAY_STAGES.production, verticalIndexScaleProduction);
 
         // Color scales
+        const globalColors = getGlobalColors();
         const colorScalesEol = new Map();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesEol.set(attr, color);
         });
 
         const colorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesConsumption.set(attr, color);
         });
 
         const colorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesProduction.set(attr, color);
         });
 
@@ -139,21 +140,22 @@ class BubblegraphPresenter {
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
 
         // Text color scales
+        const globalTextColors = getGlobalTextColors();
         const textColorScalesEol = new Map();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesEol.set(attr, color);
         });
 
         const textColorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesConsumption.set(attr, color);
         });
 
         const textColorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesProduction.set(attr, color);
         });
 
@@ -644,12 +646,56 @@ class BubblegraphPresenter {
             }
         };
 
-        updateTitle();
-        updateMetricLabels();
-        updateRegionLabels();
-        updateLines();
-        updateBubbles();
-        updateDescription();
+        // Don't let the UI loop get overwhelmed.
+        const preferTables = document.getElementById("show-table-radio").checked;
+        const vizDelay = preferTables ? 1000 : 1;
+        setTimeout(() => {
+            updateTitle();
+            updateMetricLabels();
+            updateRegionLabels();
+            updateLines();
+            updateBubbles();
+            updateDescription();
+        }, vizDelay);
+
+        const tableDelay = preferTables ? 1 : 1000;
+        setTimeout(() => {
+            self._updateTable(stateSet, selection);
+        }, tableDelay);
+    }
+
+    _updateTable(stateSet, selection) {
+        const self = this;
+
+        const displayStage = selection.getDisplayStage();
+        const outerSelection = d3.select(self._targetDiv);
+
+        outerSelection.select(".table-option").html("");
+
+        const table = outerSelection.select(".table-option")
+            .append("table")
+            .classed("access-table", true)
+            .style("opacity", 0);
+
+        const headerRow = table.append("tr");
+        headerRow.append("th").html("Type");
+        ALL_REGIONS.forEach((region) => {
+            headerRow.append("th").html(STRINGS.get(region) + " MMT");
+        });
+
+        const attrNames = self._attrNames.get(displayStage);
+        const newRows = table.selectAll(".row").data(attrNames).enter().append("tr");
+
+        newRows.append("td").html((attr) => STRINGS.get(attr));
+        ALL_REGIONS.forEach((region) => {
+            const regionValues = stateSet.getWithIntervention().get("out").get(region);
+            newRows.append("td").html((attr) => {
+                const value = regionValues.get(attr);
+                return Math.round(value);
+            });
+        });
+
+        table.transition().style("opacity", 1);
     }
 
     _getD3() {
