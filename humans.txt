@@ -63,6 +63,10 @@
     LinkedIn: in/neil-nathan
     Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).
 
+    Communications: Kelly Wang
+    LinkedIn: in/kellytwang
+    Role: Communications
+
 /* SITE */
     Last update: LAST_UPDATED
     Language: English
