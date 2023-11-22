@@ -844,6 +844,10 @@ h2 .info-img, h3 .info-img {
     display: none;
 }
 
+.table-option {
+    display: none;
+}
+
 .tutorial {
     text-align: left;
     padding-bottom: 10px;
