@@ -498,6 +498,9 @@ class Driver {
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);
+        } else if (hash.startsWith("#accessibility")) {
+            self._tabs.toggle("#accessibility");
+            self._subtabs.toggle(hash);
         } else if (hash.startsWith("#guide")) {
             self._tabs.toggle("#guide");
             self._subtabs_guide.toggle(hash);

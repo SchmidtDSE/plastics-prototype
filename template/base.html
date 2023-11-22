@@ -14,6 +14,7 @@
                         <li><a href="#downloads">Downloads</a></li>
                         <li><a href="#guide">Guide</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
                         <li><a href="#toc">Contents</a></li>
                     </ul>
                 </nav>
@@ -34,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="overview-section cumulative-toggle">
-                                <h2 class="post-intro post-intro-early" id="overview-anchor-selector" >
+                                <h2 class="post-intro post-intro-early" id="overview-anchor-selector" aria-label="Overview">
                                     Overview Showing Plastic
                                     <select class="goal-select">
                                         <option value="mismanagedWaste" selected>Mismanaged Waste</option>
@@ -170,7 +171,7 @@
                                             </div>
                                         </div>
                                         <div id="detailed-anchor-controls">
-                                            <h2 class="post-intro post-intro-early">
+                                            <h2 class="post-intro post-intro-early" aria-label="Details">
                                                 <span>Details Showing</span>
                                                 <select class="stage-select" id="stage-select">
                                                 </select>
@@ -278,7 +279,7 @@
                             <div class="panel">
                                 <section id="buttons-panel" class="right-panel post-intro">
                                     <div id="detailed-anchor-policy-file">
-                                        <h2>Policy</h2>
+                                        <h2>Policy Scenario</h2>
                                         <div class="link-holder">
                                             <a href="#download" class="download-link btn">Download Projections</a>
                                         </div>
@@ -327,11 +328,6 @@
                                             </details>
                                         </div>
                                     </div>
-                                </section>
-                                <section id="layout-panel" class="right-panel post-intro">
-                                    <h2>Layout</h2>
-                                    <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
-                                    <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
                                 </section>
                             </div>
                         </div>
@@ -675,10 +671,87 @@
                         </div>
                     </section>
 
+                    <section id="accessibility" class="about">
+                        <div class="about-panel">
+                            <h2>Accessibility Settings</h2>
+                            <div class="settings-section">
+                                <h3>Layout</h3>
+                                <p>
+                                    Some views like the details tab may show a policy panel next to visualization describing that policy. Some users may prefer a linear view where the visualization takes up the whole screen.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side layout</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear layout</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Colors</h3>
+                                <p>
+                                    By default, the color scheme emphasizes color differences between series (example: to better differentiate end of life fates by color). This may benefit some color blind and low vision users. However, you may change this to a contrast color scheme which empahsizes difference from colors to the background, helping other low vision users.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio" checked><label for="colorblind-radio">Color-blind scheme</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio"><label for="high-contrast-radio">High contrast scheme</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Headers</h3>
+                                <p>
+                                    The headers allow for interactivity to change the visualized data, manipulating the entire visulization from a single component. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. For those using the later, users may instead select a shorter "static" header which removes the interactive elements.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio" checked><label for="interactive-header-radio">Interactive headers</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio"><label for="static-header-radio">Static headers</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Tables</h3>
+                                <p>
+                                    The tool will, by default, attempt to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-details_attribute" target="_blank">aria-details</a> allows for reading data from the visualization interactively paired with keyboard controls. However, for those with incompatible software where the visualizations do not perform well, users can instead replace them with a table. Note that all data may be exported as well.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio" checked><label for="show-viz-radio">Prefer visualizations</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio"><label for="show-table-radio">Prefer tables</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Code Editors</h3>
+                                <p>
+                                    Navigating to details about a policy will let users change the code describing the logic for that intervention. This embedded editor environment can be exited by pressing esc. However, some users not wishing to edit the code may prefer to disable these components for a more streamlined experience.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio" checked><label for="show-editor-radio">Enable code editors</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio"><label for="hide-editor-radio">Disable code editors</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <section id="toc">
                         <div class="about-panel">
                             <h2>Table of Contents</h2>
                             <ul>
+                                <li><a class="toc-link" href="#accessibility">Accessibility</a></li>
                                 <li><a class="toc-link" href="#about">About</a></li>
                                 <li><a class="toc-link" href="#about-contact">About: Contact information</a></li>
                                 <li><a class="toc-link" href="#about-license">About: License</a></li>
