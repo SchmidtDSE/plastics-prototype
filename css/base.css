@@ -889,6 +889,11 @@ h2 .info-img, h3 .info-img {
     border-radius: 2px;
 }
 
+.warning.browser-head-warning {
+    background-color: white;
+    margin-bottom: 30px;
+}
+
 .warning.small {
     font-size: 11px;
 }
@@ -914,14 +919,13 @@ h2 .info-img, h3 .info-img {
     width: 90%;
 }
 
-#browser-warning {
-    background-color: white;
-    margin-bottom: 30px;
-}
-
 #buttons-panel .link-holder {
     margin-bottom: 5px;
     margin-top: 5px;
+}
+
+#fallback-warning {
+    display: none;
 }
 
 #levers-panel details {
