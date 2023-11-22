@@ -8,7 +8,7 @@
  * @license BSD
  */
 
-const CACHE_NAME = "GlobalPlasticsToolOffline_1";
+const CACHE_NAME = "GlobalPlasticsToolOffline_2";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
