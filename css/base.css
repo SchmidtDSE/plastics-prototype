@@ -4,12 +4,43 @@
 }
 
 a:link, a:visited {
-    color: #0000D0;
-    text-decoration: none;
+    color: #5050D0;
+    text-decoration: underline;
 }
 
 a:hover, a:active {
+    color: #0000D0;
     text-decoration: underline;
+}
+
+a.btn:link, a.btn:visited {
+    color: rgb(100, 100, 200);
+    border: 1px solid rgb(100, 100, 200);
+    border-radius: 5px;
+    padding: 5px;
+    margin: 1px 1px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.btn:hover, a.btn:active {
+    background-color: rgb(100, 100, 200);
+    color: white;
+}
+
+a.btn.sec:link, a.btn.sec:visited {
+    color: #707070;
+    border: 1px #707070 solid;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 1px 1px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+a.btn.sec:hover, a.btn.sec:active {
+    background-color: #707070;
+    color: white;
 }
 
 footer {
@@ -36,12 +67,8 @@ h1 {
     font-size: 26px;
 }
 
-h2 {
+h2, h3 {
     font-size: 20px;
-}
-
-h3 {
-    font-size: 16px;
 }
 
 h2 select {
@@ -87,6 +114,7 @@ select {
 
 [role="tablist"] a {
     color: black;
+    text-decoration: none;
 }
 
 .about-panel {
@@ -95,6 +123,10 @@ select {
     border: 1px solid #A0A0A0;
     margin: 3px 3px 20px 3px;
     line-height: 1.5;
+}
+
+.about-panel h3 {
+    font-size: 16px;
 }
 
 .about-panel [role="tab"][aria-selected="true"] {
@@ -175,7 +207,7 @@ select {
     color: #505050;
 }
 
-h2 .info-img {
+h2 .info-img, h3 .info-img {
     height: 18px;
     margin-top: 0px;
     position: relative;
@@ -209,7 +241,7 @@ h2 .info-img {
     background-color: white;
 }
 
-.output-section h2 {
+.output-section h2, .output-section h3 {
     font-size: 18px;
     margin: 10px 0 0 0;
     margin-bottom: 8px;
@@ -772,7 +804,7 @@ h2 .info-img {
     margin: 3px 3px 20px 3px;
 }
 
-.right-panel h2 {
+.right-panel h2, .right-panel h3 {
     margin-top: 7px;
 }
 
@@ -825,6 +857,11 @@ h2 .info-img {
     color: white;
     border-radius: 4px;
     font-size: 16px;
+    text-decoration: none;
+}
+
+.tutorial .tutorial-next a:hover, .tutorial .tutorial-next a:active {
+    text-decoration: underline;
 }
 
 .warning {
@@ -990,7 +1027,7 @@ h2 .info-img {
 /* Responsive for details tab overall */
 
 @media (max-width: 1200px) {
-    .output-section h2 {
+    .output-section h2, .output-section h3 {
         font-size: 15px;
     }
 
