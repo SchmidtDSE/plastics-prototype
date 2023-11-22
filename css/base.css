@@ -840,6 +840,10 @@ h2 .info-img, h3 .info-img {
     width: 100%;
 }
 
+.static-h2 {
+    display: none;
+}
+
 .tutorial {
     text-align: left;
     padding-bottom: 10px;

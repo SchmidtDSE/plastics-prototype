@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="overview-section cumulative-toggle">
-                                <h2 class="post-intro post-intro-early" id="overview-anchor-selector" aria-label="Overview">
+                                <h2 class="post-intro post-intro-early interactive-h2" id="overview-anchor-selector" aria-label="Overview">
                                     Overview Showing Plastic
                                     <select class="goal-select">
                                         <option value="mismanagedWaste" selected>Mismanaged Waste</option>
@@ -51,6 +51,7 @@
                                     </select>
                                     Million Metric Tons.
                                 </h2>
+                                <h2 class="static-h2">Overview</h2>
                             </div>
                             <section class="scorecard overview-section raw-scorecard" id="raw-scorecard">
                                 <div id="overview-anchor-summary">
@@ -171,7 +172,7 @@
                                             </div>
                                         </div>
                                         <div id="detailed-anchor-controls">
-                                            <h2 class="post-intro post-intro-early" aria-label="Details">
+                                            <h2 class="post-intro post-intro-early interactive-h2" aria-label="Details">
                                                 <span>Details Showing</span>
                                                 <select class="stage-select" id="stage-select">
                                                 </select>
@@ -186,6 +187,7 @@
                                                 </select>
                                                 <span>.</span>
                                             </h2>
+                                            <h2 class="static-h2">Deatils View</h2>
                                             <div class="delta-check-holder post-intro">
                                                 <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
                                             </div>
@@ -674,6 +676,7 @@
                     <section id="accessibility" class="about">
                         <div class="about-panel">
                             <h2>Accessibility Settings</h2>
+                            <p>This tab allows you to configure the behavior of the application and includes a number of options which may support certain adaptive technologies. Note that changes to these settings will be saved to a small text file on your machine called a cookie. If you return to the application later and the file is still present, you will be given the option to restore your settings a few seconds after the application finishes loading.</p>
                             <div class="settings-section">
                                 <h3>Layout</h3>
                                 <p>
@@ -681,10 +684,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side layout</label>
+                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" checked><label for="side-by-side-radio">Side by side layout</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear layout</label>
+                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio"><label for="linear-radio">Linear layout</label>
                                     </div>
                                 </p>
                             </div>
@@ -695,10 +698,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
+                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
+                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
                                     </div>
                                 </p>
                             </div>
@@ -709,10 +712,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio" checked><label for="interactive-header-radio">Interactive headers</label>
+                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" checked><label for="interactive-header-radio">Interactive headers</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio"><label for="static-header-radio">Static headers</label>
+                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio"><label for="static-header-radio">Static headers</label>
                                     </div>
                                 </p>
                             </div>
@@ -723,10 +726,10 @@
                                 </p>
                                 <div>
                                     <div>
-                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio" checked><label for="show-viz-radio">Prefer visualizations</label>
+                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" checked><label for="show-viz-radio">Prefer visualizations</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio"><label for="show-table-radio">Prefer tables</label>
+                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio"><label for="show-table-radio">Prefer tables</label>
                                     </div>
                                 </div>
                             </div>
@@ -737,10 +740,10 @@
                                 </p>
                                 <div>
                                     <div>
-                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio" checked><label for="show-editor-radio">Enable code editors</label>
+                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" checked><label for="show-editor-radio">Enable code editors</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio"><label for="hide-editor-radio">Disable code editors</label>
+                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio"><label for="hide-editor-radio">Disable code editors</label>
                                     </div>
                                 </div>
                             </div>
