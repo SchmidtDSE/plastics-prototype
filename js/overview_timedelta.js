@@ -419,8 +419,8 @@ class TimeDeltaPresenter {
             updateTitle();
             updateDescription();
         }, vizDelay);
-        
-        const tableDelay = preferTables ? 1 : 3000;
+
+        const tableDelay = preferTables ? 1 : 1000;
         setTimeout(() => {
             const bauData = getData(businessAsUsuals);
             const projectionData = getData(withInterventions);

@@ -577,6 +577,12 @@ class Driver {
             });
         });
 
+        Array.of(...document.querySelectorAll(".viz-table-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._refreshAccessibility();
+            });
+        });
+
         Array.of(...document.querySelectorAll(".access-radio")).forEach((elem) => {
             elem.addEventListener("click", () => {
                 self._persistAccessibility();
@@ -611,6 +617,22 @@ class Driver {
                 header.style.display = "none";
             }
         });
+
+        const showTables = document.getElementById("show-table-radio").checked;
+        Array.of(...document.querySelectorAll(".table-option")).forEach((target) => {
+            if (showTables) {
+                target.style.display = "block";
+            } else {
+                target.style.display = "none";
+            }
+        });
+        Array.of(...document.querySelectorAll(".viz-option")).forEach((target) => {
+            if (showTables) {
+                target.style.display = "none";
+            } else {
+                target.style.display = "block";
+            }
+        });
     }
 
     _persistAccessibility() {
@@ -639,7 +661,6 @@ class Driver {
         const cookiesManager = self._getCookiesManager();
         
         const accessibilityValue = cookiesManager.get("accessibility");
-        console.log(accessibilityValue);
         if (accessibilityValue === null || accessibilityValue === undefined) {
             return;
         }
