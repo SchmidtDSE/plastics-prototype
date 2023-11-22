@@ -252,18 +252,21 @@
                                         <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-details="instructions-keyboard-timeseries">
                                             <div id="detailed-anchor-timeseries">
                                                 <h3 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
-                                                <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
                                                 <div class="slope-check-holder">
                                                     <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
                                                 </div>
-                                                <div>
-                                                    <svg class="timeseries" id="timeseries" aria-details="detailed-timeseries-description"></svg>
+                                                <div class="viz-option">
+                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                                    <div>
+                                                        <svg class="timeseries" id="timeseries" aria-details="detailed-timeseries-description"></svg>
+                                                    </div>
+                                                    <div class="sparklines-section" id="sparklines-section">
+                                                    </div>
+                                                    <div class="legend">
+                                                        <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                                    </div>
                                                 </div>
-                                                <div class="sparklines-section" id="sparklines-section">
-                                                </div>
-                                                <div class="legend">
-                                                    <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
-                                                </div>
+                                                <div class="table-option"></div>
                                             </div>
                                         </div>
                                     </section>
@@ -690,10 +693,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" checked><label for="side-by-side-radio">Side by side layout</label>
+                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" autocomplete="off" checked><label for="side-by-side-radio">Side by side layout</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio"><label for="linear-radio">Linear layout</label>
+                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio" autocomplete="off"><label for="linear-radio">Linear layout</label>
                                     </div>
                                 </p>
                             </div>
@@ -704,10 +707,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
+                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" autocomplete="off" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
+                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio" autocomplete="off"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
                                     </div>
                                 </p>
                             </div>
@@ -718,10 +721,10 @@
                                 </p>
                                 <p>
                                     <div>
-                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" checked><label for="interactive-header-radio">Interactive headers</label>
+                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" autocomplete="off" checked><label for="interactive-header-radio">Interactive headers</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio"><label for="static-header-radio">Static headers</label>
+                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio" autocomplete="off"><label for="static-header-radio">Static headers</label>
                                     </div>
                                 </p>
                             </div>
@@ -732,10 +735,10 @@
                                 </p>
                                 <div>
                                     <div>
-                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" checked><label for="show-viz-radio">Prefer visualizations</label>
+                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" autocomplete="off" checked><label for="show-viz-radio">Prefer visualizations</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio"><label for="show-table-radio">Prefer tables</label>
+                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio" autocomplete="off"><label for="show-table-radio">Prefer tables</label>
                                     </div>
                                 </div>
                             </div>
@@ -746,10 +749,10 @@
                                 </p>
                                 <div>
                                     <div>
-                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" checked><label for="show-editor-radio">Enable code editors</label>
+                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" autocomplete="off" checked><label for="show-editor-radio">Enable code editors</label>
                                     </div>
                                     <div>
-                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio"><label for="hide-editor-radio">Disable code editors</label>
+                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio" autocomplete="off"><label for="hide-editor-radio">Disable code editors</label>
                                     </div>
                                 </div>
                             </div>
