@@ -670,7 +670,7 @@ class BubblegraphPresenter {
         const displayStage = selection.getDisplayStage();
         const outerSelection = d3.select(self._targetDiv);
 
-        outerSelection.select(".table-option").html();
+        outerSelection.select(".table-option").html("");
 
         const table = outerSelection.select(".table-option")
             .append("table")
