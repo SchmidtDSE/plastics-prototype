@@ -8,15 +8,20 @@ function buildPageTest() {
     QUnit.module("page", function() {
 
         function bootstrapPage() {
-            return fetchWithRetry("harness.html")
-                .then((x) => x.text())
-                .then((x) => {
-                    document.getElementById("ui-harness").innerHTML = x;
-                    return x;
-                })
-                .then((text) => {
-                    return main(false, true, true);
-                });
+            return new Promise((resolve, reject) => {
+                fetchWithRetry("harness.html")
+                    .then((x) => x.text())
+                    .then((x) => {
+                        document.getElementById("ui-harness").innerHTML = x;
+                        return x;
+                    })
+                    .then((text) => {
+                        return main(false, true, true);
+                    })
+                    .then(() => {
+                        setTimeout(() => resolve(), 1000);
+                    });
+            });
         }
 
         QUnit.test("renders tabs", function(assert) {

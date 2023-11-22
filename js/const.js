@@ -65,6 +65,40 @@ const TEXT_COLORS = [
     "#F0F0F0",
 ];
 
+const HIGH_CONTRAST_COLORS = [
+    "#1b9e77",
+    "#d95f02",
+    "#7570b3",
+    "#e7298a",
+    "#66a61e",
+    "#e6ab02",
+    "#a6761d",
+    "#666666",
+];
+
+const HIGH_CONTRAST_TEXT_COLORS = [
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+    "#F0F0F0",
+];
+
+const isHighContrast = () => {
+    return document.getElementById("high-contrast-radio").checked;
+};
+
+const getGlobalColors = () => {
+    return isHighContrast() ? HIGH_CONTRAST_COLORS : COLORS;
+};
+
+const getGlobalTextColors = () => {
+    return isHighContrast() ? HIGH_CONTRAST_TEXT_COLORS : TEXT_COLORS;
+};
+
 // Separate primary and secondary
 const PIPELINE_EXPORT_START_YEAR = 2010;
 const RECYCLING_DELAY_ASSUMPTION = 1;
@@ -117,4 +151,6 @@ export {
     DISPLAY_STAGES,
     GOALS,
     STANDARD_ATTR_NAMES,
+    getGlobalColors,
+    getGlobalTextColors,
 };

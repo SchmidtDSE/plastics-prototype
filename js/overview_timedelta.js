@@ -406,14 +406,26 @@ class TimeDeltaPresenter {
             }
         };
 
-        updateValueAxis();
-        updateYearAxis();
-        updateAxisRect();
-        updateIndicator();
-        updateLines();
-        updateHoverTargets();
-        updateTitle();
-        updateDescription();
+        // Don't let the UI loop get overwhelmed.
+        const preferTables = document.getElementById("show-table-radio").checked;
+        const vizDelay = preferTables ? 1000 : 1;
+        setTimeout(() => {
+            updateValueAxis();
+            updateYearAxis();
+            updateAxisRect();
+            updateIndicator();
+            updateLines();
+            updateHoverTargets();
+            updateTitle();
+            updateDescription();
+        }, vizDelay);
+
+        const tableDelay = preferTables ? 1 : 1000;
+        setTimeout(() => {
+            const bauData = getData(businessAsUsuals);
+            const projectionData = getData(withInterventions);
+            self._updateTable(bauData, projectionData);
+        }, tableDelay);
     }
 
     _initElements() {
@@ -558,6 +570,57 @@ class TimeDeltaPresenter {
         // Should move this out at some point.
         const historicalCheck = document.getElementById("history-check");
         return historicalCheck.checked;
+    }
+
+    _updateTable(bauData, projectionData) {
+        const self = this;
+
+        const getByYear = (target) => {
+            const retMap = new Map();
+            target.forEach((record) => {
+                retMap.set(record["year"], record["value"]);
+            });
+            return retMap;
+        };
+
+        const bauDataIndexed = getByYear(bauData);
+        const projectionDataIndexed = getByYear(projectionData);
+
+        self._d3Selection.select(".table-option").html("");
+
+        const table = self._d3Selection.select(".table-option")
+            .append("table")
+            .classed("access-table", true)
+            .style("opacity", 0);
+
+        const headerRow = table.append("tr");
+        const units = "MMT";
+        headerRow.append("th").html("Year");
+        headerRow.append("th").html("Business as Usual (" + units + ")");
+        headerRow.append("th").html("With Policies (" + units + ")");
+
+        const startYear = HISTORY_START_YEAR;
+        const endYear = MAX_YEAR;
+        const years = [];
+        for (let year = startYear; year <= endYear; year++) {
+            years.push(year);
+        }
+        const newRows = table.selectAll(".row").data(years).enter().append("tr");
+
+        const region = "global";
+        newRows.append("td").html((year) => year);
+        newRows.append("td").html((year) => {
+            const valueRaw = bauDataIndexed.get(year);
+            const valueRounded = Math.round(valueRaw);
+            return valueRounded;
+        });
+        newRows.append("td").html((year) => {
+            const valueRaw = projectionDataIndexed.get(year);
+            const valueRounded = Math.round(valueRaw);
+            return valueRounded;
+        });
+
+        table.transition().style("opacity", 1);
     }
 
     _getD3() {

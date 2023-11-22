@@ -6,7 +6,6 @@
 
 import {
     ALL_ATTRS,
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
@@ -16,6 +15,7 @@ import {
     PRODUCTION_ATTRS,
     START_YEAR,
     STANDARD_ATTR_NAMES,
+    getGlobalColors,
 } from "const";
 import {STRINGS} from "strings";
 
@@ -358,9 +358,10 @@ class SparklinesSet {
 
         // Color scales
         const colorScales = new Map();
+        const globalColors = getGlobalColors();
         [EOL_ATTRS, CONSUMPTION_ATTRS, PRODUCTION_ATTRS].forEach((attrList) => {
             attrList.forEach((attr, i) => {
-                const color = COLORS[i];
+                const color = globalColors[i];
                 colorScales.set(attr, color);
             });
         });

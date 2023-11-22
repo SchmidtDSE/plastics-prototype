@@ -5,13 +5,13 @@
  */
 
 import {
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
     EOL_ATTRS,
     PRODUCTION_ATTRS,
     STANDARD_ATTR_NAMES,
+    getGlobalColors,
 } from "const";
 import {STRINGS, UNITS} from "strings";
 
@@ -55,10 +55,11 @@ class StagePresenter {
         // Color scales
         const colorScaleConstructors = new Map();
 
+        const globalColors = getGlobalColors();
         const makeColorsEol = () => {
             const colorScalesEol = new Map();
             EOL_ATTRS.forEach((attr, i) => {
-                const color = COLORS[i];
+                const color = globalColors[i];
                 colorScalesEol.set(attr, color);
             });
             return colorScalesEol;
@@ -68,7 +69,7 @@ class StagePresenter {
         const makeColorsConsumption = () => {
             const colorScalesConsumption = new Map();
             CONSUMPTION_ATTRS.forEach((attr, i) => {
-                const color = COLORS[i];
+                const color = globalColors[i];
                 colorScalesConsumption.set(attr, color);
             });
             return colorScalesConsumption;
@@ -78,7 +79,7 @@ class StagePresenter {
         const makeColorsProduction = () => {
             const colorScalesProduction = new Map();
             PRODUCTION_ATTRS.forEach((attr, i) => {
-                const color = COLORS[i];
+                const color = globalColors[i];
                 colorScalesProduction.set(attr, color);
             });
             return colorScalesProduction;

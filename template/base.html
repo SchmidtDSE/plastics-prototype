@@ -14,12 +14,13 @@
                         <li><a href="#downloads">Downloads</a></li>
                         <li><a href="#guide">Guide</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
                         <li><a href="#toc">Contents</a></li>
                     </ul>
                 </nav>
 
                 <main id="main">
-                    <div id="overview" class="overview">
+                    <section id="overview" class="overview">
                         <div class="panel overview-panel" id="overview-panel">
                             <div class="tutorial">
                                 <p class="info">
@@ -34,8 +35,8 @@
                                 </div>
                             </div>
                             <div class="overview-section cumulative-toggle">
-                                <h2 class="post-intro post-intro-early" id="overview-anchor-selector">
-                                    Showing Plastic
+                                <h2 class="post-intro post-intro-early interactive-h2" id="overview-anchor-selector" aria-label="Overview">
+                                    Overview Showing Plastic
                                     <select class="goal-select">
                                         <option value="mismanagedWaste" selected>Mismanaged Waste</option>
                                         <option value="incineratedWaste">Incinerated Waste</option>
@@ -50,102 +51,113 @@
                                     </select>
                                     Million Metric Tons.
                                 </h2>
+                                <h2 class="static-h2">Overview</h2>
                             </div>
-                            <div class="scorecard overview-section raw-scorecard" id="raw-scorecard">
+                            <section class="scorecard overview-section raw-scorecard" id="raw-scorecard">
                                 <div id="overview-anchor-summary">
                                     <div class="post-intro">
-                                        <h2>Global <span class="year">2049</span> Plastics Projections</h2>
+                                        <h3>Global <span class="year">2049</span> Plastics Projections</h3>
                                     </div>
                                     <div class="cards">
                                         <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
-                                            <div class="title"><label for="mismanaged-radio-overview-top">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="mismanaged-radio-overview-top">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Sometimes called leakage, this concerning plastic waste category may more readily enter into waterways and the built environment."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-top" class="overview-radio" name="overview-metric-top" value="mismanaged" ></div>
                                         </div>
                                         <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
-                                            <div class="title"><label for="incinerated-radio-overview-top">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="incinerated-radio-overview-top">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but incincerated as opposed to recycled or sent to landfill."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-top" class="overview-radio" name="overview-metric-top" value="incinerated" ></div>
                                         </div>
                                         <div class="card landfill-waste-card post-intro" goal="landfillWaste">
-                                            <div class="title"><label for="landfill-radio-overview-top">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="landfill-radio-overview-top">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is managed but sent to landfill as opposed to recycled or incinerated."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-top" class="overview-radio" name="overview-metric-top" value="landfill" ></div>
                                         </div>
                                         <div class="card recycling-card post-intro" goal="recycling">
-                                            <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-top" class="overview-radio" name="overview-metric-top" value="recycling" ></div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </section>
                             <div class="middle">
-                                <div class="scenarios overview-section post-intro" id="scenarios">
+                                <section class="scenarios overview-section post-intro" id="scenarios">
                                     <div id="overview-anchor-scenarios">
-                                        <h2>Policies</h2>
+                                        <h3>Policies</h3>
                                         <div class="menu"></div>
                                         <div class="cta" id="overview-anchor-file">
-                                            <div class="action"><a href="#detailed" class="detailed-cta">Customize >></a> // <a href="#add-policy" id="add-policy-link">Add checkbox >></a></div>
-                                            <div class="action"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                            <div class="action"><a href="#share" class="share-link">Share >></a> // <a href="#export" class="download-link">Export >></a></div>
-                                            <div class="action"><a href="#reset" class="reset-link">Reset Simulation and Policies >></a></div>
+                                            <div class="action">
+                                                <a href="#add-policy" id="add-policy-link" class="btn sec" role="button">Add</a>
+                                                <a href="#save" class="save-link btn sec" role="button">Save</a>
+                                                <a href="#load" class="load-link btn sec" role="button">Load</a>
+                                                <a href="#share" class="share-link btn sec" role="button">Share</a>
+                                                <a href="#reset" class="reset-link btn sec" role="button">Reset</a>
+                                            </div>
+                                            <div class="action">
+                                                <a href="#detailed" class="detailed-cta btn sec" role="button">Customize Details</a>
+                                                <a href="#export" class="download-link btn sec" role="button">Export CSV</a>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries" tabindex="0" aria-details="instructions-keyboard-overview-timeseries">
+                                </section>
+                                <section class="overview-timeseries overview-section post-intro post-intro-early" id="overview-timeseries" tabindex="0" aria-describedby="instructions-keyboard-overview-timeseries">
                                     <div id="overview-anchor-timeseries">
-                                        <h2 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h2>
-                                        <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
-                                        <svg class="body" aria-details="overview-timeseries-description"></svg>
-                                        <div class="cta-holder"><a href="#detailed" class="detailed-cta">Go to detailed projections >></a></div>
-                                        <div class="legend">
-                                            <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                        <div class="viz-option">
+                                            <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
+                                            <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                            <svg class="body" aria-describedby="overview-timeseries-description"></svg>
+                                            <div class="cta-holder"><a href="#detailed" class="detailed-cta btn sec" id="explore-details-link">Explore detailed projections</a></div>
+                                            <div class="legend">
+                                                <img src="/img/tab_1_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                            </div>
                                         </div>
+                                        <div class="table-option"></div>
                                     </div>
-                                </div>
+                                </section>
                             </div>
                             <div class="scorecard overview-section last relative-scorecard" id="relative-scorecard">
-                                <div id="overview-anchor-deltas">
+                                <section id="overview-anchor-deltas">
                                     <div class="post-intro">
-                                        <h2>Impact of Policies on Global <span class="year">2049</span> Plastics Projections</h2>
+                                        <h3>Impact of Policies on Global <span class="year">2049</span> Plastics Projections</h3>
                                     </div>
                                     <div class="cards">
                                         <div class="card mismanaged-waste-card post-intro post-intro-early" goal="mismanagedWaste">
                                             <div class="overview-radio-holder"><input type="radio" id="mismanaged-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="mismanaged" ></div>
-                                            <div class="title"><label for="mismanaged-radio-overview-bottom">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="mismanaged-radio-overview-bottom">Mismanaged Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of mismanaged plastic waste or leakage as a result of policy selections."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
                                         <div class="card incinerated-waste-card post-intro" goal="incineratedWaste">
                                             <div class="overview-radio-holder"><input type="radio" id="incinerated-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="incinerated" ></div>
-                                            <div class="title"><label for="incinerated-radio-overview-bottom">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="incinerated-radio-overview-bottom">Incinerated Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of incinerated plastic waste as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
                                         <div class="card landfill-waste-card post-intro" goal="landfillWaste">
                                             <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="landfill" ></div>
-                                            <div class="title"><label for="landfill-radio-overview-bottom">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="landfill-radio-overview-bottom">Landfill Waste</label> <span class="info-target" tabindex="0" data-tippy-content="This is the change in the amount of plastic waste sent to landfill as a result of policy selections and could go up, for example, through reduced mismanaged waste or go down, for example, due to increased recycling."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
                                         <div class="card recycling-card post-intro" goal="recycling">
                                             <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="recycling" ></div>
-                                            <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" src="/img/info.png" class="info-img"></span></div>
+                                            <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">1234</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
                                     </div>
-                                </div>
+                                </section>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div id="detailed">
+                    <section id="detailed">
                         <div class="panel-box active" id="panel-box">
                             <div class="panel">
                                 <div class="output-section">
@@ -163,8 +175,8 @@
                                             </div>
                                         </div>
                                         <div id="detailed-anchor-controls">
-                                            <h2 class="post-intro post-intro-early">
-                                                <span>Showing</span>
+                                            <h2 class="post-intro post-intro-early interactive-h2" aria-label="Details">
+                                                <span>Details Showing</span>
                                                 <select class="stage-select" id="stage-select">
                                                 </select>
                                                 <span>in</span>
@@ -178,37 +190,38 @@
                                                 </select>
                                                 <span>.</span>
                                             </h2>
+                                            <h2 class="static-h2">Deatils View</h2>
                                             <div class="delta-check-holder post-intro">
                                                 <label for="show-delta"><input type="checkbox" name="show-delta" id="show-delta" class="show-delta"> Show change from baseline due to interventions.</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">
+                                    <section class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">
                                         <div id="gloals-container" class="goals-container post-intro">
                                             <div class="goal-container inner top even" id="mismanaged-waste-goal-container">
-                                                <h2>Mismanaged Waste</h2>
+                                                <h3>Mismanaged Waste</h3>
                                                 <div class="bars"></div>
                                             </div>
                                             <div class="goal-container inner top odd" id="incinerated-waste-goal-container">
-                                                <h2>Incinerated Waste</h2>
+                                                <h3>Incinerated Waste</h3>
                                                 <div class="bars"></div>
                                             </div>
                                             <div class="goal-container inner even" id="landfill-waste-goal-container">
-                                                <h2>Landfill Waste</h2>
+                                                <h3>Landfill Waste</h3>
                                                 <div class="bars"></div>
                                             </div>
                                             <div class="goal-container odd" id="recycling-goal-container">
-                                                <h2>Recycling</h2>
+                                                <h3>Recycling</h3>
                                                 <div class="bars"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="region-container" class="region-container post-intro post-intro-early">
+                                    </section>
+                                    <section id="region-container" class="region-container post-intro post-intro-early">
                                         <div id="current-year-container" class="current-year-container" data-simplebar data-simplebar-auto-hide="false">
                                             <div id="eol-container" class="stage-container">
                                                 <div id="detailed-anchor-waste-summary">
                                                     <div class="subtitle"></div>
-                                                    <h2><span class="description">EOL</span></h2>
+                                                    <h3><span class="description">EOL</span></h3>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
                                                         <label for="eol-radio"><input type="radio" class="stage-radio" id="eol-radio" value="eol" name="detailed-metric-side"> Show EOL</label>
@@ -218,7 +231,7 @@
                                             <div id="production-container" class="stage-container">
                                                 <div id="detailed-anchor-production-summary">
                                                     <div class="subtitle"></div>
-                                                    <h2><span class="description">Start of Life</span></h2>
+                                                    <h3><span class="description">Start of Life</span></h3>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
                                                         <label for="production-radio"><input type="radio" class="stage-radio" id="production-radio" value="production" name="detailed-metric-side"> Show SOL</label>
@@ -228,7 +241,7 @@
                                             <div id="consumption-container" class="stage-container">
                                                 <div id="detailed-anchor-consumption-summary">
                                                     <div class="subtitle"></div>
-                                                    <h2><span class="description">Consumption</span></h2>
+                                                    <h3><span class="description">Consumption</span></h3>
                                                     <div class="bars"></div>
                                                     <div class="check-holder">
                                                         <label for="consumption-radio"><input type="radio" class="stage-radio" id="consumption-radio" value="consumption" name="detailed-metric-side"> Show Consumption</label>
@@ -236,49 +249,63 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-details="instructions-keyboard-timeseries">
+                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-describedby="instructions-keyboard-timeseries">
                                             <div id="detailed-anchor-timeseries">
-                                                <h2 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h2>
-                                                <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                                <h3 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                                 <div class="slope-check-holder">
                                                     <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
                                                 </div>
-                                                <div>
-                                                    <svg class="timeseries" id="timeseries" aria-details="detailed-timeseries-description"></svg>
+                                                <div class="viz-option">
+                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                                    <div>
+                                                        <svg class="timeseries" id="timeseries" aria-describedby="detailed-timeseries-description"></svg>
+                                                    </div>
+                                                    <div class="sparklines-section" id="sparklines-section">
+                                                    </div>
+                                                    <div class="legend">
+                                                        <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
+                                                    </div>
                                                 </div>
-                                                <div class="sparklines-section" id="sparklines-section">
-                                                </div>
-                                                <div class="legend">
-                                                    <img src="/img/tab_2_legend.png" alt="Legend showing solid lines include interventions and dotted lines do not">
-                                                </div>
+                                                <div class="table-option"></div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="bubblegraph-container" class="bubblegraph-container post-intro" data-simplebar data-simplebar-auto-hide="false" tabindex="0">
+                                    </section>
+                                    <section id="bubblegraph-container" class="bubblegraph-container post-intro" data-simplebar data-simplebar-auto-hide="false" tabindex="0">
                                         <div id="detailed-anchor-cross-region">
-                                            <h2 id="detailed-bubble-description"><span class="title"></span> <a id="detailed-bubble-description-dynamic"  href="#detailed-bubble-description"><img alt="description" src="/img/dialog.png" class="info-img"></a></h2>
-                                            <div class="instructions-keyboard">
-                                                Keyboard users: Press c for China, e for EU 30, n for NAFTA, r for rest of world, and g for global. Tab in for data.
+                                            <h3 id="detailed-bubble-description" class="big"><span class="title"></span> <a id="detailed-bubble-description-dynamic"  href="#detailed-bubble-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
+                                            <div class="viz-option">
+                                                <div class="instructions-keyboard">
+                                                    Keyboard users: Press c for China, e for EU 30, n for NAFTA, r for rest of world, and g for global. Tab in for data.
+                                                </div>
+                                                <div class="slope-check-holder">
+                                                    <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
+                                                </div>
+                                                <svg id="bubblegraph" class="bubblegraph" id="bubblegraph" aria-describedby="detailed-bubble-description"></svg>
                                             </div>
-                                            <div class="slope-check-holder">
-                                                <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
-                                            </div>
-                                            <svg id="bubblegraph" class="bubblegraph" id="bubblegraph" aria-details="detailed-bubble-description"></svg>
+                                            <div class="table-option"></div>
                                         </div>
-                                    </div>
+                                    </section>
                                 </div>
                             </div>
                             <div class="panel">
-                                <div id="buttons-panel" class="right-panel post-intro">
+                                <section id="buttons-panel" class="right-panel post-intro">
                                     <div id="detailed-anchor-policy-file">
-                                        <h2>Policy</h2>
-                                        <div class="link-holder"><a href="#overview" id="overview-cta">Return to overview >></a></div>
-                                        <div class="link-holder"><a href="#save" class="save-link">Save >></a> // <a href="#load" class="load-link">Load >></a></div>
-                                        <div class="link-holder"><a href="#share" class="share-link">Share >></a> // <a href="#reset" class="reset-link">Reset >></a></div>
-                                        <div class="link-holder"><a href="#download" class="download-link">Download Projections >></a></div>
+                                        <h2>Policy Scenario</h2>
+                                        <div class="link-holder">
+                                            <a href="#download" class="download-link btn" role="button">Download Projections</a>
+                                        </div>
+                                        <div class="link-holder">
+                                            <a href="#save" class="save-link btn sec" role="button">Save</a>
+                                            <a href="#load" class="load-link btn sec" role="button">Load</a>
+                                            <a href="#share" class="share-link btn sec" role="button">Share</a>
+                                            <a href="#reset" class="reset-link btn sec" role="button">Reset</a>
+                                        </div>
+                                        <div class="link-holder">
+                                            <a href="#overview" id="overview-cta" class="btn sec" role="button" role="button">Return to overview</a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="levers-panel" class="right-panel post-intro">
+                                </section>
+                                <section id="levers-panel" class="right-panel post-intro">
                                     <div id="detailed-anchor-policy-customization">
                                         <div id="levers-panel-inner"></div>
                                         <div class="lever-section" id="prototype">
@@ -312,17 +339,12 @@
                                             </details>
                                         </div>
                                     </div>
-                                </div>
-                                <div id="layout-panel" class="right-panel post-intro">
-                                    <h2>Layout</h2>
-                                    <div><input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio" checked><label for="side-by-side-radio">Side by side</label></div>
-                                    <div><input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio"><label for="linear-radio">Linear</label></div>
-                                </div>
+                                </section>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div id="downloads" class="about">
+                    <section id="downloads" class="about">
                         <div class="about-panel">
                             <div class="about-embed-section">
                                 <h2>Downloads</h2>
@@ -373,9 +395,9 @@
                                 Additional JSON files are also available for download and this tool's simulation can be run outside the browser from the command line. See the <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone" target="_blank">stand alone execution README</a> for more details.
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div id="guide" class="about">
+                    <section id="guide" class="about">
                         <div class="about-panel">
                             <ul data-sub-tabs-guide>
                                 <li><a data-tabby-default href="#guide-intro">Introduction</a></li>
@@ -385,7 +407,7 @@
                                 <li><a href="#guide-resources">Resources</a></li>
                             </ul>
                             <div id="guide-intro">
-                                <h2>Introduction</h2>
+                                <h2>Guide Introduction</h2>
                                 This guide provides some high level observations from the data as material to complement the tool and serves as a continuation of our <a href="https://plasticstreaty.berkeley.edu/" target="_blank">interactive introduction</a>. Each section provides a different perspective into these results. The sections:
 
                                 <ul>
@@ -486,9 +508,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div id="about" class="about">
+                    <section id="about" class="about">
                         <div class="about-panel">
                             <ul data-sub-tabs-about>
                                 <li><a data-tabby-default href="#about-overview">Introduction</a></li>
@@ -651,6 +673,7 @@
                                     <li><a href="http://cieramartinez.org/" target="_blank">Ciera Martinez</a> <span class="affiliation">DSE, UC Berkeley</span>: Program management, communications, outreach, advisor.</li>
                                     <li><a href="https://labs.eemb.ucsb.edu/mccauley/doug/index.html" target="_blank">Douglas McCauley</a> <span class="affiliation">BOSL, DSE, UCSB, UC Berkeley</span>: Executive leadership, policy modeling, policy reserach, communications, outreach, media, data visualization, UX / design.</li>
                                     <li><a href="https://www.linkedin.com/in/mollyrmorse" target="_blank">Molly Morse</a> <span class="affiliation">BOSL, UCSB</span>: Program management, communications, outreach, media, data visualization (<a href="https://plasticstreaty.berkeley.edu/" target="_blank">landing page</a>), UX / design (<a href="https://plasticstreaty.berkeley.edu/" target="_blank">landing page</a>).</li>
+                                    <li>Linda Nakasone <span class="affiliation">Community</span>: Advisor (community-provided / volunteer report on possible accessibility growth areas).</li>
                                     <li><a href="https://www.linkedin.com/in/neil-nathan" target="_blank">Neil Nathan</a> <span class="affiliation">BOSL, UCSB</span>: Communications, outreach, media, data visualization (<a href="https://plasticstreaty.berkeley.edu/" target="_blank">landing page</a>), UX / design (<a href="https://plasticstreaty.berkeley.edu/" target="_blank">landing page</a>).</li>
                                     <li><a href="https://gleap.org" target="_blank">Sam Pottinger</a> <span class="affiliation">DSE, UC Berkeley</span>: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD, language engineering.</li>
                                 </ul>
@@ -658,12 +681,90 @@
                                 A <a href="/humans.txt">humans.txt</a> with additional detail is available with the above people in alphabetical order except for Sam who is serving as the web contact and, thus, listed first. Note that other collaborators may have contributed to the broader constellation of related projects and are listed in related publications.
                             </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <div id="toc">
+                    <section id="accessibility" class="about">
+                        <div class="about-panel">
+                            <h2>Accessibility Settings</h2>
+                            <p>This tab allows you to configure the behavior of the application and includes a number of options which may support certain adaptive technologies. Note that changes to these settings will be saved to a small text file on your machine called a cookie. If you return to the application later and the file is still present, you will be given the option to restore your settings a few seconds after the application finishes loading.</p>
+                            <div class="settings-section">
+                                <h3>Layout</h3>
+                                <p>
+                                    Some views like the details tab may show a policy panel next to visualization describing that policy. Some users may prefer a linear view where the visualization takes up the whole screen.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" autocomplete="off" checked><label for="side-by-side-radio">Side by side layout</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio" autocomplete="off"><label for="linear-radio">Linear layout</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Colors</h3>
+                                <p>
+                                    By default, the color scheme emphasizes color differences between series (example: to better differentiate end of life fates by color). This may benefit some color blind and low vision users. However, you may prefer a high contrast color scheme which empahsizes difference from colors to the background, helping other low vision users.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" autocomplete="off" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio" autocomplete="off"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Headers</h3>
+                                <p>
+                                    The headers allow for interactivity to change the visualized data, manipulating the entire visulization from a single component. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. For those using the later, users may instead select a shorter "static" header which removes the interactive elements.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" autocomplete="off" checked><label for="interactive-header-radio">Interactive headers</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio" autocomplete="off"><label for="static-header-radio">Static headers</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Visualizations</h3>
+                                <p>
+                                    The tool will, by default, attempt to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-describedby_attribute" target="_blank">aria-describedby</a> will try to support use of the charts interactively paired with keyboard controls. However, for those with incompatible software where the visualizations do not perform well or simply prefer a tabular format when the visuals become more sophisticated, users can instead replace them with a table. Note that all data may be exported as well.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" autocomplete="off" checked><label for="show-viz-radio">Prefer visualizations</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio" autocomplete="off"><label for="show-table-radio">Prefer tables</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Code Editors</h3>
+                                <p>
+                                    Navigating to details about a policy will let users change the code describing the logic for that intervention. This embedded editor environment can be exited by pressing esc. However, some users not wishing to edit the code may prefer to disable these components for a more streamlined experience.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" autocomplete="off" checked><label for="show-editor-radio">Enable code editors</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio" autocomplete="off"><label for="hide-editor-radio">Disable code editors</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="toc">
                         <div class="about-panel">
                             <h2>Table of Contents</h2>
                             <ul>
+                                <li><a class="toc-link" href="#accessibility">Accessibility</a></li>
                                 <li><a class="toc-link" href="#about">About</a></li>
                                 <li><a class="toc-link" href="#about-contact">About: Contact information</a></li>
                                 <li><a class="toc-link" href="#about-license">About: License</a></li>
@@ -714,7 +815,7 @@
                                 <li><a class="toc-link" href="#overview-anchor-timeseries">Overview: Timeseries graph</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </section>
                 </main>
             </div>
         </div>

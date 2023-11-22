@@ -5,7 +5,6 @@
  */
 
 import {
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
@@ -15,6 +14,7 @@ import {
     PRODUCTION_ATTRS,
     STANDARD_ATTR_NAMES,
     START_YEAR,
+    getGlobalColors,
 } from "const";
 import {STRINGS} from "strings";
 
@@ -59,20 +59,21 @@ class TimeseriesPresenter {
 
         // Color scales
         const colorScalesEol = new Map();
+        const globalColors = getGlobalColors();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesEol.set(attr, color);
         });
 
         const colorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesConsumption.set(attr, color);
         });
 
         const colorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesProduction.set(attr, color);
         });
 
@@ -299,6 +300,7 @@ class TimeseriesPresenter {
                         "year": year,
                         "start": lastValue,
                         "end": nextEnd,
+                        "value": nextValue,
                     };
                     lastValue = nextEnd;
                     return datum;
@@ -325,11 +327,9 @@ class TimeseriesPresenter {
             return positiveData.concat(negativeData);
         };
 
-        const updateBars = () => {
-            const data = years.flatMap(buildDataForYear);
-
+        const updateBars = (flatData) => {
             const bound = barLayer.selectAll(".bar")
-                .data(data, (datum) => datum["year"] + "/" + datum["attr"]);
+                .data(flatData, (datum) => datum["year"] + "/" + datum["attr"]);
 
             bound.exit().remove();
 
@@ -427,13 +427,70 @@ class TimeseriesPresenter {
             self._targetDiv.setAttribute("aria-label", ariaLabelContent);
         };
 
-        updateTitle();
-        updateValueAxis();
-        updateYearAxis();
-        updateYearIndicator();
-        updateBars();
-        updateListeners();
-        updateDescription();
+        const flatData = years.flatMap(buildDataForYear);
+
+        // Don't let the UI loop get overwhelmed.
+        const preferTables = document.getElementById("show-table-radio").checked;
+        const vizDelay = preferTables ? 1000 : 1;
+        setTimeout(() => {
+            updateTitle();
+            updateValueAxis();
+            updateYearAxis();
+            updateYearIndicator();
+            updateBars(flatData);
+            updateListeners();
+            updateDescription();
+        }, vizDelay);
+
+        const tableDelay = preferTables ? 1 : 1000;
+        setTimeout(() => {
+            self._updateTable(flatData);
+        }, tableDelay);
+    }
+
+    _updateTable(flatData) {
+        const self = this;
+
+        const attrsSet = new Set(flatData.map((x) => x["attr"]));
+        const attrs = Array.from(attrsSet);
+        attrs.sort();
+
+        const yearsSet = new Set(flatData.map((x) => x["year"]));
+        const years = Array.from(yearsSet);
+        years.sort();
+
+        const indexed = new Map();
+        flatData.forEach((elem) => {
+            indexed.set(elem["attr"] + " " + elem["year"], elem["value"]);
+        });
+
+        const parentSelection = self._getD3().select(self._targetDiv);
+
+        parentSelection.select(".table-option").html("");
+
+        const table = parentSelection.select(".table-option")
+            .append("table")
+            .classed("access-table", true)
+            .style("opacity", 0);
+
+        const headerRow = table.append("tr");
+        const units = "MMT";
+        headerRow.append("th").html("Year");
+        attrs.forEach((attr) => {
+            const attrStr = STRINGS.get(attr);
+            headerRow.append("th").html(attrStr + " " + units);
+        });
+
+        const newRows = table.selectAll(".row").data(years).enter().append("tr");
+        newRows.append("td").html((year) => year);
+        attrs.forEach((attr) => {
+            newRows.append("td").html((year) => {
+                const value = indexed.get(attr + " " + year);
+                return Math.round(value);
+            });
+        });
+
+        table.transition().style("opacity", 1);
     }
 
     _getD3() {

@@ -14,6 +14,9 @@ import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
 
+const ACCESSIBILITY_MSG = "Prior accessibility settings found. Do you want to load them?";
+
+
 /**
  * Top level presenter that run delegation to component-level presenters.
  */
@@ -49,6 +52,12 @@ class Driver {
         }
 
         self._pauseUiLoop = true;
+
+        self._registerGlobalAccessibiltyControls();
+
+        setTimeout(() => {
+            self._loadAccessibility();
+        }, 3000);
 
         setTimeout(() => {
             self._checkUpdate();
@@ -498,6 +507,9 @@ class Driver {
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);
+        } else if (hash.startsWith("#accessibility")) {
+            self._tabs.toggle("#accessibility");
+            self._subtabs.toggle(hash);
         } else if (hash.startsWith("#guide")) {
             self._tabs.toggle("#guide");
             self._subtabs_guide.toggle(hash);
@@ -540,6 +552,145 @@ class Driver {
                     alert("Reload to update later.");
                 }
             });
+    }
+
+    /**
+     * Register callbacks for global accessiblity controls.
+     */
+    _registerGlobalAccessibiltyControls() {
+        const self = this;
+        Array.of(...document.querySelectorAll(".color-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._onInputChange();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".header-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._refreshAccessibility();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".toggle-editor-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._refreshAccessibility();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".viz-table-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._refreshAccessibility();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".access-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._persistAccessibility();
+            });
+        });
+    }
+
+    _refreshAccessibility() {
+        const self = this;
+
+        const useStatic = document.getElementById("static-header-radio").checked;
+        Array.of(...document.querySelectorAll(".static-h2")).forEach((header) => {
+            if (useStatic) {
+                header.style.display = "block";
+            } else {
+                header.style.display = "none";
+            }
+        });
+        Array.of(...document.querySelectorAll(".interactive-h2")).forEach((header) => {
+            if (useStatic) {
+                header.style.display = "none";
+            } else {
+                header.style.display = "block";
+            }
+        });
+
+        const showEditors = document.getElementById("show-editor-radio").checked;
+        Array.of(...document.querySelectorAll(".editor")).forEach((header) => {
+            if (showEditors) {
+                header.style.display = "block";
+            } else {
+                header.style.display = "none";
+            }
+        });
+
+        const showTables = document.getElementById("show-table-radio").checked;
+        Array.of(...document.querySelectorAll(".table-option")).forEach((target) => {
+            if (showTables) {
+                target.style.display = "block";
+            } else {
+                target.style.display = "none";
+            }
+        });
+        Array.of(...document.querySelectorAll(".viz-option")).forEach((target) => {
+            if (showTables) {
+                target.style.display = "none";
+            } else {
+                target.style.display = "block";
+            }
+        });
+    }
+
+    _persistAccessibility() {
+        const self = this;
+
+        const getRadio = (id) => {
+            return document.getElementById(id).checked;
+        };
+
+        const cookiesManager = self._getCookiesManager();
+        cookiesManager.set(
+            "accessibility",
+            JSON.stringify({
+                "linear": getRadio("linear-radio"),
+                "contrast": getRadio("high-contrast-radio"),
+                "staticHeader": getRadio("static-header-radio"),
+                "tables": getRadio("show-table-radio"),
+                "hideEditor": getRadio("hide-editor-radio"),
+            }),
+            {expires: 30},
+        );
+    }
+
+    _loadAccessibility() {
+        const self = this;
+        const cookiesManager = self._getCookiesManager();
+
+        const accessibilityValue = cookiesManager.get("accessibility");
+        if (accessibilityValue === null || accessibilityValue === undefined) {
+            return;
+        }
+
+        if (!confirm(ACCESSIBILITY_MSG)) {
+            cookiesManager.remove("accessibility");
+            return;
+        }
+
+        const setRadio = (id, check) => {
+            if (check) {
+                document.getElementById(id).checked = true;
+            }
+        };
+
+        const config = JSON.parse(accessibilityValue);
+
+        setRadio("linear-radio", config["linear"]);
+        setRadio("high-contrast-radio", config["contrast"]);
+        setRadio("static-header-radio", config["staticHeader"]);
+        setRadio("show-table-radio", config["tables"]);
+        setRadio("hide-editor-radio", config["hideEditor"]);
+
+        self._refreshAccessibility();
+    }
+
+    _getCookiesManager() {
+        const self = this;
+        // eslint-disable-next-line no-undef
+        return Cookies;
     }
 }
 
