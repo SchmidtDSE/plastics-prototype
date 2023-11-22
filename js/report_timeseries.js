@@ -5,7 +5,6 @@
  */
 
 import {
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
@@ -15,6 +14,7 @@ import {
     PRODUCTION_ATTRS,
     STANDARD_ATTR_NAMES,
     START_YEAR,
+    getGlobalColors,
 } from "const";
 import {STRINGS} from "strings";
 
@@ -59,20 +59,21 @@ class TimeseriesPresenter {
 
         // Color scales
         const colorScalesEol = new Map();
+        const globalColors = getGlobalColors();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesEol.set(attr, color);
         });
 
         const colorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesConsumption.set(attr, color);
         });
 
         const colorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesProduction.set(attr, color);
         });
 

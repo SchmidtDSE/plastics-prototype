@@ -50,6 +50,8 @@ class Driver {
 
         self._pauseUiLoop = true;
 
+        self._registerGlobalAccessibiltyControls();
+
         setTimeout(() => {
             self._checkUpdate();
         }, 5000);
@@ -543,6 +545,18 @@ class Driver {
                     alert("Reload to update later.");
                 }
             });
+    }
+    
+    /**
+     * Register callbacks for global accessiblity controls.
+     */
+    _registerGlobalAccessibiltyControls() {
+        const self = this;
+        Array.of(...document.querySelectorAll(".color-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                self._onInputChange();
+            });
+        });
     }
 }
 

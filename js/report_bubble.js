@@ -6,14 +6,14 @@
 
 import {
     ALL_REGIONS,
-    COLORS,
     CONSUMPTION_ATTRS,
     DISPLAY_STAGES,
     DISPLAY_TYPES,
     EOL_ATTRS,
     PRODUCTION_ATTRS,
-    TEXT_COLORS,
     STANDARD_ATTR_NAMES,
+    getGlobalColors,
+    getGlobalTextColors,
 } from "const";
 
 import {STRINGS} from "strings";
@@ -115,21 +115,22 @@ class BubblegraphPresenter {
         self._verticalIndexScales.set(DISPLAY_STAGES.production, verticalIndexScaleProduction);
 
         // Color scales
+        const globalColors = getGlobalColors();
         const colorScalesEol = new Map();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesEol.set(attr, color);
         });
 
         const colorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesConsumption.set(attr, color);
         });
 
         const colorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = COLORS[i];
+            const color = globalColors[i];
             colorScalesProduction.set(attr, color);
         });
 
@@ -139,21 +140,22 @@ class BubblegraphPresenter {
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
 
         // Text color scales
+        const globalTextColors = getGlobalTextColors();
         const textColorScalesEol = new Map();
         EOL_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesEol.set(attr, color);
         });
 
         const textColorScalesConsumption = new Map();
         CONSUMPTION_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesConsumption.set(attr, color);
         });
 
         const textColorScalesProduction = new Map();
         PRODUCTION_ATTRS.forEach((attr, i) => {
-            const color = TEXT_COLORS[i];
+            const color = globalTextColors[i];
             textColorScalesProduction.set(attr, color);
         });
 
