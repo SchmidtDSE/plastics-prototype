@@ -676,7 +676,7 @@ class BubblegraphPresenter {
             .append("table")
             .classed("access-table", true)
             .style("opacity", 0);
-        
+
         const headerRow = table.append("tr");
         headerRow.append("th").html("Type");
         ALL_REGIONS.forEach((region) => {

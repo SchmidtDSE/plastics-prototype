@@ -578,7 +578,7 @@ class TimeDeltaPresenter {
         const getByYear = (target) => {
             const retMap = new Map();
             target.forEach((record) => {
-                retMap.set(record["year"], record["value"])
+                retMap.set(record["year"], record["value"]);
             });
             return retMap;
         };
@@ -592,7 +592,7 @@ class TimeDeltaPresenter {
             .append("table")
             .classed("access-table", true)
             .style("opacity", 0);
-        
+
         const headerRow = table.append("tr");
         const units = "MMT";
         headerRow.append("th").html("Year");
@@ -601,7 +601,7 @@ class TimeDeltaPresenter {
 
         const startYear = HISTORY_START_YEAR;
         const endYear = MAX_YEAR;
-        let years = [];
+        const years = [];
         for (let year = startYear; year <= endYear; year++) {
             years.push(year);
         }

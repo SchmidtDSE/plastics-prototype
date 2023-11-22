@@ -472,7 +472,7 @@ class TimeseriesPresenter {
             .append("table")
             .classed("access-table", true)
             .style("opacity", 0);
-        
+
         const headerRow = table.append("tr");
         const units = "MMT";
         headerRow.append("th").html("Year");

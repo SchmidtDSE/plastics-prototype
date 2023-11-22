@@ -553,7 +553,7 @@ class Driver {
                 }
             });
     }
-    
+
     /**
      * Register callbacks for global accessiblity controls.
      */
@@ -659,7 +659,7 @@ class Driver {
     _loadAccessibility() {
         const self = this;
         const cookiesManager = self._getCookiesManager();
-        
+
         const accessibilityValue = cookiesManager.get("accessibility");
         if (accessibilityValue === null || accessibilityValue === undefined) {
             return;
