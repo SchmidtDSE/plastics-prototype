@@ -199,7 +199,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <section class="goals-container-outer" data-simplebar data-simplebar-auto-hide="false">
+                                    <section class="goals-container-outer overflowing-enabled" data-simplebar-auto-hide="false">
                                         <div id="gloals-container" class="goals-container post-intro">
                                             <div class="goal-container inner top even" id="mismanaged-waste-goal-container">
                                                 <h3>Mismanaged Waste</h3>
@@ -220,7 +220,7 @@
                                         </div>
                                     </section>
                                     <section id="region-container" class="region-container post-intro post-intro-early">
-                                        <div id="current-year-container" class="current-year-container" data-simplebar data-simplebar-auto-hide="false">
+                                        <div id="current-year-container" class="current-year-container overflowing-enabled" data-simplebar-auto-hide="false">
                                             <div id="eol-container" class="stage-container">
                                                 <div id="detailed-anchor-waste-summary">
                                                     <div class="subtitle"></div>
@@ -252,7 +252,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early" data-simplebar data-simplebar-auto-hide="false" tabindex="0" aria-describedby="instructions-keyboard-timeseries">
+                                        <div id="timeseries-container" class="timeseries-container post-intro post-intro-early overflowing-enabled" data-simplebar-auto-hide="false" tabindex="0" aria-describedby="instructions-keyboard-timeseries">
                                             <div id="detailed-anchor-timeseries">
                                                 <h3 id="detailed-timeseries-description"><span class="title">Timeseries</span> <a id="detailed-timeseries-description-dynamic"  href="#detailed-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                                 <div class="slope-check-holder">
@@ -273,7 +273,7 @@
                                             </div>
                                         </div>
                                     </section>
-                                    <section id="bubblegraph-container" class="bubblegraph-container post-intro" data-simplebar data-simplebar-auto-hide="false" tabindex="0">
+                                    <section id="bubblegraph-container" class="bubblegraph-container post-intro overflowing-enabled" data-simplebar-auto-hide="false" tabindex="0">
                                         <div id="detailed-anchor-cross-region">
                                             <h3 id="detailed-bubble-description" class="big"><span class="title"></span> <a id="detailed-bubble-description-dynamic"  href="#detailed-bubble-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                             <div class="viz-option">
@@ -722,7 +722,7 @@
                             <div class="settings-section">
                                 <h3>Headers</h3>
                                 <p>
-                                    The headers allow for interactivity to change the visualized data, manipulating the entire visulization from a single component. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. For those using the later, users may instead select a shorter "static" header which removes the interactive elements.
+                                    The headers allow for interactivity, manipulating the entire visulization from a single component which also describes the current page's contents. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. Users may instead select a shorter "static" option which removes the header interactive elements.
                                 </p>
                                 <p>
                                     <div>
@@ -736,7 +736,7 @@
                             <div class="settings-section">
                                 <h3>Visualizations</h3>
                                 <p>
-                                    The tool will, by default, attempt to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-describedby_attribute" target="_blank">aria-describedby</a> will try to support use of the charts interactively paired with keyboard controls. However, for those with incompatible software where the visualizations do not perform well or simply prefer a tabular format when the visuals become more sophisticated, users can instead replace them with a table. Note that all data may be exported as well.
+                                    The tool, by default, attempts to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-describedby_attribute" target="_blank">aria-describedby</a> will try to support use of the "SVG" charts through dynamic text descriptions interactively paired with keyboard controls. However, for those with incompatible software or simply preferring a tabular format, users can instead request a table. Note that all data may be exported as well.
                                 </p>
                                 <div>
                                     <div>
@@ -758,6 +758,20 @@
                                     </div>
                                     <div>
                                         <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio" autocomplete="off"><label for="hide-editor-radio">Disable code editors</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Scrolling</h3>
+                                <p>
+                                    Controlling what subset of available visualizations are visibile on the details tab, the tool offers "advanced scrolling" which may cause scrollable areas inside other scrollable areas. This may also help some users with cognitive conditions. However, some users such as those with motor impairments, may prefer to only have more simplified scrolling with a single scrollable area.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="allow-scroll-radio" name="toggle-scroll-radio" value="allow-scroll" class="toggle-scroll-radio access-radio" autocomplete="off" checked><label for="allow-scroll-radio">Prefer advanced scrolling</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="disable-scroll-radio" name="toggle-scroll-radio" value="disable-scroll" class="toggle-scroll-radio access-radio" autocomplete="off"><label for="disable-scroll-radio">Prefer simple scrolling</label>
                                     </div>
                                 </div>
                             </div>
