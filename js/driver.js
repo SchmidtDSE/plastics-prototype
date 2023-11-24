@@ -15,6 +15,12 @@ import {buildSliders} from "slider";
 
 
 const ACCESSIBILITY_MSG = "Prior accessibility settings found. Do you want to load them?";
+const SCROLL_REFRESH_MSG = [
+    "This accessibility setting requires the application to reload.",
+    "Your policy settings will be saved.",
+    "Do you want to reload now?"
+].join(" ");
+const REFRESH_LATER_MESSAGE = "When you refresh later, your changes will update.";
 
 
 /**
@@ -583,6 +589,18 @@ class Driver {
             });
         });
 
+        Array.of(...document.querySelectorAll(".toggle-scroll-radio")).forEach((elem) => {
+            elem.addEventListener("click", () => {
+                if (confirm(SCROLL_REFRESH_MSG)) {
+                    self._filePresenter.writeToUrl();
+                    self._persistAccessibility();
+                    location.reload();
+                } else {
+                    alert(REFRESH_LATER_MESSAGE);
+                }
+            });
+        });
+
         Array.of(...document.querySelectorAll(".access-radio")).forEach((elem) => {
             elem.addEventListener("click", () => {
                 self._persistAccessibility();
@@ -642,18 +660,42 @@ class Driver {
             return document.getElementById(id).checked;
         };
 
+        const linearOn = getRadio("linear-radio");
+        const contrastOn = getRadio("high-contrast-radio");
+        const staticHeaderOn = getRadio("static-header-radio");
+        const tablesOn = getRadio("show-table-radio");
+        const hideEditorOn = getRadio("hide-editor-radio");
+        const disableScrollOn = getRadio("disable-scroll-radio");
+
+        const optionsLinear = [
+            linearOn,
+            contrastOn,
+            staticHeaderOn,
+            tablesOn,
+            hideEditorOn,
+            disableScrollOn,
+        ];
+        const optionsEnabled = optionsLinear.filter((x) => x);
+        const numOptionsEnabled = optionsEnabled.length;
+
         const cookiesManager = self._getCookiesManager();
-        cookiesManager.set(
-            "accessibility",
-            JSON.stringify({
-                "linear": getRadio("linear-radio"),
-                "contrast": getRadio("high-contrast-radio"),
-                "staticHeader": getRadio("static-header-radio"),
-                "tables": getRadio("show-table-radio"),
-                "hideEditor": getRadio("hide-editor-radio"),
-            }),
-            {expires: 30},
-        );
+        const priorValue = cookiesManager.get("accessibility");
+        if (numOptionsEnabled > 0) {
+            cookiesManager.set(
+                "accessibility",
+                JSON.stringify({
+                    "linear": linearOn,
+                    "contrast": contrastOn,
+                    "staticHeader": staticHeaderOn,
+                    "tables": tablesOn,
+                    "hideEditor": hideEditorOn,
+                    "disableScroll": disableScrollOn,
+                }),
+                {expires: 30},
+            );
+        } else if (priorValue !== undefined && priorValue !== null) {
+            cookiesManager.remove("accessibility");
+        }
     }
 
     _loadAccessibility() {
@@ -662,11 +704,13 @@ class Driver {
 
         const accessibilityValue = cookiesManager.get("accessibility");
         if (accessibilityValue === null || accessibilityValue === undefined) {
+            self._applyScroll();
             return;
         }
 
         if (!confirm(ACCESSIBILITY_MSG)) {
             cookiesManager.remove("accessibility");
+            self._applyScroll();
             return;
         }
 
@@ -683,8 +727,23 @@ class Driver {
         setRadio("static-header-radio", config["staticHeader"]);
         setRadio("show-table-radio", config["tables"]);
         setRadio("hide-editor-radio", config["hideEditor"]);
+        setRadio("disable-scroll-radio", config["disableScroll"]);
 
         self._refreshAccessibility();
+        self._applyScroll();
+    }
+
+    _applyScroll() {
+        const simpleScroll = document.getElementById("disable-scroll-radio").checked;
+        Array.of(...document.querySelectorAll(".overflowing-enabled")).forEach((target) => {
+            if (simpleScroll) {
+                target.classList.add("overflowing-disabled");
+                target.classList.remove("overflowing-enabled");
+            } else {
+                // eslint-disable-next-line no-undef
+                new SimpleBar(target, { autoHide: false });
+            }
+        });
     }
 
     _getCookiesManager() {

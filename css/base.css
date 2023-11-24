@@ -424,9 +424,12 @@ h2 .info-img, h3 .info-img {
 }
 
 .output-section .region-container .current-year-container {
+    padding-right: 10px;
+}
+
+.output-section .region-container .current-year-container.overflowing-enabled {
     max-height: 512px;
     overflow-y: auto;
-    padding-right: 10px;
 }
 
 .output-section .region-container .current-year-container .stage-container {
@@ -516,10 +519,13 @@ h2 .info-img, h3 .info-img {
 .output-section .region-container .timeseries-container {
     padding-right: 10px;
     margin-right: 5px;
-    max-height: 502px;
-    overflow-y: auto;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.output-section .region-container .timeseries-container.overflowing-enabled {
+    max-height: 502px;
+    overflow-y: auto;
 }
 
 .output-section .region-container .timeseries-container:focus {
@@ -1066,6 +1072,9 @@ h2 .info-img, h3 .info-img {
 @media (max-width: 699px) {
     .output-section .goals-container-outer {
         max-height: 235px;
+    }
+
+    .output-section .goals-container-outer.overflowing-enabled {
         overflow-y: auto;
     }
 
@@ -1132,6 +1141,9 @@ h2 .info-img, h3 .info-img {
     .panel-box.active .section-levers-inner {
         padding-right: 10px;
         max-height: 445px;
+    }
+
+    .panel-box.active .section-levers-inner.overflowing-enabled {
         overflow-y: auto;
     }
 }
@@ -1159,7 +1171,7 @@ h2 .info-img, h3 .info-img {
 }
 
 @media (max-width: 699px) {
-    .output-section .bubblegraph-container {
+    .output-section .bubblegraph-container.overflowing-enabled {
         overflow-x: auto;
     }
 
