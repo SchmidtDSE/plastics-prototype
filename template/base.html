@@ -2,8 +2,8 @@
             <p class="warning browser-head-warning" id="browser-warning">
                 ⚠️ Warning: Your browser may not be supported or is out of date. Though we try to test across multiple devices and browsers, we have not tried it on your specific version. If you run into issues, please consider using <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> or updating your browser.
             </p>
-            <p class="warning browser-head-warning fallback-warning" id="fallback-warning-2">
-                ⚠️ Warning: Oops! Something is out of date. Please <a href="#update" id="update-link" onclick="location.reload(true);">click here to update the application</a>.
+            <p class="warning browser-head-warning fallback-warning" id="fallback-warning-3">
+                ⚠️ Warning: An application update is available. Please <a href="#update" id="update-link" onclick="location.reload(true);">click here to update the application</a>.
             </p>
             <div id="loading-indicator">
                 <!-- Thanks https://github.com/vineethtrv/css-loader/blob/master/LICENSE -->
@@ -113,7 +113,7 @@
                                     <div id="overview-anchor-timeseries">
                                         <div class="viz-option">
                                             <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
-                                            <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                            <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use a key to go back one year and d key to go forward one year or tab in to inspect the values for the selected year.</div>
                                             <svg class="body" aria-describedby="overview-timeseries-description"></svg>
                                             <div class="cta-holder"><a href="#detailed" class="detailed-cta btn sec" id="explore-details-link">Explore detailed projections</a></div>
                                             <div class="legend">
@@ -259,7 +259,7 @@
                                                     <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
                                                 </div>
                                                 <div class="viz-option">
-                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use arrow keys to move year left and right or tab in to inspect the values for the selected year.</div>
+                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use a key to go back one year and d key to go forward one year or tab in to inspect the values for the selected year.</div>
                                                     <div>
                                                         <svg class="timeseries" id="timeseries" aria-describedby="detailed-timeseries-description"></svg>
                                                     </div>
@@ -842,7 +842,7 @@
             <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a>
         </footer>
 
-        <input type="hidden" id="version-number" value="27.6">
+        <input type="hidden" id="version-number" value="2.0">
 
         <dialog id="add-dialog">
             <form>

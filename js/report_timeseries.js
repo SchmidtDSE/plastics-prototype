@@ -81,19 +81,6 @@ class TimeseriesPresenter {
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
-
-        // Accessible change year
-        self._targetDiv.addEventListener("keydown", (event) => {
-            if (self._lastYear === null) {
-                return;
-            }
-
-            if (event.key === "ArrowRight") {
-                self._onYearChange(self._lastYear + 1);
-            } else if (event.key === "ArrowLeft") {
-                self._onYearChange(self._lastYear - 1);
-            }
-        });
     }
 
     /**
@@ -420,7 +407,7 @@ class TimeseriesPresenter {
             const ariaLabelContent = [
                 getTitle() + ".",
                 "Highlighted year: " + selectedYear + ".",
-                "Use arrow keys to change year.",
+                "Use a key to go back one year and d key to go forward one year.",
                 "Tab in for data.",
             ].join(" ");
 
