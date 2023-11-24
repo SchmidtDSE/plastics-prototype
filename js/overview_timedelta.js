@@ -356,7 +356,7 @@ class TimeDeltaPresenter {
             const ariaLabelContent = [
                 newTitle + ".",
                 "Highlighted year: " + selectedYear + ".",
-                "Use arrow keys to change year.",
+                "Use a key to go back one year and d key to go forward one year.",
                 "Tab in for data.",
             ].join(" ");
 
@@ -556,9 +556,9 @@ class TimeDeltaPresenter {
                 return;
             }
 
-            if (event.key === "ArrowRight") {
+            if (event.key === "d") {
                 self._onYearChange(self._lastYear + 1);
-            } else if (event.key === "ArrowLeft") {
+            } else if (event.key === "a") {
                 self._onYearChange(self._lastYear - 1);
             }
         });
