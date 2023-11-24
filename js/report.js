@@ -333,6 +333,16 @@ class ReportPresenter {
         self._configPresenter.showDeltaCheck();
     }
 
+    /**
+     * Trigger a region selection.
+     * 
+     * @param {String} region The name of the region to select.
+     */
+    setRegion(region) {
+        const self = this;
+        self._onRegionChange(region);
+    }
+
     _setupResizeListener() {
         const self = this;
 

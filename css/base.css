@@ -330,7 +330,7 @@ h2 .info-img, h3 .info-img {
     display: none;
 }
 
-.output-section .bubblegraph-container:focus .instructions-keyboard {
+.output-section .bubblegraph-container:focus-within .instructions-keyboard {
     display: block;
     margin-bottom: 10px;
 }
@@ -536,7 +536,7 @@ h2 .info-img, h3 .info-img {
     display: none;
 }
 
-.output-section .region-container .timeseries-container:focus .instructions-keyboard {
+.output-section .region-container .timeseries-container:focus-within .instructions-keyboard {
     display: block;
     margin-bottom: 10px;
 }
@@ -746,7 +746,7 @@ h2 .info-img, h3 .info-img {
     display: none;
 }
 
-.overview .overview-timeseries:focus .instructions-keyboard {
+.overview .overview-timeseries:focus-within .instructions-keyboard {
     display: block;
     margin-bottom: 15px;
 }
