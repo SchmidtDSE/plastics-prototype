@@ -8,7 +8,13 @@
  * @license BSD
  */
 
-const CACHE_NAME = "GlobalPlasticsToolOffline_3";
+const OLD_CACHES = [
+    "GlobalPlasticsToolOffline_1",
+    "GlobalPlasticsToolOffline_2",
+    "GlobalPlasticsToolOffline_3",
+    "GlobalPlasticsToolOffline_4",
+];
+const CACHE_NAME = "GlobalPlasticsToolOffline_5";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
@@ -268,9 +274,28 @@ async function cacheFirstWithRefresh(request) {
  * Intercept fetch
  */
 self.addEventListener("fetch", (event) => {
-    if (isCacheable(event.request)) {
-        event.respondWith(cacheFirstWithRefresh(event.request));
+    const request = event.request;
+    if (isCacheable(request)) {
+        event.respondWith(cacheFirstWithRefresh(request));
     }
+});
+
+
+// Thanks https://developer.mozilla.org/en-US/docs/Web/API/Cache
+self.addEventListener("activate", (event) => {
+    const expectedCacheNamesSet = new Set(Object.values(CACHE_NAME));
+    event.waitUntil(
+        caches.keys().then((cacheNames) =>
+        Promise.all(
+            cacheNames.map((cacheName) => {
+            if (!expectedCacheNamesSet.has(cacheName)) {
+                console.log("Deleting out of date cache:", cacheName);
+                return caches.delete(cacheName);
+            }
+            }),
+        ),
+        ),
+    );
 });
 
 
