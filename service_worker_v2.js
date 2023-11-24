@@ -227,7 +227,7 @@ const ESSENTIAL_FILES = [
     "/robots.txt",
     "/humans.txt",
     "/manifest.json",
-    "/service_worker.js",
+    "/service_worker_v2.js",
 ];
 
 /**
