@@ -18,7 +18,7 @@ const ACCESSIBILITY_MSG = "Prior accessibility settings found. Do you want to lo
 const SCROLL_REFRESH_MSG = [
     "This accessibility setting requires the application to reload.",
     "Your policy settings will be saved.",
-    "Do you want to reload now?"
+    "Do you want to reload now?",
 ].join(" ");
 const REFRESH_LATER_MESSAGE = "When you refresh later, your changes will update.";
 
@@ -741,7 +741,7 @@ class Driver {
                 target.classList.remove("overflowing-enabled");
             } else {
                 // eslint-disable-next-line no-undef
-                new SimpleBar(target, { autoHide: false });
+                new SimpleBar(target, {autoHide: false});
             }
         });
     }
