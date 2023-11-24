@@ -541,21 +541,8 @@ class Driver {
                 const versionInput = document.getElementById("version-number");
                 const currentVersion = versionInput === null ? 0 : parseFloat(versionInput.value);
 
-                if (newVersion <= currentVersion) {
-                    return;
-                }
-
-                const updateMessagePieces = [
-                    "An updated version of this application is available.",
-                    "Updating will take about 1 minute.",
-                    "Do you want to update now?",
-                ];
-                const updatePromptMessage = updateMessagePieces.join(" ");
-
-                if (confirm(updatePromptMessage)) {
-                    location.reload();
-                } else {
-                    alert("Reload to update later.");
+                if (newVersion > currentVersion) {
+                    document.querySelector(".fallback-warning").style.display = "block";
                 }
             });
     }
