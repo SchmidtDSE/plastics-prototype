@@ -113,7 +113,10 @@
                                     <div id="overview-anchor-timeseries">
                                         <div class="viz-option">
                                             <h3 id="overview-timeseries-description"><span class="title">Global Metrics over Time</span> <a id="overview-timeseries-description-dynamic"  href="#overview-timeseries-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
-                                            <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">Keyboard users: Use a key to go back one year and d key to go forward one year or tab in to inspect the values for the selected year.</div>
+                                            <div class="instructions-keyboard" id="instructions-keyboard-overview-timeseries">
+                                                <a href="#previous" role="button" class="btn sec previous-year-button">Previous Year</a>
+                                                <a href="#next" role="button" class="btn sec next-year-button">Next Year</a>
+                                            </div>
                                             <svg class="body" aria-describedby="overview-timeseries-description"></svg>
                                             <div class="cta-holder"><a href="#detailed" class="detailed-cta btn sec" id="explore-details-link">Explore detailed projections</a></div>
                                             <div class="legend">
@@ -259,7 +262,10 @@
                                                     <label for="history-check"><input type="checkbox" id="history-check" class="history-check">Historical</label>
                                                 </div>
                                                 <div class="viz-option">
-                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">Keyboard users: Use a key to go back one year and d key to go forward one year or tab in to inspect the values for the selected year.</div>
+                                                    <div class="instructions-keyboard" id="instructions-keyboard-timeseries">
+                                                        <a href="#previous" role="button" class="btn sec previous-year-button">Previous Year</a>
+                                                        <a href="#next" role="button" class="btn sec next-year-button">Next Year</a>
+                                                    </div>
                                                     <div>
                                                         <svg class="timeseries" id="timeseries" aria-describedby="detailed-timeseries-description"></svg>
                                                     </div>
@@ -278,7 +284,11 @@
                                             <h3 id="detailed-bubble-description" class="big"><span class="title"></span> <a id="detailed-bubble-description-dynamic"  href="#detailed-bubble-description"><img alt="description" role="button" src="/img/dialog.png" class="info-img"></a></h3>
                                             <div class="viz-option">
                                                 <div class="instructions-keyboard">
-                                                    Keyboard users: Press c for China, e for EU 30, n for NAFTA, r for rest of world, and g for global. Tab in for data.
+                                                    <a href="#china" role="button" class="btn sec china-button">Select China</a>
+                                                    <a href="#eu30" role="button" class="btn sec eu30-button">Select EU 30</a>
+                                                    <a href="#nafta" role="button" class="btn sec nafta-button">Select NAFTA</a>
+                                                    <a href="#global" role="button" class="btn sec row-button">Select Rest of World</a>
+                                                    <a href="#global" role="button" class="btn sec global-button">Select Global</a>
                                                 </div>
                                                 <div class="slope-check-holder">
                                                     <label for="slope-check"><input type="checkbox" id="slope-check" class="slope-check">Sort</label>
@@ -842,7 +852,7 @@
             <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a>
         </footer>
 
-        <input type="hidden" id="version-number" value="2.0">
+        <input type="hidden" id="version-number" value="2.1">
 
         <dialog id="add-dialog">
             <form>

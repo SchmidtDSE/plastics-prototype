@@ -407,7 +407,6 @@ class TimeseriesPresenter {
             const ariaLabelContent = [
                 getTitle() + ".",
                 "Highlighted year: " + selectedYear + ".",
-                "Use a key to go back one year and d key to go forward one year.",
                 "Tab in for data.",
             ].join(" ");
 

@@ -46,6 +46,7 @@ class Driver {
         self._redrawTimeout = null;
         self._latestRequest = null;
         self._disableDelay = disableDelay;
+        self._lastYear = MAX_YEAR;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -334,6 +335,7 @@ class Driver {
     _onYearChange(year) {
         const self = this;
 
+        self._lastYear = year;
         self._reportPresenter.setYear(year);
         self._overviewPresenter.setYear(year);
         self._onInputChange();
@@ -591,6 +593,63 @@ class Driver {
         Array.of(...document.querySelectorAll(".access-radio")).forEach((elem) => {
             elem.addEventListener("click", () => {
                 self._persistAccessibility();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".next-year-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                if (self._lastYear == MAX_YEAR) {
+                    alert("Reached maximum year");
+                    return;
+                }
+                self._onYearChange(self._lastYear + 1);
+                e.preventDefault();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".previous-year-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                if (self._lastYear == HISTORY_START_YEAR) {
+                    alert("Reached minimum year");
+                    return;
+                }
+                self._onYearChange(self._lastYear - 1);
+                e.preventDefault();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".china-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                self._reportPresenter.setRegion("china");
+                e.preventDefault();
+            });
+        });
+        
+        Array.of(...document.querySelectorAll(".eu30-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                self._reportPresenter.setRegion("eu30");
+                e.preventDefault();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".nafta-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                self._reportPresenter.setRegion("nafta");
+                e.preventDefault();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".row-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                self._reportPresenter.setRegion("row");
+                e.preventDefault();
+            });
+        });
+
+        Array.of(...document.querySelectorAll(".global-button")).forEach((elem) => {
+            elem.addEventListener("click", (e) => {
+                self._reportPresenter.setRegion("global");
+                e.preventDefault();
             });
         });
     }

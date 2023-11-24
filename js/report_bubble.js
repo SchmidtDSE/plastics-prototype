@@ -163,21 +163,6 @@ class BubblegraphPresenter {
         self._textColorScales.set(DISPLAY_STAGES.eol, textColorScalesEol);
         self._textColorScales.set(DISPLAY_STAGES.consumption, textColorScalesConsumption);
         self._textColorScales.set(DISPLAY_STAGES.production, textColorScalesProduction);
-
-        // Accessible change year
-        self._targetDiv.addEventListener("keydown", (event) => {
-            if (event.key === "c") {
-                self._onRegionChange("china");
-            } else if (event.key === "e") {
-                self._onRegionChange("eu30");
-            } else if (event.key === "n") {
-                self._onRegionChange("nafta");
-            } else if (event.key === "r") {
-                self._onRegionChange("row");
-            } else if (event.key === "g") {
-                self._onRegionChange("global");
-            }
-        });
     }
 
     /**
