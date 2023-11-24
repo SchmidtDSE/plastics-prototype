@@ -739,7 +739,8 @@ class Driver {
             if (simpleScroll) {
                 target.classList.add("overflowing-disabled");
                 target.classList.remove("overflowing-enabled");
-            } else {
+            // eslint-disable-next-line no-undef
+            } else if (SCROLL_ALLOWED) {
                 // eslint-disable-next-line no-undef
                 new SimpleBar(target, {autoHide: false});
             }
