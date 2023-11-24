@@ -624,7 +624,7 @@ class Driver {
                 e.preventDefault();
             });
         });
-        
+
         Array.of(...document.querySelectorAll(".eu30-button")).forEach((elem) => {
             elem.addEventListener("click", (e) => {
                 self._reportPresenter.setRegion("eu30");

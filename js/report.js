@@ -335,7 +335,7 @@ class ReportPresenter {
 
     /**
      * Trigger a region selection.
-     * 
+     *
      * @param {String} region The name of the region to select.
      */
     setRegion(region) {
