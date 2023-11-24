@@ -14,7 +14,7 @@ cp preview.html deploy
 cp robots.txt deploy
 cp humans.txt deploy
 cp manifest.json deploy
-cp service_worker.js deploy
+cp service_worker_v2.js deploy
 
 python support/update_humans.py deploy/humans.txt
 
