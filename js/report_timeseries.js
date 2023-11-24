@@ -81,19 +81,6 @@ class TimeseriesPresenter {
         self._colorScales.set(DISPLAY_STAGES.eol, colorScalesEol);
         self._colorScales.set(DISPLAY_STAGES.consumption, colorScalesConsumption);
         self._colorScales.set(DISPLAY_STAGES.production, colorScalesProduction);
-
-        // Accessible change year
-        self._targetDiv.addEventListener("keydown", (event) => {
-            if (self._lastYear === null) {
-                return;
-            }
-
-            if (event.key === "d") {
-                self._onYearChange(self._lastYear + 1);
-            } else if (event.key === "a") {
-                self._onYearChange(self._lastYear - 1);
-            }
-        });
     }
 
     /**

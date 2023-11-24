@@ -551,7 +551,7 @@ class TimeDeltaPresenter {
             .classed("timedelta-hover-targets", true);
 
         // Accessible change year
-        self._targetDiv.addEventListener("keydown", (event) => {
+        document.addEventListener("keydown", (event) => {
             if (self._lastYear === null) {
                 return;
             }
