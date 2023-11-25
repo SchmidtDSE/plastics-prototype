@@ -14,10 +14,10 @@
                     <ul data-tabs>
                         <li><a data-tabby-default href="#overview">Overview</a></li>
                         <li><a href="#detailed">Details</a></li>
+                        <li><a href="#settings">Settings</a></li>
                         <li><a href="#downloads">Downloads</a></li>
                         <li><a href="#guide">Guide</a></li>
                         <li><a href="#about">About</a></li>
-                        <li><a href="#accessibility">Accessibility</a></li>
                         <li><a href="#toc">Contents</a></li>
                     </ul>
                 </nav>
@@ -353,6 +353,97 @@
                                         </div>
                                     </div>
                                 </section>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="settings" class="about">
+                        <div class="about-panel">
+                            <h2>Settings</h2>
+                            <p>This tab allows you to configure the behavior of the application. These choices are independent of both your policy selections and changes to financial and system assumptions. It intends to support ergenomic use of the application per user preference and, as appropriate, use of adaptive technology. Note that changes to these settings will be saved to a small text file on your machine called a cookie. If you return to the application later and the file is still present, you will be given the option to restore your settings a few seconds after the application finishes loading.</p>
+                            <div class="settings-section">
+                                <h3>Layout</h3>
+                                <p>
+                                    Some views like the details tab may show a policy panel next to visualization describing that policy. Some users may prefer a linear view where the visualization takes up the whole window width.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" autocomplete="off" checked><label for="side-by-side-radio">Side by side layout</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio" autocomplete="off"><label for="linear-radio">Linear layout</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Colors</h3>
+                                <p>
+                                    By default, the color scheme emphasizes color differences between series (example: to better differentiate end of life fates by color). This may benefit some color blind and low vision users. However, you may prefer a high contrast color scheme which empahsizes difference from colors to the background, helping other low vision users.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" autocomplete="off" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio" autocomplete="off"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Headers</h3>
+                                <p>
+                                    The headers allow for interactivity, manipulating the entire visulization from a single component which also describes the current page's contents. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. Users may instead select a shorter "static" option which removes the header interactive elements.
+                                </p>
+                                <p>
+                                    <div>
+                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" autocomplete="off" checked><label for="interactive-header-radio">Interactive headers</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio" autocomplete="off"><label for="static-header-radio">Static headers</label>
+                                    </div>
+                                </p>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Visualizations</h3>
+                                <p>
+                                    For major charts, users can instead request a table instead of a graphical visualization. Note that all data may be exported as well.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" autocomplete="off" checked><label for="show-viz-radio">Prefer visualizations</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio" autocomplete="off"><label for="show-table-radio">Prefer tables</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Code Editors</h3>
+                                <p>
+                                    Navigating to details about a policy will let users change the code describing the logic for that intervention. This embedded editor environment can be exited by pressing esc. However, some users not wishing to edit the code may prefer to disable these components for a more streamlined experience.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" autocomplete="off" checked><label for="show-editor-radio">Enable code editors</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio" autocomplete="off"><label for="hide-editor-radio">Disable code editors</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="settings-section">
+                                <h3>Scrolling</h3>
+                                <p>
+                                    Controlling what subset of available visualizations are visibile on the details tab, the tool offers "advanced scrolling" which may cause scrollable areas inside other scrollable areas. However, some users including those with motor impairments, may prefer to only have more simplified scrolling with a single scrollable area.
+                                </p>
+                                <div>
+                                    <div>
+                                        <input type="radio" id="allow-scroll-radio" name="toggle-scroll-radio" value="allow-scroll" class="toggle-scroll-radio access-radio" autocomplete="off" checked><label for="allow-scroll-radio">Prefer advanced scrolling</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" id="disable-scroll-radio" name="toggle-scroll-radio" value="disable-scroll" class="toggle-scroll-radio access-radio" autocomplete="off"><label for="disable-scroll-radio">Prefer simple scrolling</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -697,102 +788,11 @@
                         </div>
                     </section>
 
-                    <section id="accessibility" class="about">
-                        <div class="about-panel">
-                            <h2>Accessibility Settings</h2>
-                            <p>This tab allows you to configure the behavior of the application and includes a number of options which may support certain adaptive technologies. Note that changes to these settings will be saved to a small text file on your machine called a cookie. If you return to the application later and the file is still present, you will be given the option to restore your settings a few seconds after the application finishes loading.</p>
-                            <div class="settings-section">
-                                <h3>Layout</h3>
-                                <p>
-                                    Some views like the details tab may show a policy panel next to visualization describing that policy. Some users may prefer a linear view where the visualization takes up the whole screen.
-                                </p>
-                                <p>
-                                    <div>
-                                        <input type="radio" id="side-by-side-radio" name="layout" value="side" class="layout-radio access-radio" autocomplete="off" checked><label for="side-by-side-radio">Side by side layout</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="linear-radio" name="layout" value="linear" class="layout-radio access-radio" autocomplete="off"><label for="linear-radio">Linear layout</label>
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="settings-section">
-                                <h3>Colors</h3>
-                                <p>
-                                    By default, the color scheme emphasizes color differences between series (example: to better differentiate end of life fates by color). This may benefit some color blind and low vision users. However, you may prefer a high contrast color scheme which empahsizes difference from colors to the background, helping other low vision users.
-                                </p>
-                                <p>
-                                    <div>
-                                        <input type="radio" id="colorblind-radio" name="color-radio" value="colorblind" class="color-radio access-radio" autocomplete="off" checked><label for="colorblind-radio">Prefer color-blind scheme</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="high-contrast-radio" name="color-radio" value="high-contrast" class="color-radio access-radio" autocomplete="off"><label for="high-contrast-radio">Prefer high-contrast scheme</label>
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="settings-section">
-                                <h3>Headers</h3>
-                                <p>
-                                    The headers allow for interactivity, manipulating the entire visulization from a single component which also describes the current page's contents. This may help some low motor users or those where navigating elements may take extra time. Some adaptive technologies will read these interactive headers as intended while others provide overly long names. Users may instead select a shorter "static" option which removes the header interactive elements.
-                                </p>
-                                <p>
-                                    <div>
-                                        <input type="radio" id="interactive-header-radio" name="header-radio" value="interactive-header" class="header-radio access-radio" autocomplete="off" checked><label for="interactive-header-radio">Interactive headers</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="static-header-radio" name="header-radio" value="static-header" class="header-radio access-radio" autocomplete="off"><label for="static-header-radio">Static headers</label>
-                                    </div>
-                                </p>
-                            </div>
-                            <div class="settings-section">
-                                <h3>Visualizations</h3>
-                                <p>
-                                    The tool, by default, attempts to show graphical visualizations describing the policy scenario outcomes. For adaptive technologies supporting it, <a href="https://a11ysupport.io/tech/aria/aria-describedby_attribute" target="_blank">aria-describedby</a> will try to support use of the "SVG" charts through dynamic text descriptions interactively paired with keyboard controls. However, for those with incompatible software or simply preferring a tabular format, users can instead request a table. Note that all data may be exported as well.
-                                </p>
-                                <div>
-                                    <div>
-                                        <input type="radio" id="show-viz-radio" name="viz-table-radio" value="show-viz" class="viz-table-radio access-radio" autocomplete="off" checked><label for="show-viz-radio">Prefer visualizations</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="show-table-radio" name="viz-table-radio" value="show-table" class="viz-table-radio access-radio" autocomplete="off"><label for="show-table-radio">Prefer tables</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="settings-section">
-                                <h3>Code Editors</h3>
-                                <p>
-                                    Navigating to details about a policy will let users change the code describing the logic for that intervention. This embedded editor environment can be exited by pressing esc. However, some users not wishing to edit the code may prefer to disable these components for a more streamlined experience.
-                                </p>
-                                <div>
-                                    <div>
-                                        <input type="radio" id="show-editor-radio" name="toggle-editor-radio" value="show-editor" class="toggle-editor-radio access-radio" autocomplete="off" checked><label for="show-editor-radio">Enable code editors</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="hide-editor-radio" name="toggle-editor-radio" value="hide-editor" class="toggle-editor-radio access-radio" autocomplete="off"><label for="hide-editor-radio">Disable code editors</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="settings-section">
-                                <h3>Scrolling</h3>
-                                <p>
-                                    Controlling what subset of available visualizations are visibile on the details tab, the tool offers "advanced scrolling" which may cause scrollable areas inside other scrollable areas. This may also help some users with cognitive conditions. However, some users such as those with motor impairments, may prefer to only have more simplified scrolling with a single scrollable area.
-                                </p>
-                                <div>
-                                    <div>
-                                        <input type="radio" id="allow-scroll-radio" name="toggle-scroll-radio" value="allow-scroll" class="toggle-scroll-radio access-radio" autocomplete="off" checked><label for="allow-scroll-radio">Prefer advanced scrolling</label>
-                                    </div>
-                                    <div>
-                                        <input type="radio" id="disable-scroll-radio" name="toggle-scroll-radio" value="disable-scroll" class="toggle-scroll-radio access-radio" autocomplete="off"><label for="disable-scroll-radio">Prefer simple scrolling</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
                     <section id="toc">
                         <div class="about-panel">
                             <h2>Table of Contents</h2>
                             <ul>
-                                <li><a class="toc-link" href="#accessibility">Accessibility</a></li>
+                                <li><a class="toc-link" href="#settings">Settings and Accessibility</a></li>
                                 <li><a class="toc-link" href="#about">About</a></li>
                                 <li><a class="toc-link" href="#about-contact">About: Contact information</a></li>
                                 <li><a class="toc-link" href="#about-license">About: License</a></li>
@@ -849,7 +849,7 @@
         </div>
 
         <footer>
-            <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a>
+            <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a> / <a class="tab-trigger" href="#settings">Accessibility</a>
         </footer>
 
         <input type="hidden" id="version-number" value="2.1">

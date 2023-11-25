@@ -14,7 +14,7 @@ import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
 
 
-const ACCESSIBILITY_MSG = "Prior accessibility settings found. Do you want to load them?";
+const ACCESSIBILITY_MSG = "Prior tool settings found. Do you want to load them?";
 const SCROLL_REFRESH_MSG = [
     "This accessibility setting requires the application to reload.",
     "Your policy settings will be saved.",
@@ -515,8 +515,8 @@ class Driver {
         } else if (hash.startsWith("#about")) {
             self._tabs.toggle("#about");
             self._subtabs.toggle(hash);
-        } else if (hash.startsWith("#accessibility")) {
-            self._tabs.toggle("#accessibility");
+        } else if (hash.startsWith("#settings")) {
+            self._tabs.toggle("#settings");
             self._subtabs.toggle(hash);
         } else if (hash.startsWith("#guide")) {
             self._tabs.toggle("#guide");
