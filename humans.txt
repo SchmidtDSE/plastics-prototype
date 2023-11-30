@@ -57,7 +57,7 @@
     Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).
 
     Advisor: Linda Nakasone
-    Role: Community-provided / volunteer report on possible accessibility growth areas.
+    Role: Community provided bug reports.
 
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
