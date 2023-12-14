@@ -141,3 +141,5 @@ Finally, thanks to the following some basic boilerplates / inspiration:
  - [PlantLang](https://github.com/sampottinger/PlantLang) under the [MIT License](https://github.com/sampottinger/PlantLang/blob/main/LICENSE.txt).
  - [Pyafscgap](https://pyafscgap.org/) under the [BSD License](https://github.com/SchmidtDSE/afscgap/blob/main/LICENSE.md).
  - [Tiny ANTLR Language](https://github.com/bkiers/tiny-language-antlr4/tree/master) under the [Unlicense License](https://github.com/bkiers/tiny-language-antlr4/blob/master/UNLICENSE).
+
+Note that additional open source libraries used by the model pipeline are discussed at [https://github.com/SchmidtDSE/plastics-pipeline](https://github.com/SchmidtDSE/plastics-pipeline).
