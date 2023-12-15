@@ -54,14 +54,14 @@
     Senior Manager and Communications: Molly Morse
     Site: bosl.ucsb.edu
     LinkedIn: in/mollyrmorse
-    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page).
+    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
 
     Advisor: Linda Nakasone
     Role: Community provided bug reports.
 
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
-    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page).
+    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
 
     Communications: Kelly Wang
     LinkedIn: in/kellytwang
