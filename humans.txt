@@ -23,11 +23,11 @@
     Mastedon: @cboettig@ecoevo.social
     Role: Advisor.
 
-    CI / CD Assistance: Magali de Bruyn
+    DSL and CI / CD: Magali de Bruyn
     Site: https://dse.berkeley.edu/people/magali-de-bruyn
     LinkedIn: in/magalidebruyn
     GitHub: @magalidebruyn
-    Role: CI / CD.
+    Role: Guidance on programming portals, CI / CD, and DSL feedback.
 
     Principal Investigator: Roland Geyer
     Site: www.rolandgeyer.com
