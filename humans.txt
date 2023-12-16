@@ -1,12 +1,12 @@
 /* TEAM */
-    Web Admin (Contact) and Core Researcher: Sam Pottinger
+    Tool and AI Lead: Sam Pottinger
     Site: gleap.org
     Email: info@global-plastics-tool.org
     Twitter: @SamSpotsTime
     Bluesky: @sampottinger.com
     LinkedIn: in/sampottinger
     GitHub: @sampottinger
-    Role: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD, language engineering. Sam serves as the web admin.
+    Role: Software engineering, machine learning, business as usual modeling, policy modeling, lead UX / design (this tool), lead data visualization (this tool), CI / CD, language engineering. Sam serves as the web admin.
 
     Researcher: Elijah Baker
     LinkedIn: @elijahbaker
@@ -54,14 +54,18 @@
     Senior Manager and Communications: Molly Morse
     Site: bosl.ucsb.edu
     LinkedIn: in/mollyrmorse
-    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
+    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page), overview tab design.
 
     Advisor: Linda Nakasone
     Role: Community provided bug reports.
 
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
-    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
+    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page), overview tab design.
+
+    External Agency: Thought Lab
+    Site: thoughtlab.com
+    Role: Development for the landing page at https://plasticstreaty.berkeley.edu/.
 
     Communications: Kelly Wang
     LinkedIn: in/kellytwang
