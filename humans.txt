@@ -23,7 +23,7 @@
     Mastedon: @cboettig@ecoevo.social
     Role: Advisor.
 
-    DSL and CI / CD: Magali de Bruyn
+    Engineering: Magali de Bruyn
     Site: https://dse.berkeley.edu/people/magali-de-bruyn
     LinkedIn: in/magalidebruyn
     GitHub: @magalidebruyn
