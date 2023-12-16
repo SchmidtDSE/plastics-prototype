@@ -38,7 +38,7 @@
     Advisor: Kevin Koy
     Site: https://dse.berkeley.edu/people/kevin-koy
     LinkedIn: in/kevin-koy
-    Role: Executive leadership, advisor.
+    Role: Executive leadership, advisor, overview tab design.
 
     Senior Program Management and Communications: Ciera Martinez
     Site: cierareports.org
