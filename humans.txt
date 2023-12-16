@@ -44,7 +44,7 @@
     Site: cierareports.org
     Twitter: @CieraReports
     GitHub: @iamciera
-    Role: Program management, communications, outreach, advisor.
+    Role: Program management, communications, outreach, advisor, tutorial and new user flow.
 
     Lead Advisor: Douglas McCauley
     Site: labs.eemb.ucsb.edu/mccauley/doug
