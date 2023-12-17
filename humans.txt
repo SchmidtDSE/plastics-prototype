@@ -1,12 +1,12 @@
 /* TEAM */
-    Web Admin (Contact) and Core Researcher: Sam Pottinger
+    Tool and AI Lead: Sam Pottinger
     Site: gleap.org
     Email: info@global-plastics-tool.org
     Twitter: @SamSpotsTime
     Bluesky: @sampottinger.com
     LinkedIn: in/sampottinger
     GitHub: @sampottinger
-    Role: Software engineering, machine learning, business as usual modeling, policy modeling, UX / design (this tool), data visualization (this tool), CI / CD, language engineering. Sam serves as the web admin.
+    Role: Software engineering, machine learning, business as usual modeling, policy modeling, lead UX / design (this tool), lead data visualization (this tool), CI / CD, language engineering. Sam serves as the web admin.
 
     Researcher: Elijah Baker
     LinkedIn: @elijahbaker
@@ -23,11 +23,11 @@
     Mastedon: @cboettig@ecoevo.social
     Role: Advisor.
 
-    CI / CD Assistance: Magali de Bruyn
+    Engineering: Magali de Bruyn
     Site: https://dse.berkeley.edu/people/magali-de-bruyn
     LinkedIn: in/magalidebruyn
     GitHub: @magalidebruyn
-    Role: CI / CD.
+    Role: Guidance on programming portals, CI / CD, and DSL feedback.
 
     Principal Investigator: Roland Geyer
     Site: www.rolandgeyer.com
@@ -38,13 +38,13 @@
     Advisor: Kevin Koy
     Site: https://dse.berkeley.edu/people/kevin-koy
     LinkedIn: in/kevin-koy
-    Role: Executive leadership, advisor.
+    Role: Executive leadership, advisor, overview tab design.
 
     Senior Program Management and Communications: Ciera Martinez
     Site: cierareports.org
     Twitter: @CieraReports
     GitHub: @iamciera
-    Role: Program management, communications, outreach, advisor.
+    Role: Program management, communications, outreach, advisor, tutorial and new user flow.
 
     Lead Advisor: Douglas McCauley
     Site: labs.eemb.ucsb.edu/mccauley/doug
@@ -54,14 +54,18 @@
     Senior Manager and Communications: Molly Morse
     Site: bosl.ucsb.edu
     LinkedIn: in/mollyrmorse
-    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
+    Role: Program management, communications, outreach, media, data visualization (landing page), UX / design (landing page), overview tab design.
 
     Advisor: Linda Nakasone
     Role: Community provided bug reports.
 
     Communications: Neil Nathan
     LinkedIn: in/neil-nathan
-    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page), advice on overview tab.
+    Role: Communications, outreach, media, data visualization (landing page), UX / design (landing page), overview tab design.
+
+    External Agency: Thought Lab
+    Site: thoughtlab.com
+    Role: Development for the landing page at https://plasticstreaty.berkeley.edu/.
 
     Communications: Kelly Wang
     LinkedIn: in/kellytwang
