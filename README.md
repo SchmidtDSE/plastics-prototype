@@ -25,6 +25,12 @@ See the [pt subdirectory](https://github.com/SchmidtDSE/plastics-prototype/tree/
 
 <br>
 
+Modeling
+--------------------------------------------------------------------------------
+Note that the model repository including data and source code is available at [https://github.com/SchmidtDSE/plastics-pipeline](https://github.com/SchmidtDSE/plastics-pipeline).
+
+<br>
+
 Container Environment
 --------------------------------------------------------------------------------
 A containerized environment is available for both local execution of the application as well as development.
