@@ -94,6 +94,12 @@ Please be kind. Open source is an act of love.
 
 <br>
 
+Publication
+--------------------------------------------------------------------------------
+Papers are still in process. Please cite preprint at [10.48550/arXiv.2312.11359](https://arxiv.org/abs/2312.11359) for now. Thank you!
+
+<br>
+
 Open source
 --------------------------------------------------------------------------------
 The project uses the following:
