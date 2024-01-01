@@ -374,40 +374,7 @@ class SliderPresenter {
         updateLabels();
         updateGoals();
     }
-
-    /**
-     * Enable and disable Ace editor commands.
-     *
-     * To better support accessibility, turn editor commands on and off like for
-     * tab support. Thanks stackoverflow.com/questions/24963246.
-     *
-     * @param editor The Ace editor to modify.
-     * @param name The name of the command to modify.
-     * @param enabled Flag indicating if the command should be enabled.
-     */
-    _setCommandEnabled(editor, name, enabled) {
-        const self = this;
-
-        const command = editor.commands.byName[name];
-        if (!command.bindKeyOriginal) {
-            command.bindKeyOriginal = command.bindKey;
-        }
-        command.bindKey = enabled ? command.bindKeyOriginal : null;
-        editor.commands.addCommand(command);
-        // special case for backspace and delete which will be called from
-        // textarea if not handled by main command binding
-        if (!enabled) {
-            let key = command.bindKeyOriginal;
-            if (key && typeof key == "object") {
-                key = key[editor.commands.platform];
-            }
-            if (/backspace|delete/i.test(key)) {
-                editor.commands.bindKey(key, "null");
-            }
-        }
-    }
-
-
+    
     /**
      * Initalize the editor.
      */
@@ -425,24 +392,6 @@ class SliderPresenter {
         editor.setOption("printMarginColumn", 100);
 
         editor.setTheme("ace/theme/textmate");
-
-        // Support keyboard escape for better accessibility
-        const setTabsEnabled = (target) => {
-            self._setCommandEnabled(editor, "indent", target);
-            self._setCommandEnabled(editor, "outdent", target);
-        };
-
-        editor.on("focus", () => {
-            setTabsEnabled(true);
-        });
-
-        editor.commands.addCommand({
-            name: "escape",
-            bindKey: {win: "Esc", mac: "Esc"},
-            exec: () => {
-                setTabsEnabled(false);
-            },
-        });
 
         let timeoutId = null;
         editor.on("change", () => {
