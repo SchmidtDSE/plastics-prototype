@@ -374,7 +374,7 @@ class SliderPresenter {
         updateLabels();
         updateGoals();
     }
-    
+
     /**
      * Initalize the editor.
      */
