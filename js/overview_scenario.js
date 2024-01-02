@@ -193,12 +193,12 @@ class ScenarioPresenter {
                         return start + end;
                     });
                     const selectStart = [
-                        "<select ",
+                        "<span class='sel'><select ",
                         "class=\"check-dropdown\" id=\"inner-select-",
                         scenario["id"],
                         "\">",
                     ].join("");
-                    const select = selectStart + "\n" + options.join("\n") + "\n</select>";
+                    const select = selectStart + "\n" + options.join("\n") + "\n</select></span>";
                     return scenario["name"].replaceAll("<option>", select) + " ";
                 }
             })
