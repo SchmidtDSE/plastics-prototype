@@ -386,10 +386,11 @@ class SliderPresenter {
 
         editor.session.setOptions({
             tabSize: 2,
-            useSoftTabs: true,
+            useSoftTabs: true
         });
 
         editor.setOption("printMarginColumn", 100);
+        editor.setOption("enableKeyboardAccessibility", true);
 
         editor.setTheme("ace/theme/textmate");
 
