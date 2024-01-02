@@ -116,8 +116,8 @@ The project uses the following:
  - [Papa Parse](https://www.papaparse.com/) under the [MIT License](https://github.com/mholt/PapaParse/blob/master/LICENSE).
  - [Polyfill.io](https://polyfill.io/v3/) under the [MIT License](https://github.com/JakeChampion/polyfill-service/blob/main/LICENSE.md).
  - [Popper](https://popper.js.org/) under the [MIT License](https://github.com/floating-ui/floating-ui/blob/master/LICENSE).
+ - [Pure CSS Custom Dropdown Arrow](https://codepen.io/code-boxx/pen/RwxbpOz) under the [MIT License](https://codepen.io/code-boxx/pen/RwxbpOz).
  - [Qunit](https://qunitjs.com/) under the [MIT License](https://github.com/qunitjs/qunit/blob/main/LICENSE.txt).
- - [Select CSS](https://stackoverflow.com/questions/38788848) under [CC-BY-SA](https://stackoverflow.com/help/licensing).
  - [Simplebar](https://grsmto.github.io/simplebar/) under the [MIT License](https://github.com/Grsmto/simplebar/blob/master/LICENSE).
  - [Tabby](https://github.com/cferdinandi/tabby) under the [MIT License](https://github.com/cferdinandi/tabby/blob/master/LICENSE.md).
  - [Tippy](https://atomiks.github.io/tippyjs/) under the [MIT License](https://github.com/atomiks/tippyjs/blob/master/LICENSE).
