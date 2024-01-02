@@ -808,7 +808,7 @@ h2 .info-img, h3 .info-img {
 
 /* (A) BASICS - HIDE DEFAULT + SHOW CUSTOM ARROW */
 .sel select { appearance: none; }
-.sel::after { content: "\25b6"; }
+.sel::after { content: ">"; }
 
 /* (B) DIMENSIONS */
 /* (B1) WRAPPER - OPTIONAL */
@@ -820,6 +820,7 @@ h2 .info-img, h3 .info-img {
   color: #333;
   border: 1px solid #cfcfcf;
   padding-right: 25px;
+  background-color: white;
 }
 
 /* (C) POSITION CUSTOM ARROW */
