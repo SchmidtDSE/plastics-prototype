@@ -117,7 +117,6 @@ The project uses the following:
  - [Polyfill.io](https://polyfill.io/v3/) under the [MIT License](https://github.com/JakeChampion/polyfill-service/blob/main/LICENSE.md).
  - [Popper](https://popper.js.org/) under the [MIT License](https://github.com/floating-ui/floating-ui/blob/master/LICENSE).
  - [Qunit](https://qunitjs.com/) under the [MIT License](https://github.com/qunitjs/qunit/blob/main/LICENSE.txt).
- - [Select CSS](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select) under [CC0 License](https://developer.mozilla.org/en-US/docs/MDN/Writing_guidelines/Attrib_copyright_license).
  - [Simplebar](https://grsmto.github.io/simplebar/) under the [MIT License](https://github.com/Grsmto/simplebar/blob/master/LICENSE).
  - [Tabby](https://github.com/cferdinandi/tabby) under the [MIT License](https://github.com/cferdinandi/tabby/blob/master/LICENSE.md).
  - [Tippy](https://atomiks.github.io/tippyjs/) under the [MIT License](https://github.com/atomiks/tippyjs/blob/master/LICENSE).

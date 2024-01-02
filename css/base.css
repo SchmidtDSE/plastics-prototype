@@ -89,20 +89,6 @@ table td {
     padding: 3px;
 }
 
-select {
-    appearance: none;
-    padding: 5px 18px 5px 5px;
-    border: 1px solid #C0C0C0;
-    background: white;
-    color: black;
-}
-
-select::after {
-    content: "↓";
-    position: absolute;
-    right: 15px;
-}
-
 [role="tab"][aria-selected="true"] {
     background-color: #fff;
     border: 1px solid black;
