@@ -806,6 +806,44 @@ h2 .info-img, h3 .info-img {
     margin-bottom: 3px;
 }
 
+/* (A) BASICS - HIDE DEFAULT + SHOW CUSTOM ARROW */
+.sel select { appearance: none; }
+.sel::after { content: "\25b6"; }
+
+/* (B) DIMENSIONS */
+/* (B1) WRAPPER - OPTIONAL */
+.sel { max-width: 400px; }
+
+/* (B2) "EXPAND" SELECT BOX */
+.sel select {
+  padding: 5px;
+  color: #333;
+  border: 1px solid #cfcfcf;
+  padding-right: 25px;
+}
+
+/* (C) POSITION CUSTOM ARROW */
+/* (C1) REQUIRED FOR ABSOLUTE POSITION BELOW */
+.sel { position: relative; }
+
+/* (C2) DEFAULT - ARROW ON RIGHT SIDE */
+.sel::after {
+  position: absolute;
+  top: 41%; right: 10px;
+  transform: translateY(-50%);
+}
+
+/* (D) COSMETICS */
+/* (D1) CUSTOM ARROW IS ESSENTIALLY TEXT! */
+.sel::after { font-size: 13px; color: #aaa; }
+
+/* (D2) ROTATE ARROW ON HOVER */
+.sel::after { transition: all 0.3s; }
+.sel:hover::after {
+  transform: translateY(-50%) rotate(90deg);
+  color: #ff1212;
+}
+
 .settings-section {
     padding-top: 20px;
     padding-bottom: 20px;

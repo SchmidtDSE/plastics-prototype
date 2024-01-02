@@ -374,7 +374,7 @@ class SliderPresenter {
         updateLabels();
         updateGoals();
     }
-    
+
     /**
      * Initalize the editor.
      */
@@ -386,7 +386,7 @@ class SliderPresenter {
 
         editor.session.setOptions({
             tabSize: 2,
-            useSoftTabs: true
+            useSoftTabs: true,
         });
 
         editor.setOption("printMarginColumn", 100);
