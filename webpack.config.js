@@ -25,5 +25,6 @@ module.exports = {
     path: path.resolve(path.resolve(__dirname, 'intermediate'), 'static'),
     library: 'PlasticsLang',
     libraryTarget: 'var'
-  }
+  },
+  target: ['web', 'es5']
 };

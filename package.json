@@ -5,20 +5,26 @@
     "build": "webpack --mode=production"
   },
   "dependencies": {
-    "antlr4": "^4.13.0",
-    "grunt": "^1.5.2",
-    "grunt-contrib-connect": "^3.0.0",
-    "grunt-contrib-qunit": "^6.1.0",
+    "antlr4": "=4.13.0",
+    "grunt": "=1.5.2",
+    "grunt-contrib-connect": "=3.0.0",
+    "grunt-contrib-qunit": "=6.1.0",
     "package.json": "^0.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/plugin-proposal-class-properties": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "babel-loader": "^9.1.2",
-    "eslint": "^8.44.0",
-    "eslint-config-google": "^0.14.0",
-    "webpack": "^5.65.0",
-    "webpack-cli": "^4.9.1"
-  }
+    "@babel/core": "=7.16.5",
+    "@babel/preset-env": "=7.16.5",
+    "babel-loader": "=9.1.2",
+    "eslint": "=8.44.0",
+    "eslint-config-google": "=0.14.0",
+    "webpack": "=5.65.0",
+    "webpack-cli": "=4.9.1"
+  },
+  "browserslist": [
+    "chrome 70",
+    "edge 80",
+    "firefox 70",
+    "opera 60",
+    "safari 12"
+  ]
 }
