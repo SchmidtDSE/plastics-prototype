@@ -11,8 +11,9 @@ let toolkit = null;
 
 try {
     toolkit = PlasticsLang.getToolkit();
-} catch {
+} catch (e) {
     alert('Sorry, we could could not initialize app. Your browser may be out of date.');
+    console.log(e);
 }
 
 

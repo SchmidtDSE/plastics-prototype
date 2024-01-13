@@ -832,6 +832,7 @@ h2 .info-img, h3 .info-img {
   position: absolute;
   top: 44%; right: 10px;
   transform: translateY(-50%);
+  pointer-events: none;
 }
 
 /* (D) COSMETICS */
