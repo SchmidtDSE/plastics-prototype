@@ -12,6 +12,7 @@ import {addGlobalToState} from "geotools";
 import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
+import {WorkerRequest} from "worker";
 
 
 const ACCESSIBILITY_MSG = "Prior tool settings found. Do you want to load them?";
@@ -47,6 +48,7 @@ class Driver {
         self._latestRequest = null;
         self._disableDelay = disableDelay;
         self._lastYear = MAX_YEAR;
+        self._workerIndex = 0;
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -288,32 +290,21 @@ class Driver {
 
         const programs = runPrograms ? getPrograms() : [];
 
-        self._historicYears.forEach((year) => {
-            const state = self._buildState(year);
-            self._addGlobalToState(state);
-            states.set(year, state);
-        });
+        const workerIndex = self._workerIndex;
+        self._workerIndex++;
+        const request = new WorkerRequest(
+            workerIndex,
+            states,
+            self._historicYears,
+            self._projectionYears,
+            programs
+        );
 
-        self._projectionYears.forEach((year) => {
-            const state = self._buildState(year);
-
-            programs.forEach((programInfo) => {
-                const program = programInfo["program"];
-                const lever = programInfo["lever"];
-
-                state.set("local", new Map());
-                state.set("inspect", []);
-                program(state);
-
-                if (year === 2050) {
-                    const inspects = state.get("inspect");
-                    lever.showInspects(inspects);
-                }
-            });
-
-            self._addGlobalToState(state);
-            states.set(year, state);
-        });
+        if (window.Worker) {
+            
+        } else {
+            
+        }
 
         return states;
     }
