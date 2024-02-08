@@ -41,7 +41,7 @@ class WorkerRequest {
 }
 
 
-class Response {
+class WorkerResponse {
 
     constructor(error, requestIndex, states) {
         const self = this;
@@ -72,7 +72,7 @@ class Response {
 }
 
 
-function execute(request) {
+function executeWorkerRequest(request) {
     const programs = request.getPrograms();
     const states = request.getStates();
     const historicYears = request.getHistoricYears();
@@ -100,7 +100,7 @@ function execute(request) {
         states.set(year, state);
     });
 
-    return new Response(null, request.getRequestIndex(), states);
+    return new WorkerResponse(null, request.getRequestIndex(), states);
 }
 
 
@@ -140,12 +140,15 @@ function addGlobalToState(state, allAttrs) {
 function onmessage(event) {
     const request = event.data;
     try {
-        const response = execute(request);
+        const response = executeWorkerRequest(request);
         postMessage(response);
     } catch (e) {
         const requestIndex = request.getRequestIndex();
-        const response = new Response(e, requestIndex, new Map());
+        const response = new WorkerResponse(e, requestIndex, new Map());
         postMessage(response);
     }
 };
-  
+self.onmessage = onmessage;
+
+
+export {WorkerRequest, WorkerResponse, executeWorkerRequest};

@@ -12,7 +12,7 @@ import {addGlobalToState} from "geotools";
 import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
 import {buildSliders} from "slider";
-import {WorkerRequest} from "worker";
+import {WorkerRequest, executeWorkerRequest} from "worker";
 
 
 const ACCESSIBILITY_MSG = "Prior tool settings found. Do you want to load them?";
@@ -73,22 +73,22 @@ class Driver {
         }, 5000);
 
         if (window.Worker) {
-            self._computationWorker = new Worker("/js/worker.js");
+            self._computationWorker = new Worker("/js/worker.js", { type: "module" });
+            self._computationWorker.onmessage = (event) => {
+                const results = event.data;
+                const requestIndex = results.getRequestIndex();
+                
+                if (self._waitingCallbacks.has(requestIndex)) {
+                    const callback = self._waitingCallbacks.get(requestIndex);
+                    self._waitingCallbacks.remove(requestIndex);
+                    callback(results);
+                }
+            };
         } else {
-            self._computationWorker = new FakeComputationWorker();
+            self._computationWorker = null;
         }
 
         self._waitingCallbacks = new Map();
-        self._computationWorker.onmessage = (event) => {
-            const results = event.data;
-            const requestIndex = results.getRequestIndex();
-            
-            if (self._waitingCallbacks.has(requestIndex)) {
-                const callback = self._waitingCallbacks.get(requestIndex);
-                self._waitingCallbacks.remove(requestIndex);
-                callback(results);
-            }
-        };
     }
 
     /**
@@ -299,7 +299,7 @@ class Driver {
             return self._getLevers()
                 .map((lever) => {
                     return {
-                        "lever": lever,
+                        //"lever": lever,
                         "program": lever.getProgram(),
                     };
                 })
@@ -327,8 +327,14 @@ class Driver {
                     resolve(result.getStates());
                 }
             };
-            self._waitingCallbacks.set(request.getRequestIndex(), callback);
-            self._computationWorker.postMessage(request);
+
+            if (self._computationWorker === null) {
+                const response = executeWorkerRequest(request);
+                callback(response);
+            } else {
+                self._computationWorker.postMessage(request);
+                self._waitingCallbacks.set(request.getRequestIndex(), callback);
+            }
         });
     }
 
