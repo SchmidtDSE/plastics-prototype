@@ -4,7 +4,7 @@
  * @license BSD, see LICENSE.md
  */
 
-import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR, ALL_ATTRS} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -71,6 +71,24 @@ class Driver {
         setTimeout(() => {
             self._checkUpdate();
         }, 5000);
+
+        if (window.Worker) {
+            self._computationWorker = new Worker("/js/worker.js");
+        } else {
+            self._computationWorker = new FakeComputationWorker();
+        }
+
+        self._waitingCallbacks = new Map();
+        self._computationWorker.onmessage = (event) => {
+            const results = event.data;
+            const requestIndex = results.getRequestIndex();
+            
+            if (self._waitingCallbacks.has(requestIndex)) {
+                const callback = self._waitingCallbacks.get(requestIndex);
+                self._waitingCallbacks.remove(requestIndex);
+                callback(results);
+            }
+        };
     }
 
     /**
@@ -297,16 +315,21 @@ class Driver {
             states,
             self._historicYears,
             self._projectionYears,
-            programs
+            programs,
+            ALL_ATTRS
         );
 
-        if (window.Worker) {
-            
-        } else {
-            
-        }
-
-        return states;
+        return new Promise((resolve, reject) => {
+            const callback = (result) => {
+                if (result.hasError()) {
+                    reject(result.getError());
+                } else{
+                    resolve(result.getStates());
+                }
+            };
+            self._waitingCallbacks.set(request.getRequestIndex(), callback);
+            self._computationWorker.postMessage(request);
+        });
     }
 
     /**
@@ -360,11 +383,19 @@ class Driver {
                 return;
             }
 
-            const businessAsUsual = self._getStates(false);
-            const withInterventions = self._getStates(true);
+            const businessAsUsualFuture = self._getStates(false);
+            const withInterventionsFuture = self._getStates(true);
+            Promise.all([businessAsUsualFuture, withInterventionsFuture])
+                .then((results) => {
+                    const businessAsUsual = results[0];
+                    const withInterventions = results[1];
 
-            self._updateOutputs(businessAsUsual, withInterventions, timestamp);
-            self._redrawTimeout = null;
+                    self._updateOutputs(businessAsUsual, withInterventions, timestamp);
+                    self._redrawTimeout = null;
+                })
+                .catch((error) => {
+                    throw error;
+                });
         };
 
         // Give the UI loop a minute to catch up from OS
