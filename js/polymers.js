@@ -166,8 +166,10 @@ class TradeAdder {
         self._matricies = matricies;
     }
 
-    addPolymers(year, state) {
+    addPolymers(year, state, attrs) {
         const self = this;
+        
+        addGlobalToStateAttrs(state, attrs);
         return state;
     }
 
@@ -235,6 +237,7 @@ function buildAdder() {
 
 function init() {
     importScripts("/third_party/papaparse.min.js");
+    importScripts("/js/add_global_util.js");
 
     const adderFuture = buildAdder();
 
@@ -243,9 +246,10 @@ function init() {
         const year = stateInfo["year"];
         const requestId = stateInfo["requestId"];
         const state = stateInfo["state"];
+        const attrs = stateInfo["attrs"];
         
         adderFuture.then((adder) => {
-            adder.addPolymers(state);
+            adder.addPolymers(year, state, attrs);
             postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
         });
     };

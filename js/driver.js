@@ -4,7 +4,7 @@
  * @license BSD, see LICENSE.md
  */
 
-import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -323,7 +323,6 @@ class Driver {
             tasks.forEach((task) => {
                 const year = task["year"];
                 const state = task["state"];
-                self._addGlobalToState(state);
                 states.set(year, state);
             });
 
@@ -863,8 +862,14 @@ class PolymerWorkerQueue {
     request(year, state) {
         const self = this;
         const requestId = self._workerRequestId;
-        const requestObj = {"year": year, "state": state, "requestId": requestId};
         const workerId = requestId % self._workers.length;
+
+        const requestObj = {
+            "year": year,
+            "state": state,
+            "requestId": requestId,
+            "attrs": ALL_ATTRS
+        };
 
         self._workerRequestId++;
 
