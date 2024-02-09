@@ -73,8 +73,9 @@ class Driver {
         }, 5000);
 
         if (window.Worker) {
-            self._computationWorker = new Worker("/js/worker.js", { type: "module" });
-            self._computationWorker.onmessage = (event) => {
+            self._computationWorker = new Worker("/js/worker_wrapper.js", { type: "module" });
+            self._computationWorker.addEventListener("message", (event) => {
+                console.log("coming out");
                 const results = event.data;
                 const requestIndex = results.getRequestIndex();
                 
@@ -83,7 +84,7 @@ class Driver {
                     self._waitingCallbacks.remove(requestIndex);
                     callback(results);
                 }
-            };
+            });
         } else {
             self._computationWorker = null;
         }
@@ -306,7 +307,7 @@ class Driver {
                 .filter((leverInfo) => leverInfo["program"] !== null);
         };
 
-        const programs = runPrograms ? getPrograms() : [];
+        const programs = []; //runPrograms ? getPrograms() : [];
 
         const workerIndex = self._workerIndex;
         self._workerIndex++;
@@ -332,6 +333,7 @@ class Driver {
                 const response = executeWorkerRequest(request);
                 callback(response);
             } else {
+                console.log("going in :#")
                 self._computationWorker.postMessage(request);
                 self._waitingCallbacks.set(request.getRequestIndex(), callback);
             }

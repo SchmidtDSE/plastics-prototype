@@ -137,18 +137,4 @@ function addGlobalToState(state, allAttrs) {
 }
 
 
-function onmessage(event) {
-    const request = event.data;
-    try {
-        const response = executeWorkerRequest(request);
-        postMessage(response);
-    } catch (e) {
-        const requestIndex = request.getRequestIndex();
-        const response = new WorkerResponse(e, requestIndex, new Map());
-        postMessage(response);
-    }
-};
-self.onmessage = onmessage;
-
-
 export {WorkerRequest, WorkerResponse, executeWorkerRequest};
