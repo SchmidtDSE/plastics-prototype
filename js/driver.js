@@ -851,7 +851,13 @@ class PolymerWorkerQueue {
         
         self._workers = [];
         
-        self._workers.push(self._makeWorker());
+        const nativeConcurrency = window.navigator.hardwareConcurrency;
+        const hasKnownConcurrency = nativeConcurrency !== undefined;
+        const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+        const concurrencyDesired = concurrencyAllowed > 4 ? 4 : hasKnownConcurrency;
+        for (let i = 0; i < concurrencyDesired; i++) {
+            self._workers.push(self._makeWorker());
+        }
     }
 
     request(year, state) {
@@ -873,12 +879,7 @@ class PolymerWorkerQueue {
         const requestId = response["requestId"];
         const year = response["year"];
         if (!self._workerCallbacks.has(requestId)) {
-            console.log("bail", requestId);
             return;
-        }
-        
-        if (year == 2050) {
-            console.log(year);
         }
 
         const callbacks = self._workerCallbacks.get(requestId);

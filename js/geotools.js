@@ -13,29 +13,7 @@ import {ALL_ATTRS} from "const";
  * @param state The state Map in which the global statistics should be added.
  */
 function addGlobalToState(state) {
-    const outputs = state.get("out");
-    const globalValues = new Map();
-    ALL_ATTRS.forEach((attr) => {
-        const total = Array.of(...outputs.keys())
-            .filter((region) => region !== "global")
-            .map((region) => outputs.get(region))
-            .map((regionValues) => {
-                const ATTRS_TO_ZERO = [
-                    "netImportsMT",
-                    "netWasteImportMT",
-                ];
-
-                const originalValue = regionValues.get(attr);
-                if (ATTRS_TO_ZERO.indexOf(attr) != -1) {
-                    return 0;
-                } else {
-                    return originalValue;
-                }
-            })
-            .reduce((a, b) => a + b);
-        globalValues.set(attr, total);
-    });
-    outputs.set("global", globalValues);
+    addGlobalToStateAttrs(state, ALL_ATTRS);
 }
 
 

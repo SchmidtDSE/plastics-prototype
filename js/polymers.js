@@ -233,20 +233,27 @@ function buildAdder() {
 }
 
 
-//const adder = await buildAdder();
+function init() {
+    importScripts("/third_party/papaparse.min.js");
 
+    const adderFuture = buildAdder();
 
-const onmessage = (event) => {
-    const stateInfo = event.data;
-    const year = stateInfo["year"];
-    const requestId = stateInfo["requestId"];
-    const state = stateInfo["state"];
-    //adder.addPolymers(year, state);
-    postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
-};
+    const onmessage = (event) => {
+        const stateInfo = event.data;
+        const year = stateInfo["year"];
+        const requestId = stateInfo["requestId"];
+        const state = stateInfo["state"];
+        
+        adderFuture.then((adder) => {
+            adder.addPolymers(state);
+            postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
+        });
+    };
+
+    addEventListener("message", onmessage);
+}
 
 
 if(typeof importScripts === "function") {
-    importScripts("/third_party/papaparse.min.js");
-    addEventListener("message", onmessage);
+    init();    
 }
