@@ -323,6 +323,7 @@ class Driver {
             tasks.forEach((task) => {
                 const year = task["year"];
                 const state = task["state"];
+                self._addGlobalToState(state);
                 states.set(year, state);
             });
 
@@ -384,10 +385,8 @@ class Driver {
             const businessAsUsualFuture = self._getStates(false);
             const withInterventionsFuture = self._getStates(true);
 
-            console.log([businessAsUsualFuture, withInterventionsFuture]);
             Promise.all([businessAsUsualFuture, withInterventionsFuture])
                 .then((results) => {
-                    console.log(results);
                     const businessAsUsual = results[0];
                     const withInterventions = results[1];
                     self._updateOutputs(businessAsUsual, withInterventions, timestamp);
