@@ -110,10 +110,10 @@ class PolymerMatricies {
     addPolymer(target) {
         const self = this;
         self._polymerInfos.set(target.getKey(), target);
-        self._subtypes.add(subtype);
-        self._regions.add(region);
-        self._polymers.add(polymer);
-        self._series.add(series);
+        self._subtypes.add(target.getSubtype());
+        self._regions.add(target.getRegion());
+        self._polymers.add(target.getPolymer());
+        self._series.add(target.getSeries());
     }
 
     getPolymer(region, subtype, polymer) {
@@ -176,7 +176,7 @@ class TradeAdder {
 
 function buildAdder() {
     const subtypeRawFuture = new Promise((resolve) => {
-        Papa.parse("/data/production_trade_subtype_ratios.csv.csv?v=" + CACHE_BUSTER, {
+        Papa.parse("/data/live_production_trade_subtype_ratios.csv?v=" + CACHE_BUSTER, {
             download: true,
             header: true,
             complete: (results) => resolve(results["data"]),
@@ -196,7 +196,7 @@ function buildAdder() {
     });
 
     const polymerRawFuture = new Promise((resolve) => {
-        Papa.parse("/data/polymer_ratios.csv?v=" + CACHE_BUSTER, {
+        Papa.parse("/data/live_polymer_ratios.csv?v=" + CACHE_BUSTER, {
             download: true,
             header: true,
             complete: (results) => resolve(results["data"]),
@@ -233,19 +233,7 @@ function buildAdder() {
 }
 
 
-let adderCached = null;
-
-
-function getAdderCached() {
-    if (adderCached !== null) {
-        return new Promise((resolve, reject) => resolve(adderCached));
-    } else {
-        return buildAdder().then((adder) => {
-            adderCached = adder;
-            return adder;
-        });
-    }
-}
+//const adder = await buildAdder();
 
 
 const onmessage = (event) => {
@@ -253,10 +241,8 @@ const onmessage = (event) => {
     const year = stateInfo["year"];
     const requestId = stateInfo["requestId"];
     const state = stateInfo["state"];
-    getAdderCached().then((adder) => {
-        adder.addPolymers(year, state);
-        postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
-    });
+    //adder.addPolymers(year, state);
+    postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
 };
 
 

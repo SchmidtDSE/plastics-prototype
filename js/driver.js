@@ -384,18 +384,20 @@ class Driver {
             const businessAsUsualFuture = self._getStates(false);
             const withInterventionsFuture = self._getStates(true);
 
+            console.log([businessAsUsualFuture, withInterventionsFuture]);
             Promise.all([businessAsUsualFuture, withInterventionsFuture])
                 .then((results) => {
+                    console.log(results);
                     const businessAsUsual = results[0];
                     const withInterventions = results[1];
                     self._updateOutputs(businessAsUsual, withInterventions, timestamp);
+                    self._redrawTimeout = null;
                 })
                 .catch((error) => {
+                    console.log(error);
                     alert("Whoops! The engine ran into an exception.");
                     throw error;
                 });
-
-            self._redrawTimeout = null;
         };
 
         // Give the UI loop a minute to catch up from OS
@@ -862,7 +864,7 @@ class PolymerWorkerQueue {
         self._workerRequestId++;
 
         return new Promise((resolve, reject) => {
-            self._workerCallbacks.set(self._workerRequestId, {"resolve": resolve, "reject": reject});
+            self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
             self._workers[workerId].postMessage(requestObj);
         });
     }
@@ -872,11 +874,16 @@ class PolymerWorkerQueue {
         const requestId = response["requestId"];
         const year = response["year"];
         if (!self._workerCallbacks.has(requestId)) {
+            console.log("bail", requestId);
             return;
         }
         
+        if (year == 2050) {
+            console.log(year);
+        }
+
         const callbacks = self._workerCallbacks.get(requestId);
-        if (callbacks["error"] === null) {
+        if (response["error"] === null) {
             callbacks["resolve"]({"year": year, "state": response["state"]});
         } else {
             callbacks["reject"](response["error"]);
