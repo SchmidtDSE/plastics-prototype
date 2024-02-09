@@ -1140,7 +1140,7 @@
         },
         {
             "name": "ghg",
-            "label": "Greenhouse Gas Assumptions",
+            "label": "GHG Assumptions",
             "levers": [
                 {
                     "name": "China PET Emissions",

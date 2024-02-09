@@ -7,7 +7,7 @@
  * @license BSD, see LICENSE.md
  */
 
-import {CACHE_BUSTER} from "const";
+
 
 const BAD_YEAR_MSG = [
     "Whoops! It looks like the application needs to update.",
