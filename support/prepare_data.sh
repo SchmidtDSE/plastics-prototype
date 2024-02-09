@@ -19,4 +19,8 @@ python support/separate_production.py data/overview_naive_original.csv data/over
 echo "== Make primary web output =="
 cp data/overview_ml.csv data/web.csv
 
+echo "== Move supporting data =="
+mv pipeline/polymer_ratios.csv data/live_polymer_ratios.csv
+mv pipeline/production_trade_subtype_ratios.csv data/live_production_trade_subtype_ratios.csv
+
 echo "== Data prepared =="

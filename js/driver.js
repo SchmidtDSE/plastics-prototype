@@ -47,6 +47,7 @@ class Driver {
         self._latestRequest = null;
         self._disableDelay = disableDelay;
         self._lastYear = MAX_YEAR;
+        self._polymerWorkerQueue = new PolymerWorkerQueue();
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -273,8 +274,6 @@ class Driver {
     _getStates(runPrograms) {
         const self = this;
 
-        const states = new Map();
-
         const getPrograms = () => {
             return self._getLevers()
                 .map((lever) => {
@@ -288,13 +287,10 @@ class Driver {
 
         const programs = runPrograms ? getPrograms() : [];
 
-        self._historicYears.forEach((year) => {
-            const state = self._buildState(year);
-            self._addGlobalToState(state);
-            states.set(year, state);
+        const historicStates = self._historicYears.map((year) => {
+            return {"year": year, "state": self._buildState(year)};
         });
-
-        self._projectionYears.forEach((year) => {
+        const projectionStates = self._projectionYears.map((year) => {
             const state = self._buildState(year);
 
             programs.forEach((programInfo) => {
@@ -311,11 +307,27 @@ class Driver {
                 }
             });
 
-            self._addGlobalToState(state);
-            states.set(year, state);
+            return {"year": year, "state": state};
         });
 
-        return states;
+        const allStates = historicStates.concat(projectionStates);
+        const promises = allStates.map((task) => {
+            const year = task["year"];
+            const state = task["state"];
+            return self._polymerWorkerQueue.request(year, state);
+        });
+
+        return Promise.all(promises).then((tasks) => {
+            const states = new Map();
+
+            tasks.forEach((task) => {
+                const year = task["year"];
+                const state = task["state"];
+                states.set(year, state);
+            });
+
+            return states;
+        });
     }
 
     /**
@@ -369,10 +381,20 @@ class Driver {
                 return;
             }
 
-            const businessAsUsual = self._getStates(false);
-            const withInterventions = self._getStates(true);
+            const businessAsUsualFuture = self._getStates(false);
+            const withInterventionsFuture = self._getStates(true);
 
-            self._updateOutputs(businessAsUsual, withInterventions, timestamp);
+            Promise.all([businessAsUsualFuture, withInterventionsFuture])
+                .then((results) => {
+                    const businessAsUsual = results[0];
+                    const withInterventions = results[1];
+                    self._updateOutputs(businessAsUsual, withInterventions, timestamp);
+                })
+                .catch((error) => {
+                    alert("Whoops! The engine ran into an exception.");
+                    throw error;
+                });
+
             self._redrawTimeout = null;
         };
 
@@ -816,6 +838,58 @@ function main(shouldPause, includeDevelopment, disableDelay) {
     const driver = new Driver(disableDelay);
     driver.setPauseUiLoop(shouldPause);
     return driver.init(includeDevelopment);
+}
+
+
+class PolymerWorkerQueue {
+
+    constructor() {
+        const self = this;
+        self._workerRequestId = 0;
+        self._workerCallbacks = new Map();
+        
+        self._workers = [];
+        
+        self._workers.push(self._makeWorker());
+    }
+
+    request(year, state) {
+        const self = this;
+        const requestId = self._workerRequestId;
+        const requestObj = {"year": year, "state": state, "requestId": requestId};
+        const workerId = requestId % self._workers.length;
+
+        self._workerRequestId++;
+
+        return new Promise((resolve, reject) => {
+            self._workerCallbacks.set(self._workerRequestId, {"resolve": resolve, "reject": reject});
+            self._workers[workerId].postMessage(requestObj);
+        });
+    }
+
+    _onResponse(response) {
+        const self = this;
+        const requestId = response["requestId"];
+        const year = response["year"];
+        if (!self._workerCallbacks.has(requestId)) {
+            return;
+        }
+        
+        const callbacks = self._workerCallbacks.get(requestId);
+        if (callbacks["error"] === null) {
+            callbacks["resolve"]({"year": year, "state": response["state"]});
+        } else {
+            callbacks["reject"](response["error"]);
+        }
+    }
+
+    _makeWorker() {
+        const self = this;
+        const newWorker = new Worker("/js/polymers.js");
+        newWorker.onmessage = (event) => self._onResponse(event.data);
+        return newWorker;
+    }
+
 }
 
 

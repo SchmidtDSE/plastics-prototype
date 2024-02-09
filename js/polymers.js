@@ -1,5 +1,3 @@
-includeScripts("/third_party/papaparse.min.js");
-
 const CACHE_BUSTER = Date.now();
 
 
@@ -168,7 +166,7 @@ class TradeAdder {
         self._matricies = matricies;
     }
 
-    getPolymers(state) {
+    addPolymers(year, state) {
         const self = this;
         return state;
     }
@@ -176,7 +174,7 @@ class TradeAdder {
 }
 
 
-function getPolymerMatricies() {
+function buildAdder() {
     const subtypeRawFuture = new Promise((resolve) => {
         Papa.parse("/data/production_trade_subtype_ratios.csv.csv?v=" + CACHE_BUSTER, {
             download: true,
@@ -186,7 +184,7 @@ function getPolymerMatricies() {
         });
     });
 
-    const subtypeFuture = subtypeRatiosRawFuture.then((rows) => {
+    const subtypeFuture = subtypeRawFuture.then((rows) => {
         return rows.map((row) => {
             return new SubtypeInfo(
                 row['year'],
@@ -206,7 +204,7 @@ function getPolymerMatricies() {
         });
     });
 
-    const polymerFuture = polymerRatiosRawFuture.then((rows) => {
+    const polymerFuture = polymerRawFuture.then((rows) => {
         return rows.map((row) => {
             return new PolymerInfo(
                 row['subtype'],
@@ -232,4 +230,37 @@ function getPolymerMatricies() {
     const tradeAdderFuture = matrixFuture.then((matricies) => new TradeAdder(matricies));
 
     return tradeAdderFuture;
+}
+
+
+let adderCached = null;
+
+
+function getAdderCached() {
+    if (adderCached !== null) {
+        return new Promise((resolve, reject) => resolve(adderCached));
+    } else {
+        return buildAdder().then((adder) => {
+            adderCached = adder;
+            return adder;
+        });
+    }
+}
+
+
+const onmessage = (event) => {
+    const stateInfo = event.data;
+    const year = stateInfo["year"];
+    const requestId = stateInfo["requestId"];
+    const state = stateInfo["state"];
+    getAdderCached().then((adder) => {
+        adder.addPolymers(year, state);
+        postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
+    });
+};
+
+
+if(typeof importScripts === "function") {
+    importScripts("/third_party/papaparse.min.js");
+    addEventListener("message", onmessage);
 }
