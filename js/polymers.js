@@ -1,4 +1,6 @@
-import {CACHE_BUSTER} from "const";
+includeScripts("/third_party/papaparse.min.js");
+
+const CACHE_BUSTER = Date.now();
 
 
 class PolymerInfo {
@@ -168,7 +170,7 @@ class TradeAdder {
 
     getPolymers(state) {
         const self = this;
-        
+        return state;
     }
 
 }
@@ -216,7 +218,7 @@ function getPolymerMatricies() {
         });
     });
 
-    return Promise.all([subtypeFuture, polymerFuture]).then((results) => {
+    const matrixFuture = Promise.all([subtypeFuture, polymerFuture]).then((results) => {
         const subtypeInfos = results[0];
         const polymerInfos = results[1];
         
@@ -226,4 +228,8 @@ function getPolymerMatricies() {
 
         return retMatricies;
     });
+
+    const tradeAdderFuture = matrixFuture.then((matricies) => new TradeAdder(matricies));
+
+    return tradeAdderFuture;
 }
