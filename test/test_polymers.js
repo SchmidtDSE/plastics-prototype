@@ -196,6 +196,7 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
+                modifier._addDetailedTrade(2050, state);
                 const result = modifier._getTradePolymers(2050, "china", state, [TEXTILES_SUBTYPE]);
                 assert.ok(isWithinTollerance(result, "pp", 0));
                 assert.ok(result.get("pp&a fibers") < 0);
@@ -221,6 +222,7 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
+                modifier._addDetailedTrade(2050, state);
                 const result = modifier._calculatePolymers(2050, state);
                 assert.ok(result.has("polymers"));
 

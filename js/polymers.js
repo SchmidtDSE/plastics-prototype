@@ -203,11 +203,33 @@ class StateModifier {
     modify(year, state, attrs) {
         const self = this;
 
+        self._addDetailedTrade(year, state);
+        self._normalizeDetailedTrade(state);
         self._calculatePolymers(year, state);
-        self._normalizeTradePolymers(state);
         self._calculateGhg(state);
         self._addGlobalToStateAttrs(state, attrs);
 
+        return state;
+    }
+
+    _addDetailedTrade(year, state) {
+        const self = this;
+        const subtypes = self._getAllSubtypes();
+        const regions = Array.of(...state.get("out").keys());
+        const tradeMap = new Map();
+        regions.forEach((region) => {
+            const out = state.get("out").get(region);
+            const netTrade = self._getNetTrade(out);
+            const regionMap = new Map();
+            subtypes.forEach((subtype) => {
+                const subtypeInfo = self._matricies.getSubtype(year, region, subtype);
+                const ratio = subtypeInfo.getRatio();
+                const subtypeVolume = ratio * netTrade;
+                regionMap.set(subtype, subtypeVolume);
+            });
+            tradeMap.set(region, regionMap);
+        });
+        state.set("trade", tradeMap);
         return state;
     }
 
@@ -251,6 +273,12 @@ class StateModifier {
         return new Set([...nativePolymers, TEXTILE_POLYMER]);
     }
 
+    _getAllSubtypes() {
+        const self = this;
+        const nativeSubtypes = self._matricies.getSubtypes();
+        return new Set([...nativeSubtypes, TEXTILES_SUBTYPE]);
+    }
+
     _getGoodsPolymers(region, state) {
         const self = this;
         const out = state.get("out").get(region);
@@ -282,14 +310,11 @@ class StateModifier {
 
     _getTradePolymers(year, region, state, subtypes) {
         const self = this;
-        const out = state.get("out").get(region);
         const polymers = self._getAllPolymers();
-        const netTrade = self._getNetTrade(out);
+        const tradeVolumes = state.get("trade").get(region);
 
         const vectors = subtypes.map((subtype) => {
-            const subtypeInfo = self._matricies.getSubtype(year, region, subtype);
-            const ratio = subtypeInfo.getRatio();
-            const subtypeVolume = ratio * netTrade;
+            const subtypeVolume = tradeVolumes.get(subtype);
 
             const vector = self._makeEmptyPolymersVector();
             polymers.forEach((polymer) => {
@@ -363,8 +388,20 @@ class StateModifier {
         }
     }
 
-    _normalizeTradePolymers(state) {
+    _normalizeDetailedTrade(state) {
         const self = this;
+        
+        const subtypes = Array.from(self._matricies.getSubtypes());
+        subtypes.sort();
+
+        const regions = Array.from(self._matricies.getRegions());
+        regions.sort();
+
+        const get_region_total = (region) => {
+            
+        };
+
+        return state;
     }
 
     _calculateGhg(state) {
@@ -419,6 +456,22 @@ class StateModifier {
 
 
 function buildMatricies() {
+    const assertPresent = (row, key) => {
+        const value = row[key];
+        
+        if (value === undefined) {
+            throw "Could not find value for " + key;
+        }
+
+        if (value === null) {
+            throw "Value null for " + key;
+        }
+    };
+
+    const ignoreEmpty = (rows) => {
+        return rows.filter((x) => x["region"] !== null).filter((x) => x["region"] !== undefined);
+    }
+
     const subtypeRawFuture = new Promise((resolve) => {
         Papa.parse("/data/live_production_trade_subtype_ratios.csv?v=" + CACHE_BUSTER, {
             download: true,
@@ -429,7 +482,12 @@ function buildMatricies() {
     });
 
     const subtypeFuture = subtypeRawFuture.then((rows) => {
-        return rows.map((row) => {
+        return ignoreEmpty(rows).map((row) => {
+            assertPresent(row, "year");
+            assertPresent(row, "region");
+            assertPresent(row, "subtype");
+            assertPresent(row, "ratioSubtype");
+            
             return new SubtypeInfo(
                 row["year"],
                 row["region"],
@@ -449,7 +507,13 @@ function buildMatricies() {
     });
 
     const polymerFuture = polymerRawFuture.then((rows) => {
-        return rows.map((row) => {
+        return ignoreEmpty(rows).map((row) => {
+            assertPresent(row, "subtype");
+            assertPresent(row, "region");
+            assertPresent(row, "polymer");
+            assertPresent(row, "percent");
+            assertPresent(row, "series");
+
             return new PolymerInfo(
                 row["subtype"],
                 row["region"],
