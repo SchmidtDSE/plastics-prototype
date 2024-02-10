@@ -842,14 +842,13 @@ function main(shouldPause, includeDevelopment, disableDelay) {
 
 
 class PolymerWorkerQueue {
-
     constructor() {
         const self = this;
         self._workerRequestId = 0;
         self._workerCallbacks = new Map();
-        
+
         self._workers = [];
-        
+
         const nativeConcurrency = window.navigator.hardwareConcurrency;
         const hasKnownConcurrency = nativeConcurrency !== undefined;
         const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
@@ -868,7 +867,7 @@ class PolymerWorkerQueue {
             "year": year,
             "state": state,
             "requestId": requestId,
-            "attrs": ALL_ATTRS
+            "attrs": ALL_ATTRS,
         };
 
         self._workerRequestId++;
@@ -901,7 +900,6 @@ class PolymerWorkerQueue {
         newWorker.onmessage = (event) => self._onResponse(event.data);
         return newWorker;
     }
-
 }
 
 
