@@ -28,4 +28,3 @@ echo "== [support] Checking moved contents =="
 [ ! -e pipeline/polymer_ratios.csv ] && exit 5;
 
 echo "== [support] Loaded supporting data =="
-
