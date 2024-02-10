@@ -225,7 +225,7 @@ class StateModifier {
             const getTrade = (subtypes) => {
                 return self._getTradePolymers(year, region, state, subtypes);
             };
-            
+
             const goodsTradeSubtypes = [goodsSubtypes, [TEXTILES_SUBTYPE]];
             const goodsTradePolymersSeparate = goodsTradeSubtypes.map(getTrade);
             const goodsTradePolymers = goodsTradePolymersSeparate.reduce(
@@ -328,7 +328,9 @@ class StateModifier {
     _combinePolymerVectors(a, b) {
         const self = this;
         const vector = new Map();
-        const add = (key) => { vector.set(key, a.get(key) + b.get(key)); }
+        const add = (key) => {
+            vector.set(key, a.get(key) + b.get(key));
+        };
         add("ldpe");
         add("hdpe");
         add("pp");
@@ -379,7 +381,7 @@ class StateModifier {
                     const inputName = region + ghgInfo["leverName"] + "Emissions";
                     const intensity = inputs.get(inputName);
                     const emissions = intensity * polymers.get(ghgInfo["polymerName"]);
-                    return emissions;  // metric kiloton
+                    return emissions; // metric kiloton
                 } else {
                     return 0;
                 }
