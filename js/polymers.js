@@ -189,6 +189,17 @@ class StateModifier {
     modify(year, state, attrs) {
         const self = this;
 
+        self._calculatePolymers(state);
+        self._normalizeTradePolymers(state);
+        self._calculateGhg(state);
+
+        addGlobalToStateAttrs(state, attrs);
+        return state;
+    }
+
+    _calculatePolymers(state) {
+        const self = this;
+
         const regions = Array.of(...state.get("out").keys());
         const polymerMap = new Map();
         regions.forEach((region) => {
@@ -213,9 +224,6 @@ class StateModifier {
             polymerMap.set(region, polymerSubmap);
         });
         state.set("polymers", polymerMap);
-
-        addGlobalToStateAttrs(state, attrs);
-        return state;
     }
 
     _getAllPolymers() {
@@ -328,6 +336,14 @@ class StateModifier {
                 return percent;
             }
         }
+    }
+
+    _normalizeTradePolymers(state) {
+        const self = this;
+    }
+
+    _calculateGhg(state) {
+        const self = this;
     }
 }
 
