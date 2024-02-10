@@ -189,7 +189,7 @@ class StateModifier {
     modify(year, state, attrs) {
         const self = this;
 
-        self._calculatePolymers(state);
+        self._calculatePolymers(year, state);
         self._normalizeTradePolymers(state);
         self._calculateGhg(state);
 
@@ -197,7 +197,7 @@ class StateModifier {
         return state;
     }
 
-    _calculatePolymers(state) {
+    _calculatePolymers(year, state) {
         const self = this;
 
         const regions = Array.of(...state.get("out").keys());
