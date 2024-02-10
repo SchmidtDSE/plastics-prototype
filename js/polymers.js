@@ -400,7 +400,7 @@ function init() {
     importScripts("/third_party/papaparse.min.js");
     importScripts("/js/add_global_util.js");
 
-    const adderFuture = buildModifier();
+    const modifierFuture = buildModifier();
 
     const onmessage = (event) => {
         const stateInfo = event.data;
