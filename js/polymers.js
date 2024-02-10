@@ -20,6 +20,20 @@ const RESIN_SUBTYPES = [
     "pur",
 ];
 
+const GHGS = [
+    {"leverName": "PET", "polymerName": "pet"},
+    {"leverName": "HDPE", "polymerName": "hdpe"},
+    {"leverName": "PVC", "polymerName": "pvc"},
+    {"leverName": "LLDPE", "polymerName": "ldpe"},
+    {"leverName": "PP", "polymerName": "pp"},
+    {"leverName": "PS", "polymerName": "ps"},
+    {"leverName": "PUR", "polymerName": "pur"},
+    {"leverName": "PPA", "polymerName": "pp&a fibers"},
+    {"leverName": "Additives", "polymerName": "additives"},
+    {"leverName": "Others", "polymerName": "other thermoplastics"},
+    {"leverName": "Others", "polymerName": "other thermosets"},
+];
+
 const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
 const TEXTILES_SUBTYPE = "textiles";
@@ -192,8 +206,8 @@ class StateModifier {
         self._calculatePolymers(year, state);
         self._normalizeTradePolymers(state);
         self._calculateGhg(state);
+        self._addGlobalToStateAttrs(state, attrs);
 
-        addGlobalToStateAttrs(state, attrs);
         return state;
     }
 
@@ -211,19 +225,24 @@ class StateModifier {
             const getTrade = (subtypes) => {
                 return self._getTradePolymers(year, region, state, subtypes);
             };
-            const allTradeSubtypes = [goodsSubtypes, RESIN_SUBTYPES, [TEXTILES_SUBTYPE]];
-            const tradePolymersSeparate = allTradeSubtypes.map(getTrade);
-            const tradePolymers = tradePolymersSeparate.reduce(
+            
+            const goodsTradeSubtypes = [goodsSubtypes, [TEXTILES_SUBTYPE]];
+            const goodsTradePolymersSeparate = goodsTradeSubtypes.map(getTrade);
+            const goodsTradePolymers = goodsTradePolymersSeparate.reduce(
                 (a, b) => self._combinePolymerVectors(a, b),
             );
 
+            const resinTradePolymers = getTrade(RESIN_SUBTYPES);
+
             const polymerSubmap = new Map();
             polymerSubmap.set("consumption", consumptionPolymers);
-            polymerSubmap.set("trade", tradePolymers);
+            polymerSubmap.set("goodsTrade", goodsTradePolymers);
+            polymerSubmap.set("resinTrade", resinTradePolymers);
 
             polymerMap.set(region, polymerSubmap);
         });
         state.set("polymers", polymerMap);
+        return state;
     }
 
     _getAllPolymers() {
@@ -348,6 +367,51 @@ class StateModifier {
 
     _calculateGhg(state) {
         const self = this;
+        const regions = Array.of(...state.get("out").keys());
+        const inputs = state.get("in");
+        const polymerVolumes = state.get("polymers");
+        const ghgMap = new Map();
+
+        const getEmissionsForPolymers = (region, polymers) => {
+            const emissions = GHGS.map((ghgInfo) => {
+                const polymerName = ghgInfo["polymerName"];
+                if (polymers.has(polymerName)) {
+                    const inputName = region + ghgInfo["leverName"] + "Emissions";
+                    const intensity = inputs.get(inputName);
+                    const emissions = intensity * polymers.get(ghgInfo["polymerName"]);
+                    return emissions;  // metric kiloton
+                } else {
+                    return 0;
+                }
+            });
+            return emissions.reduce((a, b) => a + b);
+        };
+
+        regions.forEach((region) => {
+            const regionGhgMap = new Map();
+            const regionPolymerVolumes = polymerVolumes.get(region);
+
+            const calculateForKey = (key) => {
+                const polymerVolumes = regionPolymerVolumes.get(key);
+                const ghgEmissions = getEmissionsForPolymers(region, polymerVolumes);
+                regionGhgMap.set(key, ghgEmissions);
+            };
+
+            calculateForKey("consumption");
+            calculateForKey("goodsTrade");
+            calculateForKey("resinTrade");
+
+            ghgMap.set(region, regionGhgMap);
+        });
+
+        state.set("ghg", ghgMap);
+        return state;
+    }
+
+    _addGlobalToStateAttrs(state, attrs) {
+        const self = this;
+        addGlobalToStateAttrs(state, attrs);
+        return state;
     }
 }
 
@@ -439,6 +503,7 @@ function init() {
 }
 
 
-if (typeof importScripts === "function") {
+const runningInWorker = typeof importScripts === "function";
+if (runningInWorker) {
     init();
 }
