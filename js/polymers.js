@@ -390,15 +390,15 @@ class StateModifier {
 
     _normalizeDetailedTrade(state) {
         const self = this;
-        
+
         const subtypes = Array.from(self._matricies.getSubtypes());
         subtypes.sort();
 
         const regions = Array.from(self._matricies.getRegions());
         regions.sort();
 
-        const get_region_total = (region) => {
-            
+        const getRegionTotal = (region) => {
+
         };
 
         return state;
@@ -458,7 +458,7 @@ class StateModifier {
 function buildMatricies() {
     const assertPresent = (row, key) => {
         const value = row[key];
-        
+
         if (value === undefined) {
             throw "Could not find value for " + key;
         }
@@ -470,7 +470,7 @@ function buildMatricies() {
 
     const ignoreEmpty = (rows) => {
         return rows.filter((x) => x["region"] !== null).filter((x) => x["region"] !== undefined);
-    }
+    };
 
     const subtypeRawFuture = new Promise((resolve) => {
         Papa.parse("/data/live_production_trade_subtype_ratios.csv?v=" + CACHE_BUSTER, {
@@ -487,7 +487,7 @@ function buildMatricies() {
             assertPresent(row, "region");
             assertPresent(row, "subtype");
             assertPresent(row, "ratioSubtype");
-            
+
             return new SubtypeInfo(
                 row["year"],
                 row["region"],
