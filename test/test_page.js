@@ -1,8 +1,6 @@
 import {main} from 'driver';
 import {fetchWithRetry} from 'file';
 
-import {Compiler} from "compiler";
-
 
 function buildPageTest() {
     QUnit.module("page", function() {

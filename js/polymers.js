@@ -207,8 +207,8 @@ class StateModifier {
             );
 
             const polymerSubmap = new Map();
-            polymerSubmap.set("consumption", Object.entries(consumptionPolymers));
-            polymerSubmap.set("trade", Object.entries(tradePolymers));
+            polymerSubmap.set("consumption", new Map(Object.entries(consumptionPolymers)));
+            polymerSubmap.set("trade", new Map(Object.entries(tradePolymers)));
 
             polymerMap.set(region, polymerSubmap);
         });
@@ -216,6 +216,12 @@ class StateModifier {
 
         addGlobalToStateAttrs(state, attrs);
         return state;
+    }
+
+    _getAllPolymers() {
+        const self = this;
+        const nativePolymers = self._matricies.getPolymers();
+        return new Set([...nativePolymers, TEXTILE_POLYMER]);
     }
 
     _getGoodsPolymers(region, state) {
@@ -234,12 +240,6 @@ class StateModifier {
             return vector;
         });
         return vectors.reduce((a, b) => self._combinePolymerVectors(a, b));
-    }
-
-    _getAllPolymers() {
-        const self = this;
-        const nativePolymers = self._matricies.getPolymers();
-        return new Set([...nativePolymers, TEXTILE_POLYMER]);
     }
 
     _getTextilePolymers(region, state) {
@@ -332,7 +332,7 @@ class StateModifier {
 }
 
 
-function buildAdder() {
+function buildMatricies() {
     const subtypeRawFuture = new Promise((resolve) => {
         Papa.parse("/data/live_production_trade_subtype_ratios.csv?v=" + CACHE_BUSTER, {
             download: true,
@@ -348,7 +348,7 @@ function buildAdder() {
                 row["year"],
                 row["region"],
                 row["subtype"],
-                row["ratio"],
+                row["ratioSubtype"],
             );
         });
     });
@@ -385,8 +385,13 @@ function buildAdder() {
         return retMatricies;
     });
 
-    const stateModifierFuture = matrixFuture.then((matricies) => new StateModifier(matricies));
+    return matrixFuture;
+}
 
+
+function buildModifier() {
+    const matrixFuture = buildMatricies();
+    const stateModifierFuture = matrixFuture.then((matricies) => new StateModifier(matricies));
     return stateModifierFuture;
 }
 
@@ -395,7 +400,7 @@ function init() {
     importScripts("/third_party/papaparse.min.js");
     importScripts("/js/add_global_util.js");
 
-    const adderFuture = buildAdder();
+    const adderFuture = buildModifier();
 
     const onmessage = (event) => {
         const stateInfo = event.data;
@@ -404,7 +409,7 @@ function init() {
         const state = stateInfo["state"];
         const attrs = stateInfo["attrs"];
 
-        adderFuture.then((modifier) => {
+        modifierFuture.then((modifier) => {
             modifier.modify(year, state, attrs);
             postMessage({"requestId": requestId, "state": state, "error": null, "year": year});
         });

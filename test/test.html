@@ -22,6 +22,7 @@
 
     <script src="../js/plastics_lang.js?v=EPOCH"></script>
     <script src="../js/add_global_util.js?v=EPOCH"></script>
+    <script src="../js/polymers.js?v=EPOCH"></script>
 
     <script type="importmap">
         {
@@ -51,7 +52,8 @@
                 "visitors": "../js/visitors.js?v=EPOCH",
                 "driver": "../js/driver.js?v=EPOCH",
                 "test_compiler": "./test_compiler.js?v=EPOCH",
-                "test_page": "./test_page.js?v=EPOCH"
+                "test_page": "./test_page.js?v=EPOCH",
+                "test_polymers": "./test_polymers.js?v=EPOCH"
             }
         }
     </script>
@@ -63,8 +65,10 @@
     <script type="module">
         import {buildCompilerTest} from "test_compiler";
         import {buildPageTest} from "test_page";
+        import {buildPolymerTest} from "test_polymers";
         buildCompilerTest();
-        buildPageTest();
+        //buildPageTest();
+        buildPolymerTest();
     </script>
     
 </body>
