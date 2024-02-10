@@ -218,8 +218,8 @@ class StateModifier {
             );
 
             const polymerSubmap = new Map();
-            polymerSubmap.set("consumption", new Map(Object.entries(consumptionPolymers)));
-            polymerSubmap.set("trade", new Map(Object.entries(tradePolymers)));
+            polymerSubmap.set("consumption", consumptionPolymers);
+            polymerSubmap.set("trade", tradePolymers);
 
             polymerMap.set(region, polymerSubmap);
         });
@@ -243,7 +243,8 @@ class StateModifier {
             polymers.forEach((polymer) => {
                 const percent = self._getPolymerPercent(region, info["subtype"], polymer);
                 const polymerVolume = percent * volume;
-                vector[polymer] += polymerVolume;
+                const newTotal = vector.get(polymer) + polymerVolume;
+                vector.set(polymer, newTotal);
             });
             return vector;
         });
@@ -255,7 +256,8 @@ class StateModifier {
         const out = state.get("out").get(region);
         const vector = self._makeEmptyPolymersVector();
         const volume = out.get(TEXTILE_ATTR);
-        vector[TEXTILE_POLYMER] = volume;
+        const newTotal = vector.get(TEXTILE_POLYMER) + volume;
+        vector.set(TEXTILE_POLYMER, newTotal);
         return vector;
     }
 
@@ -274,7 +276,8 @@ class StateModifier {
             polymers.forEach((polymer) => {
                 const percent = self._getPolymerPercent(region, subtype, polymer);
                 const polymerVolume = percent * subtypeVolume;
-                vector[polymer] += polymerVolume;
+                const newTotal = vector.get(polymer) + polymerVolume;
+                vector.set(polymer, newTotal);
             });
 
             return vector;
@@ -289,34 +292,35 @@ class StateModifier {
 
     _makeEmptyPolymersVector() {
         const self = this;
-        return {
-            "ldpe": 0,
-            "hdpe": 0,
-            "pp": 0,
-            "ps": 0,
-            "pvc": 0,
-            "pet": 0,
-            "pur": 0,
-            "pp&a fibers": 0,
-            "other thermoplastics": 0,
-            "other thermosets": 0,
-        };
+        const vector = new Map();
+        vector.set("ldpe", 0);
+        vector.set("hdpe", 0);
+        vector.set("pp", 0);
+        vector.set("ps", 0);
+        vector.set("pvc", 0);
+        vector.set("pet", 0);
+        vector.set("pur", 0);
+        vector.set("pp&a fibers", 0);
+        vector.set("other thermoplastics", 0);
+        vector.set("other thermosets", 0);
+        return vector;
     }
 
     _combinePolymerVectors(a, b) {
         const self = this;
-        return {
-            "ldpe": a["ldpe"] + b["ldpe"],
-            "hdpe": a["hdpe"] + b["hdpe"],
-            "pp": a["pp"] + b["pp"],
-            "ps": a["ps"] + b["ps"],
-            "pvc": a["pvc"] + b["pvc"],
-            "pet": a["pet"] + b["pet"],
-            "pur": a["pur"] + b["pur"],
-            "pp&a fibers": a["pp&a fibers"] + b["pp&a fibers"],
-            "other thermoplastics": a["other thermoplastics"] + b["other thermoplastics"],
-            "other thermosets": a["other thermosets"] + b["other thermosets"],
-        };
+        const vector = new Map();
+        const add = (key) => { vector.set(key, a.get(key) + b.get(key)); }
+        add("ldpe");
+        add("hdpe");
+        add("pp");
+        add("ps");
+        add("pvc");
+        add("pet");
+        add("pur");
+        add("pp&a fibers");
+        add("other thermoplastics");
+        add("other thermosets");
+        return vector;
     }
 
     _getPolymerPercent(region, subtype, polymer) {
