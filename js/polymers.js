@@ -7,7 +7,7 @@ const GOODS = [
     {"attr": "consumptionElectronicMT", "subtype": "electrical_electronic"},
     {"attr": "consumptionHouseholdLeisureSportsMT", "subtype": "household_leisure_sports"},
     {"attr": "consumptionAgricultureMT", "subtype": "agriculture"},
-    {"attr": "consumptionOtherMT", "subtype": "others"}
+    {"attr": "consumptionOtherMT", "subtype": "others"},
 ];
 
 const RESIN_SUBTYPES = [
@@ -17,7 +17,7 @@ const RESIN_SUBTYPES = [
     "100% otp",
     "50% otp, 50% ots",
     "pet",
-    "pur"
+    "pur",
 ];
 
 const TEXTILE_POLYMER = "pp&a fibers";
@@ -201,9 +201,9 @@ class StateModifier {
                 return self._getTradePolymers(year, region, state, subtypes);
             };
             const allTradeSubtypes = [goodsSubtypes, RESIN_SUBTYPES, [TEXTILES_SUBTYPE]];
-            const tradePolymersSeparate = allTradeSubtypes.map(getTrade)
+            const tradePolymersSeparate = allTradeSubtypes.map(getTrade);
             const tradePolymers = tradePolymersSeparate.reduce(
-                (a, b) => self._combinePolymerVectors(a, b)
+                (a, b) => self._combinePolymerVectors(a, b),
             );
 
             const polymerSubmap = new Map();
@@ -256,12 +256,12 @@ class StateModifier {
         const out = state.get("out").get(region);
         const polymers = self._getAllPolymers();
         const netTrade = self._getNetTrade(out);
-        
+
         const vectors = subtypes.map((subtype) => {
             const subtypeInfo = self._matricies.getSubtype(year, region, subtype);
             const ratio = subtypeInfo.getRatio();
             const subtypeVolume = ratio * netTrade;
-            
+
             const vector = self._makeEmptyPolymersVector();
             polymers.forEach((polymer) => {
                 const percent = self._getPolymerPercent(region, subtype, polymer);
@@ -291,7 +291,7 @@ class StateModifier {
             "pur": 0,
             "pp&a fibers": 0,
             "other thermoplastics": 0,
-            "other thermosets": 0
+            "other thermosets": 0,
         };
     }
 
@@ -307,7 +307,7 @@ class StateModifier {
             "pur": a["pur"] + b["pur"],
             "pp&a fibers": a["pp&a fibers"] + b["pp&a fibers"],
             "other thermoplastics": a["other thermoplastics"] + b["other thermoplastics"],
-            "other thermosets": a["other thermosets"] + b["other thermosets"]
+            "other thermosets": a["other thermosets"] + b["other thermosets"],
         };
     }
 
@@ -321,7 +321,7 @@ class StateModifier {
             }
         } else {
             if (polymer === TEXTILE_POLYMER) {
-                return 0
+                return 0;
             } else {
                 const polymerInfo = self._matricies.getPolymer(region, subtype, polymer);
                 const percent = polymerInfo.getPercent();
