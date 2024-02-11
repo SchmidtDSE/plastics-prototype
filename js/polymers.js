@@ -34,6 +34,8 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+const MAX_NORM_ITERATIONS = 10;
+
 const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
 const TEXTILES_SUBTYPE = "textiles";
@@ -331,7 +333,7 @@ class StateModifier {
 
     _getNetTrade(regionOutputs) {
         const self = this;
-        return regionOutputs.get("netWasteImportMT") - regionOutputs.get("netWasteExportMT");
+        return regionOutputs.get("netImportsMT") - regionOutputs.get("netExportsMT");
     }
 
     _makeEmptyPolymersVector() {
@@ -390,16 +392,112 @@ class StateModifier {
 
     _normalizeDetailedTrade(state) {
         const self = this;
-
-        const subtypes = Array.from(self._matricies.getSubtypes());
-        subtypes.sort();
-
         const regions = Array.from(self._matricies.getRegions());
         regions.sort();
 
-        const getRegionTotal = (region) => {
+        const out = state.get("out");
 
+        const goodsTradeSubtypes = GOODS.map((x) => x["subtype"]);
+        const netTradeTotals = new Map();
+        regions.forEach((region) => {
+            netTradeTotals.set(region, self._getNetTrade(out.get(region)));
+        });
+        self._normalizeDetailedTradeSeries(state, goodsTradeSubtypes, netTradeTotals, regions);
+
+        // TODO: deal with resin
+    }
+
+    _normalizeDetailedTradeSeries(state, seriesSubtypes, seriesTotals, regions) {
+        const self = this;
+        const tradeMap = state.get("trade");
+
+        const getRegionTotal = (region) => {
+            const regionTrade = tradeMap.get(region);
+            const values = seriesSubtypes.map((subtype) => regionTrade.get(subtype));
+            return values.reduce((a, b) => a + b);
         };
+
+        const getSubtypeTotal = (subtype) => {
+            const values = regions.map((region) => tradeMap.get(region).get(subtype));
+            return values.reduce((a, b) => a + b);
+        };
+
+        const getScaling = (delta) => {
+            const deltaAbs = Math.abs(delta);
+            if (deltaAbs < 1) {
+                return 0;
+            } else if (deltaAbs < 10) {
+                return deltaAbs / 10;
+            } else {
+                return 1;
+            }
+        };
+
+        const smoothRegion = (region) => {
+            const origTotal = seriesTotals.get(region);
+            const newTotal = getRegionTotal(region);
+            const delta = origTotal - newTotal;
+            const scaling = getScaling(delta);
+
+            if (scaling == 0) {
+                return;
+            }
+
+            const values = seriesSubtypes.map((subtype) => tradeMap.get(region).get(subtype));
+            const absTotal = values.map((x) => Math.abs(x)).reduce((a, b) => a + b);
+
+            seriesSubtypes.forEach((subtype) => {
+                const originalVal = tradeMap.get(region).get(subtype);
+                const newVal = Math.abs(originalVal) / absTotal * delta * scaling + originalVal;
+                tradeMap.get(region).set(subtype, newVal);
+            });
+        };
+
+        const smoothSubtype = (subtype) => {
+            const subtypeTotal = getSubtypeTotal(subtype);
+            const scaling = getScaling(subtypeTotal);
+
+            if (scaling == 0) {
+                return;
+            }
+
+            const avg = subtypeTotal / seriesSubtypes.length;
+            regions.forEach((region) => {
+                const originalVal = tradeMap.get(region).get(subtype);
+                const newVal = originalVal - avg * scaling;
+                tradeMap.get(region).set(subtype, newVal);
+            });
+        };
+
+        const getRegionError = (region) => {
+            return Math.abs(getRegionTotal(region) - seriesTotals.get(region));
+        };
+
+        const getSubtypeError = (subtype) => {
+            return Math.abs(getSubtypeTotal(subtype));
+        };
+
+        const getMaxError = () => {
+            const regionErrors = regions.map(getRegionError);
+            const maxRegionError = regionErrors.reduce((a, b) => a > b ? a : b);
+            const subtypesErrors = seriesSubtypes.map(getSubtypeError);
+            const maxSubtypesError = subtypesErrors.reduce((a, b) => a > b ? a : b);
+            return maxSubtypesError > maxRegionError ? maxSubtypesError : maxRegionError;
+        };
+
+        for (let i = 0; i < MAX_NORM_ITERATIONS; i++) {
+            const maxError = getMaxError();
+            if (maxError <= 1) {
+                return state;
+            }
+
+            seriesSubtypes.forEach((subtype) => {
+                smoothSubtype(subtype);
+                regions.forEach((region) => {
+                    smoothRegion(region);
+                });
+            });
+        }
 
         return state;
     }

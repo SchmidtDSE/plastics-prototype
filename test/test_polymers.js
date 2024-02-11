@@ -107,8 +107,8 @@ function buildPolymerTest() {
             const done = assert.async();
 
             const testMap = new Map();
-            testMap.set("netWasteImportMT", 5);
-            testMap.set("netWasteExportMT", 0);
+            testMap.set("netImportsMT", 5);
+            testMap.set("netExportsMT", 0);
 
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
@@ -182,13 +182,15 @@ function buildPolymerTest() {
         });
 
         QUnit.test("get trade polymers", function(assert) {
-            const chinaMap = new Map();
-            chinaMap.set("consumptionTextileMT", 1);
-            chinaMap.set("netWasteImportMT", 0);
-            chinaMap.set("netWasteExportMT", 10);
-
             const outMap = new Map();
-            outMap.set("china", chinaMap);
+
+            ["china", "eu30", "nafta", "row"].forEach((region) => {
+                const regionMap = new Map();
+                regionMap.set("consumptionTextileMT", 1);
+                regionMap.set("netImportsMT", 0);
+                regionMap.set("netExportsMT", 10);
+                outMap.set(region, regionMap);
+            });
 
             const state = new Map();
             state.set("out", outMap);
@@ -207,8 +209,8 @@ function buildPolymerTest() {
         QUnit.test("modify to add polymers", function(assert) {
             const chinaMap = new Map();
             chinaMap.set("consumptionTextileMT", 1);
-            chinaMap.set("netWasteImportMT", 0);
-            chinaMap.set("netWasteExportMT", 10);
+            chinaMap.set("netImportsMT", 0);
+            chinaMap.set("netExportsMT", 10);
             GOODS.map((x) => x["attr"]).forEach((attr, i) => {
                 chinaMap.set(attr, i + 2);
             });
@@ -239,8 +241,8 @@ function buildPolymerTest() {
         QUnit.test("modify to add global", function(assert) {
             const chinaMap = new Map();
             chinaMap.set("consumptionTextileMT", 1);
-            chinaMap.set("netWasteImportMT", 0);
-            chinaMap.set("netWasteExportMT", 10);
+            chinaMap.set("netImportsMT", 0);
+            chinaMap.set("netExportsMT", 10);
             GOODS.map((x) => x["attr"]).forEach((attr, i) => {
                 chinaMap.set(attr, i + 2);
             });
@@ -261,20 +263,24 @@ function buildPolymerTest() {
         });
 
         QUnit.test("modify state add ghg", function(assert) {
-            const chinaMap = new Map();
-            chinaMap.set("consumptionTextileMT", 1);
-            chinaMap.set("netWasteImportMT", 0);
-            chinaMap.set("netWasteExportMT", 10);
-            GOODS.map((x) => x["attr"]).forEach((attr, i) => {
-                chinaMap.set(attr, i + 2);
-            });
-
-            const outMap = new Map();
-            outMap.set("china", chinaMap);
-
             const inMap = new Map();
-            GHGS.forEach((info, i) => {
-                inMap.set("china" + info["leverName"] + "Emissions", i);
+            const outMap = new Map();
+
+            ["china", "eu30", "nafta", "row"].forEach((region) => {
+                const regionMap = new Map();
+
+                GOODS.forEach((info, i) => {
+                    regionMap.set(info["attr"], i + 1);
+                });
+
+                regionMap.set("netImportsMT", 0);
+                regionMap.set("netExportsMT", 10);
+                regionMap.set(TEXTILE_ATTR, 11);
+                outMap.set(region, regionMap);
+
+                GHGS.forEach((info, i) => {
+                    inMap.set(region + info["leverName"] + "Emissions", i);
+                });
             });
 
             const state = new Map();
