@@ -1143,6 +1143,38 @@
             "label": "GHG Assumptions",
             "levers": [
                 {
+                    "name": "GHG attribution to plastics importer",
+                    "description": "Percent of GHG to attribute to (non-waste) importers.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "emissionPercentProductImporter",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "GHG attribution to waste exporter",
+                    "description": "Percent of GHG to attribute to waste exporters.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "emissionPercentWasteExporter",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
                     "name": "China PET Emissions",
                     "description": "Production and conversion for PET.",
                     "min": 0,
