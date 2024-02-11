@@ -699,7 +699,7 @@ class StateModifier {
 
     _calculateOverallGhg(year, state) {
         const self = this;
-        
+
         const finalizer = new GhgFinalizer();
         finalizer.finalize(state);
 
@@ -723,7 +723,6 @@ function getGhg(state, region, volume, leverName) {
 
 
 class GhgFinalizer {
-
     finalize(state) {
         const self = this;
         self._getFullyDomesticGhg(state);
@@ -744,7 +743,7 @@ class GhgFinalizer {
             const goodsTradeGhg = regionGhg.get("goodsTrade");
             const goodsImportGhg = goodsTradeGhg > 0 ? goodsTradeGhg : 0;
             const resinTradeGhg = regionGhg.get("resinTrade");
-            const resinImportGhg = resinTradeGhg > 0 ? resinTradeGhg : 0; 
+            const resinImportGhg = resinTradeGhg > 0 ? resinTradeGhg : 0;
             const importedProductGhg = goodsImportGhg + resinImportGhg;
             const fullyDomesticProductGhg = regionGhg.get("consumption") - importedProductGhg;
 
@@ -759,7 +758,7 @@ class GhgFinalizer {
             regionGhg.set("fullyDomesticWasteGhg", fullyDomesticWasteGhg);
         });
     }
-    
+
     _buildLedger(state) {
         const self = this;
         const tradeLedger = new GhgTradeLedger();
@@ -800,10 +799,10 @@ class GhgFinalizer {
 
                 const volumeFate = regionOut.get(attr);
                 const fatePercent = volumeFate / totalWaste;
-                
+
                 const fateExportVolume = fatePercent * totalExportVolume;
                 const fateImportVolume = fatePercent * totalImportVolume;
-                
+
                 const percentOfFateExported = hasExport ? fateExportVolume / totalExportVolume : 0;
                 const percentOfFateImported = hasImport ? fateImportVolume / totalImportVolume : 0;
 
@@ -835,12 +834,12 @@ class GhgFinalizer {
 
         regions.forEach((region) => {
             const regionGhg = ghgInfo.get(region);
-            
+
             const productTradeGhg = GHGS.map((ghgInfo) => {
                 const polymerName = ghgInfo["polymerName"];
                 return tradeLedger.getGhg(region, polymerName, percentAttributeProductImporter);
             }).reduce((a, b) => a + b);
-            
+
             const eolTradeGhg = EOLS.map((eolInfo) => {
                 const name = eolInfo["leverName"];
                 return tradeLedger.getGhg(region, name, percentAttributeWasteImporter);
@@ -861,7 +860,7 @@ class GhgFinalizer {
                 regionGhg.get("fullyDomesticProductGhg"),
                 regionGhg.get("fullyDomesticWasteGhg"),
                 regionGhg.get("productTradeGhg"),
-                regionGhg.get("eolTradeGhg")
+                regionGhg.get("eolTradeGhg"),
             ];
             const sumGhg = ghgs.reduce((a, b) => a + b);
             regionGhg.set("overallGhg", sumGhg);
@@ -871,10 +870,10 @@ class GhgFinalizer {
     _addGlobalGhg(state) {
         const self = this;
         const ghgInfo = state.get("ghg");
-        
+
         const globalGhg = new Map();
         globalGhg.set("overallGhg", 0);
-        
+
         const regions = self._getRegions(state);
         regions.forEach((region) => {
             const ghgRegion = ghgInfo.get(region);
@@ -896,7 +895,6 @@ class GhgFinalizer {
 
 
 class GhgTradeLedger {
-
     constructor() {
         const self = this;
 
@@ -917,7 +915,7 @@ class GhgTradeLedger {
         self._materialTypes.add(materialType);
 
         self._checkVolumeAndGhg(newVolume, newGhg);
-        
+
         const key = self._getCombineKey(region, materialType);
         self._addToMap(self._importVolumes, key, newVolume);
 
@@ -931,11 +929,11 @@ class GhgTradeLedger {
         const self = this;
         self._regions.add(region);
         self._materialTypes.add(materialType);
-        
+
         const key = self._getCombineKey(region, materialType);
 
         self._checkVolumeAndGhg(newVolume, newGhg);
-        
+
         self._addToMap(self._exportVolumes, key, newVolume);
 
         if (self._exportIsActualGhgSource(materialType)) {
@@ -1045,7 +1043,7 @@ class GhgTradeLedger {
         const exportGhgTotal = percentExport * materialTypeGhg;
         const exportGhgToAttribute = exportGhgTotal * percentAttributeExporter;
 
-        
+
         const importGhgTotal = self._getIfAvailable(self._actualGhg, key);
         const importGhgToAttribute = importGhgTotal * percentAttributeImporter;
 
@@ -1056,7 +1054,6 @@ class GhgTradeLedger {
         const self = this;
         return self._typesWithImporterSource.indexOf(materialType) == -1;
     }
-
 }
 
 
