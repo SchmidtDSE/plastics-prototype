@@ -700,15 +700,8 @@ class StateModifier {
     _calculateOverallGhg(year, state) {
         const self = this;
         
-        const regions = Array.of(...state.get("out").keys());
-        const out = state.get("out");
-
-        const inputs = state.get("in");
-        const percentAttributeProductImporter = inputs.get("emissionPercentProductImporter") / 100;
-        const percentAttributeWasteImporter = 1 - inputs.get("emissionPercentWasteExporter") / 100;
-
         const finalizer = new GhgFinalizer();
-        //finalizer.finalize(state);
+        finalizer.finalize(state);
 
         return state;
     }
@@ -734,8 +727,8 @@ class GhgFinalizer {
     finalize(state) {
         const self = this;
         self._getFullyDomesticGhg(state);
-        self._buildLedger(state);
-        self._addTradeGhg(state);
+        const tradeLedger = self._buildLedger(state);
+        self._addTradeGhg(state, tradeLedger);
         self._addOverallGhg(state);
         self._addGlobalGhg(state);
     }
@@ -743,7 +736,7 @@ class GhgFinalizer {
     _getFullyDomesticGhg(state) {
         const self = this;
         const ghgInfo = state.get("ghg");
-        const regions = Array.of(...state.get("out").keys());
+        const regions = self._getRegions(state);
         regions.forEach((region) => {
             const regionGhg = ghgInfo.get(region);
             const regionOut = state.get("out").get(region);
@@ -771,7 +764,7 @@ class GhgFinalizer {
         const self = this;
         const tradeLedger = new GhgTradeLedger();
         const out = state.get("out");
-        const regions = Array.of(...out.keys());
+        const regions = self._getRegions(state);
         regions.forEach((region) => {
             const regionOut = out.get(region);
 
@@ -787,7 +780,7 @@ class GhgFinalizer {
 
                     if (volume > 0) {
                         tradeLedger.addImport(region, polymerName, volume, ghg);
-                    } else {
+                    } else if (volume < 0) {
                         tradeLedger.addExport(region, polymerName, volume * -1, ghg * -1);
                     }
                 });
@@ -814,7 +807,7 @@ class GhgFinalizer {
                 const percentOfFateExported = hasExport ? fateExportVolume / totalExportVolume : 0;
                 const percentOfFateImported = hasImport ? fateImportVolume / totalImportVolume : 0;
 
-                const ghgFate = getGhg(state, region, volume, leverName);
+                const ghgFate = getGhg(state, region, volumeFate, leverName);
                 const fateGhgExport = ghgFate * percentOfFateExported;
                 const fateGhgImport = ghgFate * percentOfFateImported;
 
@@ -831,9 +824,15 @@ class GhgFinalizer {
         return tradeLedger;
     }
 
-    _addTradeGhg() {
+    _addTradeGhg(state, tradeLedger) {
         const self = this;
-        const regions = Array.of(...out.keys());
+
+        const ghgInfo = state.get("ghg");
+        const regions = self._getRegions(state);
+        const inputs = state.get("in");
+        const percentAttributeProductImporter = inputs.get("emissionPercentProductImporter") / 100;
+        const percentAttributeWasteImporter = 1 - inputs.get("emissionPercentWasteExporter") / 100;
+
         regions.forEach((region) => {
             const regionGhg = ghgInfo.get(region);
             
@@ -843,7 +842,7 @@ class GhgFinalizer {
             }).reduce((a, b) => a + b);
             
             const eolTradeGhg = EOLS.map((eolInfo) => {
-                const name = ghgInfo["leverName"];
+                const name = eolInfo["leverName"];
                 return tradeLedger.getGhg(region, name, percentAttributeWasteImporter);
             }).reduce((a, b) => a + b);
 
@@ -854,7 +853,7 @@ class GhgFinalizer {
 
     _addOverallGhg(state) {
         const self = this;
-        const regions = Array.of(...out.keys());
+        const regions = self._getRegions(state);
         const ghgInfo = state.get("ghg");
         regions.forEach((region) => {
             const regionGhg = ghgInfo.get(region);
@@ -870,9 +869,13 @@ class GhgFinalizer {
     }
 
     _addGlobalGhg(state) {
+        const self = this;
         const ghgInfo = state.get("ghg");
+        
         const globalGhg = new Map();
         globalGhg.set("overallGhg", 0);
+        
+        const regions = self._getRegions(state);
         regions.forEach((region) => {
             const ghgRegion = ghgInfo.get(region);
 
@@ -885,6 +888,10 @@ class GhgFinalizer {
 
         ghgInfo.set("global", globalGhg);
     }
+
+    _getRegions(state) {
+        return Array.of(...state.get("ghg").keys());
+    }
 }
 
 
@@ -895,11 +902,13 @@ class GhgTradeLedger {
 
         self._importVolumes = new Map();
         self._exportVolumes = new Map();
-        self._exportGhg = new Map();
+        self._actualGhg = new Map();
         self._ghgToDistribute = new Map();
 
         self._regions = new Set();
         self._materialTypes = new Set();
+
+        self._typesWithImporterSource = EOLS.map((x) => x["leverName"]);
     }
 
     addImport(region, materialType, newVolume, newGhg) {
@@ -911,6 +920,11 @@ class GhgTradeLedger {
         
         const key = self._getCombineKey(region, materialType);
         self._addToMap(self._importVolumes, key, newVolume);
+
+        if (!self._exportIsActualGhgSource(materialType)) {
+            self._addToMap(self._ghgToDistribute, materialType, newGhg);
+            self._addToMap(self._actualGhg, key, newGhg);
+        }
     }
 
     addExport(region, materialType, newVolume, newGhg) {
@@ -923,34 +937,20 @@ class GhgTradeLedger {
         self._checkVolumeAndGhg(newVolume, newGhg);
         
         self._addToMap(self._exportVolumes, key, newVolume);
-        self._addToMap(self._ghgToDistribute, materialType, newGhg);
-        self._addToMap(self._exportGhg, key, newGhg);
+
+        if (self._exportIsActualGhgSource(materialType)) {
+            self._addToMap(self._ghgToDistribute, materialType, newGhg);
+            self._addToMap(self._actualGhg, key, newGhg);
+        }
     }
 
     getGhg(region, materialType, percentAttributeImporter) {
         const self = this;
-
-        const getTotalVolume = (target) => {
-            const individual = self._regions.map((innerRegion) => {
-                const key = self._getCombineKey(innerRegion, materialType);
-                return target.get(key, 0);
-            });
-            return individual.reduce((a, b) => a + b);
-        };
-
-        const key = self._getCombineKey(region, materialType);
-
-        const totalImportVolume = getTotalVolume(self._importVolumes);
-        const importVolume = self._importVolumes.get(key);
-        const percentImport = importVolume / totalImportVolume;
-        const importGhgTotal = percentImport * self._ghgToDistribute.get(materialType);
-        const importGhgToAttribute = importGhgTotal * percentAttributeImporter;
-
-        const percentAttributeExporter = 1 - percentAttributeImporter;
-        const exportGhgTotal = self._exportGhg.get(key);
-        const exportGhgToAttribute = exportGhgTotal * percentAttributeExporter;
-
-        return importGhgToAttribute + exportGhgToAttribute;
+        if (self._exportIsActualGhgSource(materialType)) {
+            return self._getGhgWithExporterOrigin(region, materialType, percentAttributeImporter);
+        } else {
+            return self._getGhgWithImporterOrigin(region, materialType, percentAttributeImporter);
+        }
     }
 
     getRegions() {
@@ -970,7 +970,7 @@ class GhgTradeLedger {
 
     _addToMap(target, key, addValue) {
         const self = this;
-        const original = target.get(key);
+        const original = self._getIfAvailable(target, key);
         const newVal = original + addValue;
         target.set(key, newVal);
     }
@@ -984,6 +984,77 @@ class GhgTradeLedger {
         if (ghg < 0) {
             throw "Encountered negative ghg.";
         }
+    }
+
+    _getIfAvailable(target, key) {
+        const self = this;
+        if (target.has(key)) {
+            return target.get(key);
+        } else {
+            return 0;
+        }
+    }
+
+    _getGhgWithExporterOrigin(region, materialType, percentAttributeImporter) {
+        const self = this;
+
+        const regions = Array.of(...self._regions);
+        const getTotalVolume = (target) => {
+            const individual = regions.map((innerRegion) => {
+                const key = self._getCombineKey(innerRegion, materialType);
+                return self._getIfAvailable(target, key);
+            });
+            return individual.reduce((a, b) => a + b);
+        };
+
+        const key = self._getCombineKey(region, materialType);
+        const percentAttributeExporter = 1 - percentAttributeImporter;
+
+        const totalImportVolume = getTotalVolume(self._importVolumes);
+        const importVolume = self._getIfAvailable(self._importVolumes, key);
+        const percentImport = totalImportVolume == 0 ? 0 : importVolume / totalImportVolume;
+        const materialTypeGhg = self._getIfAvailable(self._ghgToDistribute, materialType);
+        const importGhgTotal = percentImport * materialTypeGhg;
+        const importGhgToAttribute = importGhgTotal * percentAttributeImporter;
+
+        const exportGhgTotal = self._getIfAvailable(self._actualGhg, key);
+        const exportGhgToAttribute = exportGhgTotal * percentAttributeExporter;
+
+        return importGhgToAttribute + exportGhgToAttribute;
+    }
+
+    _getGhgWithImporterOrigin(region, materialType, percentAttributeImporter) {
+        const self = this;
+
+        const regions = Array.of(...self._regions);
+        const getTotalVolume = (target) => {
+            const individual = regions.map((innerRegion) => {
+                const key = self._getCombineKey(innerRegion, materialType);
+                return self._getIfAvailable(target, key);
+            });
+            return individual.reduce((a, b) => a + b);
+        };
+
+        const key = self._getCombineKey(region, materialType);
+        const percentAttributeExporter = 1 - percentAttributeImporter;
+
+        const totalExportVolume = getTotalVolume(self._exportVolumes);
+        const exportVolume = self._getIfAvailable(self._exportVolumes, key);
+        const percentExport = totalExportVolume == 0 ? 0 : exportVolume / totalExportVolume;
+        const materialTypeGhg = self._getIfAvailable(self._ghgToDistribute, materialType);
+        const exportGhgTotal = percentExport * materialTypeGhg;
+        const exportGhgToAttribute = exportGhgTotal * percentAttributeExporter;
+
+        
+        const importGhgTotal = self._getIfAvailable(self._actualGhg, key);
+        const importGhgToAttribute = importGhgTotal * percentAttributeImporter;
+
+        return importGhgToAttribute + exportGhgToAttribute;
+    }
+
+    _exportIsActualGhgSource(materialType) {
+        const self = this;
+        return self._typesWithImporterSource.indexOf(materialType) == -1;
     }
 
 }

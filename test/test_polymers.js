@@ -317,6 +317,208 @@ function buildPolymerTest() {
                 done();
             });
         });
+
+        QUnit.test("get GHG", function(assert) {
+            const inputs = new Map();
+            inputs.set("chinaTestEmissions", 2);
+            
+            const state = new Map();
+            state.set("in", inputs);
+            
+            const result = getGhg(state, "china", 4000, "Test");
+            const error = Math.abs(result - 8);
+            assert.ok(error < 0.00001)
+        });
+
+        QUnit.test("add fully domestic ghg", function(assert) {
+            const chinaOutputs = new Map();
+            chinaOutputs.set("eolRecyclingMT", 1);
+            chinaOutputs.set("eolLandfillMT", 2);
+            chinaOutputs.set("eolIncinerationMT", 3);
+            chinaOutputs.set("eolMismanagedMT", 4);
+            chinaOutputs.set("netWasteExportMT", 0);
+            chinaOutputs.set("netWasteImportMT", 1);
+
+            const outputs = new Map();
+            outputs.set("china", chinaOutputs);
+
+            const chinaGhg = new Map();
+            chinaGhg.set("consumption", 10);
+            chinaGhg.set("goodsTrade", 1);
+            chinaGhg.set("resinTrade", 2);
+            chinaGhg.set("eol", 5);
+
+            const ghg = new Map();
+            ghg.set("china", chinaGhg);
+            
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+            
+            const finalizer = new GhgFinalizer();
+            finalizer._getFullyDomesticGhg(state);
+
+            assert.ok(isWithinTollerance(chinaGhg, "fullyDomesticProductGhg", 7));
+            assert.ok(isWithinTollerance(chinaGhg, "fullyDomesticWasteGhg", 5 * 0.9));
+        });
+
+        QUnit.test("add trade ghg", function(assert) {
+            const inputs = new Map();
+            inputs.set("emissionPercentProductImporter", 30);
+            inputs.set("emissionPercentWasteExporter", 40);
+
+            const outputs = new Map();
+            outputs.set("china", new Map());
+
+            const ghg = new Map();
+            const chinaGhg = new Map();
+            ghg.set("china", chinaGhg);
+
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+            state.set("in", inputs);
+
+            const ledger = new GhgTradeLedger();
+            ledger.addImport("china", "Landfill", 10, 20);
+            ledger.addExport("eu30", "Landfill", 10, 10);
+            ledger.addImport("eu30", "pet", 5, 5);
+            ledger.addExport("china", "pet", 5, 10);
+
+            const finalizer = new GhgFinalizer();
+            finalizer._addTradeGhg(state, ledger);
+
+            assert.ok(isWithinTollerance(chinaGhg, "productTradeGhg", 0.7 * 10));
+            assert.ok(isWithinTollerance(chinaGhg, "eolTradeGhg", 0.6 * 20));
+        });
+
+        QUnit.test("add overall ghg", function(assert) {
+            const outputs = new Map();
+            outputs.set("china", new Map());
+
+            const chinaGhg = new Map();
+            chinaGhg.set("fullyDomesticProductGhg", 1);
+            chinaGhg.set("fullyDomesticWasteGhg", 2);
+            chinaGhg.set("productTradeGhg", 3);
+            chinaGhg.set("eolTradeGhg", 4);
+
+            const ghg = new Map();
+            ghg.set("china", chinaGhg);
+
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+
+            const finalizer = new GhgFinalizer();
+            finalizer._addOverallGhg(state);
+
+            assert.ok(isWithinTollerance(chinaGhg, "overallGhg", 10));
+        });
+
+        QUnit.test("add global ghg", function(assert) {
+            const outputs = new Map();
+            outputs.set("china", new Map());
+            outputs.set("eu30", new Map());
+
+            const chinaGhg = new Map();
+            chinaGhg.set("overallGhg", 1);
+
+            const euGhg = new Map();
+            euGhg.set("overallGhg", 2);
+
+            const ghg = new Map();
+            ghg.set("china", chinaGhg);
+            ghg.set("eu30", euGhg);
+
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+
+            const finalizer = new GhgFinalizer();
+            finalizer._addGlobalGhg(state);
+
+            assert.ok(isWithinTollerance(ghg.get("global"), "overallGhg", 3));
+        });
+
+        QUnit.test("create ledger", function(assert) {
+            const chinaOutputs = new Map();
+            chinaOutputs.set("eolRecyclingMT", 1);
+            chinaOutputs.set("eolLandfillMT", 2);
+            chinaOutputs.set("eolIncinerationMT", 3);
+            chinaOutputs.set("eolMismanagedMT", 4);
+            chinaOutputs.set("netWasteExportMT", 0);
+            chinaOutputs.set("netWasteImportMT", 1);
+            
+            const outputs = new Map();
+            outputs.set("china", chinaOutputs);
+
+            const chinaGhg = new Map();
+            chinaGhg.set("overallGhg", 1);
+
+            const ghg = new Map();
+            ghg.set("china", chinaGhg);
+
+            const chinaPolymers = new Map();
+            const goodsTradePolymers = new Map();
+            const resinTradePolymers = new Map();
+            RESIN_SUBTYPES.forEach((subtype, i) => {
+                goodsTradePolymers.set(subtype, 0);
+                resinTradePolymers.set(subtype, 0);
+            });
+            goodsTradePolymers.set("pet", -2);
+            chinaPolymers.set("goodsTrade", goodsTradePolymers);
+            chinaPolymers.set("resinTrade", resinTradePolymers);
+
+            const polymers = new Map();
+            polymers.set("china", chinaPolymers);
+
+            const inputs = new Map();
+            inputs.set("chinaLandfillEmissions", 1);
+            inputs.set("chinaRecyclingEmissions", 2);
+            inputs.set("chinaIncinerationEmissions", 3);
+            inputs.set("chinaMismanagedEmissions", 4);
+            inputs.set("chinaPETEmissions", 5);
+
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+            state.set("polymers", polymers);
+            state.set("in", inputs);
+
+            const finalizer = new GhgFinalizer();
+            const ledger = finalizer._buildLedger(state);
+
+            assert.ok(isWithinTollerance(
+                ledger._importVolumes,
+                "china\tRecycling",
+                1 / 10
+            ));
+            assert.ok(isWithinTollerance(
+                ledger._exportVolumes,
+                "china\tpet",
+                2
+            ));
+            assert.ok(isWithinTollerance(
+                ledger._ghgToDistribute,
+                "Recycling",
+                1 / 10 * 2 * 0.001
+            ));
+            assert.ok(isWithinTollerance(
+                ledger._ghgToDistribute,
+                "pet",
+                2 * 5 * 0.001
+            ));
+            assert.ok(isWithinTollerance(
+                ledger._actualGhg,
+                "china\tRecycling",
+                1 / 10 * 2 * 0.001
+            ));
+            assert.ok(isWithinTollerance(
+                ledger._actualGhg,
+                "china\tpet",
+                2 * 5 * 0.001
+            ));
+        });
     });
 }
 
