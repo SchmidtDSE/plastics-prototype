@@ -306,6 +306,9 @@ function buildPolymerTest() {
                     result.get("ghg").get("china").get("consumption") > 0
                 );
                 assert.ok(
+                    result.get("ghg").get("china").get("eol") > 0
+                );
+                assert.ok(
                     result.get("ghg").get("china").get("goodsTrade") < 0
                 );
                 assert.ok(
