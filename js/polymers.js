@@ -256,12 +256,27 @@ class StateModifier {
     modify(year, state, attrs) {
         const self = this;
 
+        // Prepare polymers
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
+        
+        // Prepare GHG
+        self._makeGhgInState(state);
         self._calculateStartOfLifeGhg(state);
+
+        // Create global summation
         self._addOutputGlobalToStateAttrs(state, attrs);
 
+        return state;
+    }
+
+    _makeGhgInState(state) {
+        const self = this;
+        const regions = Array.of(...state.get("out").keys());
+        const ghgMap = new Map();
+        regions.forEach((region) => { ghgMap.set(region, new Map()); });
+        state.set("ghg", ghgMap);
         return state;
     }
 
@@ -567,7 +582,7 @@ class StateModifier {
         const regions = Array.of(...state.get("out").keys());
         const inputs = state.get("in");
         const polymerVolumes = state.get("polymers");
-        const ghgMap = new Map();
+        const ghgMap = state.get("ghg");
 
         const getEmissionsForPolymers = (region, polymers) => {
             const emissions = GHGS.map((ghgInfo) => {
@@ -585,7 +600,7 @@ class StateModifier {
         };
 
         regions.forEach((region) => {
-            const regionGhgMap = new Map();
+            const regionGhgMap = ghgMap.get(region);
             const regionPolymerVolumes = polymerVolumes.get(region);
 
             const calculateForKey = (key) => {
@@ -597,11 +612,8 @@ class StateModifier {
             calculateForKey("consumption");
             calculateForKey("goodsTrade");
             calculateForKey("resinTrade");
-
-            ghgMap.set(region, regionGhgMap);
         });
 
-        state.set("ghg", ghgMap);
         return state;
     }
 
