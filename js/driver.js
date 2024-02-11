@@ -852,7 +852,8 @@ class PolymerWorkerQueue {
         const nativeConcurrency = window.navigator.hardwareConcurrency;
         const hasKnownConcurrency = nativeConcurrency !== undefined;
         const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
-        const concurrencyDesired = concurrencyAllowed > 4 ? 4 : hasKnownConcurrency;
+        const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+        const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
         for (let i = 0; i < concurrencyDesired; i++) {
             self._workers.push(self._makeWorker());
         }

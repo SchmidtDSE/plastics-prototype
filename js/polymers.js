@@ -34,7 +34,7 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
-const MAX_NORM_ITERATIONS = 10;
+const MAX_NORM_ITERATIONS = 20;
 
 const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
@@ -129,11 +129,49 @@ function getSubtypeKey(year, region, subtype) {
 }
 
 
+class ResinTrade {
+
+    constructor(year, region, netImportResin) {
+        const self = this;
+        self._year = year;
+        self._region = region;
+        self._netImportResin = netImportResin;
+    }
+    
+    getYear() {
+        const self = this;
+        return self._year;
+    }
+    
+    getRegion() {
+        const self = this;
+        return self._region;
+    }
+    
+    getNetImportResin() {
+        const self = this;
+        return self._netImportResin;
+    }
+
+    getKey() {
+        const self = this;
+        return getResinTradeKey(self._year, self._region);
+    }
+
+}
+
+
+function getResinTradeKey(year, region) {
+    return year + "\t" + region;
+}
+
+
 class PolymerMatricies {
     constructor() {
         const self = this;
         self._polymerInfos = new Map();
         self._subtypeInfos = new Map();
+        self._resinTradeInfos = new Map();
 
         self._subtypes = new Set();
         self._years = new Set();
@@ -174,6 +212,19 @@ class PolymerMatricies {
         return self._subtypeInfos.get(key);
     }
 
+    addResinTrade(target) {
+        const self = this;
+        self._resinTradeInfos.set(target.getKey(), target);
+        self._years.add(target.getYear());
+        self._regions.add(target.getRegion());
+    }
+
+    getResinTrade(year, region) {
+        const self = this;
+        const key = getResinTradeKey(year, region);
+        self._resinTradeInfos.get(key);
+    }
+
     getSubtypes() {
         const self = this;
         return self._subtypes;
@@ -206,7 +257,7 @@ class StateModifier {
         const self = this;
 
         self._addDetailedTrade(year, state);
-        self._normalizeDetailedTrade(state);
+        self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
         self._calculateGhg(state);
         self._addGlobalToStateAttrs(state, attrs);
@@ -390,7 +441,7 @@ class StateModifier {
         }
     }
 
-    _normalizeDetailedTrade(state) {
+    _normalizeDetailedTrade(year, state) {
         const self = this;
         const regions = Array.from(self._matricies.getRegions());
         regions.sort();
@@ -398,13 +449,17 @@ class StateModifier {
         const out = state.get("out");
 
         const goodsTradeSubtypes = GOODS.map((x) => x["subtype"]);
-        const netTradeTotals = new Map();
+        const goodsTradeTotals = new Map();
         regions.forEach((region) => {
-            netTradeTotals.set(region, self._getNetTrade(out.get(region)));
+            goodsTradeTotals.set(region, self._getNetTrade(out.get(region)));
         });
-        self._normalizeDetailedTradeSeries(state, goodsTradeSubtypes, netTradeTotals, regions);
+        self._normalizeDetailedTradeSeries(state, goodsTradeSubtypes, goodsTradeTotals, regions);
 
-        // TODO: deal with resin
+        const resinTradeTotals = new Map();
+        regions.forEach((region) => {
+            resinTradeTotals.set(region, self._matricies.getResinTrade(year, region));
+        });
+        self._normalizeDetailedTradeSeries(state, RESIN_SUBTYPES, resinTradeTotals, regions);
     }
 
     _normalizeDetailedTradeSeries(state, seriesSubtypes, seriesTotals, regions) {
@@ -485,11 +540,13 @@ class StateModifier {
             return maxSubtypesError > maxRegionError ? maxSubtypesError : maxRegionError;
         };
 
+        const errors = [];
         for (let i = 0; i < MAX_NORM_ITERATIONS; i++) {
             const maxError = getMaxError();
             if (maxError <= 1) {
                 return state;
             }
+            errors.push(maxError);
 
             seriesSubtypes.forEach((subtype) => {
                 smoothSubtype(subtype);
@@ -498,6 +555,8 @@ class StateModifier {
                 });
             });
         }
+
+        console.log("Exhausted iterations with " + getMaxError());
 
         return state;
     }
@@ -622,13 +681,40 @@ function buildMatricies() {
         });
     });
 
-    const matrixFuture = Promise.all([subtypeFuture, polymerFuture]).then((results) => {
+    const resinTradeRawFuture = new Promise((resolve) => {
+        Papa.parse("/data/resin_trade_supplement.csv?v=" + CACHE_BUSTER, {
+            download: true,
+            header: true,
+            complete: (results) => resolve(results["data"]),
+            dynamicTyping: true,
+        });
+    });
+
+    const resinTradeFuture = resinTradeRawFuture.then((rows) => {
+        return ignoreEmpty(rows).map((row) => {
+            assertPresent(row, "year");
+            assertPresent(row, "region");
+            assertPresent(row, "netImportResin");
+            assertPresent(row, "netExportResin");
+
+            return new ResinTrade(
+                row["year"],
+                row["region"],
+                row["netImportResin"] - row["netExportResin"]
+            );
+        });
+    });
+
+    const componentFutures = [subtypeFuture, polymerFuture, resinTradeFuture];
+    const matrixFuture = Promise.all(componentFutures).then((results) => {
         const subtypeInfos = results[0];
         const polymerInfos = results[1];
+        const resinTradeInfos = results[2];
 
         const retMatricies = new PolymerMatricies();
         subtypeInfos.forEach((record) => retMatricies.addSubtype(record));
         polymerInfos.forEach((record) => retMatricies.addPolymer(record));
+        resinTradeInfos.forEach((record) => retMatricies.addResinTrade(record));
 
         return retMatricies;
     });
