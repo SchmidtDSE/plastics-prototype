@@ -285,6 +285,11 @@ function buildPolymerTest() {
                 GHGS.forEach((info, i) => {
                     inMap.set(region + info["leverName"] + "Emissions", i);
                 });
+
+                EOLS.forEach((info, i) => {
+                    inMap.set(region + info["leverName"] + "Emissions", i);
+                    outMap.get(region).set(info["attr"], i);
+                });
             });
 
             const state = new Map();

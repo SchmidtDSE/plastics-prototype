@@ -34,6 +34,13 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+const EOLS = [
+    {"leverName": "Landfill", "attr": "eolLandfillMT"},
+    {"leverName": "Incineration", "attr": "eolIncinerationMT"},
+    {"leverName": "Recycling", "attr": "eolRecyclingMT"},
+    {"leverName": "Mismanaged", "attr": "eolMismanagedMT"},
+];
+
 const MAX_NORM_ITERATIONS = 20;
 
 const TEXTILE_POLYMER = "pp&a fibers";
@@ -264,6 +271,7 @@ class StateModifier {
         // Prepare GHG
         self._makeGhgInState(state);
         self._calculateStartOfLifeGhg(state);
+        self._calculateEndOfLifeGhg(state);
 
         // Create global summation
         self._addOutputGlobalToStateAttrs(state, attrs);
@@ -617,9 +625,36 @@ class StateModifier {
         return state;
     }
 
+    _calculateEndOfLifeGhg(state) {
+        const self = this;
+        const regions = Array.of(...state.get("out").keys());
+        const inputs = state.get("in");
+        const outputs = state.get("out");
+        const ghgMap = state.get("ghg");
+
+        regions.forEach((region) => {
+            const regionGhgMap = ghgMap.get(region);
+            const regionOutputs = outputs.get(region);
+            EOLS.forEach((eolInfo) => {
+                const inputName = region + eolInfo["leverName"] + "Emissions";
+                const intensity = inputs.get(inputName);
+                const volume = regionOutputs.get(eolInfo["attr"]);
+                const emissions = intensity * volume;
+                regionGhgMap.set("eol", emissions);
+            });
+        });
+
+        return state;
+    }
+
     _addOutputGlobalToStateAttrs(state, attrs) {
         const self = this;
+
+        // Regular outputs
         addGlobalToStateAttrs(state, attrs);
+
+        // TODO: GHG
+
         return state;
     }
 }
