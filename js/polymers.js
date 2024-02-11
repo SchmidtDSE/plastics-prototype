@@ -260,7 +260,7 @@ class StateModifier {
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
         self._calculateStartOfLifeGhg(state);
-        self._addGlobalToStateAttrs(state, attrs);
+        self._addOutputGlobalToStateAttrs(state, attrs);
 
         return state;
     }
@@ -605,7 +605,7 @@ class StateModifier {
         return state;
     }
 
-    _addGlobalToStateAttrs(state, attrs) {
+    _addOutputGlobalToStateAttrs(state, attrs) {
         const self = this;
         addGlobalToStateAttrs(state, attrs);
         return state;
