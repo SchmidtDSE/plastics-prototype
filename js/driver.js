@@ -849,18 +849,31 @@ class PolymerWorkerQueue {
 
         self._workers = [];
 
-        const nativeConcurrency = window.navigator.hardwareConcurrency;
-        const hasKnownConcurrency = nativeConcurrency !== undefined;
-        const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
-        const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
-        const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
-        for (let i = 0; i < concurrencyDesired; i++) {
-            self._workers.push(self._makeWorker());
+        if (window.Worker) {
+            const nativeConcurrency = window.navigator.hardwareConcurrency;
+            const hasKnownConcurrency = nativeConcurrency !== undefined;
+            const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+            const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+            const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
+            for (let i = 0; i < concurrencyDesired; i++) {
+                self._workers.push(self._makeWorker());
+            }
+        } else {
+            console.log("Running without threads.");
+            self._modifierFuture = buildModifier();
         }
     }
 
     request(year, state) {
         const self = this;
+
+        if (self._workers.length == 0) {
+            return self._modifierFuture.then((modifier) => {
+                modifier.modify(year, state, ALL_ATTRS);
+                return {"year": year, "state": state};
+            });
+        }
+
         const requestId = self._workerRequestId;
         const workerId = requestId % self._workers.length;
 
