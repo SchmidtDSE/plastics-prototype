@@ -639,16 +639,9 @@ class StateModifier {
             const emissions = GHGS.map((ghgInfo) => {
                 const polymerName = ghgInfo["polymerName"];
                 if (polymers.has(polymerName)) {
-                    const inputName = region + ghgInfo["leverName"] + "Emissions";
-                    const intensity = inputs.get(inputName);
-
-                    // metric kiloton
-                    const emissionsKt = intensity * polymers.get(ghgInfo["polymerName"]);
-
-                    // metric megatons
-                    const emissionsMt = emissionsKt * 0.001;
-
-                    return emissionsMt;
+                    const volume = polymers.get(ghgInfo["polymerName"]);
+                    const leverName = ghgInfo["leverName"];
+                    return getGhg(state, region, volume, leverName);
                 } else {
                     return 0;
                 }
@@ -684,13 +677,15 @@ class StateModifier {
         regions.forEach((region) => {
             const regionGhgMap = ghgMap.get(region);
             const regionOutputs = outputs.get(region);
-            EOLS.forEach((eolInfo) => {
+            const individualGhg = EOLS.map((eolInfo) => {
                 const inputName = region + eolInfo["leverName"] + "Emissions";
                 const intensity = inputs.get(inputName);
                 const volume = regionOutputs.get(eolInfo["attr"]);
                 const emissions = intensity * volume;
-                regionGhgMap.set("eol", emissions);
+                return emissions;
             });
+            const totalGhg = individualGhg.reduce((a, b) => a + b);
+            regionGhgMap.set("eol", totalGhg);
         });
 
         return state;
@@ -704,109 +699,180 @@ class StateModifier {
 
     _calculateOverallGhg(year, state) {
         const self = this;
-        const out = state.get("out");
-        const ghgInfo = state.get("ghg");
-        const inputs = state.get("in");
-        const percentProductImporter = inputs.get("emissionPercentProductImporter") / 100;
-        const percentProductExporter = 1 - percentProductImporter;
-        const percentWasteExporter = inputs.get("emissionPercentWasteExporter") / 100;
+        
         const regions = Array.of(...state.get("out").keys());
+        const out = state.get("out");
 
+        const inputs = state.get("in");
+        const percentAttributeProductImporter = inputs.get("emissionPercentProductImporter") / 100;
+        const percentAttributeWasteImporter = 1 - inputs.get("emissionPercentWasteExporter") / 100;
+
+        const finalizer = new GhgFinalizer();
+        //finalizer.finalize(state);
+
+        return state;
+    }
+}
+
+
+function getGhg(state, region, volume, leverName) {
+    const inputName = region + leverName + "Emissions";
+    const intensity = state.get("in").get(inputName);
+
+    // metric kiloton
+    const emissionsKt = intensity * volume;
+
+    // metric megatons
+    const emissionsMt = emissionsKt * 0.001;
+
+    return emissionsMt;
+}
+
+
+class GhgFinalizer {
+
+    finalize(state) {
+        const self = this;
+        self._getFullyDomesticGhg(state);
+        self._buildLedger(state);
+        self._addTradeGhg(state);
+        self._addOverallGhg(state);
+        self._addGlobalGhg(state);
+    }
+
+    _getFullyDomesticGhg(state) {
+        const self = this;
+        const ghgInfo = state.get("ghg");
+        const regions = Array.of(...state.get("out").keys());
+        regions.forEach((region) => {
+            const regionGhg = ghgInfo.get(region);
+            const regionOut = state.get("out").get(region);
+
+            const goodsTradeGhg = regionGhg.get("goodsTrade");
+            const goodsImportGhg = goodsTradeGhg > 0 ? goodsTradeGhg : 0;
+            const resinTradeGhg = regionGhg.get("resinTrade");
+            const resinImportGhg = resinTradeGhg > 0 ? resinTradeGhg : 0; 
+            const importedProductGhg = goodsImportGhg + resinImportGhg;
+            const fullyDomesticProductGhg = regionGhg.get("consumption") - importedProductGhg;
+
+            const wasteGhg = regionGhg.get("eol");
+            const eolVolumes = EOLS.map((x) => x["attr"]).map((attr) => regionOut.get(attr));
+            const regionTotalWaste = eolVolumes.reduce((a, b) => a + b);
+            const percentImportedWaste = regionOut.get("netWasteImportMT") / regionTotalWaste;
+            const percentDomesticWaste = 1 - percentImportedWaste;
+            const fullyDomesticWasteGhg = percentDomesticWaste * wasteGhg;
+
+            regionGhg.set("fullyDomesticProductGhg", fullyDomesticProductGhg);
+            regionGhg.set("fullyDomesticWasteGhg", fullyDomesticWasteGhg);
+        });
+    }
+    
+    _buildLedger(state) {
+        const self = this;
         const tradeLedger = new GhgTradeLedger();
+        const out = state.get("out");
+        const regions = Array.of(...out.keys());
         regions.forEach((region) => {
-            const outRegion = out.get(region);
-            const ghgRegion = ghgInfo.get(region);
+            const regionOut = out.get(region);
 
-            const getVolumeContribution = (typeName) => {
-                if (typeName === "wasteTrade") {
-                    return outRegion.get("netWasteImportMT");
-                } else if (typeName === "resinTrade") {
-                    const netResinImport = self._matricies.getResinTrade(year, region);
-                    return netResinImport > 0 ? 0 : -1 * netResinImport;
-                } else if (typeName === "goodsTrade") {
-                    return outRegion.get("netExportsMT");
-                } else {
-                    throw "Unexpected volume type.";
+            const regionPolymers = state.get("polymers").get(region);
+            const productSeries = ["goodsTrade", "resinTrade"];
+            productSeries.forEach((series) => {
+                const seriesPolymers = regionPolymers.get(series);
+                GHGS.forEach((ghgInfo) => {
+                    const polymerName = ghgInfo["polymerName"];
+                    const volume = seriesPolymers.get(polymerName);
+                    const leverName = ghgInfo["leverName"];
+                    const ghg = getGhg(state, region, volume, leverName);
+
+                    if (volume > 0) {
+                        tradeLedger.addImport(region, polymerName, volume, ghg);
+                    } else {
+                        tradeLedger.addExport(region, polymerName, volume * -1, ghg * -1);
+                    }
+                });
+            });
+
+            const totalWaste = EOLS.map((eolInfo) => eolInfo["attr"])
+                .map((attr) => regionOut.get(attr))
+                .reduce((a, b) => a + b);
+
+            const totalExportVolume = regionOut.get("netWasteExportMT");
+            const totalImportVolume = regionOut.get("netWasteImportMT");
+            const hasExport = totalExportVolume > 0;
+            const hasImport = totalImportVolume > 0;
+            EOLS.forEach((eolInfo) => {
+                const attr = eolInfo["attr"];
+                const leverName = eolInfo["leverName"];
+
+                const volumeFate = regionOut.get(attr);
+                const fatePercent = volumeFate / totalWaste;
+                
+                const fateExportVolume = fatePercent * totalExportVolume;
+                const fateImportVolume = fatePercent * totalImportVolume;
+                
+                const percentOfFateExported = hasExport ? fateExportVolume / totalExportVolume : 0;
+                const percentOfFateImported = hasImport ? fateImportVolume / totalImportVolume : 0;
+
+                const ghgFate = getGhg(state, region, volume, leverName);
+                const fateGhgExport = ghgFate * percentOfFateExported;
+                const fateGhgImport = ghgFate * percentOfFateImported;
+
+                if (hasExport) {
+                    tradeLedger.addExport(region, leverName, fateExportVolume, fateGhgExport);
                 }
-            };
 
-            const getGhgContribution = (typeName) => {
-                const tradeGhg = ghgRegion.get(typeName);
-
-                if (typeName === "wasteTrade") {
-                    return tradeGhg > 0 ? tradeGhg : 0;
-                } else if (typeName === "resinTrade" || typeName === "goodsTrade") {
-                    return tradeGhg < 0 ? -1 * tradeGhg : 0;
-                } else {
-                    throw "Unexpected volume type.";
+                if (hasImport) {
+                    tradeLedger.addImport(region, leverName, fateImportVolume, fateGhgImport);
                 }
-            };
-
-            const addContribution = (typeName) => {
-                const ghgContribution = getGhgContribution(typeName);
-                const volumeContribution = getVolumeContribution(region, typeName);
-                tradeLedger.addBurden(typeName, ghgContribution, volumeContribution);
-            };
-
-            addContribution("goodsTrade");
-            addContribution("resinTrade");
-            addContribution("wasteTrade");
+            });
         });
 
+        return tradeLedger;
+    }
+
+    _addTradeGhg() {
+        const self = this;
+        const regions = Array.of(...out.keys());
         regions.forEach((region) => {
-            const ghgRegion = ghgInfo.get(region);
-            const outRegion = out.get(region);
+            const regionGhg = ghgInfo.get(region);
+            
+            const productTradeGhg = GHGS.map((ghgInfo) => {
+                const polymerName = ghgInfo["polymerName"];
+                return tradeLedger.getGhg(region, polymerName, percentAttributeProductImporter);
+            }).reduce((a, b) => a + b);
+            
+            const eolTradeGhg = EOLS.map((eolInfo) => {
+                const name = ghgInfo["leverName"];
+                return tradeLedger.getGhg(region, name, percentAttributeWasteImporter);
+            }).reduce((a, b) => a + b);
 
-            const getVolumeContribution = (typeName) => {
-                if (typeName === "wasteTrade") {
-                    return outRegion.get("netWasteExportMT") - outRegion.get("netWasteImportMT");
-                } else if (typeName === "resinTrade") {
-                    const netResinImport = self._matricies.getResinTrade(year, region);
-                    return netResinImport * -1;
-                } else if (typeName === "goodsTrade") {
-                    return outRegion.get("netExportsMT") - outRegion.get("netImportsMT");
-                } else {
-                    throw "Unexpected volume type.";
-                }
-            };
-
-            const consumptionGhg = ghgRegion.get("consumption");
-
-            const goodsExportVolume = getVolumeContribution(region, "goodsTrade");
-            const goodsTradeGhg = tradeLedger.getGhg(
-                "goodsTrade",
-                goodsExportVolume,
-                percentProductExporter,
-            );
-
-            const resinExportVolume = getVolumeContribution(region, "resinTrade");
-            const resinTradeGhg = tradeLedger.getGhg(
-                "resinTrade",
-                resinExportVolume,
-                percentProductExporter,
-            );
-
-            const productGhg = consumptionGhg + goodsTradeGhg + resinTradeGhg;
-            ghgRegion.set("productPostTrade", productGhg);
-
-            const eolGhg = ghgRegion.get("eol");
-            const wasteExportVolume = getVolumeContribution(region, "wasteTrade");
-            const wasteTradeGhg = tradeLedger.getGhg(
-                "wasteTrade",
-                wasteExportVolume,
-                percentWasteExporter,
-            );
-            const wasteGhgWithTrade = eolGhg + wasteTradeGhg;
-            ghgRegion.set("wastePostTrade", wasteGhgWithTrade);
-
-            const overallGhg = productGhg + wasteTradeGhg;
-            ghgRegion.set("overall", overallGhg);
+            regionGhg.set("productTradeGhg", productTradeGhg);
+            regionGhg.set("eolTradeGhg", eolTradeGhg);
         });
+    }
 
+    _addOverallGhg(state) {
+        const self = this;
+        const regions = Array.of(...out.keys());
+        const ghgInfo = state.get("ghg");
+        regions.forEach((region) => {
+            const regionGhg = ghgInfo.get(region);
+            const ghgs = [
+                regionGhg.get("fullyDomesticProductGhg"),
+                regionGhg.get("fullyDomesticWasteGhg"),
+                regionGhg.get("productTradeGhg"),
+                regionGhg.get("eolTradeGhg")
+            ];
+            const sumGhg = ghgs.reduce((a, b) => a + b);
+            regionGhg.set("overallGhg", sumGhg);
+        });
+    }
+
+    _addGlobalGhg(state) {
+        const ghgInfo = state.get("ghg");
         const globalGhg = new Map();
-        globalGhg.set("productPostTrade", 0);
-        globalGhg.set("wastePostTrade", 0);
-        globalGhg.set("overall", 0);
+        globalGhg.set("overallGhg", 0);
         regions.forEach((region) => {
             const ghgRegion = ghgInfo.get(region);
 
@@ -814,49 +880,112 @@ class StateModifier {
                 globalGhg.set(attr, globalGhg.get(attr) + ghgRegion.get(attr));
             };
 
-            addAttr("productPostTrade");
-            addAttr("wastePostTrade");
-            addAttr("overall");
+            addAttr("overallGhg");
         });
 
-        return state;
+        ghgInfo.set("global", globalGhg);
     }
 }
 
 
 class GhgTradeLedger {
+
     constructor() {
         const self = this;
-        self._tradeGhg = new Map();
-        self._tradeGhg.set("goodsTrade", {"burdenGhg": 0, "burdenVolume": 0});
-        self._tradeGhg.set("resinTrade", {"burdenGhg": 0, "burdenVolume": 0});
-        self._tradeGhg.set("wasteTrade", {"burdenGhg": 0, "burdenVolume": 0});
+
+        self._importVolumes = new Map();
+        self._exportVolumes = new Map();
+        self._exportGhg = new Map();
+        self._ghgToDistribute = new Map();
+
+        self._regions = new Set();
+        self._materialTypes = new Set();
     }
 
-    addBurden(typeName, ghg, volume) {
+    addImport(region, materialType, newVolume, newGhg) {
+        const self = this;
+        self._regions.add(region);
+        self._materialTypes.add(materialType);
+
+        self._checkVolumeAndGhg(newVolume, newGhg);
+        
+        const key = self._getCombineKey(region, materialType);
+        self._addToMap(self._importVolumes, key, newVolume);
+    }
+
+    addExport(region, materialType, newVolume, newGhg) {
+        const self = this;
+        self._regions.add(region);
+        self._materialTypes.add(materialType);
+        
+        const key = self._getCombineKey(region, materialType);
+
+        self._checkVolumeAndGhg(newVolume, newGhg);
+        
+        self._addToMap(self._exportVolumes, key, newVolume);
+        self._addToMap(self._ghgToDistribute, materialType, newGhg);
+        self._addToMap(self._exportGhg, key, newGhg);
+    }
+
+    getGhg(region, materialType, percentAttributeImporter) {
         const self = this;
 
-        if (volume < 0 || ghg < 0) {
-            return;
-        }
+        const getTotalVolume = (target) => {
+            const individual = self._regions.map((innerRegion) => {
+                const key = self._getCombineKey(innerRegion, materialType);
+                return target.get(key, 0);
+            });
+            return individual.reduce((a, b) => a + b);
+        };
 
-        const target = self._tradeGhg.get(typeName);
-        target["burdenGhg"] += ghg;
-        target["burdenVolume"] += volume;
+        const key = self._getCombineKey(region, materialType);
+
+        const totalImportVolume = getTotalVolume(self._importVolumes);
+        const importVolume = self._importVolumes.get(key);
+        const percentImport = importVolume / totalImportVolume;
+        const importGhgTotal = percentImport * self._ghgToDistribute.get(materialType);
+        const importGhgToAttribute = importGhgTotal * percentAttributeImporter;
+
+        const percentAttributeExporter = 1 - percentAttributeImporter;
+        const exportGhgTotal = self._exportGhg.get(key);
+        const exportGhgToAttribute = exportGhgTotal * percentAttributeExporter;
+
+        return importGhgToAttribute + exportGhgToAttribute;
     }
 
-    getGhg(typeName, volume, percentBurden) {
+    getRegions() {
         const self = this;
-        const typeInfo = self._tradeGhg.get(typeName);
-        const tradeBalanced = typeInfo["burdenVolume"] < 0.000001;
-        if (tradeBalanced) {
-            return 0;
-        } else {
-            const percentVolume = volume / typeInfo["burdenVolume"];
-            const ghgShareTotal = typeInfo["burdenGhg"] * percentVolume;
-            return ghgShareTotal * percentBurden;
+        return self._regions;
+    }
+
+    getMaterialTypes() {
+        const self = this;
+        return self._materialTypes;
+    }
+
+    _getCombineKey(region, materialType) {
+        const self = this;
+        return [region, materialType].join("\t");
+    }
+
+    _addToMap(target, key, addValue) {
+        const self = this;
+        const original = target.get(key);
+        const newVal = original + addValue;
+        target.set(key, newVal);
+    }
+
+    _checkVolumeAndGhg(volume, ghg) {
+        const self = this;
+        if (volume < 0) {
+            throw "Encountered negative volume.";
+        }
+
+        if (ghg < 0) {
+            throw "Encountered negative ghg.";
         }
     }
+
 }
 
 
