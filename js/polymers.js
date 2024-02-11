@@ -222,7 +222,7 @@ class PolymerMatricies {
     getResinTrade(year, region) {
         const self = this;
         const key = getResinTradeKey(year, region);
-        self._resinTradeInfos.get(key);
+        return self._resinTradeInfos.get(key);
     }
 
     getSubtypes() {
@@ -259,7 +259,7 @@ class StateModifier {
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
-        self._calculateGhg(state);
+        self._calculateStartOfLifeGhg(state);
         self._addGlobalToStateAttrs(state, attrs);
 
         return state;
@@ -457,7 +457,10 @@ class StateModifier {
 
         const resinTradeTotals = new Map();
         regions.forEach((region) => {
-            resinTradeTotals.set(region, self._matricies.getResinTrade(year, region));
+            resinTradeTotals.set(
+                region,
+                self._matricies.getResinTrade(year, region).getNetImportResin()
+            );
         });
         self._normalizeDetailedTradeSeries(state, RESIN_SUBTYPES, resinTradeTotals, regions);
     }
@@ -556,12 +559,10 @@ class StateModifier {
             });
         }
 
-        console.log("Exhausted iterations with " + getMaxError());
-
         return state;
     }
 
-    _calculateGhg(state) {
+    _calculateStartOfLifeGhg(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
         const inputs = state.get("in");

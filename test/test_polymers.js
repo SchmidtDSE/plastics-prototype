@@ -273,6 +273,10 @@ function buildPolymerTest() {
                     regionMap.set(info["attr"], i + 1);
                 });
 
+                RESIN_SUBTYPES.forEach((attr, i) => {
+                    regionMap.set(attr, i + 1);
+                });
+
                 regionMap.set("netImportsMT", 0);
                 regionMap.set("netExportsMT", 10);
                 regionMap.set(TEXTILE_ATTR, 11);
