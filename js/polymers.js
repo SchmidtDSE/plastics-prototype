@@ -137,24 +137,23 @@ function getSubtypeKey(year, region, subtype) {
 
 
 class ResinTrade {
-
     constructor(year, region, netImportResin) {
         const self = this;
         self._year = year;
         self._region = region;
         self._netImportResin = netImportResin;
     }
-    
+
     getYear() {
         const self = this;
         return self._year;
     }
-    
+
     getRegion() {
         const self = this;
         return self._region;
     }
-    
+
     getNetImportResin() {
         const self = this;
         return self._netImportResin;
@@ -164,7 +163,6 @@ class ResinTrade {
         const self = this;
         return getResinTradeKey(self._year, self._region);
     }
-
 }
 
 
@@ -253,6 +251,48 @@ class PolymerMatricies {
     }
 }
 
+class ImmutablePolymerMatricies {
+    constructor(inner) {
+        const self = this;
+        self._inner = inner;
+    }
+
+    getPolymer(region, subtype, polymer) {
+        const self = this;
+        return self._inner.getPolymer(region, subtype, polymer);
+    }
+
+    getSubtype(year, region, subtype) {
+        const self = this;
+        return self._inner.getSubtype(year, region, subtype);
+    }
+
+    getResinTrade(year, region) {
+        const self = this;
+        return self._inner.getResinTrade(year, region);
+    }
+
+    getSubtypes() {
+        const self = this;
+        return self._inner.getSubtypes();
+    }
+
+    getRegions() {
+        const self = this;
+        return self._inner.getRegions();
+    }
+
+    getPolymers() {
+        const self = this;
+        return self._inner.getPolymers();
+    }
+
+    getSeries() {
+        const self = this;
+        return self._inner.getSeries();
+    }
+}
+
 
 class StateModifier {
     constructor(matricies) {
@@ -267,7 +307,7 @@ class StateModifier {
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
-        
+
         // Prepare GHG
         self._makeGhgInState(state);
         self._calculateStartOfLifeGhg(state);
@@ -283,7 +323,9 @@ class StateModifier {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
         const ghgMap = new Map();
-        regions.forEach((region) => { ghgMap.set(region, new Map()); });
+        regions.forEach((region) => {
+            ghgMap.set(region, new Map());
+        });
         state.set("ghg", ghgMap);
         return state;
     }
@@ -482,7 +524,7 @@ class StateModifier {
         regions.forEach((region) => {
             resinTradeTotals.set(
                 region,
-                self._matricies.getResinTrade(year, region).getNetImportResin()
+                self._matricies.getResinTrade(year, region).getNetImportResin(),
             );
         });
         self._normalizeDetailedTradeSeries(state, RESIN_SUBTYPES, resinTradeTotals, regions);
@@ -653,7 +695,8 @@ class StateModifier {
         // Regular outputs
         addGlobalToStateAttrs(state, attrs);
 
-        // TODO: GHG
+        // GHG
+
 
         return state;
     }
@@ -748,7 +791,7 @@ function buildMatricies() {
             return new ResinTrade(
                 row["year"],
                 row["region"],
-                row["netImportResin"] - row["netExportResin"]
+                row["netImportResin"] - row["netExportResin"],
             );
         });
     });
@@ -767,7 +810,9 @@ function buildMatricies() {
         return retMatricies;
     });
 
-    return matrixFuture;
+    const immutableMatrixFuture = matrixFuture.then((x) => new ImmutablePolymerMatricies(x));
+
+    return immutableMatrixFuture;
 }
 
 
