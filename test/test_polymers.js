@@ -256,7 +256,7 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const result = modifier._addGlobalToStateAttrs(state, ["consumptionTextileMT"]);
+                const result = modifier._addOutputGlobalToStateAttrs(state, ["consumptionTextileMT"]);
                 assert.ok(result.get("out").has("global"));
                 done();
             });
