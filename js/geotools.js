@@ -49,7 +49,6 @@ function getRelative(target, reference) {
  */
 function getRelativeSingleYear(target, reference) {
     const newOut = new Map();
-
     const targetOut = target.get("out");
     const referenceOut = reference.get("out");
 
@@ -63,8 +62,23 @@ function getRelativeSingleYear(target, reference) {
         newOut.set(region, newRegionOut);
     });
 
+    const newGhg = new Map();
+    const targetGhg = target.get("ghg");
+    const referenceGhg = reference.get("ghg");
+
+    targetGhg.forEach((targetRegions, region) => {
+        const newRegionOut = new Map();
+        targetRegions.forEach((targetValue, key) => {
+            const referenceValue = referenceGhg.get(region).get(key);
+            const relativeValue = targetValue - referenceValue;
+            newRegionOut.set(key, relativeValue);
+        });
+        newGhg.set(region, newRegionOut);
+    });
+
     const wrapped = new Map();
     wrapped.set("out", newOut);
+    wrapped.set("ghg", newGhg);
     return wrapped;
 }
 

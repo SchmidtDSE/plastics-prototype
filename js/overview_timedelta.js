@@ -130,6 +130,10 @@ class TimeDeltaPresenter {
             GOALS.totalConsumption,
             {"short": "MMT", "long": "Million Metric Tons"},
         );
+        unitOptions.set(
+            GOALS.ghg,
+            {"short": "MMT", "long": "Million Metric Tons"},
+        );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];
         const units = unitsInfo["short"];

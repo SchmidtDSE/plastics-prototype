@@ -7,6 +7,11 @@
 import {ALL_REGIONS, CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
 
 
+function getRegionOutput(state, region) {
+    return state.get("out").get(region);
+}
+
+
 /**
  * Get the high level goal metrics.
  *
@@ -15,45 +20,45 @@ import {ALL_REGIONS, CONSUMPTION_ATTRS, EOL_ATTRS} from "const";
  */
 function getGoals(target) {
     const strategies = [
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "landfillWaste",
-                "value": output.get("eolLandfillMT"),
+                "value": getRegionOutput(state, region).get("eolLandfillMT"),
             };
         },
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "mismanagedWaste",
-                "value": output.get("eolMismanagedMT"),
+                "value": getRegionOutput(state, region).get("eolMismanagedMT"),
             };
         },
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "incineratedWaste",
-                "value": output.get("eolIncinerationMT"),
+                "value": getRegionOutput(state, region).get("eolIncinerationMT"),
             };
         },
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "recycling",
-                "value": output.get("eolRecyclingMT"),
+                "value": getRegionOutput(state, region).get("eolRecyclingMT"),
             };
         },
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "productionEmissions",
                 "value": 123,
             };
         },
-        (output) => {
+        (state, region) => {
             return {
                 "goal": "consumptionEmissions",
                 "value": 123,
             };
         },
-        (output) => {
+        (state, region) => {
             const total = CONSUMPTION_ATTRS
-                .map((x) => output.get(x))
+                .map((x) => getRegionOutput(state, region).get(x))
                 .reduce((a, b) => a + b);
 
             return {
@@ -61,9 +66,9 @@ function getGoals(target) {
                 "value": total,
             };
         },
-        (output) => {
+        (state, region) => {
             const total = EOL_ATTRS
-                .map((x) => output.get(x))
+                .map((x) => getRegionOutput(state, region).get(x))
                 .reduce((a, b) => a + b);
 
             return {
@@ -71,12 +76,25 @@ function getGoals(target) {
                 "value": total,
             };
         },
+        (state, region) => {
+            const getTotal = () => {
+                if (state.has("ghg")) {
+                    return state.get("ghg").get(region).get("overallGhg");
+                } else {
+                    return -1;
+                }
+            };
+
+            return {
+                "goal": "ghg",
+                "value": getTotal(),
+            };
+        },
     ];
 
     const goals = new Map();
     ALL_REGIONS.forEach((region) => {
-        const regionOutputs = target.get("out").get(region);
-        const newValues = strategies.map((x) => x(regionOutputs));
+        const newValues = strategies.map((x) => x(target, region));
 
         const regionGoals = new Map();
         newValues.forEach((newValue) => {

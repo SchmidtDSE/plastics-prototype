@@ -125,6 +125,7 @@ const GOALS = {
     incineratedWaste: "incineratedWaste",
     totalConsumption: "totalConsumption",
     totalWaste: "totalWaste",
+    ghg: "ghg",
 };
 
 const STANDARD_ATTR_NAMES = new Map();
