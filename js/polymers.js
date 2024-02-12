@@ -1,5 +1,17 @@
+/**
+ * Worker logic which calculates output metrics after running lever scripts.
+ * 
+ * Worker logic which calculates output metrics after running lever scripts, including calculation
+ * of polymers and GHG.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
+
+// Create a separate cache buster for the worker
 const CACHE_BUSTER = Date.now();
 
+// Define expected attributes of final products and their associated polymer pipeline types
 const GOODS = [
     {"attr": "consumptionTransporationMT", "subtype": "transportation"},
     {"attr": "consumptionPackagingMT", "subtype": "packaging"},
@@ -10,6 +22,7 @@ const GOODS = [
     {"attr": "consumptionOtherMT", "subtype": "others"},
 ];
 
+// Define expected resin subtypes which may contain multiple polymers.
 const RESIN_SUBTYPES = [
     "pp",
     "ps",
@@ -20,6 +33,7 @@ const RESIN_SUBTYPES = [
     "pur",
 ];
 
+// Make mapping between polymers and the levers' names for those polymers with GHG intensities.
 const GHGS = [
     {"leverName": "PET", "polymerName": "pet"},
     {"leverName": "HDPE", "polymerName": "hdpe"},
@@ -34,6 +48,7 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+// Make mapping between the levers' names for EOL fates and the output attributes for those volumes.
 const EOLS = [
     {"leverName": "Landfill", "attr": "eolLandfillMT"},
     {"leverName": "Incineration", "attr": "eolIncinerationMT"},
@@ -41,14 +56,30 @@ const EOLS = [
     {"leverName": "Mismanaged", "attr": "eolMismanagedMT"},
 ];
 
+// Set max number of iterations for back-propagation to meet constraints.
 const MAX_NORM_ITERATIONS = 20;
 
+// Define expected polymer names and subtypes along with output attribute for textiles.
 const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
 const TEXTILES_SUBTYPE = "textiles";
 
 
+/**
+ * Information about a polymer (like ps) in a subtype (like transportation).
+ */
 class PolymerInfo {
+    
+    /**
+     * Create a new polymer information record.
+     * 
+     * @param subtype The type in which this polymer is found like packaging.
+     * @param region The region for which this polymer record is provided like china.
+     * @param polymer The name of the polymer that this record represents like pet.
+     * @param percent The percent of plastic mass in this subtype in this region that this polymer
+     *      represents.
+     * @param series The subtype's series like goods.
+     */
     constructor(subtype, region, polymer, percent, series) {
         const self = this;
         self._subtype = subtype;
@@ -58,31 +89,62 @@ class PolymerInfo {
         self._series = series;
     }
 
+    /**
+     * Get the subtype in which this polymer is found.
+     * 
+     * @returns Subtype like "50% otp, 50% ots" or packaging. 
+     */
     getSubtype() {
         const self = this;
         return self._subtype;
     }
 
+    /**
+     * Get the name of the region for which this record is made.
+     * 
+     * @returns Region name like china or nafta.
+     */
     getRegion() {
         const self = this;
         return self._region;
     }
 
+    /**
+     * Get the name of the polymer that this record describes.
+     * 
+     * @returns The polymer name like "pp" or "pet".
+     */
     getPolymer() {
         const self = this;
         return self._polymer;
     }
 
+    /**
+     * Get the percent by mass that this record's polymer represents in this region and subtype.
+     * 
+     * @returns The percent of plastic mass in this subtype in this region that this polymer
+     *      represents. 
+     */
     getPercent() {
         const self = this;
         return self._percent;
     }
 
+    /**
+     * Get the series that this record is part of.
+     * 
+     * @returns The series name like "goods" or "resin". 
+     */
     getSeries() {
         const self = this;
         return self._series;
     }
 
+    /**
+     * Get a string key uniquely identifying this record.
+     * 
+     * @returns Key identifying the combination of region, subtype, and polymer. 
+     */
     getKey() {
         const self = this;
         return getPolymerKey(self._region, self._subtype, self._polymer);
@@ -90,6 +152,14 @@ class PolymerInfo {
 }
 
 
+/**
+ * Get the string key describing a combination of region, subtype, and polymer. 
+ * 
+ * @param region The region like china.
+ * @param subtype The subtype like packaging.
+ * @param polymer The polymer like pet.
+ * @returns String identifying a PolymerInfo.
+ */
 function getPolymerKey(region, subtype, polymer) {
     return region + "\t" + subtype + "\t" + polymer;
 }
