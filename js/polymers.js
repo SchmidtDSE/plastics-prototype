@@ -552,6 +552,13 @@ class StateModifier {
 
     _getPolymerPercent(state, region, subtype, polymer) {
         const self = this;
+
+        // Ignore additives GHG because it is incorporated elsewhere.
+        if (polymer === "additives") {
+            return 0;
+        }
+
+        // Check for polymer overrides
         if (state.has("polymerOverrides")) {
             const overrides = state.get("polymerOverrides");
             const overrideKey = self._getOverrideKey(region, subtype, polymer);
@@ -559,6 +566,8 @@ class StateModifier {
                 return overrides.get(overrideKey);
             }
         }
+
+        // Override for textiles
         if (subtype === TEXTILES_SUBTYPE) {
             if (polymer === TEXTILE_POLYMER) {
                 return 1;
@@ -570,9 +579,6 @@ class StateModifier {
                 return 0;
             } else {
                 const polymerInfo = self._matricies.getPolymer(region, subtype, polymer);
-                if (polymerInfo === undefined) {
-                    return 0;
-                }
                 const percent = polymerInfo.getPercent();
                 return percent;
             }
