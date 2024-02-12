@@ -312,6 +312,13 @@ function buildPolymerTest() {
                 });
             });
 
+            inMap.set("startYear", 2020);
+            inMap.set("endYearImmediate", 2030);
+            inMap.set("chinaPercentReducePs", 0);
+            inMap.set("eu30PercentReducePs", 0);
+            inMap.set("naftaPercentReducePs", 0);
+            inMap.set("rowPercentReducePs", 0);
+
             const state = new Map();
             state.set("out", outMap);
             state.set("in", inMap);
@@ -538,6 +545,141 @@ function buildPolymerTest() {
                 "china\tpet",
                 2 * 5 * 0.001
             ));
+        });
+
+        QUnit.test("get percent packaging ps remaining", function(assert) {
+            const done = assert.async();
+    
+            const inputs = new Map();
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+            inputs.set("chinaPercentReducePs", 80);
+    
+            const state = new Map();
+            state.set("in", inputs);
+    
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                const before = modifier._getPercentPackagingPsRemaining(state, 2010, "china");
+                assert.ok(Math.abs(before - 1) < 0.0001);
+    
+                const mid = modifier._getPercentPackagingPsRemaining(state, 2025, "china");
+                assert.ok(Math.abs(mid - 0.6) < 0.0001);
+    
+                const after = modifier._getPercentPackagingPsRemaining(state, 2040, "china");
+                assert.ok(Math.abs(after - 0.2) < 0.0001);
+                done();
+            });
+        });
+
+        QUnit.test("make polymer overrides noop", function(assert) {
+            const done = assert.async();
+    
+            const inputs = new Map();
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+            inputs.set("chinaPercentReducePs", 0);
+            inputs.set("eu30PercentReducePs", 0);
+            inputs.set("naftaPercentReducePs", 0);
+            inputs.set("rowPercentReducePs", 0);
+
+            const outputs = new Map();
+            outputs.set("china", new Map());
+            outputs.set("eu30", new Map());
+            outputs.set("nafta", new Map());
+            outputs.set("row", new Map());
+    
+            const state = new Map();
+            state.set("in", inputs);
+            state.set("out", outputs);
+
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                const priorPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                const priorPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+
+                modifier._addOverrides(state, 2040);
+                assert.ok(state.has("polymerOverrides"));
+                
+                const newPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                const newPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+
+                assert.ok(Math.abs(newPS - priorPS) < 0.0001);
+                assert.ok(Math.abs(newPP - priorPP) < 0.0001);
+
+                done();
+            });
+        });
+
+        QUnit.test("make polymer overrides", function(assert) {
+            const done = assert.async();
+    
+            const inputs = new Map();
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+            inputs.set("chinaPercentReducePs", 80);
+            inputs.set("eu30PercentReducePs", 0);
+            inputs.set("naftaPercentReducePs", 0);
+            inputs.set("rowPercentReducePs", 0);
+
+            const outputs = new Map();
+            outputs.set("china", new Map());
+            outputs.set("eu30", new Map());
+            outputs.set("nafta", new Map());
+            outputs.set("row", new Map());
+    
+            const state = new Map();
+            state.set("in", inputs);
+            state.set("out", outputs);
+
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                const priorPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                const priorPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+
+                modifier._addOverrides(state, 2040);
+                assert.ok(state.has("polymerOverrides"));
+                
+                const newPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                const newPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+
+                assert.ok(newPS < priorPS);
+                assert.ok(newPP > priorPP);
+
+                done();
+            });
+        });
+
+        QUnit.test("use polymer overrides", function(assert) {
+            const done = assert.async();
+    
+            const inputs = new Map();
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+            inputs.set("chinaPercentReducePs", 100);
+            inputs.set("eu30PercentReducePs", 0);
+            inputs.set("naftaPercentReducePs", 0);
+            inputs.set("rowPercentReducePs", 0);
+
+            const outputs = new Map();
+            outputs.set("china", new Map());
+            outputs.set("eu30", new Map());
+            outputs.set("nafta", new Map());
+            outputs.set("row", new Map());
+    
+            const state = new Map();
+            state.set("in", inputs);
+            state.set("out", outputs);
+
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                modifier._addOverrides(state, 2040);
+                const newPSChina = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                assert.ok(Math.abs(newPSChina) < 0.0001);
+                const newPSNafta = modifier._getPolymerPercent(state, "nafta", "packaging", "ps");
+                assert.ok(Math.abs(newPSNafta) > 0.0001);
+                done();
+            });
         });
     });
 }

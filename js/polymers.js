@@ -197,9 +197,6 @@ class PolymerMatricies {
     getPolymer(region, subtype, polymer) {
         const self = this;
         const key = getPolymerKey(region, subtype, polymer);
-        if (!self._polymerInfos.has(key)) {
-            console.log(key);
-        }
         return self._polymerInfos.get(key);
     }
 
@@ -304,7 +301,7 @@ class StateModifier {
         const self = this;
 
         // Make override
-        self._addOverrides(state);
+        self._addOverrides(state, year);
 
         // Prepare polymers
         self._addDetailedTrade(year, state);
@@ -323,9 +320,66 @@ class StateModifier {
         return state;
     }
 
-    _addOverrides(state) {
+    _addOverrides(state, year) {
         const self = this;
+        const overrides = new Map();
+
+        // Deal with PS in packaging
+        const regions = Array.of(...state.get("out").keys());
+        regions.forEach((region) => {
+            const packagingPolymers = new Map();
+            const polymerNames = GHGS.map((x) => x["polymerName"]);
+
+            polymerNames.forEach((polymer) => {
+                const polymerPercent = self._getPolymerPercent(state, region, "packaging", polymer);
+                packagingPolymers.set(polymer, polymerPercent);
+            });
+
+            const percentRemaining = self._getPercentPackagingPsRemaining(state, year, region);
+            const newPs = packagingPolymers.get("ps") * percentRemaining;
+            const changePs = packagingPolymers.get("ps") * (1 - percentRemaining);
+            packagingPolymers.set("ps", newPs);
+
+            const otherPolymers = polymerNames.filter((x) => x !== "ps");
+            const individualAdjValues = otherPolymers.map((x) => packagingPolymers.get(x));
+            const otherTotal = individualAdjValues.reduce((a, b) => a + b);
+            
+            otherPolymers.forEach((x) => {
+                const currentValue = packagingPolymers.get(x);
+                const percentOfOther = currentValue / otherTotal;
+                const offset = percentOfOther * changePs;
+                packagingPolymers.set(x, offset + currentValue);
+            });
+
+            polymerNames.forEach((polymer) => {
+                const key = self._getOverrideKey(region, "packaging", polymer);
+                overrides.set(key, packagingPolymers.get(polymer));
+            });
+        });
+
+        state.set("polymerOverrides", overrides);
+
         return state;
+    }
+
+    _getPercentPackagingPsRemaining(state, year, region) {
+        const self = this;
+        const inputs = state.get("in");
+
+        const startYear = inputs.get("startYear");
+        const endYear = inputs.get("endYearImmediate");
+        if (year < startYear) {
+            return 1;
+        }
+
+        const percentReductionTarget = inputs.get(region + "PercentReducePs") / 100;
+        const done = year >= endYear;
+        const duration = endYear - startYear;
+        const yearsEllapsed = year - startYear;
+        const percentReductionInterpolate = yearsEllapsed / duration * percentReductionTarget;
+        const percentReduction = done ? percentReductionTarget : percentReductionInterpolate;
+
+        return 1 - percentReduction;
     }
 
     _makeGhgInState(state) {
@@ -516,6 +570,9 @@ class StateModifier {
                 return 0;
             } else {
                 const polymerInfo = self._matricies.getPolymer(region, subtype, polymer);
+                if (polymerInfo === undefined) {
+                    return 0;
+                }
                 const percent = polymerInfo.getPercent();
                 return percent;
             }
@@ -646,7 +703,6 @@ class StateModifier {
     _calculateStartOfLifeGhg(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
-        const inputs = state.get("in");
         const polymerVolumes = state.get("polymers");
         const ghgMap = state.get("ghg");
 
