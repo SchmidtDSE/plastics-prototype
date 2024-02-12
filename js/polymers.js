@@ -1,6 +1,6 @@
 /**
  * Worker logic which calculates output metrics after running lever scripts.
- * 
+ *
  * Worker logic which calculates output metrics after running lever scripts, including calculation
  * of polymers and GHG.
  *
@@ -69,10 +69,9 @@ const TEXTILES_SUBTYPE = "textiles";
  * Information about a polymer (like ps) in a subtype (like transportation).
  */
 class PolymerInfo {
-    
     /**
      * Create a new polymer information record.
-     * 
+     *
      * @param subtype The type in which this polymer is found like packaging.
      * @param region The region for which this polymer record is provided like china.
      * @param polymer The name of the polymer that this record represents like pet.
@@ -91,8 +90,8 @@ class PolymerInfo {
 
     /**
      * Get the subtype in which this polymer is found.
-     * 
-     * @returns Subtype like "50% otp, 50% ots" or packaging. 
+     *
+     * @returns Subtype like "50% otp, 50% ots" or packaging.
      */
     getSubtype() {
         const self = this;
@@ -101,7 +100,7 @@ class PolymerInfo {
 
     /**
      * Get the name of the region for which this record is made.
-     * 
+     *
      * @returns Region name like china or nafta.
      */
     getRegion() {
@@ -111,7 +110,7 @@ class PolymerInfo {
 
     /**
      * Get the name of the polymer that this record describes.
-     * 
+     *
      * @returns The polymer name like "pp" or "pet".
      */
     getPolymer() {
@@ -121,9 +120,9 @@ class PolymerInfo {
 
     /**
      * Get the percent by mass that this record's polymer represents in this region and subtype.
-     * 
+     *
      * @returns The percent of plastic mass in this subtype in this region that this polymer
-     *      represents. 
+     *      represents.
      */
     getPercent() {
         const self = this;
@@ -132,8 +131,8 @@ class PolymerInfo {
 
     /**
      * Get the series that this record is part of.
-     * 
-     * @returns The series name like "goods" or "resin". 
+     *
+     * @returns The series name like "goods" or "resin".
      */
     getSeries() {
         const self = this;
@@ -142,8 +141,8 @@ class PolymerInfo {
 
     /**
      * Get a string key uniquely identifying this record.
-     * 
-     * @returns Key identifying the combination of region, subtype, and polymer. 
+     *
+     * @returns Key identifying the combination of region, subtype, and polymer.
      */
     getKey() {
         const self = this;
@@ -153,8 +152,8 @@ class PolymerInfo {
 
 
 /**
- * Get the string key describing a combination of region, subtype, and polymer. 
- * 
+ * Get the string key describing a combination of region, subtype, and polymer.
+ *
  * @param region The region like china.
  * @param subtype The subtype like packaging.
  * @param polymer The polymer like pet.
@@ -825,10 +824,8 @@ class StateModifier {
             const regionGhgMap = ghgMap.get(region);
             const regionOutputs = outputs.get(region);
             const individualGhg = EOLS.map((eolInfo) => {
-                const inputName = region + eolInfo["leverName"] + "Emissions";
-                const intensity = inputs.get(inputName);
                 const volume = regionOutputs.get(eolInfo["attr"]);
-                const emissions = intensity * volume;
+                const emissions = getGhg(state, region, volume, eolInfo["leverName"]);
                 return emissions;
             });
             const totalGhg = individualGhg.reduce((a, b) => a + b);
