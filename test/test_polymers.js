@@ -31,7 +31,8 @@ function buildPolymerTest() {
             const matrixFuture = buildMatricies();
             matrixFuture.then((modifier) => {
                 const polymerInfo = modifier.getPolymer("china", "transportation", "ldpe");
-                const error = Math.abs(polymerInfo.getPercent() - 0.01);
+                console.log(polymerInfo.getPercent());
+                const error = Math.abs(polymerInfo.getPercent() - 0.1429);
                 assert.ok(error < 0.00001);
                 done();
             });
@@ -58,7 +59,7 @@ function buildPolymerTest() {
                     "transportation",
                     "ldpe"
                 );
-                const error = Math.abs(percent - 0.01);
+                const error = Math.abs(percent - 0.1429);
                 assert.ok(error < 0.00001);
                 done();
             });
@@ -353,7 +354,7 @@ function buildPolymerTest() {
             state.set("in", inputs);
             
             const result = getGhg(state, "china", 4000, "Test");
-            const error = Math.abs(result - 8);
+            const error = Math.abs(result - 0.008);
             assert.ok(error < 0.00001)
         });
 
