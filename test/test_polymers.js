@@ -528,22 +528,22 @@ function buildPolymerTest() {
             assert.ok(isWithinTollerance(
                 ledger._ghgToDistribute,
                 "Recycling",
-                1 / 10 * 2 * 0.001
+                1 / 10 * 2 * 0.000001
             ));
             assert.ok(isWithinTollerance(
                 ledger._ghgToDistribute,
                 "pet",
-                2 * 5 * 0.001
+                2 * 5 * 0.000001
             ));
             assert.ok(isWithinTollerance(
                 ledger._actualGhg,
                 "china\tRecycling",
-                1 / 10 * 2 * 0.001
+                1 / 10 * 2 * 0.000001
             ));
             assert.ok(isWithinTollerance(
                 ledger._actualGhg,
                 "china\tpet",
-                2 * 5 * 0.001
+                2 * 5 * 0.000001
             ));
         });
 
