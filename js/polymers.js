@@ -343,7 +343,7 @@ class StateModifier {
             const otherPolymers = polymerNames.filter((x) => x !== "ps");
             const individualAdjValues = otherPolymers.map((x) => packagingPolymers.get(x));
             const otherTotal = individualAdjValues.reduce((a, b) => a + b);
-            
+
             otherPolymers.forEach((x) => {
                 const currentValue = packagingPolymers.get(x);
                 const percentOfOther = currentValue / otherTotal;
