@@ -24,6 +24,7 @@ const ESSENTIAL_FILES = [
     "/data/overview_curve.csv",
     "/data/overview_naive.csv",
     "/data/live_polymer_ratios.csv",
+    "/data/resin_trade_supplement.csv",
     "/data/live_production_trade_subtype_ratios.csv",
     "/data/overview_ml.csv",
     "/font/LeagueSpartan-Black.otf",
