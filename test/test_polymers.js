@@ -52,7 +52,12 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const percent = modifier._getPolymerPercent("china", "transportation", "ldpe")
+                const percent = modifier._getPolymerPercent(
+                    new Map(),
+                    "china",
+                    "transportation",
+                    "ldpe"
+                );
                 const error = Math.abs(percent - 0.01);
                 assert.ok(error < 0.00001);
                 done();
@@ -63,7 +68,12 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const percent = modifier._getPolymerPercent("china", "textiles", "pp&a fibers")
+                const percent = modifier._getPolymerPercent(
+                    new Map(),
+                    "china",
+                    "textiles",
+                    "pp&a fibers"
+                );
                 const error = Math.abs(percent - 1);
                 assert.ok(error < 0.00001);
                 done();
@@ -74,7 +84,12 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const percent = modifier._getPolymerPercent("china", "textiles", "other")
+                const percent = modifier._getPolymerPercent(
+                    new Map(),
+                    "china",
+                    "textiles",
+                    "other"
+                );
                 const error = Math.abs(percent - 0);
                 assert.ok(error < 0.00001);
                 done();
@@ -85,7 +100,12 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const percent = modifier._getPolymerPercent("china", "other", "pp&a fibers")
+                const percent = modifier._getPolymerPercent(
+                    new Map(),
+                    "china",
+                    "other",
+                    "pp&a fibers"
+                );
                 const error = Math.abs(percent - 0);
                 assert.ok(error < 0.00001);
                 done();

@@ -303,6 +303,9 @@ class StateModifier {
     modify(year, state, attrs) {
         const self = this;
 
+        // Make override
+        self._addOverrides(state);
+
         // Prepare polymers
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
@@ -317,6 +320,11 @@ class StateModifier {
         self._addOutputGlobalToStateAttrs(state, attrs);
         self._calculateOverallGhg(year, state);
 
+        return state;
+    }
+
+    _addOverrides(state) {
+        const self = this;
         return state;
     }
 
@@ -407,7 +415,7 @@ class StateModifier {
             const vector = self._makeEmptyPolymersVector();
             const volume = out.get(info["attr"]);
             polymers.forEach((polymer) => {
-                const percent = self._getPolymerPercent(region, info["subtype"], polymer);
+                const percent = self._getPolymerPercent(state, region, info["subtype"], polymer);
                 const polymerVolume = percent * volume;
                 const newTotal = vector.get(polymer) + polymerVolume;
                 vector.set(polymer, newTotal);
@@ -437,7 +445,7 @@ class StateModifier {
 
             const vector = self._makeEmptyPolymersVector();
             polymers.forEach((polymer) => {
-                const percent = self._getPolymerPercent(region, subtype, polymer);
+                const percent = self._getPolymerPercent(state, region, subtype, polymer);
                 const polymerVolume = percent * subtypeVolume;
                 const newTotal = vector.get(polymer) + polymerVolume;
                 vector.set(polymer, newTotal);
@@ -488,8 +496,15 @@ class StateModifier {
         return vector;
     }
 
-    _getPolymerPercent(region, subtype, polymer) {
+    _getPolymerPercent(state, region, subtype, polymer) {
         const self = this;
+        if (state.has("polymerOverrides")) {
+            const overrides = state.get("polymerOverrides");
+            const overrideKey = self._getOverrideKey(region, subtype, polymer);
+            if (overrides.has(overrideKey)) {
+                return overrides.get(overrideKey);
+            }
+        }
         if (subtype === TEXTILES_SUBTYPE) {
             if (polymer === TEXTILE_POLYMER) {
                 return 1;
@@ -704,6 +719,11 @@ class StateModifier {
         finalizer.finalize(state);
 
         return state;
+    }
+
+    _getOverrideKey(region, subtype, polymer) {
+        const self = this;
+        return [region, subtype, polymer].join("\t");
     }
 }
 
