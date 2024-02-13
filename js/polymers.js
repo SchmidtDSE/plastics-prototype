@@ -22,6 +22,18 @@ const GOODS = [
     {"attr": "consumptionOtherMT", "subtype": "others"},
 ];
 
+// Define mapping to levers which indicate the amount of additives
+const ADDITIVES_KEYS = {
+    "transportation": "PercentTransporationAdditives",
+    "packaging": "PercentPackagingAdditives",
+    "building_construction": "PercentConstructionAdditives",
+    "electrical_electronic": "PercentElectronicAdditives",
+    "household_leisure_sports": "PercentHouseholdLeisureSportsAdditives",
+    "agriculture": "PercentAgricultureAdditives",
+    "textiles": "PercentTextileAdditives",
+    "others": "PercentOtherAdditives",
+};
+
 // Define expected resin subtypes which may contain multiple polymers.
 const RESIN_SUBTYPES = [
     "pp",
@@ -63,6 +75,9 @@ const MAX_NORM_ITERATIONS = 20;
 const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
 const TEXTILES_SUBTYPE = "textiles";
+
+// Expected additives polymer name
+const ADDITIVES_POLYMER = "additives";
 
 
 /**
@@ -400,7 +415,13 @@ class StateModifier {
             const polymerNames = GHGS.map((x) => x["polymerName"]);
 
             polymerNames.forEach((polymer) => {
-                const polymerPercent = self._getPolymerPercent(state, region, "packaging", polymer);
+                const polymerPercent = self._getPolymerPercent(
+                    state,
+                    year,
+                    region,
+                    "packaging",
+                    polymer,
+                );
                 packagingPolymers.set(polymer, polymerPercent);
             });
 
@@ -451,6 +472,32 @@ class StateModifier {
         return 1 - percentReduction;
     }
 
+    _getAdditivesRemaining(state, year, region) {
+        const self = this;
+        const inputs = state.get("in");
+
+        const startYear = inputs.get("startYear");
+        const endYear = inputs.get("endYearImmediate");
+        if (year < startYear) {
+            return 1;
+        }
+
+        const key = region + "AdditivesPercentReduction";
+        const testing = !inputs.has(key);
+        if (testing) {
+            return 1;
+        }
+
+        const percentReductionTarget = inputs.get(key) / 100;
+        const done = year >= endYear;
+        const duration = endYear - startYear;
+        const yearsEllapsed = year - startYear;
+        const percentReductionInterpolate = yearsEllapsed / duration * percentReductionTarget;
+        const percentReduction = done ? percentReductionTarget : percentReductionInterpolate;
+
+        return 1 - percentReduction;
+    }
+
     _makeGhgInState(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
@@ -489,8 +536,8 @@ class StateModifier {
         const regions = Array.of(...state.get("out").keys());
         const polymerMap = new Map();
         regions.forEach((region) => {
-            const goodsPolymers = self._getGoodsPolymers(region, state);
-            const textilePolymers = self._getTextilePolymers(region, state);
+            const goodsPolymers = self._getGoodsPolymers(region, state, year);
+            const textilePolymers = self._getTextilePolymers(region, state, year);
             const consumptionPolymers = self._combinePolymerVectors(goodsPolymers, textilePolymers);
 
             const goodsSubtypes = GOODS.map((x) => x["subtype"]);
@@ -520,7 +567,7 @@ class StateModifier {
     _getAllPolymers() {
         const self = this;
         const nativePolymers = self._matricies.getPolymers();
-        return new Set([...nativePolymers, TEXTILE_POLYMER]);
+        return new Set([...nativePolymers, TEXTILE_POLYMER, ADDITIVES_POLYMER]);
     }
 
     _getAllSubtypes() {
@@ -529,7 +576,7 @@ class StateModifier {
         return new Set([...nativeSubtypes, TEXTILES_SUBTYPE]);
     }
 
-    _getGoodsPolymers(region, state) {
+    _getGoodsPolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
         const polymers = self._getAllPolymers();
@@ -538,7 +585,13 @@ class StateModifier {
             const vector = self._makeEmptyPolymersVector();
             const volume = out.get(info["attr"]);
             polymers.forEach((polymer) => {
-                const percent = self._getPolymerPercent(state, region, info["subtype"], polymer);
+                const percent = self._getPolymerPercent(
+                    state,
+                    year,
+                    region,
+                    info["subtype"],
+                    polymer,
+                );
                 const polymerVolume = percent * volume;
                 const newTotal = vector.get(polymer) + polymerVolume;
                 vector.set(polymer, newTotal);
@@ -548,13 +601,25 @@ class StateModifier {
         return vectors.reduce((a, b) => self._combinePolymerVectors(a, b));
     }
 
-    _getTextilePolymers(region, state) {
+    _getTextilePolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
         const vector = self._makeEmptyPolymersVector();
         const volume = out.get(TEXTILE_ATTR);
         const newTotal = vector.get(TEXTILE_POLYMER) + volume;
-        vector.set(TEXTILE_POLYMER, newTotal);
+
+        const additivesPercent = self._getPolymerPercent(
+            state,
+            year,
+            region,
+            TEXTILES_SUBTYPE,
+            ADDITIVES_POLYMER,
+        );
+        const newAdditives = additivesPercent * volume;
+        vector.set(ADDITIVES_POLYMER, vector.get(ADDITIVES_POLYMER) + newAdditives);
+
+        vector.set(TEXTILE_POLYMER, newTotal - newAdditives);
+
         return vector;
     }
 
@@ -568,7 +633,7 @@ class StateModifier {
 
             const vector = self._makeEmptyPolymersVector();
             polymers.forEach((polymer) => {
-                const percent = self._getPolymerPercent(state, region, subtype, polymer);
+                const percent = self._getPolymerPercent(state, year, region, subtype, polymer);
                 const polymerVolume = percent * subtypeVolume;
                 const newTotal = vector.get(polymer) + polymerVolume;
                 vector.set(polymer, newTotal);
@@ -595,6 +660,7 @@ class StateModifier {
         vector.set("pet", 0);
         vector.set("pur", 0);
         vector.set("pp&a fibers", 0);
+        vector.set("additives", 0);
         vector.set("other thermoplastics", 0);
         vector.set("other thermosets", 0);
         return vector;
@@ -614,43 +680,73 @@ class StateModifier {
         add("pet");
         add("pur");
         add("pp&a fibers");
+        add("additives");
         add("other thermoplastics");
         add("other thermosets");
         return vector;
     }
 
-    _getPolymerPercent(state, region, subtype, polymer) {
+    _getPolymerPercent(state, year, region, subtype, polymer) {
         const self = this;
 
-        // Ignore additives GHG because it is incorporated elsewhere.
-        if (polymer === "additives") {
-            return 0;
-        }
+        const requestedAdditives = polymer === ADDITIVES_POLYMER;
 
-        // Check for polymer overrides
-        if (state.has("polymerOverrides")) {
-            const overrides = state.get("polymerOverrides");
-            const overrideKey = self._getOverrideKey(region, subtype, polymer);
-            if (overrides.has(overrideKey)) {
-                return overrides.get(overrideKey);
-            }
-        }
-
-        // Override for textiles
-        if (subtype === TEXTILES_SUBTYPE) {
-            if (polymer === TEXTILE_POLYMER) {
-                return 1;
-            } else {
+        const getAdditivesPercent = () => {
+            const testing = !state.has("in");
+            if (testing) {
                 return 0;
             }
+
+            const additivesKey = region + ADDITIVES_KEYS[subtype];
+            const inputs = state.get("in");
+            if (!inputs.has(additivesKey)) {
+                return 0;
+            }
+
+            const additivesTotalPercent = inputs.get(additivesKey) / 100;
+            const additivesPercentRemain = self._getAdditivesRemaining(state, year, region);
+            return additivesTotalPercent * additivesPercentRemain;
+        };
+
+        const getNonAdditivesPercent = () => {
+            if (requestedAdditives) {
+                return 0;
+            }
+
+            // Check for polymer overrides
+            if (state.has("polymerOverrides")) {
+                const overrides = state.get("polymerOverrides");
+                const overrideKey = self._getOverrideKey(region, subtype, polymer);
+                if (overrides.has(overrideKey)) {
+                    return overrides.get(overrideKey);
+                }
+            }
+
+            // Override for textiles
+            if (subtype === TEXTILES_SUBTYPE) {
+                if (polymer === TEXTILE_POLYMER) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            } else {
+                if (polymer === TEXTILE_POLYMER) {
+                    return 0;
+                } else {
+                    const polymerInfo = self._matricies.getPolymer(region, subtype, polymer);
+                    const percent = polymerInfo.getPercent();
+                    return percent;
+                }
+            }
+        };
+
+        if (requestedAdditives) {
+            return getAdditivesPercent();
         } else {
-            if (polymer === TEXTILE_POLYMER) {
-                return 0;
-            } else {
-                const polymerInfo = self._matricies.getPolymer(region, subtype, polymer);
-                const percent = polymerInfo.getPercent();
-                return percent;
-            }
+            const additivesPercent = getAdditivesPercent();
+            const nonAdditivesPercentTotal = 1 - additivesPercent;
+            const nonAdditivesPercentQuery = getNonAdditivesPercent();
+            return nonAdditivesPercentTotal * nonAdditivesPercentQuery;
         }
     }
 
