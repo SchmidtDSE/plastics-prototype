@@ -1,6 +1,6 @@
 # Determine how much material we are dropping
 var reductionPercent = in.{{ region }}AdditivesPercentReduction / 100;
-var totalPriorConsumption = (
+var totalPriorAdditives = (
   out.{{ region }}.consumptionAgricultureMT * in.{{region}}PercentAgricultureAdditives / 100 +
   out.{{ region }}.consumptionConstructionMT * in.{{region}}PercentConstructionAdditives / 100 +
   out.{{ region }}.consumptionElectronicMT * in.{{region}}PercentElectronicAdditives / 100 +
@@ -10,9 +10,7 @@ var totalPriorConsumption = (
   out.{{ region }}.consumptionTextileMT * in.{{region}}PercentTextileAdditives / 100 +
   out.{{ region }}.consumptionOtherMT * in.{{region}}PercentOtherAdditives / 100
 );
-var regionAdditives = in.{{ region }}PercentAdditives / 100;  # Specific to region
-limit regionAdditives to [0, 1];
-var offsetGoalMT = -1 * totalPriorConsumption * reductionPercent * regionAdditives;
+var offsetGoalMT = -1 * totalPriorAdditives * reductionPercent;
 
 # Apply gradually for immediate effects
 var offsetMT = 0;
