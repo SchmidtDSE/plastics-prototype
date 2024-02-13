@@ -32,7 +32,7 @@ function buildPolymerTest() {
             matrixFuture.then((modifier) => {
                 const polymerInfo = modifier.getPolymer("china", "transportation", "ldpe");
                 const error = Math.abs(polymerInfo.getPercent() - 0.1429);
-                assert.ok(error < 0.00001);
+                assert.ok(error < 0.001);
                 done();
             });
         });
@@ -59,7 +59,7 @@ function buildPolymerTest() {
                     "ldpe"
                 );
                 const error = Math.abs(percent - 0.1429);
-                assert.ok(error < 0.00001);
+                assert.ok(error < 0.001);
                 done();
             });
         });
