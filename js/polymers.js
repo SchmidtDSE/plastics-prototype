@@ -571,7 +571,6 @@ class StateModifier {
                 const percent = self._getPolymerPercent(state, region, subtype, polymer);
                 const polymerVolume = percent * subtypeVolume;
                 const newTotal = vector.get(polymer) + polymerVolume;
-                console.log(state, region, subtype, polymer, newTotal);
                 vector.set(polymer, newTotal);
             });
 

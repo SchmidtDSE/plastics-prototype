@@ -31,7 +31,6 @@ function buildPolymerTest() {
             const matrixFuture = buildMatricies();
             matrixFuture.then((modifier) => {
                 const polymerInfo = modifier.getPolymer("china", "transportation", "ldpe");
-                console.log(polymerInfo.getPercent());
                 const error = Math.abs(polymerInfo.getPercent() - 0.1429);
                 assert.ok(error < 0.00001);
                 done();
