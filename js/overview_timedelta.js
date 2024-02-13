@@ -163,11 +163,11 @@ class TimeDeltaPresenter {
 
         const horizontalScale = self._getD3().scaleLinear()
             .domain([startYear, endYear])
-            .range([70, totalWidth - 90]);
+            .range([85, totalWidth - 90]);
 
         const verticalScale = self._getD3().scaleLinear()
             .domain([minValue, maxValue])
-            .range([totalHeight - 20, 20]);
+            .range([totalHeight - 25, 20]);
 
         const pathGenerator = self._getD3().line()
             .x((x) => horizontalScale(x["year"]))
@@ -206,10 +206,24 @@ class TimeDeltaPresenter {
 
             const boundUpdated = self._d3Selection.select(".value-labels").selectAll(".value-tick");
 
-            boundUpdated
+            boundUpdated.html((x) => x + " " + units);
+
+            boundUpdated.transition()
+                .attr("opacity", (x) => {
+                    if (maxValue > 500) {
+                        return x % 200 == 0 ? 1 : 0;
+                    } else {
+                        return 1;
+                    }
+                })
                 .attr("y", (amount) => verticalScale(amount) + 5)
-                .html((x) => x + " " + units)
-                .attr("x", sparseTicks ? 60 : 50);
+                .attr("x", (x) => {
+                    if (maxValue > 500) {
+                        return 70;
+                    } else {
+                        return sparseTicks ? 65 : 55;
+                    }
+                });
         };
 
         const updateYearAxis = () => {
