@@ -23,9 +23,9 @@ function makeCumulative(target) {
     const allNewOutputs = new Map();
     years.forEach((year) => {
         const yearTarget = target.get(year);
+
         const oldOut = yearTarget.get("out");
         const newOut = new Map();
-
         Array.of(...oldOut.keys()).forEach((region) => {
             const oldRegionOut = oldOut.get(region);
             const newRegionOut = new Map();
@@ -53,8 +53,38 @@ function makeCumulative(target) {
             newOut.set(region, newRegionOut);
         });
 
+        const oldGhg = yearTarget.get("ghg");
+        const newGhg = new Map();
+        Array.of(...oldGhg.keys()).forEach((region) => {
+            const oldRegionGhg = oldGhg.get(region);
+            const newRegionGhg = new Map();
+
+            if (!priorValues.has(region)) {
+                priorValues.set(region, new Map());
+            }
+
+            const priorValuesRegion = priorValues.get(region);
+
+            Array.of(...oldRegionGhg.entries()).forEach((entry) => {
+                const attrName = entry[0];
+                const oldValue = entry[1];
+
+                if (!priorValuesRegion.has(attrName)) {
+                    priorValuesRegion.set(attrName, 0);
+                }
+
+                const newValue = priorValuesRegion.get(attrName) + oldValue;
+
+                newRegionGhg.set(attrName, newValue);
+                priorValuesRegion.set(attrName, newValue);
+            });
+
+            newGhg.set(region, newRegionGhg);
+        });
+
         const decoratedOut = new Map();
         decoratedOut.set("out", newOut);
+        decoratedOut.set("ghg", newGhg);
         decoratedOut.set("in", yearTarget.get("in"));
 
         allNewOutputs.set(year, decoratedOut);
@@ -76,9 +106,9 @@ function makeYearDelta(target, baseline) {
     const allNewOutputs = new Map();
     years.forEach((year) => {
         const yearTarget = target.get(year);
+
         const oldOut = yearTarget.get("out");
         const newOut = new Map();
-
         Array.of(...oldOut.keys()).forEach((region) => {
             const oldRegionOut = oldOut.get(region);
             const newRegionOut = new Map();
@@ -96,9 +126,29 @@ function makeYearDelta(target, baseline) {
             newOut.set(region, newRegionOut);
         });
 
+        const oldGhg = yearTarget.get("ghg");
+        const newGhg = new Map();
+        Array.of(...oldGhg.keys()).forEach((region) => {
+            const oldRegionGhg = oldGhg.get(region);
+            const newRegionGhg = new Map();
+
+            const baselineRegion = baseline.get("ghg").get(region);
+
+            Array.of(...oldRegionGhg.entries()).forEach((entry) => {
+                const attrName = entry[0];
+                const oldValue = entry[1];
+
+                const newValue = oldValue - baselineRegion.get(attrName);
+                newRegionGhg.set(attrName, newValue);
+            });
+
+            newGhg.set(region, newRegionGhg);
+        });
+
         const decoratedOut = new Map();
         decoratedOut.set("out", newOut);
         decoratedOut.set("in", yearTarget.get("in"));
+        decoratedOut.set("ghg", yearTarget.get("ghg"));
 
         allNewOutputs.set(year, decoratedOut);
     });
