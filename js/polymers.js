@@ -864,8 +864,8 @@ function getGhg(state, region, volume, leverName) {
     // metric kiloton
     const emissionsKt = intensity * volume;
 
-    // metric gigatons
-    const emissionsMt = emissionsKt * 0.000001;
+    // metric megatons
+    const emissionsMt = emissionsKt * 0.001;
 
     return emissionsMt;
 }

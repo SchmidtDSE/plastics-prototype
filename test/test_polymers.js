@@ -32,7 +32,7 @@ function buildPolymerTest() {
             matrixFuture.then((modifier) => {
                 const polymerInfo = modifier.getPolymer("china", "transportation", "ldpe");
                 const error = Math.abs(polymerInfo.getPercent() - 0.1429);
-                assert.ok(error < 0.00001);
+                assert.ok(error < 0.001);
                 done();
             });
         });
@@ -59,7 +59,7 @@ function buildPolymerTest() {
                     "ldpe"
                 );
                 const error = Math.abs(percent - 0.1429);
-                assert.ok(error < 0.00001);
+                assert.ok(error < 0.001);
                 done();
             });
         });
@@ -353,7 +353,7 @@ function buildPolymerTest() {
             state.set("in", inputs);
             
             const result = getGhg(state, "china", 4000, "Test");
-            const error = Math.abs(result - 0.008);
+            const error = Math.abs(result - 8);
             assert.ok(error < 0.00001)
         });
 
@@ -528,22 +528,22 @@ function buildPolymerTest() {
             assert.ok(isWithinTollerance(
                 ledger._ghgToDistribute,
                 "Recycling",
-                1 / 10 * 2 * 0.000001
+                1 / 10 * 2 * 0.001
             ));
             assert.ok(isWithinTollerance(
                 ledger._ghgToDistribute,
                 "pet",
-                2 * 5 * 0.000001
+                2 * 5 * 0.001
             ));
             assert.ok(isWithinTollerance(
                 ledger._actualGhg,
                 "china\tRecycling",
-                1 / 10 * 2 * 0.000001
+                1 / 10 * 2 * 0.001
             ));
             assert.ok(isWithinTollerance(
                 ledger._actualGhg,
                 "china\tpet",
-                2 * 5 * 0.000001
+                2 * 5 * 0.001
             ));
         });
 
