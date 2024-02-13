@@ -132,7 +132,7 @@ class TimeDeltaPresenter {
         );
         unitOptions.set(
             GOALS.ghg,
-            {"short": "GMT", "long": "Gigatons CO2 Equivalent"},
+            {"short": "GMT", "long": "Megatons CO2 Equivalent"},
         );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];
