@@ -54,6 +54,7 @@ function buildPolymerTest() {
             modifierFuture.then((modifier) => {
                 const percent = modifier._getPolymerPercent(
                     new Map(),
+                    2050,
                     "china",
                     "transportation",
                     "ldpe"
@@ -70,6 +71,7 @@ function buildPolymerTest() {
             modifierFuture.then((modifier) => {
                 const percent = modifier._getPolymerPercent(
                     new Map(),
+                    2050,
                     "china",
                     "textiles",
                     "pp&a fibers"
@@ -86,6 +88,7 @@ function buildPolymerTest() {
             modifierFuture.then((modifier) => {
                 const percent = modifier._getPolymerPercent(
                     new Map(),
+                    2050,
                     "china",
                     "textiles",
                     "other"
@@ -102,6 +105,7 @@ function buildPolymerTest() {
             modifierFuture.then((modifier) => {
                 const percent = modifier._getPolymerPercent(
                     new Map(),
+                    2050,
                     "china",
                     "other",
                     "pp&a fibers"
@@ -595,14 +599,38 @@ function buildPolymerTest() {
 
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const priorPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
-                const priorPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+                const priorPS = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "ps"
+                );
+                const priorPP = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "pp"
+                );
 
                 modifier._addOverrides(state, 2040);
                 assert.ok(state.has("polymerOverrides"));
                 
-                const newPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
-                const newPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+                const newPS = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "ps"
+                );
+                const newPP = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "pp"
+                );
 
                 assert.ok(Math.abs(newPS - priorPS) < 0.0001);
                 assert.ok(Math.abs(newPP - priorPP) < 0.0001);
@@ -634,14 +662,38 @@ function buildPolymerTest() {
 
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const priorPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
-                const priorPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+                const priorPS = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "ps"
+                );
+                const priorPP = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "pp"
+                );
 
                 modifier._addOverrides(state, 2040);
                 assert.ok(state.has("polymerOverrides"));
                 
-                const newPS = modifier._getPolymerPercent(state, "china", "packaging", "ps");
-                const newPP = modifier._getPolymerPercent(state, "china", "packaging", "pp");
+                const newPS = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "ps"
+                );
+                const newPP = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "pp"
+                );
 
                 assert.ok(newPS < priorPS);
                 assert.ok(newPP > priorPP);
@@ -674,9 +726,21 @@ function buildPolymerTest() {
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
                 modifier._addOverrides(state, 2040);
-                const newPSChina = modifier._getPolymerPercent(state, "china", "packaging", "ps");
+                const newPSChina = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "packaging",
+                    "ps"
+                );
                 assert.ok(Math.abs(newPSChina) < 0.0001);
-                const newPSNafta = modifier._getPolymerPercent(state, "nafta", "packaging", "ps");
+                const newPSNafta = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "nafta",
+                    "packaging",
+                    "ps"
+                );
                 assert.ok(Math.abs(newPSNafta) > 0.0001);
                 done();
             });

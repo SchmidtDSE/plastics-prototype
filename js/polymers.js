@@ -666,6 +666,8 @@ class StateModifier {
     _getPolymerPercent(state, year, region, subtype, polymer) {
         const self = this;
 
+        const requestedAdditives = polymer === "additives";
+
         const getAdditivesPercent = () => {
             const testing = !state.has("in");
             if (testing) {
@@ -684,6 +686,10 @@ class StateModifier {
         };
 
         const getNonAdditivesPercent = () => {
+            if (requestedAdditives) {
+                return 0;
+            }
+            
             // Check for polymer overrides
             if (state.has("polymerOverrides")) {
                 const overrides = state.get("polymerOverrides");
@@ -711,7 +717,7 @@ class StateModifier {
             }
         }
 
-        if (polymer === "additives") {
+        if (requestedAdditives) {
             return getAdditivesPercent();
         } else {
             const additivesPercent = getAdditivesPercent();
