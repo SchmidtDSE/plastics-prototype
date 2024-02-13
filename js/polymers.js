@@ -76,6 +76,9 @@ const TEXTILE_POLYMER = "pp&a fibers";
 const TEXTILE_ATTR = "consumptionTextileMT";
 const TEXTILES_SUBTYPE = "textiles";
 
+// Expected additives polymer name
+const ADDITIVES_POLYMER = "additives";
+
 
 /**
  * Information about a polymer (like ps) in a subtype (like transportation).
@@ -479,13 +482,19 @@ class StateModifier {
             return 1;
         }
 
-        const percentReductionTarget = inputs.get(region + "AdditivesPercentReduction") / 100;
+        const key = region + "AdditivesPercentReduction";
+        const testing = !inputs.has(key);
+        if (testing) {
+            return 1;
+        }
+
+        const percentReductionTarget = inputs.get(key) / 100;
         const done = year >= endYear;
         const duration = endYear - startYear;
         const yearsEllapsed = year - startYear;
         const percentReductionInterpolate = yearsEllapsed / duration * percentReductionTarget;
         const percentReduction = done ? percentReductionTarget : percentReductionInterpolate;
-
+        
         return 1 - percentReduction;
     }
 
@@ -528,7 +537,7 @@ class StateModifier {
         const polymerMap = new Map();
         regions.forEach((region) => {
             const goodsPolymers = self._getGoodsPolymers(region, state, year);
-            const textilePolymers = self._getTextilePolymers(region, state);
+            const textilePolymers = self._getTextilePolymers(region, state, year);
             const consumptionPolymers = self._combinePolymerVectors(goodsPolymers, textilePolymers);
 
             const goodsSubtypes = GOODS.map((x) => x["subtype"]);
@@ -558,7 +567,7 @@ class StateModifier {
     _getAllPolymers() {
         const self = this;
         const nativePolymers = self._matricies.getPolymers();
-        return new Set([...nativePolymers, TEXTILE_POLYMER]);
+        return new Set([...nativePolymers, TEXTILE_POLYMER, ADDITIVES_POLYMER]);
     }
 
     _getAllSubtypes() {
@@ -592,13 +601,25 @@ class StateModifier {
         return vectors.reduce((a, b) => self._combinePolymerVectors(a, b));
     }
 
-    _getTextilePolymers(region, state) {
+    _getTextilePolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
         const vector = self._makeEmptyPolymersVector();
         const volume = out.get(TEXTILE_ATTR);
         const newTotal = vector.get(TEXTILE_POLYMER) + volume;
-        vector.set(TEXTILE_POLYMER, newTotal);
+        
+        const additivesPercent = self._getPolymerPercent(
+            state,
+            year,
+            region,
+            TEXTILES_SUBTYPE,
+            ADDITIVES_POLYMER
+        );
+        const newAdditives = additivesPercent * volume;
+        vector.set(ADDITIVES_POLYMER, vector.get(ADDITIVES_POLYMER) + newAdditives);
+        
+        vector.set(TEXTILE_POLYMER, newTotal - newAdditives);
+
         return vector;
     }
 
@@ -639,6 +660,7 @@ class StateModifier {
         vector.set("pet", 0);
         vector.set("pur", 0);
         vector.set("pp&a fibers", 0);
+        vector.set("additives", 0);
         vector.set("other thermoplastics", 0);
         vector.set("other thermosets", 0);
         return vector;
@@ -658,6 +680,7 @@ class StateModifier {
         add("pet");
         add("pur");
         add("pp&a fibers");
+        add("additives");
         add("other thermoplastics");
         add("other thermosets");
         return vector;
@@ -666,7 +689,7 @@ class StateModifier {
     _getPolymerPercent(state, year, region, subtype, polymer) {
         const self = this;
 
-        const requestedAdditives = polymer === "additives";
+        const requestedAdditives = polymer === ADDITIVES_POLYMER;
 
         const getAdditivesPercent = () => {
             const testing = !state.has("in");
@@ -680,7 +703,7 @@ class StateModifier {
                 return 0;
             }
 
-            const additivesTotalPercent = inputs.get(additivesKey);
+            const additivesTotalPercent = inputs.get(additivesKey) / 100;
             const additivesPercentRemain = self._getAdditivesRemaining(state, year, region);
             return additivesTotalPercent * additivesPercentRemain;
         };

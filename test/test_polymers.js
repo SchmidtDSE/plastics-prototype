@@ -65,6 +65,109 @@ function buildPolymerTest() {
             });
         });
 
+        QUnit.test("query for non-textile polymer with additives", function(assert) {
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            
+            const inputs = new Map();
+            inputs.set("chinaPercentTransporationAdditives", 1);
+
+            const state = new Map();
+            state.set("in", inputs);
+            
+            modifierFuture.then((modifier) => {
+                const percent = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "transportation",
+                    "ldpe"
+                );
+                const error = Math.abs(percent - (0.1429 * 0.99));
+                assert.ok(error < 0.001);
+                done();
+            });
+        });
+
+        QUnit.test("query for non-textile polymer with additives wind down", function(assert) {
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            
+            const inputs = new Map();
+            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaAdditivesPercentReduction", 80);
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+
+            const state = new Map();
+            state.set("in", inputs);
+            
+            modifierFuture.then((modifier) => {
+                const percent = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "transportation",
+                    "ldpe"
+                );
+                const multiplier = 1 - (0.01 * 0.2);
+                const error = Math.abs(percent - (0.1429 * multiplier));
+                assert.ok(error < 0.001);
+                done();
+            });
+        });
+
+        QUnit.test("query for additives", function(assert) {
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            
+            const inputs = new Map();
+            inputs.set("chinaPercentTransporationAdditives", 1);
+
+            const state = new Map();
+            state.set("in", inputs);
+            
+            modifierFuture.then((modifier) => {
+                const percent = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "transportation",
+                    "additives"
+                );
+                const error = Math.abs(percent - 0.01);
+                assert.ok(error < 0.001);
+                done();
+            });
+        });
+
+        QUnit.test("query for additives wind down", function(assert) {
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            
+            const inputs = new Map();
+            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaAdditivesPercentReduction", 80);
+            inputs.set("startYear", 2020);
+            inputs.set("endYearImmediate", 2030);
+
+            const state = new Map();
+            state.set("in", inputs);
+            
+            modifierFuture.then((modifier) => {
+                const percent = modifier._getPolymerPercent(
+                    state,
+                    2050,
+                    "china",
+                    "transportation",
+                    "additives"
+                );
+                const error = Math.abs(percent - 0.01 * 0.2);
+                assert.ok(error < 0.001);
+                done();
+            });
+        });
+
         QUnit.test("query for textile polymer match", function(assert) {
             const done = assert.async();
             const modifierFuture = buildModifier();
@@ -177,7 +280,7 @@ function buildPolymerTest() {
             const done = assert.async();
             const modifierFuture = buildModifier();
             modifierFuture.then((modifier) => {
-                const result = modifier._getTextilePolymers("china", state);
+                const result = modifier._getTextilePolymers("china", state, 2050);
                 assert.ok(isWithinTollerance(result, "pp&a fibers", 1));
                 done();
             });
@@ -205,6 +308,33 @@ function buildPolymerTest() {
             });
         });
 
+        QUnit.test("get goods polymers", function(assert) {
+            const chinaMap = new Map();
+            GOODS.map((x) => x["attr"]).forEach((attr, i) => {
+                chinaMap.set(attr, i + 1);
+            });
+
+            const outMap = new Map();
+            outMap.set("china", chinaMap);
+
+            const inMap = new Map();
+            inMap.set("chinaPercentTransporationAdditives", 1);
+
+            const state = new Map();
+            state.set("out", outMap);
+            state.set("in", inMap);
+
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                const result = modifier._getGoodsPolymers("china", state);
+                assert.ok(Math.abs(result.get("pp")) > 0);
+                assert.ok(Math.abs(result.get("additives")) > 0);
+                assert.ok(isWithinTollerance(result, "pp&a fibers", 0));
+                done();
+            });
+        });
+
         QUnit.test("get trade polymers", function(assert) {
             const outMap = new Map();
 
@@ -216,8 +346,12 @@ function buildPolymerTest() {
                 outMap.set(region, regionMap);
             });
 
+            const inMap = new Map();
+            inMap.set("chinaPercentTransporationAdditives", 1);
+
             const state = new Map();
             state.set("out", outMap);
+            state.set("in", inMap);
 
             const done = assert.async();
             const modifierFuture = buildModifier();
@@ -225,7 +359,37 @@ function buildPolymerTest() {
                 modifier._addDetailedTrade(2050, state);
                 const result = modifier._getTradePolymers(2050, "china", state, [TEXTILES_SUBTYPE]);
                 assert.ok(isWithinTollerance(result, "pp", 0));
+                assert.ok(isWithinTollerance(result, "additives", 0));
                 assert.ok(result.get("pp&a fibers") < 0);
+                done();
+            });
+        });
+
+        QUnit.test("get trade polymers additives", function(assert) {
+            const outMap = new Map();
+
+            ["china", "eu30", "nafta", "row"].forEach((region) => {
+                const regionMap = new Map();
+                regionMap.set("consumptionPackagingMT", 1);
+                regionMap.set("netImportsMT", 0);
+                regionMap.set("netExportsMT", 10);
+                outMap.set(region, regionMap);
+            });
+
+            const inMap = new Map();
+            inMap.set("chinaPercentPackagingAdditives", 1);
+
+            const state = new Map();
+            state.set("out", outMap);
+            state.set("in", inMap);
+
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                modifier._addDetailedTrade(2050, state);
+                const result = modifier._getTradePolymers(2050, "china", state, ["packaging"]);
+                console.log(result);
+                assert.ok(result.get("additives") < 0);
                 done();
             });
         });
@@ -239,11 +403,15 @@ function buildPolymerTest() {
                 chinaMap.set(attr, i + 2);
             });
 
+            const inMap = new Map();
+            inMap.set("chinaPercentTextileAdditives", 1);
+
             const outMap = new Map();
             outMap.set("china", chinaMap);
 
             const state = new Map();
             state.set("out", outMap);
+            state.set("in", inMap);
 
             const done = assert.async();
             const modifierFuture = buildModifier();
@@ -257,6 +425,13 @@ function buildPolymerTest() {
                 );
                 assert.ok(
                     result.get("polymers").get("china").get("goodsTrade").get("pp&a fibers") < 0
+                );
+
+                assert.ok(
+                    result.get("polymers").get("china").get("consumption").get("additives") > 0
+                );
+                assert.ok(
+                    result.get("polymers").get("china").get("goodsTrade").get("additives") < 0
                 );
                 done();
             });
