@@ -31,7 +31,7 @@ const ADDITIVES_KEYS = {
     "household_leisure_sports": "PercentHouseholdLeisureSportsAdditives",
     "agriculture": "PercentAgricultureAdditives",
     "textiles": "PercentTextileAdditives",
-    "others": "PercentOtherAdditives"
+    "others": "PercentOtherAdditives",
 };
 
 // Define expected resin subtypes which may contain multiple polymers.
@@ -420,7 +420,7 @@ class StateModifier {
                     year,
                     region,
                     "packaging",
-                    polymer
+                    polymer,
                 );
                 packagingPolymers.set(polymer, polymerPercent);
             });
@@ -494,7 +494,7 @@ class StateModifier {
         const yearsEllapsed = year - startYear;
         const percentReductionInterpolate = yearsEllapsed / duration * percentReductionTarget;
         const percentReduction = done ? percentReductionTarget : percentReductionInterpolate;
-        
+
         return 1 - percentReduction;
     }
 
@@ -590,7 +590,7 @@ class StateModifier {
                     year,
                     region,
                     info["subtype"],
-                    polymer
+                    polymer,
                 );
                 const polymerVolume = percent * volume;
                 const newTotal = vector.get(polymer) + polymerVolume;
@@ -607,17 +607,17 @@ class StateModifier {
         const vector = self._makeEmptyPolymersVector();
         const volume = out.get(TEXTILE_ATTR);
         const newTotal = vector.get(TEXTILE_POLYMER) + volume;
-        
+
         const additivesPercent = self._getPolymerPercent(
             state,
             year,
             region,
             TEXTILES_SUBTYPE,
-            ADDITIVES_POLYMER
+            ADDITIVES_POLYMER,
         );
         const newAdditives = additivesPercent * volume;
         vector.set(ADDITIVES_POLYMER, vector.get(ADDITIVES_POLYMER) + newAdditives);
-        
+
         vector.set(TEXTILE_POLYMER, newTotal - newAdditives);
 
         return vector;
@@ -696,7 +696,7 @@ class StateModifier {
             if (testing) {
                 return 0;
             }
-            
+
             const additivesKey = region + ADDITIVES_KEYS[subtype];
             const inputs = state.get("in");
             if (!inputs.has(additivesKey)) {
@@ -712,7 +712,7 @@ class StateModifier {
             if (requestedAdditives) {
                 return 0;
             }
-            
+
             // Check for polymer overrides
             if (state.has("polymerOverrides")) {
                 const overrides = state.get("polymerOverrides");
@@ -738,7 +738,7 @@ class StateModifier {
                     return percent;
                 }
             }
-        }
+        };
 
         if (requestedAdditives) {
             return getAdditivesPercent();
