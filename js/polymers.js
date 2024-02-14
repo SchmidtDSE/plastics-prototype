@@ -60,6 +60,8 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+const POLYMER_NAMES = GHGS.map((x) => x["polymerName"]);
+
 // Make mapping between the levers' names for EOL fates and the output attributes for those volumes.
 const EOLS = [
     {"leverName": "Landfill", "attr": "eolLandfillMT"},
@@ -67,6 +69,8 @@ const EOLS = [
     {"leverName": "Recycling", "attr": "eolRecyclingMT"},
     {"leverName": "Mismanaged", "attr": "eolMismanagedMT"},
 ];
+
+const EOL_LEVERS = EOLS.map((x) => x["leverName"]);
 
 // Set max number of iterations for back-propagation to meet constraints.
 const MAX_NORM_ITERATIONS = 20;
@@ -412,9 +416,8 @@ class StateModifier {
         const regions = Array.of(...state.get("out").keys());
         regions.forEach((region) => {
             const packagingPolymers = new Map();
-            const polymerNames = GHGS.map((x) => x["polymerName"]);
 
-            polymerNames.forEach((polymer) => {
+            POLYMER_NAMES.forEach((polymer) => {
                 const polymerPercent = self._getPolymerPercent(
                     state,
                     year,
@@ -430,7 +433,7 @@ class StateModifier {
             const changePs = packagingPolymers.get("ps") * (1 - percentRemaining);
             packagingPolymers.set("ps", newPs);
 
-            const otherPolymers = polymerNames.filter((x) => x !== "ps");
+            const otherPolymers = POLYMER_NAMES.filter((x) => x !== "ps");
             const individualAdjValues = otherPolymers.map((x) => packagingPolymers.get(x));
             const otherTotal = individualAdjValues.reduce((a, b) => a + b);
 
@@ -441,7 +444,7 @@ class StateModifier {
                 packagingPolymers.set(x, offset + currentValue);
             });
 
-            polymerNames.forEach((polymer) => {
+            POLYMER_NAMES.forEach((polymer) => {
                 const key = self._getOverrideKey(region, "packaging", polymer);
                 overrides.set(key, packagingPolymers.get(polymer));
             });
@@ -954,8 +957,39 @@ class StateModifier {
 
 
 function getGhg(state, region, volume, leverName) {
-    const inputName = region + leverName + "Emissions";
-    const intensity = state.get("in").get(inputName);
+    const inputNameBase = region + leverName + "Emissions";
+    const regionOut = state.get("out").get(region);
+    const isTesting = !regionOut.has("primaryProductionMT");
+
+    const getPrimaryPercent = () => {
+        if (isTesting) {
+            return 1;
+        }
+
+        const primaryProduction = regionOut.get("primaryProductionMT");
+        const secondaryProduction = regionOut.get("secondaryProductionMT");
+        const naiveSecondary = secondaryProduction / (primaryProduction + secondaryProduction);
+        return 1 - naiveSecondary;
+    };
+
+    const getIntensity = () => {
+        const isEol = EOL_LEVERS.indexOf(leverName) != -1;
+        if (isEol) {
+            return state.get("in").get(inputNameBase);
+        } else {
+            const inputNameProduction = inputNameBase + "Production";
+            const intensityProduction = state.get("in").get(inputNameProduction);
+
+            const inputNameConversion = inputNameBase + "Conversion";
+            const intensityConversion = state.get("in").get(inputNameConversion);
+
+            const productionPercent = getPrimaryPercent();
+
+            return intensityProduction * productionPercent + intensityConversion;
+        }
+    };
+
+    const intensity = getIntensity();
 
     // metric kiloton
     const emissionsKt = intensity * volume;
