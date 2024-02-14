@@ -958,6 +958,13 @@ class StateModifier {
 function getGhg(state, region, volume, leverName) {
     const inputNameBase = region + leverName + "Emissions";
 
+    const getPrimaryPercent = () => {
+        const regionMap = state.get("out").get(region);
+        const primaryProduction = regionMap.get("primaryProductionMT");
+        const secondaryProduction = regionMap.get("secondaryProductionMT");
+        return primaryProduction / (primaryProduction + secondaryProduction);
+    };
+
     const getIntensity = () => {
         const isEol = EOL_LEVERS.indexOf(leverName) != -1;
         if (isEol) {
@@ -968,8 +975,10 @@ function getGhg(state, region, volume, leverName) {
 
             const inputNameConversion = inputNameBase + "Conversion";
             const intensityConversion = state.get("in").get(inputNameConversion);
+
+            const productionPercent = getPrimaryPercent();
             
-            return intensityProduction + intensityConversion;
+            return intensityProduction * productionPercent + intensityConversion;
         }
     }
 
