@@ -6,7 +6,7 @@ var totalPriorAdditives = (
   out.{{ region }}.consumptionElectronicMT * in.{{region}}PercentElectronicAdditives / 100 +
   out.{{ region }}.consumptionHouseholdLeisureSportsMT * in.{{region}}PercentHouseholdLeisureSportsAdditives / 100 +
   out.{{ region }}.consumptionPackagingMT * in.{{region}}PercentPackagingAdditives / 100 +
-  out.{{ region }}.consumptionTransporationMT * in.{{region}}PercentTransporationAdditives / 100 +
+  out.{{ region }}.consumptionTransportationMT * in.{{region}}PercentTransportationAdditives / 100 +
   out.{{ region }}.consumptionTextileMT * in.{{region}}PercentTextileAdditives / 100 +
   out.{{ region }}.consumptionOtherMT * in.{{region}}PercentOtherAdditives / 100
 );
@@ -24,7 +24,7 @@ distribute offsetMT across [
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
@@ -37,7 +37,7 @@ var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ];

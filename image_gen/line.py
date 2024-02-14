@@ -100,7 +100,7 @@ def main():
                         project_ml.consumptionOtherMT +
                         project_ml.consumptionPackagingMT +
                         project_ml.consumptionTextileMT +
-                        project_ml.consumptionTransporationMT
+                        project_ml.consumptionTransportationMT
                     ) AS totalConsumptionMT,
                     project_ml.population AS populationMillions,
                     gdp.gdpSum AS gdpSum

@@ -93,7 +93,7 @@ void loadSemiconstants() {
   CONSUMPTION_COLS.put("consumptionElectronicMT", "Electronic");
   CONSUMPTION_COLS.put("consumptionHouseholdLeisureSportsMT", "House Leisure Sport");
   CONSUMPTION_COLS.put("consumptionPackagingMT", "Packaging");
-  CONSUMPTION_COLS.put("consumptionTransporationMT", "Transportation");
+  CONSUMPTION_COLS.put("consumptionTransportationMT", "Transportation");
   CONSUMPTION_COLS.put("consumptionTextileMT", "Textile");
   CONSUMPTION_COLS.put("consumptionOtherMT", "Other");
   

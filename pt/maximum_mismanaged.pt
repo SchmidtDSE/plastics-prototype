@@ -58,7 +58,7 @@ var delayLifecycle = lifecycle of [
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] + delayProduction;
@@ -117,7 +117,7 @@ distribute newInductivePlasticsMT across [
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;

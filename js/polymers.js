@@ -13,7 +13,7 @@ const CACHE_BUSTER = Date.now();
 
 // Define expected attributes of final products and their associated polymer pipeline types
 const GOODS = [
-    {"attr": "consumptionTransporationMT", "subtype": "transportation"},
+    {"attr": "consumptionTransportationMT", "subtype": "transportation"},
     {"attr": "consumptionPackagingMT", "subtype": "packaging"},
     {"attr": "consumptionConstructionMT", "subtype": "building_construction"},
     {"attr": "consumptionElectronicMT", "subtype": "electrical_electronic"},
@@ -24,7 +24,7 @@ const GOODS = [
 
 // Define mapping to levers which indicate the amount of additives
 const ADDITIVES_KEYS = {
-    "transportation": "PercentTransporationAdditives",
+    "transportation": "PercentTransportationAdditives",
     "packaging": "PercentPackagingAdditives",
     "building_construction": "PercentConstructionAdditives",
     "electrical_electronic": "PercentElectronicAdditives",
