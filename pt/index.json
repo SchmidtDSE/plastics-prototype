@@ -1175,7 +1175,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PET Emissions",
+                    "name": "China Production PET",
                     "description": "China production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1191,7 +1191,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PET Emissions",
+                    "name": "China Production PET",
                     "description": "China production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1207,7 +1207,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production HDPE Emissions",
+                    "name": "China Production HDPE",
                     "description": "China production emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1223,7 +1223,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion HDPE Emissions",
+                    "name": "China Conversion HDPE",
                     "description": "China conversion emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1239,7 +1239,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PVC Emissions",
+                    "name": "China Production PVC",
                     "description": "China production emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -1255,7 +1255,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion PVC Emissions",
+                    "name": "China Conversion PVC",
                     "description": "China conversion emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -1271,7 +1271,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production LLDPE Emissions",
+                    "name": "China Production LLDPE",
                     "description": "China production emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1287,7 +1287,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion LLDPE Emissions",
+                    "name": "China Conversion LLDPE",
                     "description": "China conversion emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1303,7 +1303,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PP Emissions",
+                    "name": "China Production PP",
                     "description": "China production emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -1319,7 +1319,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion PP Emissions",
+                    "name": "China Conversion PP",
                     "description": "China conversion emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -1335,7 +1335,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PS Emissions",
+                    "name": "China Production PS",
                     "description": "China production emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -1351,7 +1351,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion PS Emissions",
+                    "name": "China Conversion PS",
                     "description": "China conversion emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -1367,7 +1367,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PUR Emissions",
+                    "name": "China Production PUR",
                     "description": "China production emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -1383,7 +1383,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion PUR Emissions",
+                    "name": "China Conversion PUR",
                     "description": "China conversion emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -1399,7 +1399,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production PPA Fibers Emissions",
+                    "name": "China Production PPA Fibers",
                     "description": "China production emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -1415,7 +1415,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion PPA Fibers Emissions",
+                    "name": "China Conversion PPA Fibers",
                     "description": "China conversion emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -1431,7 +1431,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production Additives Emissions",
+                    "name": "China Production Additives",
                     "description": "China production emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -1447,7 +1447,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion Additives Emissions",
+                    "name": "China Conversion Additives",
                     "description": "China conversion emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -1463,7 +1463,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Production Other Emissions",
+                    "name": "China Production Other",
                     "description": "China production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -1479,7 +1479,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Conversion Other Emissions",
+                    "name": "China Conversion Other",
                     "description": "China conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -1495,7 +1495,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Landfill Emissions",
+                    "name": "China Landfill",
                     "description": "End of life emissions associated with landfill waste.",
                     "min": 0,
                     "max": 7000,
@@ -1511,7 +1511,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Incineration Emissions",
+                    "name": "China Incineration",
                     "description": "End of life emissions associated with incineration waste.",
                     "min": 0,
                     "max": 7000,
@@ -1527,7 +1527,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Recycling Emissions",
+                    "name": "China Recycling",
                     "description": "End of life emissions associated with recycling waste.",
                     "min": 0,
                     "max": 7000,
@@ -1543,7 +1543,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "China Mismanaged Emissions",
+                    "name": "China Mismanaged",
                     "description": "End of life emissions associated with mismanaged waste.",
                     "min": 0,
                     "max": 7000,
@@ -1559,7 +1559,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PET Emissions",
+                    "name": "EU 30 Production PET",
                     "description": "EU 30 production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1575,7 +1575,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PET Emissions",
+                    "name": "EU 30 Production PET",
                     "description": "EU 30 production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1591,7 +1591,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production HDPE Emissions",
+                    "name": "EU 30 Production HDPE",
                     "description": "EU 30 production emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1607,7 +1607,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion HDPE Emissions",
+                    "name": "EU 30 Conversion HDPE",
                     "description": "EU 30 conversion emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1623,7 +1623,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PVC Emissions",
+                    "name": "EU 30 Production PVC",
                     "description": "EU 30 production emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -1639,7 +1639,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion PVC Emissions",
+                    "name": "EU 30 Conversion PVC",
                     "description": "EU 30 conversion emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -1655,7 +1655,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production LLDPE Emissions",
+                    "name": "EU 30 Production LLDPE",
                     "description": "EU 30 production emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1671,7 +1671,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion LLDPE Emissions",
+                    "name": "EU 30 Conversion LLDPE",
                     "description": "EU 30 conversion emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1687,7 +1687,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PP Emissions",
+                    "name": "EU 30 Production PP",
                     "description": "EU 30 production emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -1703,7 +1703,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion PP Emissions",
+                    "name": "EU 30 Conversion PP",
                     "description": "EU 30 conversion emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -1719,7 +1719,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PS Emissions",
+                    "name": "EU 30 Production PS",
                     "description": "EU 30 production emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -1735,7 +1735,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion PS Emissions",
+                    "name": "EU 30 Conversion PS",
                     "description": "EU 30 conversion emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -1751,7 +1751,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PUR Emissions",
+                    "name": "EU 30 Production PUR",
                     "description": "EU 30 production emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -1767,7 +1767,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion PUR Emissions",
+                    "name": "EU 30 Conversion PUR",
                     "description": "EU 30 conversion emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -1783,7 +1783,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production PPA Fibers Emissions",
+                    "name": "EU 30 Production PPA Fibers",
                     "description": "EU 30 production emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -1799,7 +1799,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion PPA Fibers Emissions",
+                    "name": "EU 30 Conversion PPA Fibers",
                     "description": "EU 30 conversion emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -1815,7 +1815,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production Additives Emissions",
+                    "name": "EU 30 Production Additives",
                     "description": "EU 30 production emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -1831,7 +1831,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion Additives Emissions",
+                    "name": "EU 30 Conversion Additives",
                     "description": "EU 30 conversion emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -1847,7 +1847,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Production Other Emissions",
+                    "name": "EU 30 Production Other",
                     "description": "EU 30 production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -1863,7 +1863,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Conversion Other Emissions",
+                    "name": "EU 30 Conversion Other",
                     "description": "EU 30 conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -1879,7 +1879,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Landfill Emissions",
+                    "name": "EU 30 Landfill",
                     "description": "End of life emissions associated with landfill waste.",
                     "min": 0,
                     "max": 7000,
@@ -1895,7 +1895,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Incineration Emissions",
+                    "name": "EU 30 Incineration",
                     "description": "End of life emissions associated with incineration waste.",
                     "min": 0,
                     "max": 7000,
@@ -1911,7 +1911,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Recycling Emissions",
+                    "name": "EU 30 Recycling",
                     "description": "End of life emissions associated with recycling waste.",
                     "min": 0,
                     "max": 7000,
@@ -1927,7 +1927,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "EU 30 Mismanaged Emissions",
+                    "name": "EU 30 Mismanaged",
                     "description": "End of life emissions associated with mismanaged waste.",
                     "min": 0,
                     "max": 7000,
@@ -1943,7 +1943,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PET Emissions",
+                    "name": "NAFTA Production PET",
                     "description": "NAFTA production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1959,7 +1959,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PET Emissions",
+                    "name": "NAFTA Production PET",
                     "description": "NAFTA production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -1975,7 +1975,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production HDPE Emissions",
+                    "name": "NAFTA Production HDPE",
                     "description": "NAFTA production emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -1991,7 +1991,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion HDPE Emissions",
+                    "name": "NAFTA Conversion HDPE",
                     "description": "NAFTA conversion emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2007,7 +2007,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PVC Emissions",
+                    "name": "NAFTA Production PVC",
                     "description": "NAFTA production emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -2023,7 +2023,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion PVC Emissions",
+                    "name": "NAFTA Conversion PVC",
                     "description": "NAFTA conversion emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -2039,7 +2039,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production LLDPE Emissions",
+                    "name": "NAFTA Production LLDPE",
                     "description": "NAFTA production emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2055,7 +2055,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion LLDPE Emissions",
+                    "name": "NAFTA Conversion LLDPE",
                     "description": "NAFTA conversion emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2071,7 +2071,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PP Emissions",
+                    "name": "NAFTA Production PP",
                     "description": "NAFTA production emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -2087,7 +2087,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion PP Emissions",
+                    "name": "NAFTA Conversion PP",
                     "description": "NAFTA conversion emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -2103,7 +2103,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PS Emissions",
+                    "name": "NAFTA Production PS",
                     "description": "NAFTA production emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -2119,7 +2119,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion PS Emissions",
+                    "name": "NAFTA Conversion PS",
                     "description": "NAFTA conversion emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -2135,7 +2135,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PUR Emissions",
+                    "name": "NAFTA Production PUR",
                     "description": "NAFTA production emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -2151,7 +2151,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion PUR Emissions",
+                    "name": "NAFTA Conversion PUR",
                     "description": "NAFTA conversion emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -2167,7 +2167,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production PPA Fibers Emissions",
+                    "name": "NAFTA Production PPA Fibers",
                     "description": "NAFTA production emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -2183,7 +2183,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion PPA Fibers Emissions",
+                    "name": "NAFTA Conversion PPA Fibers",
                     "description": "NAFTA conversion emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -2199,7 +2199,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production Additives Emissions",
+                    "name": "NAFTA Production Additives",
                     "description": "NAFTA production emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -2215,7 +2215,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion Additives Emissions",
+                    "name": "NAFTA Conversion Additives",
                     "description": "NAFTA conversion emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -2231,7 +2231,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Production Other Emissions",
+                    "name": "NAFTA Production Other",
                     "description": "NAFTA production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -2247,7 +2247,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Conversion Other Emissions",
+                    "name": "NAFTA Conversion Other",
                     "description": "NAFTA conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -2263,7 +2263,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Landfill Emissions",
+                    "name": "NAFTA Landfill",
                     "description": "End of life emissions associated with landfill waste.",
                     "min": 0,
                     "max": 7000,
@@ -2279,7 +2279,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Incineration Emissions",
+                    "name": "NAFTA Incineration",
                     "description": "End of life emissions associated with incineration waste.",
                     "min": 0,
                     "max": 7000,
@@ -2295,7 +2295,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Recycling Emissions",
+                    "name": "NAFTA Recycling",
                     "description": "End of life emissions associated with recycling waste.",
                     "min": 0,
                     "max": 7000,
@@ -2311,7 +2311,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "NAFTA Mismanaged Emissions",
+                    "name": "NAFTA Mismanaged",
                     "description": "End of life emissions associated with mismanaged waste.",
                     "min": 0,
                     "max": 7000,
@@ -2327,7 +2327,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PET Emissions",
+                    "name": "RoW Production PET",
                     "description": "RoW production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -2343,7 +2343,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PET Emissions",
+                    "name": "RoW Production PET",
                     "description": "RoW production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -2359,7 +2359,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production HDPE Emissions",
+                    "name": "RoW Production HDPE",
                     "description": "RoW production emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2375,7 +2375,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion HDPE Emissions",
+                    "name": "RoW Conversion HDPE",
                     "description": "RoW conversion emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2391,7 +2391,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PVC Emissions",
+                    "name": "RoW Production PVC",
                     "description": "RoW production emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -2407,7 +2407,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion PVC Emissions",
+                    "name": "RoW Conversion PVC",
                     "description": "RoW conversion emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -2423,7 +2423,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production LLDPE Emissions",
+                    "name": "RoW Production LLDPE",
                     "description": "RoW production emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2439,7 +2439,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion LLDPE Emissions",
+                    "name": "RoW Conversion LLDPE",
                     "description": "RoW conversion emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -2455,7 +2455,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PP Emissions",
+                    "name": "RoW Production PP",
                     "description": "RoW production emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -2471,7 +2471,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion PP Emissions",
+                    "name": "RoW Conversion PP",
                     "description": "RoW conversion emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -2487,7 +2487,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PS Emissions",
+                    "name": "RoW Production PS",
                     "description": "RoW production emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -2503,7 +2503,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion PS Emissions",
+                    "name": "RoW Conversion PS",
                     "description": "RoW conversion emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -2519,7 +2519,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PUR Emissions",
+                    "name": "RoW Production PUR",
                     "description": "RoW production emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -2535,7 +2535,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion PUR Emissions",
+                    "name": "RoW Conversion PUR",
                     "description": "RoW conversion emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -2551,7 +2551,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production PPA Fibers Emissions",
+                    "name": "RoW Production PPA Fibers",
                     "description": "RoW production emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -2567,7 +2567,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion PPA Fibers Emissions",
+                    "name": "RoW Conversion PPA Fibers",
                     "description": "RoW conversion emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -2583,7 +2583,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production Additives Emissions",
+                    "name": "RoW Production Additives",
                     "description": "RoW production emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -2599,7 +2599,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion Additives Emissions",
+                    "name": "RoW Conversion Additives",
                     "description": "RoW conversion emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -2615,7 +2615,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Production Other Emissions",
+                    "name": "RoW Production Other",
                     "description": "RoW production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -2631,7 +2631,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Conversion Other Emissions",
+                    "name": "RoW Conversion Other",
                     "description": "RoW conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -2647,7 +2647,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Landfill Emissions",
+                    "name": "RoW Landfill",
                     "description": "End of life emissions associated with landfill waste.",
                     "min": 0,
                     "max": 7000,
@@ -2663,7 +2663,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Incineration Emissions",
+                    "name": "RoW Incineration",
                     "description": "End of life emissions associated with incineration waste.",
                     "min": 0,
                     "max": 7000,
@@ -2679,7 +2679,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Recycling Emissions",
+                    "name": "RoW Recycling",
                     "description": "End of life emissions associated with recycling waste.",
                     "min": 0,
                     "max": 7000,
@@ -2695,7 +2695,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "RoW Mismanaged Emissions",
+                    "name": "RoW Mismanaged",
                     "description": "End of life emissions associated with mismanaged waste.",
                     "min": 0,
                     "max": 7000,
