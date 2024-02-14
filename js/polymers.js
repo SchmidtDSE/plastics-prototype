@@ -965,7 +965,7 @@ function getGhg(state, region, volume, leverName) {
         if (isTesting) {
             return 1;
         }
-        
+
         const primaryProduction = regionOut.get("primaryProductionMT");
         const secondaryProduction = regionOut.get("secondaryProductionMT");
         const naiveSecondary = secondaryProduction / (primaryProduction + secondaryProduction);
@@ -984,10 +984,10 @@ function getGhg(state, region, volume, leverName) {
             const intensityConversion = state.get("in").get(inputNameConversion);
 
             const productionPercent = getPrimaryPercent();
-            
+
             return intensityProduction * productionPercent + intensityConversion;
         }
-    }
+    };
 
     const intensity = getIntensity();
 
