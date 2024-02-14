@@ -85,6 +85,19 @@ const ADDITIVES_POLYMER = "additives";
 
 
 /**
+ * Make a string key representing the identity of an object.
+ * 
+ * @param pieces Pieces of the identity which are case insensitive. 
+ * @returns Uniquely identifying string.
+ */
+function makeKey(pieces) {
+    const piecesStr = pieces.map((x) => x + "");
+    const piecesLower = piecesStr.map((x) => x.toLowerCase());
+    return "\t".join(piecesLower);
+}
+
+
+/**
  * Information about a polymer (like ps) in a subtype (like transportation).
  */
 class PolymerInfo {
@@ -173,17 +186,33 @@ class PolymerInfo {
 /**
  * Get the string key describing a combination of region, subtype, and polymer.
  *
- * @param region The region like china.
- * @param subtype The subtype like packaging.
- * @param polymer The polymer like pet.
+ * @param region The region like china case insensitive.
+ * @param subtype The subtype like packaging case insensitive.
+ * @param polymer The polymer like pet case insensitive.
  * @returns String identifying a PolymerInfo.
  */
 function getPolymerKey(region, subtype, polymer) {
-    return region + "\t" + subtype + "\t" + polymer;
+    const pieces = [region, subtype, polymer];
+    return makeKey(pieces);
 }
 
 
+/**
+ * Information about a subtype of material to track.
+ * 
+ * Information about a subtype of material to track including the volume ratio like between a type
+ * of trade and overall trade within a region and year.
+ */
 class SubtypeInfo {
+
+    /**
+     * Create a new record of material subtype.
+     * 
+     * @param year The year in which subtype information are available like 2050.
+     * @param region The region like china in which the subtype information are available.
+     * @param subtype The name of the subtype like transportation.
+     * @param ratio The ratio of the subtype volume to the overall volume.
+     */
     constructor(year, region, subtype, ratio) {
         const self = this;
         self._year = year;
@@ -192,26 +221,52 @@ class SubtypeInfo {
         self._ratio = ratio;
     }
 
+    /**
+     * Get the year for which this information is available.
+     * 
+     * @returns The year in which subtype information are available like 2050.
+     */
     getYear() {
         const self = this;
         return self._year;
     }
 
+    /**
+     * Get the location for which this information is avilable.
+     * 
+     * @returns The region like china in which the subtype information are available.
+     */
     getRegion() {
         const self = this;
         return self._region;
     }
 
+    /**
+     * Get the type of volume described by this record.
+     * 
+     * @returns The name of the subtype like transportation.
+     */
     getSubtype() {
         const self = this;
         return self._subtype;
     }
 
+    /**
+     * Get the volume ratio for this subtype in this year / region.
+     * 
+     * @returns The ratio of the subtype volume to the overall volume such as subtype trade ratio to
+     *      overall net trade ratio.
+     */
     getRatio() {
         const self = this;
         return self._ratio;
     }
 
+    /**
+     * Get a string uniquely identifying this record.
+     * 
+     * @returns String uniquely identifying this combination of year, region, and subtype.
+     */
     getKey() {
         const self = this;
         return getSubtypeKey(self._year, self._region, self._subtype);
@@ -219,12 +274,28 @@ class SubtypeInfo {
 }
 
 
+/**
+ * Get a string uniquely identifying a subtype information record.
+ * 
+ * @returns String uniquely identifying this combination of year, region, and subtype.
+ */
 function getSubtypeKey(year, region, subtype) {
     return year + "\t" + region + "\t" + subtype;
 }
 
 
+/**
+ * Object describing an observed or predicted resin trade volume.
+ */
 class ResinTrade {
+
+    /**
+     * Create a new resin trade record.
+     * 
+     * @param year The year for which this volume is provided like 2050.
+     * @param region The region for which this volume is provided like eu30.
+     * @param netImportResin The net amount of resin imported across all polymers.
+     */
     constructor(year, region, netImportResin) {
         const self = this;
         self._year = year;
@@ -232,21 +303,41 @@ class ResinTrade {
         self._netImportResin = netImportResin;
     }
 
+    /**
+     * Get the year for which this information is available.
+     * 
+     * @returns The year for which this volume is provided like 2050.
+     */
     getYear() {
         const self = this;
         return self._year;
     }
 
+    /**
+     * Get the location of this volume.
+     * 
+     * @returns The region for which this volume is provided like eu30.
+     */
     getRegion() {
         const self = this;
         return self._region;
     }
 
+    /**
+     * Get the net import of resin for this region / year as a sum across all polymers.
+     * 
+     * @returns The net amount of resin imported across all polymers.
+     */
     getNetImportResin() {
         const self = this;
         return self._netImportResin;
     }
 
+    /**
+     * Get a string uniquely identifying this resin trade record.
+     * 
+     * @returns String describing this combination of year and region.
+     */
     getKey() {
         const self = this;
         return getResinTradeKey(self._year, self._region);
@@ -254,12 +345,27 @@ class ResinTrade {
 }
 
 
+/**
+ * Get a string uniquely describing this resin trade volume.
+ * 
+ * @param year The year of the record.
+ * @param region The region of the record.
+ * @returns String uniquely describing the combination of year and region.
+ */
 function getResinTradeKey(year, region) {
-    return year + "\t" + region;
+    const pieces = [year, region];
+    return makeKey(pieces);
 }
 
 
+/**
+ * Collection of matricies for subtypes and their polymers.
+ */
 class PolymerMatricies {
+
+    /**
+     * Create a new empty set of matricies.
+     */
     constructor() {
         const self = this;
         self._polymerInfos = new Map();
@@ -273,6 +379,11 @@ class PolymerMatricies {
         self._series = new Set();
     }
 
+    /**
+     * Add information about a polymer within a subtype.
+     * 
+     * @param target New PolymerInfo object to register.
+     */
     addPolymer(target) {
         const self = this;
         self._polymerInfos.set(target.getKey(), target);
@@ -282,12 +393,25 @@ class PolymerMatricies {
         self._series.add(target.getSeries());
     }
 
+    /**
+     * Get information on an individual polymer like ps within a subtype like packaging.
+     * 
+     * @param region The region like eu30 case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @param polymer The name of the polymer like pur case insensitive.
+     * @returns Corresponding PolymerInfo object.
+     */
     getPolymer(region, subtype, polymer) {
         const self = this;
         const key = getPolymerKey(region, subtype, polymer);
         return self._polymerInfos.get(key);
     }
 
+    /**
+     * Add information about a subtype.
+     * 
+     * @param target New SubtypeInfo object to register.
+     */
     addSubtype(target) {
         const self = this;
         self._subtypeInfos.set(target.getKey(), target);
@@ -296,12 +420,25 @@ class PolymerMatricies {
         self._subtypes.add(target.getSubtype());
     }
 
+    /**
+     * Get information about a subtype.
+     * 
+     * @param year The year for which subtype info is requested like 2050.
+     * @param region The region in which subtype info is requested like nafta case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @returns SubtypeInfo object.
+     */
     getSubtype(year, region, subtype) {
         const self = this;
         const key = getSubtypeKey(year, region, subtype);
         return self._subtypeInfos.get(key);
     }
 
+    /**
+     * Add information about resin trade.
+     * 
+     * @param target New ResinTrade object to register.
+     */
     addResinTrade(target) {
         const self = this;
         self._resinTradeInfos.set(target.getKey(), target);
@@ -309,69 +446,149 @@ class PolymerMatricies {
         self._regions.add(target.getRegion());
     }
 
+    /**
+     * Get information about resin trade.
+     * 
+     * @param year The year for which net resin trade is desired like 2050.
+     * @param region The region for which net resin trade is desired like row case insensitive.
+     * @returns New ResinTrade object.
+     */
     getResinTrade(year, region) {
         const self = this;
         const key = getResinTradeKey(year, region);
         return self._resinTradeInfos.get(key);
     }
 
+    /**
+     * Get the set of unique subtypes observed across matricies like packaging.
+     * 
+     * @returns Set of strings representing unique subtypes observed. No order guaranteed.
+     */
     getSubtypes() {
         const self = this;
         return self._subtypes;
     }
 
+    /**
+     * Get unique regions found within these matricies like eu30.
+     * 
+     * @returns Set of strings representing unique regions observed. No order guaranteed.
+     */
     getRegions() {
         const self = this;
         return self._regions;
     }
 
+    /**
+     * Get unique polymers found within these matricies like pur.
+     * 
+     * @returns Set of strings representing unique polymers observed. No order guaranteed.
+     */
     getPolymers() {
         const self = this;
         return self._polymers;
     }
 
+    /**
+     * Get unique series found within these matricies like goods or resin.
+     * 
+     * @returns Set of strings representing unique series observed. No order guaranteed.
+     */
     getSeries() {
         const self = this;
         return self._series;
     }
 }
 
+
+/**
+ * A decorator for PolymerMatricies which makes it immutable.
+ */
 class ImmutablePolymerMatricies {
+
+    /**
+     * Decorate a polymer matricies set to make it immutable.
+     * 
+     * @param inner The matricies to make immutable.
+     */
     constructor(inner) {
         const self = this;
         self._inner = inner;
     }
 
+    /**
+     * Get information on an individual polymer like ps within a subtype like packaging.
+     * 
+     * @param region The region like eu30 case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @param polymer The name of the polymer like pur case insensitive.
+     * @returns Corresponding PolymerInfo object.
+     */
     getPolymer(region, subtype, polymer) {
         const self = this;
         return self._inner.getPolymer(region, subtype, polymer);
     }
 
+    /**
+     * Get information about a subtype.
+     * 
+     * @param year The year for which subtype info is requested like 2050.
+     * @param region The region in which subtype info is requested like nafta case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @returns SubtypeInfo object.
+     */
     getSubtype(year, region, subtype) {
         const self = this;
         return self._inner.getSubtype(year, region, subtype);
     }
 
+    /**
+     * Get information about resin trade.
+     * 
+     * @param year The year for which net resin trade is desired like 2050.
+     * @param region The region for which net resin trade is desired like row case insensitive.
+     * @returns New ResinTrade object.
+     */
     getResinTrade(year, region) {
         const self = this;
         return self._inner.getResinTrade(year, region);
     }
 
+    /**
+     * Get the set of unique subtypes observed across matricies like packaging.
+     * 
+     * @returns Set of strings representing unique subtypes observed. No order guaranteed.
+     */
     getSubtypes() {
         const self = this;
         return self._inner.getSubtypes();
     }
 
+    /**
+     * Get unique regions found within these matricies like eu30.
+     * 
+     * @returns Set of strings representing unique regions observed. No order guaranteed.
+     */
     getRegions() {
         const self = this;
         return self._inner.getRegions();
     }
 
+    /**
+     * Get unique polymers found within these matricies like pur.
+     * 
+     * @returns Set of strings representing unique polymers observed. No order guaranteed.
+     */
     getPolymers() {
         const self = this;
         return self._inner.getPolymers();
     }
 
+    /**
+     * Get unique series found within these matricies like goods or resin.
+     * 
+     * @returns Set of strings representing unique series observed. No order guaranteed.
+     */
     getSeries() {
         const self = this;
         return self._inner.getSeries();
