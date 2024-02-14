@@ -206,7 +206,7 @@ class ReportPresenter {
         self._landfillWastePresenter = null;
         self._mismanagedWastePresenter = null;
         self._incineratedWastePresenter = null;
-        self._recyclingPresenter = null;
+        self._ghgPresenter = null;
         self._bubblegraphPresenter = null;
         self._configPresenter = null;
         self._consumptionStagePresenter = null;
@@ -305,7 +305,7 @@ class ReportPresenter {
         self._landfillWastePresenter.update(resultSet, self._selection);
         self._mismanagedWastePresenter.update(resultSet, self._selection);
         self._incineratedWastePresenter.update(resultSet, self._selection);
-        self._recyclingPresenter.update(resultSet, self._selection);
+        self._ghgPresenter.update(resultSet, self._selection);
         self._bubblegraphPresenter.update(resultSet, self._selection);
         self._configPresenter.update(resultSet, self._selection);
         self._consumptionStagePresenter.update(resultSet, self._selection);
@@ -394,10 +394,10 @@ class ReportPresenter {
             () => self._onRequestRender(),
         );
 
-        const recyclingDiv = document.getElementById("recycling-goal-container");
-        self._recyclingPresenter = new GoalPresenter(
-            recyclingDiv,
-            "recycling",
+        const ghgDiv = document.getElementById("ghg-goal-container");
+        self._ghgPresenter = new GoalPresenter(
+            ghgDiv,
+            "ghg",
             (region) => self._onRegionChange(region),
             () => self._onRequestRender(),
         );
@@ -555,8 +555,16 @@ class ReportPresenter {
             newOut.set(region, newRegionOut);
         });
 
+        const newGhg = new Map();
+        state.get("ghg").forEach((regionOriginal, region) => {
+            const newRegionGhg = new Map();
+            makePercents(regionOriginal, newRegionGhg, ["overallGhg"]);
+            newOut.set(region, newRegionGhg);
+        });
+
         const newState = new Map();
         newState.set("out", newOut);
+        newState.set("ghg", newGhg);
         return newState;
     }
 
