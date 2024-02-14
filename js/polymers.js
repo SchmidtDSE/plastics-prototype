@@ -68,6 +68,8 @@ const EOLS = [
     {"leverName": "Mismanaged", "attr": "eolMismanagedMT"},
 ];
 
+const EOL_LEVERS = EOLS.map((x) => x["leverName"]);
+
 // Set max number of iterations for back-propagation to meet constraints.
 const MAX_NORM_ITERATIONS = 20;
 
@@ -954,8 +956,24 @@ class StateModifier {
 
 
 function getGhg(state, region, volume, leverName) {
-    const inputName = region + leverName + "Emissions";
-    const intensity = state.get("in").get(inputName);
+    const inputNameBase = region + leverName + "Emissions";
+
+    const getIntensity = () => {
+        const isEol = EOL_LEVERS.indexOf(leverName) != -1;
+        if (isEol) {
+            return state.get("in").get(inputNameBase);
+        } else {
+            const inputNameProduction = inputNameBase + "Production";
+            const intensityProduction = state.get("in").get(inputNameProduction);
+
+            const inputNameConversion = inputNameBase + "Conversion";
+            const intensityConversion = state.get("in").get(inputNameConversion);
+            
+            return intensityProduction + intensityConversion;
+        }
+    }
+
+    const intensity = getIntensity();
 
     // metric kiloton
     const emissionsKt = intensity * volume;
