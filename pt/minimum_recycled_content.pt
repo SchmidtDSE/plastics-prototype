@@ -16,7 +16,7 @@ var totalConsumption = (
   out.{{ region }}.consumptionTextileMT + 
   out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
   out.{{ region }}.consumptionElectronicMT + 
-  out.{{ region }}.consumptionTransporationMT + 
+  out.{{ region }}.consumptionTransportationMT + 
   out.{{ region }}.consumptionAgricultureMT + 
   out.{{ region }}.consumptionOtherMT + 
   out.{{ region }}.netExportsMT
@@ -44,7 +44,7 @@ var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionElectronicMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionOtherMT
 ];
@@ -129,7 +129,7 @@ distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionElectronicMT,
   out.{{ region }}.consumptionHouseholdLeisureSportsMT,
   out.{{ region }}.consumptionPackagingMT,
-  out.{{ region }}.consumptionTransporationMT,
+  out.{{ region }}.consumptionTransportationMT,
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;

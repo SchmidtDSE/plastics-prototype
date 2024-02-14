@@ -70,7 +70,7 @@ function buildPolymerTest() {
             const modifierFuture = buildModifier();
             
             const inputs = new Map();
-            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaPercentTransportationAdditives", 1);
 
             const state = new Map();
             state.set("in", inputs);
@@ -94,7 +94,7 @@ function buildPolymerTest() {
             const modifierFuture = buildModifier();
             
             const inputs = new Map();
-            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaPercentTransportationAdditives", 1);
             inputs.set("chinaAdditivesPercentReduction", 80);
             inputs.set("startYear", 2020);
             inputs.set("endYearImmediate", 2030);
@@ -122,7 +122,7 @@ function buildPolymerTest() {
             const modifierFuture = buildModifier();
             
             const inputs = new Map();
-            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaPercentTransportationAdditives", 1);
 
             const state = new Map();
             state.set("in", inputs);
@@ -146,7 +146,7 @@ function buildPolymerTest() {
             const modifierFuture = buildModifier();
             
             const inputs = new Map();
-            inputs.set("chinaPercentTransporationAdditives", 1);
+            inputs.set("chinaPercentTransportationAdditives", 1);
             inputs.set("chinaAdditivesPercentReduction", 80);
             inputs.set("startYear", 2020);
             inputs.set("endYearImmediate", 2030);
@@ -318,7 +318,7 @@ function buildPolymerTest() {
             outMap.set("china", chinaMap);
 
             const inMap = new Map();
-            inMap.set("chinaPercentTransporationAdditives", 1);
+            inMap.set("chinaPercentTransportationAdditives", 1);
 
             const state = new Map();
             state.set("out", outMap);
@@ -347,7 +347,7 @@ function buildPolymerTest() {
             });
 
             const inMap = new Map();
-            inMap.set("chinaPercentTransporationAdditives", 1);
+            inMap.set("chinaPercentTransportationAdditives", 1);
 
             const state = new Map();
             state.set("out", outMap);

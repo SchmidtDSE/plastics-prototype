@@ -49,7 +49,7 @@ The sectorial consumption amounts are as follows (like `out.china.consumptionPac
  - consumptionTextileMT
  - consumptionHouseholdLeisureSportsMT
  - consumptionElectronicMT
- - consumptionTransporationMT
+ - consumptionTransportationMT
  - consumptionAgricultureMT
  - consumptionOtherMT
 

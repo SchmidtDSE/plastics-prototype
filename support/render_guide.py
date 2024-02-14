@@ -46,7 +46,7 @@ def get_total_consumption(year, results_dir, region='global',
         results[region]['consumptionElectronicMT'],
         results[region]['consumptionHouseholdLeisureSportsMT'],
         results[region]['consumptionPackagingMT'],
-        results[region]['consumptionTransporationMT'],
+        results[region]['consumptionTransportationMT'],
         results[region]['consumptionTextileMT'],
         results[region]['consumptionOtherMT']
     ])

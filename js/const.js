@@ -19,7 +19,7 @@ const CONSUMPTION_ATTRS = [
     "consumptionTextileMT",
     "consumptionHouseholdLeisureSportsMT",
     "consumptionElectronicMT",
-    "consumptionTransporationMT",
+    "consumptionTransportationMT",
     "consumptionAgricultureMT",
     "consumptionOtherMT",
 ];
