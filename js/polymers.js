@@ -60,6 +60,17 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+const POLYMER_NAMES = GHGS.map((x) => x["polymerName"]);
+
+// TODO: Temporary
+const RECYCLABLE_POLYMER_NAMES = POLYMER_NAMES.filter(
+    (x) => x["polymerName"] !== "other thermosets"
+);
+
+const RECYCLABLE_LEVER_NAMES = GHGS
+    .filter((x) => RECYCLABLE_POLYMER_NAMES.indexOf(x["polymerName"]) != -1)
+    .map((x) => x["leverName"]);
+
 // Make mapping between the levers' names for EOL fates and the output attributes for those volumes.
 const EOLS = [
     {"leverName": "Landfill", "attr": "eolLandfillMT"},
@@ -414,9 +425,8 @@ class StateModifier {
         const regions = Array.of(...state.get("out").keys());
         regions.forEach((region) => {
             const packagingPolymers = new Map();
-            const polymerNames = GHGS.map((x) => x["polymerName"]);
 
-            polymerNames.forEach((polymer) => {
+            POLYMER_NAMES.forEach((polymer) => {
                 const polymerPercent = self._getPolymerPercent(
                     state,
                     year,
@@ -432,7 +442,7 @@ class StateModifier {
             const changePs = packagingPolymers.get("ps") * (1 - percentRemaining);
             packagingPolymers.set("ps", newPs);
 
-            const otherPolymers = polymerNames.filter((x) => x !== "ps");
+            const otherPolymers = POLYMER_NAMES.filter((x) => x !== "ps");
             const individualAdjValues = otherPolymers.map((x) => packagingPolymers.get(x));
             const otherTotal = individualAdjValues.reduce((a, b) => a + b);
 
@@ -443,7 +453,7 @@ class StateModifier {
                 packagingPolymers.set(x, offset + currentValue);
             });
 
-            polymerNames.forEach((polymer) => {
+            POLYMER_NAMES.forEach((polymer) => {
                 const key = self._getOverrideKey(region, "packaging", polymer);
                 overrides.set(key, packagingPolymers.get(polymer));
             });
@@ -957,12 +967,29 @@ class StateModifier {
 
 function getGhg(state, region, volume, leverName) {
     const inputNameBase = region + leverName + "Emissions";
+    const regionOut = state.get("out").get(region);
+    const regionPolymers = state.get("polymers").get(region).get("consumption");
+
+    const getPercentRecyclable = () => {
+        const getTotalPolymers = (names) => {
+            return names.map((name) => regionPolymers.get(name)).reduce((a, b) => a + b);
+        }
+        const totalPolymers = getTotalPolymers(POLYMER_NAMES);
+        const recyclingPolymers = getTotalPolymers(RECYCLABLE_POLYMER_NAMES);
+
+        return recyclingPolymers / totalPolymers;
+    };
 
     const getPrimaryPercent = () => {
-        const regionMap = state.get("out").get(region);
-        const primaryProduction = regionMap.get("primaryProductionMT");
-        const secondaryProduction = regionMap.get("secondaryProductionMT");
-        return primaryProduction / (primaryProduction + secondaryProduction);
+        if (RECYCLABLE_LEVER_NAMES.indexOf(leverName) == -1) {
+            return 1;
+        }
+        
+        const primaryProduction = regionOut.get("primaryProductionMT");
+        const secondaryProduction = regionOut.get("secondaryProductionMT");
+        const naiveSecondary = secondaryProduction / (primaryProduction + secondaryProduction);
+        const adjustedSecondary = naiveSecondary / getPercentRecyclable();
+        return 1 - adjustedSecondary;
     };
 
     const getIntensity = () => {
