@@ -482,7 +482,8 @@ function buildPolymerTest() {
                 outMap.set(region, regionMap);
 
                 GHGS.forEach((info, i) => {
-                    inMap.set(region + info["leverName"] + "Emissions", i);
+                    inMap.set(region + info["leverName"] + "EmissionsProduction", i * 0.5);
+                    inMap.set(region + info["leverName"] + "EmissionsConversion", i * 0.5);
                 });
 
                 EOLS.forEach((info, i) => {
@@ -526,10 +527,15 @@ function buildPolymerTest() {
 
         QUnit.test("get GHG", function(assert) {
             const inputs = new Map();
-            inputs.set("chinaTestEmissions", 2);
+            inputs.set("chinaTestEmissionsProduction", 1.5);
+            inputs.set("chinaTestEmissionsConversion", 0.5);
             
+            const outputs = new Map();
+            outputs.set("china", new Map());
+
             const state = new Map();
             state.set("in", inputs);
+            state.set("out", outputs);
             
             const result = getGhg(state, "china", 4000, "Test");
             const error = Math.abs(result - 8);
@@ -679,11 +685,18 @@ function buildPolymerTest() {
             polymers.set("china", chinaPolymers);
 
             const inputs = new Map();
+            const addEmissions = (key, value) => {
+                inputs.set(key + "Production", value * 0.9);
+                inputs.set(key + "Conversion", value * 0.1);
+            };
+            GHGS.forEach((info, i) => {
+                addEmissions("china" + info["leverName"] + "Emissions", 0);
+            });
+            addEmissions("chinaPETEmissions", 5);
             inputs.set("chinaLandfillEmissions", 1);
             inputs.set("chinaRecyclingEmissions", 2);
             inputs.set("chinaIncinerationEmissions", 3);
             inputs.set("chinaMismanagedEmissions", 4);
-            inputs.set("chinaPETEmissions", 5);
 
             const state = new Map();
             state.set("out", outputs);
