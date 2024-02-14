@@ -596,12 +596,29 @@ class ImmutablePolymerMatricies {
 }
 
 
+/**
+ * Facade which modifies states to include polymers, ghg, and global values.
+ */
 class StateModifier {
+
+    /**
+     * Create a new modifier.
+     * 
+     * @param matricies The matricies to use in modifying states.
+     */
     constructor(matricies) {
         const self = this;
         self._matricies = matricies;
     }
 
+    /**
+     * Modify a state to include polymers, ghg, and global values.
+     * 
+     * @param year The year that the state object represents.
+     * @param state The state object (Map) to modify. This will be modified in place.
+     * @param attrs The attributes to include in global calculation.
+     * @returns Modified state object which is the input state modified in place.
+     */
     modify(year, state, attrs) {
         const self = this;
 
@@ -625,6 +642,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Add polymer ratio overrides specific to this state / year.
+     * 
+     * @param state The state object (Map) in which to add the overrides. Modified in place.
+     * @param year The year that the state object represents.
+     * @returns Modified state object (Map).
+     */
     _addOverrides(state, year) {
         const self = this;
         const overrides = new Map();
@@ -672,6 +696,17 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Get the percent of polystyrene remaining in packaging relative to BAU.
+     * 
+     * Get the percent of polystyrene remaining in packaging relative to business as usual where
+     * this percentage is modified by policies.
+     * 
+     * @param state The state object (Map) from which the percentage should be derived.
+     * @param year The year represented by the state object.
+     * @param region The region like nafta for which the percentage is desired.
+     * @returns Percentage (0 - 1) of the amount of polystyrene still in packaging relative to BAU.
+     */
     _getPercentPackagingPsRemaining(state, year, region) {
         const self = this;
         const inputs = state.get("in");
@@ -692,6 +727,17 @@ class StateModifier {
         return 1 - percentReduction;
     }
 
+    /**
+     * Get the percent of additives remaining in all sectors relative to BAU.
+     * 
+     * Get the percent of additives remaining in all sectors relative to business as usual where
+     * this percentage is changed through policies.
+     * 
+     * @param state The state object (Map) from which this percentage should be derived.
+     * @param year The year represented by the state object.
+     * @param region The region for which the percentage should be generated.
+     * @returns Percentage of additives remaining as a number between 0 and 1.
+     */
     _getAdditivesRemaining(state, year, region) {
         const self = this;
         const inputs = state.get("in");
@@ -718,6 +764,12 @@ class StateModifier {
         return 1 - percentReduction;
     }
 
+    /**
+     * Create a new empty GHG record in the state object (Map).
+     * 
+     * @param state The state in which to make the empty GHG record to be filled in further at later
+     *      steps.
+     */
     _makeGhgInState(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
@@ -729,6 +781,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Add net trade at the subtype level into a state object.
+     * 
+     * @param year The year represented by the given state object.
+     * @param state The state object (Map) to modify in place to include detailed trade.
+     * @return The provided state object which was modified in place.
+     */
     _addDetailedTrade(year, state) {
         const self = this;
         const subtypes = self._getAllSubtypes();
@@ -750,6 +809,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Calculate polymer levels (polymer-level volume by region) and put them in a state object.
+     * 
+     * @param year The year for which the state object is provided.
+     * @param state The state object (Map) in which to create the polymer counts. Modified in place.
+     * @returns The input state object after in-place modification.
+     */
     _calculatePolymers(year, state) {
         const self = this;
 
@@ -784,18 +850,36 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Get all of the unique polymers like pur expected.
+     * 
+     * @returns Set of unique polymers without order guarantee.
+     */
     _getAllPolymers() {
         const self = this;
         const nativePolymers = self._matricies.getPolymers();
         return new Set([...nativePolymers, TEXTILE_POLYMER, ADDITIVES_POLYMER]);
     }
 
+    /**
+     * Get all of the unique subtypes like transportation expected.
+     * 
+     * @returns Set of unique subtypes without order guarantee.
+     */
     _getAllSubtypes() {
         const self = this;
         const nativeSubtypes = self._matricies.getSubtypes();
         return new Set([...nativeSubtypes, TEXTILES_SUBTYPE]);
     }
 
+    /**
+     * Get a vector describing the volume of polymers in goods based on consumption.
+     * 
+     * @param region The region like row for which the polymer vector is desired.
+     * @param state The state object (Map) from which the polymer vector should be derived.
+     * @param year The year like 2040.
+     * @returns Vector of polymer 
+     */
     _getGoodsPolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
