@@ -40,12 +40,10 @@
                             <div class="overview-section cumulative-toggle">
                                 <h2 class="post-intro post-intro-early interactive-h2" id="overview-anchor-selector" aria-label="Overview">
                                     Overview Showing Plastic
-                                    <span class="sel"><select class="goal-select" aria-label="Metric dropdown">
+                                    <span class="sel"><select class="goal-select" id="overview-goal-select" aria-label="Metric dropdown">
                                         <option value="mismanagedWaste" selected>Mismanaged Waste</option>
                                         <option value="incineratedWaste">Incinerated Waste</option>
                                         <option value="landfillWaste">Landfill Waste</option>
-                                        <option value="recycling">Recycling</option>
-                                        <option value="ghg">Greenhouse Gas</option>
                                     </select></span>
                                     as
                                     <span class="sel"><select class="metric-select" aria-label="Treatment dropdown">
@@ -81,13 +79,13 @@
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="landfill-radio-overview-top" class="overview-radio" name="overview-metric-top" value="landfill" ></div>
                                         </div>
-                                        <div class="card ghg-card post-intro" goal="ghg">
+                                        <div class="card ghg-card post-intro feature-flag-ghg" goal="ghg">
                                             <div class="title"><label for="ghg-radio-overview-top">GHG (Experimental)</label> <span class="info-target" tabindex="0" data-tippy-content="Experimental estimate of greenhouse gas emissions."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">...</div>
                                             <div class="footer">Million Metric Tons</div>
                                             <div class="overview-radio-holder"><input type="radio" id="ghg-radio-overview-top" class="overview-radio" name="overview-metric-top" value="ghg" ></div>
                                         </div>
-                                        <div class="card recycling-card post-intro" goal="recycling">
+                                        <div class="card recycling-card post-intro feature-flag-recycling" goal="recycling">
                                             <div class="title"><label for="recycling-radio-overview-top">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Plastic waste which is collected for recycling. This is before any kind of yield loss calculation for how much recycing is actually re-used."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">...</div>
                                             <div class="footer">Million Metric Tons</div>
@@ -158,13 +156,13 @@
                                             <div class="body">...</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
-                                        <div class="card ghg-card post-intro" goal="ghg">
+                                        <div class="card ghg-card post-intro feature-flag-ghg" goal="ghg">
                                             <div class="overview-radio-holder"><input type="radio" id="ghg-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="ghg" ></div>
                                             <div class="title"><label for="ghg-radio-overview-bottom">GHG (experimental)</label> <span class="info-target" tabindex="0" data-tippy-content="Change in greenhouse gas emissions. Experimental."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">...</div>
                                             <div class="footer">Million Metric Tons</div>
                                         </div>
-                                        <div class="card recycling-card post-intro" goal="recycling">
+                                        <div class="card recycling-card post-intro feature-flag-recycling" goal="recycling">
                                             <div class="overview-radio-holder"><input type="radio" id="recycling-radio-overview-bottom" class="overview-radio" name="overview-metric-bottom" value="recycling" ></div>
                                             <div class="title"><label for="recycling-radio-overview-bottom">Recycling</label> <span class="info-target" tabindex="0" data-tippy-content="Change in waste which is collected for recycling (collection rate) as a result of policies."><img alt="info" role="button" src="/img/info.png" class="info-img"></span></div>
                                             <div class="body">...</div>
@@ -229,11 +227,11 @@
                                                 <h3>Landfill Waste</h3>
                                                 <div class="bars"></div>
                                             </div>
-                                            <div class="goal-container odd" id="ghg-goal-container">
+                                            <div class="goal-container odd feature-flag-ghg" id="ghg-goal-container">
                                                 <h3>GHG (Experimental)</h3>
                                                 <div class="bars"></div>
                                             </div>
-                                            <div class="goal-container odd" id="recycling-goal-container">
+                                            <div class="goal-container odd feature-flag-recycling" id="recycling-goal-container">
                                                 <h3>Recycling</h3>
                                                 <div class="bars"></div>
                                             </div>
