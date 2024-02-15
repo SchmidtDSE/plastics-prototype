@@ -85,6 +85,19 @@ const ADDITIVES_POLYMER = "additives";
 
 
 /**
+ * Make a string key representing the identity of an object.
+ *
+ * @param pieces Pieces of the identity which are case insensitive.
+ * @returns Uniquely identifying string.
+ */
+function makeKey(pieces) {
+    const piecesStr = pieces.map((x) => x + "");
+    const piecesLower = piecesStr.map((x) => x.toLowerCase());
+    return piecesLower.join("\t");
+}
+
+
+/**
  * Information about a polymer (like ps) in a subtype (like transportation).
  */
 class PolymerInfo {
@@ -173,17 +186,32 @@ class PolymerInfo {
 /**
  * Get the string key describing a combination of region, subtype, and polymer.
  *
- * @param region The region like china.
- * @param subtype The subtype like packaging.
- * @param polymer The polymer like pet.
+ * @param region The region like china case insensitive.
+ * @param subtype The subtype like packaging case insensitive.
+ * @param polymer The polymer like pet case insensitive.
  * @returns String identifying a PolymerInfo.
  */
 function getPolymerKey(region, subtype, polymer) {
-    return region + "\t" + subtype + "\t" + polymer;
+    const pieces = [region, subtype, polymer];
+    return makeKey(pieces);
 }
 
 
+/**
+ * Information about a subtype of material to track.
+ *
+ * Information about a subtype of material to track including the volume ratio like between a type
+ * of trade and overall trade within a region and year.
+ */
 class SubtypeInfo {
+    /**
+     * Create a new record of material subtype.
+     *
+     * @param year The year in which subtype information are available like 2050.
+     * @param region The region like china in which the subtype information are available.
+     * @param subtype The name of the subtype like transportation.
+     * @param ratio The ratio of the subtype volume to the overall volume.
+     */
     constructor(year, region, subtype, ratio) {
         const self = this;
         self._year = year;
@@ -192,26 +220,52 @@ class SubtypeInfo {
         self._ratio = ratio;
     }
 
+    /**
+     * Get the year for which this information is available.
+     *
+     * @returns The year in which subtype information are available like 2050.
+     */
     getYear() {
         const self = this;
         return self._year;
     }
 
+    /**
+     * Get the location for which this information is avilable.
+     *
+     * @returns The region like china in which the subtype information are available.
+     */
     getRegion() {
         const self = this;
         return self._region;
     }
 
+    /**
+     * Get the type of volume described by this record.
+     *
+     * @returns The name of the subtype like transportation.
+     */
     getSubtype() {
         const self = this;
         return self._subtype;
     }
 
+    /**
+     * Get the volume ratio for this subtype in this year / region.
+     *
+     * @returns The ratio of the subtype volume to the overall volume such as subtype trade ratio to
+     *      overall net trade ratio.
+     */
     getRatio() {
         const self = this;
         return self._ratio;
     }
 
+    /**
+     * Get a string uniquely identifying this record.
+     *
+     * @returns String uniquely identifying this combination of year, region, and subtype.
+     */
     getKey() {
         const self = this;
         return getSubtypeKey(self._year, self._region, self._subtype);
@@ -219,12 +273,27 @@ class SubtypeInfo {
 }
 
 
+/**
+ * Get a string uniquely identifying a subtype information record.
+ *
+ * @returns String uniquely identifying this combination of year, region, and subtype.
+ */
 function getSubtypeKey(year, region, subtype) {
     return year + "\t" + region + "\t" + subtype;
 }
 
 
+/**
+ * Object describing an observed or predicted resin trade volume.
+ */
 class ResinTrade {
+    /**
+     * Create a new resin trade record.
+     *
+     * @param year The year for which this volume is provided like 2050.
+     * @param region The region for which this volume is provided like eu30.
+     * @param netImportResin The net amount of resin imported across all polymers.
+     */
     constructor(year, region, netImportResin) {
         const self = this;
         self._year = year;
@@ -232,21 +301,41 @@ class ResinTrade {
         self._netImportResin = netImportResin;
     }
 
+    /**
+     * Get the year for which this information is available.
+     *
+     * @returns The year for which this volume is provided like 2050.
+     */
     getYear() {
         const self = this;
         return self._year;
     }
 
+    /**
+     * Get the location of this volume.
+     *
+     * @returns The region for which this volume is provided like eu30.
+     */
     getRegion() {
         const self = this;
         return self._region;
     }
 
+    /**
+     * Get the net import of resin for this region / year as a sum across all polymers.
+     *
+     * @returns The net amount of resin imported across all polymers.
+     */
     getNetImportResin() {
         const self = this;
         return self._netImportResin;
     }
 
+    /**
+     * Get a string uniquely identifying this resin trade record.
+     *
+     * @returns String describing this combination of year and region.
+     */
     getKey() {
         const self = this;
         return getResinTradeKey(self._year, self._region);
@@ -254,12 +343,26 @@ class ResinTrade {
 }
 
 
+/**
+ * Get a string uniquely describing this resin trade volume.
+ *
+ * @param year The year of the record.
+ * @param region The region of the record.
+ * @returns String uniquely describing the combination of year and region.
+ */
 function getResinTradeKey(year, region) {
-    return year + "\t" + region;
+    const pieces = [year, region];
+    return makeKey(pieces);
 }
 
 
+/**
+ * Collection of matricies for subtypes and their polymers.
+ */
 class PolymerMatricies {
+    /**
+     * Create a new empty set of matricies.
+     */
     constructor() {
         const self = this;
         self._polymerInfos = new Map();
@@ -273,6 +376,11 @@ class PolymerMatricies {
         self._series = new Set();
     }
 
+    /**
+     * Add information about a polymer within a subtype.
+     *
+     * @param target New PolymerInfo object to register.
+     */
     addPolymer(target) {
         const self = this;
         self._polymerInfos.set(target.getKey(), target);
@@ -282,12 +390,25 @@ class PolymerMatricies {
         self._series.add(target.getSeries());
     }
 
+    /**
+     * Get information on an individual polymer like ps within a subtype like packaging.
+     *
+     * @param region The region like eu30 case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @param polymer The name of the polymer like pur case insensitive.
+     * @returns Corresponding PolymerInfo object.
+     */
     getPolymer(region, subtype, polymer) {
         const self = this;
         const key = getPolymerKey(region, subtype, polymer);
         return self._polymerInfos.get(key);
     }
 
+    /**
+     * Add information about a subtype.
+     *
+     * @param target New SubtypeInfo object to register.
+     */
     addSubtype(target) {
         const self = this;
         self._subtypeInfos.set(target.getKey(), target);
@@ -296,12 +417,25 @@ class PolymerMatricies {
         self._subtypes.add(target.getSubtype());
     }
 
+    /**
+     * Get information about a subtype.
+     *
+     * @param year The year for which subtype info is requested like 2050.
+     * @param region The region in which subtype info is requested like nafta case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @returns SubtypeInfo object.
+     */
     getSubtype(year, region, subtype) {
         const self = this;
         const key = getSubtypeKey(year, region, subtype);
         return self._subtypeInfos.get(key);
     }
 
+    /**
+     * Add information about resin trade.
+     *
+     * @param target New ResinTrade object to register.
+     */
     addResinTrade(target) {
         const self = this;
         self._resinTradeInfos.set(target.getKey(), target);
@@ -309,69 +443,148 @@ class PolymerMatricies {
         self._regions.add(target.getRegion());
     }
 
+    /**
+     * Get information about resin trade.
+     *
+     * @param year The year for which net resin trade is desired like 2050.
+     * @param region The region for which net resin trade is desired like row case insensitive.
+     * @returns New ResinTrade object.
+     */
     getResinTrade(year, region) {
         const self = this;
         const key = getResinTradeKey(year, region);
         return self._resinTradeInfos.get(key);
     }
 
+    /**
+     * Get the set of unique subtypes observed across matricies like packaging.
+     *
+     * @returns Set of strings representing unique subtypes observed. No order guaranteed.
+     */
     getSubtypes() {
         const self = this;
         return self._subtypes;
     }
 
+    /**
+     * Get unique regions found within these matricies like eu30.
+     *
+     * @returns Set of strings representing unique regions observed. No order guaranteed.
+     */
     getRegions() {
         const self = this;
         return self._regions;
     }
 
+    /**
+     * Get unique polymers found within these matricies like pur.
+     *
+     * @returns Set of strings representing unique polymers observed. No order guaranteed.
+     */
     getPolymers() {
         const self = this;
         return self._polymers;
     }
 
+    /**
+     * Get unique series found within these matricies like goods or resin.
+     *
+     * @returns Set of strings representing unique series observed. No order guaranteed.
+     */
     getSeries() {
         const self = this;
         return self._series;
     }
 }
 
+
+/**
+ * A decorator for PolymerMatricies which makes it immutable.
+ */
 class ImmutablePolymerMatricies {
+    /**
+     * Decorate a polymer matricies set to make it immutable.
+     *
+     * @param inner The matricies to make immutable.
+     */
     constructor(inner) {
         const self = this;
         self._inner = inner;
     }
 
+    /**
+     * Get information on an individual polymer like ps within a subtype like packaging.
+     *
+     * @param region The region like eu30 case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @param polymer The name of the polymer like pur case insensitive.
+     * @returns Corresponding PolymerInfo object.
+     */
     getPolymer(region, subtype, polymer) {
         const self = this;
         return self._inner.getPolymer(region, subtype, polymer);
     }
 
+    /**
+     * Get information about a subtype.
+     *
+     * @param year The year for which subtype info is requested like 2050.
+     * @param region The region in which subtype info is requested like nafta case insensitive.
+     * @param subtype The subtype like transportation case insensitive.
+     * @returns SubtypeInfo object.
+     */
     getSubtype(year, region, subtype) {
         const self = this;
         return self._inner.getSubtype(year, region, subtype);
     }
 
+    /**
+     * Get information about resin trade.
+     *
+     * @param year The year for which net resin trade is desired like 2050.
+     * @param region The region for which net resin trade is desired like row case insensitive.
+     * @returns New ResinTrade object.
+     */
     getResinTrade(year, region) {
         const self = this;
         return self._inner.getResinTrade(year, region);
     }
 
+    /**
+     * Get the set of unique subtypes observed across matricies like packaging.
+     *
+     * @returns Set of strings representing unique subtypes observed. No order guaranteed.
+     */
     getSubtypes() {
         const self = this;
         return self._inner.getSubtypes();
     }
 
+    /**
+     * Get unique regions found within these matricies like eu30.
+     *
+     * @returns Set of strings representing unique regions observed. No order guaranteed.
+     */
     getRegions() {
         const self = this;
         return self._inner.getRegions();
     }
 
+    /**
+     * Get unique polymers found within these matricies like pur.
+     *
+     * @returns Set of strings representing unique polymers observed. No order guaranteed.
+     */
     getPolymers() {
         const self = this;
         return self._inner.getPolymers();
     }
 
+    /**
+     * Get unique series found within these matricies like goods or resin.
+     *
+     * @returns Set of strings representing unique series observed. No order guaranteed.
+     */
     getSeries() {
         const self = this;
         return self._inner.getSeries();
@@ -379,12 +592,28 @@ class ImmutablePolymerMatricies {
 }
 
 
+/**
+ * Facade which modifies states to include polymers, ghg, and global values.
+ */
 class StateModifier {
+    /**
+     * Create a new modifier.
+     *
+     * @param matricies The matricies to use in modifying states.
+     */
     constructor(matricies) {
         const self = this;
         self._matricies = matricies;
     }
 
+    /**
+     * Modify a state to include polymers, ghg, and global values.
+     *
+     * @param year The year that the state object represents.
+     * @param state The state object (Map) to modify. This will be modified in place.
+     * @param attrs The attributes to include in global calculation.
+     * @returns Modified state object which is the input state modified in place.
+     */
     modify(year, state, attrs) {
         const self = this;
 
@@ -408,6 +637,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Add polymer ratio overrides specific to this state / year.
+     *
+     * @param state The state object (Map) in which to add the overrides. Modified in place.
+     * @param year The year that the state object represents.
+     * @returns Modified state object (Map).
+     */
     _addOverrides(state, year) {
         const self = this;
         const overrides = new Map();
@@ -455,6 +691,17 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Get the percent of polystyrene remaining in packaging relative to BAU.
+     *
+     * Get the percent of polystyrene remaining in packaging relative to business as usual where
+     * this percentage is modified by policies.
+     *
+     * @param state The state object (Map) from which the percentage should be derived.
+     * @param year The year represented by the state object.
+     * @param region The region like nafta for which the percentage is desired.
+     * @returns Percentage (0 - 1) of the amount of polystyrene still in packaging relative to BAU.
+     */
     _getPercentPackagingPsRemaining(state, year, region) {
         const self = this;
         const inputs = state.get("in");
@@ -475,6 +722,17 @@ class StateModifier {
         return 1 - percentReduction;
     }
 
+    /**
+     * Get the percent of additives remaining in all sectors relative to BAU.
+     *
+     * Get the percent of additives remaining in all sectors relative to business as usual where
+     * this percentage is changed through policies.
+     *
+     * @param state The state object (Map) from which this percentage should be derived.
+     * @param year The year represented by the state object.
+     * @param region The region for which the percentage should be generated.
+     * @returns Percentage of additives remaining as a number between 0 and 1.
+     */
     _getAdditivesRemaining(state, year, region) {
         const self = this;
         const inputs = state.get("in");
@@ -501,6 +759,12 @@ class StateModifier {
         return 1 - percentReduction;
     }
 
+    /**
+     * Create a new empty GHG record in the state object (Map).
+     *
+     * @param state The state in which to make the empty GHG record to be filled in further at later
+     *      steps.
+     */
     _makeGhgInState(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
@@ -512,6 +776,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Add net trade at the subtype level into a state object.
+     *
+     * @param year The year represented by the given state object.
+     * @param state The state object (Map) to modify in place to include detailed trade.
+     * @returns The provided state object which was modified in place.
+     */
     _addDetailedTrade(year, state) {
         const self = this;
         const subtypes = self._getAllSubtypes();
@@ -533,6 +804,13 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Calculate polymer levels (polymer-level volume by region) and put them in a state object.
+     *
+     * @param year The year for which the state object is provided.
+     * @param state The state object (Map) in which to create the polymer counts. Modified in place.
+     * @returns The input state object after in-place modification.
+     */
     _calculatePolymers(year, state) {
         const self = this;
 
@@ -567,18 +845,39 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Get all of the unique polymers like pur expected.
+     *
+     * @returns Set of unique polymers without order guarantee.
+     */
     _getAllPolymers() {
         const self = this;
         const nativePolymers = self._matricies.getPolymers();
         return new Set([...nativePolymers, TEXTILE_POLYMER, ADDITIVES_POLYMER]);
     }
 
+    /**
+     * Get all of the unique subtypes like transportation expected.
+     *
+     * @returns Set of unique subtypes without order guarantee.
+     */
     _getAllSubtypes() {
         const self = this;
         const nativeSubtypes = self._matricies.getSubtypes();
         return new Set([...nativeSubtypes, TEXTILES_SUBTYPE]);
     }
 
+    /**
+     * Get a vector describing the volume of polymers in goods based on consumption.
+     *
+     * Get a vector describing the volume of polymers in goods based on consumption excluding
+     * textiles.
+     *
+     * @param region The region like row for which the polymer vector is desired.
+     * @param state The state object (Map) from which the polymer vector should be derived.
+     * @param year The year like 2040.
+     * @returns Vector of polymer
+     */
     _getGoodsPolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
@@ -604,6 +903,14 @@ class StateModifier {
         return vectors.reduce((a, b) => self._combinePolymerVectors(a, b));
     }
 
+    /**
+     * Get a polymer vector describing textiles.
+     *
+     * @param region The region like china for which textile polymers are desired.
+     * @param state The state object (Map) from which the vector should be derived.
+     * @param year The year that the state object is for.
+     * @returns Polymer vector describing textiles.
+     */
     _getTextilePolymers(region, state, year) {
         const self = this;
         const out = state.get("out").get(region);
@@ -626,6 +933,15 @@ class StateModifier {
         return vector;
     }
 
+    /**
+     * Get a polymer vector for trade.
+     *
+     * @param year The year like 2050 for which the polymer vector is requested.
+     * @param region The region like china for which the vector is requested.
+     * @param state The state object (Map) from which it should be derived.
+     * @param subtypes The subtypes to include.
+     * @returns Polymer vector describing trade where numbers are net trade per polymer.
+     */
     _getTradePolymers(year, region, state, subtypes) {
         const self = this;
         const polymers = self._getAllPolymers();
@@ -647,11 +963,22 @@ class StateModifier {
         return vectors.reduce((a, b) => self._combinePolymerVectors(a, b));
     }
 
+    /**
+     * Get net trade from a region's outputs.
+     *
+     * @param regionOutputs The regions outputs (state.get("out").get(region)).
+     * @returns The net trade.
+     */
     _getNetTrade(regionOutputs) {
         const self = this;
         return regionOutputs.get("netImportsMT") - regionOutputs.get("netExportsMT");
     }
 
+    /**
+     * Make an empty polymer vector with all polymers set to zero.
+     *
+     * @returns Map representing a polymer vector.
+     */
     _makeEmptyPolymersVector() {
         const self = this;
         const vector = new Map();
@@ -669,6 +996,13 @@ class StateModifier {
         return vector;
     }
 
+    /**
+     * Add two polymer vectors together.
+     *
+     * @param a The first vector to add.
+     * @param b The second vector to add.
+     * @returns The result of pairwise (polymer to same polymer) addition.
+     */
     _combinePolymerVectors(a, b) {
         const self = this;
         const vector = new Map();
@@ -689,6 +1023,16 @@ class StateModifier {
         return vector;
     }
 
+    /**
+     * Get the percent of subtype mass that is a specific polymer.
+     *
+     * @param state The state from which the percentage should be found.
+     * @param year The year like 2050 for which the state is provided.
+     * @param region The region for which the percentage is desired like row.
+     * @param subtype The subtype like transportation.
+     * @param polymer The polymer like PS.
+     * @returns Percent by mass of subtype that is the given polymer.
+     */
     _getPolymerPercent(state, year, region, subtype, polymer) {
         const self = this;
 
@@ -753,6 +1097,12 @@ class StateModifier {
         }
     }
 
+    /**
+     * Normalize through back propagation the trade data to meet mass balance constraints.
+     *
+     * @param year The year for which the state object is provided.
+     * @param state The state object (Map) in which to normalize. Modified in place.
+     */
     _normalizeDetailedTrade(year, state) {
         const self = this;
         const regions = Array.from(self._matricies.getRegions());
@@ -777,6 +1127,17 @@ class StateModifier {
         self._normalizeDetailedTradeSeries(state, RESIN_SUBTYPES, resinTradeTotals, regions);
     }
 
+    /**
+     * Normalize trade for a specific subset (series) like resin or goods trade.
+     *
+     * Normalize trade for a specific subset (series) like resin or goods trade through back
+     * propagation to meet mass balance constriants.
+     *
+     * @param state The state object in which to perform back propagation.
+     * @param seriesSubtypes The subtypes to normalize together.
+     * @param seriesTotals The total volumes (sum) to try to meet per subtype.
+     * @param regions The region in which to perform the normalization.
+     */
     _normalizeDetailedTradeSeries(state, seriesSubtypes, seriesTotals, regions) {
         const self = this;
         const tradeMap = state.get("trade");
@@ -874,6 +1235,12 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Calculate the GHG associated with production.
+     *
+     * @param state The state in which to calculate the start of life GHG emissions.
+     * @returns The provided state object after in-place modification.
+     */
     _calculateStartOfLifeGhg(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
@@ -912,6 +1279,12 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Calculate the GHG associated with waste management fate.
+     *
+     * @param state The state in which to calculate the end of life GHG emissions.
+     * @returns The provided state object after in-place modification.
+     */
     _calculateEndOfLifeGhg(state) {
         const self = this;
         const regions = Array.of(...state.get("out").keys());
@@ -934,12 +1307,26 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Create global output values as the sum of regional values.
+     *
+     * @param state The state object (Map) to modify in place.
+     * @param attrs The attributes to sum across regions.
+     * @returns The state object after in-place modification.
+     */
     _addOutputGlobalToStateAttrs(state, attrs) {
         const self = this;
         addGlobalToStateAttrs(state, attrs);
         return state;
     }
 
+    /**
+     * Calculate the global GHG levels.
+     *
+     * @param year The year for which a state object is provided.
+     * @param state The state object (Map) in which to calculate global GHG emissions.
+     * @returns The state object having been modified in place.
+     */
     _calculateOverallGhg(year, state) {
         const self = this;
 
@@ -949,6 +1336,17 @@ class StateModifier {
         return state;
     }
 
+    /**
+     * Get the key for a polymer ratio override.
+     *
+     * Get the string that would be present in the overrides Map if a polymer ratio override is
+     * present.
+     *
+     * @param region The region like china.
+     * @param subtype The subtype like transportation.
+     * @param polymer The polymer like PUR.
+     * @returns The string key for the polymer ratio override.
+     */
     _getOverrideKey(region, subtype, polymer) {
         const self = this;
         return [region, subtype, polymer].join("\t");
@@ -956,6 +1354,15 @@ class StateModifier {
 }
 
 
+/**
+ * Get the GHG emissions for a polymer in a region.
+ *
+ * @param state The state object (Map) from which to derive the GHG emissions.
+ * @param region The region like china.
+ * @param volume The volume of material of the polymer in MT.
+ * @param leverName The name of the lever associated with the polymer.
+ * @returns GHG emissions in metric megatons CO2 equivalent.
+ */
 function getGhg(state, region, volume, leverName) {
     const inputNameBase = region + leverName + "Emissions";
     const regionOut = state.get("out").get(region);
@@ -1001,7 +1408,13 @@ function getGhg(state, region, volume, leverName) {
 }
 
 
+/**
+ * Tool which transits GHG through trade.
+ */
 class GhgFinalizer {
+    /**
+     * Finalize GHG emissions by applying trade.
+     */
     finalize(state) {
         const self = this;
         self._getFullyDomesticGhg(state);
@@ -1011,6 +1424,14 @@ class GhgFinalizer {
         self._addGlobalGhg(state);
     }
 
+    /**
+     * Calculate fully domestic GHG emissions within a state.
+     *
+     * Determine how much GHG emissions is associated with activity that stays entirelly within a
+     * region.
+     *
+     * @param state The state object (Map) in which to determine GHG from fully domestic activity.
+     */
     _getFullyDomesticGhg(state) {
         const self = this;
         const ghgInfo = state.get("ghg");
@@ -1038,6 +1459,12 @@ class GhgFinalizer {
         });
     }
 
+    /**
+     * Build a trade ledger which tracks the exchange of volumes across regions.
+     *
+     * @param state The state object (Map) from which to derive the trade ledger.
+     * @returns The ledger loaded with data from the state object.
+     */
     _buildLedger(state) {
         const self = this;
         const tradeLedger = new GhgTradeLedger();
@@ -1102,6 +1529,14 @@ class GhgFinalizer {
         return tradeLedger;
     }
 
+    /**
+     * Calculate GHG for trade attributed according to application configuration.
+     *
+     * @param state The state object (Map) from which to calculate GHG and in which to place trade
+     *      GHG.
+     * @param tradeLedger The ledger with trade information to use in determing how to attribute
+     *      GHG.
+     */
     _addTradeGhg(state, tradeLedger) {
         const self = this;
 
@@ -1129,6 +1564,12 @@ class GhgFinalizer {
         });
     }
 
+    /**
+     * Calculate the overall GHG emissions for a region.
+     *
+     * @param state The state object (Map) from which to find GHG values and in which to place
+     *      region totals, modifying in place.
+     */
     _addOverallGhg(state) {
         const self = this;
         const regions = self._getRegions(state);
@@ -1146,6 +1587,12 @@ class GhgFinalizer {
         });
     }
 
+    /**
+     * Calculate global GHG emissions.
+     *
+     * @param state The state object (Map) from which to get regional GHG and in which to put global
+     *      GHG, modifying in place.
+     */
     _addGlobalGhg(state) {
         const self = this;
         const ghgInfo = state.get("ghg");
@@ -1173,7 +1620,16 @@ class GhgFinalizer {
 }
 
 
+/**
+ * Ledger tracking regional trade volumes and GHG.
+ *
+ * Ledger which tracks the imports and export of plastic at material type level (like  polymer or
+ * EOL fate) along with the associated GHG emissions.
+ */
 class GhgTradeLedger {
+    /**
+     * Create a new empty trade ledger.
+     */
     constructor() {
         const self = this;
 
@@ -1188,6 +1644,14 @@ class GhgTradeLedger {
         self._typesWithImporterSource = EOLS.map((x) => x["leverName"]);
     }
 
+    /**
+     * Report imports.
+     *
+     * @param region The region like china into which this volume was imported.
+     * @param materialType The type of material like polymer or EOL fate.
+     * @param newVolume The size of the volume in MMT.
+     * @param newGhg The GHG in eCO2 megatons.
+     */
     addImport(region, materialType, newVolume, newGhg) {
         const self = this;
         self._regions.add(region);
@@ -1204,6 +1668,14 @@ class GhgTradeLedger {
         }
     }
 
+    /**
+     * Report an export of a volume.
+     *
+     * @param region The region from which the volume was exported.
+     * @param materialType The type of material like polymer or EOL fate.
+     * @param newVolume The size of the volume in MMT.
+     * @param newGhg The GHG in eCO2 megatons.
+     */
     addExport(region, materialType, newVolume, newGhg) {
         const self = this;
         self._regions.add(region);
@@ -1221,6 +1693,14 @@ class GhgTradeLedger {
         }
     }
 
+    /**
+     * Get the GHG emissions to be attributed to a region.
+     *
+     * @param region The region like china.
+     * @param materialType The type of material like polymer or EOL fate.
+     * @param percentAttributeImporter The percent (0 - 1) of the GHG emissions to attribute to the
+     *      importer of the volume. The remainder will be attributed to the exporter.
+     */
     getGhg(region, materialType, percentAttributeImporter) {
         const self = this;
         if (self._exportIsActualGhgSource(materialType)) {
@@ -1230,21 +1710,46 @@ class GhgTradeLedger {
         }
     }
 
+    /**
+     * Get the regions reported in this ledger.
+     *
+     * @returns Set of regions like eu30 not in a particular order.
+     */
     getRegions() {
         const self = this;
         return self._regions;
     }
 
+    /**
+     * Get the material types reported in this ledger.
+     *
+     * @returns Set of material types like pur or landfill not in a particular order.
+     */
     getMaterialTypes() {
         const self = this;
         return self._materialTypes;
     }
 
+    /**
+     * Get the key which can be used to determine how to combine volumes.
+     *
+     * @param region The region for which the key is generated like china.
+     * @param materialType The type of material like a polymer or EOL fate.
+     * @returns String key where volumes with the same key can be combined.
+     */
     _getCombineKey(region, materialType) {
         const self = this;
         return [region, materialType].join("\t");
     }
 
+    /**
+     * Add a value to a vector element.
+     *
+     * @param target The vector as a Map.
+     * @param key The key in which to add a value.
+     * @param addValue The value to add. This will be added to the value currently at the key before
+     *      being set with the same key.
+     */
     _addToMap(target, key, addValue) {
         const self = this;
         const original = self._getIfAvailable(target, key);
@@ -1252,17 +1757,27 @@ class GhgTradeLedger {
         target.set(key, newVal);
     }
 
+    /**
+     * Validate that the volume and GHG are valid.
+     */
     _checkVolumeAndGhg(volume, ghg) {
         const self = this;
-        if (volume < 0) {
-            throw "Encountered negative volume.";
+        if (volume < 0 || isNaN(volume)) {
+            throw "Encountered invalid or negative volume.";
         }
 
-        if (ghg < 0) {
-            throw "Encountered negative ghg.";
+        if (ghg < 0 || isNaN(volume)) {
+            throw "Encountered invalid or negative ghg.";
         }
     }
 
+    /**
+     * Get a value from a Map if available or zero if the key is not present.
+     *
+     * @param target The Map from which to get the value.
+     * @param key The key for the value to look for.
+     * @returns The value from the Map if found or zero if not.
+     */
     _getIfAvailable(target, key) {
         const self = this;
         if (target.has(key)) {
@@ -1272,6 +1787,15 @@ class GhgTradeLedger {
         }
     }
 
+    /**
+     * Get the exporter-associated GHG for a volume.
+     *
+     * @param region The region of the volume / the exporter to find the GHG for.
+     * @param materialType The material type to get the GHG for like polymer or EOL fate.
+     * @param percentAttributeImporter The percent to attribute to the importer between 0 and 1. The
+     *      remainder is attributed to the exporter.
+     * @returns The amount of GHG that should be associated with this region as exporter.
+     */
     _getGhgWithExporterOrigin(region, materialType, percentAttributeImporter) {
         const self = this;
 
@@ -1300,6 +1824,15 @@ class GhgTradeLedger {
         return importGhgToAttribute + exportGhgToAttribute;
     }
 
+    /**
+     * Get the importer-associated GHG for a volume.
+     *
+     * @param region The region of the volume / the importer to find the GHG for.
+     * @param materialType The material type to get the GHG for like polymer or EOL fate.
+     * @param percentAttributeImporter The percent to attribute to the importer between 0 and 1. The
+     *      remainder is attributed to the importer.
+     * @returns The amount of GHG that should be associated with this region as importer.
+     */
     _getGhgWithImporterOrigin(region, materialType, percentAttributeImporter) {
         const self = this;
 
@@ -1329,6 +1862,13 @@ class GhgTradeLedger {
         return importGhgToAttribute + exportGhgToAttribute;
     }
 
+    /**
+     * Determine if the actual GHG is emitted at the importer or exporter.
+     *
+     * @param materialType The type of material like polymer or EOL fate.
+     * @returns True if the GHG is actually emitted by the exporter and false if emitted by
+     *      importer.
+     */
     _exportIsActualGhgSource(materialType) {
         const self = this;
         return self._typesWithImporterSource.indexOf(materialType) == -1;
@@ -1336,6 +1876,11 @@ class GhgTradeLedger {
 }
 
 
+/**
+ * Create a promise for a set of matricies required to calculate polymer and ghg level info.
+ *
+ * @returns Promise resolving to the matricies set.
+ */
 function buildMatricies() {
     const assertPresent = (row, key) => {
         const value = row[key];
@@ -1449,6 +1994,11 @@ function buildMatricies() {
 }
 
 
+/**
+ * Build a promise for a StateModifier pre-loaded with matricies.
+ *
+ * @returns Promise resolving to the preloaded modifier.
+ */
 function buildModifier() {
     const matrixFuture = buildMatricies();
     const stateModifierFuture = matrixFuture.then((matricies) => new StateModifier(matricies));
@@ -1456,6 +2006,9 @@ function buildModifier() {
 }
 
 
+/**
+ * Initialize the web worker.
+ */
 function init() {
     importScripts("/third_party/papaparse.min.js");
     importScripts("/js/add_global_util.js");
