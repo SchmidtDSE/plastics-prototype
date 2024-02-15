@@ -93,7 +93,7 @@ const ADDITIVES_POLYMER = "additives";
 function makeKey(pieces) {
     const piecesStr = pieces.map((x) => x + "");
     const piecesLower = piecesStr.map((x) => x.toLowerCase());
-    return "\t".join(piecesLower);
+    return piecesLower.join("\t");
 }
 
 
