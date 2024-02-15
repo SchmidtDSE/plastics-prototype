@@ -88,6 +88,11 @@ class ScorecardPresenter {
             );
 
             setBody(
+                "recycling-card",
+                goals.get("global").get("recycling"),
+            );
+
+            setBody(
                 "ghg-card",
                 goals.get("global").get("ghg"),
             );
