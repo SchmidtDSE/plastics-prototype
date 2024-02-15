@@ -62,6 +62,7 @@ class Driver {
         self._pauseUiLoop = true;
 
         self._registerGlobalAccessibiltyControls();
+        self._loadFeatureFlags();
 
         setTimeout(() => {
             self._loadAccessibility();
@@ -819,6 +820,41 @@ class Driver {
         const self = this;
         // eslint-disable-next-line no-undef
         return Cookies;
+    }
+
+    _loadFeatureFlags() {
+        const self = this;
+        const getGhgEnabled = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("ghgEnabled")) {
+                return urlParams.get("ghgEnabled") === "y";
+            } else {
+                return false;
+            }
+        };
+
+        const hideElements = (className) => {
+            document.querySelectorAll("." + className).forEach(
+                (x) => x.style.display = "none",
+            );
+        };
+
+        const addOption = (value, name) => {
+            const newOption = document.createElement("option");
+            newOption.value = value;
+            newOption.innerHTML = name;
+
+            const target = document.getElementById("overview-goal-select");
+            target.appendChild(newOption);
+        };
+
+        if (getGhgEnabled()) {
+            hideElements("feature-flag-recycling");
+            addOption("ghg", "Greenhouse Gas Emissions");
+        } else {
+            hideElements("feature-flag-ghg");
+            addOption("recycling", "Recycling");
+        }
     }
 }
 
