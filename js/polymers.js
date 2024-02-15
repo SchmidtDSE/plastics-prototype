@@ -1392,9 +1392,10 @@ function getGhg(state, region, volume, leverName) {
     const regionOut = state.get("out").get(region);
     const isTesting = !regionOut.has("primaryProductionMT");
     const isNotRecyclable = RECYCLABLE_LEVER_NAMES.indexOf(leverName) == -1;
-    const regionPolymers = state.get("polymers").get(region).get("production");
 
     const getPercentRecyclable = () => {
+        const regionPolymers = state.get("polymers").get(region).get("production");
+        
         const getTotalPolymers = (names) => {
             return names.map((name) => regionPolymers.get(name)).reduce((a, b) => a + b);
         };
