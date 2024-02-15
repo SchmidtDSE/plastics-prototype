@@ -542,6 +542,79 @@ function buildPolymerTest() {
             assert.ok(error < 0.00001)
         });
 
+        QUnit.test("get GHG with percent recyclable", function(assert) {
+            const inputs = new Map();
+
+            GHGS.map((x) => x["leverName"]).forEach((x, i) => {
+                inputs.set("china" + x + "EmissionsProduction", 0);
+                inputs.set("china" + x + "EmissionsConversion", 0);
+            });
+            inputs.set("chinaPETEmissionsProduction", 2);
+            inputs.set("chinaPETEmissionsConversion", 1);
+
+            const chinaOutputs = new Map();
+            chinaOutputs.set("primaryProductionMT", 3);
+            chinaOutputs.set("secondaryProductionMT", 1);
+            
+            const outputs = new Map();
+            outputs.set("china", chinaOutputs);
+
+            const productionPolymers = new Map();
+            POLYMER_NAMES.forEach((x) => {
+                productionPolymers.set(x, 0);
+            });
+            productionPolymers.set("pet", 3);
+            
+            const chinaPolymers = new Map();
+            chinaPolymers.set("production", productionPolymers);
+            
+            const polymers = new Map();
+            polymers.set("china", chinaPolymers);
+
+            const state = new Map();
+            state.set("in", inputs);
+            state.set("out", outputs);
+            state.set("polymers", polymers);
+            
+            const result = getGhg(state, "china", 4000, "PET");
+            const expected = (3 / 4 * 2 + 1) * 4000 * 0.001;
+            console.log(result, expected);
+            const error = Math.abs(result - expected);
+            assert.ok(error < 0.00001)
+        });
+
+        QUnit.test("get GHG EOL with percent recyclable", function(assert) {
+            const inputs = new Map();
+
+            GHGS.map((x) => x["leverName"]).forEach((x, i) => {
+                inputs.set("china" + x + "EmissionsProduction", 0);
+                inputs.set("china" + x + "EmissionsConversion", 0);
+            });
+
+            const chinaOutputs = new Map();
+            chinaOutputs.set("primaryProductionMT", 3);
+            chinaOutputs.set("secondaryProductionMT", 1);
+            
+            const outputs = new Map();
+            outputs.set("china", chinaOutputs);
+
+            const chinaPolymers = new Map();
+            POLYMER_NAMES.forEach((x) => {
+                chinaPolymers.set(x, 0);
+            })
+            const polymers = new Map();
+            polymers.set("china", chinaPolymers);
+
+            const state = new Map();
+            state.set("in", inputs);
+            state.set("out", outputs);
+            state.set("out", polymers);
+            
+            const result = getGhg(state, "china", 4000, "pet");
+            const error = Math.abs(result - 0);
+            assert.ok(error < 0.00001)
+        });
+
         QUnit.test("add fully domestic ghg", function(assert) {
             const chinaOutputs = new Map();
             chinaOutputs.set("eolRecyclingMT", 1);

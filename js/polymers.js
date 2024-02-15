@@ -1379,7 +1379,7 @@ class StateModifier {
 
 
 /**
- * Get the GHG emissions for a polymer in a region.
+ * Get the GHG emissions for a subset of polymer volume in a region.
  *
  * @param state The state object (Map) from which to derive the GHG emissions.
  * @param region The region like china.
