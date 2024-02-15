@@ -60,7 +60,18 @@ const GHGS = [
     {"leverName": "Others", "polymerName": "other thermosets"},
 ];
 
+// Just the polymer names
 const POLYMER_NAMES = GHGS.map((x) => x["polymerName"]);
+
+// Get list of polymers expected recyclable
+const RECYCLABLE_POLYMER_NAMES = POLYMER_NAMES.filter(
+    (x) => x["polymerName"] !== "other thermosets" && x["polymerName"] !==  "pur"
+);
+
+// Get lever names corresponding to expected recyclables
+const RECYCLABLE_LEVER_NAMES = GHGS
+    .filter((x) => RECYCLABLE_POLYMER_NAMES.indexOf(x["polymerName"]) != -1)
+    .map((x) => x["leverName"]);
 
 // Make mapping between the levers' names for EOL fates and the output attributes for those volumes.
 const EOLS = [
@@ -1367,16 +1378,28 @@ function getGhg(state, region, volume, leverName) {
     const inputNameBase = region + leverName + "Emissions";
     const regionOut = state.get("out").get(region);
     const isTesting = !regionOut.has("primaryProductionMT");
+    const isNotRecyclable = RECYCLABLE_LEVER_NAMES.indexOf(leverName) == -1;
+
+    const getPercentRecyclable = () => {
+        const getTotalPolymers = (names) => {
+            return names.map((name) => regionPolymers.get(name)).reduce((a, b) => a + b);
+        }
+        const totalPolymers = getTotalPolymers(POLYMER_NAMES);
+        const recyclingPolymers = getTotalPolymers(RECYCLABLE_POLYMER_NAMES);
+
+        return recyclingPolymers / totalPolymers;
+    };
 
     const getPrimaryPercent = () => {
-        if (isTesting) {
+        if (isTesting || isNotRecyclable) {
             return 1;
         }
 
         const primaryProduction = regionOut.get("primaryProductionMT");
         const secondaryProduction = regionOut.get("secondaryProductionMT");
         const naiveSecondary = secondaryProduction / (primaryProduction + secondaryProduction);
-        return 1 - naiveSecondary;
+        const offsetSecondary = naiveSecondary / getPercentRecyclable();
+        return 1 - offsetSecondary;
     };
 
     const getIntensity = () => {
