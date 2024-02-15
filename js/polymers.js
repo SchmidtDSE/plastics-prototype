@@ -56,8 +56,8 @@ const GHGS = [
     {"leverName": "PUR", "polymerName": "pur"},
     {"leverName": "PPA", "polymerName": "pp&a fibers"},
     {"leverName": "Additives", "polymerName": "additives"},
-    {"leverName": "Others", "polymerName": "other thermoplastics"},
-    {"leverName": "Others", "polymerName": "other thermosets"},
+    {"leverName": "OtherThermoplastics", "polymerName": "other thermoplastics"},
+    {"leverName": "OtherThermosets", "polymerName": "other thermosets"},
 ];
 
 // Just the polymer names
@@ -65,7 +65,7 @@ const POLYMER_NAMES = GHGS.map((x) => x["polymerName"]);
 
 // Get list of polymers expected recyclable
 const RECYCLABLE_POLYMER_NAMES = POLYMER_NAMES.filter(
-    (x) => x["polymerName"] !== "other thermosets" && x["polymerName"] !== "pur",
+    (x) => x!== "other thermosets" && x !== "pur",
 );
 
 // Get lever names corresponding to expected recyclables
@@ -1379,7 +1379,7 @@ class StateModifier {
 
 
 /**
- * Get the GHG emissions for a polymer in a region.
+ * Get the GHG emissions for a subset of polymer volume in a region.
  *
  * @param state The state object (Map) from which to derive the GHG emissions.
  * @param region The region like china.
