@@ -835,7 +835,7 @@ class Driver {
 
         const hideElements = (className) => {
             document.querySelectorAll("." + className).forEach(
-                (x) => x.style.display = "none"
+                (x) => x.style.display = "none",
             );
         };
 
@@ -843,7 +843,7 @@ class Driver {
             const newOption = document.createElement("option");
             newOption.value = value;
             newOption.innerHTML = name;
-            
+
             const target = document.getElementById("overview-goal-select");
             target.appendChild(newOption);
         };
