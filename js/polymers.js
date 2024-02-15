@@ -65,7 +65,7 @@ const POLYMER_NAMES = GHGS.map((x) => x["polymerName"]);
 
 // Get list of polymers expected recyclable
 const RECYCLABLE_POLYMER_NAMES = POLYMER_NAMES.filter(
-    (x) => x["polymerName"] !== "other thermosets" && x["polymerName"] !==  "pur"
+    (x) => x["polymerName"] !== "other thermosets" && x["polymerName"] !== "pur",
 );
 
 // Get lever names corresponding to expected recyclables
@@ -845,10 +845,23 @@ class StateModifier {
 
             const resinTradePolymers = getTrade(RESIN_SUBTYPES);
 
+            const productionRegionPolymers = self._makeEmptyPolymersVector();
+            POLYMER_NAMES.forEach((polymerName) => {
+                const totalTradePolymer = [
+                    goodsTradePolymers,
+                    resinTradePolymers,
+                ].map((x) => x.get(polymerName)).reduce((a, b) => a + b);
+                productionRegionPolymers.set(
+                    polymerName,
+                    consumptionPolymers.get(polymerName) - totalTradePolymer,
+                );
+            });
+
             const polymerSubmap = new Map();
             polymerSubmap.set("consumption", consumptionPolymers);
             polymerSubmap.set("goodsTrade", goodsTradePolymers);
             polymerSubmap.set("resinTrade", resinTradePolymers);
+            polymerSubmap.set("production", productionRegionPolymers);
 
             polymerMap.set(region, polymerSubmap);
         });
@@ -1379,11 +1392,12 @@ function getGhg(state, region, volume, leverName) {
     const regionOut = state.get("out").get(region);
     const isTesting = !regionOut.has("primaryProductionMT");
     const isNotRecyclable = RECYCLABLE_LEVER_NAMES.indexOf(leverName) == -1;
+    const regionPolymers = state.get("polymers").get(region).get("production");
 
     const getPercentRecyclable = () => {
         const getTotalPolymers = (names) => {
             return names.map((name) => regionPolymers.get(name)).reduce((a, b) => a + b);
-        }
+        };
         const totalPolymers = getTotalPolymers(POLYMER_NAMES);
         const recyclingPolymers = getTotalPolymers(RECYCLABLE_POLYMER_NAMES);
 
