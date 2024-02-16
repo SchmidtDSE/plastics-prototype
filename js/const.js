@@ -135,6 +135,7 @@ STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.production, PRODUCTION_ATTRS);
 
 const FLAG_DEFAULT_GHG = false;
 const FLAG_DEFAULT_THREADS = true;
+const FLAG_DEFAULT_GHG_EXPORT = false;
 
 
 export {
@@ -156,6 +157,7 @@ export {
     GOALS,
     STANDARD_ATTR_NAMES,
     FLAG_DEFAULT_GHG,
+    FLAG_DEFAULT_GHG_EXPORT,
     FLAG_DEFAULT_THREADS,
     getGlobalColors,
     getGlobalTextColors,
