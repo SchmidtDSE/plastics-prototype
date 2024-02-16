@@ -890,8 +890,8 @@ class PolymerWorkerQueue {
             self._modifierFuture = buildModifier();
         };
 
-        if (window.Worker && window.navigator.onLine) {
-            fetch("/js/version.txt").then((response) => {
+        if (window.Worker) {
+            try {
                 const nativeConcurrency = window.navigator.hardwareConcurrency;
                 const hasKnownConcurrency = nativeConcurrency !== undefined;
                 const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
@@ -900,9 +900,9 @@ class PolymerWorkerQueue {
                 for (let i = 0; i < concurrencyDesired; i++) {
                     self._workers.push(self._makeWorker());
                 }
-            }).catch(() => {
+            } catch {
                 runWithoutThreads();
-            })
+            }
         } else {
             runWithoutThreads();
         }
