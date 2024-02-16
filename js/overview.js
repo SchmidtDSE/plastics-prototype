@@ -14,6 +14,7 @@ import {
     GOALS,
     PRODUCTION_ATTRS,
 } from "const";
+import {buildGhgDownload, buildPolymerDownload, buildSectorFateDownload} from "exporters";
 import {makeCumulative, makeYearDelta} from "transformation";
 import {fetchWithRetry} from "file";
 import {getRelative} from "geotools";
@@ -84,6 +85,7 @@ class OverviewPresenter {
         );
 
         self._setupTutorial();
+        self._setupExportDialog();
     }
 
     /**
@@ -169,11 +171,43 @@ class OverviewPresenter {
 
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
 
-        const downloadLinks = Array.of(...document.querySelectorAll(".download-link"));
-        const downloadContent = self._buildDownload(withInterventions);
+        const downloadSectorFateLinks = Array.of(
+            ...document.querySelectorAll(".download-fate-sector-link"),
+        );
+        const downloadSectorFateContent = buildSectorFateDownload(withInterventions);
+        downloadSectorFateLinks.forEach((downloadLink) => {
+            downloadLink.href = downloadSectorFateContent;
+            downloadLink.download = "plasticsSectorFateProjections.csv";
+        });
+
+        const downloadPolymerLinks = Array.of(
+            ...document.querySelectorAll(".download-polymer-link"),
+        );
+        const downloadPolymerContent = buildPolymerDownload(withInterventions);
+        downloadPolymerLinks.forEach((downloadLink) => {
+            downloadLink.href = downloadPolymerContent;
+            downloadLink.download = "plasticsPolymerProjections.csv";
+        });
+
+        const downloadGhgLinks = Array.of(
+            ...document.querySelectorAll(".download-ghg-link"),
+        );
+        const downloadGhgContent = buildGhgDownload(withInterventions);
+        downloadGhgLinks.forEach((downloadLink) => {
+            downloadLink.href = downloadGhgContent;
+            downloadLink.download = "plasticsGhgProjections.csv";
+        });
+    }
+
+    _setupExportDialog() {
+        const self = this;
+        const downloadLinks = Array.of(
+            ...document.querySelectorAll(".download-link"),
+        );
         downloadLinks.forEach((downloadLink) => {
-            downloadLink.href = downloadContent;
-            downloadLink.download = "plasticsProjections.csv";
+            downloadLink.addEventListener("click", () => {
+                document.getElementById("export-dialog").showModal();
+            });
         });
     }
 

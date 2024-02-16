@@ -879,7 +879,7 @@
             <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a> / <a class="tab-trigger" href="#settings">Accessibility</a> / <a class="tab-trigger" href="#about-publication">Cite Us</a>
         </footer>
 
-        <input type="hidden" id="version-number" value="3.0">
+        <input type="hidden" id="version-number" value="3.1">
 
         <dialog id="add-dialog">
             <form>
@@ -901,6 +901,22 @@
                 <div>
                   <button value="cancel" formmethod="dialog">Cancel</button>
                   <button id="continue-add-button" value="default">Continue</button>
+                </div>
+            </form>
+        </dialog>
+
+        <dialog id="export-dialog">
+            <form>
+                <p>
+                    Multiple exports are available as CSV files:
+                    <ul>
+                        <li><a href="#" class="download-fate-sector-link">Sector, end of life, and trade volumes by region over time</a></li>
+                        <li><a href="#" class="download-polymer-link">Polymer volumes by region over time</a></li>
+                        <li class="feature-flag-ghg-export"><a href="#" class="download-ghg-link">Greenhouse gas emissions by region over time</a></li>
+                    </ul>
+                </p>
+                <div>
+                    <button value="cancel" formmethod="dialog">Done</button>
                 </div>
             </form>
         </dialog>

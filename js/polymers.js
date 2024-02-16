@@ -771,23 +771,6 @@ class StateModifier {
     }
 
     /**
-     * Create a new empty GHG record in the state object (Map).
-     *
-     * @param state The state in which to make the empty GHG record to be filled in further at later
-     *      steps.
-     */
-    _makeGhgInState(state) {
-        const self = this;
-        const regions = Array.of(...state.get("out").keys());
-        const ghgMap = new Map();
-        regions.forEach((region) => {
-            ghgMap.set(region, new Map());
-        });
-        state.set("ghg", ghgMap);
-        return state;
-    }
-
-    /**
      * Add net trade at the subtype level into a state object.
      *
      * @param year The year represented by the given state object.
@@ -1256,6 +1239,23 @@ class StateModifier {
             });
         }
 
+        return state;
+    }
+
+    /**
+     * Create a new empty GHG record in the state object (Map).
+     *
+     * @param state The state in which to make the empty GHG record to be filled in further at later
+     *      steps.
+     */
+    _makeGhgInState(state) {
+        const self = this;
+        const regions = Array.of(...state.get("out").keys());
+        const ghgMap = new Map();
+        regions.forEach((region) => {
+            ghgMap.set(region, new Map());
+        });
+        state.set("ghg", ghgMap);
         return state;
     }
 
