@@ -7,6 +7,7 @@
 import {
     ALL_ATTRS,
     FLAG_DEFAULT_GHG,
+    FLAG_DEFAULT_GHG_EXPORT,
     FLAG_DEFAULT_THREADS,
     HISTORY_START_YEAR,
     MAX_YEAR,
@@ -840,6 +841,15 @@ class Driver {
             }
         };
 
+        const getGhgExportEnabled = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("ghgExportEnabled")) {
+                return urlParams.get("ghgExportEnabled") === "y";
+            } else {
+                return FLAG_DEFAULT_GHG_EXPORT;
+            }
+        };
+
         const hideElements = (className) => {
             document.querySelectorAll("." + className).forEach(
                 (x) => x.style.display = "none",
@@ -861,6 +871,10 @@ class Driver {
         } else {
             hideElements("feature-flag-ghg");
             addOption("recycling", "Recycling");
+        }
+
+        if (!getGhgExportEnabled()) {
+            hideElements("feature-flag-ghg-export");
         }
     }
 }
