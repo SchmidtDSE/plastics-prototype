@@ -883,12 +883,21 @@ class PolymerWorkerQueue {
         self._workerRequestId = 0;
         self._workerCallbacks = new Map();
 
+        const getWorkersEnabled = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("threadsEnabled")) {
+                return urlParams.get("threadsEnabled") === "y";
+            } else {
+                return true;
+            }
+        };
+
         // Require that worker is supported and, for Safari, that network is available for
         // importScripts within the worker.
         self._workersFuture = new Promise((resolve) => {
             const workers = [];
 
-            if (!window.Worker || !window.navigator.onLine) {
+            if (!window.Worker || !window.navigator.onLine || !getWorkersEnabled()) {
                 console.log("Running without threads.");
                 self._modifierFuture = buildModifier();
                 resolve(workers);
