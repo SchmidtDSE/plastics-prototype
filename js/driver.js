@@ -4,7 +4,14 @@
  * @license BSD, see LICENSE.md
  */
 
-import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {
+    ALL_ATTRS,
+    FLAG_DEFAULT_GHG,
+    FLAG_DEFAULT_THREADS,
+    HISTORY_START_YEAR,
+    MAX_YEAR,
+    START_YEAR,
+} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -829,7 +836,7 @@ class Driver {
             if (urlParams.has("ghgEnabled")) {
                 return urlParams.get("ghgEnabled") === "y";
             } else {
-                return false;
+                return FLAG_DEFAULT_GHG;
             }
         };
 
@@ -895,7 +902,7 @@ class PolymerWorkerQueue {
             if (urlParams.has("threadsEnabled")) {
                 return urlParams.get("threadsEnabled") === "y";
             } else {
-                return false;
+                return FLAG_DEFAULT_THREADS;
             }
         };
 
