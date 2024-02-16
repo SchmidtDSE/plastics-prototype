@@ -35,6 +35,12 @@ const GHG_EXPORT_ATTRS = [
 ];
 
 
+/**
+ * Build an inline data URI that encodes a CSV file with sector / fate volumes by year and region.
+ * 
+ * @param withInterventions Map from year to state object (Map) with interventions applied.
+ * @returns Data URI that embedds the CSV file with sector / fate by year.
+ */
 function buildSectorFateDownload(withInterventions) {
     const attrs = CONSUMPTION_ATTRS.concat(EOL_ATTRS).concat(PRODUCTION_ATTRS);
 
@@ -75,6 +81,12 @@ function buildSectorFateDownload(withInterventions) {
 }
 
 
+/**
+ * Build an inline data URI that encodes a CSV file with polymer volumes by year and region.
+ * 
+ * @param withInterventions Map from year to state object (Map) with interventions applied.
+ * @returns Data URI that embedds the CSV file with polymer volumes by year.
+ */
 function buildPolymerDownload(withInterventions) {
     const headerRowStr = POLYMER_EXPORT_ATTRS.join(",");
 
@@ -109,6 +121,12 @@ function buildPolymerDownload(withInterventions) {
 }
 
 
+/**
+ * Build an inline data URI that encodes a CSV file with GHG projections by year and region.
+ * 
+ * @param withInterventions Map from year to state object (Map) with interventions applied.
+ * @returns Data URI that embedds the CSV file with GHG by year.
+ */
 function buildGhgDownload(withInterventions) {
     const headerRowStr = GHG_EXPORT_ATTRS.join(",");
 
