@@ -910,7 +910,7 @@ class PolymerWorkerQueue {
                     self._modifierFuture = buildModifier();
                 }
                 resolve(workers);
-            })
+            });
         });
     }
 
@@ -924,19 +924,19 @@ class PolymerWorkerQueue {
                     return {"year": year, "state": state};
                 });
             }
-    
+
             const requestId = self._workerRequestId;
             const workerId = requestId % workers.length;
-    
+
             const requestObj = {
                 "year": year,
                 "state": state,
                 "requestId": requestId,
                 "attrs": ALL_ATTRS,
             };
-    
+
             self._workerRequestId++;
-    
+
             return new Promise((resolve, reject) => {
                 self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
                 workers[workerId].postMessage(requestObj);
