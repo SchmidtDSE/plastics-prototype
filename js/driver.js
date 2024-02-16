@@ -4,7 +4,14 @@
  * @license BSD, see LICENSE.md
  */
 
-import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {
+    ALL_ATTRS,
+    FLAG_DEFAULT_GHG,
+    FLAG_DEFAULT_THREADS,
+    HISTORY_START_YEAR,
+    MAX_YEAR,
+    START_YEAR,
+} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -829,7 +836,7 @@ class Driver {
             if (urlParams.has("ghgEnabled")) {
                 return urlParams.get("ghgEnabled") === "y";
             } else {
-                return false;
+                return FLAG_DEFAULT_GHG;
             }
         };
 
@@ -877,57 +884,99 @@ function main(shouldPause, includeDevelopment, disableDelay) {
 }
 
 
+/**
+ * Facade which sends tasks to the queue potentially backed by web workers if available.
+ */
 class PolymerWorkerQueue {
+    /**
+     * Create a new queue.
+     */
     constructor() {
         const self = this;
         self._workerRequestId = 0;
         self._workerCallbacks = new Map();
 
-        self._workers = [];
-
-        if (window.Worker) {
-            const nativeConcurrency = window.navigator.hardwareConcurrency;
-            const hasKnownConcurrency = nativeConcurrency !== undefined;
-            const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
-            const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
-            const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
-            for (let i = 0; i < concurrencyDesired; i++) {
-                self._workers.push(self._makeWorker());
+        const getWorkersEnabled = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("threadsEnabled")) {
+                return urlParams.get("threadsEnabled") === "y";
+            } else {
+                return FLAG_DEFAULT_THREADS;
             }
-        } else {
-            console.log("Running without threads.");
-            self._modifierFuture = buildModifier();
-        }
-    }
-
-    request(year, state) {
-        const self = this;
-
-        if (self._workers.length == 0) {
-            return self._modifierFuture.then((modifier) => {
-                modifier.modify(year, state, ALL_ATTRS);
-                return {"year": year, "state": state};
-            });
-        }
-
-        const requestId = self._workerRequestId;
-        const workerId = requestId % self._workers.length;
-
-        const requestObj = {
-            "year": year,
-            "state": state,
-            "requestId": requestId,
-            "attrs": ALL_ATTRS,
         };
 
-        self._workerRequestId++;
+        // Require that worker is supported and, for Safari, that network is available for
+        // importScripts within the worker.
+        self._workersFuture = new Promise((resolve) => {
+            const workers = [];
 
-        return new Promise((resolve, reject) => {
-            self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
-            self._workers[workerId].postMessage(requestObj);
+            if (!window.Worker || !window.navigator.onLine || !getWorkersEnabled()) {
+                console.log("Running without threads.");
+                self._modifierFuture = buildModifier();
+                resolve(workers);
+                return;
+            }
+
+            fetch("/js/version.txt").then((response) => {
+                if (response.ok) {
+                    const nativeConcurrency = window.navigator.hardwareConcurrency;
+                    const hasKnownConcurrency = nativeConcurrency !== undefined;
+                    const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+                    const concurrencyCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+                    const concurrencyDesired = concurrencyCap < 1 ? 1 : concurrencyCap;
+                    for (let i = 0; i < concurrencyDesired; i++) {
+                        workers.push(self._makeWorker());
+                    }
+                } else {
+                    self._modifierFuture = buildModifier();
+                }
+                resolve(workers);
+            });
         });
     }
 
+    /**
+     * Request processing of a year and state.
+     *
+     * @param year The year like 2050 for which a state is provided.
+     * @param state The state object (Map) to process.
+     * @returns Promise which resolves when the object is processed.
+     */
+    request(year, state) {
+        const self = this;
+
+        return self._workersFuture.then((workers) => {
+            if (workers.length == 0) {
+                return self._modifierFuture.then((modifier) => {
+                    modifier.modify(year, state, ALL_ATTRS);
+                    return {"year": year, "state": state};
+                });
+            }
+
+            const requestId = self._workerRequestId;
+            const workerId = requestId % workers.length;
+
+            const requestObj = {
+                "year": year,
+                "state": state,
+                "requestId": requestId,
+                "attrs": ALL_ATTRS,
+            };
+
+            self._workerRequestId++;
+
+            return new Promise((resolve, reject) => {
+                self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
+                workers[workerId].postMessage(requestObj);
+            });
+        });
+    }
+
+    /**
+     * Process a response from a worker.
+     *
+     * @param response Response from worker thread.
+     */
     _onResponse(response) {
         const self = this;
         const requestId = response["requestId"];
@@ -944,6 +993,11 @@ class PolymerWorkerQueue {
         }
     }
 
+    /**
+     * Make a new web worker.
+     *
+     * @returns Newly constructed worker.
+     */
     _makeWorker() {
         const self = this;
         const newWorker = new Worker("/js/polymers.js");
