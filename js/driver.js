@@ -4,7 +4,7 @@
  * @license BSD, see LICENSE.md
  */
 
-import {HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
+import {ALL_ATTRS, HISTORY_START_YEAR, MAX_YEAR, START_YEAR} from "const";
 import {buildCompiler} from "compiler";
 import {buildDataLayer} from "data";
 import {FilePresenter} from "file";
@@ -47,6 +47,7 @@ class Driver {
         self._latestRequest = null;
         self._disableDelay = disableDelay;
         self._lastYear = MAX_YEAR;
+        self._polymerWorkerQueue = new PolymerWorkerQueue();
 
         self._historicYears = [];
         for (let year = HISTORY_START_YEAR; year < START_YEAR; year++) {
@@ -61,6 +62,7 @@ class Driver {
         self._pauseUiLoop = true;
 
         self._registerGlobalAccessibiltyControls();
+        self._loadFeatureFlags();
 
         setTimeout(() => {
             self._loadAccessibility();
@@ -273,8 +275,6 @@ class Driver {
     _getStates(runPrograms) {
         const self = this;
 
-        const states = new Map();
-
         const getPrograms = () => {
             return self._getLevers()
                 .map((lever) => {
@@ -288,13 +288,10 @@ class Driver {
 
         const programs = runPrograms ? getPrograms() : [];
 
-        self._historicYears.forEach((year) => {
-            const state = self._buildState(year);
-            self._addGlobalToState(state);
-            states.set(year, state);
+        const historicStates = self._historicYears.map((year) => {
+            return {"year": year, "state": self._buildState(year)};
         });
-
-        self._projectionYears.forEach((year) => {
+        const projectionStates = self._projectionYears.map((year) => {
             const state = self._buildState(year);
 
             programs.forEach((programInfo) => {
@@ -311,11 +308,27 @@ class Driver {
                 }
             });
 
-            self._addGlobalToState(state);
-            states.set(year, state);
+            return {"year": year, "state": state};
         });
 
-        return states;
+        const allStates = historicStates.concat(projectionStates);
+        const promises = allStates.map((task) => {
+            const year = task["year"];
+            const state = task["state"];
+            return self._polymerWorkerQueue.request(year, state);
+        });
+
+        return Promise.all(promises).then((tasks) => {
+            const states = new Map();
+
+            tasks.forEach((task) => {
+                const year = task["year"];
+                const state = task["state"];
+                states.set(year, state);
+            });
+
+            return states;
+        });
     }
 
     /**
@@ -369,11 +382,21 @@ class Driver {
                 return;
             }
 
-            const businessAsUsual = self._getStates(false);
-            const withInterventions = self._getStates(true);
+            const businessAsUsualFuture = self._getStates(false);
+            const withInterventionsFuture = self._getStates(true);
 
-            self._updateOutputs(businessAsUsual, withInterventions, timestamp);
-            self._redrawTimeout = null;
+            Promise.all([businessAsUsualFuture, withInterventionsFuture])
+                .then((results) => {
+                    const businessAsUsual = results[0];
+                    const withInterventions = results[1];
+                    self._updateOutputs(businessAsUsual, withInterventions, timestamp);
+                    self._redrawTimeout = null;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    alert("Whoops! The engine ran into an exception.");
+                    throw error;
+                });
         };
 
         // Give the UI loop a minute to catch up from OS
@@ -798,6 +821,41 @@ class Driver {
         // eslint-disable-next-line no-undef
         return Cookies;
     }
+
+    _loadFeatureFlags() {
+        const self = this;
+        const getGhgEnabled = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has("ghgEnabled")) {
+                return urlParams.get("ghgEnabled") === "y";
+            } else {
+                return false;
+            }
+        };
+
+        const hideElements = (className) => {
+            document.querySelectorAll("." + className).forEach(
+                (x) => x.style.display = "none",
+            );
+        };
+
+        const addOption = (value, name) => {
+            const newOption = document.createElement("option");
+            newOption.value = value;
+            newOption.innerHTML = name;
+
+            const target = document.getElementById("overview-goal-select");
+            target.appendChild(newOption);
+        };
+
+        if (getGhgEnabled()) {
+            hideElements("feature-flag-recycling");
+            addOption("ghg", "Greenhouse Gas Emissions");
+        } else {
+            hideElements("feature-flag-ghg");
+            addOption("recycling", "Recycling");
+        }
+    }
 }
 
 
@@ -816,6 +874,82 @@ function main(shouldPause, includeDevelopment, disableDelay) {
     const driver = new Driver(disableDelay);
     driver.setPauseUiLoop(shouldPause);
     return driver.init(includeDevelopment);
+}
+
+
+class PolymerWorkerQueue {
+    constructor() {
+        const self = this;
+        self._workerRequestId = 0;
+        self._workerCallbacks = new Map();
+
+        self._workers = [];
+
+        if (window.Worker) {
+            const nativeConcurrency = window.navigator.hardwareConcurrency;
+            const hasKnownConcurrency = nativeConcurrency !== undefined;
+            const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+            const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+            const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
+            for (let i = 0; i < concurrencyDesired; i++) {
+                self._workers.push(self._makeWorker());
+            }
+        } else {
+            console.log("Running without threads.");
+            self._modifierFuture = buildModifier();
+        }
+    }
+
+    request(year, state) {
+        const self = this;
+
+        if (self._workers.length == 0) {
+            return self._modifierFuture.then((modifier) => {
+                modifier.modify(year, state, ALL_ATTRS);
+                return {"year": year, "state": state};
+            });
+        }
+
+        const requestId = self._workerRequestId;
+        const workerId = requestId % self._workers.length;
+
+        const requestObj = {
+            "year": year,
+            "state": state,
+            "requestId": requestId,
+            "attrs": ALL_ATTRS,
+        };
+
+        self._workerRequestId++;
+
+        return new Promise((resolve, reject) => {
+            self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
+            self._workers[workerId].postMessage(requestObj);
+        });
+    }
+
+    _onResponse(response) {
+        const self = this;
+        const requestId = response["requestId"];
+        const year = response["year"];
+        if (!self._workerCallbacks.has(requestId)) {
+            return;
+        }
+
+        const callbacks = self._workerCallbacks.get(requestId);
+        if (response["error"] === null) {
+            callbacks["resolve"]({"year": year, "state": response["state"]});
+        } else {
+            callbacks["reject"](response["error"]);
+        }
+    }
+
+    _makeWorker() {
+        const self = this;
+        const newWorker = new Worker("/js/polymers.js");
+        newWorker.onmessage = (event) => self._onResponse(event.data);
+        return newWorker;
+    }
 }
 
 

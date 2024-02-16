@@ -13,29 +13,7 @@ import {ALL_ATTRS} from "const";
  * @param state The state Map in which the global statistics should be added.
  */
 function addGlobalToState(state) {
-    const outputs = state.get("out");
-    const globalValues = new Map();
-    ALL_ATTRS.forEach((attr) => {
-        const total = Array.of(...outputs.keys())
-            .filter((region) => region !== "global")
-            .map((region) => outputs.get(region))
-            .map((regionValues) => {
-                const ATTRS_TO_ZERO = [
-                    "netImportsMT",
-                    "netWasteImportMT",
-                ];
-
-                const originalValue = regionValues.get(attr);
-                if (ATTRS_TO_ZERO.indexOf(attr) != -1) {
-                    return 0;
-                } else {
-                    return originalValue;
-                }
-            })
-            .reduce((a, b) => a + b);
-        globalValues.set(attr, total);
-    });
-    outputs.set("global", globalValues);
+    addGlobalToStateAttrs(state, ALL_ATTRS);
 }
 
 
@@ -71,7 +49,6 @@ function getRelative(target, reference) {
  */
 function getRelativeSingleYear(target, reference) {
     const newOut = new Map();
-
     const targetOut = target.get("out");
     const referenceOut = reference.get("out");
 
@@ -85,8 +62,23 @@ function getRelativeSingleYear(target, reference) {
         newOut.set(region, newRegionOut);
     });
 
+    const newGhg = new Map();
+    const targetGhg = target.get("ghg");
+    const referenceGhg = reference.get("ghg");
+
+    targetGhg.forEach((targetRegions, region) => {
+        const newRegionOut = new Map();
+        targetRegions.forEach((targetValue, key) => {
+            const referenceValue = referenceGhg.get(region).get(key);
+            const relativeValue = targetValue - referenceValue;
+            newRegionOut.set(key, relativeValue);
+        });
+        newGhg.set(region, newRegionOut);
+    });
+
     const wrapped = new Map();
     wrapped.set("out", newOut);
+    wrapped.set("ghg", newGhg);
     return wrapped;
 }
 

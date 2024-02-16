@@ -11,6 +11,12 @@ mv pipeline/overview_curve.csv data/overview_curve_original.csv
 mv pipeline/overview_naive.csv data/overview_naive_original.csv
 mv pipeline/combined.db data/combined.db
 
+echo "== Extract resin trade supplement =="
+cd data
+sqlite3 combined.db < ../support/get_resin_trade_supplement.sql
+[ ! -e resin_trade_supplement.csv ] && exit 4;
+cd ..
+
 echo "== Splitting primary / secondary =="
 python support/separate_production.py data/overview_ml_original.csv data/overview_ml.csv 1 20 2011
 python support/separate_production.py data/overview_curve_original.csv data/overview_curve.csv 1 20 2011
@@ -18,5 +24,9 @@ python support/separate_production.py data/overview_naive_original.csv data/over
 
 echo "== Make primary web output =="
 cp data/overview_ml.csv data/web.csv
+
+echo "== Move supporting data =="
+mv pipeline/polymer_ratios.csv data/live_polymer_ratios.csv
+mv pipeline/production_trade_subtype_ratios.csv data/live_production_trade_subtype_ratios.csv
 
 echo "== Data prepared =="

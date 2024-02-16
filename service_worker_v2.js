@@ -14,8 +14,9 @@ const OLD_CACHES = [
     "GlobalPlasticsToolOffline_3",
     "GlobalPlasticsToolOffline_4",
     "GlobalPlasticsToolOffline_5",
+    "GlobalPlasticsToolOffline_v1"
 ];
-const CACHE_NAME = "GlobalPlasticsToolOffline_v1";
+const CACHE_NAME = "GlobalPlasticsToolOffline_v2";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
@@ -23,7 +24,9 @@ const ESSENTIAL_FILES = [
     "/data/web.csv",
     "/data/overview_curve.csv",
     "/data/overview_naive.csv",
-    "/data/combined.db",
+    "/data/live_polymer_ratios.csv",
+    "/data/resin_trade_supplement.csv",
+    "/data/live_production_trade_subtype_ratios.csv",
     "/data/overview_ml.csv",
     "/font/LeagueSpartan-Black.otf",
     "/font/LeagueSpartan-Bold.otf",
@@ -72,6 +75,8 @@ const ESSENTIAL_FILES = [
     "/js/plastics_lang.js",
     "/js/visitors.js",
     "/js/sw_load.js",
+    "/js/add_global_util.js",
+    "/js/polymers.js",
     "/pt/README.md",
     "/pt/additives.pt",
     "/pt/consumption_tax.pt",

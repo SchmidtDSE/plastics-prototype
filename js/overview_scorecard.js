@@ -91,6 +91,11 @@ class ScorecardPresenter {
                 "recycling-card",
                 goals.get("global").get("recycling"),
             );
+
+            setBody(
+                "ghg-card",
+                goals.get("global").get("ghg"),
+            );
         };
 
         const updateHighlight = () => {
