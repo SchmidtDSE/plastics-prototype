@@ -172,7 +172,7 @@ class OverviewPresenter {
         self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
 
         const downloadSectorFateLinks = Array.of(
-            ...document.querySelectorAll(".download-fate-sector-link")
+            ...document.querySelectorAll(".download-fate-sector-link"),
         );
         const downloadSectorFateContent = buildSectorFateDownload(withInterventions);
         downloadSectorFateLinks.forEach((downloadLink) => {
@@ -181,7 +181,7 @@ class OverviewPresenter {
         });
 
         const downloadPolymerLinks = Array.of(
-            ...document.querySelectorAll(".download-polymer-link")
+            ...document.querySelectorAll(".download-polymer-link"),
         );
         const downloadPolymerContent = buildPolymerDownload(withInterventions);
         downloadPolymerLinks.forEach((downloadLink) => {
@@ -190,7 +190,7 @@ class OverviewPresenter {
         });
 
         const downloadGhgLinks = Array.of(
-            ...document.querySelectorAll(".download-ghg-link")
+            ...document.querySelectorAll(".download-ghg-link"),
         );
         const downloadGhgContent = buildGhgDownload(withInterventions);
         downloadGhgLinks.forEach((downloadLink) => {
@@ -202,7 +202,7 @@ class OverviewPresenter {
     _setupExportDialog() {
         const self = this;
         const downloadLinks = Array.of(
-            ...document.querySelectorAll(".download-link")
+            ...document.querySelectorAll(".download-link"),
         );
         downloadLinks.forEach((downloadLink) => {
             downloadLink.addEventListener("click", () => {
