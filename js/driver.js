@@ -885,26 +885,18 @@ class PolymerWorkerQueue {
 
         self._workers = [];
 
-        const runWithoutThreads = () => {
-            console.log("Running without threads.");
-            self._modifierFuture = buildModifier();
-        };
-
         if (window.Worker) {
-            try {
-                const nativeConcurrency = window.navigator.hardwareConcurrency;
-                const hasKnownConcurrency = nativeConcurrency !== undefined;
-                const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
-                const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
-                const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
-                for (let i = 0; i < concurrencyDesired; i++) {
-                    self._workers.push(self._makeWorker());
-                }
-            } catch {
-                runWithoutThreads();
+            const nativeConcurrency = window.navigator.hardwareConcurrency;
+            const hasKnownConcurrency = nativeConcurrency !== undefined;
+            const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+            const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+            const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
+            for (let i = 0; i < concurrencyDesired; i++) {
+                self._workers.push(self._makeWorker());
             }
         } else {
-            runWithoutThreads();
+            console.log("Running without threads.");
+            self._modifierFuture = buildModifier();
         }
     }
 
