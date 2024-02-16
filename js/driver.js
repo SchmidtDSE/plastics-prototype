@@ -883,48 +883,64 @@ class PolymerWorkerQueue {
         self._workerRequestId = 0;
         self._workerCallbacks = new Map();
 
-        self._workers = [];
+        // Require that worker is supported and, for Safari, that network is available for
+        // importScripts within the worker.
+        self._workersFuture = new Promise((resolve) => {
+            const workers = [];
 
-        if (window.Worker) {
-            const nativeConcurrency = window.navigator.hardwareConcurrency;
-            const hasKnownConcurrency = nativeConcurrency !== undefined;
-            const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
-            const concurrencyDesiredCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
-            const concurrencyDesired = concurrencyDesiredCap < 1 ? 1 : concurrencyDesiredCap;
-            for (let i = 0; i < concurrencyDesired; i++) {
-                self._workers.push(self._makeWorker());
+            if (!window.Worker || !window.navigator.onLine) {
+                console.log("Running without threads.");
+                self._modifierFuture = buildModifier();
+                resolve(workers);
+                return;
             }
-        } else {
-            console.log("Running without threads.");
-            self._modifierFuture = buildModifier();
-        }
+
+            fetch("/js/version.txt").then((response) => {
+                if (response.ok) {
+                    const nativeConcurrency = window.navigator.hardwareConcurrency;
+                    const hasKnownConcurrency = nativeConcurrency !== undefined;
+                    const concurrencyAllowed = hasKnownConcurrency ? nativeConcurrency - 1 : 1;
+                    const concurrencyCap = concurrencyAllowed > 5 ? 5 : concurrencyAllowed;
+                    const concurrencyDesired = concurrencyCap < 1 ? 1 : concurrencyCap;
+                    for (let i = 0; i < concurrencyDesired; i++) {
+                        workers.push(self._makeWorker());
+                    }
+                } else {
+                    console.log("Running without threads.");
+                    self._modifierFuture = buildModifier();
+                }
+                resolve(workers);
+            })
+        });
     }
 
     request(year, state) {
         const self = this;
 
-        if (self._workers.length == 0) {
-            return self._modifierFuture.then((modifier) => {
-                modifier.modify(year, state, ALL_ATTRS);
-                return {"year": year, "state": state};
+        return self._workersFuture.then((workers) => {
+            if (workers.length == 0) {
+                return self._modifierFuture.then((modifier) => {
+                    modifier.modify(year, state, ALL_ATTRS);
+                    return {"year": year, "state": state};
+                });
+            }
+    
+            const requestId = self._workerRequestId;
+            const workerId = requestId % workers.length;
+    
+            const requestObj = {
+                "year": year,
+                "state": state,
+                "requestId": requestId,
+                "attrs": ALL_ATTRS,
+            };
+    
+            self._workerRequestId++;
+    
+            return new Promise((resolve, reject) => {
+                self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
+                workers[workerId].postMessage(requestObj);
             });
-        }
-
-        const requestId = self._workerRequestId;
-        const workerId = requestId % self._workers.length;
-
-        const requestObj = {
-            "year": year,
-            "state": state,
-            "requestId": requestId,
-            "attrs": ALL_ATTRS,
-        };
-
-        self._workerRequestId++;
-
-        return new Promise((resolve, reject) => {
-            self._workerCallbacks.set(requestId, {"resolve": resolve, "reject": reject});
-            self._workers[workerId].postMessage(requestObj);
         });
     }
 

@@ -16,9 +16,10 @@ const OLD_CACHES = [
     "GlobalPlasticsToolOffline_5",
     "GlobalPlasticsToolOffline_v1",
     "GlobalPlasticsToolOffline_v2",
-    "GlobalPlasticsToolOffline_v3"
+    "GlobalPlasticsToolOffline_v3",
+    "GlobalPlasticsToolOffline_v4"
 ];
-const CACHE_NAME = "GlobalPlasticsToolOffline_v4";
+const CACHE_NAME = "GlobalPlasticsToolOffline_v5";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
