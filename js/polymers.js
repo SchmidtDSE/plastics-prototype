@@ -834,9 +834,14 @@ class StateModifier {
                     goodsTradePolymers,
                     resinTradePolymers,
                 ].map((x) => x.get(polymerName)).reduce((a, b) => a + b);
+
+                // Handle if import more than produced
+                const productionNaive = consumptionPolymers.get(polymerName) - totalTradePolymer;
+                const production = productionNaive < 0 ? 0 : productionNaive;
+
                 productionRegionPolymers.set(
                     polymerName,
-                    consumptionPolymers.get(polymerName) - totalTradePolymer,
+                    production,
                 );
             });
 
