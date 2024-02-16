@@ -888,7 +888,6 @@ function main(shouldPause, includeDevelopment, disableDelay) {
  * Facade which sends tasks to the queue potentially backed by web workers if available.
  */
 class PolymerWorkerQueue {
-
     /**
      * Create a new queue.
      */
@@ -938,7 +937,7 @@ class PolymerWorkerQueue {
 
     /**
      * Request processing of a year and state.
-     * 
+     *
      * @param year The year like 2050 for which a state is provided.
      * @param state The state object (Map) to process.
      * @returns Promise which resolves when the object is processed.
@@ -975,8 +974,8 @@ class PolymerWorkerQueue {
 
     /**
      * Process a response from a worker.
-     * 
-     * @param response Response from worker thread. 
+     *
+     * @param response Response from worker thread.
      */
     _onResponse(response) {
         const self = this;
@@ -996,7 +995,7 @@ class PolymerWorkerQueue {
 
     /**
      * Make a new web worker.
-     * 
+     *
      * @returns Newly constructed worker.
      */
     _makeWorker() {
