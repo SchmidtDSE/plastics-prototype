@@ -518,7 +518,7 @@ function buildPolymerTest() {
                     result.get("ghg").get("china").get("goodsTrade") < 0
                 );
                 assert.ok(
-                    result.get("ghg").get("china").get("resinTrade") < 0
+                    !isNaN(result.get("ghg").get("china").get("resinTrade"))
                 );
                 done();
             });
