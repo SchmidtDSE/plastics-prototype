@@ -559,7 +559,7 @@ class ReportPresenter {
         state.get("ghg").forEach((regionOriginal, region) => {
             const newRegionGhg = new Map();
             makePercents(regionOriginal, newRegionGhg, ["overallGhg"]);
-            newOut.set(region, newRegionGhg);
+            newGhg.set(region, newRegionGhg);
         });
 
         const newState = new Map();
