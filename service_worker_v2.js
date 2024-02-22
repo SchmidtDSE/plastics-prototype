@@ -328,5 +328,5 @@ self.addEventListener("install", (e) => {
     console.log("[Service Worker] Cache Queued");
 
     // In case someone is bouncing, don't add to download size
-    setTimeout(preloadCache, 10000);
+    setTimeout(preloadCache, 5000);
 });
