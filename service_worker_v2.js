@@ -24,6 +24,7 @@ const OLD_CACHES = [
     "GlobalPlasticsToolOfflineFlag_v4",
     "GlobalPlasticsToolOfflineFlag_v5",
     "GlobalPlasticsTool_20240221",
+    "GlobalPlasticsTool_20240221_1",
 ];
 const CACHE_NAME = "GlobalPlasticsTool_20240222";
 const ESSENTIAL_FILES = [
