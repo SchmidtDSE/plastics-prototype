@@ -24,8 +24,9 @@ const OLD_CACHES = [
     "GlobalPlasticsToolOfflineFlag_v4",
     "GlobalPlasticsToolOfflineFlag_v5",
     "GlobalPlasticsTool_20240221",
+    "GlobalPlasticsTool_20240221_1",
 ];
-const CACHE_NAME = "GlobalPlasticsTool_20240221_1";
+const CACHE_NAME = "GlobalPlasticsTool_20240222";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
@@ -327,5 +328,5 @@ self.addEventListener("install", (e) => {
     console.log("[Service Worker] Cache Queued");
 
     // In case someone is bouncing, don't add to download size
-    setTimeout(preloadCache, 10000);
+    setTimeout(preloadCache, 5000);
 });
