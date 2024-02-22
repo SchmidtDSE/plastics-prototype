@@ -78,7 +78,7 @@ class Driver {
 
         setTimeout(() => {
             self._checkUpdate();
-        }, 7000);
+        }, 5000);
     }
 
     /**
@@ -573,7 +573,7 @@ class Driver {
             .then((newVersion) => {
                 const versionInput = document.getElementById("version-number");
                 const currentVersion = versionInput === null ? 0 : parseFloat(versionInput.value);
-                console.log(newVersion, currentVersion);
+
                 if (newVersion > currentVersion) {
                     document.querySelector(".fallback-warning").style.display = "block";
                 }
