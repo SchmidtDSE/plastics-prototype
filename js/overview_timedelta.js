@@ -160,7 +160,7 @@ class TimeDeltaPresenter {
             } else {
                 return Math.ceil(maxValueNative / step) * step;
             }
-        }
+        };
 
         const maxValue = getMaxValue();
 
