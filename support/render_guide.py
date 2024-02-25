@@ -5,8 +5,8 @@ import os
 import string
 import sys
 
-USAGE_STR = 'python render_guide.py [template] [output] [standalone dir]'
-NUM_ARGS = 3
+USAGE_STR = 'python render_guide.py [template] [output] [standalone dir] [diagnostics]'
+NUM_ARGS = 4
 DEFAULT_YEAR = 2050
 NEW_YORK_AREA = 59.1
 EMPTY_BOTTLE_MASS = 0.000023
@@ -107,6 +107,7 @@ def main():
     template_loc = sys.argv[1]
     output_loc = sys.argv[2]
     results_dir = sys.argv[3]
+    diagnostics_loc = sys.argv[4]
 
     total_consumption_2024 = get_total_consumption(2024, results_dir)
     total_consumption_2050 = get_total_consumption(2050, results_dir)
@@ -208,6 +209,9 @@ def main():
     ))
     tower_intervention_low_km = get_cone_height(tower_intervention_low_mass)
     tower_intervention_low_miles = km_to_miles(tower_intervention_low_km)
+    
+    with open(diagnostics_loc) as f:
+        diagnostics = json.load(f)
 
     template_vals = {
         'totalConsumptionChange': round(total_consumption_change, ndigits=1),
@@ -259,7 +263,17 @@ def main():
         'towerBauMilesAnnual': round(tower_bau_miles_annual, ndigits=2),
         'towerBauKmAnnual': round(tower_bau_km_annual, ndigits=2),
         'deltaBanWasteTrade': round(delta_ban_waste_trade, ndigits=1),
-        'epoch': round(datetime.datetime.now().timestamp())
+        'epoch': round(datetime.datetime.now().timestamp()),
+        'consumptionInSampleError': round(diagnostics['consumptionInSampleError'], ndigits=2),
+        'consumptionOutSampleError': round(diagnostics['consumptionOutSampleError'], ndigits=2),
+        'wasteInSampleError': round(diagnostics['wasteInSampleError'], ndigits=2),
+        'wasteOutSampleError': round(diagnostics['wasteOutSampleError'], ndigits=2),
+        'goodsTradeInSampleError': round(diagnostics['goodsTradeInSampleError'], ndigits=2),
+        'goodsTradeOutSampleError': round(diagnostics['goodsTradeOutSampleError'], ndigits=2),
+        'wasteTradeInSampleError': round(diagnostics['wasteTradeInSampleError'], ndigits=2),
+        'wasteTradeOutSampleError': round(diagnostics['wasteTradeOutSampleError'], ndigits=2),
+        'tradeSectorInSampleError': round(diagnostics['tradeSectorInSampleError'], ndigits=2),
+        'tradeSectorOutSampleError': round(diagnostics['tradeSectorOutSampleError'], ndigits=2)
     }
 
     with open(template_loc) as f:

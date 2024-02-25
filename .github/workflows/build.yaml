@@ -146,12 +146,11 @@ jobs:
           name: img-snapshot
           path: img.zip
           if-no-files-found: error
-  deploy:
-    name: Deploy Web
-    environment: deploy
+  buildDeployment:
+    name: Build Deployment
+    environment: build
     runs-on: ubuntu-latest
     needs: [test, runStandalone, buildFigures]
-    if: github.ref == 'refs/heads/deploy'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -194,6 +193,46 @@ jobs:
         run: bash support/update_scenarios_default.sh
       - name: Package website
         run: bash ./support/package.sh
+      - name: Build zip
+        run: zip -r deploy.zip deploy
+      - uses: actions/upload-artifact@v3
+        with:
+          name: deploy
+          path: ./deploy.zip
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: index
+          path: ./deploy/index.html 
+  validateDeployment:
+    name: Validate Deployment
+    environment: build
+    runs-on: ubuntu-latest
+    needs: [buildDeployment]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy
+      - name: Unzip
+        run: unzip deploy.zip
+      - name: Check deployment
+        run: bash ./support/check_deployment.sh 
+  deploy:
+    name: Deploy Web
+    environment: deploy
+    runs-on: ubuntu-latest
+    needs: [validateDeployment]
+    if: github.ref == 'refs/heads/deploy'
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deploy
+      - name: Unzip
+        run: unzip deploy.zip  
       - name: Upload
         uses: Creepios/sftp-action@v1.0.3
         with:

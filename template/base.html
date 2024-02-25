@@ -665,19 +665,26 @@
                                 Focusing on the machine learning, performance evaluation is <a href="/#downloads" target="_blank">reported in detail across the entire sweep of models</a> beyond the random forest option. However, focusing on the hidden test set performance for the model configurations in production as mean absolute error:
                                 
                                 <ul>
-                                    <li>Consumption sees a test MAE of 1.15 MMT. It should be mentioned that there are a relatively large number of classes of consumption.</li>
-                                    <li>Waste sees a test MAE of 0.01 MMT. This tool highlights that there are only 4 classes of fates.</li>
-                                    <li>Goods trade sees a test MAE of 1.59 MMT. This project notes an important degree of change in this metric over time in the historic dataset.</li>
-                                    <li>Waste trade sees a test MAE of 1.29 MMT. It is worth mentioning that this metric has had major shifts due to policy like China's National Sword.</li>
+                                    <li>Consumption sees a test MAE of $consumptionInSampleError MMT. It should be mentioned that there are a relatively large number of classes of consumption.</li>
+                                    <li>Waste sees a test MAE of $wasteInSampleError MMT. This tool highlights that there are only 4 classes of fates.</li>
+                                    <li>Goods trade sees a test MAE of $goodsTradeInSampleError MMT. This project notes an important degree of change in this metric over time in the historic dataset.</li>
+                                    <li>Waste trade sees a test MAE of $wasteTradeInSampleError MMT. It is worth mentioning that this metric has had major shifts due to policy like China's National Sword.</li>
                                 </ul>
 
                                 Of course, these measures report on instances randomly selected to go into a hidden test set. These "in-sample" errors may under-estimate what one would see in practice when making temporally displaced "out of sample" predictions in future years. Therefore the model pipeline also runs an experiment in which it hides 2019 and 2020 from the  training before using 2019 as validation. This in mind, we observe the following out of sample MAEs for the production model configuration:
 
                                 <ul>
-                                    <li>Consumption sees an out of sample MAE of 1.29 MMT.</li>
-                                    <li>Waste sees an out of sample MAE of 0.02 MMT.</li>
-                                    <li>Goods trade sees an out of sample MAE of 1.98 MMT.</li>
-                                    <li>Waste trade sees an out of sample MAE of 1.90 MMT.</li>
+                                    <li>Consumption sees an out of sample MAE of $consumptionOutSampleError MMT.</li>
+                                    <li>Waste sees an out of sample MAE of $wasteOutSampleError MMT.</li>
+                                    <li>Goods trade sees an out of sample MAE of $goodsTradeOutSampleError MMT.</li>
+                                    <li>Waste trade sees an out of sample MAE of $wasteTradeOutSampleError MMT.</li>
+                                </ul>
+
+                                Additionally, for a limited number of features, models sectorize trade masses as ratios to overall net trade with the following performance where the difference in available input data may explain task performance:
+
+                                <ul>
+                                    <li>Hidden test set MAE: $tradeSectorInSampleError</li>
+                                    <li>Out of sample test MAE: $tradeSectorOutSampleError</li>
                                 </ul>
 
                                 Finally, the modeling team further monitors various segments of the dataset to ensure adequate performance for all sectors, regions, fates, train / test / validation splits, etc. In addition to offering an opportunity for domain experts to evaluate model results, this activity can also provide segment error estimations. One such method of monitoring is to retrain the selected random forest configuration with many different train / validation sets to determine the range of expected performance with some differences anticipated due to chance. All this in mind, consider the following region-level performance given that dimension's particularly notable importance to equity:
@@ -706,7 +713,7 @@
                                     <li>Made global GHG public on 2024-02-22.</li>
                                 </ul>
                                 
-                                See <a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">open source model pipeline</a> where a Docker image is available. Note that this page reports results from a training for documentation purposes. Minor edits to the site which cause a pipeline execution may result in slightly different error numbers in practice but the above results remain representative. However, the precise up to date error numbers are available in the <a href="/datapipeline.zip">Data Pipeline Zip File</a>.
+                                See <a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">open source model pipeline</a> where a Docker image is available.
                             </div>
                             <div id="about-contact">
                                 <h2>Contact Information</h2>
