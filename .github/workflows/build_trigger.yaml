@@ -202,6 +202,11 @@ jobs:
           name: deploy
           path: ./deploy.zip
           if-no-files-found: error
+      - uses: actions/upload-artifact@v3
+        with:
+          name: index
+          path: ./deploy/index.html
+          if-no-files-found: error  
   validateDeployment:
     name: Validate Deployment
     environment: build
