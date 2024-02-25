@@ -1,5 +1,5 @@
 echo "Summarizing diagnostics..."
-python support/summarize_model_diagnostics.csv ./pipeline/diagnostics.json ./pipeline
+python support/summarize_model_diagnostics.py ./pipeline/diagnostics.json ./pipeline
 
 [ ! -e standalone_tasks/highAmbition.json ] && echo "Skipping guide render..."
 [ ! -e standalone_tasks/highAmbition.json ] && cp template/base.html template/base_prerender.html
