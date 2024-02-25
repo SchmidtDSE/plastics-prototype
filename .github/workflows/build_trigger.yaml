@@ -202,11 +202,27 @@ jobs:
           name: deploy
           path: ./deploy
           if-no-files-found: error
+  validateDeployment:
+    name: Validate Deployment
+    environment: build
+    runs-on: ubuntu-latest
+    needs: [validateDeployment]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pipeline-result
+      - name: Unzip
+        run: unzip deploy.zip
+      - name: Check deployment
+        run: bash ./support/check_deployment.sh 
   deploy:
     name: Deploy Web
     environment: deploy
     runs-on: ubuntu-latest
-    needs: [buildDeployment]
+    needs: [validateDeployment]
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
