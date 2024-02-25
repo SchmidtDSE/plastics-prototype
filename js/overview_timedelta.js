@@ -151,7 +151,18 @@ class TimeDeltaPresenter {
             getMax(businessAsUsuals),
             getMax(withInterventions),
         );
-        const maxValue = Math.ceil(maxValueNative / step) * step;
+
+        const getMaxValue = () => {
+            if (maxValueNative > 10000 && !sparseTicks) {
+                return Math.ceil(maxValueNative / 5000) * 5000;
+            } else if (maxValueNative > 1000 && !sparseTicks) {
+                return Math.ceil(maxValueNative / 500) * 500;
+            } else {
+                return Math.ceil(maxValueNative / step) * step;
+            }
+        };
+
+        const maxValue = getMaxValue();
 
         const minValueNative = Math.min(
             getMin(businessAsUsuals),
@@ -210,8 +221,10 @@ class TimeDeltaPresenter {
 
             boundUpdated.transition()
                 .attr("opacity", (x) => {
-                    if (maxValue > 500) {
-                        return x % 200 == 0 ? 1 : 0;
+                    if (maxValue > 10000) {
+                        return x % 5000 == 0 ? 1 : 0;
+                    } else if (maxValue > 1000) {
+                        return x % 500 == 0 ? 1 : 0;
                     } else {
                         return 1;
                     }

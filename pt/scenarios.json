@@ -145,19 +145,19 @@
       "values": [
         {
           "lever": "chinaVirginPlasticCap",
-          "value": 125
+          "value": 145
         },
         {
           "lever": "eu30VirginPlasticCap",
-          "value": 55
+          "value": 75
         },
         {
           "lever": "naftaVirginPlasticCap",
-          "value": 85
+          "value": 95
         },
         {
           "lever": "rowVirginPlasticCap",
-          "value": 135
+          "value": 160
         }
       ],
       "released": true
