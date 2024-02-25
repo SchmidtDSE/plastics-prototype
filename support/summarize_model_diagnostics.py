@@ -38,8 +38,8 @@ def parse_main_sweep_record(raw_record):
     return ParsedRecord(
         raw_record['type'],
         float(raw_record['validInSampleTarget']),
-        float(raw_record['testInSampleResponse']),
-        float(raw_record['testOutSampleResponse'])
+        float(raw_record['testInSampleTarget']),
+        float(raw_record['testOutSampleTarget'])
     )
 
 

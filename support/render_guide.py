@@ -271,7 +271,9 @@ def main():
         'goodsTradeInSampleError': round(diagnostics['goodsTradeInSampleError'], ndigits=2),
         'goodsTradeOutSampleError': round(diagnostics['goodsTradeOutSampleError'], ndigits=2),
         'wasteTradeInSampleError': round(diagnostics['wasteTradeInSampleError'], ndigits=2),
-        'wasteTradeOutSampleError': round(diagnostics['wasteTradeOutSampleError'], ndigits=2)
+        'wasteTradeOutSampleError': round(diagnostics['wasteTradeOutSampleError'], ndigits=2),
+        'tradeSectorInSampleError': round(diagnostics['tradeSectorInSampleError'], ndigits=2),
+        'tradeSectorOutSampleError': round(diagnostics['tradeSectorOutSampleError'], ndigits=2)
     }
 
     with open(template_loc) as f:
