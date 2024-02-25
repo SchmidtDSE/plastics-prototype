@@ -38,6 +38,10 @@ echo "== [support] Checking supplemental diagnostics =="
 
 echo "== [support] Moving supplemental diagnostics =="
 mv /tmp/ghg_pipeline_staging/deploy/sweep.csv pipeline/trade_sector_sweep.csv
-mv /tmp/ghg_pipeline_staging/deploy/out_sample_test.txt pipeline/trade_sector_out_sample_test.csv
+mv /tmp/ghg_pipeline_staging/deploy/out_sample_test.txt pipeline/trade_sector_out_sample_test.txt
+
+echo "== [support] Checking supplemental diagnostics moved =="
+[ ! -e pipeline/trade_sector_sweep.csv ] && exit 8;
+[ ! -e pipeline/trade_sector_out_sample_test.txt ] && exit 9;
 
 echo "== [support] Loaded supporting data =="
