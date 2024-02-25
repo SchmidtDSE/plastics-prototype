@@ -211,7 +211,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: pipeline-result
+          name: deploy
       - name: Unzip
         run: unzip deploy.zip
       - name: Check deployment
@@ -226,7 +226,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: pipeline-result
+          name: deploy
       - name: Unzip
         run: unzip deploy.zip  
       - name: Upload
