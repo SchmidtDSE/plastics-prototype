@@ -679,6 +679,13 @@
                                     <li>Goods trade sees an out of sample MAE of $goodsTradeOutSampleError MMT.</li>
                                     <li>Waste trade sees an out of sample MAE of $wasteTradeOutSampleError MMT.</li>
                                 </ul>
+                                
+                                Additionally, models sectorize trade masses determined above with the following performance where 0.01 is one percent:
+                                
+                                <ul>
+                                    <li>Hidden test set MAE: $tradeSectorInSampleError</li>
+                                    <li>Out of sample test MAE: $tradeSectorOutSampleError</li>
+                                </ul>
 
                                 Finally, the modeling team further monitors various segments of the dataset to ensure adequate performance for all sectors, regions, fates, train / test / validation splits, etc. In addition to offering an opportunity for domain experts to evaluate model results, this activity can also provide segment error estimations. One such method of monitoring is to retrain the selected random forest configuration with many different train / validation sets to determine the range of expected performance with some differences anticipated due to chance. All this in mind, consider the following region-level performance given that dimension's particularly notable importance to equity:
 

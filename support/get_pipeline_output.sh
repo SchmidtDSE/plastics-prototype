@@ -27,4 +27,17 @@ mv /tmp/ghg_staging/production_trade_subtype_ratios.csv pipeline
 echo "== [support] Checking moved contents =="
 [ ! -e pipeline/polymer_ratios.csv ] && exit 5;
 
+echo "== [support] Getting downstream diagnostics =="
+mkdir /tmp/ghg_pipeline_staging
+wget https://global-plastics-tool.org/data/ghg-pipeline.zip -O /tmp/ghg_pipeline_staging/ghg-pipeline.zip
+unzip /tmp/ghg_pipeline_staging/ghg-pipeline.zip -d /tmp/ghg_pipeline_staging
+
+echo "== [support] Checking supplemental diagnostics =="
+[ ! -e /tmp/ghg_pipeline_staging/deploy/sweep.csv ] && exit 6;
+[ ! -e /tmp/ghg_pipeline_staging/deploy/out_sample_test.txt ] && exit 7;
+
+echo "== [support] Moving supplemental diagnostics =="
+mv /tmp/ghg_pipeline_staging/deploy/sweep.csv pipeline/trade_sector_sweep.csv
+mv /tmp/ghg_pipeline_staging/deploy/out_sample_test.txt pipeline/trade_sector_out_sample_test.csv
+
 echo "== [support] Loaded supporting data =="
