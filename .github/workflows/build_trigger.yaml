@@ -148,9 +148,9 @@ jobs:
           name: img-snapshot
           path: img.zip
           if-no-files-found: error
-  deploy:
-    name: Deploy Web
-    environment: deploy
+  buildDeployment:
+    name: Build Deployment
+    environment: build
     runs-on: ubuntu-latest
     needs: [test, runStandalone, buildFigures]
     steps:
@@ -195,6 +195,25 @@ jobs:
         run: bash support/update_scenarios_default.sh
       - name: Package website
         run: bash ./support/package.sh
+      - name: Build zip
+        run: zip -r deploy.zip deploy
+      - uses: actions/upload-artifact@v3
+        with:
+          name: deploy
+          path: ./deploy
+          if-no-files-found: error
+  deploy:
+    name: Deploy Web
+    environment: deploy
+    runs-on: ubuntu-latest
+    needs: [buildDeployment]
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: pipeline-result
+      - name: Unzip
+        run: unzip deploy.zip  
       - name: Upload
         uses: Creepios/sftp-action@v1.0.3
         with:
