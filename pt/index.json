@@ -3977,6 +3977,78 @@
                     "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
                 },
                 {
+                    "name": "China Reuse Exhaustion",
+                    "description": "How much of reusable products are exhausted each year in China.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "chinaReuseExhaustion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "china"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "EU 30 Reuse Exhaustion",
+                    "description": "How much of reusable products are exhausted each year in the EU 30.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "eu30ReuseExhaustion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "eu30"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "NAFTA Reuse Exhaustion",
+                    "description": "How much of reusable products are exhausted each year in NAFTA.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "naftaReuseExhaustion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "nafta"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "ROW Reuse Exhaustion",
+                    "description": "How much of reusable products are exhausted each year in the rest of world.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 20,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "rowReuseExhaustion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "row"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
                     "name": "Recycling Circularity Delay",
                     "description": "How long it takes from recycling collection to use in new products for newly added or removed recycling.",
                     "min": 0,
