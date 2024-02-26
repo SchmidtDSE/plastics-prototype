@@ -164,7 +164,7 @@
     },
     {
       "name": "<option> % Min Recycle Collection Rate",
-      "id": "minmium-recycle-rate",
+      "id": "minimum-recycle-rate",
       "description": "Policy which requires that a certain percent of plastic waste is recycled. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
       "config": {
         "options": [
@@ -208,8 +208,53 @@
       "released": true
     },
     {
+      "name": "<option> % Min Packaging Reuse",
+      "id": "minimum-packaging-reuse",
+      "description": "Policy which requires a certain percent of products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well.",
+      "config": {
+        "options": [
+          {
+            "name": "20",
+            "value": 20
+          },
+          {
+            "name": "30",
+            "value": 30
+          },
+          {
+            "name": "40",
+            "value": 40
+          }
+        ],
+        "default": 30
+      },
+      "values": [
+        {
+          "lever": "chinaMinimumReusePackaging",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "eu30MinimumReusePackaging",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "naftaMinimumReusePackaging",
+          "value": 30,
+          "baseValue": 30
+        },
+        {
+          "lever": "rowMinimumReusePackaging",
+          "value": 30,
+          "baseValue": 30
+        }
+      ],
+      "released": true
+    },
+    {
       "name": "<option> % Min Recycled Content",
-      "id": "minmium-recycled-content",
+      "id": "minimum-recycled-content",
       "description": "Policy which requires a certain percent of products are made with recycled materials. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
       "config": {
         "options": [

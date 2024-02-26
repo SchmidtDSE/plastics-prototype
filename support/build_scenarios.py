@@ -9,8 +9,8 @@ USAGE_STR = 'USAGE: python build_scenarios.py [scenarios json] [job template] [o
 
 SCENARIOS = {
     "snapshot": {
-        'minimumRecyclingRate': {'minmium-recycle-rate': 30},
-        'minimumRecycledContent': {'minmium-recycled-content': 30},
+        'minimumRecyclingRate': {'minimum-recycle-rate': 30},
+        'minimumRecycledContent': {'minimum-recycled-content': 30},
         'capVirgin': {'cap-virgin': 1},
         'banPsPackaging': {'ban-ps-packaging': 1},
         'banSingleUse': {'ban-single-use': 90},
@@ -20,16 +20,17 @@ SCENARIOS = {
         'taxVirgin': {'tax-virgin': 1},
         'banWasteTrade': {'ban-waste-trade': 1},
         'lowAmbition': {
-            'minmium-recycle-rate': 20,
-            'minmium-recycled-content': 20,
+            'minimum-recycle-rate': 20,
+            'minimum-recycled-content': 20,
             'ban-single-use': 30,
             'reduced-additives': 30,
             'recycling-investment': 10,
             'waste-investment': 25
         },
         'highAmbition': {
-            'minmium-recycle-rate': 40,
-            'minmium-recycled-content': 40,
+            'minimum-recycle-rate': 40,
+            'minimum-recycled-content': 40,
+            'minimum-packaging-reuse': 40,
             'cap-virgin': 1,
             'ban-ps-packaging': 1,
             'ban-single-use': 90,
@@ -43,16 +44,16 @@ SCENARIOS = {
     },
     "timeseries": {
         'lowAmbition': {
-            'minmium-recycle-rate': 20,
-            'minmium-recycled-content': 20,
+            'minimum-recycle-rate': 20,
+            'minimum-recycled-content': 20,
             'ban-single-use': 30,
             'reduced-additives': 30,
             'recycling-investment': 10,
             'waste-investment': 25
         },
         'highAmbition': {
-            'minmium-recycle-rate': 40,
-            'minmium-recycled-content': 40,
+            'minimum-recycle-rate': 40,
+            'minimum-recycled-content': 40,
             'cap-virgin': 1,
             'ban-ps-packaging': 1,
             'ban-single-use': 90,
