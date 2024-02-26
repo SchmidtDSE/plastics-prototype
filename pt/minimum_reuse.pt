@@ -1,5 +1,5 @@
 # Determine target
-var targetRateGoal = in.{{ region }}MinimumReuse{% if packagingOnly %}Packaging{% else %}All{% endif %} / 100;
+var targetRateGoal = in.{{ region }}MinimumReuse{{ reuseType }} / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
@@ -32,7 +32,6 @@ var neededMarginRecycling = (
 );
 limit neededMarginRecycling to [0,];
 
-{% if packagingOnly %}
 # Assume concentrated in packaging
 var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
   out.{{ region }}.consumptionPackagingMT + 
@@ -45,8 +44,8 @@ var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
   out.{{ region }}.consumptionOtherMT + 
   out.{{ region }}.netExportsMT
 );
+limit percentPackaging to [{{ minPackagingMultiplier }}, 1];  # Potentally allow outside packaging.
 neededMarginRecycling = neededMarginRecycling * percentPackaging;
-{% endif %}
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
@@ -73,6 +72,15 @@ var actualRecycledDeltaLeading = 0;
 var leadStart = in.startYear - yearsToRecycle;
 var leadDelay = in.endYearGradual - yearsToRecycle;
 change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
+
+# Determine how much consumption is lost due to price increase
+var lostConsumptionRate = in.reuseLostConsumption / 100;
+var lostConsumption = actualRecycledDelta * lostConsumptionRate;
+var lostConsumptionLifecycle = actualRecycledDeltaLifecycle * lostConsumptionRate;
+actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
+
+# Anticipate the leading / anticipatory change in recycling
+actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate)
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (

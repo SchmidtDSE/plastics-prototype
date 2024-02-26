@@ -414,7 +414,8 @@
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"],
-                        "packagingOnly": true
+                        "minPackagingMultiplier": 0,
+                        "reuseType": "Packaging"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -434,7 +435,8 @@
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
-                        "packagingOnly": true
+                        "minPackagingMultiplier": 0,
+                        "reuseType": "Packaging"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -454,7 +456,8 @@
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
-                        "packagingOnly": true
+                        "minPackagingMultiplier": 0,
+                        "reuseType": "Packaging"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -474,12 +477,13 @@
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],
-                        "packagingOnly": true
+                        "minPackagingMultiplier": 0,
+                        "reuseType": "Packaging"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "China Minimum Reuse",
+                    "name": "China Minimum Reuse All",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in China.",
                     "min": 0,
                     "max": 100,
@@ -494,7 +498,8 @@
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"],
-                        "packagingOnly": false
+                        "minPackagingMultiplier": 1,
+                        "reuseType": "All"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -514,7 +519,8 @@
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
-                        "packagingOnly": false
+                        "minPackagingMultiplier": 1,
+                        "reuseType": "All"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -534,7 +540,8 @@
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
-                        "packagingOnly": false
+                        "minPackagingMultiplier": 1,
+                        "reuseType": "All"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -554,7 +561,8 @@
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],
-                        "packagingOnly": false
+                        "minPackagingMultiplier": 1,
+                        "reuseType": "All"
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
@@ -4106,6 +4114,22 @@
                     "units": "%",
                     "forcePlus": false,
                     "variable": "recyclingContentLostConsumption",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "Reuse Lost Consumption",
+                    "description": "At what rate consumption goes down due to price increase caused by increased reuse.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "reuseLostConsumption",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,
