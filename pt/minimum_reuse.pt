@@ -1,5 +1,5 @@
 # Determine target
-var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
+var targetRateGoal = in.{{ region }}MinimumReuse{% if packagingOnly %}Packaging{% else %}All{% endif %} / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
@@ -24,13 +24,29 @@ var totalConsumption = (
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
 # Determine how much recycled content is missing
-var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
+var recoveryRate = (1 - in.{{ region }}ReuseExhaustion / 100);
 var neededRecycledContentRate = targetRate * totalConsumption / recoveryRate;
 var neededMarginRecycling = (
   neededRecycledContentRate -
   recycledContent
 );
 limit neededMarginRecycling to [0,];
+
+{% if packagingOnly %}
+# Assume concentrated in packaging
+var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
+  out.{{ region }}.consumptionPackagingMT + 
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextileMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransportationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT + 
+  out.{{ region }}.netExportsMT
+);
+neededMarginRecycling = neededMarginRecycling * percentPackaging;
+{% endif %}
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
@@ -57,15 +73,6 @@ var actualRecycledDeltaLeading = 0;
 var leadStart = in.startYear - yearsToRecycle;
 var leadDelay = in.endYearGradual - yearsToRecycle;
 change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
-
-# Determine how much consumption is lost due to price increase
-var lostConsumptionRate = in.recyclingContentLostConsumption / 100;
-var lostConsumption = actualRecycledDelta * lostConsumptionRate;
-var lostConsumptionLifecycle = actualRecycledDeltaLifecycle * lostConsumptionRate;
-actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
-
-# Anticipate the leading / anticipatory change in recycling
-actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
