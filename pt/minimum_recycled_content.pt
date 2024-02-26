@@ -1,5 +1,5 @@
 # Determine target
-var targetRateGoal = in.{{ region }}MinimumRecycledContent / 100;
+var targetRateGoal = in.{{ region }}{{ varName }} / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;

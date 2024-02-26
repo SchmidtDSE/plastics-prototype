@@ -163,7 +163,7 @@
       "released": true
     },
     {
-      "name": "<option> % Minimum Recycling Rate",
+      "name": "<option> % Min Recycle Collection Rate",
       "id": "minmium-recycle-rate",
       "description": "Policy which requires that a certain percent of plastic waste is recycled. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
       "config": {
@@ -208,7 +208,7 @@
       "released": true
     },
     {
-      "name": "<option> % Minimum Recycled Content",
+      "name": "<option> % Min Recycled Content",
       "id": "minmium-recycled-content",
       "description": "Policy which requires a certain percent of products are made with recycled materials. Try out levels beyond those listed in the dropdown by going to the details tab. Assumes that there is a gradual phase in and compliance.",
       "config": {

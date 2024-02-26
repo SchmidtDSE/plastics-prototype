@@ -479,8 +479,8 @@
                     "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {
-                    "name": "China Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in China. Assumes gradual phase in of mandate until reaching this target.",
+                    "name": "China Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in China. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -498,8 +498,8 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
-                    "name": "EU 30 Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in EU 30. Assumes gradual phase in of mandate until reaching this target.",
+                    "name": "EU 30 Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in EU 30. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -517,8 +517,8 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
-                    "name": "NAFTA Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in NAFTA. Assumes gradual phase in of mandate until reaching this target.",
+                    "name": "NAFTA Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in NAFTA. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -536,8 +536,8 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
                 },
                 {
-                    "name": "ROW Min Recycling Rate",
-                    "description": "The minumum recycling rate for waste in rest of world. Assumes gradual phase in of mandate until reaching this target.",
+                    "name": "ROW Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in rest of world. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
