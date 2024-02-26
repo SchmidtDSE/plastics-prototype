@@ -80,7 +80,7 @@ var lostConsumptionLifecycle = actualRecycledDeltaLifecycle * lostConsumptionRat
 actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
 
 # Anticipate the leading / anticipatory change in recycling
-actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate)
+actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
