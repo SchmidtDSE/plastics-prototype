@@ -24,8 +24,8 @@ var totalConsumption = (
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
 # Determine how much recycled content is missing
-var exhaustionRate = in.{{ region }}ReuseExhaustion;
-var neededRecycledContentRate = targetRate * totalConsumption * exhaustionRate;
+var retentionRate = 1 - in.{{ region }}ReuseExhaustion / 100;
+var neededRecycledContentRate = targetRate * totalConsumption * retentionRate;
 var neededMarginRecycling = (
   neededRecycledContentRate -
   recycledContent
