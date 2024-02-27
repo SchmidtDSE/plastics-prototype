@@ -23,7 +23,9 @@ var totalConsumption = (
 );
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
-# Determine how much recycled content is missing
+# Determine how much recycled content is missing. Note that recycling here is actually reuse and
+# the delta should apply after retention rate (replacement of lost, damaged, exhausted reusable
+# goods).
 var retentionRate = 1 - in.{{ region }}ReuseExhaustion / 100;
 var neededRecycledContentRate = targetRate * totalConsumption * retentionRate;
 var neededMarginRecycling = (
@@ -32,7 +34,9 @@ var neededMarginRecycling = (
 );
 limit neededMarginRecycling to [0,];
 
-# Assume concentrated in packaging
+# Deal with packaging separately if the template requires it. Here, minPackagingMultiplier acts as a
+# Boolean value determines if it should be applied in packaging where 0 means it is limited to
+# packaging and 1 means applies to all sectors.
 var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
   out.{{ region }}.consumptionPackagingMT + 
   out.{{ region }}.consumptionConstructionMT + 
@@ -44,7 +48,7 @@ var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
   out.{{ region }}.consumptionOtherMT + 
   out.{{ region }}.netExportsMT
 );
-limit percentPackaging to [{{ minPackagingMultiplier }}, 1];  # Potentally allow outside packaging.
+limit percentPackaging to [{{ minPackagingMultiplier }}, 1];
 neededMarginRecycling = neededMarginRecycling * percentPackaging;
 var neededOverallRecycling = neededRecycledContentRate * percentPackaging;
 
@@ -52,7 +56,7 @@ var neededOverallRecycling = neededRecycledContentRate * percentPackaging;
 var actualRecycledDelta = 0;
 change actualRecycledDelta by neededMarginRecycling over delayStart to delayEnd;
 
-# Determine how much delta is expected after consumption to waste lifecycle
+# Determine how much waste delta is expected after consumption to waste lifecycle.
 var actualRecycledDeltaLifecycle = 0;
 var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionPackagingMT,
@@ -93,7 +97,7 @@ var totalOtherFates = (
 limit actualRecycledDeltaLeading to [0, totalOtherFates];
 limit actualRecycledDelta to [0, actualRecycledDeltaLeading];
 
-# Increase recycling and determine offset
+# Increase recycling and determine offset. Again, "recycling" includes recycling and reuse.
 out.{{ region }}.eolRecyclingMT = (
   out.{{ region }}.eolRecyclingMT +
   actualRecycledDeltaLeading
@@ -101,7 +105,8 @@ out.{{ region }}.eolRecyclingMT = (
 var offsetProduction = actualRecycledDelta * -1;  # Consumption
 var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
-# See if this bumped the minimum GHG reduction
+# See if this bumped the minimum GHG reduction. It is possible that another intervention imposes a
+# stronger minimum.
 var totalWasteForGhg = (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
@@ -134,10 +139,9 @@ var priorImports = out.{{ region }}.netImportsMT;
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
   out.{{ region }}.netExportsMT,
-  out.{{ region }}.primaryProductionMT
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
 ] proportionally;
-
-out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT - offsetProduction;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
