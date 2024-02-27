@@ -497,6 +497,78 @@ function buildPolymerTest() {
             inMap.set("eu30PercentReducePs", 0);
             inMap.set("naftaPercentReducePs", 0);
             inMap.set("rowPercentReducePs", 0);
+            inMap.set("chinaMinGHGReduction", 0);
+            inMap.set("eu30MinGHGReduction", 0);
+            inMap.set("naftaMinGHGReduction", 0);
+            inMap.set("rowMinGHGReduction", 0);
+
+            const state = new Map();
+            state.set("out", outMap);
+            state.set("in", inMap);
+
+            const done = assert.async();
+            const modifierFuture = buildModifier();
+            modifierFuture.then((modifier) => {
+                const result = modifier.modify(2050, state, ["consumptionTextileMT"]);
+                assert.ok(result.has("ghg"));
+
+                assert.ok(
+                    result.get("ghg").get("china").get("consumption") > 0
+                );
+                assert.ok(
+                    result.get("ghg").get("china").get("eol") > 0
+                );
+                assert.ok(
+                    result.get("ghg").get("china").get("goodsTrade") < 0
+                );
+                assert.ok(
+                    !isNaN(result.get("ghg").get("china").get("resinTrade"))
+                );
+                done();
+            });
+        });
+
+        QUnit.test("modify state add ghg with offset", function(assert) {
+            const inMap = new Map();
+            const outMap = new Map();
+
+            ["china", "eu30", "nafta", "row"].forEach((region) => {
+                const regionMap = new Map();
+
+                GOODS.forEach((info, i) => {
+                    regionMap.set(info["attr"], i + 1);
+                });
+
+                RESIN_SUBTYPES.forEach((attr, i) => {
+                    regionMap.set(attr, i + 1);
+                });
+
+                regionMap.set("netImportsMT", 0);
+                regionMap.set("netExportsMT", 10);
+                regionMap.set(TEXTILE_ATTR, 11);
+                outMap.set(region, regionMap);
+
+                GHGS.forEach((info, i) => {
+                    inMap.set(region + info["leverName"] + "EmissionsProduction", i * 0.5);
+                    inMap.set(region + info["leverName"] + "EmissionsConversion", i * 0.5);
+                });
+
+                EOLS.forEach((info, i) => {
+                    inMap.set(region + info["leverName"] + "Emissions", i);
+                    outMap.get(region).set(info["attr"], i);
+                });
+            });
+
+            inMap.set("startYear", 2020);
+            inMap.set("endYearImmediate", 2030);
+            inMap.set("chinaPercentReducePs", 0);
+            inMap.set("eu30PercentReducePs", 0);
+            inMap.set("naftaPercentReducePs", 0);
+            inMap.set("rowPercentReducePs", 0);
+            inMap.set("chinaMinGHGReduction", 1);
+            inMap.set("eu30MinGHGReduction", 0);
+            inMap.set("naftaMinGHGReduction", 0);
+            inMap.set("rowMinGHGReduction", 0);
 
             const state = new Map();
             state.set("out", outMap);
@@ -694,6 +766,7 @@ function buildPolymerTest() {
             chinaGhg.set("fullyDomesticWasteGhg", 2);
             chinaGhg.set("productTradeGhg", 3);
             chinaGhg.set("eolTradeGhg", 4);
+            chinaGhg.set("policyGhgReduction", 0);
 
             const ghg = new Map();
             ghg.set("china", chinaGhg);
@@ -706,6 +779,30 @@ function buildPolymerTest() {
             finalizer._addOverallGhg(state);
 
             assert.ok(isWithinTollerance(chinaGhg, "overallGhg", 10));
+        });
+
+        QUnit.test("add overall ghg offset", function(assert) {
+            const outputs = new Map();
+            outputs.set("china", new Map());
+
+            const chinaGhg = new Map();
+            chinaGhg.set("fullyDomesticProductGhg", 1);
+            chinaGhg.set("fullyDomesticWasteGhg", 2);
+            chinaGhg.set("productTradeGhg", 3);
+            chinaGhg.set("eolTradeGhg", 4);
+            chinaGhg.set("policyGhgReduction", 1);
+
+            const ghg = new Map();
+            ghg.set("china", chinaGhg);
+
+            const state = new Map();
+            state.set("out", outputs);
+            state.set("ghg", ghg);
+
+            const finalizer = new GhgFinalizer();
+            finalizer._addOverallGhg(state);
+
+            assert.ok(isWithinTollerance(chinaGhg, "overallGhg", 9));
         });
 
         QUnit.test("add global ghg", function(assert) {
