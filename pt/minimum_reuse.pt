@@ -100,6 +100,12 @@ out.{{ region }}.eolRecyclingMT = (
 var offsetProduction = actualRecycledDelta * -1;  # Consumption
 var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
+# See if this bumped the minimum GHG reduction
+var originalMin = in.{{ region }}MinGHGReduction;
+var candidateMin = actualRecycledDeltaLeading * in.{{ region }}RecyclingEmissions * 0.001;
+var effectiveMin = originalMin if originalMin > candidateMin else candidateMin;
+in.{{ region }}MinGHGReduction = effectiveMin;
+
 # Apply offset for filled to EOL
 var wasteExportWeight = (
   out.{{ region }}.netWasteExportMT +
