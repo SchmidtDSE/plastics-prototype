@@ -320,11 +320,11 @@
         },
         {
             "name": "recycling",
-            "label": "Recycling",
+            "label": "Recycling / Reuse",
             "levers": [
                 {
                     "name": "China Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target.",
+                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -334,7 +334,7 @@
                     "variable": "chinaMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.2,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"]
@@ -343,7 +343,7 @@
                 },
                 {
                     "name": "EU 30 Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target.",
+                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -353,7 +353,7 @@
                     "variable": "eu30MinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.2,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"]
@@ -362,7 +362,7 @@
                 },
                 {
                     "name": "NAFTA Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target.",
+                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -372,7 +372,7 @@
                     "variable": "naftaMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.2,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"]
@@ -381,7 +381,7 @@
                 },
                 {
                     "name": "ROW Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target.",
+                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -391,7 +391,7 @@
                     "variable": "rowMinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.2,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"]
@@ -410,7 +410,7 @@
                     "variable": "chinaMinimumReusePackaging",
                     "template": "minimum_reuse.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.1,
                     "attrs": {
                         "region": "china",
                         "otherRegions": ["eu30", "nafta", "row"],
@@ -431,7 +431,7 @@
                     "variable": "eu30MinimumReusePackaging",
                     "template": "minimum_reuse.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.1,
                     "attrs": {
                         "region": "eu30",
                         "otherRegions": ["china", "nafta", "row"],
@@ -452,7 +452,7 @@
                     "variable": "naftaMinimumReusePackaging",
                     "template": "minimum_reuse.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.1,
                     "attrs": {
                         "region": "nafta",
                         "otherRegions": ["china", "eu30", "row"],
@@ -473,7 +473,7 @@
                     "variable": "rowMinimumReusePackaging",
                     "template": "minimum_reuse.pt",
                     "released": true,
-                    "priority": 4,
+                    "priority": 4.1,
                     "attrs": {
                         "region": "row",
                         "otherRegions": ["china", "eu30", "nafta"],

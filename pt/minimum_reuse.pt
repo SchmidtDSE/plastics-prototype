@@ -24,8 +24,8 @@ var totalConsumption = (
 var recycledContent = out.{{ region }}.eolRecyclingMT;
 
 # Determine how much recycled content is missing
-var recoveryRate = (1 - in.{{ region }}ReuseExhaustion / 100);
-var neededRecycledContentRate = targetRate * totalConsumption / recoveryRate;
+var exhaustionRate = in.{{ region }}ReuseExhaustion;
+var neededRecycledContentRate = targetRate * totalConsumption * exhaustionRate;
 var neededMarginRecycling = (
   neededRecycledContentRate -
   recycledContent
@@ -46,6 +46,7 @@ var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
 );
 limit percentPackaging to [{{ minPackagingMultiplier }}, 1];  # Potentally allow outside packaging.
 neededMarginRecycling = neededMarginRecycling * percentPackaging;
+var neededOverallRecycling = neededRecycledContentRate * percentPackaging;
 
 # Determine how much delta to apply - assume gradual compliance
 var actualRecycledDelta = 0;
@@ -101,8 +102,17 @@ var offsetProduction = actualRecycledDelta * -1;  # Consumption
 var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
 
 # See if this bumped the minimum GHG reduction
+var totalWasteForGhg = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT +
+  out.{{ region }}.netExportsMT
+);
+var reusedMassForGhg = neededOverallRecycling;
+limit reusedMassForGhg to [0, totalWasteForGhg];
 var originalMin = in.{{ region }}MinGHGReduction;
-var candidateMin = actualRecycledDeltaLeading * in.{{ region }}RecyclingEmissions * 0.001;
+var candidateMin = reusedMassForGhg * in.{{ region }}RecyclingEmissions * 0.001;
 var effectiveMin = originalMin if originalMin > candidateMin else candidateMin;
 in.{{ region }}MinGHGReduction = effectiveMin;
 
