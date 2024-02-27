@@ -1463,6 +1463,7 @@ class GhgFinalizer {
         self._getFullyDomesticGhg(state);
         const tradeLedger = self._buildLedger(state);
         self._addTradeGhg(state, tradeLedger);
+        self._addPolicyGhg(state);
         self._addOverallGhg(state);
         self._addGlobalGhg(state);
     }
@@ -1607,6 +1608,18 @@ class GhgFinalizer {
         });
     }
 
+    _addPolicyGhg(state) {
+        const self = this;
+        const regions = self._getRegions(state);
+        const ghgInfo = state.get("ghg");
+        const inputs = state.get("in");
+        regions.forEach((region) => {
+            const regionGhg = ghgInfo.get(region);
+            const reduction = inputs.get(region + "MinGHGReduction");
+            regionGhg.set("policyGhgReduction", reduction);
+        });
+    }
+
     /**
      * Calculate the overall GHG emissions for a region.
      *
@@ -1624,6 +1637,7 @@ class GhgFinalizer {
                 regionGhg.get("fullyDomesticWasteGhg"),
                 regionGhg.get("productTradeGhg"),
                 regionGhg.get("eolTradeGhg"),
+                regionGhg.get("policyGhgReduction") * -1,
             ];
             const sumGhg = ghgs.reduce((a, b) => a + b);
             regionGhg.set("overallGhg", sumGhg);

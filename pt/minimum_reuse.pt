@@ -1,0 +1,202 @@
+# Determine target
+var targetRateGoal = in.{{ region }}MinimumReuse{{ reuseType }} / 100;
+
+# Determine how much delta to apply (assume phase in)
+var targetRate = 0;
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
+var delayStart = in.startYear + yearsToRecycle;
+var delayEnd = in.endYearGradual;
+change targetRate by targetRateGoal over delayStart to delayEnd;
+
+# Determine current recycled content, using current year recycling as
+# approximation
+var totalConsumption = (
+  out.{{ region }}.consumptionPackagingMT + 
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextileMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransportationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT + 
+  out.{{ region }}.netExportsMT
+);
+var recycledContent = out.{{ region }}.eolRecyclingMT;
+
+# Determine how much recycled content is missing. Note that recycling here is actually reuse and
+# the delta should apply after retention rate (replacement of lost, damaged, exhausted reusable
+# goods).
+var retentionRate = 1 - in.{{ region }}ReuseExhaustion / 100;
+var neededRecycledContentRate = targetRate * totalConsumption * retentionRate;
+var neededMarginRecycling = (
+  neededRecycledContentRate -
+  recycledContent
+);
+limit neededMarginRecycling to [0,];
+
+# Deal with packaging separately if the template requires it. Here, minPackagingMultiplier acts as a
+# Boolean value determines if it should be applied in packaging where 0 means it is limited to
+# packaging and 1 means applies to all sectors.
+var percentPackaging = out.{{ region }}.consumptionPackagingMT / (
+  out.{{ region }}.consumptionPackagingMT + 
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextileMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransportationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT + 
+  out.{{ region }}.netExportsMT
+);
+limit percentPackaging to [{{ minPackagingMultiplier }}, 1];
+neededMarginRecycling = neededMarginRecycling * percentPackaging;
+var neededOverallRecycling = neededRecycledContentRate * percentPackaging;
+
+# Determine how much delta to apply - assume gradual compliance
+var actualRecycledDelta = 0;
+change actualRecycledDelta by neededMarginRecycling over delayStart to delayEnd;
+
+# Determine how much waste delta is expected after consumption to waste lifecycle.
+var actualRecycledDeltaLifecycle = 0;
+var lifecycleDuration = lifecycle of [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransportationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYearGradual + lifecycleDuration;
+change actualRecycledDeltaLifecycle by neededMarginRecycling over lifecycleStart to lifecycleEnd;
+
+# Determine the delta to apply to waste (leading due to circulatity delay)
+var actualRecycledDeltaLeading = 0;
+var leadStart = in.startYear - yearsToRecycle;
+var leadDelay = in.endYearGradual - yearsToRecycle;
+change actualRecycledDeltaLeading by neededMarginRecycling over leadStart to leadDelay;
+
+# Determine how much consumption is lost due to price increase
+var lostConsumptionRate = in.reuseLostConsumption / 100;
+var lostConsumption = actualRecycledDelta * lostConsumptionRate;
+var lostConsumptionLifecycle = actualRecycledDeltaLifecycle * lostConsumptionRate;
+actualRecycledDelta = actualRecycledDelta * (1 - lostConsumptionRate);
+
+# Anticipate the leading / anticipatory change in recycling
+actualRecycledDeltaLeading = actualRecycledDeltaLeading * (1 - lostConsumptionRate);
+
+# Limit change to available plastic in other fates
+var totalOtherFates = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.netExportsMT
+);
+limit actualRecycledDeltaLeading to [0, totalOtherFates];
+limit actualRecycledDelta to [0, actualRecycledDeltaLeading];
+
+# Increase recycling and determine offset. Again, "recycling" includes recycling and reuse.
+out.{{ region }}.eolRecyclingMT = (
+  out.{{ region }}.eolRecyclingMT +
+  actualRecycledDeltaLeading
+);
+var offsetProduction = actualRecycledDelta * -1;  # Consumption
+var offsetProductionLeading = actualRecycledDeltaLeading * -1;  # Waste
+
+# See if this bumped the minimum GHG reduction. It is possible that another intervention imposes a
+# stronger minimum.
+var totalWasteForGhg = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT +
+  out.{{ region }}.netExportsMT
+);
+var reusedMassForGhg = neededOverallRecycling;
+limit reusedMassForGhg to [0, totalWasteForGhg];
+var originalMin = in.{{ region }}MinGHGReduction;
+var candidateMin = reusedMassForGhg * in.{{ region }}RecyclingEmissions * 0.001;
+var effectiveMin = originalMin if originalMin > candidateMin else candidateMin;
+in.{{ region }}MinGHGReduction = effectiveMin;
+
+# Apply offset for filled to EOL
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute offsetProductionLeading across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+# Apply offset for filled to production
+var priorImports = out.{{ region }}.netImportsMT;
+
+distribute offsetProduction across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.netExportsMT,
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
+] proportionally;
+
+var changeImports = out.{{ region }}.netImportsMT - priorImports;
+limit changeImports to [, 0];
+
+# Apply offset for filled to exports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Determine offset for consumption lost due to increased minimums
+var lostConsumptionOffset = lostConsumption * -1;
+var lostConsumptionOffsetLifecycle = lostConsumptionLifecycle * -1;
+
+# Apply offset for unfilled to consumption
+distribute lostConsumptionOffset across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransportationMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Apply offset for unfilled to EOL
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute lostConsumptionOffsetLifecycle across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+# Apply offset for unfilled to production
+priorImports = out.{{ region }}.netImportsMT;
+
+distribute lostConsumptionOffset across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
+] proportionally;
+
+changeImports = out.{{ region }}.netImportsMT - priorImports;
+limit changeImports to [, 0];
+
+# Apply offset for unfilled to exports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
