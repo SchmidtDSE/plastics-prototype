@@ -399,7 +399,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "China Minimum Reuse Packaging",
+                    "name": "China Minimum Reuse Packaging (Experimental)",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in China.",
                     "min": 0,
                     "max": 100,
@@ -420,7 +420,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "EU 30 Minimum Reuse Packaging",
+                    "name": "EU 30 Minimum Reuse Packaging (Experimental)",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in the EU 30.",
                     "min": 0,
                     "max": 100,
@@ -441,7 +441,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "NAFTA Minimum Reuse Packaging",
+                    "name": "NAFTA Minimum Reuse Packaging (Experimental)",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in NAFTA.",
                     "min": 0,
                     "max": 100,
@@ -462,7 +462,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "ROW Minimum Reuse Packaging",
+                    "name": "ROW Minimum Reuse Packaging (Experimental)",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in rest of world.",
                     "min": 0,
                     "max": 100,
@@ -483,7 +483,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "China Minimum Reuse All",
+                    "name": "China Minimum Reuse All (Experimental)",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in China.",
                     "min": 0,
                     "max": 100,
@@ -504,7 +504,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "EU 30 Minimum Reuse All",
+                    "name": "EU 30 Minimum Reuse All (Experimental)",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in the EU 30.",
                     "min": 0,
                     "max": 100,
@@ -525,7 +525,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "NAFTA Minimum Reuse All",
+                    "name": "NAFTA Minimum Reuse All (Experimental)",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in NAFTA.",
                     "min": 0,
                     "max": 100,
@@ -546,7 +546,7 @@
                     "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
                 },
                 {
-                    "name": "ROW Minimum Reuse All",
+                    "name": "ROW Minimum Reuse All (Experimental)",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in rest of world.",
                     "min": 0,
                     "max": 100,
