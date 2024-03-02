@@ -23,9 +23,7 @@ var totalConsumption = (
 );
 var reusedContent = out.{{region}}.eolReuseMT;
 
-# Determine how much to move out of other fates after retention rate (replacement of lost, damaged,
-# exhausted reusable goods).
-var retentionRate = 1 - in.{{ region }}ReuseExhaustion / 100;
+# Determine how much to move out of other fates
 var massReuse = targetRate * totalConsumption * retentionRate;
 var reuseRedirection = (
   massReuse -
@@ -186,3 +184,15 @@ distribute changeImports across [
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
+
+# Move some of the reused materials which exhausted to recycled domestically
+var exhaustionRate = in.{{ region }}ReuseExhaustion / 100;
+var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate;
+out.{{ region }}.eolReuseMT = (
+  out.{{ region }}.eolReuseMT -
+  exhausedMMT
+);
+out.{{ region }}.eolRecyclingMT = (
+  out.{{ region }}.eolRecyclingMT +
+  exhausedMMT
+);
