@@ -3,7 +3,7 @@ var targetRateGoal = in.{{ region }}MinimumReuse{{ reuseType }} / 100;
 
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
-var yearsToRecycle = lifecycle of [ out.{{region}}.eolReuseMT ];
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
 var delayStart = in.startYear + yearsToRecycle;
 var delayEnd = in.endYearGradual;
 change targetRate by targetRateGoal over delayStart to delayEnd;
@@ -21,7 +21,7 @@ var totalConsumption = (
   out.{{ region }}.consumptionOtherMT + 
   out.{{ region }}.netExportsMT
 );
-var reusedContent = out.{{ region }}.eolReuseMT;
+var reusedContent = in.{{region}}MinimumReuse;
 
 # Determine how much to move out of other fates after retention rate (replacement of lost, damaged,
 # exhausted reusable goods).
@@ -100,7 +100,7 @@ limit actualWateDelta to [0, actualWasteDeltaLeading];
 
 # Increase reuse and determine offset.
 in.{{ region }}MinimumReuse = (
-  out.{{ region }}.eolReuseMT +
+  in.{{ region }}MinimumReuse +
   actualWasteDeltaLeading
 );
 var offsetProduction = actualReuseDelta * -1;  # Consumption
