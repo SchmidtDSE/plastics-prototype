@@ -119,9 +119,20 @@ var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.netExportsMT,
   out.{{ region }}.primaryProductionMT,
   out.{{ region }}.secondaryProductionMT
+] proportionally;
+
+distribute offsetProduction across [
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionTransportationMT,
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionOtherMT,
+  out.{{ region }}.netExportsMT
 ] proportionally;
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
