@@ -81,6 +81,8 @@ class DataLayer {
                     regionData.set(key, datum[key]);
                 }
             }
+            
+            regionData.set("eolReuseMT", 0);
         });
 
         // Add outputs

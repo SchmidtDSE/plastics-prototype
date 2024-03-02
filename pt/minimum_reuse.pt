@@ -21,7 +21,7 @@ var totalConsumption = (
   out.{{ region }}.consumptionOtherMT + 
   out.{{ region }}.netExportsMT
 );
-var reusedContent = in.{{region}}MinimumReuse;
+var reusedContent = out.{{region}}.eolReuseMT;
 
 # Determine how much to move out of other fates after retention rate (replacement of lost, damaged,
 # exhausted reusable goods).
@@ -76,16 +76,16 @@ change actualReuseDeltaWaste by reuseRedirection over lifecycleStart to lifecycl
 var actualReuseDeltaWasteLeading = 0;
 var leadStart = in.startYear - yearsToRecycle;
 var leadDelay = in.endYearGradual - yearsToRecycle;
-change actualReuseDeltaWasteLeading by wasteRedirection over leadStart to leadDelay;
+change actualReuseDeltaWasteLeading by reuseRedirection over leadStart to leadDelay;
 
 # Determine how much consumption is lost due to price increase
 var lostConsumptionRate = in.reuseLostConsumption / 100;
 var lostConsumption = actualReuseDelta * lostConsumptionRate;
-var lostConsumptionLifecycle = actualReuseDeltaLifecycle * lostConsumptionRate;
+var lostConsumptionLifecycle = reuseRedirection * lostConsumptionRate;
 actualReuseDelta = actualReuseDelta * (1 - lostConsumptionRate);
 
 # Anticipate the leading / anticipatory change in recycling
-actualReuseDeltaWasteLeading = actualReuseDeltaLeading * (1 - lostConsumptionRate);
+actualReuseDeltaWasteLeading = actualReuseDeltaWasteLeading * (1 - lostConsumptionRate);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
@@ -95,23 +95,23 @@ var totalOtherFates = (
   out.{{ region }}.eolMismanagedMT +
   out.{{ region }}.netExportsMT
 );
-limit actualWasteDeltaLeading to [0, totalOtherFates];
-limit actualWateDelta to [0, actualWasteDeltaLeading];
+limit actualReuseDeltaWasteLeading to [0, totalOtherFates];
+limit actualReuseDelta to [0, totalOtherFates];
 
 # Increase reuse and determine offset.
-in.{{ region }}MinimumReuse = (
-  in.{{ region }}MinimumReuse +
-  actualWasteDeltaLeading
+out.{{ region }}.eolReuseMT = (
+  out.{{ region }}.eolReuseMT +
+  actualReuseDeltaWasteLeading
 );
 var offsetProduction = actualReuseDelta * -1;  # Consumption
-var offsetProductionLeading = actualReuseDeltaWasteLeading * -1;  # Waste
+var offsetWasteLeading = actualReuseDeltaWasteLeading * -1;  # Waste
 
 # Apply offset for filled to EOL
 var wasteExportWeight = (
   out.{{ region }}.netWasteExportMT +
   in.{{ region }}DeltaWasteExport
 );
-distribute offsetProductionLeading across [
+distribute offsetWasteLeading across [
   out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,

@@ -1359,7 +1359,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "Min NAFTA ROW Reduction",
+                    "name": "Min ROW GHG Reduction",
                     "description": "Minimum reduction of GHG in rest of world.",
                     "min": 0,
                     "max": 4000,
