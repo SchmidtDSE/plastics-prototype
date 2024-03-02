@@ -99,7 +99,7 @@ limit actualWasteDeltaLeading to [0, totalOtherFates];
 limit actualWateDelta to [0, actualWasteDeltaLeading];
 
 # Increase reuse and determine offset.
-out.{{ region }}.eolReuseMT = (
+in.{{ region }}MinimumReuse = (
   out.{{ region }}.eolReuseMT +
   actualWasteDeltaLeading
 );
