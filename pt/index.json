@@ -4595,6 +4595,22 @@
                     "priority": -100,
                     "attrs": {},
                     "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
+                },
+                {
+                    "name": "Recycling Rate for Exausted Reuse",
+                    "description": "What percent of reusable products are recycled when they reach EOL.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "exhaustedPercentRecycled",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_reuse.pdf"
                 }
             ]
         }

@@ -188,6 +188,7 @@ distribute changeImports across [
 # Move some of the reused materials which exhausted to recycled domestically
 var exhaustionRate = in.{{ region }}ReuseExhaustion / 100;
 var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate;
+var exhaustionPercentRecycled = in.exhaustedPercentRecycled / 100;
 limit exhausedMMT to [0,];
 out.{{ region }}.eolReuseMT = (
   out.{{ region }}.eolReuseMT -
@@ -195,5 +196,10 @@ out.{{ region }}.eolReuseMT = (
 );
 out.{{ region }}.eolRecyclingMT = (
   out.{{ region }}.eolRecyclingMT +
-  exhausedMMT
+  exhausedMMT * exhaustionPercentRecycled
 );
+distribute (exhausedMMT * (1 - exhaustionPercentRecycled)) across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
