@@ -107,6 +107,7 @@ function buildWorkspace(jobInfo) {
                     const value = parseFloat(row[attr]);
                     workspaceRegion.set(attr, value);
                 });
+                workspaceRegion.set("eolReuseMT", 0);
             });
 
             return workspaceOut;
