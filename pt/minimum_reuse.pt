@@ -24,7 +24,7 @@ var totalConsumption = (
 var reusedContent = out.{{region}}.eolReuseMT;
 
 # Determine how much to move out of other fates
-var massReuse = targetRate * totalConsumption * retentionRate;
+var massReuse = targetRate * totalConsumption;
 var reuseRedirection = (
   massReuse -
   reusedContent
@@ -188,6 +188,7 @@ distribute changeImports across [
 # Move some of the reused materials which exhausted to recycled domestically
 var exhaustionRate = in.{{ region }}ReuseExhaustion / 100;
 var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate;
+limit exhausedMMT to [0,];
 out.{{ region }}.eolReuseMT = (
   out.{{ region }}.eolReuseMT -
   exhausedMMT
