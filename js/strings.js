@@ -15,7 +15,7 @@ STRINGS.set("nafta", "NAFTA");
 STRINGS.set("row", "Rest of World");
 STRINGS.set("global", "Global");
 
-STRINGS.set("eolRecyclingMT", "Recycle / Reuse");
+STRINGS.set("eolRecyclingMT", "Recycle");
 STRINGS.set("eolIncinerationMT", "Incineration");
 STRINGS.set("eolLandfillMT", "Landfill");
 STRINGS.set("eolMismanagedMT", "Mismanaged");
