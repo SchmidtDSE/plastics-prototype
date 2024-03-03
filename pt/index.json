@@ -324,7 +324,7 @@
             "levers": [
                 {
                     "name": "China Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
+                    "description": "The minimum content which must come from recycyling in China. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -343,7 +343,7 @@
                 },
                 {
                     "name": "EU 30 Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
+                    "description": "The minimum content which must come from recycyling in EU 30. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -362,7 +362,7 @@
                 },
                 {
                     "name": "NAFTA Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
+                    "description": "The minimum content which must come from recycyling in NAFTA. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -381,7 +381,7 @@
                 },
                 {
                     "name": "ROW Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target. Enabled policies for reuse can count towards this requirement.",
+                    "description": "The minimum content which must come from recycyling in rest of world. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -417,7 +417,7 @@
                         "minPackagingMultiplier": 0,
                         "reuseType": "Packaging"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "EU 30 Minimum Reuse Packaging (Experimental)",
@@ -438,7 +438,7 @@
                         "minPackagingMultiplier": 0,
                         "reuseType": "Packaging"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "NAFTA Minimum Reuse Packaging (Experimental)",
@@ -459,7 +459,7 @@
                         "minPackagingMultiplier": 0,
                         "reuseType": "Packaging"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "ROW Minimum Reuse Packaging (Experimental)",
@@ -480,7 +480,7 @@
                         "minPackagingMultiplier": 0,
                         "reuseType": "Packaging"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "China Minimum Reuse All (Experimental)",
@@ -501,7 +501,7 @@
                         "minPackagingMultiplier": 1,
                         "reuseType": "All"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "EU 30 Minimum Reuse All (Experimental)",
@@ -522,7 +522,7 @@
                         "minPackagingMultiplier": 1,
                         "reuseType": "All"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "NAFTA Minimum Reuse All (Experimental)",
@@ -543,7 +543,7 @@
                         "minPackagingMultiplier": 1,
                         "reuseType": "All"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "ROW Minimum Reuse All (Experimental)",
@@ -564,7 +564,7 @@
                         "minPackagingMultiplier": 1,
                         "reuseType": "All"
                     },
-                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {
                     "name": "China Recycling Investment",
