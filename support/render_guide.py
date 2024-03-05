@@ -5,6 +5,8 @@ import os
 import string
 import sys
 
+import const
+
 USAGE_STR = 'python render_guide.py [template] [output] [standalone dir] [diagnostics]'
 NUM_ARGS = 4
 DEFAULT_YEAR = 2050
@@ -24,12 +26,7 @@ def get_total_consumption(year, results_dir, region='global',
             region=x,
             policy=policy
         )
-        return sum([
-            get_for_region('china'),
-            get_for_region('eu30'),
-            get_for_region('nafta'),
-            get_for_region('row')
-        ])
+        return sum(map(get_for_region, const.REGIONS_NO_GLOBAL))
     
     if year == DEFAULT_YEAR:
         filename = policy + '.json'
@@ -62,12 +59,7 @@ def get_fate(year, results_dir, region='global', policy='businessAsUsual',
             policy=policy,
             fate=fate
         )
-        return sum([
-            get_for_region('china'),
-            get_for_region('eu30'),
-            get_for_region('nafta'),
-            get_for_region('row')
-        ])
+        return sum(map(get_for_region, const.REGIONS_NO_GLOBAL))
     
     if year == DEFAULT_YEAR:
         filename = policy + '.json'
@@ -121,11 +113,8 @@ def main():
     mismanaged_change = get_percent_change(mismanaged_2024, mismanaged_2050)
 
     mismanaged_row = get_fate(2050, results_dir, 'row')
-    mismanaged_other = sum([
-        get_fate(2050, results_dir, 'china'),
-        get_fate(2050, results_dir, 'eu30'),
-        get_fate(2050, results_dir, 'nafta')
-    ])
+    other_regions = filter(lambda x: x != 'row', const.REGIONS_NO_GLOBAL)
+    mismanaged_other = sum(map(lambda x: get_fate(2050, results_dir, x), other_regions))
     mismanaged_row_ratio = mismanaged_row / mismanaged_other
     mismanaged_row_percent = mismanaged_row / mismanaged_2050 * 100
     
