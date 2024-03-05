@@ -189,7 +189,7 @@
                     "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
                 },
                 {% endfor %}
-                {% for region for regions %}
+                {% for region in regions %}
                 {
                     "name": "{{ region['name'] }} Min Recycling Collection Rate",
                     "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target.",
