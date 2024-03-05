@@ -250,7 +250,7 @@
           "baseValue": 30
         }
       ],
-      "released": false
+      "released": true
     },
     {
       "name": "<option> % Min Recycled Content",
