@@ -141,7 +141,7 @@ def main():
     legend_values = []
     for region in regions_info['regions']:
         legend_values.append(region['full'])
-        legend_values.append(region['name'] + ' Projected')
+        legend_values.append(region['label'] + ' Projected')
 
     ax[0].legend(legend_values)
 

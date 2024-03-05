@@ -6,7 +6,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} PS Packaging",
+                    "name": "{{ region['label'] }} PS Packaging",
                     "description": "Percent reduction in polystyrene used in packaging for {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
@@ -27,7 +27,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Other Single Use Packaging",
+                    "name": "{{ region['label'] }} Other Single Use Packaging",
                     "description": "Percent reduction in other single use packaging (other than polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
@@ -48,7 +48,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Reduced Additives",
+                    "name": "{{ region['label'] }} Reduced Additives",
                     "description": "Percent reduction in additives in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
@@ -75,7 +75,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Virgin Plastic Production Cap",
+                    "name": "{{ region['label'] }} Virgin Plastic Production Cap",
                     "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 300,
@@ -102,7 +102,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Minimum Recycled Content",
+                    "name": "{{ region['label'] }} Minimum Recycled Content",
                     "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
@@ -123,7 +123,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Minimum Reuse Packaging (Experimental)",
+                    "name": "{{ region['label'] }} Minimum Reuse Packaging (Experimental)",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -146,7 +146,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Minimum Reuse All (Experimental)",
+                    "name": "{{ region['label'] }} Minimum Reuse All (Experimental)",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -169,7 +169,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Recycling Investment",
+                    "name": "{{ region['label'] }} Recycling Investment",
                     "description": "Investment in expanded recycling infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 100,
@@ -191,7 +191,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Min Recycling Collection Rate",
+                    "name": "{{ region['label'] }} Min Recycling Collection Rate",
                     "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
@@ -218,7 +218,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Incineration Investment",
+                    "name": "{{ region['label'] }} Incineration Investment",
                     "description": "Investment in expanded incineration infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
@@ -239,7 +239,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Landfill Investment",
+                    "name": "{{ region['label'] }} Landfill Investment",
                     "description": "Investment in expanded landfill infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
                     "min": 0,
                     "max": 50,
@@ -260,7 +260,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Maximum Mismanaged Rate",
+                    "name": "{{ region['label'] }} Maximum Mismanaged Rate",
                     "description": "The maximum percent of waste mismanaged for waste in {{ region['full'] }}. Assumes gradual imposition of mandate.",
                     "min": 0,
                     "max": 100,
@@ -287,7 +287,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Packaging Consumption Tax",
+                    "name": "{{ region['label'] }} Packaging Consumption Tax",
                     "description": "The amount of tax per article imposed as a consumption tax in {{ region['full'] }}. Assumes this is a more immediate policy with short phase in.",
                     "min": 0,
                     "max": 75,
@@ -320,7 +320,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Reduce Waste Trade",
+                    "name": "{{ region['label'] }} Reduce Waste Trade",
                     "description": "The amount by which to change waste trade from {{ region['full'] }} (imports and exports) such that 100% means waste trade ban.",
                     "min": 0,
                     "max": 100,
@@ -341,7 +341,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Change Waste Imports",
+                    "name": "{{ region['label'] }} Change Waste Imports",
                     "description": "The amount by which to change waste imports from {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -363,7 +363,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Change Waste Exports",
+                    "name": "{{ region['label'] }} Change Waste Exports",
                     "description": "The amount by which to change waste exports from {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -391,7 +391,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "Min {{ region['name'] }} GHG Reduction",
+                    "name": "Min {{ region['label'] }} GHG Reduction",
                     "description": "Minimum reduction of GHG in {{ region['full'] }}.",
                     "min": 0,
                     "max": 4000,
@@ -441,7 +441,7 @@
                 },
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Production PET",
+                    "name": "{{ region['label'] }} Production PET",
                     "description": "{{ region['full'] }} production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -457,7 +457,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PET",
+                    "name": "{{ region['label'] }} Conversion PET",
                     "description": "{{ region['full'] }} production emissions for PET.",
                     "min": 0,
                     "max": 7000,
@@ -473,7 +473,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production HDPE",
+                    "name": "{{ region['label'] }} Production HDPE",
                     "description": "{{ region['full'] }} production emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -489,7 +489,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion HDPE",
+                    "name": "{{ region['label'] }} Conversion HDPE",
                     "description": "{{ region['full'] }} conversion emissions for HDPE.",
                     "min": 0,
                     "max": 7000,
@@ -505,7 +505,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production PVC",
+                    "name": "{{ region['label'] }} Production PVC",
                     "description": "{{ region['full'] }} production emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -521,7 +521,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PVC",
+                    "name": "{{ region['label'] }} Conversion PVC",
                     "description": "{{ region['full'] }} conversion emissions for PVC.",
                     "min": 0,
                     "max": 7000,
@@ -537,7 +537,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production LLDPE",
+                    "name": "{{ region['label'] }} Production LLDPE",
                     "description": "{{ region['full'] }} production emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -553,7 +553,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion LLDPE",
+                    "name": "{{ region['label'] }} Conversion LLDPE",
                     "description": "{{ region['full'] }} conversion emissions for LLDPE.",
                     "min": 0,
                     "max": 7000,
@@ -569,7 +569,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production PP",
+                    "name": "{{ region['label'] }} Production PP",
                     "description": "{{ region['full'] }} production emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -585,7 +585,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PP",
+                    "name": "{{ region['label'] }} Conversion PP",
                     "description": "{{ region['full'] }} conversion emissions for PP.",
                     "min": 0,
                     "max": 7000,
@@ -601,7 +601,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production PS",
+                    "name": "{{ region['label'] }} Production PS",
                     "description": "{{ region['full'] }} production emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -617,7 +617,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PS",
+                    "name": "{{ region['label'] }} Conversion PS",
                     "description": "{{ region['full'] }} conversion emissions for PS.",
                     "min": 0,
                     "max": 7000,
@@ -633,7 +633,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production PUR",
+                    "name": "{{ region['label'] }} Production PUR",
                     "description": "{{ region['full'] }} production emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -649,7 +649,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PUR",
+                    "name": "{{ region['label'] }} Conversion PUR",
                     "description": "{{ region['full'] }} conversion emissions for PUR.",
                     "min": 0,
                     "max": 7000,
@@ -665,7 +665,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production PPA Fibers",
+                    "name": "{{ region['label'] }} Production PPA Fibers",
                     "description": "{{ region['full'] }} production emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -681,7 +681,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion PPA Fibers",
+                    "name": "{{ region['label'] }} Conversion PPA Fibers",
                     "description": "{{ region['full'] }} conversion emssions for PP&A fibers.",
                     "min": 0,
                     "max": 7000,
@@ -697,7 +697,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production Additives",
+                    "name": "{{ region['label'] }} Production Additives",
                     "description": "{{ region['full'] }} production emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -713,7 +713,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion Additives",
+                    "name": "{{ region['label'] }} Conversion Additives",
                     "description": "{{ region['full'] }} conversion emissions for additives.",
                     "min": 0,
                     "max": 7000,
@@ -729,7 +729,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production Other Thermosets",
+                    "name": "{{ region['label'] }} Production Other Thermosets",
                     "description": "{{ region['full'] }} production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -737,7 +737,7 @@
                     "step": 1,
                     "units": "kg CO2e/ton",
                     "forcePlus": false,
-                    "variable": "{{ region['name'] }}OtherThermosetsEmissionsProduction",
+                    "variable": "{{ region['label'] }}OtherThermosetsEmissionsProduction",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,
@@ -745,7 +745,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion Other Thermosets",
+                    "name": "{{ region['label'] }} Conversion Other Thermosets",
                     "description": "{{ region['full'] }} conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -761,7 +761,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Production Other Thermoplastics",
+                    "name": "{{ region['label'] }} Production Other Thermoplastics",
                     "description": "{{ region['full'] }} production emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -777,7 +777,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Conversion Other Thermoplastics",
+                    "name": "{{ region['label'] }} Conversion Other Thermoplastics",
                     "description": "{{ region['full'] }} conversion emissions for other products.",
                     "min": 0,
                     "max": 7000,
@@ -793,7 +793,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Landfill",
+                    "name": "{{ region['label'] }} Landfill",
                     "description": "End of life emissions associated with landfill waste in {{ region['full'] }}.",
                     "min": 0,
                     "max": 7000,
@@ -809,7 +809,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Incineration",
+                    "name": "{{ region['label'] }} Incineration",
                     "description": "End of life emissions associated with incineration waste in {{ region['full'] }}.",
                     "min": 0,
                     "max": 7000,
@@ -825,7 +825,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Recycling",
+                    "name": "{{ region['label'] }} Recycling",
                     "description": "End of life emissions associated with recycling waste in {{ region['full'] }}.",
                     "min": 0,
                     "max": 7000,
@@ -841,7 +841,7 @@
                     "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Mismanaged",
+                    "name": "{{ region['label'] }} Mismanaged",
                     "description": "End of life emissions associated with mismanaged waste in {{ region['full'] }}.",
                     "min": 0,
                     "max": 7000,
@@ -865,7 +865,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Plastics Transportation Additives Percent",
+                    "name": "{{ region['label'] }} Plastics Transportation Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in transportation.",
                     "min": 0,
                     "max": 2,
@@ -881,7 +881,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Packaging Additives Percent",
+                    "name": "{{ region['label'] }} Plastics Packaging Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in packaging.",
                     "min": 0,
                     "max": 2,
@@ -897,7 +897,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Construction Additives Percent",
+                    "name": "{{ region['label'] }} Plastics Construction Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in construction.",
                     "min": 0,
                     "max": 2,
@@ -913,7 +913,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Electronic Additives Percent",
+                    "name": "{{ region['label'] }} Plastics Electronic Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in electronics.",
                     "min": 0,
                     "max": 2,
@@ -929,7 +929,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics HLS Additives Percent",
+                    "name": "{{ region['label'] }} Plastics HLS Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in household, leisure, and sports.",
                     "min": 0,
                     "max": 2,
@@ -945,7 +945,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Agriculture Additives Percent",
+                    "name": "{{ region['label'] }} Plastics Agriculture Additives Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in agriculture.",
                     "min": 0,
                     "max": 2,
@@ -961,7 +961,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Additives Textile Percent",
+                    "name": "{{ region['label'] }} Plastics Additives Textile Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in textiles.",
                     "min": 0,
                     "max": 2,
@@ -977,7 +977,7 @@
                     "url": "https://global-plastics-tool.org/pdf/additives.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Plastics Additives Other Percent",
+                    "name": "{{ region['label'] }} Plastics Additives Other Percent",
                     "description": "What percent of plastic in {{ region['full'] }} is additives in other.",
                     "min": 0,
                     "max": 2,
@@ -1001,7 +1001,7 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Recycling Cost",
+                    "name": "{{ region['label'] }} Recycling Cost",
                     "description": "How much does it cost to recycle one ton of plastics in {{ region['full'] }}.",
                     "min": 500,
                     "max": 1200,
@@ -1019,7 +1019,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Incineration Cost",
+                    "name": "{{ region['label'] }} Incineration Cost",
                     "description": "How much does it cost to incinerate one ton of plastics in {{ region['full'] }}.",
                     "min": 50,
                     "max": 300,
@@ -1037,7 +1037,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Landfill Cost",
+                    "name": "{{ region['label'] }} Landfill Cost",
                     "description": "How much does it cost to landfill one ton of plastics in {{ region['full'] }}.",
                     "min": 50,
                     "max": 300,
@@ -1055,7 +1055,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Packaging Tax Power",
+                    "name": "{{ region['label'] }} Packaging Tax Power",
                     "description": "In {{ region['full'] }}, what should the power be for the curve that describes the relationship between taxation level and reduction in consumption. This is a in consumption change = (tax)^a * b.",
                     "min": 0,
                     "max": 4,
@@ -1072,7 +1072,7 @@
                     "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
                 },
                 {
-                    "name": "{{ region['name'] }} Packaging Tax Multiplier",
+                    "name": "{{ region['label'] }} Packaging Tax Multiplier",
                     "description": "In {{ region['full'] }}, what should the multiplier be for the curve that describes the relationship between taxation level and reduction in consumption. This is b in consumption change = (tax)^a * b.",
                     "min": 0,
                     "max": 5,
@@ -1145,7 +1145,7 @@
                 },
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Recycling Yield Loss",
+                    "name": "{{ region['label'] }} Recycling Yield Loss",
                     "description": "How much of recycling is lost before it is recirculated into new products in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -1165,7 +1165,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Reuse Exhaustion",
+                    "name": "{{ region['label'] }} Reuse Exhaustion",
                     "description": "How much of reusable products are exhausted each year in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -1265,7 +1265,7 @@
                 },
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Incineration Plastic Percent",
+                    "name": "{{ region['label'] }} Incineration Plastic Percent",
                     "description": "What percent of new incineration capacity would go to plastics in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -1284,7 +1284,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Landfill Plastic Percent",
+                    "name": "{{ region['label'] }} Landfill Plastic Percent",
                     "description": "What percent of new landfill capacity would go to plastics in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -1431,7 +1431,7 @@
                 },
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Packaging Polystyrene Percent",
+                    "name": "{{ region['label'] }} Packaging Polystyrene Percent",
                     "description": "What percent of plastic packaging in {{ region['full'] }} is polystyrene.",
                     "min": 0,
                     "max": 10,
@@ -1450,7 +1450,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['name'] }} Packaging Single Use Percent",
+                    "name": "{{ region['label'] }} Packaging Single Use Percent",
                     "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is single use.",
                     "min": 0,
                     "max": 100,
