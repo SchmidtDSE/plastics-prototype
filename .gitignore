@@ -28,6 +28,8 @@ js_standalone/engine/plastics_lang.js
 js_standalone/engine/standalone_visitors.js
 js_standalone/engine/plastics_lang_bootstrap.js
 
+pt/index.json
+
 standalone_tasks
 
 package-lock.json

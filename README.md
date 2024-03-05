@@ -12,7 +12,7 @@ This tool allows users to explore potential future plastic outcomes including wa
 
 Usage
 --------------------------------------------------------------------------------
-There are multiple ways to interact with the tool.
+There are multiple ways to interact with the tool. Note that many of these require `pt/index.json` rendered via `support/render_index.py`.
 
 ### In-browser
 The primary way to interact with the tool is through the browser. See https://global-plastics-tool.org/ for the publicly available hosted version. To host it yourself or run it on your own machine, see the instructions below.
