@@ -937,7 +937,7 @@
                     "step": 0.01,
                     "units": "%",
                     "forcePlus": false,
-                    "variable": "{{ region['full'] }}PercentHouseholdLeisureSportsAdditives",
+                    "variable": "{{ region['key'] }}PercentHouseholdLeisureSportsAdditives",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,
