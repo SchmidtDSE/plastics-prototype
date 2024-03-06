@@ -12,6 +12,8 @@ test/qunit.css
 test/qunit.min.js
 third_party
 
+*.pyc
+
 index.html
 preview.html
 test/harness.html
