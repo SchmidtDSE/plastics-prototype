@@ -43,7 +43,7 @@ def plot_region_consumption(ax, attribute, source, colors):
         region_data_initial = region_data[region_data['year'] <= 2020]
         region_data_projected = region_data[region_data['year'] >= 2020]
         
-        color = color[region]
+        color = colors[region]
 
         ax.plot(
             region_data_initial['year'],
