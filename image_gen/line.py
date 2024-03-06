@@ -146,11 +146,11 @@ def main():
 
     ax[0].legend(legend_values)
 
-    plot_region_consumption(ax[1], 'perCapitaKg', source)
+    plot_region_consumption(ax[1], 'perCapitaKg', source, colors)
     ax[1].set_title('Per-Capita Consumption')
     ax[1].set_ylabel('Kg / Year')
 
-    plot_region_consumption(ax[2], 'perGdpKg', source)
+    plot_region_consumption(ax[2], 'perGdpKg', source, colors)
     ax[2].set_title('Consumption / GDP (2010 USD PPP)')
     ax[2].set_ylabel('Kg / USD')
 
