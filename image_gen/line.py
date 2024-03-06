@@ -3,10 +3,11 @@
 License:
     BSD, see LICENSE.md
 """
-import jinja2
+import json
 import sys
 import sqlite3
 
+import jinja2
 import matplotlib.pyplot
 import pandas
 
