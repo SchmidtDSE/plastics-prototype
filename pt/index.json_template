@@ -1,0 +1,1488 @@
+{
+    "categories": [
+        {
+            "name": "products",
+            "label": "Products",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} PS Packaging",
+                    "description": "Percent reduction in polystyrene used in packaging for {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentReducePs",
+                    "template": "reduce_ps.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Other Single Use Packaging",
+                    "description": "Percent reduction in other single use packaging (other than polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentReduceProblematicPackaging",
+                    "template": "reduce_packaging_polymer.pt",
+                    "released": true,
+                    "priority": -3,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Reduced Additives",
+                    "description": "Percent reduction in additives in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 10,
+                    "units": "% Reduction",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}AdditivesPercentReduction",
+                    "template": "additives.pt",
+                    "released": true,
+                    "priority": -5,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "production",
+            "label": "Production",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Virgin Plastic Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance.",
+                    "min": 0,
+                    "max": 300,
+                    "default": 300,
+                    "step": 5,
+                    "units": "MMT",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}VirginPlasticCap",
+                    "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "priority": -2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "recycling",
+            "label": "Recycling / Reuse",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumRecycledContent",
+                    "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4.2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Minimum Reuse Packaging (Experimental)",
+                    "description": "The minimum percent of goods reused in packaging (percent of total mass) in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumReusePackaging",
+                    "template": "minimum_reuse.pt",
+                    "released": true,
+                    "priority": 4.1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}],
+                        "minPackagingMultiplier": 0,
+                        "reuseType": "Packaging"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Minimum Reuse All (Experimental)",
+                    "description": "The minimum percent of goods reused in all sectors (percent of total mass) in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumReuseAll",
+                    "template": "minimum_reuse.pt",
+                    "released": true,
+                    "priority": 4,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}],
+                        "minPackagingMultiplier": 1,
+                        "reuseType": "All"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Recycling Investment",
+                    "description": "Investment in expanded recycling infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}RecyclingInvestment",
+                    "template": "recycling_investment.pt",
+                    "released": true,
+                    "priority": 1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/recycling_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumRecyclingRate",
+                    "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "priority": 3,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "waste",
+            "label": "Waste",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Incineration Investment",
+                    "description": "Investment in expanded incineration infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
+                    "min": 0,
+                    "max": 50,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}IncinerationInvestment",
+                    "template": "incineration_investment.pt",
+                    "released": true,
+                    "priority": 0.2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Landfill Investment",
+                    "description": "Investment in expanded landfill infrastructure for {{ region['full'] }} including both collection and processing. Assumes gradual deployment of capital and realization of benefits.",
+                    "min": 0,
+                    "max": 50,
+                    "default": 0,
+                    "step": 0.25,
+                    "decimals": 2,
+                    "units": "billion USD",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LandfillInvestment",
+                    "template": "landfill_investment.pt",
+                    "released": true,
+                    "priority": 0.1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Maximum Mismanaged Rate",
+                    "description": "The maximum percent of waste mismanaged for waste in {{ region['full'] }}. Assumes gradual imposition of mandate.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MaximumMismanagedRate",
+                    "template": "maximum_mismanaged.pt",
+                    "released": true,
+                    "priority": 2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/maximum_mismanaged_rate.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "tax",
+            "label": "Taxation",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Consumption Tax",
+                    "description": "The amount of tax per article imposed as a consumption tax in {{ region['full'] }}. Assumes this is a more immediate policy with short phase in.",
+                    "min": 0,
+                    "max": 75,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "USD cents",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PackagingTax",
+                    "template": "consumption_tax.pt",
+                    "released": true,
+                    "priority": -1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "context": {
+                        "min": 7.1,
+                        "max": 75,
+                        "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "trade",
+            "label": "Trade",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Reduce Waste Trade",
+                    "description": "The amount by which to change waste trade from {{ region['full'] }} (imports and exports) such that 100% means waste trade ban.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}WasteTradeReduction",
+                    "template": "waste_trade.pt",
+                    "released": true,
+                    "priority": 99,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Change Waste Imports",
+                    "description": "The amount by which to change waste imports from {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}DeltaWasteImport",
+                    "template": "delta_waste_import.pt",
+                    "released": true,
+                    "priority": 101,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Change Waste Exports",
+                    "description": "The amount by which to change waste exports from {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "MT",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}DeltaWasteExport",
+                    "template": "delta_waste_export.pt",
+                    "released": true,
+                    "priority": 100,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/waste_trade.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "ghg",
+            "label": "GHG Assumptions",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "Min {{ region['label'] }} GHG Reduction",
+                    "description": "Minimum reduction of GHG in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 4000,
+                    "default": 0,
+                    "step": 100,
+                    "units": "MMT CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinGHGReduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": 200,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {% endfor %}
+                {
+                    "name": "GHG attribution to plastics importer",
+                    "description": "Percent of GHG to attribute to (non-waste) importers.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "emissionPercentProductImporter",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "GHG attribution to waste exporter",
+                    "description": "Percent of GHG to attribute to waste exporters.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 10,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "emissionPercentWasteExporter",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Production PET",
+                    "description": "{{ region['full'] }} production emissions for PET.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPetEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PETEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PET",
+                    "description": "{{ region['full'] }} production emissions for PET.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPetEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PETEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production HDPE",
+                    "description": "{{ region['full'] }} production emissions for HDPE.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionHdpeEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}HDPEEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion HDPE",
+                    "description": "{{ region['full'] }} conversion emissions for HDPE.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionHdpeEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}HDPEEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production PVC",
+                    "description": "{{ region['full'] }} production emissions for PVC.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPvcEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PVCEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PVC",
+                    "description": "{{ region['full'] }} conversion emissions for PVC.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPvcEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PVCEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production LLDPE",
+                    "description": "{{ region['full'] }} production emissions for LLDPE.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['proudctionLldpeEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LLDPEEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion LLDPE",
+                    "description": "{{ region['full'] }} conversion emissions for LLDPE.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionLldpeEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LLDPEEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production PP",
+                    "description": "{{ region['full'] }} production emissions for PP.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPpEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PPEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PP",
+                    "description": "{{ region['full'] }} conversion emissions for PP.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPpEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PPEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production PS",
+                    "description": "{{ region['full'] }} production emissions for PS.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PSEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PS",
+                    "description": "{{ region['full'] }} conversion emissions for PS.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PSEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production PUR",
+                    "description": "{{ region['full'] }} production emissions for PUR.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPurEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PUREmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PUR",
+                    "description": "{{ region['full'] }} conversion emissions for PUR.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPurEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PUREmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production PPA Fibers",
+                    "description": "{{ region['full'] }} production emssions for PP&A fibers.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionPpaEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PPAEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion PPA Fibers",
+                    "description": "{{ region['full'] }} conversion emssions for PP&A fibers.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionPpaEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PPAEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production Additives",
+                    "description": "{{ region['full'] }} production emissions for additives.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionAdditivesEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}AdditivesEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion Additives",
+                    "description": "{{ region['full'] }} conversion emissions for additives.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionAdditivesEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}AdditivesEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production Other Thermosets",
+                    "description": "{{ region['full'] }} production emissions for other products.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionOtherThermosetsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['label'] }}OtherThermosetsEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion Other Thermosets",
+                    "description": "{{ region['full'] }} conversion emissions for other products.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionOtherThermosetsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}OtherThermosetsEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Production Other Thermoplastics",
+                    "description": "{{ region['full'] }} production emissions for other products.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['productionOtherThermoplasticsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}OtherThermoplasticsEmissionsProduction",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Conversion Other Thermoplastics",
+                    "description": "{{ region['full'] }} conversion emissions for other products.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['conversionOtherThremoplasticsEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}OtherThermoplasticsEmissionsConversion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Landfill",
+                    "description": "End of life emissions associated with landfill waste in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['landfillEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LandfillEmissions",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Incineration",
+                    "description": "End of life emissions associated with incineration waste in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['incinerationEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}IncinerationEmissions",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Recycling",
+                    "description": "End of life emissions associated with recycling waste in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['recyclingEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}RecyclingEmissions",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Mismanaged",
+                    "description": "End of life emissions associated with mismanaged waste in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 7000,
+                    "default": {{ region['constants']['mismanagedEmissions'] }},
+                    "step": 1,
+                    "units": "kg CO2e/ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MismanagedEmissions",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ghg.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "materialAssumptions",
+            "label": "Material Assumptions",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Plastics Transportation Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in transportation.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentTransporationAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentTransportationAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Packaging Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in packaging.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentPackagingAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentPackagingAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Construction Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in construction.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentConstructionAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentConstructionAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Electronic Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in electronics.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentElectronicAdditivies'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentElectronicAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics HLS Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in household, leisure, and sports.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentHlsAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentHouseholdLeisureSportsAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Agriculture Additives Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in agriculture.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentAgricultureAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentAgricultureAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Additives Textile Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in textiles.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentTextileAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentTextileAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Plastics Additives Other Percent",
+                    "description": "What percent of plastic in {{ region['full'] }} is additives in other.",
+                    "min": 0,
+                    "max": 2,
+                    "default": {{ region['constants']['percentOtherAdditives'] }},
+                    "step": 0.01,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentOtherAdditives",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/additives.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "financialAssumptions",
+            "label": "Financial Assumptions",
+            "levers": [
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Recycling Cost",
+                    "description": "How much does it cost to recycle one ton of plastics in {{ region['full'] }}.",
+                    "min": 500,
+                    "max": 1200,
+                    "default": {{ region['constants']['recyclingCost'] }},
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}RecyclingCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/recycling_invsetment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Incineration Cost",
+                    "description": "How much does it cost to incinerate one ton of plastics in {{ region['full'] }}.",
+                    "min": 50,
+                    "max": 300,
+                    "default": {{ region['constants']['incerationCost'] }},
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}IncinerationCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Landfill Cost",
+                    "description": "How much does it cost to landfill one ton of plastics in {{ region['full'] }}.",
+                    "min": 50,
+                    "max": 300,
+                    "default": {{ region['constants']['landfillCost'] }},
+                    "step": 5,
+                    "units": "USD per ton",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LandfillCost",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Tax Power",
+                    "description": "In {{ region['full'] }}, what should the power be for the curve that describes the relationship between taxation level and reduction in consumption. This is a in consumption change = (tax)^a * b.",
+                    "min": 0,
+                    "max": 4,
+                    "default": {{ region['constants']['packagingTaxPower'] }},
+                    "step": 0.01,
+                    "decimals": 2,
+                    "units": "",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}TaxPower",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Packaging Tax Multiplier",
+                    "description": "In {{ region['full'] }}, what should the multiplier be for the curve that describes the relationship between taxation level and reduction in consumption. This is b in consumption change = (tax)^a * b.",
+                    "min": 0,
+                    "max": 5,
+                    "default": {{ region['constants']['packagingTaxMultiplier'] }},
+                    "step": 0.01,
+                    "decimals": 2,
+                    "units": "",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}TaxMultiplier",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
+        },
+        {
+            "name": "systemAssumptions",
+            "label": "System Assumptions",
+            "levers": [
+                {
+                    "name": "Policy Start Year",
+                    "description": "Year in which policies start having an effect.",
+                    "min": 2025,
+                    "max": 2029,
+                    "default": 2025,
+                    "step": 1,
+                    "units": "",
+                    "forcePlus": false,
+                    "variable": "startYear",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Immediate Policy Complete Year",
+                    "description": "At what year the phase in of bans and taxes would be complete. This includes time for compliance.",
+                    "min": 2026,
+                    "max": 2050,
+                    "default": 2030,
+                    "step": 1,
+                    "units": "",
+                    "forcePlus": false,
+                    "variable": "endYearImmediate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Gradual Policy Complete Year",
+                    "description": "At what year the phase in of policies other than bans and taxes such as investment or rate / content mandates would be complete. This includes time for compliance.",
+                    "min": 2030,
+                    "max": 2050,
+                    "default": 2040,
+                    "step": 1,
+                    "units": "",
+                    "forcePlus": false,
+                    "variable": "endYearGradual",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Recycling Yield Loss",
+                    "description": "How much of recycling is lost before it is recirculated into new products in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": {{ region['constants']['percentRecyclingYieldLoss'] }},
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}YieldLoss",
+                    "template": "yield_loss.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "{{ region['key'] }}"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Reuse Exhaustion",
+                    "description": "How much of reusable products are exhausted each year in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": {{ region['constants']['percentReuseExhaustion'] }},
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}ReuseExhaustion",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -4,
+                    "attrs": {
+                        "region": "{{ region['key'] }}"
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {% endfor %}
+                {
+                    "name": "Recycling Circularity Delay",
+                    "description": "How long it takes from recycling collection to use in new products for newly added or removed recycling.",
+                    "min": 0,
+                    "max": 2,
+                    "default": 1,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "recyclingDelay",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Recycling Displacement Rate",
+                    "description": "How much of virgin plastic production is reduced or displaced by newly available recycled material.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 50,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "recyclingDisplacementRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "Recycling Lost Virgin Backfill Rate",
+                    "description": "At what rate a reduction in virgin plastic production is replaced by increased recycling.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 50,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "recyclingLostBackfillRate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
+                },
+                {
+                    "name": "Recycling Content Lost Consumption",
+                    "description": "At what rate consumption goes down due to price increase caused by increased minium recycled material.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "recyclingContentLostConsumption",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {
+                    "name": "Reuse Lost Consumption",
+                    "description": "At what rate consumption goes down due to price increase caused by increased reuse.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "reuseLostConsumption",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_recycling_rate.pdf"
+                },
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Incineration Plastic Percent",
+                    "description": "What percent of new incineration capacity would go to plastics in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": {{ region['constants']['percentIncinerationPlastic'] }},
+                    "step": 0.5,
+                    "decimals": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}IncinerationPlasticPercent",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/incineration_investment.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Landfill Plastic Percent",
+                    "description": "What percent of new landfill capacity would go to plastics in {{ region['full'] }}.",
+                    "min": 0,
+                    "max": 100,
+                    "default": {{ region['constants']['percentLandfillPlastic'] }},
+                    "step": 0.5,
+                    "decimals": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}LandfillPlasticPercent",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/waste_management_investment.pdf"
+                },
+                {% endfor %}
+                {
+                    "name": "Packaging Lifetime",
+                    "description": "The number of years before packaging products become waste on average for newly added or removed packaging plastic products.",
+                    "min": 0,
+                    "max": 3,
+                    "default": 0.5,
+                    "step": 0.5,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionPackagingLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Construction Lifetime",
+                    "description": "The number of years before construction products become waste on average for newly added or removed construction plastic products.",
+                    "min": 0,
+                    "max": 40,
+                    "default": 35,
+                    "step": 5,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionConstructionLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Textile Lifetime",
+                    "description": "The number of years before textile products become waste on average for newly added or removed textile plastic products.",
+                    "min": 0,
+                    "max": 10,
+                    "default": 5,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionTextileLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "HLS Lifetime",
+                    "description": "The number of years before household, leisure, sports products become waste on average for newly added or removed HLS plastic products.",
+                    "min": 0,
+                    "max": 10,
+                    "default": 3,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionHouseholdLeisureSportsLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Electronic Lifetime",
+                    "description": "The number of years before electronic products become waste on average for newly added or removed electronic plastic products.",
+                    "min": 0,
+                    "max": 15,
+                    "default": 8,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionElectronicLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Transportation Lifetime",
+                    "description": "The number of years before transportation products become waste on average for newly added or removed transportation plastic products.",
+                    "min": 0,
+                    "max": 20,
+                    "default": 13,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionTransportationLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Agriculture Lifetime",
+                    "description": "The number of years before agriculture products become waste on average for newly added or removed agriculture plastic products.",
+                    "min": 0,
+                    "max": 5,
+                    "default": 2,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionAgricultureLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {
+                    "name": "Other Lifetime",
+                    "description": "The number of years before other products become waste on average for newly added or removed other plastic products.",
+                    "min": 0,
+                    "max": 10,
+                    "default": 5,
+                    "step": 1,
+                    "units": "years",
+                    "forcePlus": false,
+                    "variable": "consumptionOtherLifecycle",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/engine.pdf"
+                },
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Polystyrene Percent",
+                    "description": "What percent of plastic packaging in {{ region['full'] }} is polystyrene.",
+                    "min": 0,
+                    "max": 10,
+                    "default": {{ region['constants']['percentPackagingPs'] }},
+                    "step": 0.1,
+                    "decimals": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentPS",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Single Use Percent",
+                    "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is single use.",
+                    "min": 0,
+                    "max": 100,
+                    "default": {{ region['constants']['percentPackagingSingleUse'] }},
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}PercentSingleUse",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
+                },
+                {% endfor %}
+                {
+                    "name": "Recycling Rate for Exausted Reuse",
+                    "description": "What percent of reusable products are recycled when they reach EOL.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "exhaustedPercentRecycled",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_reuse.pdf"
+                }
+            ]
+        }
+    ]
+}

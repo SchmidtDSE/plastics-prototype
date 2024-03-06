@@ -1,4 +1,6 @@
 function buildPolymerTest() {
+
+    const REGIONS = ["china", "eu30", "nafta", "row"];
     
     QUnit.module("polymer", function() {
 
@@ -338,7 +340,7 @@ function buildPolymerTest() {
         QUnit.test("get trade polymers", function(assert) {
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
                 regionMap.set("consumptionTextileMT", 1);
                 regionMap.set("netImportsMT", 0);
@@ -368,7 +370,7 @@ function buildPolymerTest() {
         QUnit.test("get trade polymers additives", function(assert) {
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
                 regionMap.set("consumptionPackagingMT", 1);
                 regionMap.set("netImportsMT", 0);
@@ -464,7 +466,7 @@ function buildPolymerTest() {
             const inMap = new Map();
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
 
                 GOODS.forEach((info, i) => {
@@ -532,7 +534,7 @@ function buildPolymerTest() {
             const inMap = new Map();
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
 
                 GOODS.forEach((info, i) => {

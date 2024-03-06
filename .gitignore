@@ -12,6 +12,8 @@ test/qunit.css
 test/qunit.min.js
 third_party
 
+*.pyc
+
 index.html
 preview.html
 test/harness.html
@@ -27,6 +29,8 @@ js_standalone/engine/const.js
 js_standalone/engine/plastics_lang.js
 js_standalone/engine/standalone_visitors.js
 js_standalone/engine/plastics_lang_bootstrap.js
+
+pt/index.json
 
 standalone_tasks
 
