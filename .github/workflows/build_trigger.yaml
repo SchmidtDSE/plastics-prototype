@@ -31,7 +31,7 @@ jobs:
         uses: actions/setup-node@v3
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.11' 
+          python-version: '3.11'
       - name: Install Java
         uses: actions/setup-java@v3
         with:
@@ -39,10 +39,14 @@ jobs:
           java-version: '11'
       - name: Install node deps
         run: bash ./support/npm_install.sh
+      - name: Install python deps
+        run: pip install -r requirements.txt
       - name: Run lint
         run: npx eslint ./js/*.js
       - name: Run lint template
         run: npx eslint ./js/compile_visitor.js_template
+      - name: Render index
+        run: bash support/render_index.sh
       - name: Check configuration
         run: python test/test_config.py pt/index.json pt/scenarios.json
       - name: Render templates
@@ -76,10 +80,17 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
       - name: Install node deps
         run: bash ./support/npm_install.sh
+      - name: Install python deps
+        run: pip install -r requirements.txt
       - name: Run lint
         run: npx eslint ./js_standalone/engine/*.js
+      - name: Render index
+        run: bash support/render_index.sh
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Move data
@@ -127,6 +138,8 @@ jobs:
         run: pip install -r requirements.txt
       - name: Install Processing
         run: bash support/install_processing.sh
+      - name: Render index
+        run: bash support/render_index.sh
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Ensure data folder
@@ -165,6 +178,10 @@ jobs:
           java-version: '11'
       - name: Install node deps
         run: bash ./support/npm_install.sh
+      - name: Install python deps
+        run: pip install -r requirements.txt
+      - name: Render index
+        run: bash support/render_index.sh
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Download images
