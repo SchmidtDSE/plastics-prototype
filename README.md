@@ -36,14 +36,7 @@ Container Environment
 A containerized environment is available for both local execution of the application as well as development.
 
 ### Containerized execution
-The application can be run through a Docker container:
-
- - [Install Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04)
- - Build the environment: `docker compose up --build`
- - Navigate to localhost:8080 in your browser
- - Stop the container: `docker compose down`
-
-This will build the application as well as generate the static [supporting graphs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and selected [static scenario outputs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone).
+The application can be run through a Docker container. This will build the application as well as generate the static [supporting graphs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and selected [static scenario outputs](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone). 
 
 ### Containerized development
 Note that a containerized cloud development environment is also available. See `.gitpod.yml` and [GitPod](https://gitpod.io/) for more details. After opening the repository, start running the application with `python -m http.server`.
