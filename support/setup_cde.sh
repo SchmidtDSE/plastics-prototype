@@ -6,6 +6,7 @@ bash support/render_index.sh
 bash support/setup_local.sh
 
 [ ! -e data/overview_ml.csv ] && exit 2;
+[ ! -e standalone_tasks/scenarios_overview.csv ] && exit 3;
 
 bash support/install_processing.sh
 
