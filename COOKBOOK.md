@@ -54,7 +54,7 @@ The web application can incorporate new regions if they are in the underlying da
  - `incinerationEmissions`: GHG emissions associated with material reaching end of life and then being incinerated. This should be CO2 equivalent (kg CO2e/ton).
  - `recyclingEmissions`: GHG emissions associated with material reaching end of life and then being recycled. This should be CO2 equivalent (kg CO2e/ton).
  - `mismanagedEmissions`: GHG emissions associated with material reaching end of life and then being mismanaged. This should be CO2 equivalent (kg CO2e/ton).
- - `percentTransporationAdditives`: Percent of volume in transportation sector that is additives. Should be between 0 and 100.
+ - `percentTransportationAdditives`: Percent of volume in transportation sector that is additives. Should be between 0 and 100.
  - `percentPackagingAdditives`: Percent of volume in packaging sector that is additives. Should be between 0 and 100.
  - `percentConstructionAdditives`: Percent of volume in construction sector that is additives. Should be between 0 and 100.
  - `percentElectronicAdditivies`: Percent of volume in electronic sector that is additives. Should be between 0 and 100.

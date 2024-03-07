@@ -869,7 +869,7 @@
                     "description": "What percent of plastic in {{ region['full'] }} is additives in transportation.",
                     "min": 0,
                     "max": 2,
-                    "default": {{ region['constants']['percentTransporationAdditives'] }},
+                    "default": {{ region['constants']['percentTransportationAdditives'] }},
                     "step": 0.01,
                     "units": "%",
                     "forcePlus": false,
