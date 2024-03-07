@@ -3,6 +3,8 @@ mkdir data
 bash support/get_pipeline_output.sh
 bash support/prepare_data.sh
 
+[ ! -e data/overview_ml.csv ] && exit 1;
+
 bash support/npm_install.sh
 bash support/load_deps.sh
 bash support/make.sh

@@ -8,6 +8,7 @@ RUN apt-get install -y nodejs npm
 RUN apt-get install -y wget
 RUN apt-get install -y nginx
 RUN apt-get install -y unzip
+RUN apt-get install -y sqlite3
 
 RUN npm install -g n
 RUN n 18.18.1
