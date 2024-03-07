@@ -3,6 +3,8 @@ import json
 import pathlib
 import sys
 
+import const
+
 NUM_ARGS = 2
 USAGE_STR = 'python scenarios_overview.py [csv loc] [path to json files]'
 ATTRS = [
@@ -31,7 +33,7 @@ TRADE_ATTRS = [
     'netWasteExportMT',
     'netWasteImportMT'
 ]
-REGIONS = ['china', 'eu30', 'nafta', 'row']
+REGIONS = const.REGIONS_NO_GLOBAL
 
 
 def main():

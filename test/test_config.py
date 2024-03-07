@@ -45,8 +45,11 @@ def check_and_get_levers(target):
         assert 'template' in lever
         assert 'url' in lever
 
-        assert lever['name'] not in lever_names
-        assert lever['variable'] not in lever_variables
+        if lever['name'] in lever_names:
+            raise RuntimeError('Got duplicate lever %s' % lever['name'])
+
+        if lever['variable'] in lever_names:
+            raise RuntimeError('Got duplicate variable %s' % lever['variable'])
 
         lever_names.add(lever['name'])
         lever_variables.add(lever['variable'])

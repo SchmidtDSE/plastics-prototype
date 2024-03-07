@@ -9,12 +9,13 @@ USAGE_STR = 'USAGE: python build_scenarios.py [scenarios json] [job template] [o
 
 SCENARIOS = {
     "snapshot": {
-        'minimumRecyclingRate': {'minimum-recycle-rate': 30},
-        'minimumRecycledContent': {'minimum-recycled-content': 30},
+        'minimumRecyclingRate': {'minimum-recycle-rate': 40},
+        'minimumRecycledContent': {'minimum-recycled-content': 40},
+        'minimumPackagingReuse': {'minimum-packaging-reuse': 40},
         'capVirgin': {'cap-virgin': 1},
         'banPsPackaging': {'ban-ps-packaging': 1},
         'banSingleUse': {'ban-single-use': 90},
-        'reducedAdditives': {'reduced-additives': 60},
+        'reducedAdditives': {'reduced-additives': 90},
         'recyclingInvestment': {'recycling-investment': 100},
         'wasteInvestment': {'waste-investment': 100},
         'taxVirgin': {'tax-virgin': 1},

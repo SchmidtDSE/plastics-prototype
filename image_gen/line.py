@@ -3,15 +3,17 @@
 License:
     BSD, see LICENSE.md
 """
+import json
 import sys
 import sqlite3
 
+import jinja2
 import matplotlib.pyplot
 import pandas
 
 KG_CONVERTER = 907.1847
-NUM_ARGS = 2
-USAGE_STR = 'python line.py [database] [output png]'
+NUM_ARGS = 3
+USAGE_STR = 'python line.py [database] [output png] [regions json]'
 
 
 def hide_spines(ax):
@@ -26,26 +28,22 @@ def hide_spines(ax):
     ax.spines['bottom'].set_visible(False)
 
 
-def plot_region_consumption(ax, attribute, source):
+def plot_region_consumption(ax, attribute, source, colors):
     """Plot the consumption for a region.
     
     Args:
         ax: The matplotlib axes in which to add the plot.
         attribute: The column with the consumption data to plot.
         source: The frame from which data should be pulled.
+        colors: Dictionary mapping region key to color.
     """
-    for region in ['china', 'eu30', 'nafta', 'row']:
+    for region in sorted(colors.keys()):
         view = source[source['year'] >= 2011]
         region_data = view[view['region'] == region]
         region_data_initial = region_data[region_data['year'] <= 2020]
         region_data_projected = region_data[region_data['year'] >= 2020]
         
-        color = {
-            'china': '#a6cee3',
-            'eu30': '#1f78b4',
-            'nafta': '#b2df8a',
-            'row': '#33a02c'
-        }[region]
+        color = colors[region]
 
         ax.plot(
             region_data_initial['year'],
@@ -74,6 +72,7 @@ def main():
 
     database_loc = sys.argv[1]
     output_loc = sys.argv[2]
+    regions_loc = sys.argv[3]
 
     database = sqlite3.connect(database_loc)
 
@@ -131,25 +130,27 @@ def main():
     fig.set_size_inches(14, 5)
     fig.tight_layout(h_pad=5, w_pad=9)
 
-    plot_region_consumption(ax[0], 'totalConsumptionMT', source)
+    with open(regions_loc) as f:
+        regions_info = json.load(f)
+
+    colors = dict(map(lambda x: (x['key'], x['color']), regions_info['regions']))
+
+    plot_region_consumption(ax[0], 'totalConsumptionMT', source, colors)
     ax[0].set_title('Total Consumption')
     ax[0].set_ylabel('Million Metric Tons')
-    ax[0].legend([
-        'China',
-        'China Projected',
-        'European Union',
-        'EU Projected',
-        'NAFTA',
-        'NAFTA Projected',
-        'Rest of World',
-        'ROW Projected'
-    ])
 
-    plot_region_consumption(ax[1], 'perCapitaKg', source)
+    legend_values = []
+    for region in regions_info['regions']:
+        legend_values.append(region['full'])
+        legend_values.append(region['label'] + ' Projected')
+
+    ax[0].legend(legend_values)
+
+    plot_region_consumption(ax[1], 'perCapitaKg', source, colors)
     ax[1].set_title('Per-Capita Consumption')
     ax[1].set_ylabel('Kg / Year')
 
-    plot_region_consumption(ax[2], 'perGdpKg', source)
+    plot_region_consumption(ax[2], 'perGdpKg', source, colors)
     ax[2].set_title('Consumption / GDP (2010 USD PPP)')
     ax[2].set_ylabel('Kg / USD')
 

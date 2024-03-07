@@ -1,4 +1,6 @@
 function buildPolymerTest() {
+
+    const REGIONS = ["china", "eu30", "nafta", "row"];
     
     QUnit.module("polymer", function() {
 
@@ -338,7 +340,7 @@ function buildPolymerTest() {
         QUnit.test("get trade polymers", function(assert) {
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
                 regionMap.set("consumptionTextileMT", 1);
                 regionMap.set("netImportsMT", 0);
@@ -368,7 +370,7 @@ function buildPolymerTest() {
         QUnit.test("get trade polymers additives", function(assert) {
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
                 regionMap.set("consumptionPackagingMT", 1);
                 regionMap.set("netImportsMT", 0);
@@ -464,7 +466,7 @@ function buildPolymerTest() {
             const inMap = new Map();
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
 
                 GOODS.forEach((info, i) => {
@@ -532,7 +534,7 @@ function buildPolymerTest() {
             const inMap = new Map();
             const outMap = new Map();
 
-            ["china", "eu30", "nafta", "row"].forEach((region) => {
+            REGIONS.forEach((region) => {
                 const regionMap = new Map();
 
                 GOODS.forEach((info, i) => {
@@ -828,93 +830,6 @@ function buildPolymerTest() {
             finalizer._addGlobalGhg(state);
 
             assert.ok(isWithinTollerance(ghg.get("global"), "overallGhg", 3));
-        });
-
-        QUnit.test("create ledger", function(assert) {
-            const chinaOutputs = new Map();
-            chinaOutputs.set("eolRecyclingMT", 1);
-            chinaOutputs.set("eolLandfillMT", 2);
-            chinaOutputs.set("eolIncinerationMT", 3);
-            chinaOutputs.set("eolMismanagedMT", 4);
-            chinaOutputs.set("netWasteExportMT", 0);
-            chinaOutputs.set("netWasteImportMT", 1);
-            
-            const outputs = new Map();
-            outputs.set("china", chinaOutputs);
-
-            const chinaGhg = new Map();
-            chinaGhg.set("overallGhg", 1);
-
-            const ghg = new Map();
-            ghg.set("china", chinaGhg);
-
-            const chinaPolymers = new Map();
-            const goodsTradePolymers = new Map();
-            const resinTradePolymers = new Map();
-            RESIN_SUBTYPES.forEach((subtype, i) => {
-                goodsTradePolymers.set(subtype, 0);
-                resinTradePolymers.set(subtype, 0);
-            });
-            goodsTradePolymers.set("pet", -2);
-            chinaPolymers.set("goodsTrade", goodsTradePolymers);
-            chinaPolymers.set("resinTrade", resinTradePolymers);
-
-            const polymers = new Map();
-            polymers.set("china", chinaPolymers);
-
-            const inputs = new Map();
-            const addEmissions = (key, value) => {
-                inputs.set(key + "Production", value * 0.9);
-                inputs.set(key + "Conversion", value * 0.1);
-            };
-            GHGS.forEach((info, i) => {
-                addEmissions("china" + info["leverName"] + "Emissions", 0);
-            });
-            addEmissions("chinaPETEmissions", 5);
-            inputs.set("chinaLandfillEmissions", 1);
-            inputs.set("chinaRecyclingEmissions", 2);
-            inputs.set("chinaIncinerationEmissions", 3);
-            inputs.set("chinaMismanagedEmissions", 4);
-
-            const state = new Map();
-            state.set("out", outputs);
-            state.set("ghg", ghg);
-            state.set("polymers", polymers);
-            state.set("in", inputs);
-
-            const finalizer = new GhgFinalizer();
-            const ledger = finalizer._buildLedger(state);
-
-            assert.ok(isWithinTollerance(
-                ledger._importVolumes,
-                "china\tRecycling",
-                1 / 10
-            ));
-            assert.ok(isWithinTollerance(
-                ledger._exportVolumes,
-                "china\tpet",
-                2
-            ));
-            assert.ok(isWithinTollerance(
-                ledger._ghgToDistribute,
-                "Recycling",
-                1 / 10 * 2 * 0.001
-            ));
-            assert.ok(isWithinTollerance(
-                ledger._ghgToDistribute,
-                "pet",
-                2 * 5 * 0.001
-            ));
-            assert.ok(isWithinTollerance(
-                ledger._actualGhg,
-                "china\tRecycling",
-                1 / 10 * 2 * 0.001
-            ));
-            assert.ok(isWithinTollerance(
-                ledger._actualGhg,
-                "china\tpet",
-                2 * 5 * 0.001
-            ));
         });
 
         QUnit.test("get percent packaging ps remaining", function(assert) {

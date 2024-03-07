@@ -635,6 +635,7 @@ class StateModifier {
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
+        self._balanceProduction(year, state);
 
         // Prepare GHG
         self._makeGhgInState(state);
@@ -854,6 +855,61 @@ class StateModifier {
             polymerMap.set(region, polymerSubmap);
         });
         state.set("polymers", polymerMap);
+        return state;
+    }
+
+    /**
+     * Ensure production and consumption are balanced after trade.
+     *
+     * There is chance of double counting in trade and this balances production to consumption to
+     * deal with resin plus goods trade potential for seeing the same material twice.
+     *
+     * @param year The year in which this balance is to be made.
+     * @param state The state to balance which will be modified in-place.
+     * @returns The input state after modification.
+     */
+    _balanceProduction(year, state) {
+        const polymers = state.get("polymers");
+        const regions = Array.of(...state.get("out").keys());
+
+        const polymerMapConsumption = new Map();
+        const polymerMapProduction = new Map();
+        regions.filter((x) => x !== "global").forEach((region) => {
+            POLYMER_NAMES.forEach((polymerName) => {
+                if (!polymerMapConsumption.has(polymerName)) {
+                    polymerMapConsumption.set(polymerName, 0);
+                }
+                const newConsumption = polymers.get(region).get("consumption").get(polymerName);
+                const priorConsumption = polymerMapConsumption.get(polymerName);
+                polymerMapConsumption.set(polymerName, priorConsumption + newConsumption);
+
+                if (!polymerMapProduction.has(polymerName)) {
+                    polymerMapProduction.set(polymerName, 0);
+                }
+                const newProduction = polymers.get(region).get("production").get(polymerName);
+                const priorProduction = polymerMapProduction.get(polymerName);
+                polymerMapProduction.set(polymerName, priorProduction + newProduction);
+            });
+        });
+
+        const polymerProductionScalers = new Map();
+        POLYMER_NAMES.forEach((polymerName) => {
+            const consumption = polymerMapConsumption.get(polymerName);
+            const production = polymerMapProduction.get(polymerName);
+            const scaler = consumption / production;
+            polymerProductionScalers.set(polymerName, scaler);
+        });
+
+        regions.forEach((region) => {
+            POLYMER_NAMES.forEach((polymerName) => {
+                const regionProduction = polymers.get(region).get("production");
+                const original = regionProduction.get(polymerName);
+                const scaler = polymerProductionScalers.get(polymerName);
+                const newValue = original * scaler;
+                regionProduction.set(polymerName, newValue);
+            });
+        });
+
         return state;
     }
 
@@ -1446,6 +1502,10 @@ function getGhg(state, region, volume, leverName) {
 
     // metric megatons
     const emissionsMt = emissionsKt * 0.001;
+    if (isNaN(emissionsMt)) {
+        console.log(state, region, volume, leverName, emissionsMt);
+        throw "Encountered NaN in emissions.";
+    }
 
     return emissionsMt;
 }
