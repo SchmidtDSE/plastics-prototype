@@ -75,19 +75,19 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       float ghgDelta = stage.getGhgDelta(groupName);
       String ghgValueStr = (ghgDelta > 0 ? "+" : "") + nfc(ghgDelta, 1) + " Megaton CO2e";
 
-      fill(#707070);
+      fill(#757575);
       textFont(DETAIL_FONT);
       text(ghgValueStr, thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 20);
 
       noFill();
-      stroke(#707070);
+      stroke(#757575);
       strokeWeight(2);
       float startX = map(0, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
       line(startX, midY + 29, startX, midY + 36);
 
       rectMode(CORNERS);
       noStroke();
-      fill(#707070);
+      fill(#757575);
       float endX = map(ghgDelta, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
       rect(startX, midY + 30, endX, midY + 35);
     }
@@ -322,7 +322,7 @@ void drawCaption() {
     85
   );
 
-  fill(#707070);
+  fill(#757575);
   textFont(DETAIL_FONT);
   
   textAlign(LEFT, CENTER);
@@ -347,7 +347,7 @@ void drawCaption() {
   );
 
   noFill();
-  stroke(#707070);
+  stroke(#757575);
   strokeWeight(1);
   line(
     layoutManager.getXStart("policy") + 12,
