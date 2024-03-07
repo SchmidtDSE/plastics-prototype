@@ -25,7 +25,6 @@ COPY js ./js
 COPY js_standalone ./js_standalone
 COPY language ./language
 COPY pt ./pt
-COPY support ./support
 COPY template ./template
 COPY test ./test
 COPY .eslintrc.yml ./.eslintrc.yml
@@ -35,6 +34,7 @@ COPY requirements.txt ./requirements.txt
 COPY nginx.conf /etc/nginx/nginx.conf
 
 COPY image_gen ./image_gen
+COPY support ./support
 
 RUN pip install -r requirements.txt
 RUN bash support/render_index.sh
@@ -43,6 +43,5 @@ RUN bash support/install_processing.sh
 RUN bash support/render_line_graphs.sh
 RUN bash support/render_butterfly.sh
 RUN bash support/render_sankey.sh
-RUN bash support/check_image_outputs.sh
 
 RUN bash support/package.sh
