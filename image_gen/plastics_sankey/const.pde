@@ -28,7 +28,7 @@ void loadSemiconstants() {
   SECTORS.add("Electronic");
   SECTORS.add("HouseholdLeisureSports");
   SECTORS.add("Packaging");
-  SECTORS.add("Transporation");
+  SECTORS.add("Transportation");
   SECTORS.add("Textile");
   SECTORS.add("Other");
   
@@ -42,7 +42,7 @@ void loadSemiconstants() {
   FILL_COLORS.put("Electronic", #fb9a99);
   FILL_COLORS.put("HouseholdLeisureSports", #b2df8a);
   FILL_COLORS.put("Packaging", #a6cee3);
-  FILL_COLORS.put("Transporation", #e31a1c);
+  FILL_COLORS.put("Transportation", #e31a1c);
   FILL_COLORS.put("Textile", #33a02c);
   FILL_COLORS.put("Other", #ff7f00);
   
@@ -56,7 +56,7 @@ void loadSemiconstants() {
   CONNECT_COLORS.put("Electronic", #50fb9a99);
   CONNECT_COLORS.put("HouseholdLeisureSports", #50b2df8a);
   CONNECT_COLORS.put("Packaging", #50a6cee3);
-  CONNECT_COLORS.put("Transporation", #50e31a1c);
+  CONNECT_COLORS.put("Transportation", #50e31a1c);
   CONNECT_COLORS.put("Textile", #5033a02c);
   CONNECT_COLORS.put("Other", #50ff7f00);
   
@@ -70,7 +70,7 @@ void loadSemiconstants() {
   FONT_COLORS.put("Electronic", #333333);
   FONT_COLORS.put("HouseholdLeisureSports", #333333);
   FONT_COLORS.put("Packaging", #333333);
-  FONT_COLORS.put("Transporation", #FFFFFF);
+  FONT_COLORS.put("Transportation", #FFFFFF);
   FONT_COLORS.put("Textile", #FFFFFF);
   FONT_COLORS.put("Other", #FFFFFF);
   
@@ -93,7 +93,7 @@ void loadSemiconstants() {
   STRINGS.put("Electronic", "Electronic");
   STRINGS.put("HouseholdLeisureSports", "House/Leis/Sprt");
   STRINGS.put("Packaging", "Packaging");
-  STRINGS.put("Transporation", "Transporation");
+  STRINGS.put("Transportation", "Transportation");
   STRINGS.put("Textile", "Textile");
   STRINGS.put("Other", "Other");
   STRINGS.put("banPsPackaging", "Ban Polystyrene Packaging");
