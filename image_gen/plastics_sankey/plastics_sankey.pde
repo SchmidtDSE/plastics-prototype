@@ -57,5 +57,5 @@ void loadState(String csvLoc) {
   layoutManager.add("consumption", consumptionStage, 2);
   layoutManager.add("regions", regions, 2);
   layoutManager.add("waste", wasteStage, 2);
-  layoutManager.add("policy", policyStage, 50);
+  layoutManager.add("policy", policyStage, 70);
 }
