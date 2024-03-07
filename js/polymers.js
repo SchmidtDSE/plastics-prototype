@@ -833,7 +833,7 @@ class StateModifier {
             POLYMER_NAMES.forEach((polymerName) => {
                 const totalTradePolymer = [
                     goodsTradePolymers,
-                    //resinTradePolymers,  // This shouldn't get double counted.
+                    resinTradePolymers,
                 ].map((x) => x.get(polymerName)).reduce((a, b) => a + b);
 
                 // Handle if import more than produced
@@ -860,10 +860,10 @@ class StateModifier {
 
     /**
      * Ensure production and consumption are balanced after trade.
-     * 
+     *
      * There is chance of double counting in trade and this balances production to consumption to
      * deal with resin plus goods trade potential for seeing the same material twice.
-     * 
+     *
      * @param year The year in which this balance is to be made.
      * @param state The state to balance which will be modified in-place.
      * @returns The input state after modification.
@@ -871,7 +871,7 @@ class StateModifier {
     _balanceProduction(year, state) {
         const polymers = state.get("polymers");
         const regions = Array.of(...state.get("out").keys());
-        
+
         const polymerMapConsumption = new Map();
         const polymerMapProduction = new Map();
         regions.filter((x) => x !== "global").forEach((region) => {
@@ -895,7 +895,7 @@ class StateModifier {
         const polymerProductionScalers = new Map();
         POLYMER_NAMES.forEach((polymerName) => {
             const consumption = polymerMapConsumption.get(polymerName);
-            const production = polymerMapProduction.get(polymerName)
+            const production = polymerMapProduction.get(polymerName);
             const scaler = consumption / production;
             polymerProductionScalers.set(polymerName, scaler);
         });
