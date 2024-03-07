@@ -737,7 +737,7 @@
                     "step": 1,
                     "units": "kg CO2e/ton",
                     "forcePlus": false,
-                    "variable": "{{ region['label'] }}OtherThermosetsEmissionsProduction",
+                    "variable": "{{ region['key'] }}OtherThermosetsEmissionsProduction",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,

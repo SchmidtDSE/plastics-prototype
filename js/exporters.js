@@ -109,7 +109,6 @@ function buildPolymerDownload(withInterventions) {
                 });
             });
         })
-        .filter((record) => record["series"] !== "production")
         .map((record) => {
             return POLYMER_EXPORT_ATTRS.map((attr) => record[attr]);
         })
