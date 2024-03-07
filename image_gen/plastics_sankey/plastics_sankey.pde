@@ -35,12 +35,12 @@ void runSketch() {
   }
   
   background(#FFFFFF);
-  drawUnsafe();
 
   String csvLoc = args[0];
   String outputDirectory = args[1];
 
   loadState(csvLoc);
+  drawUnsafe();
   
   save(outputDirectory + "/sankey.png");
 }
