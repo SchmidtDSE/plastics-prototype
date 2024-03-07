@@ -19,7 +19,6 @@ WORKDIR /workspace
 
 COPY css ./css
 COPY font ./font
-COPY image_gen ./image_gen
 COPY img ./img
 COPY intermediate ./intermediate
 COPY js ./js
@@ -34,6 +33,8 @@ COPY package.json ./package.json
 COPY regions.json ./regions.json
 COPY requirements.txt ./requirements.txt
 COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY image_gen ./image_gen
 
 RUN bash support/setup_cde.sh
 RUN bash support/package.sh
