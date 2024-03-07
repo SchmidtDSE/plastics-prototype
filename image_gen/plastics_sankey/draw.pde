@@ -59,7 +59,7 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 7);
       
       textFont(DETAIL_FONT);
-      text(nfc(stage.get(groupName), 1) + " MMT", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+      text(nfc(stage.get(groupName), 1) + " MMT Plastic", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
     } else if (barHeight < 25) {
       textFont(BODY_FONT);
       text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY);
@@ -69,6 +69,27 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       
       textFont(DETAIL_FONT);
       text(nfc(stage.get(groupName), 1) + " MMT", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+    }
+
+    if (thin) {      
+      float ghgDelta = stage.getGhgDelta(groupName);
+      String ghgValueStr = (ghgDelta > 0 ? "+" : "") + nfc(ghgDelta, 1) + " Megaton CO2e";
+
+      fill(#707070);
+      textFont(DETAIL_FONT);
+      text(ghgValueStr, thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 20);
+
+      noFill();
+      stroke(#707070);
+      strokeWeight(2);
+      float startX = map(0, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
+      line(startX, midY + 29, startX, midY + 36);
+
+      rectMode(CORNERS);
+      noStroke();
+      fill(#707070);
+      float endX = map(ghgDelta, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
+      rect(startX, midY + 30, endX, midY + 35);
     }
   });
   
@@ -295,10 +316,50 @@ void drawCaption() {
   textAlign(LEFT, TOP);
   text(
     "Showing policy effect if all enabled but each policy's effect will change both in absolute and relative size depending on what other policies are included.",
+    layoutManager.getXStart("waste"),
+    height - 85,
+    layoutManager.getXEnd("waste") - layoutManager.getXStart("waste") - 12,
+    85
+  );
+
+  fill(#707070);
+  textFont(DETAIL_FONT);
+  
+  textAlign(LEFT, CENTER);
+  text(
+    "-300 MMT",
     layoutManager.getXStart("policy") + 12,
-    height - 100,
-    layoutManager.getXEnd("policy") - layoutManager.getXStart("policy") - 12,
-    100
+    height - 70
+  );
+
+  textAlign(RIGHT, CENTER);
+  text(
+    "+300 MMT",
+    layoutManager.getXEnd("policy") - 24,
+    height - 70
+  );
+
+  textAlign(CENTER, TOP);
+  text(
+    "Plastics GHG Impact",
+    (layoutManager.getXStart("policy") + layoutManager.getXEnd("policy")) / 2,
+    height - 60
+  );
+
+  noFill();
+  stroke(#707070);
+  strokeWeight(1);
+  line(
+    layoutManager.getXStart("policy") + 12,
+    height - 78,
+    layoutManager.getXEnd("policy") - 24,
+    height - 78
+  );
+  line(
+    layoutManager.getXStart("policy") + 12,
+    height - 62,
+    layoutManager.getXEnd("policy") - 24,
+    height - 62
   );
   
   popStyle();
