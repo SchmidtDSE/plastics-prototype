@@ -220,7 +220,7 @@ void drawAxis() {
   
   translate(57, 70);
   
-  for (int value = 0; value < layoutManager.getMaxValue(); value += 50) {
+  for (int value = 0; value < layoutManager.getMaxValue() + 50; value += 50) {
     text(value + " MMT", 0, layoutManager.getHeight(value));
   }
   

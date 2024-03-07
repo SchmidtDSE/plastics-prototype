@@ -11,7 +11,7 @@ LayoutManager layoutManager;
 
 
 void setup() {
-  size(1600, 800);
+  size(1600, 900);
   try {
     runSketch();
   } catch (Exception e) {
