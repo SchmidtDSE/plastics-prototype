@@ -36,7 +36,7 @@ final int SUBPLOT_VERT_PAD = 100;
 final int HERO_HEIGHT = 300;
 
 final int HERO_YEAR_TICK = 13;
-final int REGION_YEAR_TICK = 49;
+final int REGION_YEAR_TICK = 39;
 
 final int AXIS_ITEM_HEIGHT = 50;
 
