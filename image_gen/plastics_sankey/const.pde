@@ -96,6 +96,7 @@ void loadSemiconstants() {
   STRINGS.put("Transportation", "Transportation");
   STRINGS.put("Textile", "Textile");
   STRINGS.put("Other", "Other");
+  
   STRINGS.put("banPsPackaging", "Ban Polystyrene Packaging");
   STRINGS.put("banWasteTrade", "Ban Waste Trade");
   STRINGS.put("reducedAdditives", "90% Reduced Additives");
@@ -105,5 +106,6 @@ void loadSemiconstants() {
   STRINGS.put("capVirgin", "Cap Virgin to 2025");
   STRINGS.put("recyclingInvestment", "100B Recycling Invest");
   STRINGS.put("minimumRecycledContent", "40% Min Recycled Content");
+  STRINGS.put("minimumPackagingReuse", "40% Min Reuse Packaging");
   STRINGS.put("wasteInvestment", "100B Waste Invest");
 }
