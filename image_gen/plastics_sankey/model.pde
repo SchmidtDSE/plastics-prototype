@@ -52,11 +52,25 @@ class MutableRecord implements Record {
 }
 
 
+Map<String, Float> getGhgImpacts() {
+  Table ghgTable = loadTable("ghg_snapshot.csv", "header");
+
+  Map<String, Float> ghgs = new HashMap<>();
+  for (TableRow row : ghgTable.rows()) {
+    String intervention = row.getString("intervention");
+    float ghg = row.getFloat("shareOfCombinedGhg");
+    ghgs.put(intervention, ghg);
+  }
+
+  return ghgs;
+}
+
+
 List<Record> loadRecords(String csvLoc) {
-  Table table = loadTable(csvLoc, "header");
+  Table mainTable = loadTable(csvLoc, "header");
   
   List<Record> retList = new ArrayList<>();
-  for (TableRow row : table.rows()) {
+  for (TableRow row : mainTable.rows()) {
     String region = row.getString("region");
     String scenario = row.getString("scenario");
     MutableRecord newRecord = new MutableRecord(region, scenario);

@@ -7,6 +7,7 @@ interface Stage {
   public Stream<String> getGroups();
   public Stream<String> getConnections(String group);
   public Stream<String> getShadowConnections(String group);
+  public float getGhgDelta(String group);
   
 }
 
@@ -16,11 +17,13 @@ class MutableStage implements Stage {
   private final Map<String, Float> totals;
   private final Map<String, Map<String, Float>> connections;
   private final Map<String, Map<String, Float>> shadowConnections;
+  private final Map<String, Float> ghgDeltas;
   
   public MutableStage() {
     totals = new HashMap<>();
     connections = new HashMap<>();
     shadowConnections = new HashMap<>();
+    ghgDeltas = new HashMap<>();
   }
   
   public boolean has(String group) {
@@ -76,6 +79,14 @@ class MutableStage implements Stage {
     totals.put(group, totals.get(group) + value);
     
     addConnectionOnly(group, connection, value, connections);
+  }
+
+  public void addGhgDelta(String group, float value) {
+    ghgDeltas.put(group, value);
+  }
+
+  public float getGhgDelta(String group) {
+    return ghgDeltas.getOrDefault(group, 0.0);
   }
   
   private Stream<String> getConnections(Map<String, Map<String, Float>> connections, String group) {
@@ -214,6 +225,8 @@ Stage buildWasteStage(List<Record> records, Stage policyStage) {
 
 
 Stage buildPolicyStage(List<Record> records) {
+  Map<String, Float> ghgImpacts = getGhgImpacts();
+
   List<Record> globalBaus = records.stream()
     .filter((x) -> x.getRegion().equals("global"))
     .filter((x) -> x.getScenario().equals("businessAsUsual"))
@@ -249,6 +262,7 @@ Stage buildPolicyStage(List<Record> records) {
   for (String policy : rawImpacts.keySet()) {
     float scaledValue = rawImpacts.get(policy) / totalRaw * expectedReduction;
     newStage.add(policy, "Mismanaged", scaledValue);
+    newStage.addGhgDelta(policy, ghgImpacts.getOrDefault(policy, 0.0));
   }
   
   return newStage;
