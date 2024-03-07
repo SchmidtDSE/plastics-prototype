@@ -150,6 +150,8 @@ jobs:
         run: bash support/render_line_graphs.sh
       - name: Render butterfly
         run: bash support/render_butterfly.sh
+      - name: Render butterfly
+        run: bash support/render_sankey.sh
       - name: Check outputs
         run: bash support/check_image_outputs.sh
       - name: Snapshot images

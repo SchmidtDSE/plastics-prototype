@@ -27,15 +27,12 @@ COPY language ./language
 COPY pt ./pt
 COPY support ./support
 COPY template ./template
+COPY test ./test
 COPY .eslintrc.yml ./.eslintrc.yml
 COPY package.json ./package.json
+COPY regions.json ./regions.json
 COPY requirements.txt ./requirements.txt
 COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN bash support/setup_local.sh
-
-RUN bash support/install_processing.sh
-RUN bash support/run_scenarios_standalone.sh
-RUN bash support/render_line_graphs.sh
-RUN bash support/render_butterfly.sh
+RUN bash support/setup_cde.sh
 RUN bash support/package.sh
