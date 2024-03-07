@@ -130,6 +130,12 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
+      - name: Download images
+        uses: actions/download-artifact@v3
+        with:
+          name: standalone-all
+      - name: Unzip standalone
+        run: unzip standalone_tasks.zip
       - name: Install node deps
         run: bash ./support/npm_install.sh
       - name: Install Python deps
