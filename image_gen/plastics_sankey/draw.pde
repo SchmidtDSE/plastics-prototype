@@ -140,8 +140,8 @@ void drawRegions(String column, Map<String, Region> regions) {
 void drawConnections(String startColumn, String endColumn, Stage stage) {
   float startX = layoutManager.getXEnd(startColumn) + 2;
   float endX = layoutManager.getXStart(endColumn) - 2;
-  float controlX1 = map(1, 0, 4, startX, endX);
-  float controlX2 = map(2, 0, 4, startX, endX);
+  float controlX1 = map(4, 0, 8, startX, endX);
+  float controlX2 = map(5, 0, 8, startX, endX);
   
   noFill();
   strokeCap(SQUARE);
@@ -177,8 +177,8 @@ void drawConnections(String startColumn, String endColumn, Stage stage) {
 void drawConnections(String startColumn, String endColumn, Stage startStage, Stage endStage) {
   float startX = layoutManager.getXEnd(startColumn) + 2;
   float endX = layoutManager.getXStart(endColumn) - 2;
-  float controlX1 = map(1, 0, 4, startX, endX);
-  float controlX2 = map(2, 0, 4, startX, endX);
+  float controlX1 = map(3, 0, 8, startX, endX);
+  float controlX2 = map(5, 0, 8, startX, endX);
   
   noFill();
   strokeCap(SQUARE);
@@ -232,7 +232,7 @@ void drawAxis() {
 void drawSubheaders() {
   pushMatrix();
   pushStyle();
-  800
+
   fill(#333333);
   textFont(SUBHEADER_FONT);
   

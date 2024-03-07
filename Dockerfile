@@ -33,6 +33,8 @@ COPY regions.json ./regions.json
 COPY requirements.txt ./requirements.txt
 COPY nginx.conf /etc/nginx/nginx.conf
 
+COPY README.md ./README.md
+
 COPY support ./support
 RUN pip install -r requirements.txt
 RUN bash support/render_index.sh
