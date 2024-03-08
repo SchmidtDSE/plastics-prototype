@@ -13,8 +13,7 @@ import {
 
 const POLYMER_EXPORT_SERIES = [
     "consumption",
-    "goodsTrade",
-    "resinTrade",
+    "overallNetTrade",
     "production",
 ];
 
