@@ -635,7 +635,10 @@ class StateModifier {
         self._addDetailedTrade(year, state);
         self._normalizeDetailedTrade(year, state);
         self._calculatePolymers(year, state);
+
+        // Deal with resin trade reflowing into goods trade
         self._balanceProduction(year, state);
+        self._getOverallTrade(year, state);
 
         // Prepare GHG
         self._makeGhgInState(state);
@@ -907,6 +910,29 @@ class StateModifier {
                 const scaler = polymerProductionScalers.get(polymerName);
                 const newValue = original * scaler;
                 regionProduction.set(polymerName, newValue);
+            });
+        });
+
+        return state;
+    }
+
+    _getOverallTrade(year, state) {
+        const self = this;
+
+        const polymers = state.get("polymers");
+        const regions = Array.of(...state.get("out").keys());
+
+        regions.forEach((region) => {
+            polymers.get(region).set("overallNetTrade", new Map());
+        });
+
+        regions.forEach((region) => {
+            POLYMER_NAMES.forEach((polymerName) => {
+                const regionProduction = polymers.get(region).get("production").get(polymerName);
+                const regionConsumption = polymers.get(region).get("consumption").get(polymerName);
+                const regionTradeMap = polymers.get(region).get("overallNetTrade");
+                const netTrade = regionConsumption - regionProduction;
+                regionTradeMap.set(polymerName, netTrade);
             });
         });
 
@@ -1357,8 +1383,7 @@ class StateModifier {
             };
 
             calculateForKey("consumption");
-            calculateForKey("goodsTrade");
-            calculateForKey("resinTrade");
+            calculateForKey("overallNetTrade");
         });
 
         return state;
@@ -1544,11 +1569,8 @@ class GhgFinalizer {
             const regionGhg = ghgInfo.get(region);
             const regionOut = state.get("out").get(region);
 
-            const goodsTradeGhg = regionGhg.get("goodsTrade");
-            const goodsImportGhg = goodsTradeGhg > 0 ? goodsTradeGhg : 0;
-            const resinTradeGhg = regionGhg.get("resinTrade");
-            const resinImportGhg = resinTradeGhg > 0 ? resinTradeGhg : 0;
-            const importedProductGhg = goodsImportGhg + resinImportGhg;
+            const tradedProductGhg = regionGhg.get("overallNetTrade");
+            const importedProductGhg = tradedProductGhg > 0 ? tradedProductGhg : 0;
             const fullyDomesticProductGhg = regionGhg.get("consumption") - importedProductGhg;
 
             const wasteGhg = regionGhg.get("eol");
@@ -1578,7 +1600,7 @@ class GhgFinalizer {
             const regionOut = out.get(region);
 
             const regionPolymers = state.get("polymers").get(region);
-            const productSeries = ["goodsTrade", "resinTrade"];
+            const productSeries = ["overallNetTrade"];
             productSeries.forEach((series) => {
                 const seriesPolymers = regionPolymers.get(series);
                 GHGS.forEach((ghgInfo) => {
