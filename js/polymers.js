@@ -918,7 +918,7 @@ class StateModifier {
 
     _getOverallTrade(year, state) {
         const self = this;
-        
+
         const polymers = state.get("polymers");
         const regions = Array.of(...state.get("out").keys());
 
