@@ -97,12 +97,12 @@ function buildPolymerDownload(withInterventions) {
                     if (!polymers.has(region) || !polymers.get(region).has(series)) {
                         const vector = polymers.get(region).get(series);
                         alert([
-                            'Could not generate export.',
-                            'Reason: Application update is available.',
-                            'Please refresh and try again.',
-                            'Apologies for the inconvienence.'
-                        ].join(' '));
-                        throw 'Out of date application error shown to user.';
+                            "Could not generate export.",
+                            "Reason: Application update is available.",
+                            "Please refresh and try again.",
+                            "Apologies for the inconvienence.",
+                        ].join(" "));
+                        throw "Out of date application error shown to user.";
                     }
                     return Array.of(...vector.keys()).map((polymerName) => {
                         const volume = vector.get(polymerName);
