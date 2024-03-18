@@ -95,7 +95,6 @@ function buildPolymerDownload(withInterventions) {
             return POLYMER_EXPORT_SERIES.flatMap((series) => {
                 return ALL_REGIONS.filter((x) => x !== "global").flatMap((region) => {
                     if (!polymers.has(region) || !polymers.get(region).has(series)) {
-                        const vector = polymers.get(region).get(series);
                         alert([
                             "Could not generate export.",
                             "Reason: Application update is available.",
@@ -104,6 +103,7 @@ function buildPolymerDownload(withInterventions) {
                         ].join(" "));
                         throw "Out of date application error shown to user.";
                     }
+                    const vector = polymers.get(region).get(series);
                     return Array.of(...vector.keys()).map((polymerName) => {
                         const volume = vector.get(polymerName);
                         return {
