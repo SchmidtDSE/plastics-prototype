@@ -39,10 +39,13 @@ var totalConsumption = (
 var reusedContent = out.{{region}}.eolReuseMT;
 
 # Determine how much to move out of other fates
+var increasedMaterialRate = in.reusableAddedMaterial / 100;
 var massReuse = targetRate * totalConsumption;
+var newMaterial = targetRate * totalConsumption * increasedMaterialRate;
 var reuseRedirection = (
   massReuse -
-  reusedContent
+  reusedContent -
+  newMaterial
 );
 limit reuseRedirection to [0,];
 
