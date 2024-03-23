@@ -80,10 +80,11 @@ change actualReuseDeltaWasteLeading by reuseRedirection over leadStart to leadDe
 var lostConsumptionRate = in.reuseLostConsumption / 100;
 var lostConsumption = actualReuseDelta * lostConsumptionRate;
 var lostConsumptionLifecycle = reuseRedirection * lostConsumptionRate;
-actualReuseDelta = actualReuseDelta * (1 - lostConsumptionRate);
+var lostConsumptionRateAdj = lostConsumptionRate * (1 + increasedMaterialRate);
+actualReuseDelta = actualReuseDelta * (1 - lostConsumptionRateAdj);
 
 # Anticipate the leading / anticipatory change in recycling
-actualReuseDeltaWasteLeading = actualReuseDeltaWasteLeading * (1 - lostConsumptionRate);
+actualReuseDeltaWasteLeading = actualReuseDeltaWasteLeading * (1 - lostConsumptionRateAdj);
 
 # Limit change to available plastic in other fates
 var totalOtherFates = (
