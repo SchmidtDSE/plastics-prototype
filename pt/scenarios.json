@@ -208,7 +208,7 @@
       "released": true
     },
     {
-      "name": "<option> % Min Packaging Reuse",
+      "name": "<option> % Min Packaging Reuse (experimental)",
       "id": "minimum-packaging-reuse",
       "description": "Policy which requires a certain percent of products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well.",
       "config": {
