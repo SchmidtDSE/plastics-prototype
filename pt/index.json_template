@@ -165,8 +165,8 @@
                         "otherRegions": [{{ get_other_regions(region['key']) }}],
                         "minPackagingMultiplier": 1,
                         "reuseType": "All",
-                        "isPackaging": true,
-                        "isAll": false
+                        "isPackaging": false,
+                        "isAll": true
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },

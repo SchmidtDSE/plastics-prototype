@@ -214,40 +214,40 @@
       "config": {
         "options": [
           {
-            "name": "30",
-            "value": 30
-          },
-          {
             "name": "60",
             "value": 60
           },
           {
-            "name": "90",
-            "value": 90
+            "name": "80",
+            "value": 80
+          },
+          {
+            "name": "100",
+            "value": 100
           }
         ],
-        "default": 60
+        "default": 80
       },
       "values": [
         {
           "lever": "chinaMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "eu30MinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "naftaMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "rowMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         }
       ],
       "released": true
