@@ -15,8 +15,6 @@ var lifecycleDuration = lifecycle of [
   out.{{ region }}.consumptionPackagingMT
 ];
 
-var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
-
 # Determine how much delta to apply (assume phase in)
 var targetRate = 0;
 var delayStart = in.startYear + lifecycleDuration;
@@ -125,6 +123,12 @@ distribute offsetProduction across [
   out.{{ region }}.secondaryProductionMT
 ] proportionally;
 
+{{#if isPackaging}}
+distribute offsetProduction across [
+  out.{{ region }}.consumptionPackagingMT
+] proportionally;
+{{/if}}
+{{#if isAll}}
 distribute offsetProduction across [
   out.{{ region }}.consumptionPackagingMT,
   out.{{ region }}.consumptionConstructionMT,
@@ -136,6 +140,7 @@ distribute offsetProduction across [
   out.{{ region }}.consumptionOtherMT,
   out.{{ region }}.netExportsMT
 ] proportionally;
+{{/if}}
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
@@ -152,6 +157,12 @@ var lostConsumptionOffset = lostConsumption * -1;
 var lostConsumptionOffsetLifecycle = lostConsumptionLifecycle * -1;
 
 # Apply offset for unfilled to consumption
+{{#if isPackaging}}
+distribute offsetProduction across [
+  out.{{ region }}.consumptionPackagingMT
+] proportionally;
+{{/if}}
+{{#if isAll}}
 distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionAgricultureMT,
   out.{{ region }}.consumptionConstructionMT,
@@ -162,6 +173,7 @@ distribute lostConsumptionOffset across [
   out.{{ region }}.consumptionTextileMT,
   out.{{ region }}.consumptionOtherMT
 ] proportionally;
+{{/if}}
 
 # Apply offset for unfilled to EOL
 wasteExportWeight = (

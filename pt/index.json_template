@@ -123,7 +123,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Minimum Reuse Packaging (Experimental)",
+                    "name": "{{ region['label'] }} Min Reuse / Life Extension Packaging",
                     "description": "The minimum percent of goods reused in packaging (percent of total mass) in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -139,14 +139,16 @@
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}],
                         "minPackagingMultiplier": 0,
-                        "reuseType": "Packaging"
+                        "reuseType": "Packaging",
+                        "isPackaging": true,
+                        "isAll": false
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Minimum Reuse All (Experimental)",
+                    "name": "{{ region['label'] }} Min Reuse / Life Extension All",
                     "description": "The minimum percent of goods reused in all sectors (percent of total mass) in {{ region['full'] }}.",
                     "min": 0,
                     "max": 100,
@@ -162,7 +164,9 @@
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}],
                         "minPackagingMultiplier": 1,
-                        "reuseType": "All"
+                        "reuseType": "All",
+                        "isPackaging": true,
+                        "isAll": false
                     },
                     "url": "https://global-plastics-tool.org/pdf/min_reuse_rate.pdf"
                 },
@@ -1482,6 +1486,22 @@
                     "url": "https://global-plastics-tool.org/pdf/reduce_packaging.pdf"
                 },
                 {% endfor %}
+                {
+                    "name": "Reuse Candidate",
+                    "description": "What percent of products can be made reusable.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 50,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "percentReusableCandidate",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/minimum_reuse.pdf"
+                },
                 {
                     "name": "Recycling Rate for Exausted Reuse",
                     "description": "What percent of reusable products are recycled when they reach EOL.",
