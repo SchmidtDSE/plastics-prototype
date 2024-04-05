@@ -39,13 +39,10 @@ var totalConsumption = (
 var reusedContent = out.{{region}}.eolReuseMT;
 
 # Determine how much to move out of other fates
-var increasedMaterialRate = in.reusableAddedMaterial / 100;
 var massReuse = targetRate * totalConsumption;
-var newMaterial = targetRate * totalConsumption * increasedMaterialRate;
 var reuseRedirection = (
   massReuse -
-  reusedContent -
-  newMaterial
+  reusedContent 
 );
 limit reuseRedirection to [0,];
 
@@ -64,7 +61,8 @@ var percentInScope = out.{{ region }}.consumptionPackagingMT / (
   out.{{ region }}.netExportsMT
 );
 limit percentInScope to [{{ minPackagingMultiplier }}, 1];
-reuseRedirection = reuseRedirection * percentInScope;
+var candidatePercent = in.percentReusableCandidate / 100;
+reuseRedirection = reuseRedirection * percentInScope * candidatePercent;
 
 # Determine how much delta to apply - assume gradual compliance
 var actualReuseDelta = 0;
@@ -80,7 +78,7 @@ change actualReuseDeltaWasteLeading by reuseRedirection over leadStart to leadDe
 var lostConsumptionRate = in.reuseLostConsumption / 100;
 var lostConsumption = actualReuseDelta * lostConsumptionRate;
 var lostConsumptionLifecycle = reuseRedirection * lostConsumptionRate;
-var lostConsumptionRateAdj = lostConsumptionRate * (1 + increasedMaterialRate);
+var lostConsumptionRateAdj = lostConsumptionRate;  # Handle increased material later
 actualReuseDelta = actualReuseDelta * (1 - lostConsumptionRateAdj);
 
 # Anticipate the leading / anticipatory change in recycling
