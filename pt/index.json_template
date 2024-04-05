@@ -999,15 +999,15 @@
                 {% endfor %}
                 {
                     "attrs": {},
-                    "default": 10,
+                    "default": 150,
                     "description": "Additional percent increase in material usage to make reusable products relative to their non-reusable alternatives.",
                     "forcePlus": false,
-                    "max": 100,
+                    "max": 200,
                     "min": 0,
                     "name": "Reuse Increase Material",
                     "priority": -100,
                     "released": true,
-                    "step": 1,
+                    "step": 25,
                     "template": "noop.pt",
                     "units": "%",
                     "url": "https://global-plastics-tool.org/pdf/minimum_reuse.pdf",

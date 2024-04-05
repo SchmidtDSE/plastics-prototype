@@ -84,6 +84,7 @@ actualReuseDelta = actualReuseDelta * (1 - lostConsumptionRateAdj);
 actualReuseDeltaWasteLeading = actualReuseDeltaWasteLeading * (1 - lostConsumptionRateAdj);
 
 # Limit change to available plastic in other fates
+var recyclingStart = out.{{ region }}.eolRecyclingMT;
 var totalOtherFates = (
   out.{{ region }}.eolRecyclingMT +
   out.{{ region }}.eolLandfillMT +
@@ -208,9 +209,13 @@ distribute changeImports across [
   {{/each}}
 ] proportionally;
 
-# Move some of the reused materials which exhausted to recycled domestically
+# Determine added material amount
+var reusableAddedMaterialPercent = in.reusableAddedMaterial / 100;
 var exhaustionRate = in.{{ region }}ReuseExhaustion / 100;
-var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate;
+
+# Move some of the reused materials which exhausted to recycled domestically with understanding of
+# increases due to added material.
+var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate * (1 + reusableAddedMaterialPercent);
 var exhaustionPercentRecycled = in.exhaustedPercentRecycled / 100;
 limit exhausedMMT to [0,];
 out.{{ region }}.eolReuseMT = (
@@ -222,6 +227,62 @@ out.{{ region }}.eolRecyclingMT = (
   exhausedMMT * exhaustionPercentRecycled
 );
 distribute (exhausedMMT * (1 - exhaustionPercentRecycled)) across [
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Added material for start of life
+var increaseMaterialStartOfLife = actualReuseDelta * reusableAddedMaterialPercent * exhaustionRate;
+
+# Added material for production
+{{#if isPackaging}}
+distribute increaseMaterialStartOfLife across [
+  out.{{ region }}.consumptionPackagingMT
+] proportionally;
+{{/if}}
+{{#if isAll}}
+distribute increaseMaterialStartOfLife across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransportationMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+{{/if}}
+
+# Added material for consumption
+priorImports = out.{{ region }}.netImportsMT;
+
+var beforeSecondary = out.{{ region }}.secondaryProductionMT;
+distribute increaseMaterialStartOfLife across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
+] proportionally;
+var afterSecondary = out.{{ region }}.secondaryProductionMT;
+
+changeImports = out.{{ region }}.netImportsMT - priorImports;
+
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Pull into secondary
+var yieldLoss = in.{{ region }}YieldLoss / 100;
+var changeSecondary = afterSecondary - beforeSecondary;
+var requiredRecycling = changeSecondary / yieldLoss - (exhausedMMT * exhaustionPercentRecycled);
+
+out.{{ region }}.eolRecyclingMT = (
+  out.{{ region }}.eolRecyclingMT +
+  requiredRecycling
+);
+distribute (-1 * requiredRecycling) across [
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT
