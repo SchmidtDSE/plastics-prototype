@@ -1796,7 +1796,8 @@ class GhgTradeLedger {
         self._regions.add(region);
         self._materialTypes.add(materialType);
 
-        self._checkVolumeAndGhg(newVolume, newGhg);
+        const label = [region, materialType].join("-");
+        self._checkVolumeAndGhg(newVolume, newGhg, label);
 
         const key = self._getCombineKey(region, materialType);
         self._addToMap(self._importVolumes, key, newVolume);
@@ -1822,7 +1823,8 @@ class GhgTradeLedger {
 
         const key = self._getCombineKey(region, materialType);
 
-        self._checkVolumeAndGhg(newVolume, newGhg);
+        const label = [region, materialType].join("-");
+        self._checkVolumeAndGhg(newVolume, newGhg, label);
 
         self._addToMap(self._exportVolumes, key, newVolume);
 
@@ -1899,14 +1901,14 @@ class GhgTradeLedger {
     /**
      * Validate that the volume and GHG are valid.
      */
-    _checkVolumeAndGhg(volume, ghg) {
+    _checkVolumeAndGhg(volume, ghg, label) {
         const self = this;
-        if (volume < 0 || isNaN(volume)) {
-            throw "Encountered invalid or negative volume.";
+        if (volume < -0.0000001 || isNaN(volume)) {
+            throw label + " encountered invalid or negative volume: " + volume;
         }
 
-        if (ghg < 0 || isNaN(volume)) {
-            throw "Encountered invalid or negative ghg.";
+        if (ghg < -0.0000001 || isNaN(ghg)) {
+            throw label + " encountered invalid or negative ghg: " + ghg;
         }
     }
 
