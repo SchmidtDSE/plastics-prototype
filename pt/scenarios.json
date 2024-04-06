@@ -208,9 +208,9 @@
       "released": true
     },
     {
-      "name": "<option> % Min Packaging Reuse / Life Extension",
+      "name": "<option> % Packaging Reuse / Life Extension",
       "id": "minimum-packaging-reuse",
-      "description": "Policy which requires a certain percent of products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well. Only applies to products which can be made reusable, a parameter also configurable in details tab.",
+      "description": "Only applies to products which can be made reusable, a parameter also configurable in details tab. Policy which requires a certain percent of candidate products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well. Includes other forms of lifecycle extension like repair.",
       "config": {
         "options": [
           {

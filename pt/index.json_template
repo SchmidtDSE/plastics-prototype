@@ -124,7 +124,7 @@
                 {% for region in regions %}
                 {
                     "name": "{{ region['label'] }} Min Reuse / Life Extension Packaging",
-                    "description": "The minimum percent of goods reused in packaging (percent of total mass) in {{ region['full'] }}.",
+                    "description": "The minimum percent of goods reused in packaging (percent of total mass) in {{ region['full'] }}. Includes other forms of lifecycle extension like repair. Only applies to products which can be made reusable / repairable (see reuse candidate parameter).",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -149,7 +149,7 @@
                 {% for region in regions %}
                 {
                     "name": "{{ region['label'] }} Min Reuse / Life Extension All",
-                    "description": "The minimum percent of goods reused in all sectors (percent of total mass) in {{ region['full'] }}.",
+                    "description": "The minimum percent of goods reused in all sectors (percent of total mass) in {{ region['full'] }}. Includes other forms of lifecycle extension like repair. Only applies to products which can be made reusable / repairable (see reuse candidate parameter).",
                     "min": 0,
                     "max": 100,
                     "default": 0,

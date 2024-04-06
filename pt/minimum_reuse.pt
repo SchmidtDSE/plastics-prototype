@@ -96,9 +96,10 @@ limit actualReuseDeltaWasteLeading to [0, totalOtherFates];
 limit actualReuseDelta to [0, totalOtherFates];
 
 # Increase reuse and determine offset.
+var reusableAddedMaterialPercent = in.reusableAddedMaterial / 100;
 out.{{ region }}.eolReuseMT = (
   out.{{ region }}.eolReuseMT +
-  actualReuseDeltaWasteLeading
+  actualReuseDeltaWasteLeading * (1 + reusableAddedMaterialPercent)
 );
 var offsetProduction = actualReuseDelta * -1;  # Consumption
 var offsetWasteLeading = actualReuseDeltaWasteLeading * -1;  # Waste
@@ -210,13 +211,12 @@ distribute changeImports across [
 ] proportionally;
 
 # Determine added material amount
-var reusableAddedMaterialPercent = in.reusableAddedMaterial / 100;
 var exhaustionRate = in.{{ region }}ReuseExhaustion / 100;
 
 # Move some of the reused materials which exhausted to recycled domestically with understanding of
 # increases due to added material.
 var exhausedMMT = actualReuseDeltaWasteLeading * exhaustionRate * (1 + reusableAddedMaterialPercent);
-var exhaustionPercentRecycled = in.exhaustedPercentRecycled / 100;
+var exhaustionPercentRecycled = (in.exhaustedPercentRecycled / 100) / lifecycleDuration;
 limit exhausedMMT to [0,];
 out.{{ region }}.eolReuseMT = (
   out.{{ region }}.eolReuseMT -
