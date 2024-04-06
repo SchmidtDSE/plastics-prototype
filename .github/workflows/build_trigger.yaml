@@ -14,7 +14,7 @@ jobs:
     name: Check Pipeline
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Move data
@@ -26,7 +26,7 @@ jobs:
     needs: [checkArtifact]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Node
         uses: actions/setup-node@v3
       - uses: actions/setup-python@v4
@@ -72,7 +72,7 @@ jobs:
     needs: [checkArtifact]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install Node
         uses: actions/setup-node@v3
       - name: Install Java
@@ -124,7 +124,7 @@ jobs:
     needs: [runStandalone]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -170,7 +170,7 @@ jobs:
     needs: [test, runStandalone, buildFigures]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -233,7 +233,7 @@ jobs:
     needs: [buildDeployment]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
