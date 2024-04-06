@@ -208,46 +208,46 @@
       "released": true
     },
     {
-      "name": "<option> % Min Packaging Reuse (experimental)",
+      "name": "<option> % Packaging Reuse / Life Extension",
       "id": "minimum-packaging-reuse",
-      "description": "Policy which requires a certain percent of products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well.",
+      "description": "Only applies to products which can be made reusable, a parameter also configurable in details tab. Policy which requires a certain percent of candidate products by mass are reusable in packaging. See the details tab to apply this to non-packaging materials as well. Includes other forms of lifecycle extension like repair.",
       "config": {
         "options": [
           {
-            "name": "20",
-            "value": 20
+            "name": "60",
+            "value": 60
           },
           {
-            "name": "30",
-            "value": 30
+            "name": "80",
+            "value": 80
           },
           {
-            "name": "40",
-            "value": 40
+            "name": "100",
+            "value": 100
           }
         ],
-        "default": 30
+        "default": 80
       },
       "values": [
         {
           "lever": "chinaMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "eu30MinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "naftaMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         },
         {
           "lever": "rowMinimumReusePackaging",
-          "value": 30,
-          "baseValue": 30
+          "value": 80,
+          "baseValue": 80
         }
       ],
       "released": true
