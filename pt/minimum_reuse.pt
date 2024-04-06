@@ -90,7 +90,7 @@ var totalOtherFates = (
   out.{{ region }}.eolLandfillMT +
   out.{{ region }}.eolIncinerationMT +
   out.{{ region }}.eolMismanagedMT +
-  out.{{ region }}.netExportsMT
+  out.{{ region }}.netWasteExportMT
 );
 limit actualReuseDeltaWasteLeading to [0, totalOtherFates];
 limit actualReuseDelta to [0, totalOtherFates];
