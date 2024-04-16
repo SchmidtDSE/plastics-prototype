@@ -28,8 +28,6 @@ const POLYMER_EXPORT_ATTRS = [
 const GHG_EXPORT_ATTRS = [
     "region",
     "year",
-    "eCO2MTProduct",
-    "eCO2MTEol",
     "eCO2MTOverall",
 ];
 
