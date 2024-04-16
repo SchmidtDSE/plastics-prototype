@@ -28,8 +28,6 @@ const POLYMER_EXPORT_ATTRS = [
 const GHG_EXPORT_ATTRS = [
     "region",
     "year",
-    "eCO2MTProduct",
-    "eCO2MTEol",
     "eCO2MTOverall",
 ];
 
@@ -141,13 +139,11 @@ function buildGhgDownload(withInterventions) {
     const content = Array.of(...withInterventions.entries())
         .flatMap((entry) => {
             const ghgInfo = entry[1].get("ghg");
-            return ALL_REGIONS.filter((x) => x !== "global").flatMap((region) => {
+            return ALL_REGIONS.filter((x) => x === "global").flatMap((region) => {
                 const regionGhgInfo = ghgInfo.get(region);
                 return {
                     "region": region,
                     "year": entry[0],
-                    "eCO2MTProduct": regionGhgInfo.get("productTradeGhg"),
-                    "eCO2MTEol": regionGhgInfo.get("eolTradeGhg"),
                     "eCO2MTOverall": regionGhgInfo.get("overallGhg"),
                 };
             });

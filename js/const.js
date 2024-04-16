@@ -135,7 +135,7 @@ STANDARD_ATTR_NAMES.set(DISPLAY_STAGES.production, PRODUCTION_ATTRS);
 
 const FLAG_DEFAULT_GHG = true;
 const FLAG_DEFAULT_THREADS = false;
-const FLAG_DEFAULT_GHG_EXPORT = false;
+const FLAG_DEFAULT_GHG_EXPORT = true;
 
 
 export {
