@@ -78,7 +78,7 @@ class Driver {
 
         setTimeout(() => {
             self._checkUpdate();
-        }, 7000);
+        }, 6000);
     }
 
     /**
