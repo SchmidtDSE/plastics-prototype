@@ -76,6 +76,7 @@ def main():
 
     database = sqlite3.connect(database_loc)
 
+    # This will include 2006 and earlier but not graphed.
     source = pandas.read_sql(
         '''
         SELECT
