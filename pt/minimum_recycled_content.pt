@@ -102,7 +102,6 @@ var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.netExportsMT,
   out.{{ region }}.primaryProductionMT
 ] proportionally;
 
