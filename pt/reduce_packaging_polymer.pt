@@ -51,9 +51,22 @@ distribute offsetMT across [
 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 
-# Apply change to trade
+# Apply change to trade with downstream
+{{#each otherRegions}}
+var {{this}}PriorNetExportsMT = out.{{this}}.netExportsMT;
+{{/each}}
+
 distribute changeImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
+
+{{#each otherRegions}}
+var {{this}}DeltaNetExportsMT = out.{{this}}.netExportsMT - {{this}}PriorNetExportsMT;
+
+distribute {{this}}DeltaNetExportsMT across [
+  out.{{this}}.primaryProductionMT,
+  out.{{this}}.secondaryProductionMT
+] proportionally;
+{{/each}}
