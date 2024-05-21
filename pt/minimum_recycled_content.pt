@@ -102,7 +102,6 @@ var priorImports = out.{{ region }}.netImportsMT;
 
 distribute offsetProduction across [
   out.{{ region }}.netImportsMT,
-  out.{{ region }}.netExportsMT,
   out.{{ region }}.primaryProductionMT
 ] proportionally;
 
@@ -111,12 +110,25 @@ out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT 
 var changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
 
-# Apply offset for filled to exports
+# Apply change to trade
+{{#each otherRegions}}
+var {{this}}PriorNetExportsMT = out.{{this}}.netExportsMT;
+{{/each}}
+
 distribute changeImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
+
+{{#each otherRegions}}
+var {{this}}DeltaNetExportsMT = out.{{this}}.netExportsMT - {{this}}PriorNetExportsMT;
+
+distribute {{this}}DeltaNetExportsMT across [
+  out.{{this}}.primaryProductionMT,
+  out.{{this}}.secondaryProductionMT
+] proportionally;
+{{/each}}
 
 # Determine offset for consumption lost due to increased minimums
 var lostConsumptionOffset = lostConsumption * -1;
@@ -159,9 +171,22 @@ distribute lostConsumptionOffset across [
 changeImports = out.{{ region }}.netImportsMT - priorImports;
 limit changeImports to [, 0];
 
-# Apply offset for unfilled to exports
+# Apply change to trade with downstream again
+{{#each otherRegions}}
+{{this}}PriorNetExportsMT = out.{{this}}.netExportsMT;
+{{/each}}
+
 distribute changeImports across [
   {{#each otherRegions}}
   out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
+
+{{#each otherRegions}}
+{{this}}DeltaNetExportsMT = out.{{this}}.netExportsMT - {{this}}PriorNetExportsMT;
+
+distribute {{this}}DeltaNetExportsMT across [
+  out.{{this}}.primaryProductionMT,
+  out.{{this}}.secondaryProductionMT
+] proportionally;
+{{/each}}
