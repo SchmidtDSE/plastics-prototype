@@ -38,9 +38,10 @@ const OLD_CACHES = [
     "GlobalPlasticsTool_20240517",
     "GlobalPlasticsTool_20240518",
     "GlobalPlasticsTool_20240521",
-    "GlobalPlasticsTool_202405211"
+    "GlobalPlasticsTool_202405211",
+    "GlobalPlasticsTool_20240522"
 ];
-const CACHE_NAME = "GlobalPlasticsTool_20240522";
+const CACHE_NAME = "GlobalPlasticsTool_202405221";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
