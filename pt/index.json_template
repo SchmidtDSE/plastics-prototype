@@ -80,7 +80,7 @@
                     "min": 0,
                     "max": 300,
                     "default": 300,
-                    "step": 5,
+                    "step": 1,
                     "units": "MMT",
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}VirginPlasticCap",
