@@ -1,0 +1,141 @@
+# Note the original recycling before intervention
+var originalRecyclingMT = out.{{ region }}.eolRecyclingMT;
+
+# Assume phase in
+var targetRateGoal = in.{{ region }}MinimumRecyclingRatePackaging / 100;
+var targetRate = 0;
+change targetRate by targetRateGoal over in.startYear to in.endYearGradual;
+var displacementRate = in.recyclingDisplacementRate / 100;
+limit targetRate to [0, 1];
+
+# Get the total waste
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+var totalWaste = (
+  out.{{ region }}.eolRecyclingMT +
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  effectiveWasteExport
+);
+
+# Estimate how much is addressible from packaging
+var inScope = (
+  out.{{ region }}.consumptionPackagingMT
+);
+
+var outOfScope = (
+  out.{{ region }}.consumptionConstructionMT + 
+  out.{{ region }}.consumptionTextileMT + 
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT + 
+  out.{{ region }}.consumptionElectronicMT + 
+  out.{{ region }}.consumptionTransportationMT + 
+  out.{{ region }}.consumptionAgricultureMT + 
+  out.{{ region }}.consumptionOtherMT + 
+  out.{{ region }}.netExportsMT
+);
+
+var addressablePercent = inScope / (outOfScope + inScope);
+
+# Get the delta needed to achieve the goal
+var targetMT = totalWaste * targetRate;
+var shortageMT = (targetMT - originalRecyclingMT) * addressablePercent;
+limit shortageMT to [0,];
+
+# Apply the change to recycling - assume gradual compliance
+var newRecyclingMT = originalRecyclingMT;
+change newRecyclingMT by shortageMT over in.startYear to in.endYearGradual;
+var currentChange = newRecyclingMT - originalRecyclingMT;
+out.{{ region }}.eolRecyclingMT = newRecyclingMT;
+
+# Offset the change in the other EOL types
+var offsetMT = -1 * currentChange;
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute offsetMT across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+# Assume lagging by three years for production and consumption
+var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
+
+var lagYears = lifecycle of [ out.{{region}}.eolRecyclingMT ];
+var newRecyclingMTLag = originalRecyclingMT;
+var lagStart = in.startYear + lagYears;
+var lagEnd = in.endYearGradual + lagYears;
+change newRecyclingMTLag by shortageMT over lagStart to lagEnd;
+var lagChange = (newRecyclingMTLag - originalRecyclingMT) * recoveryRate;
+
+var lifecycleYears = lifecycle of [
+  out.{{ region }}.consumptionPackagingMT
+] + lagYears;
+var newRecyclingMTLifecycle = originalRecyclingMT;
+var lifecycleStart = in.startYear + lifecycleYears;
+var lifecycleEnd = in.endYearGradual + lifecycleYears;
+change newRecyclingMTLifecycle by shortageMT over lifecycleStart to lifecycleEnd;
+var lifecycleChange = (newRecyclingMTLifecycle - originalRecyclingMT) * recoveryRate;
+
+# Redirect to secondary
+var displacedPlasticsMT = lagChange * displacementRate;
+
+var newPrimary = out.{{ region }}.primaryProductionMT - displacedPlasticsMT;
+out.{{ region }}.primaryProductionMT = newPrimary;
+
+var newSecondary = out.{{ region }}.secondaryProductionMT + displacedPlasticsMT;
+out.{{ region }}.secondaryProductionMT = newSecondary;
+
+# Inductive demand - the part that isn't displaced.
+var inductiveDemandRate = 1 - displacementRate;
+var newInductivePlasticsMT = inductiveDemandRate * lagChange;
+var newInductiveLifecycleMT = inductiveDemandRate * lifecycleChange;
+
+# Bump consumption by inductive demand
+distribute newInductivePlasticsMT across [
+  out.{{ region }}.consumptionPackagingMT
+] proportionally;
+
+# Bump EOL by inductive demand
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+
+var beforeInducedRecycling = out.{{ region }}.eolRecyclingMT;
+
+distribute newInductiveLifecycleMT across [
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+var afterInducedRecycling = out.{{ region }}.eolRecyclingMT;
+var inducedRecycling = afterInducedRecycling - beforeInducedRecycling;
+
+# Offset production local
+var priorImports = out.{{ region }}.netImportsMT;
+var inducedSecondary = inducedRecycling * recoveryRate;
+distribute newInductivePlasticsMT - inducedSecondary across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.primaryProductionMT
+] proportionally;
+
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + inducedSecondary;
+
+var newImportsAbs = out.{{ region }}.netImportsMT;
+
+# Offset exports elsewhere
+var newImports = newImportsAbs - priorImports;
+distribute newImports across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;

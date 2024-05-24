@@ -75,7 +75,28 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Virgin Plastic Production Cap",
+                    "name": "{{ region['label'] }} Packaging Virgin Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance. Estimates effects if only applied to packaging.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 1,
+                    "units": "MMT",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}VirginPlasticCapPackaging",
+                    "template": "virgin_plastic_cap_packaging.pt",
+                    "released": true,
+                    "priority": -2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} All Virgin Production Cap",
                     "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance.",
                     "min": 0,
                     "max": 300,
@@ -86,7 +107,7 @@
                     "variable": "{{ region['key'] }}VirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
                     "released": true,
-                    "priority": -2,
+                    "priority": -2.1,
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
@@ -102,7 +123,28 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Minimum Recycled Content",
+                    "name": "{{ region['label'] }} Packaging Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target. Estimates effects if only applied to packaging.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumRecycledContentPackaging",
+                    "template": "minimum_recycled_content_packaging.pt",
+                    "released": true,
+                    "priority": 4.2,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} All Minimum Recycled Content",
                     "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target.",
                     "min": 0,
                     "max": 100,
@@ -113,7 +155,7 @@
                     "variable": "{{ region['key'] }}MinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
                     "released": true,
-                    "priority": 4.2,
+                    "priority": 4.21,
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
@@ -195,7 +237,28 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Min Recycling Collection Rate",
+                    "name": "{{ region['label'] }} Packaging Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target. Estimates effects of applying only in packaging.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "variable": "{{ region['key'] }}MinimumRecyclingRatePackaging",
+                    "template": "minimum_recycling_rate_packaging.pt",
+                    "released": true,
+                    "priority": 3,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} All Min Recycling Collection Rate",
                     "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
@@ -206,7 +269,7 @@
                     "variable": "{{ region['key'] }}MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
                     "released": true,
-                    "priority": 3,
+                    "priority": 3.1,
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]

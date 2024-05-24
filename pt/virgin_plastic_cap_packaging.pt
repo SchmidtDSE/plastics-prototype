@@ -1,0 +1,166 @@
+# Determine the approximate amount non-recycled
+var totalConsumption = (
+  out.{{ region }}.consumptionPackagingMT
+);
+var effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+var approxRecyclingPercent = out.{{ region }}.eolRecyclingMT / (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT +
+  effectiveWasteExport
+);
+var approxVirginPercent = 1 - approxRecyclingPercent;
+var totalVirgin = approxVirginPercent * totalConsumption;
+
+# User set goals
+var goalReductionMT = totalVirgin - in.{{ region }}VirginPlasticCapPackaging;
+limit goalReductionMT to [0,];
+
+# Make that change happen over time
+var acutalDeltaMT = 0;
+change acutalDeltaMT by goalReductionMT over in.startYear to in.endYearGradual;
+var offset = -1 * acutalDeltaMT;
+
+# Also keep track of impact with lifecycle delay
+var acutalDeltaLifecycleMT = 0;
+var lifecycleDuration = lifecycle of [
+  out.{{ region }}.consumptionPackagingMT
+];
+var lifecycleStart = in.startYear + lifecycleDuration;
+var lifecycleEnd = in.endYearGradual + lifecycleDuration;
+change acutalDeltaLifecycleMT by goalReductionMT over lifecycleStart to lifecycleEnd;
+var offsetLifecycle = -1 * acutalDeltaLifecycleMT;
+
+# Also track the leading recycling needed
+var acutalDeltaMTDelay = 0;
+var yearsToRecycle = lifecycle of [ out.{{region}}.eolRecyclingMT ];
+var leadStart = in.startYear - yearsToRecycle;
+var leadEnd = in.endYearGradual - yearsToRecycle;
+change acutalDeltaMTDelay by goalReductionMT over leadStart to leadEnd;
+var offsetLeading = -1 * acutalDeltaMT;
+
+# Split offset across recycling and reduced consumption
+effectiveWasteExport = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+var availableWaste = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT +
+  effectiveWasteExport
+);
+
+# Determine offset for immediate effects
+var backfillRate = in.recyclingLostBackfillRate / 100;
+var offsetConsumption = offset * (1 - backfillRate);
+limit offsetConsumption to [-1 * availableWaste, 0];
+
+# Determine offset with lifecycle delay
+var offsetConsumptionLifecycle = offsetLifecycle * (1 - backfillRate);
+limit offsetConsumptionLifecycle to [-1 * availableWaste, 0];
+
+# Update the EOL for consumption with lifecycle delay
+var wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute offsetConsumptionLifecycle across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+# Update the EOL for recycling backfill if possible
+var availableWasteToRecycle = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT
+);
+
+# Determine how much overall recycling would be needed
+var recoveryRate = (1 - in.{{ region }}YieldLoss / 100);
+var offsetRecyclingNeededPreRecovery = offsetLeading - offsetConsumption;
+var offsetRecyclingNeeded = offsetRecyclingNeededPreRecovery / recoveryRate;
+
+# Ensure the recycling offset is possible
+var offsetRecycling = offsetRecyclingNeeded;
+limit offsetRecycling to [-1 * availableWasteToRecycle, 0];
+
+# Apply recycling offset
+out.{{ region }}.eolRecyclingMT = out.{{ region }}.eolRecyclingMT - offsetRecycling;
+
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute offsetRecycling across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+# Redirect primary to secondary
+var primaryOffset = offsetRecycling * recoveryRate;
+out.{{ region }}.primaryProductionMT = out.{{ region }}.primaryProductionMT + primaryOffset;
+
+var secondaryOffset = -1 * primaryOffset;
+out.{{ region }}.secondaryProductionMT = out.{{ region }}.secondaryProductionMT + secondaryOffset;
+
+# If there wasn't enough to recycle, further reduce consumption
+var recyclingDeficit = offsetRecyclingNeeded - offsetRecycling;
+
+availableWaste = (
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT +
+  out.{{ region }}.eolRecyclingMT
+);
+
+limit recyclingDeficit to [-1 * availableWaste, 0];
+
+wasteExportWeight = (
+  out.{{ region }}.netWasteExportMT +
+  in.{{ region }}DeltaWasteExport
+);
+distribute recyclingDeficit across [
+  out.{{ region }}.eolLandfillMT by out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT by out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT by out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.eolRecyclingMT by out.{{ region }}.eolRecyclingMT,
+  in.{{ region }}DeltaWasteExport by wasteExportWeight
+] proportionally;
+
+var offsetConsumptionWithRecyclingDeficit = offsetConsumption + recyclingDeficit * recoveryRate;
+limit offsetConsumptionWithRecyclingDeficit to [, 0];
+
+# Update consumption
+distribute offsetConsumptionWithRecyclingDeficit across [
+  out.{{ region }}.consumptionPackagingMT
+] proportionally;
+
+# Update production
+var priorImports = out.{{ region }}.netImportsMT;
+distribute offsetConsumptionWithRecyclingDeficit across [
+  out.{{ region }}.netImportsMT,
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT
+] proportionally;
+var importsOffset = out.{{ region }}.netImportsMT - priorImports;
+
+limit importsOffset to [,0];
+
+# Offset exports elsewhere
+distribute importsOffset across [
+  {{#each otherRegions}}
+  out.{{this}}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
