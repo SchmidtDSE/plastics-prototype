@@ -75,8 +75,8 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Virgin Plastic Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance.",
+                    "name": "{{ region['label'] }} Overall Virgin Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance. All sectors.",
                     "min": 0,
                     "max": 300,
                     "default": 300,
@@ -85,6 +85,28 @@
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}VirginPlasticCap",
                     "template": "virgin_plastic_cap.pt",
+                    "released": true,
+                    "priority": -2.1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Virgin Production Cap",
+                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance. Estimates effects if only applied to packaging. Experimental.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 100,
+                    "step": 1,
+                    "units": "MMT",
+                    "forcePlus": false,
+                    "markExperimental": true,
+                    "variable": "{{ region['key'] }}VirginPlasticCapPackaging",
+                    "template": "virgin_plastic_cap_packaging.pt",
                     "released": true,
                     "priority": -2,
                     "attrs": {
@@ -102,8 +124,8 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target.",
+                    "name": "{{ region['label'] }} Overall Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target. This is effectively the secondary material use rate or a mandate on secondary vs primary materials. All sectors.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -112,6 +134,28 @@
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}MinimumRecycledContent",
                     "template": "minimum_recycled_content.pt",
+                    "released": true,
+                    "priority": 4.21,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycled_content.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Minimum Recycled Content",
+                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target. This is effectively the secondary material use rate or a mandate on secondary vs primary materials. Estimates effects if only applied to packaging. Experimental.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "markExperimental": true,
+                    "variable": "{{ region['key'] }}MinimumRecycledContentPackaging",
+                    "template": "minimum_recycled_content_packaging.pt",
                     "released": true,
                     "priority": 4.2,
                     "attrs": {
@@ -195,7 +239,7 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Min Recycling Collection Rate",
+                    "name": "{{ region['label'] }} Ovearll Min Recycling Collection Rate",
                     "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target.",
                     "min": 0,
                     "max": 100,
@@ -205,6 +249,28 @@
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}MinimumRecyclingRate",
                     "template": "minimum_recycling_rate.pt",
+                    "released": true,
+                    "priority": 3.1,
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    },
+                    "url": "https://global-plastics-tool.org/pdf/min_recycling_rate.pdf"
+                },
+                {% endfor %}
+                {% for region in regions %}
+                {
+                    "name": "{{ region['label'] }} Packaging Min Recycling Collection Rate",
+                    "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target. Estimates effects of applying only in packaging. Experimental.",
+                    "min": 0,
+                    "max": 100,
+                    "default": 0,
+                    "step": 5,
+                    "units": "%",
+                    "forcePlus": false,
+                    "markExperimental": true,
+                    "variable": "{{ region['key'] }}MinimumRecyclingRatePackaging",
+                    "template": "minimum_recycling_rate_packaging.pt",
                     "released": true,
                     "priority": 3,
                     "attrs": {
