@@ -3,7 +3,7 @@
         <span class="error-indicator">⚠️</span>
         <span class="info-indicator">🛈</span>
         <label for="input-{{variable}}">
-            <span id="title-{{variable}}">{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span>
+            <span id="title-{{variable}}">{{#if markExperimental}}🧪 {{/if}}{{ name }}</span>: <span class="delta-display" id="display-{{variable}}"></span>
         </label>
     </div>
     <input type="range" min="{{ min }}" max="{{ max }}" value="{{ default }}" class="slider" id="input-{{variable}}" step="{{ step }}">
