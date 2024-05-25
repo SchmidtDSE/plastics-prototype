@@ -75,8 +75,8 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Packaging Virgin Production Cap",
-                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance. Estimates effects if only applied to packaging.",
+                    "name": "{{ region['label'] }} Packaging Virgin Production Cap 🧪",
+                    "description": "Maximum million tons of annual virgin plastic production in {{ region['full'] }}. Assumes gradually introduced cap and compliance. Estimates effects if only applied to packaging. Experimental.",
                     "min": 0,
                     "max": 100,
                     "default": 100,
@@ -123,8 +123,8 @@
             "levers": [
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Packaging Minimum Recycled Content",
-                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target. Estimates effects if only applied to packaging.",
+                    "name": "{{ region['label'] }} Packaging Minimum Recycled Content 🧪",
+                    "description": "The minimum content which must come from recycyling in {{ region['full'] }}. Assumes gradual increase of mandate until hitting this target. Estimates effects if only applied to packaging. Experimental.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
@@ -237,8 +237,8 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Packaging Min Recycling Collection Rate",
-                    "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target. Estimates effects of applying only in packaging.",
+                    "name": "{{ region['label'] }} Packaging Min Recycling Collection Rate 🧪",
+                    "description": "The minumum recycling collection rate for waste in {{ region['full'] }}. Assumes gradual phase in of mandate until reaching this target. Estimates effects of applying only in packaging. Experimental.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
