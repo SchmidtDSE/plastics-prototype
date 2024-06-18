@@ -268,7 +268,7 @@ class BubblegraphPresenter {
                 "Highlighted region: " + selection.getRegion() + ".",
                 "Press c for China,",
                 "e for EU 30,",
-                "n for NAFTA,",
+                "n for NA,",
                 "r for rest of world",
                 "and g for global.",
                 "Tab in for data.",

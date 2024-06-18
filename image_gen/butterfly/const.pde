@@ -100,7 +100,7 @@ void loadSemiconstants() {
   REGION_LABELS = new HashMap<>();
   REGION_LABELS.put("china", "China");
   REGION_LABELS.put("eu30", "European Union");
-  REGION_LABELS.put("nafta", "NAFTA");
+  REGION_LABELS.put("nafta", "N America");
   REGION_LABELS.put("row", "Rest of World");
   
   CONSUMPTION_TOP_GROUPS = new ArrayList<>();

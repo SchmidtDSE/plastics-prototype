@@ -82,7 +82,7 @@ void loadSemiconstants() {
   STRINGS = new HashMap<>();
   STRINGS.put("china", "China");
   STRINGS.put("eu30", "Europe (EU30)");
-  STRINGS.put("nafta", "NAFTA");
+  STRINGS.put("nafta", "N America");
   STRINGS.put("row", "Rest of World");
   STRINGS.put("Recycling", "Recycling");
   STRINGS.put("Landfill", "Landfill");
