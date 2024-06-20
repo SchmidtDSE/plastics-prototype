@@ -34,7 +34,7 @@ const GHG_EXPORT_ATTRS = [
 
 /**
  * Get the string to use to identify a region in an export.
- * 
+ *
  * @param target The internal name for the region.
  * @returns The string to use to identify a region.
  */
