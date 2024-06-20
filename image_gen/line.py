@@ -13,6 +13,7 @@ import pandas
 
 KG_CONVERTER = 907.1847
 NUM_ARGS = 3
+SHOW_CONSUMPTION = False
 USAGE_STR = 'python line.py [database] [output png] [regions json]'
 
 
@@ -123,10 +124,8 @@ def main():
         lambda x: x * KG_CONVERTER
     )
 
-
-    fig, ax = matplotlib.pyplot.subplots(nrows=1, ncols=3)
-
-
+    cols = 3 if SHOW_CONSUMPTION else 2
+    fig, ax = matplotlib.pyplot.subplots(nrows=1, ncols=cols)
 
     fig.set_size_inches(14, 5)
     fig.tight_layout(h_pad=5, w_pad=9)
@@ -151,9 +150,10 @@ def main():
     ax[1].set_title('Per-Capita Consumption')
     ax[1].set_ylabel('Kg / Year')
 
-    plot_region_consumption(ax[2], 'perGdpKg', source, colors)
-    ax[2].set_title('Consumption / GDP (2010 USD PPP)')
-    ax[2].set_ylabel('Kg / USD')
+    if SHOW_CONSUMPTION:
+        plot_region_consumption(ax[2], 'perGdpKg', source, colors)
+        ax[2].set_title('Consumption / GDP (2010 USD PPP)')
+        ax[2].set_ylabel('Kg / USD')
 
     fig.savefig(output_loc, bbox_inches = 'tight')
 
