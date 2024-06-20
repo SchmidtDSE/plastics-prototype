@@ -1,5 +1,7 @@
 final float COLUMN_BODY_WIDTH = 200;
 
+final boolean SHOW_WARNING_TEXT = false;
+
 List<String> EOL_FATES;
 List<String> SECTORS;
 Map<String, Integer> FILL_COLORS;
@@ -82,8 +84,8 @@ void loadSemiconstants() {
   STRINGS = new HashMap<>();
   STRINGS.put("china", "China");
   STRINGS.put("eu30", "Europe (EU30)");
-  STRINGS.put("nafta", "NAFTA");
-  STRINGS.put("row", "Rest of World");
+  STRINGS.put("nafta", "N America");
+  STRINGS.put("row", "Majority World");
   STRINGS.put("Recycling", "Recycling");
   STRINGS.put("Landfill", "Landfill");
   STRINGS.put("Incineration", "Incineration");

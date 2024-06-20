@@ -314,13 +314,15 @@ void drawCaption() {
   textFont(DETAIL_FONT);
   
   textAlign(LEFT, TOP);
-  text(
-    "Showing policy effect if all enabled but each policy's effect will change both in absolute and relative size depending on what other policies are included.",
-    layoutManager.getXStart("waste"),
-    height - 85,
-    layoutManager.getXEnd("waste") - layoutManager.getXStart("waste") - 12,
-    85
-  );
+  if (SHOW_WARNING_TEXT) {
+    text(
+      "Showing policy effect if all enabled but each policy's effect will change both in absolute and relative size depending on what other policies are included.",
+      layoutManager.getXStart("waste"),
+      height - 85,
+      layoutManager.getXEnd("waste") - layoutManager.getXStart("waste") - 12,
+      85
+    );
+  }
 
   fill(#757575);
   textFont(DETAIL_FONT);

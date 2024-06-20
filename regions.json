@@ -108,8 +108,8 @@
         },
         {
             "key": "nafta",
-            "label": "NAFTA",
-            "full": "NAFTA",
+            "label": "NA",
+            "full": "N America",
             "color": "#b2df8a",
             "constants": {
                 "productionPetEmissions": 3332,
@@ -161,8 +161,8 @@
         },
         {
             "key": "row",
-            "label": "RoW",
-            "full": "Rest of World",
+            "label": "MW",
+            "full": "Majority World",
             "color": "#33a02c",
             "constants": {
                 "productionPetEmissions": 3332,

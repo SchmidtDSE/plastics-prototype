@@ -14,7 +14,7 @@ final int MIN_YEAR = 2011;
 final int MAX_YEAR = 2050;
 
 final int MAX_CONSUMPTION_BOTTOM_GLOBAL = BUTTERFLY_CONSUMPTION ? 300 : 0;
-final int MAX_CONSUMPTION_TOP_GLOBAL = BUTTERFLY_CONSUMPTION ? 700 : 700;
+final int MAX_CONSUMPTION_TOP_GLOBAL = BUTTERFLY_CONSUMPTION ? 800 : 800;
 final int MAX_WASTE_BOTTOM_GLOBAL = 200;
 final int MAX_WASTE_TOP_GLOBAL = 600;
 
@@ -100,8 +100,8 @@ void loadSemiconstants() {
   REGION_LABELS = new HashMap<>();
   REGION_LABELS.put("china", "China");
   REGION_LABELS.put("eu30", "European Union");
-  REGION_LABELS.put("nafta", "NAFTA");
-  REGION_LABELS.put("row", "Rest of World");
+  REGION_LABELS.put("nafta", "N America");
+  REGION_LABELS.put("row", "Majority World");
   
   CONSUMPTION_TOP_GROUPS = new ArrayList<>();
   if (!BUTTERFLY_CONSUMPTION) {

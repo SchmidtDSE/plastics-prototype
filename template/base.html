@@ -301,8 +301,8 @@
                                                 <div class="instructions-keyboard">
                                                     <a href="#china" role="button" class="btn sec china-button">Select China</a>
                                                     <a href="#eu30" role="button" class="btn sec eu30-button">Select EU 30</a>
-                                                    <a href="#nafta" role="button" class="btn sec nafta-button">Select NAFTA</a>
-                                                    <a href="#global" role="button" class="btn sec row-button">Select Rest of World</a>
+                                                    <a href="#nafta" role="button" class="btn sec nafta-button">Select NA</a>
+                                                    <a href="#global" role="button" class="btn sec row-button">Select Majority World</a>
                                                     <a href="#global" role="button" class="btn sec global-button">Select Global</a>
                                                 </div>
                                                 <div class="slope-check-holder">
@@ -467,7 +467,7 @@
                         <div class="about-panel">
                             <div class="about-embed-section">
                                 <h2>Downloads</h2>
-                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>.
+                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>. Note that, for historic compatibility reasons, some exports may have slightly different region labels. In this case, ROW refers to majority world (originally Rest of World) and NAFTA refers to North America.
                             </div>
                             <div class="about-embed-section" id="downloads-bau">
                                 <h3>Business as Usual</h3>
@@ -546,7 +546,7 @@
                             </div>
                             <div id="guide-waste">
                                 <h2>Waste</h2>
-                                About $mismanaged2024 million metric tons of mismanaged waste is generated per year (2024). That is expected to rise about $mismanagedChange percent in 2050 ($mismanaged2050 MMT). This business as usual scenario sees the greatest mismanaged burden in "rest of world" countries. Specifically, RoW's mismanaged waste is $mismanagedRowRatio times greater than NAFTA, EU 30, and China combined in 2050. Indeed, it accounts for about $mismanagedRowPercent percent of global mismanaged waste in that projection.
+                                About $mismanaged2024 million metric tons of mismanaged waste is generated per year (2024). That is expected to rise about $mismanagedChange percent in 2050 ($mismanaged2050 MMT). This business as usual scenario sees the greatest mismanaged burden in "majority world" countries. Specifically, RoW's mismanaged waste is $mismanagedRowRatio times greater than NAFTA, EU 30, and China combined in 2050. Indeed, it accounts for about $mismanagedRowPercent percent of global mismanaged waste in that projection.
                                 <div class="image-box">
                                     <a href="/img/waste.png?v=$epoch" target="_blank"><img src="/img/waste.png?v=$epoch" alt="Timeseries visualization showing plastic waste increasing over time and in most regions."></a>
                                 </div>
@@ -690,7 +690,7 @@
                                 Finally, the modeling team further monitors various segments of the dataset to ensure adequate performance for all sectors, regions, fates, train / test / validation splits, etc. In addition to offering an opportunity for domain experts to evaluate model results, this activity can also provide segment error estimations. One such method of monitoring is to retrain the selected random forest configuration with many different train / validation sets to determine the range of expected performance with some differences anticipated due to chance. All this in mind, consider the following region-level performance given that dimension's particularly notable importance to equity:
 
                                 <ul>
-                                    <li>Consumption: As the actual response vaiable in the model is change in consumption, results are reported as MAE in delta MMT. That said, this MAE stays under an acceptable 2.5 MMT for all regions in the trials though EU 30 and NAFTA tend to stay under 1 MMT whereas China and rest of world may be around 1.5 MMT in practice.</li>
+                                    <li>Consumption: As the actual response vaiable in the model is change in consumption, results are reported as MAE in delta MMT. That said, this MAE stays under an acceptable 2.5 MMT for all regions in the trials though EU 30 and NAFTA tend to stay under 1 MMT whereas China and majority world may be around 1.5 MMT in practice.</li>
                                     <li>Waste: As the actual response variable in the model is percent of waste, results are reported as MAE in percentage points. These stay under an acceptable 3% in all trials though China and EU 30 are seen going above 1% while RoW and NAFTA tend to stay below 1% MMT.</li>
                                     <li>Goods trade: As the actual response vaiable in the model is percent traded, results are reported as MAE in percentage points. These stay under an acceptable 4% (note this is larger than some other trade numbers) in all cases with only China being notable with MAE over 2% </li>
                                     <li>Waste trade: As the actual response variable in the model is precent traded, results are reported as MAE in percentage points. These stay under an acceptable 3% without any region having a notably divergent distribution of MAEs.</li>
@@ -706,6 +706,7 @@
                                 </ul>
                                 
                                 Model version 2024.15 (pre-release). Last updated 2024-05-17. Major edits after initial release include:
+
                                 <ul>
                                     <li>Added packaging-only versions of some levers on 2024-05-25.</li>
                                     <li>Updates to capex / opex costs for incineration and landfill on 2024-05-22.</li>
@@ -720,6 +721,14 @@
                                     <li>Simplification of polymer-level trade which is slightly less noisy on 2024-03-08.</li>
                                     <li>Update default assumption for added material required for reuse on 2023-03-27.</li>
                                     <li>Update reuse with addressable products parameter on 2024-04-05.</li>
+                                </ul>
+
+                                Note that we use the following region definitions:
+
+                                <ul>
+                                    <li>EU30: The EU-27 as of June 20, 2024 as well as the United Kingdom, Switzerland, and Norway</li>
+                                    <li>NA: Members of the former NAFTA (United States of America, Mexico, and Canada).</li>
+                                    <li>Majority World: All countries except those in EU30, NA, and China.</li>
                                 </ul>
                                 
                                 See <a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">open source model pipeline</a> where a Docker image is available.
