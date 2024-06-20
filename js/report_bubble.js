@@ -347,6 +347,8 @@ class BubblegraphPresenter {
                     const rawText = STRINGS.get(datum);
                     if (rawText === "Rest of World" && smallDisplay) {
                         return "ROW";
+                    } else if (rawText === "N America" && smallDisplay) {
+                        return "NA";
                     } else {
                         return rawText;
                     }

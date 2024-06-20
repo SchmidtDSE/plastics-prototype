@@ -11,7 +11,7 @@ const STRINGS = new Map();
 
 STRINGS.set("china", "China");
 STRINGS.set("eu30", "EU 30");
-STRINGS.set("nafta", "NA");
+STRINGS.set("nafta", "N America");
 STRINGS.set("row", "Rest of World");
 STRINGS.set("global", "Global");
 
