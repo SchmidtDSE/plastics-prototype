@@ -1,5 +1,7 @@
 final float COLUMN_BODY_WIDTH = 200;
 
+final boolean SHOW_WARNING_TEXT = false;
+
 List<String> EOL_FATES;
 List<String> SECTORS;
 Map<String, Integer> FILL_COLORS;
