@@ -101,7 +101,7 @@ void loadSemiconstants() {
   REGION_LABELS.put("china", "China");
   REGION_LABELS.put("eu30", "European Union");
   REGION_LABELS.put("nafta", "N America");
-  REGION_LABELS.put("row", "Rest of World");
+  REGION_LABELS.put("row", "Majority World");
   
   CONSUMPTION_TOP_GROUPS = new ArrayList<>();
   if (!BUTTERFLY_CONSUMPTION) {

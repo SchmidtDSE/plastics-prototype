@@ -269,7 +269,7 @@ class BubblegraphPresenter {
                 "Press c for China,",
                 "e for EU 30,",
                 "n for NA,",
-                "r for rest of world",
+                "r for majority world",
                 "and g for global.",
                 "Tab in for data.",
             ].join(" ");
@@ -345,8 +345,8 @@ class BubblegraphPresenter {
                 .classed("label", true)
                 .text((datum) => {
                     const rawText = STRINGS.get(datum);
-                    if (rawText === "Rest of World" && smallDisplay) {
-                        return "ROW";
+                    if (rawText === "Majority World" && smallDisplay) {
+                        return "MW";
                     } else if (rawText === "N America" && smallDisplay) {
                         return "NA";
                     } else {

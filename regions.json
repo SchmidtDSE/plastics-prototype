@@ -161,8 +161,8 @@
         },
         {
             "key": "row",
-            "label": "RoW",
-            "full": "Rest of World",
+            "label": "MJ",
+            "full": "Majority World",
             "color": "#33a02c",
             "constants": {
                 "productionPetEmissions": 3332,

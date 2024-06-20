@@ -83,7 +83,7 @@ void loadSemiconstants() {
   STRINGS.put("china", "China");
   STRINGS.put("eu30", "Europe (EU30)");
   STRINGS.put("nafta", "N America");
-  STRINGS.put("row", "Rest of World");
+  STRINGS.put("row", "Majority World");
   STRINGS.put("Recycling", "Recycling");
   STRINGS.put("Landfill", "Landfill");
   STRINGS.put("Incineration", "Incineration");

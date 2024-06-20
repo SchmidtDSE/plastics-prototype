@@ -12,7 +12,7 @@ const STRINGS = new Map();
 STRINGS.set("china", "China");
 STRINGS.set("eu30", "EU 30");
 STRINGS.set("nafta", "N America");
-STRINGS.set("row", "Rest of World");
+STRINGS.set("row", "Majority World");
 STRINGS.set("global", "Global");
 
 STRINGS.set("eolRecyclingMT", "Recycle");
