@@ -37,7 +37,7 @@ SCENARIOS = {
             'ban-single-use': 90,
             'reduced-additives': 90,
             'recycling-investment': 100,
-            'waste-investment': 100,
+            'waste-investment': 50,
             'tax-virgin': 2,
             'ban-waste-trade': 1
         },
