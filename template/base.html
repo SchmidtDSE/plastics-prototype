@@ -467,7 +467,7 @@
                         <div class="about-panel">
                             <div class="about-embed-section">
                                 <h2>Downloads</h2>
-                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>.
+                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>. Note that, for historic compatibility reasons, some exports may have slightly different region labels. In this case, ROW refers to majority world (originally Rest of World) and NAFTA refers to North America.
                             </div>
                             <div class="about-embed-section" id="downloads-bau">
                                 <h3>Business as Usual</h3>
@@ -706,6 +706,7 @@
                                 </ul>
                                 
                                 Model version 2024.15 (pre-release). Last updated 2024-05-17. Major edits after initial release include:
+                                
                                 <ul>
                                     <li>Added packaging-only versions of some levers on 2024-05-25.</li>
                                     <li>Updates to capex / opex costs for incineration and landfill on 2024-05-22.</li>
@@ -720,6 +721,14 @@
                                     <li>Simplification of polymer-level trade which is slightly less noisy on 2024-03-08.</li>
                                     <li>Update default assumption for added material required for reuse on 2023-03-27.</li>
                                     <li>Update reuse with addressable products parameter on 2024-04-05.</li>
+                                </ul>
+
+                                Note that we use the following region definitions:
+
+                                <ul>
+                                    <li>EU30: The EU-27 as of June 20, 2024 as well as the United Kingdom, Switzerland, and Norway</li>
+                                    <li>NA: Members of the former NAFTA (United States of America, Mexico, and Canada).</li>
+                                    <li>Majority World: All countries except those in EU30, NA, and China.</li>
                                 </ul>
                                 
                                 See <a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">open source model pipeline</a> where a Docker image is available.
