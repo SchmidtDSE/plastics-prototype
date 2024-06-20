@@ -26,7 +26,7 @@ The stand-alone engine may be used either interactively through Node or through 
  - [recyclingInvestment.json](https://global-plastics-tool.org/standalone_tasks/recyclingInvestment.json): The result of 100B investment in recycling collection and infrastructure.
  - [reducedAdditives.json](https://global-plastics-tool.org/standalone_tasks/reducedAdditives.json): The result of 60% reduction in additives.
  - [taxVirigin.json](https://global-plastics-tool.org/standalone_tasks/taxVirigin.json): The result of a low consumption tax (see tool for more details).
- - [wasteInvestment.json](https://global-plastics-tool.org/standalone_tasks/wasteInvestment.json): The result of 100B investment in non-recycling waste management including incineration and landfill.
+ - [wasteInvestment.json](https://global-plastics-tool.org/standalone_tasks/wasteInvestment.json): The result of 50B investment in non-recycling waste management including incineration and landfill.
 
 Furthermore, the following describe complex multi-intervention scenarios:
 

@@ -109,5 +109,5 @@ void loadSemiconstants() {
   STRINGS.put("recyclingInvestment", "100B Recycling Invest");
   STRINGS.put("minimumRecycledContent", "40% Min Recycled Content");
   STRINGS.put("minimumPackagingReuse", "40% Min Reuse Packaging");
-  STRINGS.put("wasteInvestment", "100B Waste Invest");
+  STRINGS.put("wasteInvestment", "50B Waste Invest");
 }
