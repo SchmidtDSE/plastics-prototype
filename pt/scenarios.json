@@ -139,9 +139,9 @@
       "released": true
     },
     {
-      "name": "Cap to 2025 Virgin Production",
+      "name": "Cap to 2020 Virgin Production",
       "id": "cap-virgin",
-      "description": "Require that annual virgin plastic production is capped to 2025 levels. The caps are set to match roughly 2025 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
+      "description": "Require that annual virgin plastic production is capped to 2020 levels. The caps are set to match roughly 2020 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
       "values": [
         {
           "lever": "chinaVirginPlasticCap",
