@@ -1,12 +1,13 @@
 intervention,description,individualGhg,individualGhgAbs,shareOfCombinedGhg
-banPsPackaging,Ban Polystyrene Packaging,-14.3,14.3,-8.431430839
-banWasteTrade,Ban Waste Trade,-58.5,58.5,-34.49221707
-reducedAdditives,90% Reduced Additives,-24.8,24.8,-14.62234159
-taxVirgin,Consumption Tax,-349.2,349.2,-205.8920034
-minimumRecyclingRate,40% Min Recycling Collection,190.5,190.5,112.3208094
-banSingleUse,90% Reduced Single Use,-344,344,-202.8260286
-capVirgin,Cap Virgin to 2025,-353,353,-208.1325235
-recyclingInvestment,100B Recycling Investment,89,89,52.47533879
-minimumRecycledContent,40% Min Recycled Content,-488.7,488.7,-288.1426749
-minimumPackagingReuse,40% Min Reuse Packaging,-386.8,386.8,-228.06136
-wasteInvestment,100B Waste Invest,101.6,101.6,59.90443169
+banPsPackaging,Ban Polystyrene Packaging,-13.6,13.6,-7.71024987251402
+banWasteTrade,Ban Waste Trade,-51.6,58.5,-29.2535951045385
+reducedAdditives,90% Reduced Additives,-25.6,24.8,-14.5134115247323
+taxVirgin,Consumption Tax,-533.6,349.2,-302.513921468638
+minimumRecyclingRate,40% Min Recycling Collection,198.4,190.5,112.478939316675
+banSingleUse,90% Reduced Single Use,-324.5,344,-183.968829678735
+capVirgin,Cap Virgin to 2025,-384.2,353,-217.814558898521
+recyclingInvestment,100B Recycling Investment,86,89,48.7559918408975
+minimumRecycledContent,40% Min Recycled Content,-435.1,488.7,-246.67130290668
+minimumPackagingReuse,40% Min Reuse Packaging,-134.4,386.8,-76.1954105048445
+wasteInvestment,100B Waste Invest,49.4,101.6,28.0063488016318
+total,Total,-1568.8,2399.7,-889.4
