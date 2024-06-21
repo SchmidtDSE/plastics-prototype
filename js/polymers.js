@@ -94,6 +94,9 @@ const TEXTILES_SUBTYPE = "textiles";
 // Expected additives polymer name
 const ADDITIVES_POLYMER = "additives";
 
+// Allowed final imprecision due to floating point operations or other smoothing.
+const ALLOWED_IMPRECISION = 0.1;
+
 
 /**
  * Make a string key representing the identity of an object.
@@ -1797,7 +1800,9 @@ class GhgTradeLedger {
         self._materialTypes.add(materialType);
 
         const label = [region, materialType].join("-");
-        self._checkVolumeAndGhg(newVolume, newGhg, label);
+        const rectified = self._checkVolumeAndGhg(newVolume, newGhg, label);
+        newVolume = rectified["volume"];
+        newGhg = rectified["ghg"];
 
         const key = self._getCombineKey(region, materialType);
         self._addToMap(self._importVolumes, key, newVolume);
@@ -1824,7 +1829,9 @@ class GhgTradeLedger {
         const key = self._getCombineKey(region, materialType);
 
         const label = [region, materialType].join("-");
-        self._checkVolumeAndGhg(newVolume, newGhg, label);
+        const rectified = self._checkVolumeAndGhg(newVolume, newGhg, label);
+        newGhg = rectified["ghg"];
+        newVolume = rectified["volume"];
 
         self._addToMap(self._exportVolumes, key, newVolume);
 
@@ -1900,16 +1907,40 @@ class GhgTradeLedger {
 
     /**
      * Validate that the volume and GHG are valid.
+     * 
+     * Validate that the volume and GHG are valid, rectifying them if we do get very slighly
+     * negative values due to floating point imprecision.
+     * 
+     * @param volume The volume in MMT to check.
+     * @param ghg The GHG in CO2e MMT to check.
+     * @param label The label to use in reporting an error.
+     * @returns Object with volume and ghg rectified.
      */
     _checkVolumeAndGhg(volume, ghg, label) {
         const self = this;
-        if (volume < -0.0000001 || isNaN(volume)) {
+
+        const errorThreshold = ALLOWED_IMPRECISION * -1;
+
+        if (volume < errorThreshold || isNaN(volume)) {
             throw label + " encountered invalid or negative volume: " + volume;
         }
 
-        if (ghg < -0.0000001 || isNaN(ghg)) {
+        if (ghg < errorThreshold || isNaN(ghg)) {
             throw label + " encountered invalid or negative ghg: " + ghg;
         }
+
+        if (volume < 0) {
+            volume = 0;
+        }
+
+        if (ghg < 0) {
+            ghg = 0;
+        }
+
+        return {
+            "volume": volume,
+            "ghg": ghg
+        };
     }
 
     /**
