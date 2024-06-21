@@ -1,14 +1,14 @@
 intervention,description,individualGhg,individualGhgAbs,shareOfCombinedGhg,endGhg
-banPsPackaging,Ban Polystyrene Packaging,-13.6,13.6,-8.74178957718781,3270.95821042281
-banWasteTrade,Ban Waste Trade,-51.6,51.6,-33.1673781016831,3246.53262189832
-reducedAdditives,90% Reduced Additives,-25.6,25.6,-16.4551333217653,3263.24486667823
-taxVirgin,Consumption Tax,-533.6,533.6,-342.986685175545,2936.71331482445
-minimumRecyclingRate,40% Min Recycling Collection,198.4,198.4,127.527283243681,3407.22728324368
-banSingleUse,90% Reduced Single Use,-324.5,324.5,-208.581670426283,3071.11832957372
-capVirgin,Cap Virgin to 2020,-544.3,544.3,-349.864416681127,2929.83558331887
-recyclingInvestment,100B Recycling Investment,86,86,55.2789635028053,3334.9789635028
-minimumRecycledContent,40% Min Recycled Content,-435.1,435.1,-279.672988605472,3000.02701139453
-minimumPackagingReuse,40% Min Reuse Packaging,-134.4,134.4,-86.3894499392677,3193.31055006073
-wasteInvestment,50B Waste Invest,49.4,49.4,31.7532650818439,3311.45326508184
-highAmbition,High Ambition 2050,-1728.9,2396.5,-1111.3,2168.4
+banPsPackaging,Ban Polystyrene Packaging,-21.6,13.6,-13.8951599861384,3265.80484001386
+banWasteTrade,Ban Waste Trade,-51.6,51.6,-33.1939933002195,3246.50600669978
+reducedAdditives,90% Reduced Additives,-20.1,25.6,-12.9302183204343,3266.76978167956
+taxVirgin,Consumption Tax,-533.6,533.6,-343.261915213122,2936.43808478688
+minimumRecyclingRate,40% Min Recycling Collection,198.4,198.4,127.629617650456,3407.32961765046
+banSingleUse,90% Reduced Single Use,-324.5,324.5,-208.749047013977,3070.95095298602
+capVirgin,Cap Virgin to 2020,-544.3,544.3,-350.145165761811,2929.55483423819
+recyclingInvestment,100B Recycling Investment,86,86,55.3233221670325,3335.02332216703
+minimumRecycledContent,40% Min Recycled Content,-435.1,435.1,-279.897412498556,2999.80258750144
+minimumPackagingReuse,40% Min Reuse Packaging,-134.4,134.4,-86.4587732470833,3193.24122675292
+wasteInvestment,50B Waste Invest,49.4,49.4,31.7787455238535,3311.47874552385
+highAmbition,High Ambition 2050,-1731.4,2396.5,-1113.8,2165.9
 businessAsUsual,Business as Usual 2050,0,0,0,3279.7
