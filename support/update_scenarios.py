@@ -4,7 +4,7 @@ import sys
 
 NUM_ARGS = 2
 USAGE_STR = 'python update_scenarios.py [data csv] [scenarios]'
-TARGET_YEAR = 2025
+TARGET_YEAR = 2020
 
 
 def main():

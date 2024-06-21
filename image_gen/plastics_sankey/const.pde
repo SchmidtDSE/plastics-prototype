@@ -1,5 +1,7 @@
 final float COLUMN_BODY_WIDTH = 200;
 
+final boolean SHOW_WARNING_TEXT = false;
+
 List<String> EOL_FATES;
 List<String> SECTORS;
 Map<String, Integer> FILL_COLORS;
@@ -82,8 +84,8 @@ void loadSemiconstants() {
   STRINGS = new HashMap<>();
   STRINGS.put("china", "China");
   STRINGS.put("eu30", "Europe (EU30)");
-  STRINGS.put("nafta", "NAFTA");
-  STRINGS.put("row", "Rest of World");
+  STRINGS.put("nafta", "N America");
+  STRINGS.put("row", "Majority World");
   STRINGS.put("Recycling", "Recycling");
   STRINGS.put("Landfill", "Landfill");
   STRINGS.put("Incineration", "Incineration");
@@ -103,9 +105,9 @@ void loadSemiconstants() {
   STRINGS.put("taxVirgin", "Consumption Tax");
   STRINGS.put("minimumRecyclingRate", "40% Min Recycling Collection");
   STRINGS.put("banSingleUse", "90% Reduced Single Use");
-  STRINGS.put("capVirgin", "Cap Virgin to 2025");
+  STRINGS.put("capVirgin", "Cap Virgin to 2020");
   STRINGS.put("recyclingInvestment", "100B Recycling Invest");
   STRINGS.put("minimumRecycledContent", "40% Min Recycled Content");
   STRINGS.put("minimumPackagingReuse", "40% Min Reuse Packaging");
-  STRINGS.put("wasteInvestment", "100B Waste Invest");
+  STRINGS.put("wasteInvestment", "50B Waste Invest");
 }

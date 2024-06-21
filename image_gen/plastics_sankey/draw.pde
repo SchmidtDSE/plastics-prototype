@@ -82,13 +82,13 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       noFill();
       stroke(#757575);
       strokeWeight(2);
-      float startX = map(0, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
+      float startX = map(0, -400, 400, 12, COLUMN_BODY_WIDTH - 24);
       line(startX, midY + 29, startX, midY + 36);
 
       rectMode(CORNERS);
       noStroke();
       fill(#757575);
-      float endX = map(ghgDelta, -300, 300, 12, COLUMN_BODY_WIDTH - 24);
+      float endX = map(ghgDelta, -400, 400, 12, COLUMN_BODY_WIDTH - 24);
       rect(startX, midY + 30, endX, midY + 35);
     }
   });
@@ -314,27 +314,29 @@ void drawCaption() {
   textFont(DETAIL_FONT);
   
   textAlign(LEFT, TOP);
-  text(
-    "Showing policy effect if all enabled but each policy's effect will change both in absolute and relative size depending on what other policies are included.",
-    layoutManager.getXStart("waste"),
-    height - 85,
-    layoutManager.getXEnd("waste") - layoutManager.getXStart("waste") - 12,
-    85
-  );
+  if (SHOW_WARNING_TEXT) {
+    text(
+      "Showing policy effect if all enabled but each policy's effect will change both in absolute and relative size depending on what other policies are included.",
+      layoutManager.getXStart("waste"),
+      height - 85,
+      layoutManager.getXEnd("waste") - layoutManager.getXStart("waste") - 12,
+      85
+    );
+  }
 
   fill(#757575);
   textFont(DETAIL_FONT);
   
   textAlign(LEFT, CENTER);
   text(
-    "-300 MMT",
+    "-400 MMT",
     layoutManager.getXStart("policy") + 12,
     height - 70
   );
 
   textAlign(RIGHT, CENTER);
   text(
-    "+300 MMT",
+    "+400 MMT",
     layoutManager.getXEnd("policy") - 24,
     height - 70
   );

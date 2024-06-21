@@ -33,6 +33,23 @@ const GHG_EXPORT_ATTRS = [
 
 
 /**
+ * Get the string to use to identify a region in an export.
+ *
+ * @param target The internal name for the region.
+ * @returns The string to use to identify a region.
+ */
+function getRegionStr(target) {
+    if (target === "row") {
+        return "mw";
+    } else if (target === "nafta") {
+        return "na";
+    } else {
+        return target;
+    }
+};
+
+
+/**
  * Build an inline data URI that encodes a CSV file with sector / fate volumes by year and region.
  *
  * @param withInterventions Map from year to state object (Map) with interventions applied.
@@ -44,7 +61,7 @@ function buildSectorFateDownload(withInterventions) {
     const headerRow = ["year"];
     attrs.forEach((attr) => {
         ALL_REGIONS.forEach((region) => {
-            headerRow.push(region + "." + attr);
+            headerRow.push(getRegionStr(region) + "." + attr);
         });
     });
     const headerRowStr = headerRow.join(",");
@@ -105,7 +122,7 @@ function buildPolymerDownload(withInterventions) {
                     return Array.of(...vector.keys()).map((polymerName) => {
                         const volume = vector.get(polymerName);
                         return {
-                            "region": region,
+                            "region": getRegionStr(region),
                             "year": entry[0],
                             "series": series,
                             "polymer": polymerName,
@@ -142,7 +159,7 @@ function buildGhgDownload(withInterventions) {
             return ALL_REGIONS.filter((x) => x === "global").flatMap((region) => {
                 const regionGhgInfo = ghgInfo.get(region);
                 return {
-                    "region": region,
+                    "region": getRegionStr(region),
                     "year": entry[0],
                     "eCO2MTOverall": regionGhgInfo.get("overallGhg"),
                 };

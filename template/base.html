@@ -301,8 +301,8 @@
                                                 <div class="instructions-keyboard">
                                                     <a href="#china" role="button" class="btn sec china-button">Select China</a>
                                                     <a href="#eu30" role="button" class="btn sec eu30-button">Select EU 30</a>
-                                                    <a href="#nafta" role="button" class="btn sec nafta-button">Select NAFTA</a>
-                                                    <a href="#global" role="button" class="btn sec row-button">Select Rest of World</a>
+                                                    <a href="#nafta" role="button" class="btn sec nafta-button">Select NA</a>
+                                                    <a href="#global" role="button" class="btn sec row-button">Select Majority World</a>
                                                     <a href="#global" role="button" class="btn sec global-button">Select Global</a>
                                                 </div>
                                                 <div class="slope-check-holder">
@@ -467,7 +467,7 @@
                         <div class="about-panel">
                             <div class="about-embed-section">
                                 <h2>Downloads</h2>
-                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>.
+                                There are some download artifacts are avilable under the <a href="https://github.com/SchmidtDSE/plastics-prototype/blob/main/LICENSE.md#data" target="_blank">CC-BY-NC 4.0 License</a>. Note that, for historic compatibility reasons, some exports may have slightly different region labels. In this case, ROW refers to majority world (originally Rest of World) and NAFTA refers to North America.
                             </div>
                             <div class="about-embed-section" id="downloads-bau">
                                 <h3>Business as Usual</h3>
@@ -480,13 +480,13 @@
                                 <ul>
                                     <li>banPsPackaging: The result of having banned polystyrene packaging.</li>
                                     <li>banSingleUse: The result of having reduced single use packaging by 90%.</li>
-                                    <li>capVirgin: The result of having capped virgin plastic production to 2025 business as ususal levels.</li>
+                                    <li>capVirgin: The result of having capped virgin plastic production to 2020 business as ususal levels.</li>
                                     <li>minimumRecycledContent: The result of a 30% minimum recycled content mandate for new products.</li>
                                     <li>minimumRecyclingRate: The result of a 30% minimum recycling collection rate mandate.</li>
                                     <li>recyclingInvestment: The result of 100B USD investment in recycling collection and infrastructure.</li>
                                     <li>reducedAdditives: The result of 60% reduction in additives.</li>
                                     <li>taxVirigin: The result of a low consumption tax (see tool for more details).</li>
-                                    <li>wasteInvestment: The result of 100B USD investment in non-recycling waste management including incineration and landfill.</li>
+                                    <li>wasteInvestment: The result of 50B USD investment in non-recycling waste management including incineration and landfill.</li>
                                 </ul>
 
                                 Furthermore, this CSV includes the following which describe complex multi-intervention scenarios:
@@ -546,7 +546,7 @@
                             </div>
                             <div id="guide-waste">
                                 <h2>Waste</h2>
-                                About $mismanaged2024 million metric tons of mismanaged waste is generated per year (2024). That is expected to rise about $mismanagedChange percent in 2050 ($mismanaged2050 MMT). This business as usual scenario sees the greatest mismanaged burden in "rest of world" countries. Specifically, RoW's mismanaged waste is $mismanagedRowRatio times greater than NAFTA, EU 30, and China combined in 2050. Indeed, it accounts for about $mismanagedRowPercent percent of global mismanaged waste in that projection.
+                                About $mismanaged2024 million metric tons of mismanaged waste is generated per year (2024). That is expected to rise about $mismanagedChange percent in 2050 ($mismanaged2050 MMT). This business as usual scenario sees the greatest mismanaged burden in "majority world" countries. Specifically, RoW's mismanaged waste is $mismanagedRowRatio times greater than NAFTA, EU 30, and China combined in 2050. Indeed, it accounts for about $mismanagedRowPercent percent of global mismanaged waste in that projection.
                                 <div class="image-box">
                                     <a href="/img/waste.png?v=$epoch" target="_blank"><img src="/img/waste.png?v=$epoch" alt="Timeseries visualization showing plastic waste increasing over time and in most regions."></a>
                                 </div>
@@ -560,7 +560,7 @@
                                         A Minimum Recycling Content mandate at 40 percent would change annual mismanaged waste by about $mrcPercent perecent in 2050 ($mismanaged2050Mrc MMT vs $mismanaged2050 MMT without any intervention). 
                                     </li>
                                     <li>
-                                        If capping plastic production to 2025 levels, this simulation expects a change in annual mismanaged waste of $prodCapPercent percent in 2050 ($mismanaged2050 BAU MMT in 2050 to $mismanaged2050ProdCap MMT).
+                                        If capping plastic production to 2020 levels, this simulation expects a change in annual mismanaged waste of $prodCapPercent percent in 2050 ($mismanaged2050 BAU MMT in 2050 to $mismanaged2050ProdCap MMT).
                                     </li>
                                     <li>
                                         A 90 percent reduction on other single-use packaging beyond polystyrene would change mismanaged waste by $deltaSingleUse MMT globally, by 2050. 
@@ -690,7 +690,7 @@
                                 Finally, the modeling team further monitors various segments of the dataset to ensure adequate performance for all sectors, regions, fates, train / test / validation splits, etc. In addition to offering an opportunity for domain experts to evaluate model results, this activity can also provide segment error estimations. One such method of monitoring is to retrain the selected random forest configuration with many different train / validation sets to determine the range of expected performance with some differences anticipated due to chance. All this in mind, consider the following region-level performance given that dimension's particularly notable importance to equity:
 
                                 <ul>
-                                    <li>Consumption: As the actual response vaiable in the model is change in consumption, results are reported as MAE in delta MMT. That said, this MAE stays under an acceptable 2.5 MMT for all regions in the trials though EU 30 and NAFTA tend to stay under 1 MMT whereas China and rest of world may be around 1.5 MMT in practice.</li>
+                                    <li>Consumption: As the actual response vaiable in the model is change in consumption, results are reported as MAE in delta MMT. That said, this MAE stays under an acceptable 2.5 MMT for all regions in the trials though EU 30 and NAFTA tend to stay under 1 MMT whereas China and majority world may be around 1.5 MMT in practice.</li>
                                     <li>Waste: As the actual response variable in the model is percent of waste, results are reported as MAE in percentage points. These stay under an acceptable 3% in all trials though China and EU 30 are seen going above 1% while RoW and NAFTA tend to stay below 1% MMT.</li>
                                     <li>Goods trade: As the actual response vaiable in the model is percent traded, results are reported as MAE in percentage points. These stay under an acceptable 4% (note this is larger than some other trade numbers) in all cases with only China being notable with MAE over 2% </li>
                                     <li>Waste trade: As the actual response variable in the model is precent traded, results are reported as MAE in percentage points. These stay under an acceptable 3% without any region having a notably divergent distribution of MAEs.</li>
@@ -705,8 +705,11 @@
                                     <li>The <a href="https://github.com/SchmidtDSE/plastics-prototype/tree/main/pt" target="_blank">pt subdirectory</a> for technical information and code for interventions.</li>
                                 </ul>
                                 
-                                Model version 2024.15 (pre-release). Last updated 2024-05-17. Major edits after initial release include:
+                                Model outputs are converted to polymers and GHG with some numerical smoothing as documented in <a href="https://github.com/SchmidtDSE/plastics-prototype">our tool repository</a> in which up to 1 MMT of imprecision is allowed. Model version 2024.15 (pre-release). Tool last updated 2024-06-21. Major edits after initial release include:
+
                                 <ul>
+                                    <li>Changed default virgin cap to 2020 levels on 2024-06-21.</li>
+                                    <li>Changed Rest of World to Majority World and NAFTA to North America on 2024-06-21.</li>
                                     <li>Added packaging-only versions of some levers on 2024-05-25.</li>
                                     <li>Updates to capex / opex costs for incineration and landfill on 2024-05-22.</li>
                                     <li>Resolved bug (overall results generally unchanged) in determining trade effects and minor imprecision in virgin cap on 2024-05-21.</li>
@@ -720,6 +723,14 @@
                                     <li>Simplification of polymer-level trade which is slightly less noisy on 2024-03-08.</li>
                                     <li>Update default assumption for added material required for reuse on 2023-03-27.</li>
                                     <li>Update reuse with addressable products parameter on 2024-04-05.</li>
+                                </ul>
+
+                                Note that we use the following region definitions:
+
+                                <ul>
+                                    <li>EU30: The EU-27 as of June 20, 2024 as well as the United Kingdom, Switzerland, and Norway</li>
+                                    <li>NA: Members of the former NAFTA (United States of America, Mexico, and Canada).</li>
+                                    <li>Majority World: All countries except those in EU30, NA, and China.</li>
                                 </ul>
                                 
                                 See <a href="https://github.com/SchmidtDSE/plastics-pipeline" target="_blank">open source model pipeline</a> where a Docker image is available.
@@ -903,7 +914,7 @@
             <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a> / <a class="tab-trigger" href="#settings">Accessibility</a> / <a class="tab-trigger" href="#about-publication">Cite Us</a>
         </footer>
 
-        <input type="hidden" id="version-number" value="20240524">
+        <input type="hidden" id="version-number" value="20240621">
 
         <dialog id="add-dialog">
             <form>

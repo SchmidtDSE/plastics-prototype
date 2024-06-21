@@ -13,7 +13,7 @@ Dataset dataset;
  * Run the sketch.
  */
 void setup() {
-  size(1000, 700);
+  size(1020, 700);
   try {
     runSketch();
   } catch (Exception e) {
