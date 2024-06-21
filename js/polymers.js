@@ -218,7 +218,6 @@ function getPolymerKey(region, subtype, polymer) {
  * of trade and overall trade within a region and year.
  */
 class SubtypeInfo {
-
     /**
      * Create a new record of material subtype.
      *
