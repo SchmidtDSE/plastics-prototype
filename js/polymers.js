@@ -95,7 +95,7 @@ const TEXTILES_SUBTYPE = "textiles";
 const ADDITIVES_POLYMER = "additives";
 
 // Allowed final imprecision due to floating point operations or other smoothing.
-const ALLOWED_IMPRECISION = 0.1;
+const ALLOWED_IMPRECISION = 1;
 
 
 /**
@@ -1316,7 +1316,7 @@ class StateModifier {
         const errors = [];
         for (let i = 0; i < MAX_NORM_ITERATIONS; i++) {
             const maxError = getMaxError();
-            if (maxError <= 1) {
+            if (maxError <= ALLOWED_IMPRECISION) {
                 return state;
             }
             errors.push(maxError);
