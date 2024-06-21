@@ -44,6 +44,7 @@ let irrecoverableErrorShown = false;
  */
 function writeInputsToString(leversByVariable) {
     return Array.of(...leversByVariable.values())
+        .filter((x) => !x.isAtDefault())
         .map((x) => {
             const variableName = x.getVariable();
             const variableValue = encodeURIComponent(x.getValue());
