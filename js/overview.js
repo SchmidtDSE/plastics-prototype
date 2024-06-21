@@ -169,7 +169,7 @@ class OverviewPresenter {
             self.getCumulativeEnabled(),
         );
 
-        self._policyScenarioPresenter.updateSelection(businessAsUsuals.get(self._year));
+        self._policyScenarioPresenter.updateSelection(withInterventions.get(self._year));
 
         const downloadSectorFateLinks = Array.of(
             ...document.querySelectorAll(".download-fate-sector-link"),
