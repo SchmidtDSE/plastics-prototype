@@ -86,10 +86,44 @@ class SliderPresenter {
      */
     resetToDefault() {
         const self = this;
+        const defaultValue = self.getDefault();
+        self.setValue(defaultValue);
+    }
+
+    /**
+     * Get the default value for this lever.
+     * 
+     * @returns The default value for this lever.
+     */
+    getDefault() {
+        const self = this;
         if (self._config["unselectDefault"] === undefined) {
-            self.setValue(self._config["default"]);
+            return self._config["default"];
         } else {
-            self.setValue(self._config["unselectDefault"]);
+            return self._config["unselectDefault"];
+        }
+    }
+
+    /**
+     * Determine if the lever is currently in its default value.
+     * 
+     * @returns True if at the default value (within 1 step) and false otherwise.
+     */
+    isAtDefault() {
+        const self = this;
+        const currentValue = self.getValue();
+        const defaultValue = self.getDefault();
+        const stepSize = self.getStepSize();
+        return Math.abs(currentValue - defaultValue) < stepSize;
+    }
+
+    getStepSize() {
+        const self = this;
+        const configStep = self._config["step"];
+        if (configStep === undefined) {
+            return 0.01;
+        } else {
+            return configStep;
         }
     }
 
