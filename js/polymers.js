@@ -1907,10 +1907,10 @@ class GhgTradeLedger {
 
     /**
      * Validate that the volume and GHG are valid.
-     * 
+     *
      * Validate that the volume and GHG are valid, rectifying them if we do get very slighly
      * negative values due to floating point imprecision.
-     * 
+     *
      * @param volume The volume in MMT to check.
      * @param ghg The GHG in CO2e MMT to check.
      * @param label The label to use in reporting an error.
@@ -1939,7 +1939,7 @@ class GhgTradeLedger {
 
         return {
             "volume": volume,
-            "ghg": ghg
+            "ghg": ghg,
         };
     }
 

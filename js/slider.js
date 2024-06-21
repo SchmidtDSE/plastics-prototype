@@ -92,7 +92,7 @@ class SliderPresenter {
 
     /**
      * Get the default value for this lever.
-     * 
+     *
      * @returns The default value for this lever.
      */
     getDefault() {
@@ -106,7 +106,7 @@ class SliderPresenter {
 
     /**
      * Determine if the lever is currently in its default value.
-     * 
+     *
      * @returns True if at the default value (within 1 step) and false otherwise.
      */
     isAtDefault() {
