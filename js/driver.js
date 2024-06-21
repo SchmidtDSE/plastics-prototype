@@ -235,15 +235,16 @@ class Driver {
      * Build a state Map for year which can be run through plastics language interventinos.
      *
      * @param year The year for which to build the state.
+     * @param allowChanges If true, use current value of lever. If false, use default.
      * @returns State as a Map.
      */
-    _buildState(year) {
+    _buildState(year, allowChanges) {
         const self = this;
 
         const meta = new Map();
         meta.set("year", year);
 
-        const state = self._dataLayer.buildState(year);
+        const state = self._dataLayer.buildState(year, allowChanges);
         state.set("meta", meta);
 
         return state;
@@ -258,7 +259,7 @@ class Driver {
         const self = this;
 
         const year = self._reportPresenter.getSelection().getYear();
-        const state = self._buildState(year);
+        const state = self._buildState(year, true);
         self._addGlobalToState(state);
         return state;
     }
@@ -297,10 +298,10 @@ class Driver {
         const programs = runPrograms ? getPrograms() : [];
 
         const historicStates = self._historicYears.map((year) => {
-            return {"year": year, "state": self._buildState(year)};
+            return {"year": year, "state": self._buildState(year, runPrograms)};
         });
         const projectionStates = self._projectionYears.map((year) => {
-            const state = self._buildState(year);
+            const state = self._buildState(year, runPrograms);
 
             programs.forEach((programInfo) => {
                 const program = programInfo["program"];
