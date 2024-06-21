@@ -11,6 +11,8 @@ cp -r standalone_tasks deploy/standalone_tasks
 cp index.html deploy
 cp preview.html deploy
 
+cp image_gen/plastics_sankey/data/ghg_snapshot.csv deploy/data/ghg_snapshot.csv
+
 cp robots.txt deploy
 cp humans.txt deploy
 cp manifest.json deploy
