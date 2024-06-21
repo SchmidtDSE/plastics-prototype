@@ -19,28 +19,28 @@
             "value": 90
           }
         ],
-        "default": 60
+        "default": 90
       },
       "values": [
         {
           "lever": "chinaPercentReduceProblematicPackaging",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "eu30PercentReduceProblematicPackaging",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "naftaPercentReduceProblematicPackaging",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "rowPercentReduceProblematicPackaging",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         }
       ],
       "released": true
@@ -64,28 +64,28 @@
             "value": 90
           }
         ],
-        "default": 60
+        "default": 90
       },
       "values": [
         {
           "lever": "chinaAdditivesPercentReduction",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "eu30AdditivesPercentReduction",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "naftaAdditivesPercentReduction",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         },
         {
           "lever": "rowAdditivesPercentReduction",
-          "value": 60,
-          "baseValue": 60
+          "value": 90,
+          "baseValue": 90
         }
       ],
       "released": true
@@ -139,9 +139,9 @@
       "released": true
     },
     {
-      "name": "Cap to 2025 Virgin Production",
+      "name": "Cap to 2020 Virgin Production",
       "id": "cap-virgin",
-      "description": "Require that annual virgin plastic production is capped to 2025 levels. The caps are set to match roughly 2025 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
+      "description": "Require that annual virgin plastic production is capped to 2020 levels. The caps are set to match roughly 2020 levels according to the business as usual scenario. Assumes that there is a gradual phase in and compliance.",
       "values": [
         {
           "lever": "chinaVirginPlasticCap",
@@ -181,28 +181,28 @@
             "value": 40
           }
         ],
-        "default": 30
+        "default": 40
       },
       "values": [
         {
           "lever": "chinaMinimumRecyclingRate",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "eu30MinimumRecyclingRate",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "naftaMinimumRecyclingRate",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "rowMinimumRecyclingRate",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         }
       ],
       "released": true
@@ -214,40 +214,40 @@
       "config": {
         "options": [
           {
+            "name": "40",
+            "value": 40
+          },
+          {
             "name": "60",
             "value": 60
           },
           {
             "name": "80",
             "value": 80
-          },
-          {
-            "name": "100",
-            "value": 100
           }
         ],
-        "default": 80
+        "default": 40
       },
       "values": [
         {
           "lever": "chinaMinimumReusePackaging",
-          "value": 80,
-          "baseValue": 80
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "eu30MinimumReusePackaging",
-          "value": 80,
-          "baseValue": 80
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "naftaMinimumReusePackaging",
-          "value": 80,
-          "baseValue": 80
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "rowMinimumReusePackaging",
-          "value": 80,
-          "baseValue": 80
+          "value": 40,
+          "baseValue": 40
         }
       ],
       "released": true
@@ -271,28 +271,28 @@
             "value": 40
           }
         ],
-        "default": 30
+        "default": 40
       },
       "values": [
         {
           "lever": "chinaMinimumRecycledContent",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "eu30MinimumRecycledContent",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "naftaMinimumRecycledContent",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         },
         {
           "lever": "rowMinimumRecycledContent",
-          "value": 30,
-          "baseValue": 30
+          "value": 40,
+          "baseValue": 40
         }
       ],
       "released": true
@@ -312,28 +312,28 @@
             "value": 2
           }
         ],
-        "default": 1
+        "default": 2
       },
       "values": [
         {
           "lever": "chinaPackagingTax",
-          "value": 3,
-          "baseValue": 3
+          "value": 6,
+          "baseValue": 6
         },
         {
           "lever": "eu30PackagingTax",
-          "value": 22,
-          "baseValue": 22
+          "value": 44,
+          "baseValue": 44
         },
         {
           "lever": "naftaPackagingTax",
-          "value": 5,
-          "baseValue": 5
+          "value": 10,
+          "baseValue": 10
         },
         {
           "lever": "rowPackagingTax",
-          "value": 2,
-          "baseValue": 2
+          "value": 4,
+          "baseValue": 4
         }
       ],
       "released": true
@@ -357,28 +357,28 @@
             "value": 100
           }
         ],
-        "default": 50
+        "default": 100
       },
       "values": [
         {
           "lever": "chinaRecyclingInvestment",
-          "value": 12.5,
-          "baseValue": 12.5
+          "value": 25,
+          "baseValue": 25
         },
         {
           "lever": "eu30RecyclingInvestment",
-          "value": 12.5,
-          "baseValue": 12.5
+          "value": 25,
+          "baseValue": 25
         },
         {
           "lever": "naftaRecyclingInvestment",
-          "value": 12.5,
-          "baseValue": 12.5
+          "value": 25,
+          "baseValue": 25
         },
         {
           "lever": "rowRecyclingInvestment",
-          "value": 12.5,
-          "baseValue": 12.5
+          "value": 25,
+          "baseValue": 25
         }
       ],
       "released": true

@@ -17,7 +17,7 @@ SCENARIOS = {
         'banSingleUse': {'ban-single-use': 90},
         'reducedAdditives': {'reduced-additives': 90},
         'recyclingInvestment': {'recycling-investment': 100},
-        'wasteInvestment': {'waste-investment': 100},
+        'wasteInvestment': {'waste-investment': 50},
         'taxVirgin': {'tax-virgin': 1},
         'banWasteTrade': {'ban-waste-trade': 1},
         'lowAmbition': {
@@ -37,7 +37,7 @@ SCENARIOS = {
             'ban-single-use': 90,
             'reduced-additives': 90,
             'recycling-investment': 100,
-            'waste-investment': 100,
+            'waste-investment': 50,
             'tax-virgin': 2,
             'ban-waste-trade': 1
         },
@@ -60,7 +60,7 @@ SCENARIOS = {
             'ban-single-use': 90,
             'reduced-additives': 90,
             'recycling-investment': 100,
-            'waste-investment': 100,
+            'waste-investment': 50,
             'tax-virgin': 2,
             'ban-waste-trade': 1
         },
