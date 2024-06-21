@@ -51,9 +51,10 @@ class DataLayer {
      * Create a new state object (as Map).
      *
      * @param year The year for which a state object should be built.
+     * @param allowChanges If true, use current value of lever. If false, use default.
      * @returns Newly constructed state object as a Map.
      */
-    buildState(year) {
+    buildState(year, allowChanges) {
         const self = this;
 
         const state = new Map();
@@ -91,7 +92,11 @@ class DataLayer {
         // Add inputs
         const inputs = new Map();
         self._getLevers().forEach((lever) => {
-            inputs.set(lever.getVariable(), lever.getValue());
+            if (allowChanges) {
+                inputs.set(lever.getVariable(), lever.getValue());
+            } else {
+                inputs.set(lever.getVariable(), lever.getDefault());
+            }
         });
         state.set("in", inputs);
 
