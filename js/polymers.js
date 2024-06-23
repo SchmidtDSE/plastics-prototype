@@ -1791,7 +1791,7 @@ class GhgTradeLedger {
      *
      * @param region The region like china into which this volume was imported.
      * @param materialType The type of material like polymer or EOL fate.
-     * @param newVolume The size of the volume in MMT.
+     * @param newVolume The size of the volume in Mt.
      * @param newGhg The GHG in eCO2 megatons.
      */
     addImport(region, materialType, newVolume, newGhg) {
@@ -1818,7 +1818,7 @@ class GhgTradeLedger {
      *
      * @param region The region from which the volume was exported.
      * @param materialType The type of material like polymer or EOL fate.
-     * @param newVolume The size of the volume in MMT.
+     * @param newVolume The size of the volume in Mt.
      * @param newGhg The GHG in eCO2 megatons.
      */
     addExport(region, materialType, newVolume, newGhg) {
@@ -1911,8 +1911,8 @@ class GhgTradeLedger {
      * Validate that the volume and GHG are valid, rectifying them if we do get very slighly
      * negative values due to floating point imprecision.
      *
-     * @param volume The volume in MMT to check.
-     * @param ghg The GHG in CO2e MMT to check.
+     * @param volume The volume in Mt to check.
+     * @param ghg The GHG in CO2e Mt to check.
      * @param label The label to use in reporting an error.
      * @returns Object with volume and ghg rectified.
      */

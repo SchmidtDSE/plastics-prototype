@@ -108,31 +108,31 @@ class TimeDeltaPresenter {
         );
         unitOptions.set(
             GOALS.landfillWaste,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.mismanagedWaste,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.incineratedWaste,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.recycling,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.totalWaste,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.totalConsumption,
-            {"short": "MMT", "long": "Million Metric Tons"},
+            {"short": "Mt", "long": "Million Metric Tons"},
         );
         unitOptions.set(
             GOALS.ghg,
-            {"short": "MMT", "long": "Megatons CO2 Equivalent"},
+            {"short": "Mt", "long": "Megatons CO2 Equivalent"},
         );
         const unitsInfo = unitOptions.get(self._attrName);
         const unitsLong = unitsInfo["long"];
@@ -408,7 +408,7 @@ class TimeDeltaPresenter {
                 const value = target.get(selectedYear)
                     .get(region)
                     .get(self._attrName);
-                return Math.round(value * 10) / 10 + " MMT";
+                return Math.round(value * 10) / 10 + " Mt";
             };
 
             const message = [
@@ -611,7 +611,7 @@ class TimeDeltaPresenter {
             .style("opacity", 0);
 
         const headerRow = table.append("tr");
-        const units = "MMT";
+        const units = "Mt";
         headerRow.append("th").html("Year");
         headerRow.append("th").html("Business as Usual (" + units + ")");
         headerRow.append("th").html("With Policies (" + units + ")");

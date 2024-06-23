@@ -382,7 +382,7 @@ class Legend {
     fill(AXIS_COLOR);
     textAlign(LEFT, TOP);
     textFont(DETAIL_FONT);
-    text(nfc(value, 1) + " Global MMT in 2050", 0, curY + 8);
+    text(nfc(value, 1) + " Global Mt in 2050", 0, curY + 8);
     
     popStyle();
     popMatrix();
