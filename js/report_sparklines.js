@@ -140,7 +140,7 @@ class SparklinePresenter {
                 .attr("x", shiftLabels ? 28 : 20);
 
             self._d3Selection.select(".units-value-label")
-                .html(isPercent ? "%" : "MMT")
+                .html(isPercent ? "%" : "Mt")
                 .attr("x", shiftLabels ? 30 : 20);
         };
 
@@ -204,7 +204,7 @@ class SparklinePresenter {
             const labelContent = [
                 STRINGS.get(self._attrName) + ":",
                 valueRounded,
-                isPercent ? "%" : "MMT",
+                isPercent ? "%" : "Mt",
                 "in",
                 selectedYear,
                 "with interventions.",
@@ -255,7 +255,7 @@ class SparklinePresenter {
         targetSvg.append("text")
             .attr("x", 20)
             .attr("y", totalHeight / 2)
-            .html("MMT")
+            .html("Mt")
             .classed("units-value-label", true)
             .classed("value-label", true)
             .classed("spark-label", true);

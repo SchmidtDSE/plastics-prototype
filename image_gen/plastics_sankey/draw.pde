@@ -59,7 +59,7 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 7);
       
       textFont(DETAIL_FONT);
-      text(nfc(stage.get(groupName), 1) + " MMT Plastic", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+      text(nfc(stage.get(groupName), 1) + " Mt Plastic", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
     } else if (barHeight < 25) {
       textFont(BODY_FONT);
       text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY);
@@ -68,7 +68,7 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 7);
       
       textFont(DETAIL_FONT);
-      text(nfc(stage.get(groupName), 1) + " MMT", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+      text(nfc(stage.get(groupName), 1) + " Mt", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
     }
 
     if (thin) {      
@@ -129,8 +129,8 @@ void drawRegions(String column, Map<String, Region> regions) {
     text(STRINGS.get(regionName), COLUMN_BODY_WIDTH / 2, midY - 13);
     
     textFont(DETAIL_FONT);
-    text(nfc(region.getConsumption(), 1) + " MMT consumption", COLUMN_BODY_WIDTH / 2, midY + 1);
-    text(nfc(region.getWaste(), 1) + " MMT waste", COLUMN_BODY_WIDTH / 2, midY + 14);
+    text(nfc(region.getConsumption(), 1) + " Mt consumption", COLUMN_BODY_WIDTH / 2, midY + 1);
+    text(nfc(region.getWaste(), 1) + " Mt waste", COLUMN_BODY_WIDTH / 2, midY + 14);
     
     for (String sector : SECTORS) {
       fill(FILL_COLORS.get(sector));
@@ -242,7 +242,7 @@ void drawAxis() {
   translate(57, 70);
   
   for (int value = 0; value < layoutManager.getMaxValue() + 50; value += 50) {
-    text(value + " MMT", 0, layoutManager.getHeight(value));
+    text(value + " Mt", 0, layoutManager.getHeight(value));
   }
   
   popStyle();
@@ -329,14 +329,14 @@ void drawCaption() {
   
   textAlign(LEFT, CENTER);
   text(
-    "-400 MMT",
+    "-400 Mt",
     layoutManager.getXStart("policy") + 12,
     height - 70
   );
 
   textAlign(RIGHT, CENTER);
   text(
-    "+400 MMT",
+    "+400 Mt",
     layoutManager.getXEnd("policy") - 24,
     height - 70
   );

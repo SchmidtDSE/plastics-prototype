@@ -384,7 +384,7 @@ class SliderPresenter {
 
             const getText = (value) => {
                 const prefix = value >= 0 ? "+" : "";
-                return prefix + value + " MMT";
+                return prefix + value + " Mt";
             };
 
             const setText = (value, selector) => {

@@ -602,7 +602,7 @@ class BubblegraphPresenter {
 
             // Determine units
             const isPercent = selection.getDisplayType() == DISPLAY_TYPES.percent;
-            const unitsStr = isPercent ? "%" : "MMT";
+            const unitsStr = isPercent ? "%" : "Mt";
 
             const attrDescriptions = self._attrNames.get(displayStage).map((attr) => {
                 const value = outputData.get(selection.getRegion()).get(attr);
@@ -667,7 +667,7 @@ class BubblegraphPresenter {
         const headerRow = table.append("tr");
         headerRow.append("th").html("Type");
         ALL_REGIONS.forEach((region) => {
-            headerRow.append("th").html(STRINGS.get(region) + " MMT");
+            headerRow.append("th").html(STRINGS.get(region) + " Mt");
         });
 
         const attrNames = self._attrNames.get(displayStage);

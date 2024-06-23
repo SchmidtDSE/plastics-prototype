@@ -197,7 +197,7 @@ class TemplateTask implements Task {
     if (isHero()) {
       return "Million Metric Tons";
     } else {
-      return "MMT";
+      return "Mt";
     }
   }
   
