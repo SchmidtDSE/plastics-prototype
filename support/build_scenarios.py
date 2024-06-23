@@ -31,7 +31,7 @@ SCENARIOS = {
         'highAmbition': {
             'minimum-recycle-rate': 40,
             'minimum-recycled-content': 40,
-            'minimum-packaging-reuse': 40,
+            'minimum-packaging-reuse': 80,
             'cap-virgin': 1,
             'ban-ps-packaging': 1,
             'ban-single-use': 90,

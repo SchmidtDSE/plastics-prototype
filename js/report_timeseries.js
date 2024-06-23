@@ -125,7 +125,7 @@ class TimeseriesPresenter {
         };
 
         // Determine units
-        const unitsStr = isPercent ? "%" : "MMT";
+        const unitsStr = isPercent ? "%" : "Mt";
 
         // Get layers
         const axisLayer = self._d3Selection.select("#axis-layer");
@@ -460,7 +460,7 @@ class TimeseriesPresenter {
             .style("opacity", 0);
 
         const headerRow = table.append("tr");
-        const units = "MMT";
+        const units = "Mt";
         headerRow.append("th").html("Year");
         attrs.forEach((attr) => {
             const attrStr = STRINGS.get(attr);
