@@ -11,14 +11,14 @@ SCENARIOS = {
     "snapshot": {
         'minimumRecyclingRate': {'minimum-recycle-rate': 40},
         'minimumRecycledContent': {'minimum-recycled-content': 40},
-        'minimumPackagingReuse': {'minimum-packaging-reuse': 40},
+        'minimumPackagingReuse': {'minimum-packaging-reuse': 80},
         'capVirgin': {'cap-virgin': 1},
         'banPsPackaging': {'ban-ps-packaging': 1},
         'banSingleUse': {'ban-single-use': 90},
         'reducedAdditives': {'reduced-additives': 90},
         'recyclingInvestment': {'recycling-investment': 100},
         'wasteInvestment': {'waste-investment': 50},
-        'taxVirgin': {'tax-virgin': 1},
+        'taxVirgin': {'tax-virgin': 2},
         'banWasteTrade': {'ban-waste-trade': 1},
         'lowAmbition': {
             'minimum-recycle-rate': 20,
