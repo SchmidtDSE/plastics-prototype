@@ -41,6 +41,12 @@ SCENARIOS = {
             'tax-virgin': 2,
             'ban-waste-trade': 1
         },
+        "selectPackage": {
+            'minimum-recycled-content': 40,
+            'cap-virgin': 1,
+            'waste-investment': 50,
+            'tax-virgin': 2
+        },
         'businessAsUsual': {}
     },
     "timeseries": {
