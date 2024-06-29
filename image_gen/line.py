@@ -3,7 +3,10 @@
 License:
     BSD, see LICENSE.md
 """
+import itertools
 import json
+import os
+import pathlib
 import sys
 import sqlite3
 
@@ -127,8 +130,19 @@ def main():
     cols = 3 if SHOW_CONSUMPTION else 2
     fig, ax = matplotlib.pyplot.subplots(nrows=1, ncols=cols)
 
-    fig.set_size_inches(14, 5)
+    fig.set_size_inches(12, 4.26)
     fig.tight_layout(h_pad=5, w_pad=9)
+
+    current_path = os.path.abspath(__file__)
+    current_dir = os.path.dirname(current_path)
+    font_path_str = os.path.join(
+        current_dir,
+        'fonts',
+        'fonts',
+        'ttf',
+        'PublicSans-Regular.ttf'
+    )
+    font_path = pathlib.Path(font_path_str)
 
     with open(regions_loc) as f:
         regions_info = json.load(f)
@@ -136,26 +150,39 @@ def main():
     colors = dict(map(lambda x: (x['key'], x['color']), regions_info['regions']))
 
     plot_region_consumption(ax[0], 'totalConsumptionMT', source, colors)
-    ax[0].set_title('Total Consumption')
-    ax[0].set_ylabel('Million Metric Tons')
+    ax[0].set_title('Total Consumption', font=font_path, fontsize=10)
+    ax[0].set_ylabel('Million Metric Tons', font=font_path, fontsize=8)
 
     legend_values = []
     for region in regions_info['regions']:
         legend_values.append(region['full'])
         legend_values.append(region['label'] + ' Projected')
 
-    ax[0].legend(legend_values)
+    ax[0].legend(legend_values, prop=matplotlib.font_manager.FontProperties(
+        fname=font_path_str,
+        size=8
+    ))
 
     plot_region_consumption(ax[1], 'perCapitaKg', source, colors)
-    ax[1].set_title('Per-Capita Consumption')
-    ax[1].set_ylabel('Kg / Year')
+    ax[1].set_title('Per-Capita Consumption', font=font_path, fontsize=10)
+    ax[1].set_ylabel('Kg / Year', font=font_path, fontsize=8)
 
     if SHOW_CONSUMPTION:
         plot_region_consumption(ax[2], 'perGdpKg', source, colors)
-        ax[2].set_title('Consumption / GDP (2010 USD PPP)')
-        ax[2].set_ylabel('Kg / USD')
+        ax[2].set_title('Consumption / GDP (2010 USD PPP)', font=font_path, fontsize=10)
+        ax[2].set_ylabel('Kg / USD', font=font_path, fontsize=8)
+    
+    tick_labels = [
+        ax[0].get_xticklabels(),
+        ax[0].get_yticklabels(),
+        ax[1].get_xticklabels(),
+        ax[1].get_yticklabels()
+    ]
+    for item in itertools.chain(*tick_labels):
+        item.set_font(font_path)
+        item.set_fontsize(8)
 
-    fig.savefig(output_loc, bbox_inches = 'tight')
+    fig.savefig(output_loc, bbox_inches = 'tight', dpi=300)
 
 
 if __name__ == '__main__':

@@ -42,3 +42,5 @@ processing-4.3
 pipeline
 
 template/base_prerender.html
+
+image_gen/fonts

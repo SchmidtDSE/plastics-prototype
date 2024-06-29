@@ -148,6 +148,8 @@ jobs:
         run: mv pipeline/combined.db data/combined.db
       - name: Move overview
         run: mv pipeline/overview_ml.csv data/overview_ml.csv
+      - name: Load fonts
+        run: bash support/load_fonts.sh
       - name: Render lines
         run: bash support/render_line_graphs.sh
       - name: Render butterfly

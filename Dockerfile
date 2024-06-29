@@ -42,6 +42,7 @@ RUN bash support/install_processing.sh
 COPY README.md ./README.md
 
 COPY image_gen ./image_gen
+RUN bash support/load_fonts.sh
 RUN bash support/render_line_graphs.sh
 RUN bash support/render_butterfly.sh
 RUN bash support/render_sankey.sh
