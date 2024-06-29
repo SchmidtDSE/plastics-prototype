@@ -150,7 +150,7 @@ def main():
     colors = dict(map(lambda x: (x['key'], x['color']), regions_info['regions']))
 
     plot_region_consumption(ax[0], 'totalConsumptionMT', source, colors)
-    ax[0].set_title('Total Consumption', font=font_path, fontsize=10)
+    ax[0].set_title('(A) Total Consumption', font=font_path, fontsize=10)
     ax[0].set_ylabel('Million Metric Tons', font=font_path, fontsize=8)
 
     legend_values = []
@@ -164,12 +164,12 @@ def main():
     ))
 
     plot_region_consumption(ax[1], 'perCapitaKg', source, colors)
-    ax[1].set_title('Per-Capita Consumption', font=font_path, fontsize=10)
+    ax[1].set_title('(B) Per-Capita Consumption', font=font_path, fontsize=10)
     ax[1].set_ylabel('Kg / Year', font=font_path, fontsize=8)
 
     if SHOW_CONSUMPTION:
         plot_region_consumption(ax[2], 'perGdpKg', source, colors)
-        ax[2].set_title('Consumption / GDP (2010 USD PPP)', font=font_path, fontsize=10)
+        ax[2].set_title('(C) Consumption / GDP (2010 USD PPP)', font=font_path, fontsize=10)
         ax[2].set_ylabel('Kg / USD', font=font_path, fontsize=8)
     
     tick_labels = [
