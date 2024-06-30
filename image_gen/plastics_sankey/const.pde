@@ -105,7 +105,7 @@ void loadSemiconstants() {
   STRINGS.put("taxVirgin", "Packaging consumption tax");
   STRINGS.put("minimumRecyclingRate", "40% recycled rate");
   STRINGS.put("banSingleUse", "Ban single use");
-  STRINGS.put("capVirgin", "Cap virgin to 2025");
+  STRINGS.put("capVirgin", "Cap virgin to 2020");
   STRINGS.put("recyclingInvestment", "$100B recycling invest");
   STRINGS.put("minimumRecycledContent", "40% recycled content");
   STRINGS.put("minimumPackagingReuse", "80% packaging reuse");

@@ -13,7 +13,8 @@ LayoutManager layoutManager;
 
 
 void setup() {
-  size(1550, 900); // size(1550, 900, SVG, "sankey.svg");
+  // size(1550, 900, SVG, "sankey.svg");
+  size(1550, 900);
   try {
     runSketch();
   } catch (Exception e) {
