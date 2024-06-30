@@ -2,6 +2,8 @@ import java.util.*;
 import java.util.regex.*;
 import java.util.stream.*;
 
+// import processing.svg.*;
+
 List<Record> rawRecords;
 Stage consumptionStage;
 Map<String, Region> regions;
@@ -11,7 +13,7 @@ LayoutManager layoutManager;
 
 
 void setup() {
-  size(1700, 900);
+  size(1550, 900); // size(1550, 900, SVG, "sankey.svg");
   try {
     runSketch();
   } catch (Exception e) {
@@ -21,28 +23,31 @@ void setup() {
 
 
 void draw() {
+  //runSketch();
   exit();
 }
 
 
 void runSketch() {
   loadSemiconstants();
+  
+  String csvLoc;
+  String outputDirectory;
 
   if (args == null || args.length != 2) {
-    println("USAGE: processing-java --sketch=plastics_sankey --output=/tmp/sankeybuild --force --run [CSV] [output directory]");
-    exit();
-    return;
+    csvLoc = "scenarios_overview.csv";
+    outputDirectory = "";
+  } else {
+    csvLoc = args[0];
+    outputDirectory = args[1] + "/";
   }
   
   background(#FFFFFF);
 
-  String csvLoc = args[0];
-  String outputDirectory = args[1];
-
   loadState(csvLoc);
   drawUnsafe();
   
-  save(outputDirectory + "/sankey.png");
+  save(outputDirectory + "sankey.png");
 }
 
 
@@ -53,7 +58,7 @@ void loadState(String csvLoc) {
   policyStage = buildPolicyStage(rawRecords);
   wasteStage = buildWasteStage(rawRecords, policyStage);
   
-  layoutManager = new LayoutManager(60, width - 10, 70, height - 50);
+  layoutManager = new LayoutManager(60, width - 100, 50, height - 70);
   layoutManager.add("consumption", consumptionStage, 2);
   layoutManager.add("regions", regions, 2);
   layoutManager.add("waste", wasteStage, 2);
