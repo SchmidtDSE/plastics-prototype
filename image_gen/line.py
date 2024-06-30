@@ -152,6 +152,7 @@ def main():
     plot_region_consumption(ax[0], 'totalConsumptionMT', source, colors)
     ax[0].set_title('(A) Total Consumption', font=font_path, fontsize=10)
     ax[0].set_ylabel('Million Metric Tons', font=font_path, fontsize=8)
+    ax[0].set_ylim(ymin=0)
 
     legend_values = []
     for region in regions_info['regions']:
@@ -166,6 +167,7 @@ def main():
     plot_region_consumption(ax[1], 'perCapitaKg', source, colors)
     ax[1].set_title('(B) Per-Capita Consumption', font=font_path, fontsize=10)
     ax[1].set_ylabel('Kg / Year', font=font_path, fontsize=8)
+    ax[1].set_ylim(ymin=0)
 
     if SHOW_CONSUMPTION:
         plot_region_consumption(ax[2], 'perGdpKg', source, colors)
