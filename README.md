@@ -133,7 +133,7 @@ Note that the following may be invoked as executables like via the command line 
  - [Processing](https://processing.org/) under the [GPL License](https://github.com/benfry/processing4/blob/main/LICENSE.md).
  - [Webpack](https://webpack.js.org/) under the [MIT License](https://github.com/webpack/webpack/blob/main/LICENSE).
 
-Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the following:
+Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the libraries described in `build.yml`.
 
 Meanwhile, the optional containerized environment uses the following:
 
