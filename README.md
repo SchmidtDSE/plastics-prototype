@@ -126,7 +126,7 @@ Note that the following may be invoked as executables like via the command line 
 
  - [Grunt](https://gruntjs.com/) under the [MIT License](https://github.com/gruntjs/grunt/blob/main/LICENSE).
  - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect) under the 
- - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-connect) under the [MIT License](https://github.com/gruntjs/grunt-contrib-connect/blob/main/LICENSE-MIT).
+ - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-qunit) under the [MIT License](https://github.com/gruntjs/grunt-contrib-qunit/blob/main/LICENSE-MIT).
  - [Node](https://nodejs.org/en) under an [open source set of licenses](https://github.com/nodejs/node/blob/main/LICENSE).
  - [npm](https://www.npmjs.com/) under [Artistic v2 License](https://docs.npmjs.com/policies/npm-license).
  - [OpenJDK](https://openjdk.org/) under the [GPL License](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
