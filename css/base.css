@@ -830,7 +830,7 @@ h2 .info-img, h3 .info-img {
 /* (C2) DEFAULT - ARROW ON RIGHT SIDE */
 .sel::after {
   position: absolute;
-  top: 44%; right: 10px;
+  top: 48%; right: 10px;
   transform: translateY(-50%);
   pointer-events: none;
 }
