@@ -4,6 +4,29 @@ Prototype for the plastics decision support tool with transparent intervention c
 
 <br>
 
+Related
+--------------------------------------------------------------------------------
+See also [source code for "main" pipeline](https://github.com/SchmidtDSE/plastics-pipeline) and [source code for the GHG pipeline](https://github.com/SchmidtDSE/plastics-ghg-pipeline). Further documentation for this effort can be found in our [supplemental scripts](https://github.com/SchmidtDSE/plastics-supplemental-scripts) and [documentation](https://github.com/SchmidtDSE/plastics-interventions-doc) repositories. This final repository produces the following documentation chapters:
+
+ - [Machine learning base model for business as usual](https://global-plastics-tool.org/pdf/ml.pdf)
+ - [Sectorizing secondary material](https://global-plastics-tool.org/pdf/sectorizing_secondary_material.pdf)
+ - [Polymer-level estimation and GHG calculations](https://global-plastics-tool.org/pdf/polymers_and_ghg.pdf)
+ - [Policy engine overview](https://global-plastics-tool.org/pdf/engine.pdf)
+ - [Additives](https://global-plastics-tool.org/pdf/additives.pdf)
+ - [Consumption tax](https://global-plastics-tool.org/pdf/consumption_tax.pdf)
+ - [Incineration investment](https://global-plastics-tool.org/pdf/incineration_investment.pdf)
+ - [Maximum mismanaged rate](https://global-plastics-tool.org/pdf/max_mismanaged_rate.pdf)
+ - [Minimum recycled content](https://global-plastics-tool.org/pdf/min_recycled_content.pdf)
+ - [Minimum recycling (collection) rate](https://global-plastics-tool.org/pdf/min_recycling_rate.pdf)
+ - [Minimum reuse rate](https://global-plastics-tool.org/pdf/min_reuse_rate.pdf)
+ - [Recycling investment](https://global-plastics-tool.org/pdf/recycling_investment.pdf)
+ - [Reduced packaging](https://global-plastics-tool.org/pdf/reduce_packaging.pdf)
+ - [Virgin plastic production cap](https://global-plastics-tool.org/pdf/virgin_plastic_cap.pdf)
+ - [Waste management investment](https://global-plastics-tool.org/pdf/waste_management_investment.pdf)
+ - [Waste trade](https://global-plastics-tool.org/pdf/waste_trade.pdf)
+
+<br>
+
 Purpose
 --------------------------------------------------------------------------------
 This tool allows users to explore potential future plastic outcomes including waste and consumption under different policy scenarios. It does this primarily through an [interactive browser-based tool](https://global-plastics-tool.org/) but also offers some [static visualizations](https://github.com/SchmidtDSE/plastics-prototype/tree/main/image_gen) and the ability to run these policy scenarios through Node [outside the browser](https://github.com/SchmidtDSE/plastics-prototype/tree/main/js_standalone). Altogther, this tool provides new perspective to policy makers and other stakeholders on how to address global plastic waste, hoping to help inform efforts such as [UN INC on Plastic Pollution](https://www.unep.org/inc-plastic-pollution).
@@ -93,12 +116,6 @@ Papers are still in process. Please cite preprint at [10.48550/arXiv.2312.11359]
 
 <br>
 
-Related Repositories
---------------------------------------------------------------------------------
-See also [source code for "main" pipeline](https://github.com/SchmidtDSE/plastics-pipeline) and [source code for the GHG pipeline](https://github.com/SchmidtDSE/plastics-ghg-pipeline).
-
-<br>
-
 Open source
 --------------------------------------------------------------------------------
 The project uses the following:
@@ -126,14 +143,14 @@ Note that the following may be invoked as executables like via the command line 
 
  - [Grunt](https://gruntjs.com/) under the [MIT License](https://github.com/gruntjs/grunt/blob/main/LICENSE).
  - [grunt-contrib-connect](https://github.com/gruntjs/grunt-contrib-connect) under the 
- - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-connect) under the [MIT License](https://github.com/gruntjs/grunt-contrib-connect/blob/main/LICENSE-MIT).
+ - [grunt-contrib-qunit](https://github.com/gruntjs/grunt-contrib-qunit) under the [MIT License](https://github.com/gruntjs/grunt-contrib-qunit/blob/main/LICENSE-MIT).
  - [Node](https://nodejs.org/en) under an [open source set of licenses](https://github.com/nodejs/node/blob/main/LICENSE).
  - [npm](https://www.npmjs.com/) under [Artistic v2 License](https://docs.npmjs.com/policies/npm-license).
  - [OpenJDK](https://openjdk.org/) under the [GPL License](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
  - [Processing](https://processing.org/) under the [GPL License](https://github.com/benfry/processing4/blob/main/LICENSE.md).
  - [Webpack](https://webpack.js.org/) under the [MIT License](https://github.com/webpack/webpack/blob/main/LICENSE).
 
-Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the following:
+Our CI / CD systems via [GitHub Actions](https://docs.github.com/en/actions) also use the libraries described in `build.yml`.
 
 Meanwhile, the optional containerized environment uses the following:
 
