@@ -315,7 +315,8 @@ class SliderPresenter {
         const value = self.getValue();
         const minValue = contextInfo["min"];
         const maxValue = contextInfo["max"];
-        const showContextInfo = value >= minValue && value <= maxValue;
+        const inBounds = value >= minValue && value <= maxValue;
+        const showContextInfo = !inBounds;
         if (showContextInfo) {
             self._rootElement.querySelector(
                 ".info-indicator",
