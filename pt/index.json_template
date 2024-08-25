@@ -375,8 +375,8 @@
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
                     },
                     "context": {
-                        "min": 7.1,
-                        "max": 75,
+                        "min": {{ region['constants']['minConsumptionTax'] }},
+                        "max": {{ region['constants']['maxConsumptionTax'] }},
                         "message": "Warning: You have selected a value that is out of sample and we have low confidence in the predicted impact."
                     },
                     "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"

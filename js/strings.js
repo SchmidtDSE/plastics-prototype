@@ -35,6 +35,7 @@ STRINGS.set("netWasteImportMT", "Net Import (Waste)");
 STRINGS.set("netWasteExportMT", "Net Export (Waste)");
 STRINGS.set("primaryProductionMT", "Virgin (Dom)");
 STRINGS.set("secondaryProductionMT", "Second (Dom)");
+STRINGS.set("ghg", "GHG");
 
 STRINGS.set(DISPLAY_TYPES.amount, "Annual Million Metric Tons");
 STRINGS.set(DISPLAY_TYPES.percent, "% of Region");
