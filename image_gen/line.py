@@ -151,7 +151,7 @@ def main():
 
     plot_region_consumption(ax[0], 'totalConsumptionMT', source, colors)
     ax[0].set_title('(A) Total Consumption', font=font_path, fontsize=10)
-    ax[0].set_ylabel('Million Metric Tons', font=font_path, fontsize=8)
+    ax[0].set_ylabel('Total Yearly Consumption (Million Metric Tons)', font=font_path, fontsize=8)
     ax[0].set_ylim(ymin=0)
 
     legend_values = []
