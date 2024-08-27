@@ -50,7 +50,7 @@
                 "percentIncinerationPlastic": 12,
                 "percentLandfillPlastic": 12,
                 "percentPackagingPs": 1.3,
-                "percentPackagingSingleUse": 98,
+                "percentPackagingSingleUse": 38,
                 "minConsumptionTax": 0,
                 "maxConsumptionTax": 6
             }
@@ -105,7 +105,7 @@
                 "percentIncinerationPlastic": 11.5,
                 "percentLandfillPlastic": 11.5,
                 "percentPackagingPs": 2.2,
-                "percentPackagingSingleUse": 96,
+                "percentPackagingSingleUse": 50,
                 "minConsumptionTax": 0,
                 "maxConsumptionTax": 44
             }
@@ -160,7 +160,7 @@
                 "percentIncinerationPlastic": 12,
                 "percentLandfillPlastic": 12,
                 "percentPackagingPs": 1.7,
-                "percentPackagingSingleUse": 96,
+                "percentPackagingSingleUse": 54,
                 "minConsumptionTax": 0,
                 "maxConsumptionTax": 10
             }
@@ -215,7 +215,7 @@
                 "percentIncinerationPlastic": 12,
                 "percentLandfillPlastic": 12,
                 "percentPackagingPs": 1.7,
-                "percentPackagingSingleUse": 97,
+                "percentPackagingSingleUse": 48,
                 "minConsumptionTax": 0,
                 "maxConsumptionTax": 4
             }
