@@ -98,6 +98,7 @@ void loadSemiconstants() {
   STRINGS.put("Transportation", "Transportation");
   STRINGS.put("Textile", "Textile");
   STRINGS.put("Other", "Other");
+  STRINGS.put("ghg", "GHG");
   
   STRINGS.put("banPsPackaging", "Ban polystyrene packaging");
   STRINGS.put("banWasteTrade", "Ban waste trade");
