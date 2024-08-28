@@ -262,23 +262,23 @@ void drawSubheaders() {
   
   textAlign(CENTER, CENTER);
   text(
-    "Consumption",
+    "(A) Consumption",
     (layoutManager.getXStart("consumption") + layoutManager.getXEnd("consumption")) / 2,
     22
   );
   text(
-    "Regions",
+    "(B) Regions",
     (layoutManager.getXStart("regions") + layoutManager.getXEnd("regions")) / 2,
     22
   );
   text(
-    "End of Life",
+    "(C) End of Life",
     (layoutManager.getXStart("waste") + layoutManager.getXEnd("waste")) / 2,
     22
   );
   
   textAlign(LEFT, CENTER);
-  text("Policy", layoutManager.getXStart("policy") + 12, 22);
+  text("(D) Policy", layoutManager.getXStart("policy") + 12, 22);
   
   popStyle();
   popMatrix();
