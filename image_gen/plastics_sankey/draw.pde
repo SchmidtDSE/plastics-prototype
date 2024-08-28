@@ -331,21 +331,21 @@ void drawCaption() {
   text(
     "-400 Mt",
     layoutManager.getXStart("policy") + 12,
-    height - 70
+    height - 70 - 200
   );
 
   textAlign(RIGHT, CENTER);
   text(
     "+400 Mt",
     layoutManager.getXEnd("policy") - 24,
-    height - 70
+    height - 70 - 200
   );
 
   textAlign(CENTER, TOP);
   text(
     "Plastics GHG Impact",
     (layoutManager.getXStart("policy") + layoutManager.getXEnd("policy")) / 2,
-    height - 60
+    height - 60 - 200
   );
 
   noFill();
@@ -353,15 +353,15 @@ void drawCaption() {
   strokeWeight(1);
   line(
     layoutManager.getXStart("policy") + 12,
-    height - 78,
+    height - 78 - 200,
     layoutManager.getXEnd("policy") - 24,
-    height - 78
+    height - 78 - 200
   );
   line(
     layoutManager.getXStart("policy") + 12,
-    height - 62,
+    height - 62 - 200,
     layoutManager.getXEnd("policy") - 24,
-    height - 62
+    height - 62 - 200
   );
   
   popStyle();
