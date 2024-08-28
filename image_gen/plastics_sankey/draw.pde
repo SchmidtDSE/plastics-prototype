@@ -20,7 +20,7 @@ void drawUnsafe() {
   
   drawAxis();
   drawSubheaders();
-  drawHeader();
+  //drawHeader();
   drawCaption();
   
   popStyle();
@@ -54,42 +54,45 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
     textAlign(thin ? LEFT : CENTER, CENTER);
     fill(FONT_COLORS.getOrDefault(groupName, #333333));
     
+    String roundedStr = "" + round(stage.get(groupName));
+    
     if (thin) {
       textFont(BODY_FONT);
-      text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 7);
+      text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 12);
       
       textFont(DETAIL_FONT);
-      text(nfc(stage.get(groupName), 1) + " Mt Plastic", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+      text(roundedStr + " Mt Plastic", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 6);
     } else if (barHeight < 25) {
-      textFont(BODY_FONT);
-      text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY);
+      textFont(DETAIL_FONT);
+      text(STRINGS.getOrDefault(groupName, groupName) + ": " + roundedStr + " Mt", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY);
     } else {
       textFont(BODY_FONT);
-      text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 7);
+      text(STRINGS.getOrDefault(groupName, groupName), thin ? 12 : COLUMN_BODY_WIDTH / 2, midY - 10);
       
       textFont(DETAIL_FONT);
-      text(nfc(stage.get(groupName), 1) + " Mt", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 7);
+      text(roundedStr + " Mt", thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 12);
     }
 
-    if (thin) {      
+    if (thin) {
       float ghgDelta = stage.getGhgDelta(groupName);
-      String ghgValueStr = (ghgDelta > 0 ? "+" : "") + nfc(ghgDelta, 1) + " Megaton CO2e";
+      String ghgStr = "" + round(ghgDelta / 10) * 10;
+      String ghgValueStr = (ghgDelta > 0 ? "+" : "") + ghgStr + " Mt CO2e";
 
       fill(#757575);
       textFont(DETAIL_FONT);
-      text(ghgValueStr, thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 20);
+      text(ghgValueStr, thin ? 12 : COLUMN_BODY_WIDTH / 2, midY + 22);
 
       noFill();
       stroke(#757575);
       strokeWeight(2);
-      float startX = map(0, -400, 400, 12, COLUMN_BODY_WIDTH - 24);
-      line(startX, midY + 29, startX, midY + 36);
+      float startX = map(0, -400, 400, 12, COLUMN_BODY_WIDTH - 10);
+      line(startX, midY + 30, startX, midY + 39);
 
       rectMode(CORNERS);
       noStroke();
       fill(#757575);
-      float endX = map(ghgDelta, -400, 400, 12, COLUMN_BODY_WIDTH - 24);
-      rect(startX, midY + 30, endX, midY + 35);
+      float endX = map(ghgDelta, -400, 400, 12, COLUMN_BODY_WIDTH - 10);
+      rect(startX, midY + 32, endX, midY + 37);
     }
   });
   
@@ -129,8 +132,8 @@ void drawRegions(String column, Map<String, Region> regions) {
     text(STRINGS.get(regionName), COLUMN_BODY_WIDTH / 2, midY - 13);
     
     textFont(DETAIL_FONT);
-    text(nfc(region.getConsumption(), 1) + " Mt consumption", COLUMN_BODY_WIDTH / 2, midY + 1);
-    text(nfc(region.getWaste(), 1) + " Mt waste", COLUMN_BODY_WIDTH / 2, midY + 14);
+    text(round(region.getConsumption()) + " Mt consumption", COLUMN_BODY_WIDTH / 2, midY + 4);
+    text(round(region.getWaste()) + " Mt waste", COLUMN_BODY_WIDTH / 2, midY + 21);
     
     for (String sector : SECTORS) {
       fill(FILL_COLORS.get(sector));
@@ -261,21 +264,21 @@ void drawSubheaders() {
   text(
     "Consumption",
     (layoutManager.getXStart("consumption") + layoutManager.getXEnd("consumption")) / 2,
-    52
+    22
   );
   text(
     "Regions",
     (layoutManager.getXStart("regions") + layoutManager.getXEnd("regions")) / 2,
-    52
+    22
   );
   text(
     "End of Life",
     (layoutManager.getXStart("waste") + layoutManager.getXEnd("waste")) / 2,
-    52
+    22
   );
   
   textAlign(LEFT, CENTER);
-  text("Policy", layoutManager.getXStart("policy") + 12, 52);
+  text("Policy", layoutManager.getXStart("policy") + 12, 22);
   
   popStyle();
   popMatrix();
@@ -337,7 +340,7 @@ void drawCaption() {
   textAlign(RIGHT, CENTER);
   text(
     "+400 Mt",
-    layoutManager.getXEnd("policy") - 24,
+    layoutManager.getXEnd("policy") - 10,
     height - 70 - 200
   );
 
@@ -354,13 +357,13 @@ void drawCaption() {
   line(
     layoutManager.getXStart("policy") + 12,
     height - 78 - 200,
-    layoutManager.getXEnd("policy") - 24,
+    layoutManager.getXEnd("policy") - 10,
     height - 78 - 200
   );
   line(
     layoutManager.getXStart("policy") + 12,
     height - 62 - 200,
-    layoutManager.getXEnd("policy") - 24,
+    layoutManager.getXEnd("policy") - 10,
     height - 62 - 200
   );
   

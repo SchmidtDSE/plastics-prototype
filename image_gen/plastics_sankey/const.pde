@@ -1,4 +1,4 @@
-final float COLUMN_BODY_WIDTH = 200;
+final float COLUMN_BODY_WIDTH = 170;
 
 final boolean SHOW_WARNING_TEXT = false;
 
@@ -77,10 +77,10 @@ void loadSemiconstants() {
   FONT_COLORS.put("Textile", #FFFFFF);
   FONT_COLORS.put("Other", #FFFFFF);
   
-  HEADER_FONT = loadFont("Lato-Medium-20.vlw");
-  SUBHEADER_FONT = loadFont("Lato-Medium-15.vlw");
-  BODY_FONT = loadFont("Lato-Medium-13.vlw");
-  DETAIL_FONT = loadFont("Lato-Medium-11.vlw");
+  HEADER_FONT = loadFont("PublicSans-Regular-20.vlw");
+  SUBHEADER_FONT = loadFont("PublicSans-Regular-20.vlw");
+  BODY_FONT = loadFont("PublicSans-Regular-18.vlw");
+  DETAIL_FONT = loadFont("PublicSans-Regular-15.vlw");
   
   STRINGS = new HashMap<>();
   STRINGS.put("china", "China");
@@ -107,7 +107,7 @@ void loadSemiconstants() {
   STRINGS.put("taxVirgin", "Packaging consumption tax");
   STRINGS.put("minimumRecyclingRate", "40% recycled rate");
   STRINGS.put("banSingleUse", "Ban single use");
-  STRINGS.put("capVirgin", "Cap virgin to 2025");
+  STRINGS.put("capVirgin", "Cap virgin to 2020");
   STRINGS.put("recyclingInvestment", "$100B recycling invest");
   STRINGS.put("minimumRecycledContent", "40% recycled content");
   STRINGS.put("minimumPackagingReuse", "80% packaging reuse");
