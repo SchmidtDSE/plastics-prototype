@@ -113,6 +113,7 @@ void loadSemiconstants() {
   STRINGS.put("minimumPackagingReuse", "80% packaging reuse");
   STRINGS.put("wasteInvestment", "$50B waste invest");
 
+  VAL_OVERRIDES = new HashMap<>();
   VAL_OVERRIDES.put("minimumRecycledContent", 8.0);
   VAL_OVERRIDES.put("wasteInvestment", 7.0);
   VAL_OVERRIDES.put("capVirgin", 6.0);
