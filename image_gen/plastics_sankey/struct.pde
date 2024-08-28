@@ -264,6 +264,7 @@ Stage buildPolicyStage(List<Record> records) {
     .filter((x) -> !x.getScenario().equals("banPsPackaging"))
     .filter((x) -> !x.getScenario().equals("banWasteTrade"))
     .filter((x) -> !x.getScenario().equals("reducedAdditives"))
+    .filter((x) -> !x.getScenario().equals("selectPackage"))
     .filter((x) -> !LONGITUDINAL_PATTERN.matcher(x.getScenario()).matches())
     .collect(Collectors.toMap(x -> x.getScenario(), x -> totalMismanagedBau - x.getWaste("Mismanaged")));
   
