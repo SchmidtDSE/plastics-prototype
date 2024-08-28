@@ -180,8 +180,8 @@ class LayoutManager {
     float targetValue = sourceStage.get(connection, name);
     float priorValue = sourceStage.getGroups()
       .sorted((a, b) -> {
-        Float aValue = sourceStage.get(a, name);
-        Float bValue = sourceStage.get(b, name);
+        Float aValue = sourceStage.get(a, name, true);
+        Float bValue = sourceStage.get(b, name, true);
         int nativeComparison = aValue.compareTo(bValue);
         int reverseComparison = -1 * nativeComparison;
         return reverseComparison;

@@ -9,6 +9,7 @@ Map<String, Integer> CONNECT_COLORS;
 Map<String, Integer> FONT_COLORS;
 
 Map<String, String> STRINGS;
+Map<String, Float> VAL_OVERRIDES;
 
 Pattern LONGITUDINAL_PATTERN = Pattern.compile("^[A-Za-z]+20[0-9]+$");
 
@@ -111,4 +112,13 @@ void loadSemiconstants() {
   STRINGS.put("minimumRecycledContent", "40% recycled content");
   STRINGS.put("minimumPackagingReuse", "80% packaging reuse");
   STRINGS.put("wasteInvestment", "$50B waste invest");
+
+  VAL_OVERRIDES.put("minimumRecycledContent", 8.0);
+  VAL_OVERRIDES.put("wasteInvestment", 7.0);
+  VAL_OVERRIDES.put("capVirgin", 6.0);
+  VAL_OVERRIDES.put("recyclingInvestment", 5.0);
+  VAL_OVERRIDES.put("minimumRecyclingRate", 4.0);
+  VAL_OVERRIDES.put("taxVirgin", 3.0);
+  VAL_OVERRIDES.put("banSingleUse", 2.0);
+  VAL_OVERRIDES.put("minimumPackagingReuse", 1.0);
 }
