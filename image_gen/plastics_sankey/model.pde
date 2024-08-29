@@ -73,19 +73,21 @@ List<Record> loadRecords(String csvLoc) {
   for (TableRow row : mainTable.rows()) {
     String region = row.getString("region");
     String scenario = row.getString("scenario");
-    MutableRecord newRecord = new MutableRecord(region, scenario);
-    
-    for (String sector : SECTORS) {
-      float value = row.getFloat("consumption" + sector + "MT");
-      newRecord.addConsumption(sector, value);
+    if (!scenario.equals("selectPackage")) {
+      MutableRecord newRecord = new MutableRecord(region, scenario);
+      
+      for (String sector : SECTORS) {
+        float value = row.getFloat("consumption" + sector + "MT");
+        newRecord.addConsumption(sector, value);
+      }
+      
+      for (String fate : EOL_FATES) {
+        float value = row.getFloat("eol" + fate + "MT");
+        newRecord.addWaste(fate, value);
+      }
+      
+      retList.add(newRecord);
     }
-    
-    for (String fate : EOL_FATES) {
-      float value = row.getFloat("eol" + fate + "MT");
-      newRecord.addWaste(fate, value);
-    }
-    
-    retList.add(newRecord);
   }
   
   return retList;
