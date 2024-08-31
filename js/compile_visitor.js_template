@@ -150,6 +150,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return ctx.getChild(0).accept(self);
     }
 
+    /**
+     * Draw a value randomly from a normal distribution.
+     * 
+     * @param ctx ANTLR context
+     * @returns The value drawn from the distribution.
+     */
     visitDrawNormalExpression(ctx) {
         const self = this;
 
@@ -164,6 +170,12 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         };
     }
 
+    /**
+     * Draw a value randomly from a uniform distribution.
+     * 
+     * @param ctx ANTLR context
+     * @returns The value drawn from the distribution.
+     */
     visitDrawUniformExpression(ctx) {
         const self = this;
 
