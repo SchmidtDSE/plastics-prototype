@@ -150,20 +150,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return ctx.getChild(0).accept(self);
     }
 
-    drawNormalExpression(ctx) {
-        const self = this;
-
-        const lowValueFuture = ctx.getChild(3).accept(self);
-        const highValueFuture = ctx.getChild(5).accept(self);
-
-        return (state) => {
-            const lowValue = lowValueFuture(state);
-            const highValue = highValueFuture(state);
-            return d3.randomUniform(lowValue, highValue);
-        };
-    }
-
-    drawUniformExpression(ctx) {
+    visitDrawNormalExpression(ctx) {
         const self = this;
 
         const meanFuture = ctx.getChild(5).accept(self);
@@ -172,7 +159,22 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return (state) => {
             const meanValue = meanFuture(state);
             const stdValue = stdFuture(state);
-            return d3.randomNormal(meanValue, stdValue);
+            const generator = d3.randomNormal(meanValue, stdValue);
+            return generator();
+        };
+    }
+
+    visitDrawUniformExpression(ctx) {
+        const self = this;
+
+        const lowValueFuture = ctx.getChild(3).accept(self);
+        const highValueFuture = ctx.getChild(5).accept(self);
+
+        return (state) => {
+            const lowValue = lowValueFuture(state);
+            const highValue = highValueFuture(state);
+            const generator = d3.randomUniform(lowValue, highValue);
+            return generator();
         };
     }
 
