@@ -4,6 +4,7 @@ interface Stage {
   public boolean getIsShadow(String group, String connection);
   public float get(String group);
   public float get(String group, String connection);
+  public float get(String group, String connection, boolean allowOverride);
   public Stream<String> getGroups();
   public Stream<String> getConnections(String group);
   public Stream<String> getShadowConnections(String group);
@@ -49,6 +50,14 @@ class MutableStage implements Stage {
       return getShadow(group, connection);
     }
     return connections.get(group).get(connection);
+  }
+
+  public float get(String group, String connection, boolean allowOverride) {
+    if (!allowOverride || !VAL_OVERRIDES.containsKey(group)) {
+      return get(group, connection);
+    } else {
+      return VAL_OVERRIDES.get(group);
+    }
   }
   
   public Stream<String> getGroups() {
@@ -252,6 +261,10 @@ Stage buildPolicyStage(List<Record> records) {
     .filter((x) -> !x.getScenario().equals("businessAsUsual"))
     .filter((x) -> !x.getScenario().equals("lowAmbition"))
     .filter((x) -> !x.getScenario().equals("highAmbition"))
+    .filter((x) -> !x.getScenario().equals("banPsPackaging"))
+    .filter((x) -> !x.getScenario().equals("banWasteTrade"))
+    .filter((x) -> !x.getScenario().equals("reducedAdditives"))
+    .filter((x) -> !x.getScenario().equals("selectPackage"))
     .filter((x) -> !LONGITUDINAL_PATTERN.matcher(x.getScenario()).matches())
     .collect(Collectors.toMap(x -> x.getScenario(), x -> totalMismanagedBau - x.getWaste("Mismanaged")));
   
