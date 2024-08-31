@@ -26,7 +26,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
       - uses: actions/setup-python@v4
         with:
           python-version: '3.11'
@@ -72,7 +72,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
       - name: Install Java
         uses: actions/setup-java@v3
         with:
@@ -101,7 +101,7 @@ jobs:
         run: bash support/update_scenarios_default.sh
       - name: Execute example
         run: bash support/execute_standalone_example.sh
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: standalone-example
           path: js_standalone/test_output.json
@@ -110,7 +110,7 @@ jobs:
         run: bash support/run_scenarios_standalone.sh
       - name: Zip standalone results
         run: zip -r standalone_tasks.zip standalone_tasks
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: standalone-all
           path: standalone_tasks.zip
@@ -131,7 +131,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Download images
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: standalone-all
       - name: Unzip standalone
@@ -164,7 +164,7 @@ jobs:
         run: bash support/check_image_outputs.sh
       - name: Snapshot images
         run: zip -r img.zip img
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: img-snapshot
           path: img.zip
@@ -193,7 +193,7 @@ jobs:
       - name: Download artifact
         run: bash support/get_pipeline_output.sh
       - name: Download images
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: img-snapshot
       - name: Unzip images
@@ -201,7 +201,7 @@ jobs:
       - name: Check images
         run: bash support/check_image_outputs.sh
       - name: Download standalone
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: standalone-all
       - name: Unzip standalone results
@@ -222,12 +222,12 @@ jobs:
         run: bash ./support/package.sh
       - name: Build zip
         run: zip -r deploy.zip deploy
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: deploy
           path: ./deploy.zip
           if-no-files-found: error
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: index
           path: ./deploy/index.html 
@@ -240,7 +240,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deploy
       - name: Unzip
@@ -255,7 +255,7 @@ jobs:
     if: github.ref == 'refs/heads/deploy'
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deploy
       - name: Unzip
