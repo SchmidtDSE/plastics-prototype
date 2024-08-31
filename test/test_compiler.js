@@ -56,6 +56,38 @@ function buildCompilerTest() {
             assert.ok(workspace.get("out").get("test") == 50);
         });
 
+        QUnit.test("variable draw uniform", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = draw uniformly from 5 to 10;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") >= 5);
+            assert.ok(workspace.get("out").get("test") <= 10);
+        });
+
+        QUnit.test("variable draw normal", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = draw normally from mean of 5 std of 1;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") >= 0);
+            assert.ok(workspace.get("out").get("test") <= 10);
+        });
+
         QUnit.test("limit both apply", function(assert) {
             const workspace = buildWorkspace();
             const code = [
