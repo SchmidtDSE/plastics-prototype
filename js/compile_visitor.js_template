@@ -150,6 +150,32 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         return ctx.getChild(0).accept(self);
     }
 
+    drawNormalExpression(ctx) {
+        const self = this;
+
+        const lowValueFuture = ctx.getChild(3).accept(self);
+        const highValueFuture = ctx.getChild(5).accept(self);
+
+        return (state) => {
+            const lowValue = lowValueFuture(state);
+            const highValue = highValueFuture(state);
+            return d3.randomUniform(lowValue, highValue);
+        };
+    }
+    
+    drawUniformExpression(ctx) {
+        const self = this;
+
+        const meanFuture = ctx.getChild(5).accept(self);
+        const stdFuture = ctx.getChild(8).accept(self);
+
+        return (state) => {
+            const meanValue = meanFuture(state);
+            const stdValue = stdFuture(state);
+            return d3.randomNormal(meanValue, stdValue);
+        };
+    }
+
     /**
      * Determine how long the lifecycle is for a set of goods.
      *
