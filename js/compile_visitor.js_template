@@ -162,7 +162,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             return d3.randomUniform(lowValue, highValue);
         };
     }
-    
+
     drawUniformExpression(ctx) {
         const self = this;
 
