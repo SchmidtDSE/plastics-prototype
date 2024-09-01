@@ -1,0 +1,48 @@
+# Get the total waste (post trade)
+var totalWaste = (
+  out.{{ region }}.eolRecyclingMT +
+  out.{{ region }}.eolLandfillMT +
+  out.{{ region }}.eolIncinerationMT +
+  out.{{ region }}.eolMismanagedMT
+);
+
+# Get percents
+var originalRecyclingPercent = out.{{ region }}.eolRecyclingMT / totalWaste;
+var originalLandfillPercent = out.{{ region }}.eolLandfillMT / totalWaste;
+var originalIncinerationPercent = out.{{ region }}.eolIncinerationMT / totalWaste;
+var originalMismanagedPercent = out.{{ region }}.eolMismanagedMT / totalWaste;
+
+# Apply offsets for EOL percents
+var newRecyclingPercent = originalRecyclingPercent + in.{{ region }}PreDeltaRecyclingPercent / 100;
+var newLandfillPercent = originalLandfillPercent + in.{{ region }}PreDeltaLandfillPercent / 100;
+var newIncinerationPercent = originalIncinerationPercent + in.{{ region }}PreDeltaIncinerationPercent / 100;
+var newMismanagedPercent = originalMismanagedPercent + in.{{ region }}PreDeltaMismanagedPercent / 100;
+
+# Ensure in range
+limit newRecyclingPercent to [0,];
+limit newLandfillPercent to [0,];
+limit newIncinerationPercent to [0,];
+limit newMismanagedPercent to [0,];
+
+# Scale
+var totalPercentPreScale = (
+  newRecyclingPercent +
+  newLandfillPercent +
+  newIncinerationPercent +
+  newMismanagedPercent
+);
+var error = 1 - totalPercentPreScale;
+var offset = -1 * error;
+
+distribute offset across [
+  newRecyclingPercent,
+  newLandfillPercent,
+  newIncinerationPercent,
+  newMismanagedPercent
+] proportionally;
+
+# Convert back to masses
+out.{{ region }}.eolRecyclingMT = newRecyclingPercent * totalWaste;
+out.{{ region }}.eolLandfillMT = newLandfillPercent * totalWaste;
+out.{{ region }}.eolIncinerationMT = newIncinerationPercent * totalWaste;
+out.{{ region }}.eolMismanagedMT = newMismanagedPercent * totalWaste;
