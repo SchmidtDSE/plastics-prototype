@@ -1,3 +1,4 @@
+# Determine delta
 var totalConsumption = (
   out.{{ region }}.consumptionAgricultureMT +
   out.{{ region }}.consumptionConstructionMT +
