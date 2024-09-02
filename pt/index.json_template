@@ -1706,7 +1706,7 @@
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
                     },
-                },
+                }{% if not loop.last %},{% endif %}
                 {% endfor %}
             ]
         }
