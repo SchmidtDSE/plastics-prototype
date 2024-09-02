@@ -12,11 +12,18 @@ var originalLandfillPercent = out.{{ region }}.eolLandfillMT / totalWaste;
 var originalIncinerationPercent = out.{{ region }}.eolIncinerationMT / totalWaste;
 var originalMismanagedPercent = out.{{ region }}.eolMismanagedMT / totalWaste;
 
+# Determine offsets
+var overallMultiplier = in.{{ region }}PreEolMultiplier / 100;
+var recyclingDelta = in.{{ region }}PreDeltaRecyclingPercent / 100 * overallMultiplier;
+var landfillDelta = in.{{ region }}PreDeltaLandfillPercent / 100 * overallMultiplier;
+var incinerationDelta = in.{{ region }}PreDeltaIncinerationPercent / 100 * overallMultiplier;
+var mismanagedDelta = in.{{ region }}PreDeltaMismanagedPercent / 100 * overallMultiplier;
+
 # Apply offsets for EOL percents
-var newRecyclingPercent = originalRecyclingPercent + in.{{ region }}PreDeltaRecyclingPercent / 100;
-var newLandfillPercent = originalLandfillPercent + in.{{ region }}PreDeltaLandfillPercent / 100;
-var newIncinerationPercent = originalIncinerationPercent + in.{{ region }}PreDeltaIncinerationPercent / 100;
-var newMismanagedPercent = originalMismanagedPercent + in.{{ region }}PreDeltaMismanagedPercent / 100;
+var newRecyclingPercent = originalRecyclingPercent + recyclingDelta;
+var newLandfillPercent = originalLandfillPercent + landfillDelta;
+var newIncinerationPercent = originalIncinerationPercent + incinerationDelta;
+var newMismanagedPercent = originalMismanagedPercent + mismanagedDelta;
 
 # Ensure in range
 limit newRecyclingPercent to [0,];

@@ -60,8 +60,8 @@ distribute offsetPartnerExports across [
 # Propogate into trade partners production
 distribute changeImports across [
   {{#each otherRegions}}
-  out.{{ region }}.primaryProductionMT by out.{{ this }}.netImportsMT * out.{{ region }}.primaryProductionMT,
-  out.{{ region }}.secondaryProductionMT by out.{{ this }}.netImportsMT * out.{{ region }}.secondaryProductionMT{{#unless @last}},{{/unless}}
+  out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
+  out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] propotionally;
 

@@ -1,0 +1,86 @@
+# Determine deltas
+var allowedMultiplier = in.{{ region }}PreConsumptionMultiplier / 100;
+var agricultureDelta = in.{{ region }}PreConsumptionAgricultureMT * allowedMultiplier;
+var constructionDelta = in.{{ region }}PreConsumptionConstructionMT * allowedMultiplier;
+var electronicDelta = in.{{ region }}PreConsumptionElectronicConstructionMT * allowedMultiplier;
+var hlsDelta = in.{{ region }}PreConsumptionHouseholdLeisureSportsConstructionMT * allowedMultiplier;
+var packagingDelta = in.{{ region }}PreConsumptionPackagingMT * allowedMultiplier;
+var transportationDelta = in.{{ region }}PreConsumptionTransportationMT * allowedMultiplier;
+var textileDelta = in.{{ region }}PreConsumptionTextileMT * allowedMultiplier;
+var otherDelta = in.{{ region }}PreConsumptionOtherMT * allowedMultiplier;
+
+# Apply deltas
+out.{{ region }}.consumptionAgricultureMT = out.{{ region }}.consumptionAgricultureMT + agricultureDelta;
+out.{{ region }}.consumptionConstructionMT = out.{{ region }}.consumptionConstructionMT + constructionDelta;
+out.{{ region }}.consumptionElectronicMT = out.{{ region }}.consumptionElectronicMT + electronicDelta;
+out.{{ region }}.consumptionHouseholdLeisureSportsMT = out.{{ region }}.consumptionHouseholdLeisureSportsMT + hlsDelta;
+out.{{ region }}.consumptionPackagingMT = out.{{ region }}.consumptionPackagingMT + packagingDelta;
+out.{{ region }}.consumptionTransportationMT = out.{{ region }}.consumptionTransportationMT + transportationDelta;
+out.{{ region }}.consumptionTextileMT = out.{{ region }}.consumptionTextileMT + textileDelta;
+out.{{ region }}.consumptionOtherMT = out.{{ region }}.consumptionOtherMT + otherDelta;
+
+# Determine overall consumption change
+var overallConsumptionDelta = (
+  agricultureDelta +
+  constructionDelta +
+  electronicDelta +
+  hlsDelta +
+  packagingDelta +
+  transportationDelta +
+  textileDelta +
+  otherDelta
+);
+
+# Update production, determining change to trade
+var priorTrade = out.{{ region }}.netImportsMT;
+
+distribute overallConsumptionDelta across [
+  out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT,
+  out.{{ region }}.netImportsMT
+] proportionally;
+
+var changeImports = out.{{ region }}.netImportsMT - priorTrade;
+
+# Propogate new imports to other regions production
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
+  out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] propotionally;
+
+# Update waste, determining change to trade
+var priorWasteTrade = out.{{ region }}.netWasteExportMT;
+
+distribute overallConsumptionDelta across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT,
+  out.{{ region }}.netWasteExportMT
+] proportionally;
+
+var changeWasteExport = out.{{ region }}.netWasteExportMT - priorWasteTrade;
+
+# Propogate new waste exports to other regions
+distribute changeWasteExport across [
+  {{#each otherRegions}}
+  out.{{ this }}.netWasteImportMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+distribute changeWasteExport across [
+  {{#each otherRegions}}
+  out.{{ this }}.eolRecyclingMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolRecyclingMT,
+  out.{{ this }}.eolLandfillMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolLandfillMTby,
+  out.{{ this }}.eolIncinerationMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolIncinerationMT,
+  out.{{ this }}.eolMismanagedMT out.{{ this }}.netWasteImportMT * out.{{ this }}.eolMismanagedMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] propotionally;
