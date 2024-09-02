@@ -63,7 +63,7 @@ distribute changeImports across [
   out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
   out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
   {{/each}}
-] propotionally;
+] proportionally;
 
 # Balance goods exports
 var offsetPartnerImports = -1 * changeExports;

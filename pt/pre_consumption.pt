@@ -54,7 +54,7 @@ distribute changeImports across [
   out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
   out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
   {{/each}}
-] propotionally;
+] proportionally;
 
 # Update waste, determining change to trade
 var priorWasteTrade = out.{{ region }}.netWasteExportMT;
@@ -83,4 +83,4 @@ distribute changeWasteExport across [
   out.{{ this }}.eolIncinerationMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolIncinerationMT,
   out.{{ this }}.eolMismanagedMT out.{{ this }}.netWasteImportMT * out.{{ this }}.eolMismanagedMT{{#unless @last}},{{/unless}}
   {{/each}}
-] propotionally;
+] proportionally;
