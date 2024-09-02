@@ -337,10 +337,12 @@ function main() {
         .then((x) => consolidateWorkspace(x[0], x[1]))
         .then(executeWorkspace)
         .then(serializeOutputs)
-        .then((workspace) => writeJson(workspace, outputLoc))
         .then(
-            (x) => console.log("done"),
-            (x) => console.log("error: " + x),
+            (workspace) => writeJson(workspace, outputLoc),
+            (x) => console.log("error: " + x)
+        )
+        .then(
+            (x) => console.log("done")
         );
 }
 
