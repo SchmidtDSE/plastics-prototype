@@ -10,6 +10,23 @@ import jinja2
 NUM_ARGS = 3
 USAGE_STR = 'python render_index.py [template] [template vals] [output]'
 
+FATES = [
+    {'label': 'Recycling', 'key': 'Recycling'},
+    {'label': 'Incineration', 'key': 'Incineration'},
+    {'label': 'Landfill', 'key': 'Landfill'},
+    {'label': 'Mismanaged', 'key': 'Mismanaged'}
+]
+SECTORS = [
+    {'label': 'Agriculture', 'key': 'Agriculture'},
+    {'label': 'Construction', 'key': 'Construction'},
+    {'label': 'Electronic', 'key': 'Electronic'},
+    {'label': 'Household Leisure Sports', 'key': 'HouseholdLeisureSports'},
+    {'label': 'Packaging', 'key': 'Packaging'},
+    {'label': 'Transportation', 'key': 'Transportation'},
+    {'label': 'Textile', 'key': 'Textile'},
+    {'label': 'Other', 'key': 'Other'}
+]
+
 
 def main():
     if len(sys.argv) != NUM_ARGS + 1:
@@ -36,7 +53,12 @@ def main():
         others_quoted = map(lambda x: '"%s"' % x, others)
         return ','.join(others_quoted)
     
-    rendered_str = template.render(regions=regions, get_other_regions=get_other_regions)
+    rendered_str = template.render(
+        regions=regions,
+        fates=FATES,
+        sectors=SECTORS,
+        get_other_regions=get_other_regions
+    )
     rendered_parsed = json.loads(rendered_str)
     rendered_formatted = json.dumps(rendered_parsed, indent=4, sort_keys=True)
 
