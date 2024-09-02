@@ -2,8 +2,8 @@
 var allowedMultiplier = in.{{ region }}PreConsumptionMultiplier / 100;
 var agricultureDelta = in.{{ region }}PreConsumptionAgricultureMT * allowedMultiplier;
 var constructionDelta = in.{{ region }}PreConsumptionConstructionMT * allowedMultiplier;
-var electronicDelta = in.{{ region }}PreConsumptionElectronicConstructionMT * allowedMultiplier;
-var hlsDelta = in.{{ region }}PreConsumptionHouseholdLeisureSportsConstructionMT * allowedMultiplier;
+var electronicDelta = in.{{ region }}PreConsumptionElectronicMT * allowedMultiplier;
+var hlsDelta = in.{{ region }}PreConsumptionHouseholdLeisureSportsMT * allowedMultiplier;
 var packagingDelta = in.{{ region }}PreConsumptionPackagingMT * allowedMultiplier;
 var transportationDelta = in.{{ region }}PreConsumptionTransportationMT * allowedMultiplier;
 var textileDelta = in.{{ region }}PreConsumptionTextileMT * allowedMultiplier;
@@ -81,6 +81,6 @@ distribute changeWasteExport across [
   out.{{ this }}.eolRecyclingMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolRecyclingMT,
   out.{{ this }}.eolLandfillMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolLandfillMTby,
   out.{{ this }}.eolIncinerationMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolIncinerationMT,
-  out.{{ this }}.eolMismanagedMT out.{{ this }}.netWasteImportMT * out.{{ this }}.eolMismanagedMT{{#unless @last}},{{/unless}}
+  out.{{ this }}.eolMismanagedMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolMismanagedMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
