@@ -1,0 +1,1 @@
+../pt/pre_consumption.pt line 85, col 28: missing BY_ at 'out'

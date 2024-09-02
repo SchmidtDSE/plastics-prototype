@@ -186,7 +186,7 @@ function buildLevers(jobInfo) {
         parser.removeErrorListeners();
         parser.addErrorListener({
             syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-                const result = `(line ${line}, col ${column}): ${msg}`;
+                const result = `${loc} line ${line}, col ${column}: ${msg}`;
                 errors.push(result);
             },
         });
