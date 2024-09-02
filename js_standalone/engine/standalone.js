@@ -162,7 +162,7 @@ function buildWorkspace(jobInfo) {
  * @returns Promise resolving to the levers with compiled code.
  */
 function buildLevers(jobInfo) {
-    const parseProgram = (input) => {
+    const parseProgram = (input, loc) => {
         if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
             return null;
         }
@@ -174,7 +174,7 @@ function buildLevers(jobInfo) {
         lexer.removeErrorListeners();
         lexer.addErrorListener({
             syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-                const result = `(line ${line}, col ${column}): ${msg}`;
+                const result = `${loc} line ${line} col ${column}: ${msg}`;
                 errors.push(result);
             },
         });
@@ -210,7 +210,7 @@ function buildLevers(jobInfo) {
             .then((x) => x.toString())
             .then((x) => handlebars.compile(x))
             .then((x) => x(templateVals))
-            .then(parseProgram);
+            .then((x) => parseProgram(x, loc));
     };
 
     const baseUrl = jobInfo["levers"];
