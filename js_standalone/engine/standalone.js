@@ -32,8 +32,8 @@ const DATA_ATTRS = [
     "netWasteImportMT",
 ];
 
-const NUM_ARGS = 2;
-const USAGE_STR = "USAGE: npm run standalone [job] [output]";
+const NUM_ARGS = 3;
+const USAGE_STR = "USAGE: npm run standalone [job] [output] [error]";
 
 
 /**
@@ -316,6 +316,7 @@ function main() {
 
     const jobLoc = process.argv[2];
     const outputLoc = process.argv[3];
+    const errorLoc = process.argv[4];
     const jobFuture = loadJson(jobLoc);
 
     const futureWorkspace = jobFuture.then(buildWorkspace);
@@ -337,11 +338,14 @@ function main() {
         .then((x) => consolidateWorkspace(x[0], x[1]))
         .then(executeWorkspace)
         .then(serializeOutputs)
+        .then((workspace) => writeJson(workspace, outputLoc))
         .then(
-            (workspace) => writeJson(workspace, outputLoc),
-            (x) => console.log("error: " + x),
-        )
-        .then((x) => console.log("done"));
+            (x) => console.log("done"),
+            (x) => {
+                console.log("error: " + x);
+                return fs.promises.writeFile(errorLoc, x);
+            },
+        );
 }
 
 

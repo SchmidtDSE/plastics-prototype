@@ -3,7 +3,7 @@ python support/build_scenarios.py pt/scenarios.json js_standalone/example.json .
 
 cd js_standalone
 for file in ../standalone_tasks/*.json; do 
-    npm run standalone "$file" "$file"
+    npm run standalone "$file" "$file" "test_error.txt"
 done
 cd ..
 
