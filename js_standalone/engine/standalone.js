@@ -339,11 +339,9 @@ function main() {
         .then(serializeOutputs)
         .then(
             (workspace) => writeJson(workspace, outputLoc),
-            (x) => console.log("error: " + x)
+            (x) => console.log("error: " + x),
         )
-        .then(
-            (x) => console.log("done")
-        );
+        .then((x) => console.log("done"));
 }
 
 
