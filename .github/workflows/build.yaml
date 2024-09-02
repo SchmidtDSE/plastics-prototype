@@ -20,7 +20,7 @@ jobs:
   checkScripts:
     environment: build
     runs-on: ubuntu-latest
-    name: Run Standalone
+    name: Check Policy Scripts
     needs: [checkArtifact]
     steps:
       - name: Checkout
