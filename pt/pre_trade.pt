@@ -39,10 +39,17 @@ var changeExports = -1 * delta;
 limit changeExports to [0,];
 
 # Report trade impact
-out.{{ region }}.netImportsMT = out.{{ region }}.netImportsMT + changeImports;
-out.{{ region }}.netExportsMT = out.{{ region }}.netExportsMT + changeExports;
+var newNet = out.{{ region }}.netImportsMT - out.{{ region }}.netExportsMT + delta;
+var newImports = newNet;
+var newExports = newNet * -1;
 
-# Balance goods trade
+limit newImports = [0,];
+limit newExports = [0,];
+
+out.{{ region }}.netImportsMT = newImports;
+out.{{ region }}.netExportsMT = newExports;
+
+# Balance goods imports
 var offsetPartnerExports = -1 * changeImports;
 distribute offsetPartnerExports across [
   {{#each otherRegions}}
@@ -50,6 +57,15 @@ distribute offsetPartnerExports across [
   {{/each}}
 ] proportionally;
 
+# Propogate into trade partners production
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{ region }}.primaryProductionMT by out.{{ this }}.netImportsMT * out.{{ region }}.primaryProductionMT,
+  out.{{ region }}.secondaryProductionMT by out.{{ this }}.netImportsMT * out.{{ region }}.secondaryProductionMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] propotionally;
+
+# Balance goods exports
 var offsetPartnerImports = -1 * changeExports;
 distribute offsetPartnerImports across [
   {{#each otherRegions}}
@@ -58,19 +74,17 @@ distribute offsetPartnerImports across [
 ] proportionally;
 
 # Propogate into trade partners waste fate
-var totalPartnerImports = (
-  {{#each otherRegions}}
-  out.{{ this }}.netImportsMT{{#unless @last}} +{{/unless}}
-  {{/each}}
-);
-
 {{#each otherRegions}}
-var {{ this }}PercentImport = out.{{ this }}.netImportsMT / totalPartnerImports;
-var {{ this }}ChangeImports = {{ this }}PercentImport * offsetPartnerImports;
-distribute {{ this }}ChangeImports across [
-  out.{{ this }}.eolRecyclingMT
-  out.{{ this }}.eolLandfillMT
-  out.{{ this }}.eolIncinerationMT
-  out.{{ this }}.eolMismanagedMT
-] proportionally;
+var {{ this }}WasteMultiplier = out.{{ this }}.netImportsMT;
+{{ this }}WasteMultiplier = {{ this }}Multiplier - out.{{ this }}.netWasteExportMT;
+{{ this }}WasteMultiplier = {{ this }}Multiplier + out.{{ this }}.netWasteImportMT;
 {{/each}}
+
+distribute offsetPartnerImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolIncinerationMT by out.{{ this }}.eolIncinerationMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolMismanagedMT by out.{{ this }}.eolMismanagedMT * {{ this }}WasteMultiplier{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
