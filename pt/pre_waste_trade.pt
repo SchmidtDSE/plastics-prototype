@@ -24,10 +24,27 @@ var newExport = newNetTrade;
 limit newExport to [,0];
 out.{{ region }}.netWasteExportMT = -1 * newExport;
 
-# Update the EOL values
+# Update the domestic EOL values
 distribute delta across [
   out.{{ region }}.eolRecyclingMT,
   out.{{ region }}.eolLandfillMT,
   out.{{ region }}.eolIncinerationMT,
   out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Update partner imports
+var newPartnerImports = -1 * newExport;
+distribute newPartnerImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.netWasteImportMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+distribute newPartnerImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * out.{{ this }}.netWasteImportMT,
+  out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * out.{{ this }}.netWasteImportMT,
+  out.{{ this }}.eolIncinerationMT by out.{{ this }}.eolIncinerationMT * out.{{ this }}.netWasteImportMT,
+  out.{{ this }}.eolMismanagedMT by out.{{ this }}.eolMismanagedMT * out.{{ this }}.netWasteImportMT{{#unless @last}},{{/unless}}
+  {{/each}}
 ] proportionally;
