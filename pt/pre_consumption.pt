@@ -9,6 +9,16 @@ var transportationDelta = in.{{ region }}PreConsumptionTransportationMT * allowe
 var textileDelta = in.{{ region }}PreConsumptionTextileMT * allowedMultiplier;
 var otherDelta = in.{{ region }}PreConsumptionOtherMT * allowedMultiplier;
 
+# Apply limits
+limit agricultureDelta to [-1 * out.{{ region }}.consumptionAgricultureMT,];
+limit constructionDelta to [-1 * out.{{ region }}.consumptionConstructionMT,];
+limit electronicDelta to [-1 * out.{{ region }}.consumptionElectronicMT,];
+limit hlsDelta to [-1 * out.{{ region }}.consumptionHouseholdLeisureSportsMT,];
+limit packagingDelta to [-1 * out.{{ region }}.consumptionPackagingMT,];
+limit transportationDelta to [-1 * out.{{ region }}.consumptionTransportationMT,];
+limit textileDelta to [-1 * out.{{ region }}.consumptionTextileMT,];
+limit otherDelta to [-1 * out.{{ region }}.consumptionOtherMT,];
+
 # Apply deltas
 out.{{ region }}.consumptionAgricultureMT = out.{{ region }}.consumptionAgricultureMT + agricultureDelta;
 out.{{ region }}.consumptionConstructionMT = out.{{ region }}.consumptionConstructionMT + constructionDelta;
@@ -79,7 +89,7 @@ distribute changeWasteExport across [
 distribute changeWasteExport across [
   {{#each otherRegions}}
   out.{{ this }}.eolRecyclingMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolRecyclingMT,
-  out.{{ this }}.eolLandfillMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolLandfillMTby,
+  out.{{ this }}.eolLandfillMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolLandfillMT,
   out.{{ this }}.eolIncinerationMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolIncinerationMT,
   out.{{ this }}.eolMismanagedMT by out.{{ this }}.netWasteImportMT * out.{{ this }}.eolMismanagedMT{{#unless @last}},{{/unless}}
   {{/each}}
