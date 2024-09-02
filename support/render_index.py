@@ -59,7 +59,15 @@ def main():
         sectors=SECTORS,
         get_other_regions=get_other_regions
     )
-    rendered_parsed = json.loads(rendered_str)
+
+    try:
+        rendered_parsed = json.loads(rendered_str)
+    except json.decoder.JSONDecodeError as e:
+        with open(output_loc, 'w') as f:
+            f.write(rendered_str)
+        
+        raise RuntimeError('Index JSON corrupted: %s' % e)
+
     rendered_formatted = json.dumps(rendered_parsed, indent=4, sort_keys=True)
 
     with open(output_loc, 'w') as f:

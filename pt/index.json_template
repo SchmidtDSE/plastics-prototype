@@ -1627,7 +1627,7 @@
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
-                    },
+                    }
                 },
                     {% for fate in fates %}
                     {
@@ -1665,7 +1665,7 @@
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
-                    },
+                    }
                 },
                 {
                     "name": "{{ region['label'] }} Change in Trade",
@@ -1685,7 +1685,7 @@
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
-                    },
+                    }
                 },
                 {
                     "name": "{{ region['label'] }} Change in Waste Trade",
@@ -1705,7 +1705,7 @@
                     "attrs": {
                         "region": "{{ region['key'] }}",
                         "otherRegions": [{{ get_other_regions(region['key']) }}]
-                    },
+                    }
                 }{% if not loop.last %},{% endif %}
                 {% endfor %}
             ]
