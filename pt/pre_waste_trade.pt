@@ -24,6 +24,12 @@ var newExport = newNetTrade;
 limit newExport to [,0];
 out.{{ region }}.netWasteExportMT = -1 * newExport;
 
+# Determine directional change
+var newImportDelta = delta;
+limit newImportDelta to [0,];
+var newExportDelta = delta * -1;
+limit newExportDelta to [0,];
+
 # Update the domestic EOL values
 distribute delta across [
   out.{{ region }}.eolRecyclingMT,
@@ -33,14 +39,13 @@ distribute delta across [
 ] proportionally;
 
 # Update partner imports
-var newPartnerImports = -1 * newExport;
-distribute newPartnerImports across [
+distribute newExportDelta across [
   {{#each otherRegions}}
   out.{{ this }}.netWasteImportMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
 
-distribute newPartnerImports across [
+distribute newExportDelta across [
   {{#each otherRegions}}
   out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * out.{{ this }}.netWasteImportMT,
   out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * out.{{ this }}.netWasteImportMT,
@@ -50,14 +55,13 @@ distribute newPartnerImports across [
 ] proportionally;
 
 # Update partner exports
-var newPartnerExports = -1 * newImport;
-distribute newPartnerExports across [
+distribute newImportDelta across [
   {{#each otherRegions}}
   out.{{ this }}.netWasteExportMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
 
-distribute (-1 * newPartnerImports) across [
+distribute (-1 * newImportDelta) across [
   {{#each otherRegions}}
   out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * out.{{ this }}.netWasteExportMT,
   out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * out.{{ this }}.netWasteExportMT,
