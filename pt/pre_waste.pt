@@ -31,7 +31,7 @@ var totalPercentPreScale = (
   newIncinerationPercent +
   newMismanagedPercent
 );
-var error = 1 - totalPercentPreScale;
+var error = totalPercentPreScale - 1;
 var offset = -1 * error;
 
 distribute offset across [
