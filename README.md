@@ -122,6 +122,7 @@ The project uses the following:
 
  - [ANTLR](https://www.antlr.org/index.html) under the [BSD License](https://www.antlr.org/license.html).
  - [Ace Editor](https://ace.c9.io/) under the [BSD License](https://github.com/ajaxorg/ace/blob/master/LICENSE).
+ - [Chart.js](https://www.chartjs.org) under the [MIT License](https://github.com/chartjs/Chart.js/blob/master/LICENSE.md).
  - [ColorBrewer](https://colorbrewer2.org) under the [Apache v2 License](https://github.com/axismaps/colorbrewer/blob/master/LICENCE.txt).
  - [d3](https://d3js.org/) under the [ISC License](https://github.com/d3/d3/blob/main/LICENSE).
  - [es-module-shims](https://www.npmjs.com/package/es-module-shims) under the [MIT License](https://github.com/guybedford/es-module-shims/blob/main/LICENSE).
