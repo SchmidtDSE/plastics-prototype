@@ -204,17 +204,17 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const countFuture = ctx.getChild(1).accept(self);
         const expressionFuture = ctx.getChild(4).accept(self);
 
-        const reduceFunc = {
-            "product": (a, b, length) => a * b,
-            "sum": (a, b, length) => a + b,
-            "average": (a, b, length) => a / length + b / length,
+        const reduceStrategy = {
+            "product": {"acc": (a, b, length) => a * b, "scale": (x, length) => x},
+            "sum": {"acc": (a, b, length) => a + b, "scale": (x, length) => x},
+            "average": {"acc": (a, b, length) => a + b, "scale": (x, length) => x / length}
         }[summarizationStrategy];
 
         return (state) => {
             const count = countFuture(state);
 
             const values = [];
-            for (let i = 0; i < count; count++) {
+            for (let i = 0; i < count; i++) {
                 values.push(expressionFuture(state));
             }
 
@@ -222,7 +222,10 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             if (numValues == 0) {
                 return 0;
             } else {
-                return values.reduce((a, b) => reduceFunc(a, b, numValues));
+                const accStrategy = reduceStrategy["acc"];
+                const scaleStrategy = reduceStrategy["scale"];
+                const accumulated = values.reduce((a, b) => accStrategy(a, b, numValues));
+                return scaleStrategy(accumulated, numValues);
             }
         };
     }

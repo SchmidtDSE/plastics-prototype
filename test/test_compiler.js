@@ -130,7 +130,7 @@ function buildCompilerTest() {
 
             const program = compileResult.getProgram();
             program(workspace);
-            assert.ok(workspace.get("out").get("test") == 28);
+            assert.ok(workspace.get("out").get("test") == 4);
         });
 
         QUnit.test("repeat draw", function(assert) {
@@ -152,7 +152,7 @@ function buildCompilerTest() {
         QUnit.test("repeat nested", function(assert) {
             const workspace = buildWorkspace();
             const code = [
-                "var inner = product 2 repeats of (average 2 repeats of 3 + 1);",
+                "var inner = product 2 repeats of (sum 2 repeats of 3 + 1);",
                 "out.test = inner;"
             ].join("\n");
 
