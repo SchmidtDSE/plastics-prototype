@@ -193,7 +193,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
 
     /**
      * Repeat an expression multiple times, summing or taking the product of all results.
-     * 
+     *
      * @param ctx ANTLR context
      * @returns Function taking state and resolving to result after repetition.
      */
@@ -207,7 +207,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const reduceFunc = {
             "product": (a, b, length) => a * b,
             "sum": (a, b, length) => a + b,
-            "average": (a, b, length) => a / length + b / length
+            "average": (a, b, length) => a / length + b / length,
         }[summarizationStrategy];
 
         return (state) => {
