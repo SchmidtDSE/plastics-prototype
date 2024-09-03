@@ -32,8 +32,8 @@ const DATA_ATTRS = [
     "netWasteImportMT",
 ];
 
-const NUM_ARGS = 2;
-const USAGE_STR = "USAGE: npm run standalone [job] [output]";
+const NUM_ARGS = 3;
+const USAGE_STR = "USAGE: npm run standalone [job] [output] [error]";
 
 
 /**
@@ -162,7 +162,7 @@ function buildWorkspace(jobInfo) {
  * @returns Promise resolving to the levers with compiled code.
  */
 function buildLevers(jobInfo) {
-    const parseProgram = (input) => {
+    const parseProgram = (input, loc) => {
         if (input.replaceAll("\n", "").replaceAll(" ", "") === "") {
             return null;
         }
@@ -174,7 +174,7 @@ function buildLevers(jobInfo) {
         lexer.removeErrorListeners();
         lexer.addErrorListener({
             syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-                const result = `(line ${line}, col ${column}): ${msg}`;
+                const result = `${loc} line ${line} col ${column}: ${msg}`;
                 errors.push(result);
             },
         });
@@ -186,7 +186,7 @@ function buildLevers(jobInfo) {
         parser.removeErrorListeners();
         parser.addErrorListener({
             syntaxError: (recognizer, offendingSymbol, line, column, msg, err) => {
-                const result = `(line ${line}, col ${column}): ${msg}`;
+                const result = `${loc} line ${line}, col ${column}: ${msg}`;
                 errors.push(result);
             },
         });
@@ -210,7 +210,7 @@ function buildLevers(jobInfo) {
             .then((x) => x.toString())
             .then((x) => handlebars.compile(x))
             .then((x) => x(templateVals))
-            .then(parseProgram);
+            .then((x) => parseProgram(x, loc));
     };
 
     const baseUrl = jobInfo["levers"];
@@ -316,6 +316,7 @@ function main() {
 
     const jobLoc = process.argv[2];
     const outputLoc = process.argv[3];
+    const errorLoc = process.argv[4];
     const jobFuture = loadJson(jobLoc);
 
     const futureWorkspace = jobFuture.then(buildWorkspace);
@@ -340,7 +341,10 @@ function main() {
         .then((workspace) => writeJson(workspace, outputLoc))
         .then(
             (x) => console.log("done"),
-            (x) => console.log("error: " + x),
+            (x) => {
+                console.log("error: " + x);
+                return fs.promises.writeFile(errorLoc, x);
+            },
         );
 }
 

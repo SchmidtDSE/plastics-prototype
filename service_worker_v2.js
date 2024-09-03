@@ -155,6 +155,7 @@ const ESSENTIAL_FILES = [
     "/third_party/pollyfill.min.js",
     "/third_party/es-module-shims.js",
     "/third_party/ua-parser.min.js",
+    "/third_party/chart.min.js",
     "/standalone_tasks/businessAsUsual2014.json",
     "/standalone_tasks/businessAsUsual2015.json",
     "/standalone_tasks/businessAsUsual2016.json",

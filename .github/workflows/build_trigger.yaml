@@ -19,21 +19,64 @@ jobs:
         run: bash support/get_pipeline_output.sh
       - name: Move data
         run: bash support/prepare_data.sh
-  test:
+  checkScripts:
     environment: build
     runs-on: ubuntu-latest
-    name: Test App
+    name: Check Policy Scripts
     needs: [checkArtifact]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
-      - uses: actions/setup-python@v4
+        uses: actions/setup-node@v4
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install node deps
+        run: bash ./support/npm_install.sh
+      - name: Install python deps
+        run: pip install -r requirements.txt
+      - name: Run lint
+        run: npx eslint ./js_standalone/engine/*.js
+      - name: Render index
+        run: bash support/render_index.sh
+      - name: Download artifact
+        run: bash support/get_pipeline_output.sh
+      - name: Move data
+        run: bash support/prepare_data.sh
+      - name: Build
+        run: bash ./support/make.sh
+      - name: Install JS deps
+        run: cd js_standalone; npm install
+      - name: Update scenarios
+        run: bash support/update_scenarios_default.sh
+      - name: Execute example
+        run: bash support/execute_standalone_example.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: standalone-example
+          path: js_standalone/test_output.json
+          if-no-files-found: error
+  test:
+    environment: build
+    runs-on: ubuntu-latest
+    name: Test App
+    needs: [checkScripts]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Node
+        uses: actions/setup-node@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '11'
@@ -69,18 +112,18 @@ jobs:
     environment: build
     runs-on: ubuntu-latest
     name: Run Standalone
-    needs: [checkArtifact]
+    needs: [checkScripts]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
       - name: Install Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '11'
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Install node deps
@@ -101,18 +144,11 @@ jobs:
         run: cd js_standalone; npm install
       - name: Update scenarios
         run: bash support/update_scenarios_default.sh
-      - name: Execute example
-        run: bash support/execute_standalone_example.sh
-      - uses: actions/upload-artifact@v3
-        with:
-          name: standalone-example
-          path: js_standalone/test_output.json
-          if-no-files-found: error
       - name: Execute all
         run: bash support/run_scenarios_standalone.sh
       - name: Zip standalone results
         run: zip -r standalone_tasks.zip standalone_tasks
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: standalone-all
           path: standalone_tasks.zip

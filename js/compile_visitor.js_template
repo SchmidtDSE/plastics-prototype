@@ -142,12 +142,92 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
      * Determine how long the lifecycle is for a set of goods.
      *
      * @param ctx ANTLR context
-     * @returns The mean lifecycle duration for the set of goods in years.
+     * @returns Function taking state and resolving to the mean lifecycle duration for the set of
+     *      goods in years.
      */
     visitLifecycleExpression(ctx) {
         const self = this;
 
         return ctx.getChild(0).accept(self);
+    }
+
+    /**
+     * Draw a value randomly from a normal distribution.
+     *
+     * @param ctx ANTLR context
+     * @returns Function taking state and resolving to the value drawn from the distribution.
+     */
+    visitDrawNormalExpression(ctx) {
+        const self = this;
+
+        const meanFuture = ctx.getChild(5).accept(self);
+        const stdFuture = ctx.getChild(8).accept(self);
+
+        return (state) => {
+            const meanValue = meanFuture(state);
+            const stdValue = stdFuture(state);
+            const generator = d3.randomNormal(meanValue, stdValue);
+            return generator();
+        };
+    }
+
+    /**
+     * Draw a value randomly from a uniform distribution.
+     *
+     * @param ctx ANTLR context
+     * @returns Function taking state and resolving to the value drawn from the distribution.
+     */
+    visitDrawUniformExpression(ctx) {
+        const self = this;
+
+        const lowValueFuture = ctx.getChild(3).accept(self);
+        const highValueFuture = ctx.getChild(5).accept(self);
+
+        return (state) => {
+            const lowValue = lowValueFuture(state);
+            const highValue = highValueFuture(state);
+            const generator = d3.randomUniform(lowValue, highValue);
+            return generator();
+        };
+    }
+
+    /**
+     * Repeat an expression multiple times, summing or taking the product of all results.
+     *
+     * @param ctx ANTLR context
+     * @returns Function taking state and resolving to result after repetition.
+     */
+    visitRepeatExpression(ctx) {
+        const self = this;
+
+        const summarizationStrategy = ctx.getChild(0).getText();
+        const countFuture = ctx.getChild(1).accept(self);
+        const expressionFuture = ctx.getChild(4).accept(self);
+
+        const reduceStrategy = {
+            "product": {"acc": (a, b, length) => a * b, "scale": (x, length) => x},
+            "sum": {"acc": (a, b, length) => a + b, "scale": (x, length) => x},
+            "average": {"acc": (a, b, length) => a + b, "scale": (x, length) => x / length},
+        }[summarizationStrategy];
+
+        return (state) => {
+            const count = countFuture(state);
+
+            const values = [];
+            for (let i = 0; i < count; i++) {
+                values.push(expressionFuture(state));
+            }
+
+            const numValues = values.length;
+            if (numValues == 0) {
+                return 0;
+            } else {
+                const accStrategy = reduceStrategy["acc"];
+                const scaleStrategy = reduceStrategy["scale"];
+                const accumulated = values.reduce((a, b) => accStrategy(a, b, numValues));
+                return scaleStrategy(accumulated, numValues);
+            }
+        };
     }
 
     /**

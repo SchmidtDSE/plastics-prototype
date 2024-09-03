@@ -1585,6 +1585,130 @@
                     "url": "https://global-plastics-tool.org/pdf/minimum_reuse.pdf"
                 }
             ]
+        },
+        {
+            "name": "manual",
+            "label": "Manual Changes",
+            "levers": [
+                {% for region in regions %}
+                    {% for sector in sectors %}
+                    {
+                        "name": "{{ region['label'] }} Consumption Offset for {{ sector['label'] }}",
+                        "description": "How many metric tons to offset consumption for {{ sector['label'] }} like to capture BAU model uncertainty.",
+                        "min": -100,
+                        "max": 100,
+                        "default": 0,
+                        "step": 1,
+                        "units": "Mt",
+                        "forcePlus": true,
+                        "variable": "{{ region['key'] }}PreConsumption{{ sector['key'] }}MT",
+                        "template": "noop.pt",
+                        "released": true,
+                        "priority": -200,
+                        "attrs": {},
+                        "url": "https://global-plastics-tool.org/pdf/ml.pdf"
+                    },
+                    {% endfor %}
+                {
+                    "name": "{{ region['label'] }} Consumption Offset Multiplier",
+                    "description": "Optional percent multiplier for consumption offsets.",
+                    "min": -100,
+                    "max": 200,
+                    "default": 100,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": true,
+                    "variable": "{{ region['key'] }}PreConsumptionMultiplier",
+                    "template": "pre_consumption.pt",
+                    "released": true,
+                    "priority": -200,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ml.pdf",
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    }
+                },
+                    {% for fate in fates %}
+                    {
+                        "name": "{{ region['label'] }} Fate Offset for {{ fate['label'] }}",
+                        "description": "Percentage offset for {{ fate['label'] }} like to capture BAU model uncertainty.",
+                        "min": -100,
+                        "max": 100,
+                        "default": 0,
+                        "step": 1,
+                        "units": "%",
+                        "forcePlus": true,
+                        "variable": "{{ region['key'] }}PreDelta{{ fate['key'] }}Percent",
+                        "template": "noop.pt",
+                        "released": true,
+                        "priority": -200,
+                        "attrs": {},
+                        "url": "https://global-plastics-tool.org/pdf/ml.pdf"
+                    },
+                    {% endfor %}
+                {
+                    "name": "{{ region['label'] }} EOL Offset Multiplier",
+                    "description": "Optional percent multiplier for EOL offsets.",
+                    "min": -100,
+                    "max": 200,
+                    "default": 100,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": true,
+                    "variable": "{{ region['key'] }}PreEolMultiplier",
+                    "template": "pre_waste.pt",
+                    "released": true,
+                    "priority": -200,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ml.pdf",
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    }
+                },
+                {
+                    "name": "{{ region['label'] }} Change in Trade",
+                    "description": "Offset in goods trade as percent of consumption like to capture model uncertainty.",
+                    "min": -100,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": true,
+                    "variable": "{{ region['key'] }}PreDeltaGoodsImportPercent",
+                    "template": "pre_trade.pt",
+                    "released": true,
+                    "priority": -200,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ml.pdf",
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    }
+                },
+                {
+                    "name": "{{ region['label'] }} Change in Waste Trade",
+                    "description": "Offset in waste trade as percent of consumption like to capture model uncertainty.",
+                    "min": -100,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "units": "%",
+                    "forcePlus": true,
+                    "variable": "{{ region['key'] }}PreDeltaWasteImportPercent",
+                    "template": "pre_waste_trade.pt",
+                    "released": true,
+                    "priority": -200,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/ml.pdf",
+                    "attrs": {
+                        "region": "{{ region['key'] }}",
+                        "otherRegions": [{{ get_other_regions(region['key']) }}]
+                    }
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]
         }
     ]
 }
