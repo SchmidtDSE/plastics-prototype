@@ -207,7 +207,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const reduceFunc = {
             "product": (a, b, length) => a * b,
             "sum": (a, b, length) => a + b,
-            "average": (a, b, length) => a / length + b / length;
+            "average": (a, b, length) => a / length + b / length
         }[summarizationStrategy];
 
         return (state) => {
