@@ -142,7 +142,8 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
      * Determine how long the lifecycle is for a set of goods.
      *
      * @param ctx ANTLR context
-     * @returns The mean lifecycle duration for the set of goods in years.
+     * @returns Function taking state and resolving to the mean lifecycle duration for the set of
+     *      goods in years.
      */
     visitLifecycleExpression(ctx) {
         const self = this;
@@ -154,7 +155,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
      * Draw a value randomly from a normal distribution.
      *
      * @param ctx ANTLR context
-     * @returns The value drawn from the distribution.
+     * @returns Function taking state and resolving to the value drawn from the distribution.
      */
     visitDrawNormalExpression(ctx) {
         const self = this;
@@ -174,7 +175,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
      * Draw a value randomly from a uniform distribution.
      *
      * @param ctx ANTLR context
-     * @returns The value drawn from the distribution.
+     * @returns Function taking state and resolving to the value drawn from the distribution.
      */
     visitDrawUniformExpression(ctx) {
         const self = this;
@@ -187,6 +188,42 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
             const highValue = highValueFuture(state);
             const generator = d3.randomUniform(lowValue, highValue);
             return generator();
+        };
+    }
+
+    /**
+     * Repeat an expression multiple times, summing or taking the product of all results.
+     * 
+     * @param ctx ANTLR context
+     * @returns Function taking state and resolving to result after repetition.
+     */
+    visitRepeatExpression(ctx) {
+        const self = this;
+
+        const summarizationStrategy = ctx.getChild(0).getText();
+        const countFuture = ctx.getChild(1).accept(self);
+        const expressionFuture = ctx.getChild(4).accept(self);
+
+        let reduceFunc = null;
+        if (summarizationStrategy === "product") {
+            reduceFunc = (a, b) => a * b;
+        } else if (summarizationStrategy === "sum") {
+            reduceFunc = (a, b) => a + b;
+        }
+
+        return (state) => {
+            const count = countFuture(state);
+
+            const values = [];
+            for (let i = 0; i < count; count++) {
+                values.push(expressionFuture(state));
+            }
+
+            if (values.length == 0) {
+                return 0;
+            } else {
+                return values.reduce(reduceFunc);
+            }
         };
     }
 

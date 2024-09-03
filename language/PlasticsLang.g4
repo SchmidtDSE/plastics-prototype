@@ -72,6 +72,12 @@ MEAN_: 'm' 'e' 'a' 'n';
 
 STD_: 's' 't' 'd';
 
+SUM_: 's' 'u' 'm';
+
+PRODUCT_: 'p' 'r' 'o' 'd' 'u' 'c' 't';
+
+REPEATS_: 'r' 'e' 'p' 'e' 'a' 't' 's';
+
 GT_: '>';
 
 LT_: '<';
@@ -109,6 +115,7 @@ expression: number  # simpleExpression
   | lifecycle  # lifecycleExpression
   | DRAW_ NORMALLY_ FROM_  MEAN_ OF_ expression STD_ OF_ expression  # drawNormalExpression
   | DRAW_ UNIFORMLY_ FROM_  expression TO_ expression  # drawUniformExpression
+  | (SUM_ | PRODUCT_) expression REPEATS_ OF_ expression  # repeatExpression
   | LPAREN_ expression RPAREN_ # parenExpression
   | pos=expression op=(NEQ_ | GT_ | LT_ | EQEQ_ | LTEQ_ | GTEQ_) neg=expression  # condition
   | pos=expression COND_ cond=expression ELSE_ neg=expression  # conditional
