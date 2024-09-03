@@ -1,0 +1,227 @@
+# == Apply policy parameter sampling ==
+in.recyclingDisplacementRate = draw uniformly from 70 to 90;  # Percent
+in.recyclingLostBackfillRate = draw uniformly from 40 to 60;  # Percent
+in.reusableAddedMaterial = draw uniformly from 150 to 250;  # Percent
+
+# Regional reuse exhaustion
+in.chinaReuseExhaustion = draw uniformly from 5 to 15;  # Percent annual
+in.eu30ReuseExhaustion = draw uniformly from 5 to 15;  # Percent annual
+in.naftaReuseExhaustion = draw uniformly from 5 to 15;  # Percent annual
+in.rowReuseExhaustion = draw uniformly from 5 to 15;  # Percent annual
+
+# Regional loss rate
+in.chinaYieldLoss = draw uniformly from 20 to 30;  # Percent
+in.eu30YieldLoss = draw uniformly from 20 to 30;  # Percent
+in.naftaYieldLoss = draw uniformly from 20 to 30;  # Percent
+in.rowYieldLoss = draw uniformly from 20 to 30;  # Percent
+
+# == Apply BAU sampling ==
+in.chinaPreConsumptionMultiplier = 100;  # Enable China consumption offset
+in.eu30PreConsumptionMultiplier = 100;  # Enable EU30 consumption offset
+in.naftaPreConsumptionMultiplier = 100;  # Enable NA consumption offset
+in.rowPreConsumptionMultiplier = 100;  # Enable MW consumption offset
+
+in.chinaPreEolMultiplier = 100;  # Enable China EOL offset
+in.eu30PreEolMultiplier = 100;  # Enable EU30 EOL offset
+in.naftaPreEolMultiplier = 100;  # Enable NA EOL offset
+in.rowPreEolMultiplier = 100;  # Enable MW EOL offset
+
+# Reflect that we compound over 28 years with 5 samples per year
+var numYears = 28;
+var samplesPerYear = 5;
+
+# China
+in.chinaPreConsumptionAgricultureMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionConstructionMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionElectronicMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionHouseholdLeisureSportsMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionPackagingMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionTransportationMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionTextileMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.chinaPreConsumptionOtherMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+# EU30
+in.eu30PreConsumptionAgricultureMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionConstructionMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionElectronicMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionHouseholdLeisureSportsMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionPackagingMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionTransportationMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionTextileMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.eu30PreConsumptionOtherMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+# North America
+in.naftaPreConsumptionAgricultureMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionConstructionMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionElectronicMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionHouseholdLeisureSportsMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionPackagingMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionTransportationMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionTextileMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.naftaPreConsumptionOtherMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+# Majority World
+in.rowPreConsumptionAgricultureMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionConstructionMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionElectronicMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionHouseholdLeisureSportsMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionPackagingMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionTransportationMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionTextileMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);
+
+in.rowPreConsumptionOtherMT = sum over numYears repetitions of (
+  average over samplesPerYear repetitions of (
+    draw normally from mean of -0.16 std of 1.81
+  )
+);

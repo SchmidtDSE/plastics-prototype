@@ -175,6 +175,10 @@ class Driver {
                     (change, selected) => self._onPolicyChange(change, selected),
                     (year) => self._onYearChange(year),
                 ),
+                buildSimPresenter(
+                    () => self._buildStateForCurrentYear(),
+                    (x) => self._compileProgram(x)
+                )
             ];
 
             Promise.all(promises).then((values) => {

@@ -100,6 +100,7 @@ const ESSENTIAL_FILES = [
     "/js/report_sparklines.js",
     "/js/report_stage.js",
     "/js/report_timeseries.js",
+    "/js/sim_presenter.js",
     "/js/slider.js",
     "/js/strings.js",
     "/js/transformation.js",
