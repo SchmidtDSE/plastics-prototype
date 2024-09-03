@@ -204,12 +204,11 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
         const countFuture = ctx.getChild(1).accept(self);
         const expressionFuture = ctx.getChild(4).accept(self);
 
-        let reduceFunc = null;
-        if (summarizationStrategy === "product") {
-            reduceFunc = (a, b) => a * b;
-        } else if (summarizationStrategy === "sum") {
-            reduceFunc = (a, b) => a + b;
-        }
+        const reduceFunc = {
+            "product": (a, b, length) => a * b,
+            "sum": (a, b, length) => a + b,
+            "average": (a, b, length) => a / length + b / length;
+        }[summarizationStrategy];
 
         return (state) => {
             const count = countFuture(state);
@@ -219,10 +218,11 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 values.push(expressionFuture(state));
             }
 
-            if (values.length == 0) {
+            const numValues = values.length;
+            if (numValues == 0) {
                 return 0;
             } else {
-                return values.reduce(reduceFunc);
+                return values.reduce((a, b) => reduceFunc(a, b, numValues));
             }
         };
     }
