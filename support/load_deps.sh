@@ -22,4 +22,6 @@ mkdir -p third_party
 
 [ ! -e third_party/ua-parser.min.js ] && wget https://cdnjs.cloudflare.com/ajax/libs/UAParser.js/1.0.36/ua-parser.min.js -O third_party/ua-parser.min.js
 
+[ ! -e third_party/chart.min.js ] && wget https://cdn.jsdelivr.net/npm/chart.js -O third_party/chart.min.js
+
 echo "Installed deps."
