@@ -57,7 +57,7 @@ Having prepared the project, developers can describe scenarios to the stand alon
 
 ```
 cd js_standalone
-npm run standalone ./example.json ./test_output.json
+npm run standalone ./example.json ./test_output.json ./test_error.txt
 ```
 
 Note that `example.json` here refers to the task JSON file and `test_output.json` is where the results of the simulation will be written.

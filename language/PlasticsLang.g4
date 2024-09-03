@@ -60,6 +60,26 @@ LIFECYCLE_: 'l' 'i' 'f' 'e' 'c' 'y' 'c' 'l' 'e';
 
 OF_: 'o' 'f';
 
+DRAW_: 'd' 'r' 'a' 'w';
+
+UNIFORMLY_: 'u' 'n' 'i' 'f' 'o' 'r' 'm' 'l' 'y';
+
+NORMALLY_: 'n' 'o' 'r' 'm' 'a' 'l' 'l' 'y';
+
+FROM_: 'f' 'r' 'o' 'm';
+
+MEAN_: 'm' 'e' 'a' 'n';
+
+STD_: 's' 't' 'd';
+
+SUM_: 's' 'u' 'm';
+
+PRODUCT_: 'p' 'r' 'o' 'd' 'u' 'c' 't';
+
+AVERAGE_: 'a' 'v' 'e' 'r' 'a' 'g' 'e';
+
+REPEATS_: 'r' 'e' 'p' 'e' 'a' 't' 's';
+
 GT_: '>';
 
 LT_: '<';
@@ -89,12 +109,15 @@ identifier: IDENTIFIER_ (PERIOD_ IDENTIFIER_)*;
 
 lifecycle: LIFECYCLE_ OF_ LBRAC_ identifier (COMMA_ identifier)* RBRAC_;
 
-expression: number # simpleExpression
-  | identifier # simpleIdentifier
+expression: number  # simpleExpression
+  | identifier  # simpleIdentifier
   | expression POW_ expression  # powExpression
   | expression op=(MULT_ | DIV_) expression  # multiplyExpression
-  | expression op=(ADD_ | SUB_) expression # additionExpression
-  | lifecycle # lifecycleExpression
+  | expression op=(ADD_ | SUB_) expression  # additionExpression
+  | lifecycle  # lifecycleExpression
+  | DRAW_ NORMALLY_ FROM_  MEAN_ OF_ expression STD_ OF_ expression  # drawNormalExpression
+  | DRAW_ UNIFORMLY_ FROM_  expression TO_ expression  # drawUniformExpression
+  | (SUM_ | PRODUCT_ | AVERAGE_) expression REPEATS_ OF_ expression  # repeatExpression
   | LPAREN_ expression RPAREN_ # parenExpression
   | pos=expression op=(NEQ_ | GT_ | LT_ | EQEQ_ | LTEQ_ | GTEQ_) neg=expression  # condition
   | pos=expression COND_ cond=expression ELSE_ neg=expression  # conditional

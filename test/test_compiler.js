@@ -56,6 +56,114 @@ function buildCompilerTest() {
             assert.ok(workspace.get("out").get("test") == 50);
         });
 
+        QUnit.test("variable draw uniform", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = draw uniformly from 5 to 10;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") >= 5);
+            assert.ok(workspace.get("out").get("test") <= 10);
+        });
+
+        QUnit.test("variable draw normal", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = draw normally from mean of 5 std of 1;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") >= 0);
+            assert.ok(workspace.get("out").get("test") <= 10);
+        });
+
+        QUnit.test("repeat sum", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = sum 5 repeats of 3 + 1;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") == 20);
+        });
+
+        QUnit.test("repeat product", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = product 2 repeats of 3 + 1;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") == 16);
+        });
+
+        QUnit.test("repeat average", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = average 7 repeats of 3 + 1;",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") == 4);
+        });
+
+        QUnit.test("repeat draw", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = sum 2 repeats of (draw normally from mean of 5 std of 1);",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") >= 0);
+            assert.ok(workspace.get("out").get("test") <= 20);
+        });
+
+        QUnit.test("repeat nested", function(assert) {
+            const workspace = buildWorkspace();
+            const code = [
+                "var inner = product 2 repeats of (sum 2 repeats of 3 + 1);",
+                "out.test = inner;"
+            ].join("\n");
+
+            const compileResult = compileProgram(code);
+            assert.ok(compileResult.getErrors().length == 0);
+
+            const program = compileResult.getProgram();
+            program(workspace);
+            assert.ok(workspace.get("out").get("test") == 64);
+        });
+
         QUnit.test("limit both apply", function(assert) {
             const workspace = buildWorkspace();
             const code = [

@@ -1,0 +1,88 @@
+# Determine delta
+var totalConsumption = (
+  out.{{ region }}.consumptionAgricultureMT +
+  out.{{ region }}.consumptionConstructionMT +
+  out.{{ region }}.consumptionElectronicMT +
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT +
+  out.{{ region }}.consumptionPackagingMT +
+  out.{{ region }}.consumptionTransportationMT +
+  out.{{ region }}.consumptionTextileMT +
+  out.{{ region }}.consumptionOtherMT
+);
+var delta = in.{{ region }}PreDeltaGoodsImportPercent / 100 * totalConsumption;
+
+# Propogate into domestic consumption
+distribute delta across [
+  out.{{ region }}.consumptionAgricultureMT,
+  out.{{ region }}.consumptionConstructionMT,
+  out.{{ region }}.consumptionElectronicMT,
+  out.{{ region }}.consumptionHouseholdLeisureSportsMT,
+  out.{{ region }}.consumptionPackagingMT,
+  out.{{ region }}.consumptionTransportationMT,
+  out.{{ region }}.consumptionTextileMT,
+  out.{{ region }}.consumptionOtherMT
+] proportionally;
+
+# Propogate into domestic waste assuming error present throughout series
+distribute delta across [
+  out.{{ region }}.eolRecyclingMT,
+  out.{{ region }}.eolLandfillMT,
+  out.{{ region }}.eolIncinerationMT,
+  out.{{ region }}.eolMismanagedMT
+] proportionally;
+
+# Determine trade impact
+var changeImports = delta;
+limit changeImports to [-1 * out.{{ region }}.netImportsMT,];
+
+var changeExports = -1 * delta;
+limit changeExports to [-1 * out.{{ region }}.netExportsMT,];
+
+# Report trade impact
+var newNet = out.{{ region }}.netImportsMT - out.{{ region }}.netExportsMT + delta;
+var newImports = newNet;
+var newExports = newNet * -1;
+
+limit newImports to [0,];
+limit newExports to [0,];
+
+out.{{ region }}.netImportsMT = newImports;
+out.{{ region }}.netExportsMT = newExports;
+
+# Balance goods imports
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.netExportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Propogate into trade partners production
+distribute changeImports across [
+  {{#each otherRegions}}
+  out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
+  out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Balance goods exports
+distribute changeExports across [
+  {{#each otherRegions}}
+  out.{{ this }}.netImportsMT{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
+
+# Propogate into trade partners waste fate
+{{#each otherRegions}}
+var {{ this }}WasteMultiplier = out.{{ this }}.netImportsMT;
+{{ this }}WasteMultiplier = {{ this }}WasteMultiplier - out.{{ this }}.netWasteExportMT;
+{{ this }}WasteMultiplier = {{ this }}WasteMultiplier + out.{{ this }}.netWasteImportMT;
+{{/each}}
+
+distribute changeExports across [
+  {{#each otherRegions}}
+  out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolIncinerationMT by out.{{ this }}.eolIncinerationMT * {{ this }}WasteMultiplier,
+  out.{{ this }}.eolMismanagedMT by out.{{ this }}.eolMismanagedMT * {{ this }}WasteMultiplier{{#unless @last}},{{/unless}}
+  {{/each}}
+] proportionally;
