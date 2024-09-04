@@ -1290,7 +1290,7 @@
                     "description": "How much of virgin plastic production is reduced or displaced by newly available recycled material.",
                     "min": 0,
                     "max": 100,
-                    "default": 50,
+                    "default": 80,
                     "step": 5,
                     "units": "%",
                     "forcePlus": false,

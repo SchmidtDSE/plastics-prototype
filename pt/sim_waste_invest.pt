@@ -1,0 +1,8 @@
+in.chinaLandfillInvestment = 1;
+in.eu30LandfillInvestment = 1;
+in.naftaLandfillInvestment = 1;
+in.rowLandfillInvestment = 22;
+in.chinaIncinerationInvestment = 1;
+in.eu30IncinerationInvestment = 1;
+in.naftaIncinerationInvestment = 1;
+in.rowIncinerationInvestment = 22;

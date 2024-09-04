@@ -31,6 +31,32 @@ const GHG_EXPORT_ATTRS = [
     "eCO2MTOverall",
 ];
 
+const SIM_EXPORT_ATTRS = [
+    "series",
+    "region",
+    "landfillWaste",
+    "mismanagedWaste",
+    "incineratedWaste",
+    "recycling",
+    "totalConsumption",
+    "ghg",
+    "primaryProduction",
+    "secondaryProduction",
+];
+
+const SIM_EXPORT_ATTR_HEADERS = {
+    "series": "series",
+    "region": "region",
+    "landfillWaste": "simLandfillWasteMt",
+    "mismanagedWaste": "simMismanagedWasteMt",
+    "incineratedWaste": "simIncineratedWasteMt",
+    "recycling": "simRecycledWasteMt",
+    "totalConsumption": "totalConsumptionMt",
+    "ghg": "totalGhgCO2eMt",
+    "primaryProduction": "primaryProductionMt",
+    "secondaryProduction": "secondaryProductionMt",
+};
+
 
 /**
  * Get the string to use to identify a region in an export.
@@ -177,4 +203,42 @@ function buildGhgDownload(withInterventions) {
 }
 
 
-export {buildGhgDownload, buildPolymerDownload, buildSectorFateDownload};
+/**
+ * Build an inline data URI that encodes a CSV file with simuation outputs.
+ *
+ * @param goalOutputs Array of maps with goal outputs.
+ * @returns Data URI that embedds the CSV file.
+ */
+function buildSimDownload(goalOutputs) {
+    const headerRowStr = SIM_EXPORT_ATTRS.map((x) => SIM_EXPORT_ATTR_HEADERS[x]).join(",");
+
+    const serializeSimToArray = (simOutputs) => {
+        const serialized = Array.of(...simOutputs.keys())
+            .map((region) => {
+                return {"region": region, "output": simOutputs.get(region)};
+            })
+            .map((record) => {
+                return SIM_EXPORT_ATTRS.map((attr) => {
+                    if (attr === "region") {
+                        return record["region"];
+                    } else {
+                        return record["output"].get(attr);
+                    }
+                });
+            });
+
+        return serialized;
+    };
+
+    const content = goalOutputs.map(serializeSimToArray)
+        .flat()
+        .map((recordLinear) => recordLinear.map((x) => x + ""))
+        .map((recordLinear) => recordLinear.join(","))
+        .join("\n");
+
+    const fullCsv = headerRowStr + "\n" + content;
+    return "data:text/csv;charset=UTF-8," + encodeURIComponent(fullCsv);
+}
+
+
+export {buildGhgDownload, buildPolymerDownload, buildSectorFateDownload, buildSimDownload};
