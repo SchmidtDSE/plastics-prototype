@@ -21,6 +21,17 @@ const SELECTED_POLICIES = [
     {"series": "package", "source": "sim_package.pt"},
 ];
 
+const STANDALONE_X_TITLES = {
+    "landfillWaste": "Global Landfill Waste (Mt)",
+    "mismanagedWaste": "Global Mismanaged Waste (Mt)",
+    "incineratedWaste": "Global Incinerated Waste (Mt)",
+    "recycling": "Global Recycled Waste (Mt)",
+    "totalConsumption": "Global Total Consumption (Mt)",
+    "ghg": "Global Gross GHG (CO2e Mt)",
+    "primaryProduction": "Primary Production (Mt)",
+    "secondaryProduction": "Secondary Production (Mt)",
+};
+
 /**
  * Presenter which provides a slider representation of a simulation parameter (lever).
  */
@@ -46,7 +57,7 @@ class SimPresenter {
         self._policies = [];
 
         self._standaloneReportPresenter = new StandaloneReportPresenter(
-            self._rootElement.querySelector(".sim-standalone-results-panel")
+            self._rootElement.querySelector(".sim-standalone-results-panel"),
         );
 
         const editorContainer = self._rootElement.querySelector(".editor");
@@ -534,7 +545,6 @@ class SimPresenter {
 
 
 class StandaloneReportPresenter {
-
     constructor(rootElement) {
         const self = this;
         self._rootElement = rootElement;
@@ -574,6 +584,7 @@ class StandaloneReportPresenter {
         }
 
         const percentInfo = self._getPercents();
+        const dimension = self._getSelectedDimension();
 
         const canvas = self._rootElement.querySelector(".standalone-canvas");
 
@@ -582,13 +593,25 @@ class StandaloneReportPresenter {
             data: {
                 labels: percentInfo.map((x) => x["bucket"]),
                 datasets: [{
-                    label: 'Percent',
+                    label: "Percent of Simulations",
                     data: percentInfo.map((x) => x["percent"]),
                 }],
             },
             options: {
                 scales: {
-                    y: {beginAtZero: true},
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            "display": true,
+                            "text": "Frequency of Simulations (%)",
+                        },
+                    },
+                    x: {
+                        title: {
+                            "display": true,
+                            "text": STANDALONE_X_TITLES[dimension],
+                        },
+                    },
                 },
             },
         });
@@ -608,7 +631,7 @@ class StandaloneReportPresenter {
         for (let x = minValue; x <= maxValue; x += 10) {
             counts.set(x, 0);
         }
-        
+
         dimensionResults.forEach((x) => {
             const bucket = Math.round(x / 10) * 10;
             counts.set(bucket, counts.get(bucket) + 1);
@@ -628,7 +651,6 @@ class StandaloneReportPresenter {
 
         return outputRecords;
     }
-
 }
 
 

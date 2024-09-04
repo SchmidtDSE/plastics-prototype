@@ -218,25 +218,25 @@ function buildSimDownload(goalOutputs, filterRegion) {
             .map((region) => {
                 return {"region": region, "output": simOutputs.get(region)};
             });
-        
+
         const hasFilterRegion = filterRegion !== undefined;
-        
+
         let regionsAllowed;
         if (hasFilterRegion) {
             regionsAllowed = regions.filter((x) => x["region"] === filterRegion);
         } else {
             regionsAllowed = regions;
         }
-        
+
         const serialized = regionsAllowed.map((record) => {
-                return SIM_EXPORT_ATTRS.map((attr) => {
-                    if (attr === "region") {
-                        return record["region"];
-                    } else {
-                        return record["output"].get(attr);
-                    }
-                });
+            return SIM_EXPORT_ATTRS.map((attr) => {
+                if (attr === "region") {
+                    return record["region"];
+                } else {
+                    return record["output"].get(attr);
+                }
             });
+        });
 
         return serialized;
     };
