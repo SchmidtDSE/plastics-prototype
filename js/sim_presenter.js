@@ -5,12 +5,12 @@
  */
 
 import {CACHE_BUSTER, DEFAULT_YEAR, HISTORY_START_YEAR, MAX_YEAR} from "const";
-import {buildSimDownload} from "exporters";
+import {buildSimDownload, buildSimSummaryDownload} from "exporters";
 import {fetchWithRetry} from "file";
 import {getGoals} from "goals";
 
 const NUM_TRIALS_STANDALONE = 1000;
-const NUM_TRIALS_POLICY = 300;
+const NUM_TRIALS_POLICY = 500;
 
 const SELECTED_POLICIES = [
     {"series": "baseline", "source": "sim_bau.pt"},
@@ -19,7 +19,24 @@ const SELECTED_POLICIES = [
     {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
     {"series": "packagingConsumptionTaxHigh", "source": "sim_packaging_tax.pt"},
     {"series": "package", "source": "sim_package.pt"},
+    {"series": "recycleInvest100Billion", "source": "sim_recycle_invest.pt"},
+    {"series": "mrr40Percent", "source": "sim_mrr.pt"},
+    {"series": "banSingleUse", "source": "sim_ban_single_use.pt"},
+    {"series": "packagingReuse80Percent", "source": "sim_packaging_reuse.pt"},
 ];
+
+const SERIES_LABELS = {
+    "baseline": ["BAU"],
+    "mrc40Percent": ["Min", "Recycle", "Content", "(40%)"],
+    "wasteInvest50Billion": ["50B", "Waste", "Invest"],
+    "capVirgin": ["Cap", "Virgin", "2020"],
+    "packagingConsumptionTaxHigh": ["Packaging", "Tax"],
+    "package": ["4", "Policy", "Package"],
+    "recycleInvest100Billion": ["100B", "Recycle", "Invest"],
+    "mrr40Percent": ["Min", "Recycle", "Collect", "Rate (40%)"],
+    "banSingleUse": ["Ban", "Single", "Use (90%)"],
+    "packagingReuse80Percent": ["Packaging", "Reuse (80%)"],
+};
 
 const STANDALONE_X_TITLES = {
     "landfillWaste": "Global Landfill Waste (Mt)",
@@ -60,6 +77,10 @@ class SimPresenter {
             self._rootElement.querySelector(".sim-standalone-results-panel"),
         );
 
+        self._policiesReportPresenter = new PoliciesReportPresenter(
+            self._rootElement.querySelector(".sim-policies-results-panel"),
+        );
+
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
         self._editor = self._initEditor(editorId);
@@ -68,6 +89,9 @@ class SimPresenter {
 
         // eslint-disable-next-line no-undef
         tippy(".tippy-btn");
+
+        // eslint-disable-next-line no-undef
+        tippy(".sim-year-select");
     }
 
     /**
@@ -481,8 +505,8 @@ class SimPresenter {
 
     _reportPolicies(allResults) {
         const self = this;
-        console.log(allResults.length);
-        const outputLink = buildSimDownload(allResults, "global");
+
+        const summarizedRecords = self._summarizeRecords(allResults);
 
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
@@ -490,8 +514,54 @@ class SimPresenter {
         progressPanel.style.display = "none";
         resultsPanel.style.display = "block";
 
+        const outputLink = buildSimSummaryDownload(summarizedRecords);
         const downloadLink = self._rootElement.querySelector("#export-policies");
         downloadLink.href = outputLink;
+
+        self._policiesReportPresenter.setResults(summarizedRecords);
+    }
+
+    _summarizeRecords(allResults) {
+        const self = this;
+
+        const allResultsByKey = new Map();
+        allResults.forEach((inputRecord) => {
+            Array.of(...inputRecord.keys()).forEach((region) => {
+                const regionRecord = inputRecord.get(region);
+                const series = regionRecord.get("series");
+                const variables = Array.of(...regionRecord.keys())
+                    .filter((x) => x !== "series")
+                    .filter((x) => x !== "region");
+
+                return variables.forEach((variable) => {
+                    const key = [series, region, variable].join("\t");
+                    const value = regionRecord.get(variable);
+                    if (!allResultsByKey.has(key)) {
+                        allResultsByKey.set(key, []);
+                    }
+                    allResultsByKey.get(key).push(value);
+                });
+            });
+        });
+
+        const summarizedRecords = [];
+        allResultsByKey.forEach((values, key) => {
+            const keyComponents = key.split("\t");
+            const series = keyComponents[0];
+            const region = keyComponents[1];
+            const variable = keyComponents[2];
+            const mean = getMean(values);
+            const std = getStandardDeviation(values);
+            summarizedRecords.push({
+                "series": series,
+                "region": region,
+                "variable": variable,
+                "mean": mean,
+                "std": std,
+            });
+        });
+
+        return summarizedRecords;
     }
 
     _resetUI() {
@@ -652,6 +722,137 @@ class StandaloneReportPresenter {
         return outputRecords;
     }
 }
+
+class PoliciesReportPresenter {
+    constructor(rootElement) {
+        const self = this;
+        self._rootElement = rootElement;
+        self._results = null;
+        self._chart = null;
+
+        self._attachListeners();
+    }
+
+    setResults(results) {
+        const self = this;
+        self._results = results.filter((x) => x["region"] === "global");
+        self._refreshChart();
+    }
+
+    _getSelectedDimension() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".policies-dim-selector");
+        return dropdown.value;
+    }
+
+    _getIntervalInStd() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".policies-interval-selector");
+        return parseInt(dropdown.value);
+    }
+
+    _attachListeners() {
+        const self = this;
+
+        const dimDropdown = self._rootElement.querySelector(".policies-dim-selector");
+        dimDropdown.addEventListener("change", () => {
+            self._refreshChart();
+        });
+
+        const intervalDropdown = self._rootElement.querySelector(".policies-interval-selector");
+        intervalDropdown.addEventListener("change", () => {
+            self._refreshChart();
+        });
+    }
+
+    _refreshChart() {
+        const self = this;
+
+        if (self._chart !== null) {
+            self._chart.destroy();
+        }
+
+        const dimension = self._getSelectedDimension();
+        const interval = self._getIntervalInStd();
+
+        const canvas = self._rootElement.querySelector(".policies-canvas");
+
+        const variableResults = self._results.filter((x) => x["variable"] === dimension);
+
+        self._chart = new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: variableResults.map((x) => SERIES_LABELS[x["series"]]),
+                datasets: [{
+                    label: "+/- " + interval + " std",
+                    data: variableResults.map((x) => {
+                        const mean = x["mean"];
+                        const std = x["std"];
+                        const low = mean - std * interval;
+                        const high = mean + std * interval;
+                        return [Math.round(low * 10) / 10, Math.round(high * 10) / 10];
+                    }),
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            "display": true,
+                            "text": STANDALONE_X_TITLES[dimension],
+                        },
+                    },
+                    x: {
+                        title: {
+                            "display": true,
+                            "text": "Scenario",
+                        },
+                    },
+                },
+            },
+        });
+    }
+}
+
+
+/**
+ * Get the mean value of an array.
+ *
+ * @param target Array of numbers
+ * @returns Mean
+ */
+function getMean(target) {
+    if (target.length == 0) {
+        return 0;
+    }
+
+    const total = target.reduce((a, b) => a + b);
+    const mean = total / target.length;
+    return mean;
+}
+
+
+/**
+ * Get the standard deviation of an array.
+ *
+ * @param target Array of numbers
+ * @returns Standard deviation
+ */
+function getStandardDeviation(target) {
+    if (target.length == 0) {
+        return 0;
+    }
+
+    const total = target.reduce((a, b) => a + b);
+    const mean = total / target.length;
+    const varianceNum = target.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b);
+    const variance = varianceNum / target.length;
+    const std = Math.sqrt(variance);
+    return std;
+};
 
 
 /**

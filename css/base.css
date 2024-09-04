@@ -810,6 +810,29 @@ h2 .info-img, h3 .info-img {
     text-align: center;
 }
 
+.policies-canvas-holder-inner {
+    width: 90%;
+    height: 530px;
+    min-width: 400px;
+    max-width: 1000px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #C0C0C0;
+    display: inline-block;
+}
+
+.policies-canvas-holder {
+    text-align: center;
+}
+
+.policies-dim-selector-holder {
+    border-top: 1px solid #C0C0C0;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
 .right-panel {
     background-color: white;
     padding: 5px;

@@ -379,7 +379,7 @@
                             <p>This tab allows you to configure run Monte Carlo simulations to evaluate projections for parameter uncertainty or sensitivity analysis. Note that this will build upon any changes you have made elsewhere in the tool on other tabs.</p>
                             <div class="editor-panel">
                                 <div>
-                                    <select class="sim-year-select" id="sim-year-select" aria-label="Year dropdown"></select>
+                                    <select data-tippy-content="The year for which the simulations should run. This will re-simulate this year multiple times with noise introduced through the script provided in the simulation tab." class="sim-year-select" id="sim-year-select" aria-label="Year dropdown"></select>
                                 </div>
                                 <div class="status-display"></div>
                                 <div class="editor" id="editor-simulation"></div>
@@ -387,7 +387,7 @@
                                 <div class="error-indicator">⚠️ Error in code</div>
                                 <div class="sim-actions">
                                     <a href="#sim-single" data-tippy-content="Execute 1000 simulations using the provided script and examine individual output variables. This builds upon other policy selections currently active in the tool." id="run-standalone" class="btn tippy-btn" role="button">Run Simulations</a> 
-                                    <a href="#sim-multiple" data-tippy-content="Try different simulations on top of the current policy selection in the tool which is assumed to be a baseline. This option will add 4 select policies on top of that baseline to compare distributional outputs if those different policy options are enabled either individually or together." id="run-policies" class="btn tippy-btn" role="button">Sweep Policies</a>
+                                    <a href="#sim-multiple" data-tippy-content="Try different simulations on top of the current policy selection in the tool which is assumed to be a baseline. This option will add select policies on top of that baseline to compare distributional outputs if those different policy options are enabled either individually or together." id="run-policies" class="btn tippy-btn" role="button">Sweep Policies</a>
                                 </div>
                             </div>
                             <div class="sim-progress-panel">
@@ -403,13 +403,13 @@
                                 </div>
                                 <div class="standalone-dim-selector-holder">
                                     <select class="standalone-dim-selector" id="standalone-dim-selector" aria-label="Dimension to visualize from the simulations.">
-                                        <option value="landfillWaste">Global Landfill Waste (Mt)</option>,
-                                        <option value="mismanagedWaste" selected>Global Mismanaged Waste (Mt)</option>,
-                                        <option value="incineratedWaste">Global Incinerated Waste (Mt)</option>,
-                                        <option value="recycling">Global Recycled Waste (Mt)</option>,
-                                        <option value="totalConsumption">Global Total Consumption (Mt)</option>,
-                                        <option value="ghg">Global Gross GHG (CO2e Mt)</option>,
-                                        <option value="primaryProduction">Primary Production (Mt)</option>,
+                                        <option value="landfillWaste">Global Landfill Waste (Mt)</option>
+                                        <option value="mismanagedWaste" selected>Global Mismanaged Waste (Mt)</option>
+                                        <option value="incineratedWaste">Global Incinerated Waste (Mt)</option>
+                                        <option value="recycling">Global Recycled Waste (Mt)</option>
+                                        <option value="totalConsumption">Global Total Consumption (Mt)</option>
+                                        <option value="ghg">Global Gross GHG (CO2e Mt)</option>
+                                        <option value="primaryProduction">Primary Production (Mt)</option>
                                         <option value="secondaryProduction">Secondary Production (Mt)</option>
                                     </select>
                                 </div>
@@ -420,8 +420,31 @@
                                 </div>
                             </div>
                             <div class="sim-policies-results-panel">
-                                <a href="#export-policies" id="export-policies" class="btn" role="button">Download Results</a> 
-                                <a href="#sim-multiple" id="finish-policies" class="btn" role="button">Run New Simulation</a>
+                                <div>
+                                    <a href="#export-policies" id="export-policies" class="btn" role="button">Download Results</a> 
+                                    <a href="#sim-multiple" id="finish-policies" class="btn" role="button">Run New Simulation</a>
+                                </div>
+                                <div class="policies-dim-selector-holder">
+                                    <select class="policies-dim-selector" id="policies-dim-selector" aria-label="Dimension to visualize from the simulations.">
+                                        <option value="landfillWaste">Global Landfill Waste (Mt)</option>
+                                        <option value="mismanagedWaste" selected>Global Mismanaged Waste (Mt)</option>
+                                        <option value="incineratedWaste">Global Incinerated Waste (Mt)</option>
+                                        <option value="recycling">Global Recycled Waste (Mt)</option>
+                                        <option value="totalConsumption">Global Total Consumption (Mt)</option>
+                                        <option value="ghg">Global Gross GHG (CO2e Mt)</option>
+                                        <option value="primaryProduction">Primary Production (Mt)</option>
+                                        <option value="secondaryProduction">Secondary Production (Mt)</option>
+                                    </select>
+                                    <select class="policies-interval-selector" id="policies-interval-selector" aria-label="Size of confidnece interval to visualize.">
+                                        <option value="1">68% Confidence Interval (+/- 1 Std)</option>,
+                                        <option value="2" selected>95% Confidence Interval (+/- 2 Std)</option>
+                                    </select>
+                                </div>
+                                <div class="policies-canvas-holder">
+                                    <div class="policies-canvas-holder-inner">
+                                        <canvas id="policies-canvas" class="policies-canvas"></canvas>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -976,7 +999,7 @@
             <a class="tab-trigger" href="#about-privacy">Privacy</a> / <a class="tab-trigger" href="#about-license">Terms</a> / <a class="tab-trigger" href="https://github.com/SchmidtDSE/plastics-prototype">Open Source</a> / <a class="tab-trigger" href="#about-contact">Contact</a> / <a class="tab-trigger" href="#toc">Table of Contents</a> / <a class="tab-trigger" href="#settings">Accessibility</a> / <a class="tab-trigger" href="#about-publication">Cite Us</a>
         </footer>
 
-        <input type="hidden" id="version-number" value="20240904">
+        <input type="hidden" id="version-number" value="20240905">
 
         <dialog id="add-dialog">
             <form>
