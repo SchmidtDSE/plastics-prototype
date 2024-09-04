@@ -5,6 +5,15 @@ import {getGoals} from "goals";
 
 const NUM_TRIALS = 200;
 
+const SELECTED_POLICIES = [
+    {"series": "bau", "source": "sim_bau.pt"},
+    {"series": "mrc40Percent", "source": "sim_mrc.pt"},
+    {"series": "wasteInvest50Billion", "source": "sim_waste_invest.pt"},
+    {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
+    {"series": "packagingConsumptionTaxHigh", "source": "sim_packaging_tax.pt"},
+    {"series": "package", "source": "sim_package.pt"}
+];
+
 
 /**
  * Presenter which provides a slider representation of a simulation parameter (lever).
@@ -27,13 +36,13 @@ class SimPresenter {
         self._compileProgram = compileProgram;
         self._onYearChange = onYearChange;
         self._executeSingleInner = executeSingle;
+        self._policies = [];
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
         self._editor = self._initEditor(editorId);
 
         self._initYears();
-        self._attachListeners();
 
         // eslint-disable-next-line no-undef
         tippy(".tippy-btn");
@@ -114,13 +123,23 @@ class SimPresenter {
     loadInitialCode() {
         const self = this;
         
-        return fetchWithRetry("/pt/simulation.pt?v=" + CACHE_BUSTER)
+        const futureMainCode = fetchWithRetry("/pt/simulation.pt?v=" + CACHE_BUSTER)
             .then((response) => response.text())
             .then((text) => {
                 self._editor.setValue(text);
                 self._editor.clearSelection();
                 self._checkStatus();
             });
+        
+        const futurePolicies = self._getPolicyPrograms()
+            .then((policies) => {
+                self._policies = policies;
+                return policies;
+            })
+        
+        Promises.all([futureMainCode, futurePolicies]).then((results) => {
+            self._attachListeners();
+        });
     }
 
     _initYears() {
@@ -355,8 +374,37 @@ class SimPresenter {
         progressPanel.style.display = "none";
         standaloneResultsPanel.style.display = "none";
     }
-}
 
+    _getPolicyPrograms() {
+        const self = this;
+        
+        const promises = SELECTED_POLICIES.map((policyRecord) => {
+            return fetchWithRetry("/pt/" + policyRecord["source"] + "?v=" + CACHE_BUSTER)
+                .then((response) => response.text())
+                .then((text) => {
+                    const compileResult = self._compileProgram(text);
+                    const hasErrors = compileResult.getErrors().length > 0;
+
+                    if (hasErrors) {
+                        console.log("Failed to load: " + policyRecord["source"]);
+                    }
+                    
+                    const program = compileResult.getProgram();
+                    const hasProgram = program !== null;
+                    return hasProgram ? program : null;
+                })
+                .then((program) => {
+                    return {
+                        "series": program["series"],
+                        "source": program["source"],
+                        "program": program
+                    };
+                });
+        });
+
+        return Promise.all(promises);
+    }
+}
 
 
 function buildSimPresenter(buildState, compileProgram, onYearChange, executeSingle) {
