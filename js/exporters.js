@@ -41,7 +41,7 @@ const SIM_EXPORT_ATTRS = [
     "totalConsumption",
     "ghg",
     "primaryProduction",
-    "secondaryProduction"
+    "secondaryProduction",
 ];
 
 const SIM_EXPORT_ATTR_HEADERS = {
@@ -54,8 +54,8 @@ const SIM_EXPORT_ATTR_HEADERS = {
     "totalConsumption": "totalConsumptionMt",
     "ghg": "totalGhgCO2eMt",
     "primaryProduction": "primaryProductionMt",
-    "secondaryProduction": "secondaryProductionMt"
-}
+    "secondaryProduction": "secondaryProductionMt",
+};
 
 
 /**

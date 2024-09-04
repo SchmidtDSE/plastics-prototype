@@ -101,7 +101,7 @@ function getGoals(target) {
                 "goal": "secondaryProduction",
                 "value": getRegionOutput(state, region).get("secondaryProductionMT"),
             };
-        }
+        },
     ];
 
     const goals = new Map();

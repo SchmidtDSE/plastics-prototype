@@ -11,15 +11,13 @@ const SELECTED_POLICIES = [
     {"series": "wasteInvest50Billion", "source": "sim_waste_invest.pt"},
     {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
     {"series": "packagingConsumptionTaxHigh", "source": "sim_packaging_tax.pt"},
-    {"series": "package", "source": "sim_package.pt"}
+    {"series": "package", "source": "sim_package.pt"},
 ];
-
 
 /**
  * Presenter which provides a slider representation of a simulation parameter (lever).
  */
 class SimPresenter {
-
     /**
      * Create a new slider presenter.
      *
@@ -122,7 +120,7 @@ class SimPresenter {
 
     loadInitialCode() {
         const self = this;
-        
+
         const futureMainCode = fetchWithRetry("/pt/simulation.pt?v=" + CACHE_BUSTER)
             .then((response) => response.text())
             .then((text) => {
@@ -130,13 +128,13 @@ class SimPresenter {
                 self._editor.clearSelection();
                 self._checkStatus();
             });
-        
+
         const futurePolicies = self._getPolicyPrograms()
             .then((policies) => {
                 self._policies = policies;
                 return policies;
-            })
-        
+            });
+
         Promise.all([futureMainCode, futurePolicies]).then((results) => {
             self._attachListeners();
         });
@@ -159,7 +157,7 @@ class SimPresenter {
             .attr("value", (x) => x)
             .html((x) => x)
             .classed("year", true);
-        
+
         self.setYear(DEFAULT_YEAR);
     }
 
@@ -304,10 +302,10 @@ class SimPresenter {
             true,
             prePrograms,
             [],
-            [self.getYear()]
+            [self.getYear()],
         )
-        .then((x) => getGoals(x.get(self.getYear())))
-        .then((x) => self._labelGoals(x, label));
+            .then((x) => getGoals(x.get(self.getYear())))
+            .then((x) => self._labelGoals(x, label));
     }
 
     _labelGoals(targets, label) {
@@ -320,7 +318,7 @@ class SimPresenter {
 
     _runStandalone() {
         const self = this;
-        
+
         const editor = self._rootElement.querySelector(".editor-panel");
         editor.style.display = "none";
 
@@ -345,11 +343,11 @@ class SimPresenter {
         return new Promise((resolve) => {
             let completed = 0;
             const completedResults = [];
-            
+
             const continueSimulations = () => {
                 setTimeout(onSimResults, 10);
             };
-            
+
             const onSimResults = () => {
                 self._executeMany(10, "standalone").then((newResults) => {
                     completedResults.push(...newResults);
@@ -362,7 +360,7 @@ class SimPresenter {
                     }
                 });
             };
-            
+
             continueSimulations();
         });
     }
@@ -370,10 +368,10 @@ class SimPresenter {
     _reportStandalone(allResults) {
         const self = this;
         const outputLink = buildSimDownload(allResults);
-        
+
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-standalone-results-panel");
-        
+
         progressPanel.style.display = "none";
         resultsPanel.style.display = "block";
 
@@ -383,7 +381,7 @@ class SimPresenter {
 
     _runPolicies() {
         const self = this;
-        
+
         const editor = self._rootElement.querySelector(".editor-panel");
         editor.style.display = "none";
 
@@ -412,14 +410,14 @@ class SimPresenter {
             const policyName = policyInfo["series"];
             console.log(policyInfo);
             const policyProgram = policyInfo["program"];
-            
+
             return new Promise((innerResolve) => {
                 let completed = 0;
 
                 const continueSimulations = () => {
                     setTimeout(onSimResults, 10);
                 };
-                
+
                 const onSimResults = () => {
                     self._executeMany(10, policyName, policyProgram).then((newResults) => {
                         completedResults.push(...newResults);
@@ -433,7 +431,7 @@ class SimPresenter {
                         }
                     });
                 };
-                
+
                 continueSimulations();
             });
         };
@@ -446,10 +444,10 @@ class SimPresenter {
     _reportPolicies(allResults) {
         const self = this;
         const outputLink = buildSimDownload(allResults);
-        
+
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
-        
+
         progressPanel.style.display = "none";
         resultsPanel.style.display = "block";
 
@@ -463,10 +461,10 @@ class SimPresenter {
         const editorPanel = self._rootElement.querySelector(".editor-panel");
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const standaloneResultsPanel = self._rootElement.querySelector(
-            ".sim-standalone-results-panel"
+            ".sim-standalone-results-panel",
         );
         const policiesResultsPanel = self._rootElement.querySelector(
-            ".sim-policies-results-panel"
+            ".sim-policies-results-panel",
         );
 
         editorPanel.style.display = "block";
@@ -477,7 +475,7 @@ class SimPresenter {
 
     _getPolicyPrograms() {
         const self = this;
-        
+
         const promises = SELECTED_POLICIES.map((policyRecord) => {
             return fetchWithRetry("/pt/" + policyRecord["source"] + "?v=" + CACHE_BUSTER)
                 .then((response) => response.text())
@@ -488,7 +486,7 @@ class SimPresenter {
                     if (hasErrors) {
                         console.log("Failed to load: " + policyRecord["source"]);
                     }
-                    
+
                     const program = compileResult.getProgram();
                     const hasProgram = program !== null;
                     return hasProgram ? program : null;
@@ -497,7 +495,7 @@ class SimPresenter {
                     return {
                         "series": policyRecord["series"],
                         "source": policyRecord["source"],
-                        "program": program
+                        "program": program,
                     };
                 });
         });
@@ -515,7 +513,7 @@ function buildSimPresenter(buildState, compileProgram, onYearChange, executeSing
             compileProgram,
             onYearChange,
             executeSingle,
-            rootElement
+            rootElement,
         );
         resolve(presenter);
     });

@@ -184,9 +184,9 @@ class Driver {
                         runPrograms,
                         prePrograms,
                         historicYears,
-                        projectionYears
-                    )
-                )
+                        projectionYears,
+                    ),
+                ),
             ];
 
             Promise.all(promises).then((values) => {
@@ -317,7 +317,7 @@ class Driver {
 
         const resolveOptional = (givenValue, defaultValue) => {
             return givenValue === undefined ? defaultValue : givenValue;
-        }
+        };
 
         const preProgramsResolved = resolveOptional(prePrograms, []);
         const historicYearsResolved = resolveOptional(historicYears, self._historicYears);
