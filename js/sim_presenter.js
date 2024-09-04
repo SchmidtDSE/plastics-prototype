@@ -1,5 +1,10 @@
 import {CACHE_BUSTER, DEFAULT_YEAR, HISTORY_START_YEAR, MAX_YEAR} from "const";
+import {buildSimDownload} from "exporters";
 import {fetchWithRetry} from "file";
+import {getGoals} from "goals";
+
+const NUM_TRIALS = 100;
+
 
 /**
  * Presenter which provides a slider representation of a simulation parameter (lever).
@@ -13,7 +18,7 @@ class SimPresenter {
      * @param compileProgram Function to invoke to compile a plastics language program.
      * @param rootElement Element where this editor is to be rendered.
      */
-    constructor(buildState, compileProgram, onYearChange, rootElement) {
+    constructor(buildState, compileProgram, onYearChange, executeSingle, rootElement) {
         const self = this;
 
         self._rootElement = rootElement;
@@ -21,6 +26,7 @@ class SimPresenter {
         self._buildState = buildState;
         self._compileProgram = compileProgram;
         self._onYearChange = onYearChange;
+        self._executeSingleInner = executeSingle;
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
@@ -28,12 +34,15 @@ class SimPresenter {
 
         self._initYears();
         self._attachListeners();
+
+        // eslint-disable-next-line no-undef
+        tippy(".tippy-btn");
     }
 
     /**
-     * Compile the current program assigned to this lever.
+     * Compile the current program for simulations.
      *
-     * @returns The compilation of the current code for this lever which may be edited by the user.
+     * @returns The compilation of the current code which may be edited by the user.
      */
     getProgram() {
         const self = this;
@@ -96,6 +105,12 @@ class SimPresenter {
         yearSelector.value = year;
     }
 
+    getYear() {
+        const self = this;
+        const yearSelector = self._rootElement.querySelector(".sim-year-select");
+        return parseInt(yearSelector.value );
+    }
+
     loadInitialCode() {
         const self = this;
         
@@ -134,7 +149,15 @@ class SimPresenter {
 
         const yearSelector = self._rootElement.querySelector(".sim-year-select");
         yearSelector.addEventListener("change", () => {
-            self._onYearChange(parseInt(yearSelector.value));
+            self._onYearChange(self.getYear());
+        });
+
+        const executeStandaloneLink = self._rootElement.querySelector("#run-standalone");
+        executeStandaloneLink.addEventListener("click", (event) => {
+            self._runStandalone().then((x) => {
+                self._reportStandalone(x);
+            });
+            event.preventDefault();
         });
     }
 
@@ -221,14 +244,111 @@ class SimPresenter {
         // eslint-disable-next-line no-undef
         return ace;
     }
+
+    _executeMany(count) {
+        const self = this;
+        const promises = Array.from(Array(count)).map(() => {
+            return self._executeSingle();
+        });
+        return Promise.all(promises);
+    }
+
+    _executeSingle() {
+        const self = this;
+        return self._executeSingleInner(
+            true,
+            [self.getProgram()],
+            [],
+            [self.getYear()]
+        )
+        .then((x) => getGoals(x.get(self.getYear())))
+        .then((x) => self._labelGoals(x, "standalone"));
+    }
+
+    _labelGoals(targets, label) {
+        const self = this;
+        targets.forEach((regionInfo) => {
+            regionInfo.set("series", label);
+        });
+        return targets;
+    }
+
+    _runStandalone() {
+        const self = this;
+        
+        const editor = self._rootElement.querySelector(".editor-panel");
+        editor.style.display = "none";
+
+        const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
+        progressPanel.style.display = "block";
+
+        const completeLabel = self._rootElement.querySelector(".complete-sim-count");
+        const totalLabel = self._rootElement.querySelector(".total-sim-count");
+        const progressBar = self._rootElement.querySelector(".sim-progress-bar");
+
+        totalLabel.innerHTML = NUM_TRIALS;
+        progressBar.max = NUM_TRIALS;
+
+        const displayStatus = (completed) => {
+            completeLabel.innerHTML = completed;
+            progressBar.value = completed;
+            progressBar.innerHTML = completed;
+        };
+
+        displayStatus(0);
+
+        return new Promise((resolve) => {
+            let completed = 0;
+            const completedResults = [];
+            
+            const continueSimulations = () => {
+                setTimeout(onSimResults, 10);
+            };
+            
+            const onSimResults = () => {
+                self._executeMany(10).then((newResults) => {
+                    completedResults.push(...newResults);
+                    completed += 10;
+                    displayStatus(completed);
+                    if (completed < NUM_TRIALS) {
+                        continueSimulations();
+                    } else {
+                        resolve(completedResults);
+                    }
+                });
+            };
+            
+            continueSimulations();
+        });
+    }
+
+    _reportStandalone(allResults) {
+        const self = this;
+        const outputLink = buildSimDownload(allResults);
+        
+        const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
+        const resultsPanel = self._rootElement.querySelector(".sim-standalone-results-panel");
+        
+        progressPanel.style.display = "none";
+        resultsPanel.style.display = "block";
+
+        const downloadLink = self._rootElement.querySelector("#export-standalone");
+        downloadLink.href = outputLink;
+    }
 }
 
 
 
-function buildSimPresenter(buildState, compileProgram, onYearChange) {
+function buildSimPresenter(buildState, compileProgram, onYearChange, executeSingle) {
     return new Promise((resolve) => {
         const rootElement = document.getElementById("simulation");
-        const presenter = new SimPresenter(buildState, compileProgram, onYearChange, rootElement);
+        const presenter = new SimPresenter(
+            buildState,
+            compileProgram,
+            onYearChange,
+            executeSingle,
+            rootElement
+        );
         resolve(presenter);
     });
 }

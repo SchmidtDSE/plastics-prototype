@@ -179,7 +179,13 @@ class Driver {
                 buildSimPresenter(
                     () => self._buildStateForCurrentYear(),
                     (x) => self._compileProgram(x),
-                    (year) => self._onYearChange(year)
+                    (year) => self._onYearChange(year),
+                    (runPrograms, prePrograms, historicYears, projectionYears) => self._getStates(
+                        runPrograms,
+                        prePrograms,
+                        historicYears,
+                        projectionYears
+                    )
                 )
             ];
 
@@ -288,9 +294,12 @@ class Driver {
      * Build states for all years in the simulation tool.
      *
      * @param runPrograms True if the scripts should be run and false otherwise.
+     * @param prePrograms Optional array of programs to run prior to regular execution.
+     * @param historicYears Optional array of historic years to simulate.
+     * @param projectionYears Optional array of projection years to simulate.
      * @returns Map from year to state Map for that year.
      */
-    _getStates(runPrograms) {
+    _getStates(runPrograms, prePrograms, historicYears, projectionYears) {
         const self = this;
 
         const getPrograms = () => {
@@ -306,11 +315,25 @@ class Driver {
 
         const programs = runPrograms ? getPrograms() : [];
 
-        const historicStates = self._historicYears.map((year) => {
+        const resolveOptional = (givenValue, defaultValue) => {
+            return givenValue === undefined ? defaultValue : givenValue;
+        }
+
+        const preProgramsResolved = resolveOptional(prePrograms, []);
+        const historicYearsResolved = resolveOptional(historicYears, self._historicYears);
+        const projectionYearsResolved = resolveOptional(projectionYears, self._projectionYears);
+
+        const historicStates = historicYearsResolved.map((year) => {
             return {"year": year, "state": self._buildState(year, runPrograms)};
         });
-        const projectionStates = self._projectionYears.map((year) => {
+        const projectionStates = projectionYearsResolved.map((year) => {
             const state = self._buildState(year, runPrograms);
+
+            preProgramsResolved.forEach((program) => {
+                state.set("local", new Map());
+                state.set("inspect", []);
+                program(state);
+            });
 
             programs.forEach((programInfo) => {
                 const program = programInfo["program"];

@@ -126,6 +126,8 @@ const GOALS = {
     totalConsumption: "totalConsumption",
     totalWaste: "totalWaste",
     ghg: "ghg",
+    primaryProduction: "primaryProduction",
+    secondaryProduction: "secondaryProduction"
 };
 
 const STANDARD_ATTR_NAMES = new Map();

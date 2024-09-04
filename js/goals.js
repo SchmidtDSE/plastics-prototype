@@ -90,6 +90,18 @@ function getGoals(target) {
                 "value": getTotal(),
             };
         },
+        (state, region) => {
+            return {
+                "goal": "primaryProduction",
+                "value": getRegionOutput(state, region).get("primaryProductionMT"),
+            };
+        },
+        (state, region) => {
+            return {
+                "goal": "secondaryProduction",
+                "value": getRegionOutput(state, region).get("secondaryProductionMT"),
+            };
+        }
     ];
 
     const goals = new Map();

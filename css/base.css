@@ -162,6 +162,10 @@ table td {
     display: none;
 }
 
+.about-panel .sim-standalone-results-panel {
+    display: none;
+}
+
 .cookie-note {
     color: #707070;
 }
