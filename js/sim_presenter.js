@@ -1,4 +1,4 @@
-import {CACHE_BUSTER} from "const";
+import {CACHE_BUSTER, DEFAULT_YEAR, HISTORY_START_YEAR, MAX_YEAR} from "const";
 import {fetchWithRetry} from "file";
 
 /**
@@ -13,19 +13,21 @@ class SimPresenter {
      * @param compileProgram Function to invoke to compile a plastics language program.
      * @param rootElement Element where this editor is to be rendered.
      */
-    constructor(buildState, compileProgram, rootElement) {
+    constructor(buildState, compileProgram, onYearChange, rootElement) {
         const self = this;
 
         self._rootElement = rootElement;
+        self._d3Selection = d3.select(self._rootElement);
         self._buildState = buildState;
         self._compileProgram = compileProgram;
+        self._onYearChange = onYearChange;
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
         self._editor = self._initEditor(editorId);
 
+        self._initYears();
         self._attachListeners();
-        self._onInputChangeInProgress();
     }
 
     /**
@@ -88,8 +90,52 @@ class SimPresenter {
             });
     }
 
+    setYear(year) {
+        const self = this;
+        const yearSelector = self._rootElement.querySelector(".sim-year-select");
+        yearSelector.value = year;
+    }
+
+    loadInitialCode() {
+        const self = this;
+        
+        return fetchWithRetry("/pt/simulation.pt?v=" + CACHE_BUSTER)
+            .then((response) => response.text())
+            .then((text) => {
+                self._editor.setValue(text);
+                self._editor.clearSelection();
+                self._checkStatus();
+            });
+    }
+
+    _initYears() {
+        const self = this;
+
+        const years = [];
+        for (let year = HISTORY_START_YEAR; year <= MAX_YEAR; year++) {
+            years.push(year);
+        }
+
+        self._d3Selection
+            .select(".sim-year-select")
+            .selectAll(".year")
+            .data(years)
+            .enter()
+            .append("option")
+            .attr("value", (x) => x)
+            .html((x) => x)
+            .classed("year", true);
+        
+        self.setYear(DEFAULT_YEAR);
+    }
+
     _attachListeners() {
         const self = this;
+
+        const yearSelector = self._rootElement.querySelector(".sim-year-select");
+        yearSelector.addEventListener("change", () => {
+            self._onYearChange(parseInt(yearSelector.value));
+        });
     }
 
     _checkStatus(text) {
@@ -120,15 +166,20 @@ class SimPresenter {
         const errorIndicator = self._rootElement.querySelector(
             ".error-indicator",
         );
+        const actionsArea = self._rootElement.querySelector(
+            ".sim-actions",
+        );
         const display = self._rootElement.querySelector(".status-display");
 
         if (text === null) {
             errorIndicator.style.display = "none";
             display.style.display = "none";
+            actionsArea.style.display = "block";
         } else {
             display.textContent = text;
             display.style.display = "block";
-            errorIndicator.style.display = "inline-block";
+            errorIndicator.style.display = "block";
+            actionsArea.style.display = "none";
         }
     }
 
@@ -174,10 +225,10 @@ class SimPresenter {
 
 
 
-function buildSimPresenter(buildState, compileProgram) {
+function buildSimPresenter(buildState, compileProgram, onYearChange) {
     return new Promise((resolve) => {
         const rootElement = document.getElementById("simulation");
-        const presenter = new SimPresenter(buildState, compileProgram, rootElement);
+        const presenter = new SimPresenter(buildState, compileProgram, onYearChange, rootElement);
         resolve(presenter);
     });
 }

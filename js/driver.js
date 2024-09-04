@@ -19,6 +19,7 @@ import {FilePresenter} from "file";
 import {addGlobalToState} from "geotools";
 import {buildOverviewPresenter} from "overview";
 import {buildReportPresenter} from "report";
+import {buildSimPresenter} from "sim_presenter";
 import {buildSliders} from "slider";
 
 
@@ -177,7 +178,8 @@ class Driver {
                 ),
                 buildSimPresenter(
                     () => self._buildStateForCurrentYear(),
-                    (x) => self._compileProgram(x)
+                    (x) => self._compileProgram(x),
+                    (year) => self._onYearChange(year)
                 )
             ];
 
@@ -187,6 +189,9 @@ class Driver {
                 self._reportPresenter = values[2];
                 self._levers = values[3];
                 self._overviewPresenter = values[4];
+                self._simPresenter = values[5];
+
+                self._simPresenter.loadInitialCode();
 
                 self._levers.sort((a, b) => {
                     const diff = a.getPriority() - b.getPriority();
@@ -364,6 +369,7 @@ class Driver {
         self._lastYear = year;
         self._reportPresenter.setYear(year);
         self._overviewPresenter.setYear(year);
+        self._simPresenter.setYear(year);
         self._onInputChange();
     }
 

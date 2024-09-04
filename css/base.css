@@ -153,6 +153,15 @@ table td {
     max-width: 90%;
 }
 
+.about-panel .sim-actions {
+    line-height: 1;
+    margin-top: 10px;
+}
+
+.about-panel .sim-progress-panel {
+    display: none;
+}
+
 .cookie-note {
     color: #707070;
 }
@@ -878,6 +887,12 @@ h2 .info-img, h3 .info-img {
     display: none;
 }
 
+.status-display {
+    background-color: #E0D000;
+    padding: 2px;
+    color: black;
+}
+
 .table-option {
     display: none;
 }
@@ -1026,12 +1041,6 @@ h2 .info-img, h3 .info-img {
 #levers-panel .slider-holder {
     margin-top: 15px;
     margin-bottom: 30px;
-}
-
-#levers-panel .status-display {
-    background-color: #E0D000;
-    padding: 2px;
-    color: black;
 }
 
 #levers-panel .wiki-info {

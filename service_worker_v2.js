@@ -127,6 +127,7 @@ const ESSENTIAL_FILES = [
     "/pt/reduce_packaging_polymer.pt",
     "/pt/reduce_ps.pt",
     "/pt/scenarios.json",
+    "/pt/simulation.pt",
     "/pt/virgin_plastic_cap.pt",
     "/pt/virgin_tax.pt",
     "/pt/waste_trade.pt",
