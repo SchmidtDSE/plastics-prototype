@@ -25,6 +25,19 @@ const SELECTED_POLICIES = [
     {"series": "packagingReuse80Percent", "source": "sim_packaging_reuse.pt"}
 ];
 
+const SERIES_LABELS = {
+    "baseline": ["BAU"],
+    "mrc40Percent": ["Min", "Recycle", "Content", "(40%)"],
+    "wasteInvest50Billion": ["50B", "Waste", "Invest"],
+    "capVirgin": ["Cap", "Virgin", "2020"],
+    "packagingConsumptionTaxHigh": ["Packaging", "Tax"],
+    "package": ["4", "Policy", "Package"],
+    "recycleInvest100Billion": ["100B", "Recycle", "Invest"],
+    "mrr40Percent": ["Min", "Recycle", "Collect", "Rate (40%)"],
+    "banSingleUse": ["Ban", "Single", "Use (90%)"],
+    "packagingReuse80Percent": ["Packaging", "Reuse (80%)"],
+};
+
 const STANDALONE_X_TITLES = {
     "landfillWaste": "Global Landfill Waste (Mt)",
     "mismanagedWaste": "Global Mismanaged Waste (Mt)",
@@ -62,6 +75,10 @@ class SimPresenter {
 
         self._standaloneReportPresenter = new StandaloneReportPresenter(
             self._rootElement.querySelector(".sim-standalone-results-panel"),
+        );
+
+        self._policiesReportPresenter = new PoliciesReportPresenter(
+            self._rootElement.querySelector(".sim-policies-results-panel"),
         );
 
         const editorContainer = self._rootElement.querySelector(".editor");
@@ -500,6 +517,8 @@ class SimPresenter {
         const outputLink = buildSimSummaryDownload(summarizedRecords);
         const downloadLink = self._rootElement.querySelector("#export-policies");
         downloadLink.href = outputLink;
+
+        self._policiesReportPresenter.setResults(summarizedRecords);
     }
 
     _summarizeRecords(allResults) {
@@ -541,6 +560,8 @@ class SimPresenter {
                 "std": std
             });
         });
+
+        return summarizedRecords;
     }
 
     _resetUI() {
@@ -714,7 +735,7 @@ class PoliciesReportPresenter {
 
     setResults(results) {
         const self = this;
-        self._results = results;
+        self._results = results.filter((x) => x["region"] === "global");
         self._refreshChart();
     }
 
@@ -753,19 +774,26 @@ class PoliciesReportPresenter {
             self._chart.destroy();
         }
 
-        const percentInfo = self._getPercents();
         const dimension = self._getSelectedDimension();
         const interval = self._getIntervalInStd();
 
         const canvas = self._rootElement.querySelector(".policies-canvas");
 
+        const variableResults = self._results.filter((x) => x["variable"] === dimension);
+
         self._chart = new Chart(canvas, {
             type: "bar",
             data: {
-                labels: ,
+                labels: variableResults.map((x) => SERIES_LABELS[x["series"]]),
                 datasets: [{
                     label: "+/- " + interval + " std",
-                    data: ,
+                    data: variableResults.map((x) => {
+                        const mean = x["mean"];
+                        const std = x["std"];
+                        const low = mean - std * interval;
+                        const high = mean + std * interval;
+                        return [Math.round(low * 10) / 10, Math.round(high * 10) / 10];
+                    }),
                 }],
             },
             options: {
@@ -774,13 +802,13 @@ class PoliciesReportPresenter {
                         beginAtZero: true,
                         title: {
                             "display": true,
-                            "text": "Frequency of Simulations (%)",
+                            "text": STANDALONE_X_TITLES[dimension],
                         },
                     },
                     x: {
                         title: {
                             "display": true,
-                            "text": STANDALONE_X_TITLES[dimension],
+                            "text": "Scenario",
                         },
                     },
                 },
