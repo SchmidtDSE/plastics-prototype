@@ -207,36 +207,49 @@ function buildGhgDownload(withInterventions) {
  * Build an inline data URI that encodes a CSV file with simuation outputs.
  *
  * @param goalOutputs Array of maps with goal outputs.
+ * @param filterRegion Optional region to filter for.
  * @returns Data URI that embedds the CSV file.
  */
-function buildSimDownload(goalOutputs) {
+function buildSimDownload(goalOutputs, filterRegion) {
     const headerRowStr = SIM_EXPORT_ATTRS.map((x) => SIM_EXPORT_ATTR_HEADERS[x]).join(",");
 
     const serializeSimToArray = (simOutputs) => {
-        const serialized = Array.of(...simOutputs.keys())
+        const regions = Array.of(...simOutputs.keys())
             .map((region) => {
                 return {"region": region, "output": simOutputs.get(region)};
-            })
-            .map((record) => {
-                return SIM_EXPORT_ATTRS.map((attr) => {
-                    if (attr === "region") {
-                        return record["region"];
-                    } else {
-                        return record["output"].get(attr);
-                    }
-                });
             });
+
+        const hasFilterRegion = filterRegion !== undefined;
+
+        let regionsAllowed;
+        if (hasFilterRegion) {
+            regionsAllowed = regions.filter((x) => x["region"] === filterRegion);
+        } else {
+            regionsAllowed = regions;
+        }
+
+        const serialized = regionsAllowed.map((record) => {
+            return SIM_EXPORT_ATTRS.map((attr) => {
+                if (attr === "region") {
+                    return record["region"];
+                } else {
+                    return record["output"].get(attr);
+                }
+            });
+        });
 
         return serialized;
     };
 
     const content = goalOutputs.map(serializeSimToArray)
-        .flat()
+        .flat();
+
+    const contentCsv = content
         .map((recordLinear) => recordLinear.map((x) => x + ""))
         .map((recordLinear) => recordLinear.join(","))
         .join("\n");
 
-    const fullCsv = headerRowStr + "\n" + content;
+    const fullCsv = headerRowStr + "\n" + contentCsv;
     return "data:text/csv;charset=UTF-8," + encodeURIComponent(fullCsv);
 }
 

@@ -9,16 +9,28 @@ import {buildSimDownload} from "exporters";
 import {fetchWithRetry} from "file";
 import {getGoals} from "goals";
 
-const NUM_TRIALS = 200;
+const NUM_TRIALS_STANDALONE = 1000;
+const NUM_TRIALS_POLICY = 300;
 
 const SELECTED_POLICIES = [
-    {"series": "bau", "source": "sim_bau.pt"},
+    {"series": "baseline", "source": "sim_bau.pt"},
     {"series": "mrc40Percent", "source": "sim_mrc.pt"},
     {"series": "wasteInvest50Billion", "source": "sim_waste_invest.pt"},
     {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
     {"series": "packagingConsumptionTaxHigh", "source": "sim_packaging_tax.pt"},
     {"series": "package", "source": "sim_package.pt"},
 ];
+
+const STANDALONE_X_TITLES = {
+    "landfillWaste": "Global Landfill Waste (Mt)",
+    "mismanagedWaste": "Global Mismanaged Waste (Mt)",
+    "incineratedWaste": "Global Incinerated Waste (Mt)",
+    "recycling": "Global Recycled Waste (Mt)",
+    "totalConsumption": "Global Total Consumption (Mt)",
+    "ghg": "Global Gross GHG (CO2e Mt)",
+    "primaryProduction": "Primary Production (Mt)",
+    "secondaryProduction": "Secondary Production (Mt)",
+};
 
 /**
  * Presenter which provides a slider representation of a simulation parameter (lever).
@@ -43,6 +55,10 @@ class SimPresenter {
         self._onYearChange = onYearChange;
         self._executeSingleInner = executeSingle;
         self._policies = [];
+
+        self._standaloneReportPresenter = new StandaloneReportPresenter(
+            self._rootElement.querySelector(".sim-standalone-results-panel"),
+        );
 
         const editorContainer = self._rootElement.querySelector(".editor");
         const editorId = editorContainer.id;
@@ -350,8 +366,8 @@ class SimPresenter {
         const totalLabel = self._rootElement.querySelector(".total-sim-count");
         const progressBar = self._rootElement.querySelector(".sim-progress-bar");
 
-        totalLabel.innerHTML = NUM_TRIALS;
-        progressBar.max = NUM_TRIALS;
+        totalLabel.innerHTML = NUM_TRIALS_STANDALONE;
+        progressBar.max = NUM_TRIALS_STANDALONE;
 
         const displayStatus = (completed) => {
             completeLabel.innerHTML = completed;
@@ -374,7 +390,7 @@ class SimPresenter {
                     completedResults.push(...newResults);
                     completed += 10;
                     displayStatus(completed);
-                    if (completed < NUM_TRIALS) {
+                    if (completed < NUM_TRIALS_STANDALONE) {
                         continueSimulations();
                     } else {
                         resolve(completedResults);
@@ -398,6 +414,8 @@ class SimPresenter {
 
         const downloadLink = self._rootElement.querySelector("#export-standalone");
         downloadLink.href = outputLink;
+
+        self._standaloneReportPresenter.setResults(allResults);
     }
 
     _runPolicies() {
@@ -413,8 +431,8 @@ class SimPresenter {
         const totalLabel = self._rootElement.querySelector(".total-sim-count");
         const progressBar = self._rootElement.querySelector(".sim-progress-bar");
 
-        totalLabel.innerHTML = NUM_TRIALS * self._policies.length;
-        progressBar.max = NUM_TRIALS * self._policies.length;
+        totalLabel.innerHTML = NUM_TRIALS_POLICY * self._policies.length;
+        progressBar.max = NUM_TRIALS_POLICY * self._policies.length;
 
         const displayStatus = (completed) => {
             completeLabel.innerHTML = completed;
@@ -429,7 +447,6 @@ class SimPresenter {
 
         const executePolicy = (policyInfo) => {
             const policyName = policyInfo["series"];
-            console.log(policyInfo);
             const policyProgram = policyInfo["program"];
 
             return new Promise((innerResolve) => {
@@ -445,7 +462,7 @@ class SimPresenter {
                         completed += 10;
                         totalCompleted += 10;
                         displayStatus(totalCompleted);
-                        if (completed < NUM_TRIALS) {
+                        if (completed < NUM_TRIALS_POLICY) {
                             continueSimulations();
                         } else {
                             innerResolve(completedResults);
@@ -464,7 +481,8 @@ class SimPresenter {
 
     _reportPolicies(allResults) {
         const self = this;
-        const outputLink = buildSimDownload(allResults);
+        console.log(allResults.length);
+        const outputLink = buildSimDownload(allResults, "global");
 
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
@@ -524,6 +542,117 @@ class SimPresenter {
         return Promise.all(promises);
     }
 }
+
+
+class StandaloneReportPresenter {
+    constructor(rootElement) {
+        const self = this;
+        self._rootElement = rootElement;
+        self._results = null;
+        self._chart = null;
+
+        self._attachListeners();
+    }
+
+    setResults(results) {
+        const self = this;
+        self._results = results;
+        self._refreshChart();
+    }
+
+    _getSelectedDimension() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".standalone-dim-selector");
+        return dropdown.value;
+    }
+
+    _attachListeners() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".standalone-dim-selector");
+        dropdown.addEventListener("change", () => {
+            self._refreshChart();
+        });
+    }
+
+    _refreshChart() {
+        const self = this;
+
+        if (self._chart !== null) {
+            self._chart.destroy();
+        }
+
+        const percentInfo = self._getPercents();
+        const dimension = self._getSelectedDimension();
+
+        const canvas = self._rootElement.querySelector(".standalone-canvas");
+
+        self._chart = new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: percentInfo.map((x) => x["bucket"]),
+                datasets: [{
+                    label: "Percent of Simulations",
+                    data: percentInfo.map((x) => x["percent"]),
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            "display": true,
+                            "text": "Frequency of Simulations (%)",
+                        },
+                    },
+                    x: {
+                        title: {
+                            "display": true,
+                            "text": STANDALONE_X_TITLES[dimension],
+                        },
+                    },
+                },
+            },
+        });
+    }
+
+    _getPercents() {
+        const self = this;
+        const dimension = self._getSelectedDimension();
+        const globalResults = self._results.map((x) => x.get("global"));
+        const dimensionResults = globalResults.map((x) => x.get(dimension));
+
+        const counts = new Map();
+
+        const valuesRounded = dimensionResults.map((x) => Math.round(x / 10) * 10);
+        const minValue = Math.min(...valuesRounded);
+        const maxValue = Math.max(...valuesRounded);
+        for (let x = minValue; x <= maxValue; x += 10) {
+            counts.set(x, 0);
+        }
+
+        dimensionResults.forEach((x) => {
+            const bucket = Math.round(x / 10) * 10;
+            counts.set(bucket, counts.get(bucket) + 1);
+        });
+
+        const percents = new Map();
+        counts.forEach((count, bucket) => {
+            percents.set(bucket, count / dimensionResults.length * 100);
+        });
+
+        const outputRecords = [];
+        percents.forEach((percent, bucket) => {
+            outputRecords.push({"bucket": bucket, "percent": percent});
+        });
+
+        outputRecords.sort((a, b) => a["bucket"] - b["bucket"]);
+
+        return outputRecords;
+    }
+}
+
 
 /**
  * Create a new simulation tab presenter.
