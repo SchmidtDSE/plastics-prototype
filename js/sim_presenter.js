@@ -1,3 +1,9 @@
+/**
+ * Logic for running the simulation tab where monte carlo trials can be run.
+ *
+ * @license BSD, see LICENSE.md
+ */
+
 import {CACHE_BUSTER, DEFAULT_YEAR, HISTORY_START_YEAR, MAX_YEAR} from "const";
 import {buildSimDownload} from "exporters";
 import {fetchWithRetry} from "file";
@@ -23,6 +29,8 @@ class SimPresenter {
      *
      * @param buildState Function to invoke to get a new state Map.
      * @param compileProgram Function to invoke to compile a plastics language program.
+     * @param onYearChange Callback to invoke when the user changes the year selected.
+     * @param executeSingle Function to call to execute a single simulation.
      * @param rootElement Element where this editor is to be rendered.
      */
     constructor(buildState, compileProgram, onYearChange, executeSingle, rootElement) {
@@ -106,18 +114,31 @@ class SimPresenter {
             });
     }
 
+    /**
+     * Specify the year to be simulated.
+     *
+     * @param year The year as an integer.
+     */
     setYear(year) {
         const self = this;
         const yearSelector = self._rootElement.querySelector(".sim-year-select");
         yearSelector.value = year;
     }
 
+    /**
+     * Get the year being simulated.
+     *
+     * @returns The year currently selected by the user as an integer.
+     */
     getYear() {
         const self = this;
         const yearSelector = self._rootElement.querySelector(".sim-year-select");
         return parseInt(yearSelector.value );
     }
 
+    /**
+     * Load code for policies and the simulation default code.
+     */
     loadInitialCode() {
         const self = this;
 
@@ -504,7 +525,15 @@ class SimPresenter {
     }
 }
 
-
+/**
+ * Create a new simulation tab presenter.
+ *
+ * @param buildState Function to invoke to get a new state Map.
+ * @param compileProgram Function to invoke to compile a plastics language program.
+ * @param onYearChange Callback to invoke when the user changes the year selected.
+ * @param executeSingle Function to call to execute a single simulation.
+ * @returns Promise that resolves to the simulation presenter.
+ */
 function buildSimPresenter(buildState, compileProgram, onYearChange, executeSingle) {
     return new Promise((resolve) => {
         const rootElement = document.getElementById("simulation");
