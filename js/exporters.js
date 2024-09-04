@@ -44,6 +44,14 @@ const SIM_EXPORT_ATTRS = [
     "secondaryProduction",
 ];
 
+const SIM_SUMMARY_EXPORT_ATTRS = [
+    "series",
+    "region",
+    "variable",
+    "mean",
+    "std"
+];
+
 const SIM_EXPORT_ATTR_HEADERS = {
     "series": "series",
     "region": "region",
@@ -254,4 +262,44 @@ function buildSimDownload(goalOutputs, filterRegion) {
 }
 
 
-export {buildGhgDownload, buildPolymerDownload, buildSectorFateDownload, buildSimDownload};
+/**
+ * Build an inline data URI that encodes a CSV file with simuation outputs.
+ *
+ * @param goalOutputs Array of maps with goal outputs.
+ * @returns Data URI that embedds the CSV file.
+ */
+function buildSimSummaryDownload(goalOutputs) {
+    const headerRowStr = SIM_SUMMARY_EXPORT_ATTRS.join(",");
+
+    const content = goalOutputs
+        .filter((record) => SIM_EXPORT_ATTR_HEADERS[record["variable"]] !== undefined)
+        .map((record) => {
+            const linearRow = SIM_SUMMARY_EXPORT_ATTRS.map((attr) => {
+                if (attr === "variable") {
+                    return SIM_EXPORT_ATTR_HEADERS[record["variable"]];
+                } else {
+                    return record[attr];
+                }
+            });
+            return linearRow;
+        })
+        .map((row) => {
+            return row.map((value) => value + "");
+        })
+        .map((row) => {
+            return row.join(",");
+        })
+        .join("\n");
+
+    const fullCsv = headerRowStr + "\n" + content;
+    return "data:text/csv;charset=UTF-8," + encodeURIComponent(fullCsv);
+}
+
+
+export {
+    buildGhgDownload,
+    buildPolymerDownload,
+    buildSectorFateDownload,
+    buildSimDownload,
+    buildSimSummaryDownload
+};

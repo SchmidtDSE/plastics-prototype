@@ -5,12 +5,12 @@
  */
 
 import {CACHE_BUSTER, DEFAULT_YEAR, HISTORY_START_YEAR, MAX_YEAR} from "const";
-import {buildSimDownload} from "exporters";
+import {buildSimDownload, buildSimSummaryDownload} from "exporters";
 import {fetchWithRetry} from "file";
 import {getGoals} from "goals";
 
 const NUM_TRIALS_STANDALONE = 1000;
-const NUM_TRIALS_POLICY = 300;
+const NUM_TRIALS_POLICY = 500;
 
 const SELECTED_POLICIES = [
     {"series": "baseline", "source": "sim_bau.pt"},
@@ -485,8 +485,8 @@ class SimPresenter {
 
     _reportPolicies(allResults) {
         const self = this;
-        console.log(allResults.length);
-        const outputLink = buildSimDownload(allResults, "global");
+
+        const summarizedRecords = self._summarizeRecords(allResults);
 
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
@@ -494,8 +494,50 @@ class SimPresenter {
         progressPanel.style.display = "none";
         resultsPanel.style.display = "block";
 
+        const outputLink = buildSimSummaryDownload(summarizedRecords);
         const downloadLink = self._rootElement.querySelector("#export-policies");
         downloadLink.href = outputLink;
+    }
+
+    _summarizeRecords(allResults) {
+        const self = this;
+        
+        const allResultsByKey = new Map();
+        allResults.forEach((inputRecord) => {
+            Array.of(...inputRecord.keys()).forEach((region) => {
+                const regionRecord = inputRecord.get(region);
+                const series = regionRecord.get("series");
+                const variables = Array.of(...regionRecord.keys())
+                    .filter((x) => x !== "series")
+                    .filter((x) => x !== "region");
+                
+                return variables.forEach((variable) => {
+                    const key = [series, region, variable].join("\t");
+                    const value = regionRecord.get(variable);
+                    if (!allResultsByKey.has(key)) {
+                        allResultsByKey.set(key, []);
+                    }
+                    allResultsByKey.get(key).push(value);
+                });
+            });
+        });
+
+        const summarizedRecords = [];
+        allResultsByKey.forEach((values, key) => {
+            const keyComponents = key.split("\t");
+            const series = keyComponents[0];
+            const region = keyComponents[1];
+            const variable = keyComponents[2];
+            const mean = getMean(values);
+            const std = getStandardDeviation(values);
+            summarizedRecords.push({
+                "series": series,
+                "region": region,
+                "variable": variable,
+                "mean": mean,
+                "std": std
+            });
+        });
     }
 
     _resetUI() {
@@ -656,6 +698,43 @@ class StandaloneReportPresenter {
         return outputRecords;
     }
 }
+
+
+/**
+ * Get the mean value of an array.
+ * 
+ * @param target Array of numbers
+ * @returns Mean
+ */
+function getMean(target) {
+    if (target.length == 0) {
+        return 0;
+    }
+    
+    const total = target.reduce((a, b) => a + b);
+    const mean = total / target.length;
+    return mean;
+}
+
+
+/**
+ * Get the standard deviation of an array.
+ * 
+ * @param target Array of numbers
+ * @returns Standard deviation
+ */
+function getStandardDeviation(target) {
+    if (target.length == 0) {
+        return 0;
+    }
+
+    const total = target.reduce((a, b) => a + b);
+    const mean = total / target.length;
+    const varianceNum = target.map((x) => Math.pow(x - mean, 2)).reduce((a, b) => a + b);
+    const variance = varianceNum / target.length;
+    const std = Math.sqrt(variance);
+    return std;
+};
 
 
 /**
