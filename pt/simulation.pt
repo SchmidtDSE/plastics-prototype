@@ -27,7 +27,8 @@ in.naftaPreEolMultiplier = 100;  # Enable NA EOL offset
 in.rowPreEolMultiplier = 100;  # Enable MW EOL offset
 
 # Reflect that we compound 28 years with 5 samples per year
-var numYears = 28;
+var numYears = in.year - 2021;
+limit numYears to [1, ];
 var samplesPerYear = 5;
 
 # China
