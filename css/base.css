@@ -167,6 +167,11 @@ table td {
     line-height: 1;
 }
 
+.about-panel .sim-policies-results-panel {
+    display: none;
+    line-height: 1;
+}
+
 .cookie-note {
     color: #707070;
 }

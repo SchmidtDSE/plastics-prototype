@@ -137,7 +137,7 @@ class SimPresenter {
                 return policies;
             })
         
-        Promises.all([futureMainCode, futurePolicies]).then((results) => {
+        Promise.all([futureMainCode, futurePolicies]).then((results) => {
             self._attachListeners();
         });
     }
@@ -179,8 +179,22 @@ class SimPresenter {
             event.preventDefault();
         });
 
+        const executePoliciesLink = self._rootElement.querySelector("#run-policies");
+        executePoliciesLink.addEventListener("click", (event) => {
+            self._runPolicies().then((x) => {
+                self._reportPolicies(x);
+            });
+            event.preventDefault();
+        });
+
         const standaloneFinishLink = self._rootElement.querySelector("#finish-standalone");
         standaloneFinishLink.addEventListener("click", (event) => {
+            self._resetUI();
+            event.preventDefault();
+        });
+
+        const policiesFinishLink = self._rootElement.querySelector("#finish-policies");
+        policiesFinishLink.addEventListener("click", (event) => {
             self._resetUI();
             event.preventDefault();
         });
@@ -270,24 +284,30 @@ class SimPresenter {
         return ace;
     }
 
-    _executeMany(count) {
+    _executeMany(count, label, setupProgram) {
         const self = this;
         const promises = Array.from(Array(count)).map(() => {
-            return self._executeSingle();
+            return self._executeSingle(label, setupProgram);
         });
         return Promise.all(promises);
     }
 
-    _executeSingle() {
+    _executeSingle(label, setupProgram) {
         const self = this;
+
+        const prePrograms = [self.getProgram()];
+        if (setupProgram !== undefined) {
+            prePrograms.push(setupProgram);
+        }
+
         return self._executeSingleInner(
             true,
-            [self.getProgram()],
+            prePrograms,
             [],
             [self.getYear()]
         )
         .then((x) => getGoals(x.get(self.getYear())))
-        .then((x) => self._labelGoals(x, "standalone"));
+        .then((x) => self._labelGoals(x, label));
     }
 
     _labelGoals(targets, label) {
@@ -331,7 +351,7 @@ class SimPresenter {
             };
             
             const onSimResults = () => {
-                self._executeMany(10).then((newResults) => {
+                self._executeMany(10, "standalone").then((newResults) => {
                     completedResults.push(...newResults);
                     completed += 10;
                     displayStatus(completed);
@@ -361,6 +381,81 @@ class SimPresenter {
         downloadLink.href = outputLink;
     }
 
+    _runPolicies() {
+        const self = this;
+        
+        const editor = self._rootElement.querySelector(".editor-panel");
+        editor.style.display = "none";
+
+        const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
+        progressPanel.style.display = "block";
+
+        const completeLabel = self._rootElement.querySelector(".complete-sim-count");
+        const totalLabel = self._rootElement.querySelector(".total-sim-count");
+        const progressBar = self._rootElement.querySelector(".sim-progress-bar");
+
+        totalLabel.innerHTML = NUM_TRIALS * self._policies.length;
+        progressBar.max = NUM_TRIALS * self._policies.length;
+
+        const displayStatus = (completed) => {
+            completeLabel.innerHTML = completed;
+            progressBar.value = completed;
+            progressBar.innerHTML = completed;
+        };
+
+        displayStatus(0);
+
+        let totalCompleted = 0;
+        const completedResults = [];
+
+        const executePolicy = (policyInfo) => {
+            const policyName = policyInfo["series"];
+            const policyProgram = policyInfo["program"];
+            
+            return new Promise((innerResolve) => {
+                let completed = 0;
+
+                const continueSimulations = () => {
+                    setTimeout(onSimResults, 10);
+                };
+                
+                const onSimResults = () => {
+                    self._executeMany(10, policyName, policyProgram).then((newResults) => {
+                        completedResults.push(...newResults);
+                        completed += 10;
+                        totalCompleted += 10;
+                        displayStatus(totalCompleted);
+                        if (completed < NUM_TRIALS) {
+                            continueSimulations();
+                        } else {
+                            innerResolve(completedResults);
+                        }
+                    });
+                };
+                
+                continueSimulations();
+            });
+        };
+
+        const policyFutures = self._policies.map(executePolicy);
+
+        return Promise.all(policyFutures).then((results) => results.flat());
+    }
+
+    _reportPolicies(allResults) {
+        const self = this;
+        const outputLink = buildSimDownload(allResults);
+        
+        const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
+        const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
+        
+        progressPanel.style.display = "none";
+        resultsPanel.style.display = "block";
+
+        const downloadLink = self._rootElement.querySelector("#export-policies");
+        downloadLink.href = outputLink;
+    }
+
     _resetUI() {
         const self = this;
 
@@ -369,10 +464,14 @@ class SimPresenter {
         const standaloneResultsPanel = self._rootElement.querySelector(
             ".sim-standalone-results-panel"
         );
+        const policiesResultsPanel = self._rootElement.querySelector(
+            ".sim-policies-results-panel"
+        );
 
         editorPanel.style.display = "block";
         progressPanel.style.display = "none";
         standaloneResultsPanel.style.display = "none";
+        policiesResultsPanel.style.display = "none";
     }
 
     _getPolicyPrograms() {
