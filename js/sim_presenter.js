@@ -10,7 +10,7 @@ import {fetchWithRetry} from "file";
 import {getGoals} from "goals";
 
 const NUM_TRIALS_STANDALONE = 1000;
-const NUM_TRIALS_POLICY = 500;
+const NUM_TRIALS_POLICY = 300;
 
 const SELECTED_POLICIES = [
     {"series": "bau", "source": "sim_bau.pt"},
@@ -470,7 +470,8 @@ class SimPresenter {
 
     _reportPolicies(allResults) {
         const self = this;
-        const outputLink = buildSimDownload(allResults);
+        console.log(allResults.length);
+        const outputLink = buildSimDownload(allResults, "global");
 
         const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
         const resultsPanel = self._rootElement.querySelector(".sim-policies-results-panel");
