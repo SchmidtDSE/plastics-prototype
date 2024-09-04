@@ -220,7 +220,7 @@ function buildSimDownload(goalOutputs) {
             .map((record) => {
                 return SIM_EXPORT_ATTRS.map((attr) => {
                     if (attr === "region") {
-                        return attr["region"];
+                        return record["region"];
                     } else {
                         return record["output"].get(attr);
                     }

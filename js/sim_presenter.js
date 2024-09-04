@@ -159,6 +159,12 @@ class SimPresenter {
             });
             event.preventDefault();
         });
+
+        const standaloneFinishLink = self._rootElement.querySelector("#finish-standalone");
+        standaloneFinishLink.addEventListener("click", (event) => {
+            self._resetUI();
+            event.preventDefault();
+        });
     }
 
     _checkStatus(text) {
@@ -334,6 +340,20 @@ class SimPresenter {
 
         const downloadLink = self._rootElement.querySelector("#export-standalone");
         downloadLink.href = outputLink;
+    }
+
+    _resetUI() {
+        const self = this;
+
+        const editorPanel = self._rootElement.querySelector(".editor-panel");
+        const progressPanel = self._rootElement.querySelector(".sim-progress-panel");
+        const standaloneResultsPanel = self._rootElement.querySelector(
+            ".sim-standalone-results-panel"
+        );
+
+        editorPanel.style.display = "block";
+        progressPanel.style.display = "none";
+        standaloneResultsPanel.style.display = "none";
     }
 }
 

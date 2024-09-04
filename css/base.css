@@ -164,6 +164,7 @@ table td {
 
 .about-panel .sim-standalone-results-panel {
     display: none;
+    line-height: 1;
 }
 
 .cookie-note {
