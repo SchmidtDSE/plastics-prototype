@@ -46,9 +46,10 @@ const OLD_CACHES = [
     "GlobalPlasticsTool_20240622",
     "GlobalPlasticsTool_20240623",
     "GlobalPlasticsTool_20240830",
-    "GlobalPlasticsTool_20240902"
+    "GlobalPlasticsTool_20240902",
+    "GlobalPlasticsTool_20240903"
 ];
-const CACHE_NAME = "GlobalPlasticsTool_20240903";
+const CACHE_NAME = "GlobalPlasticsTool_20240904";
 const ESSENTIAL_FILES = [
     "/css/README.md",
     "/css/base.css",
@@ -100,6 +101,7 @@ const ESSENTIAL_FILES = [
     "/js/report_sparklines.js",
     "/js/report_stage.js",
     "/js/report_timeseries.js",
+    "/js/sim_presenter.js",
     "/js/slider.js",
     "/js/strings.js",
     "/js/transformation.js",
@@ -126,6 +128,13 @@ const ESSENTIAL_FILES = [
     "/pt/reduce_packaging_polymer.pt",
     "/pt/reduce_ps.pt",
     "/pt/scenarios.json",
+    "/pt/simulation.pt",
+    "/pt/sim_bau.pt",
+    "/pt/sim_cap_virgin.pt",
+    "/pt/sim_mrc.pt",
+    "/pt/sim_package.pt",
+    "/pt/sim_packaging_tax.pt",
+    "/pt/sim_waste_invest.pt",
     "/pt/virgin_plastic_cap.pt",
     "/pt/virgin_tax.pt",
     "/pt/waste_trade.pt",

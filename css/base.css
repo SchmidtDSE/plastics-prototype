@@ -153,6 +153,25 @@ table td {
     max-width: 90%;
 }
 
+.about-panel .sim-actions {
+    line-height: 1;
+    margin-top: 10px;
+}
+
+.about-panel .sim-progress-panel {
+    display: none;
+}
+
+.about-panel .sim-standalone-results-panel {
+    display: none;
+    line-height: 1;
+}
+
+.about-panel .sim-policies-results-panel {
+    display: none;
+    line-height: 1;
+}
+
 .cookie-note {
     color: #707070;
 }
@@ -874,8 +893,37 @@ h2 .info-img, h3 .info-img {
     width: 100%;
 }
 
+.standalone-canvas-holder-inner {
+    width: 90%;
+    height: 400px;
+    min-width: 400px;
+    max-width: 800px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #C0C0C0;
+    display: inline-block;
+}
+
+.standalone-canvas-holder {
+    text-align: center;
+}
+
+.standalone-dim-selector-holder {
+    border-top: 1px solid #C0C0C0;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding-top: 20px;
+}
+
 .static-h2 {
     display: none;
+}
+
+.status-display {
+    background-color: #E0D000;
+    padding: 2px;
+    color: black;
 }
 
 .table-option {
@@ -1026,12 +1074,6 @@ h2 .info-img, h3 .info-img {
 #levers-panel .slider-holder {
     margin-top: 15px;
     margin-bottom: 30px;
-}
-
-#levers-panel .status-display {
-    background-color: #E0D000;
-    padding: 2px;
-    color: black;
 }
 
 #levers-panel .wiki-info {
