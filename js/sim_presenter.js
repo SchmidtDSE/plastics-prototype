@@ -19,6 +19,10 @@ const SELECTED_POLICIES = [
     {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
     {"series": "packagingConsumptionTaxHigh", "source": "sim_packaging_tax.pt"},
     {"series": "package", "source": "sim_package.pt"},
+    {"series": "recycleInvest100Billion", "source": "sim_recycle_invest.pt"},
+    {"series": "mrr40Percent", "source": "sim_mrr.pt"},
+    {"series": "banSingleUse", "source": "sim_ban_single_use.pt"},
+    {"series": "packagingReuse80Percent", "source": "sim_packaging_reuse.pt"}
 ];
 
 const STANDALONE_X_TITLES = {
