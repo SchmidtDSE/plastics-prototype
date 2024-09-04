@@ -22,7 +22,7 @@ const SELECTED_POLICIES = [
     {"series": "recycleInvest100Billion", "source": "sim_recycle_invest.pt"},
     {"series": "mrr40Percent", "source": "sim_mrr.pt"},
     {"series": "banSingleUse", "source": "sim_ban_single_use.pt"},
-    {"series": "packagingReuse80Percent", "source": "sim_packaging_reuse.pt"}
+    {"series": "packagingReuse80Percent", "source": "sim_packaging_reuse.pt"},
 ];
 
 const SERIES_LABELS = {
@@ -532,7 +532,7 @@ class SimPresenter {
                 const variables = Array.of(...regionRecord.keys())
                     .filter((x) => x !== "series")
                     .filter((x) => x !== "region");
-                
+
                 return variables.forEach((variable) => {
                     const key = [series, region, variable].join("\t");
                     const value = regionRecord.get(variable);
@@ -557,7 +557,7 @@ class SimPresenter {
                 "region": region,
                 "variable": variable,
                 "mean": mean,
-                "std": std
+                "std": std,
             });
         });
 
@@ -820,7 +820,7 @@ class PoliciesReportPresenter {
 
 /**
  * Get the mean value of an array.
- * 
+ *
  * @param target Array of numbers
  * @returns Mean
  */
@@ -828,7 +828,7 @@ function getMean(target) {
     if (target.length == 0) {
         return 0;
     }
-    
+
     const total = target.reduce((a, b) => a + b);
     const mean = total / target.length;
     return mean;
@@ -837,7 +837,7 @@ function getMean(target) {
 
 /**
  * Get the standard deviation of an array.
- * 
+ *
  * @param target Array of numbers
  * @returns Standard deviation
  */

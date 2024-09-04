@@ -49,7 +49,7 @@ const SIM_SUMMARY_EXPORT_ATTRS = [
     "region",
     "variable",
     "mean",
-    "std"
+    "std",
 ];
 
 const SIM_EXPORT_ATTR_HEADERS = {
@@ -301,5 +301,5 @@ export {
     buildPolymerDownload,
     buildSectorFateDownload,
     buildSimDownload,
-    buildSimSummaryDownload
+    buildSimSummaryDownload,
 };
