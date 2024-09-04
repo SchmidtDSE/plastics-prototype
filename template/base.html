@@ -376,7 +376,7 @@
                     <section id="simulation" class="about">
                         <div class="about-panel">
                             <h2>Simulation</h2>
-                            <p>This tab allows you to configure run Monte Carlo simulations to evaluate projections for parameter uncertainty or sensitivity analysis.</p>
+                            <p>This tab allows you to configure run Monte Carlo simulations to evaluate projections for parameter uncertainty or sensitivity analysis. Note that this will build upon any changes you have made elsewhere in the tool on other tabs.</p>
                             <div class="editor-panel">
                                 <div>
                                     <select class="sim-year-select" id="sim-year-select" aria-label="Year dropdown"></select>
@@ -386,8 +386,8 @@
                                 <div class="inspects-area"></div>
                                 <div class="error-indicator">⚠️ Error in code</div>
                                 <div class="sim-actions">
-                                    <a href="#sim-single" data-tippy-content="Execute this script and examine individual variables for this one set of simulations." id="run-standalone" class="btn tippy-btn" role="button">Run Standalone</a> 
-                                    <a href="#sim-multiple" data-tippy-content="Run BAU and 4 select policies to compare distributional outputs." id="run-policies" class="btn tippy-btn" role="button">Run With Policies</a>
+                                    <a href="#sim-single" data-tippy-content="Execute 1000 simulations using the provided script and examine individual output variables. This builds upon other policy selections currently active in the tool." id="run-standalone" class="btn tippy-btn" role="button">Run Simulations</a> 
+                                    <a href="#sim-multiple" data-tippy-content="Try different simulations on top of the current policy selection in the tool which is assumed to be a baseline. This option will add 4 select policies on top of that baseline to compare distributional outputs if those different policy options are enabled either individually or together." id="run-policies" class="btn tippy-btn" role="button">Sweep Policies</a>
                                 </div>
                             </div>
                             <div class="sim-progress-panel">

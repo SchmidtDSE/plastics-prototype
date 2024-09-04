@@ -13,7 +13,7 @@ const NUM_TRIALS_STANDALONE = 1000;
 const NUM_TRIALS_POLICY = 300;
 
 const SELECTED_POLICIES = [
-    {"series": "bau", "source": "sim_bau.pt"},
+    {"series": "baseline", "source": "sim_bau.pt"},
     {"series": "mrc40Percent", "source": "sim_mrc.pt"},
     {"series": "wasteInvest50Billion", "source": "sim_waste_invest.pt"},
     {"series": "capVirgin", "source": "sim_cap_virgin.pt"},
