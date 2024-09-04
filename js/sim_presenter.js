@@ -3,7 +3,7 @@ import {buildSimDownload} from "exporters";
 import {fetchWithRetry} from "file";
 import {getGoals} from "goals";
 
-const NUM_TRIALS = 100;
+const NUM_TRIALS = 1000;
 
 
 /**
