@@ -397,8 +397,27 @@
                                 </div>
                             </div>
                             <div class="sim-standalone-results-panel">
-                                <a href="#export-standalone" id="export-standalone" class="btn" role="button">Download Results</a> 
-                                <a href="#sim-multiple" id="finish-standalone" class="btn" role="button">Run New Simulation</a>
+                                <div>
+                                    <a href="#export-standalone" id="export-standalone" class="btn" role="button">Download Results</a> 
+                                    <a href="#sim-multiple" id="finish-standalone" class="btn" role="button">Run New Simulation</a>
+                                </div>
+                                <div class="standalone-dim-selector-holder">
+                                    <select class="standalone-dim-selector" id="standalone-dim-selector" aria-label="Dimension to visualize from the simulations.">
+                                        <option value="landfillWaste">Global Landfill Waste (Mt)</option>,
+                                        <option value="mismanagedWaste" selected>Global Mismanaged Waste (Mt)</option>,
+                                        <option value="incineratedWaste">Global Incinerated Waste (Mt)</option>,
+                                        <option value="recycling">Global Recycled Waste (Mt)</option>,
+                                        <option value="totalConsumption">Global Total Consumption (Mt)</option>,
+                                        <option value="ghg">Global Gross GHG (CO2e Mt)</option>,
+                                        <option value="primaryProduction">Primary Production (Mt)</option>,
+                                        <option value="secondaryProduction">Secondary Production (Mt)</option>
+                                    </select>
+                                </div>
+                                <div class="standalone-canvas-holder">
+                                    <div class="standalone-canvas-holder-inner">
+                                        <canvas id="standalone-canvas" class="standalone-canvas"></canvas>
+                                    </div>
+                                </div>
                             </div>
                             <div class="sim-policies-results-panel">
                                 <a href="#export-policies" id="export-policies" class="btn" role="button">Download Results</a> 
