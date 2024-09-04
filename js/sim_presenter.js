@@ -72,6 +72,9 @@ class SimPresenter {
 
         // eslint-disable-next-line no-undef
         tippy(".tippy-btn");
+
+        // eslint-disable-next-line no-undef
+        tippy(".sim-year-select");
     }
 
     /**
@@ -501,7 +504,7 @@ class SimPresenter {
 
     _summarizeRecords(allResults) {
         const self = this;
-        
+
         const allResultsByKey = new Map();
         allResults.forEach((inputRecord) => {
             Array.of(...inputRecord.keys()).forEach((region) => {
@@ -696,6 +699,93 @@ class StandaloneReportPresenter {
         outputRecords.sort((a, b) => a["bucket"] - b["bucket"]);
 
         return outputRecords;
+    }
+}
+
+class PoliciesReportPresenter {
+    constructor(rootElement) {
+        const self = this;
+        self._rootElement = rootElement;
+        self._results = null;
+        self._chart = null;
+
+        self._attachListeners();
+    }
+
+    setResults(results) {
+        const self = this;
+        self._results = results;
+        self._refreshChart();
+    }
+
+    _getSelectedDimension() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".policies-dim-selector");
+        return dropdown.value;
+    }
+
+    _getIntervalInStd() {
+        const self = this;
+
+        const dropdown = self._rootElement.querySelector(".policies-interval-selector");
+        return parseInt(dropdown.value);
+    }
+
+    _attachListeners() {
+        const self = this;
+
+        const dimDropdown = self._rootElement.querySelector(".policies-dim-selector");
+        dimDropdown.addEventListener("change", () => {
+            self._refreshChart();
+        });
+
+        const intervalDropdown = self._rootElement.querySelector(".policies-interval-selector");
+        intervalDropdown.addEventListener("change", () => {
+            self._refreshChart();
+        });
+    }
+
+    _refreshChart() {
+        const self = this;
+
+        if (self._chart !== null) {
+            self._chart.destroy();
+        }
+
+        const percentInfo = self._getPercents();
+        const dimension = self._getSelectedDimension();
+        const interval = self._getIntervalInStd();
+
+        const canvas = self._rootElement.querySelector(".policies-canvas");
+
+        self._chart = new Chart(canvas, {
+            type: "bar",
+            data: {
+                labels: ,
+                datasets: [{
+                    label: "+/- " + interval + " std",
+                    data: ,
+                }],
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            "display": true,
+                            "text": "Frequency of Simulations (%)",
+                        },
+                    },
+                    x: {
+                        title: {
+                            "display": true,
+                            "text": STANDALONE_X_TITLES[dimension],
+                        },
+                    },
+                },
+            },
+        });
     }
 }
 
