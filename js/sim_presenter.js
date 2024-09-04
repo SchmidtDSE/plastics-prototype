@@ -410,6 +410,7 @@ class SimPresenter {
 
         const executePolicy = (policyInfo) => {
             const policyName = policyInfo["series"];
+            console.log(policyInfo);
             const policyProgram = policyInfo["program"];
             
             return new Promise((innerResolve) => {
@@ -494,8 +495,8 @@ class SimPresenter {
                 })
                 .then((program) => {
                     return {
-                        "series": program["series"],
-                        "source": program["source"],
+                        "series": policyRecord["series"],
+                        "source": policyRecord["source"],
                         "program": program
                     };
                 });
