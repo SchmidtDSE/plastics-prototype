@@ -15,6 +15,23 @@ in.eu30YieldLoss = draw uniformly from 20 to 30;  # Percent
 in.naftaYieldLoss = draw uniformly from 20 to 30;  # Percent
 in.rowYieldLoss = draw uniformly from 20 to 30;  # Percent
 
+# Pricing
+in.chinaRecyclingCost = in.chinaRecyclingCost * (draw uniformly from 0.9 to 1.1);
+in.chinaIncinerationCost = in.chinaIncinerationCost * (draw uniformly from 0.9 to 1.1);
+in.chinaLandfillCost = in.chinaLandfillCost * (draw uniformly from 0.9 to 1.1);
+
+in.eu30RecyclingCost = in.eu30RecyclingCost * (draw uniformly from 0.9 to 1.1);
+in.eu30IncinerationCost = in.eu30IncinerationCost * (draw uniformly from 0.9 to 1.1);
+in.eu30LandfillCost = in.eu30LandfillCost * (draw uniformly from 0.9 to 1.1);
+
+in.naftaRecyclingCost = in.naftaRecyclingCost * (draw uniformly from 0.9 to 1.1);
+in.naftaIncinerationCost = in.naftaIncinerationCost * (draw uniformly from 0.9 to 1.1);
+in.naftaLandfillCost = in.naftaLandfillCost * (draw uniformly from 0.9 to 1.1);
+
+in.rowRecyclingCost = in.rowRecyclingCost * (draw uniformly from 0.9 to 1.1);
+in.rowIncinerationCost = in.rowIncinerationCost * (draw uniformly from 0.9 to 1.1);
+in.rowLandfillCost = in.rowLandfillCost * (draw uniformly from 0.9 to 1.1);
+
 # == Apply BAU sampling ==
 in.chinaPreConsumptionMultiplier = 100;  # Enable China consumption offset
 in.eu30PreConsumptionMultiplier = 100;  # Enable EU30 consumption offset
