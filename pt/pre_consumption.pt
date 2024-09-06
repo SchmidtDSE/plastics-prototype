@@ -1,7 +1,7 @@
 # Determine how much change is allowed
 var allowedMultiplier = in.{{ region }}PreConsumptionMultiplier / 100;
 var amortizedMultiplier = in.amortizedModelOffset / 100;
-var pointDuration = 2050 - 2022;
+var pointDuration = 2050 - 2021;
 
 # Determine deltas from Monte Carlo
 var agricultureDeltaMc = in.{{ region }}PreConsumptionAgricultureMT * allowedMultiplier;
@@ -19,56 +19,56 @@ var agricultureDeltaPointMax = in.{{ region }}PreConsumptionAgricultureMT;
 agricultureDeltaPointMax = agricultureDeltaPointMax * allowedMultiplier;
 agricultureDeltaPointMax = agricultureDeltaPointMax * amortizedMultiplier;
 agricultureDeltaPointMax = agricultureDeltaPointMax * pointDuration;
-change agricultureDeltaPoint by agricultureDeltaPointMax over 2022 to 2050;
+change agricultureDeltaPoint by agricultureDeltaPointMax over 2021 to 2050;
 
 var constructionDeltaPoint = 0;
 var constructionDeltaPointMax = in.{{ region }}PreConsumptionConstructionMT;
 constructionDeltaPointMax = constructionDeltaPointMax * allowedMultiplier;
 constructionDeltaPointMax = constructionDeltaPointMax * amortizedMultiplier;
 constructionDeltaPointMax = constructionDeltaPointMax * pointDuration;
-change constructionDeltaPoint by constructionDeltaPointMax over 2022 to 2050;
+change constructionDeltaPoint by constructionDeltaPointMax over 2021 to 2050;
 
 var electronicDeltaPoint = 0;
 var electronicDeltaPointMax = in.{{ region }}PreConsumptionElectronicMT;
 electronicDeltaPointMax = electronicDeltaPointMax * allowedMultiplier;
 electronicDeltaPointMax = electronicDeltaPointMax * amortizedMultiplier;
 electronicDeltaPointMax = electronicDeltaPointMax * pointDuration;
-change electronicDeltaPoint by electronicDeltaPointMax over 2022 to 2050;
+change electronicDeltaPoint by electronicDeltaPointMax over 2021 to 2050;
 
 var hlsDeltaPoint = 0;
 var hlsDeltaPointMax = in.{{ region }}PreConsumptionHouseholdLeisureSportsMT;
 hlsDeltaPointMax = hlsDeltaPointMax * allowedMultiplier;
 hlsDeltaPointMax = hlsDeltaPointMax * amortizedMultiplier;
 hlsDeltaPointMax = hlsDeltaPointMax * pointDuration;
-change hlsDeltaPoint by hlsDeltaPointMax over 2022 to 2050;
+change hlsDeltaPoint by hlsDeltaPointMax over 2021 to 2050;
 
 var packagingDeltaPoint = 0;
 var packagingDeltaPointMax = in.{{ region }}PreConsumptionPackagingMT;
 packagingDeltaPointMax = packagingDeltaPointMax * allowedMultiplier;
 packagingDeltaPointMax = packagingDeltaPointMax * amortizedMultiplier;
 packagingDeltaPointMax = packagingDeltaPointMax * pointDuration;
-change packagingDeltaPoint by packagingDeltaPointMax over 2022 to 2050;
+change packagingDeltaPoint by packagingDeltaPointMax over 2021 to 2050;
 
 var transportationDeltaPoint = 0;
 var transportationDeltaPointMax = in.{{ region }}PreConsumptionTransportationMT;
 transportationDeltaPointMax = transportationDeltaPointMax * allowedMultiplier;
 transportationDeltaPointMax = transportationDeltaPointMax * amortizedMultiplier;
 transportationDeltaPointMax = transportationDeltaPointMax * pointDuration;
-change transportationDeltaPoint by transportationDeltaPointMax over 2022 to 2050;
+change transportationDeltaPoint by transportationDeltaPointMax over 2021 to 2050;
 
 var textileDeltaPoint = 0;
 var textileDeltaPointMax = in.{{ region }}PreConsumptionTextileMT;
 textileDeltaPointMax = textileDeltaPointMax * allowedMultiplier;
 textileDeltaPointMax = textileDeltaPointMax * amortizedMultiplier;
 textileDeltaPointMax = textileDeltaPointMax * pointDuration;
-change textileDeltaPoint by textileDeltaPointMax over 2022 to 2050;
+change textileDeltaPoint by textileDeltaPointMax over 2021 to 2050;
 
 var otherDeltaPoint = 0;
 var otherDeltaPointMax = in.{{ region }}PreConsumptionOtherMT;
 otherDeltaPointMax = otherDeltaPointMax * allowedMultiplier;
 otherDeltaPointMax = otherDeltaPointMax * amortizedMultiplier;
 otherDeltaPointMax = otherDeltaPointMax * pointDuration;
-change otherDeltaPoint by otherDeltaPointMax over 2022 to 2050;
+change otherDeltaPoint by otherDeltaPointMax over 2021 to 2050;
 
 # Determine overall deltas
 var agricultureDelta = agricultureDeltaMc + agricultureDeltaPoint;
