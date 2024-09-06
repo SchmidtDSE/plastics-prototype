@@ -1,15 +1,15 @@
-intervention,description,individualGhg,individualGhgAbs,shareOfCombinedGhg,endGhg
-banPsPackaging,Ban Polystyrene Packaging,-21.6,13.6,-13.8951599861384,3265.80484001386
-banWasteTrade,Ban Waste Trade,-51.6,51.6,-33.1939933002195,3246.50600669978
-reducedAdditives,90% Reduced Additives,-20.1,25.6,-12.9302183204343,3266.76978167956
-taxVirgin,Consumption Tax,-533.6,533.6,-343.261915213122,2936.43808478688
-minimumRecyclingRate,40% Min Recycling Collection,198.4,198.4,127.629617650456,3407.32961765046
-banSingleUse,90% Reduced Single Use,-324.5,324.5,-208.749047013977,3070.95095298602
-capVirgin,Cap Virgin to 2020,-544.3,544.3,-350.145165761811,2929.55483423819
-recyclingInvestment,100B Recycling Investment,86,86,55.3233221670325,3335.02332216703
-minimumRecycledContent,40% Min Recycled Content,-435.1,435.1,-279.897412498556,2999.80258750144
-minimumPackagingReuse,40% Min Reuse Packaging,-134.4,134.4,-86.4587732470833,3193.24122675292
-wasteInvestment,50B Waste Invest,49.4,49.4,31.7787455238535,3311.47874552385
-highAmbition,High Ambition 2050,-1731.4,2396.5,-1113.8,2165.9
-businessAsUsual,Business as Usual 2050,0,0,0,3279.7
-selectPackage,4 Policy Package Scenario,-1101,1101,-1101,2178.7
+intervention,description,individualGhg,individualGhgAbs,shareOfCombinedGhg
+banPsPackaging,Ban Polystyrene Packaging,-22.4,22.4,-11.0870214455917
+banWasteTrade,Ban Waste Trade,-91.3,91.3,-45.189511517077
+reducedAdditives,90% Reduced Additives,-21.8,21.8,-10.7900476568705
+taxVirgin,Consumption Tax,-533.4,533.4,-264.009698173153
+minimumRecyclingRate,40% Min Recycling Collection,-81.2,81.2,-40.1904527402701
+banSingleUse,90% Reduced Single Use,-366.5,366.5,-181.401489277204
+capVirgin,Cap Virgin to 2020,-598.3,598.3,-296.132362986497
+recyclingInvestment,100B Recycling Investment,-117.2,117.2,-58.0088800635425
+minimumRecycledContent,40% Min Recycled Content,-515.5,515.5,-255.149980142971
+minimumPackagingReuse,40% Min Reuse Packaging,-284.2,284.2,-140.666584590945
+wasteInvestment,50B Waste Invest,-21.7,21.7,-10.740552025417
+highAmbition,High Ambition 2050,-1246.3,1246.3,-616.864054805401
+businessAsUsual,Business as Usual 2050,0,0,0
+selectPackage,4 Policy Package Scenario,-1223.4,1223.4,-605.529555202542
