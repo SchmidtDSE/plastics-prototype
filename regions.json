@@ -55,12 +55,12 @@
                 "maxConsumptionTax": 6,
                 "consumptionErrorMean": -0.16,
                 "consumptionErrorStd": 1.81,
-                "wasteErrorMean": 0.001,
-                "wasteErrorStd": 0.034,
-                "tradeErrorMean": 0.000,
-                "tradeErrorStd": 0.026,
-                "wasteTradeMean": -0.001,
-                "wasteTradeStd": 0.014
+                "wasteErrorMean": 0.1,
+                "wasteErrorStd": 3.4,
+                "tradeErrorMean": 0.0,
+                "tradeErrorStd": 2.6,
+                "wasteTradeMean": -0.1,
+                "wasteTradeStd": 1.4
             }
         },
         {
@@ -118,12 +118,12 @@
                 "maxConsumptionTax": 44,
                 "consumptionErrorMean": -0.04,
                 "consumptionErrorStd": 0.90,
-                "wasteErrorMean": 0.000,
-                "wasteErrorStd": 0.023,
-                "tradeErrorMean": 0.000,
-                "tradeErrorStd": 0.010,
-                "wasteTradeMean": 0.000,
-                "wasteTradeStd": 0.014
+                "wasteErrorMean": 0.0,
+                "wasteErrorStd": 2.3,
+                "tradeErrorMean": 0.0,
+                "tradeErrorStd": 1.0,
+                "wasteTradeMean": 0.0,
+                "wasteTradeStd": 1.4
             }
         },
         {
@@ -181,12 +181,12 @@
                 "maxConsumptionTax": 10,
                 "consumptionErrorMean": -0.08,
                 "consumptionErrorStd": 1.17,
-                "wasteErrorMean": 0.000,
-                "wasteErrorStd": 0.008,
-                "tradeErrorMean": 0.000,
-                "tradeErrorStd": 0.018,
-                "wasteTradeMean": 0.000,
-                "wasteTradeStd": 0.008
+                "wasteErrorMean": 0.0,
+                "wasteErrorStd": 0.8,
+                "tradeErrorMean": 0.0,
+                "tradeErrorStd": 1.8,
+                "wasteTradeMean": 0.0,
+                "wasteTradeStd": 0.8
             }
         },
         {
@@ -244,12 +244,12 @@
                 "maxConsumptionTax": 4,
                 "consumptionErrorMean": -0.20,
                 "consumptionErrorStd": 2.23,
-                "wasteErrorMean": 0.000,
-                "wasteErrorStd": 0.0013,
-                "tradeErrorMean": 0.000,
-                "tradeErrorStd": 0.020,
-                "wasteTradeMean": 0.001,
-                "wasteTradeStd": 0.015
+                "wasteErrorMean": 0.0,
+                "wasteErrorStd": 0.13,
+                "tradeErrorMean": 0.0,
+                "tradeErrorStd": 2.0,
+                "wasteTradeMean": 0.1,
+                "wasteTradeStd": 1.5
             }
         }
     ]
