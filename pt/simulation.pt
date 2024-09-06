@@ -53,106 +53,106 @@ var samplesPerYear = 5;
 # China consumption
 in.chinaPreConsumptionAgricultureMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionConstructionMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionElectronicMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionHouseholdLeisureSportsMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionPackagingMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionTransportationMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionTextileMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 in.chinaPreConsumptionOtherMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.16 std of 1.81
+    draw normally from mean of 0.0 std of 1.81
   )
 );
 
 # China other
-in.chinaPreDeltaRecyclingPercent = draw normally from mean of 0.1 std of 3.4;
-in.chinaPreDeltaIncinerationPercent = draw normally from mean of 0.1 std of 3.4;
-in.chinaPreDeltaLandfillPercent = draw normally from mean of 0.1 std of 3.4;
-in.chinaPreDeltaMismanagedPercent = draw normally from mean 0.1 std of 3.4;
+in.chinaPreDeltaRecyclingPercent = draw normally from mean of 0.0 std of 3.4;
+in.chinaPreDeltaIncinerationPercent = draw normally from mean of 0.0 std of 3.4;
+in.chinaPreDeltaLandfillPercent = draw normally from mean of 0.0 std of 3.4;
+in.chinaPreDeltaMismanagedPercent = draw normally from mean of 0.0 std of 3.4;
 in.chinaPreDeltaGoodsImportPercent = draw normally from mean of 0.0 std of 2.6;
-in.chinaPreDeltaWasteImportPercent = draw normally from mean of -0.1 std of 1.4;
+in.chinaPreDeltaWasteImportPercent = draw normally from mean of 0.0 std of 1.4;
 
 # EU30 consumption
 in.eu30PreConsumptionAgricultureMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionConstructionMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionElectronicMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionHouseholdLeisureSportsMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionPackagingMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionTransportationMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionTextileMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
 in.eu30PreConsumptionOtherMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.04 std of 0.90
+    draw normally from mean of 0.0 std of 0.90
   )
 );
 
@@ -160,56 +160,56 @@ in.eu30PreConsumptionOtherMT = sum numYears repeats of (
 in.eu30PreDeltaRecyclingPercent = draw normally from mean of 0.0 std of 2.3;
 in.eu30PreDeltaIncinerationPercent = draw normally from mean of 0.0 std of 2.3;
 in.eu30PreDeltaLandfillPercent = draw normally from mean of 0.0 std of 2.3;
-in.eu30PreDeltaMismanagedPercent = draw normally from mean 0.0 std of 2.3;
+in.eu30PreDeltaMismanagedPercent = draw normally from mean of 0.0 std of 2.3;
 in.eu30PreDeltaGoodsImportPercent = draw normally from mean of 0.0 std of 1.0;
 in.eu30PreDeltaWasteImportPercent = draw normally from mean of 0.0 std of 1.4;
 
 # North America consumption
 in.naftaPreConsumptionAgricultureMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionConstructionMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionElectronicMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionHouseholdLeisureSportsMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionPackagingMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionTransportationMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionTextileMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
 in.naftaPreConsumptionOtherMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.08 std of 1.17
+    draw normally from mean of 0.0 std of 1.17
   )
 );
 
@@ -217,56 +217,56 @@ in.naftaPreConsumptionOtherMT = sum numYears repeats of (
 in.naftaPreDeltaRecyclingPercent = draw normally from mean of 0.0 std of 0.8;
 in.naftaPreDeltaIncinerationPercent = draw normally from mean of 0.0 std of 0.8;
 in.naftaPreDeltaLandfillPercent = draw normally from mean of 0.0 std of 0.8;
-in.naftaPreDeltaMismanagedPercent = draw normally from mean 0.0 std of 0.8;
+in.naftaPreDeltaMismanagedPercent = draw normally from mean of 0.0 std of 0.8;
 in.naftaPreDeltaGoodsImportPercent = draw normally from mean of 0.0 std of 1.8;
 in.naftaPreDeltaWasteImportPercent = draw normally from mean of 0.0 std of 0.8;
 
 # Majority World consumption
 in.rowPreConsumptionAgricultureMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionConstructionMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionElectronicMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionHouseholdLeisureSportsMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionPackagingMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionTransportationMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionTextileMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
 in.rowPreConsumptionOtherMT = sum numYears repeats of (
   average samplesPerYear repeats of (
-    draw normally from mean of -0.20 std of 2.23
+    draw normally from mean of 0.0 std of 2.23
   )
 );
 
@@ -274,9 +274,9 @@ in.rowPreConsumptionOtherMT = sum numYears repeats of (
 in.rowPreDeltaRecyclingPercent = draw normally from mean of 0.0 std of 1.3;
 in.rowPreDeltaIncinerationPercent = draw normally from mean of 0.0 std of 1.3;
 in.rowPreDeltaLandfillPercent = draw normally from mean of 0.0 std of 1.3;
-in.rowPreDeltaMismanagedPercent = draw normally from mean 0.0 std of 1.3;
+in.rowPreDeltaMismanagedPercent = draw normally from mean of 0.0 std of 1.3;
 in.rowPreDeltaGoodsImportPercent = draw normally from mean of 0.0 std of 2.0;
-in.rowPreDeltaWasteImportPercent = draw normally from mean of 0.1 std of 1.5;
+in.rowPreDeltaWasteImportPercent = draw normally from mean of 0.0 std of 1.5;
 
 # == Set Policies ==
 
