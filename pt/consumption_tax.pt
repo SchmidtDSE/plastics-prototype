@@ -18,7 +18,7 @@ change percentDecreaseDelay by percentDecreaseEnd over startYearDelay to endYear
 # Reduce consumption
 var originalConsumption = out.{{ region }}.consumptionPackagingMT;
 var reducedConsumption = originalConsumption * percentDecrease;
-limit reducedConsumption to [0,];
+limit reducedConsumption to [0, out.{{ region }}.consumptionPackagingMT * 0.999];
 out.{{ region }}.consumptionPackagingMT = out.{{ region }}.consumptionPackagingMT - reducedConsumption;
 
 # Reduce imports
