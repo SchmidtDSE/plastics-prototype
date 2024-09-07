@@ -46,18 +46,24 @@ var newExports = newNet * -1;
 limit newImports to [0,];
 limit newExports to [0,];
 
+var priorImports = out.{{ region }}.netImportsMT;
+var priorExports = out.{{ region }}.netExportsMT;
+
 out.{{ region }}.netImportsMT = newImports;
 out.{{ region }}.netExportsMT = newExports;
 
 # Balance goods imports
-distribute changeImports across [
+var partnerImports = changeImports - priorExports;
+limit partnerImports to [0,];
+
+distribute partnerImports across [
   {{#each otherRegions}}
   out.{{ this }}.netExportsMT{{#unless @last}},{{/unless}}
   {{/each}}
 ] proportionally;
 
 # Propogate into trade partners production
-distribute changeImports across [
+distribute partnerImports across [
   {{#each otherRegions}}
   out.{{ this }}.primaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.primaryProductionMT,
   out.{{ this }}.secondaryProductionMT by out.{{ this }}.netExportsMT * out.{{ this }}.secondaryProductionMT{{#unless @last}},{{/unless}}
@@ -65,7 +71,10 @@ distribute changeImports across [
 ] proportionally;
 
 # Balance goods exports
-distribute changeExports across [
+var partnerExports = changeExports - priorImports;
+limit partnerExports to [0,];
+
+distribute partnerExports across [
   {{#each otherRegions}}
   out.{{ this }}.netImportsMT{{#unless @last}},{{/unless}}
   {{/each}}
@@ -78,7 +87,7 @@ var {{ this }}WasteMultiplier = out.{{ this }}.netImportsMT;
 {{ this }}WasteMultiplier = {{ this }}WasteMultiplier + out.{{ this }}.netWasteImportMT;
 {{/each}}
 
-distribute changeExports across [
+distribute partnerExports across [
   {{#each otherRegions}}
   out.{{ this }}.eolRecyclingMT by out.{{ this }}.eolRecyclingMT * {{ this }}WasteMultiplier,
   out.{{ this }}.eolLandfillMT by out.{{ this }}.eolLandfillMT * {{ this }}WasteMultiplier,

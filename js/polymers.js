@@ -1633,7 +1633,7 @@ class GhgFinalizer {
                 const leverName = eolInfo["leverName"];
 
                 const volumeFate = regionOut.get(attr);
-                const fatePercent = volumeFate / totalWaste;
+                const fatePercent = totalWaste == 0 ? 0 : volumeFate / totalWaste;
 
                 const fateExportVolume = fatePercent * totalExportVolume;
                 const fateImportVolume = fatePercent * totalImportVolume;

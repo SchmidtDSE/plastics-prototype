@@ -32,6 +32,12 @@ in.rowRecyclingCost = in.rowRecyclingCost * (draw uniformly from 0.9 to 1.1);
 in.rowIncinerationCost = in.rowIncinerationCost * (draw uniformly from 0.9 to 1.1);
 in.rowLandfillCost = in.rowLandfillCost * (draw uniformly from 0.9 to 1.1);
 
+# Tax response
+in.chinaTaxMultiplier = draw uniformly from 0.087 to 0.088;
+in.eu30TaxMultiplier = draw uniformly from 0.559 to 0.580;
+in.naftaTaxMultiplier = draw uniformly from 0.111 to 0.125;
+in.rowTaxMultiplier = draw uniformly from 0.221 to 0.240;
+
 # == Apply BAU sampling ==
 in.chinaPreConsumptionMultiplier = 100;  # Enable China consumption offset
 in.eu30PreConsumptionMultiplier = 100;  # Enable EU30 consumption offset

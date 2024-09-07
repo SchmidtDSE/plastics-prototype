@@ -368,7 +368,9 @@ class SimPresenter {
 
         return singleFuture.then((x) => getGoals(x.get(self.getYear())))
             .then((x) => self._labelGoals(x, label))
-            .then((x) => x, () => self._executeSingle(label, setupProgram));
+            .then((x) => x, (err) => {
+                throw ("Failed on " + label + " with " + err);
+            });
     }
 
     _labelGoals(targets, label) {

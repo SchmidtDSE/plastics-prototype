@@ -1163,7 +1163,7 @@
                     "min": 0,
                     "max": 5,
                     "default": {{ region['constants']['packagingTaxMultiplier'] }},
-                    "step": 0.01,
+                    "step": 0.001,
                     "decimals": 2,
                     "units": "",
                     "forcePlus": false,
