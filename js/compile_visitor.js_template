@@ -593,7 +593,7 @@ class CompileVisitor extends toolkit.PlasticsLangVisitor {
                 return 1 / identifiers.length * valueToDistribute;
             };
 
-            const isLinearEffective = isLinear || totalTargetsValue == 0;
+            const isLinearEffective = isLinear || totalTargetsValue <= 0;
 
             const getChange = isLinearEffective ? getChangeLinear : getChangeProportional;
 
