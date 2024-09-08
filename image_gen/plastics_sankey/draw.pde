@@ -85,13 +85,13 @@ void drawStage(String column, Stage stage, ColorGetter colorGetter, boolean thin
       noFill();
       stroke(#757575);
       strokeWeight(2);
-      float startX = map(0, -300, 300, 12, COLUMN_BODY_WIDTH - 10);
+      float startX = map(0, -400, 400, 12, COLUMN_BODY_WIDTH - 10);
       line(startX, midY + 30, startX, midY + 39);
 
       rectMode(CORNERS);
       noStroke();
       fill(#757575);
-      float endX = map(ghgDelta, -300, 300, 12, COLUMN_BODY_WIDTH - 10);
+      float endX = map(ghgDelta, -400, 400, 12, COLUMN_BODY_WIDTH - 10);
       rect(startX, midY + 32, endX, midY + 37);
     }
   });
@@ -332,14 +332,14 @@ void drawCaption() {
   
   textAlign(LEFT, CENTER);
   text(
-    "-300 Mt",
+    "-400 Mt",
     layoutManager.getXStart("policy") + 12,
     height - 70 - 200
   );
 
   textAlign(RIGHT, CENTER);
   text(
-    "+300 Mt",
+    "+400 Mt",
     layoutManager.getXEnd("policy") - 10,
     height - 70 - 200
   );
