@@ -27,13 +27,13 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Other Single Use Packaging",
-                    "description": "Percent reduction in other single use packaging (other than polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "{{ region['label'] }} Non-Durable SUP Reduction",
+                    "description": "Percent reduction in non-durable single use packaging (excludes polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "% Reduction",
+                    "units": "%",
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}PercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -1553,8 +1553,8 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Packaging Single Use Percent",
-                    "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is single use.",
+                    "name": "{{ region['label'] }} Non-Durable SUP Percent",
+                    "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is non-durable single use.",
                     "min": 0,
                     "max": 100,
                     "default": {{ region['constants']['percentPackagingSingleUse'] }},
