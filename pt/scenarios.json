@@ -321,23 +321,23 @@
       "values": [
         {
           "lever": "chinaPackagingTax",
-          "value": 6,
-          "baseValue": 6
+          "value": 19,
+          "baseValue": 19
         },
         {
           "lever": "eu30PackagingTax",
-          "value": 44,
-          "baseValue": 44
+          "value": 23,
+          "baseValue": 23
         },
         {
           "lever": "naftaPackagingTax",
-          "value": 10,
-          "baseValue": 10
+          "value": 13,
+          "baseValue": 13
         },
         {
           "lever": "rowPackagingTax",
-          "value": 4,
-          "baseValue": 4
+          "value": 14,
+          "baseValue": 14
         }
       ],
       "released": true
