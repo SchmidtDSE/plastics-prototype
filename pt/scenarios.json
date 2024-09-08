@@ -1,21 +1,21 @@
 {
   "scenarios": [
     {
-      "name": "<option> % Reduced Single Use Packaging",
+      "name": "<option> Reduction in Single Use Packaging",
       "id": "ban-single-use",
-      "description": "Policy which globally bans most other non-polystyrene single use packaging. Assumes a shorter term implementation and compliance.",
+      "description": "Policy which globally reduces (non-durable) single use packaging like through product-specific bans. Assumes a shorter term implementation and compliance.",
       "config": {
         "options": [
           {
-            "name": "30",
+            "name": "Low",
             "value": 30
           },
           {
-            "name": "60",
+            "name": "Mid",
             "value": 60
           },
           {
-            "name": "90",
+            "name": "High",
             "value": 90
           }
         ],
@@ -321,23 +321,23 @@
       "values": [
         {
           "lever": "chinaPackagingTax",
-          "value": 6,
-          "baseValue": 6
+          "value": 19,
+          "baseValue": 19
         },
         {
           "lever": "eu30PackagingTax",
-          "value": 44,
-          "baseValue": 44
+          "value": 23,
+          "baseValue": 23
         },
         {
           "lever": "naftaPackagingTax",
-          "value": 10,
-          "baseValue": 10
+          "value": 13,
+          "baseValue": 13
         },
         {
           "lever": "rowPackagingTax",
-          "value": 4,
-          "baseValue": 4
+          "value": 14,
+          "baseValue": 14
         }
       ],
       "released": true

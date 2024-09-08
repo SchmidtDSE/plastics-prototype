@@ -1,9 +1,10 @@
 # Determine formula
 var power = in.{{ region }}TaxPower;
 var multiplier = in.{{ region }}TaxMultiplier;
+var offset = in.{{ region }}TaxOffset / 100;  # Used by Monte Carlo
 
 # Determine change immediate
-var percentDecreaseEnd = (in.{{ region }}PackagingTax ^ power) * multiplier;
+var percentDecreaseEnd = (in.{{ region }}PackagingTax ^ power) * multiplier + offset;
 limit percentDecreaseEnd to [0, 1];
 var percentDecrease = 0;
 change percentDecrease by percentDecreaseEnd over in.startYear to in.endYearImmediate;

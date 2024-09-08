@@ -27,13 +27,13 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Other Single Use Packaging",
-                    "description": "Percent reduction in other single use packaging (other than polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
+                    "name": "{{ region['label'] }} Non-Durable SUP Reduction",
+                    "description": "Percent reduction in non-durable single use packaging (excludes polystyrene) in {{ region['full'] }}. Use 100% for ban. Assumes more immediate policy implementation with short phase in.",
                     "min": 0,
                     "max": 100,
                     "default": 0,
                     "step": 10,
-                    "units": "% Reduction",
+                    "units": "%",
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}PercentReduceProblematicPackaging",
                     "template": "reduce_packaging_polymer.pt",
@@ -364,7 +364,7 @@
                     "default": 0,
                     "step": 0.1,
                     "decimals": 1,
-                    "units": "USD cents",
+                    "units": "USD PPP cents",
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}PackagingTax",
                     "template": "consumption_tax.pt",
@@ -1142,11 +1142,11 @@
                 {% for region in regions %}
                 {
                     "name": "{{ region['label'] }} Packaging Tax Power",
-                    "description": "In {{ region['full'] }}, what should the power be for the curve that describes the relationship between taxation level and reduction in consumption. This is a in consumption change = (tax)^a * b.",
+                    "description": "In {{ region['full'] }}, what should the power be for the curve that describes the relationship between taxation level and reduction in consumption. This is a in consumption change = (tax)^a * b + c.",
                     "min": 0,
                     "max": 4,
                     "default": {{ region['constants']['packagingTaxPower'] }},
-                    "step": 0.01,
+                    "step": 0.001,
                     "decimals": 2,
                     "units": "",
                     "forcePlus": false,
@@ -1159,7 +1159,7 @@
                 },
                 {
                     "name": "{{ region['label'] }} Packaging Tax Multiplier",
-                    "description": "In {{ region['full'] }}, what should the multiplier be for the curve that describes the relationship between taxation level and reduction in consumption. This is b in consumption change = (tax)^a * b.",
+                    "description": "In {{ region['full'] }}, what should the multiplier be for the curve that describes the relationship between taxation level and reduction in consumption. This is b in consumption change = (tax)^a * b + c.",
                     "min": 0,
                     "max": 5,
                     "default": {{ region['constants']['packagingTaxMultiplier'] }},
@@ -1168,6 +1168,23 @@
                     "units": "",
                     "forcePlus": false,
                     "variable": "{{ region['key'] }}TaxMultiplier",
+                    "template": "noop.pt",
+                    "released": true,
+                    "priority": -100,
+                    "attrs": {},
+                    "url": "https://global-plastics-tool.org/pdf/consumption_tax.pdf"
+                },
+                {
+                    "name": "{{ region['label'] }} Packaging Tax Offset",
+                    "description": "Offset of percentage impact or c in consumption change = (tax)^a * b + c.",
+                    "min": -100,
+                    "max": 100,
+                    "default": 0,
+                    "step": 1,
+                    "decimals": 0,
+                    "units": "%",
+                    "forcePlus": true,
+                    "variable": "{{ region['key'] }}TaxOffset",
                     "template": "noop.pt",
                     "released": true,
                     "priority": -100,
@@ -1536,8 +1553,8 @@
                 {% endfor %}
                 {% for region in regions %}
                 {
-                    "name": "{{ region['label'] }} Packaging Single Use Percent",
-                    "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is single use.",
+                    "name": "{{ region['label'] }} Non-Durable SUP Percent",
+                    "description": "What percent of non-polystyrene plastic packaging in {{ region['full'] }} is non-durable single use.",
                     "min": 0,
                     "max": 100,
                     "default": {{ region['constants']['percentPackagingSingleUse'] }},
