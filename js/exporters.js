@@ -42,6 +42,7 @@ const SIM_EXPORT_ATTRS = [
     "ghg",
     "primaryProduction",
     "secondaryProduction",
+    "consumptionPackagingMT",
 ];
 
 const SIM_SUMMARY_EXPORT_ATTRS = [
@@ -63,6 +64,7 @@ const SIM_EXPORT_ATTR_HEADERS = {
     "ghg": "totalGhgCO2eMt",
     "primaryProduction": "primaryProductionMt",
     "secondaryProduction": "secondaryProductionMt",
+    "consumptionPackagingMT": "consumptionPackagingMt",
 };
 
 
