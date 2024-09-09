@@ -44,6 +44,12 @@ in.eu30TaxMultiplier = draw uniformly from 0.559 to 0.580;
 in.naftaTaxMultiplier = draw uniformly from 0.111 to 0.125;
 in.rowTaxMultiplier = draw uniformly from 0.221 to 0.240;
 
+# Single use percentage
+in.chinaPercentSingleUse = draw uniformly from 40 to 60;
+in.eu30PercentSingleUse = draw uniformly from 40 to 60;
+in.naftaPercentSingleUse = draw uniformly from 40 to 60;
+in.rowPercentSingleUse = draw uniformly from 40 to 60;
+
 # == Apply BAU sampling ==
 in.chinaPreConsumptionMultiplier = 100;  # Enable China consumption offset
 in.eu30PreConsumptionMultiplier = 100;  # Enable EU30 consumption offset
