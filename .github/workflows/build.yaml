@@ -308,17 +308,17 @@ jobs:
       - name: Unpack outputs
         run: cd csv_validation; unzip standardized.zip
       - name: Check internal point summary
-        run: cd csv_validation; ./csv-validator-cmd ./02_overview.csv ../spec/overview.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/02_overview.csv ../spec/overview.csvs
       - name: Check external point summary
-        run: cd csv_validation; ./csv-validator-cmd ./02_overview.csv ./02_overview.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/02_overview.csv ./01_output_summary/02_overview.csvs
       - name: Check internal monte carlo summary
-        run: cd csv_validation; ./csv-validator-cmd ./03_montecarlo_summary.csv ../spec/montecarlo_summary.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/03_montecarlo_summary.csv ../spec/montecarlo_summary.csvs
       - name: Check external monte carlo summary
-        run: cd csv_validation; ./csv-validator-cmd ./03_montecarlo_summary.csv ./03_montecarlo_summary.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/03_montecarlo_summary.csv ./01_output_summary/03_montecarlo_summary.csvs
       - name: Check internal monte carlo bau
-        run: cd csv_validation; ./csv-validator-cmd ./04_montecarlo_bau.csv ../spec/montecarlo_bau.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/04_montecarlo_bau.csv ../spec/montecarlo_bau.csvs
       - name: Check external monte carlo bau
-        run: cd csv_validation; ./csv-validator-cmd ./04_montecarlo_bau.csv ./04_montecarlo_bau.csvs
+        run: cd csv_validation; ./csv-validator-cmd ./01_output_summary/04_montecarlo_bau.csv ./01_output_summary/04_montecarlo_bau.csvs
   deploy:
     name: Deploy Web
     environment: deploy
