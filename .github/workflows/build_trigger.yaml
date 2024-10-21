@@ -279,12 +279,48 @@ jobs:
       - name: Unzip
         run: unzip deploy.zip
       - name: Check deployment
-        run: bash ./support/check_deployment.sh 
+        run: bash ./support/check_deployment.sh
+  validateStandardizedOutputs:
+    name: Validate Standardized Outputs
+    environment: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'  
+      - name: Install wget
+        run: sudo apt-get install -y wget
+      - name: Make scratch dir
+        run: mkdir csv_validation
+      - name: Get validator
+        run: cd csv_validation; wget https://github.com/digital-preservation/csv-validator/releases/download/1.3.0/csv-validator-distribution-1.3.0-bin.zip
+      - name: Setup validator
+        run: cd csv_validation; unzip csv-validator-distribution-1.3.0-bin.zip
+      - name: Get outputs
+        run: cd csv_validation; wget https://global-plastics-tool.org/data/standardized.zip
+      - name: Unpack outputs
+        run: cd csv_validation; unzip standardized.zip
+      - name: Check internal point summary
+        run: cd csv_validation; ./csv-validator-cmd ./02_overview.csv ../spec/overview.csvs
+      - name: Check external point summary
+        run: cd csv_validation; ./csv-validator-cmd ./02_overview.csv ./02_overview.csvs
+      - name: Check internal monte carlo summary
+        run: cd csv_validation; ./csv-validator-cmd ./03_montecarlo_summary.csv ../spec/montecarlo_summary.csvs
+      - name: Check external monte carlo summary
+        run: cd csv_validation; ./csv-validator-cmd ./03_montecarlo_summary.csv ./03_montecarlo_summary.csvs
+      - name: Check internal monte carlo bau
+        run: cd csv_validation; ./csv-validator-cmd ./04_montecarlo_bau.csv ../spec/montecarlo_bau.csvs
+      - name: Check external monte carlo bau
+        run: cd csv_validation; ./csv-validator-cmd ./04_montecarlo_bau.csv ./04_montecarlo_bau.csvs  
   deploy:
     name: Deploy Web
     environment: deploy
     runs-on: ubuntu-latest
-    needs: [validateDeployment]
+    needs: [validateDeployment, validateStandardizedOutputs]
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
