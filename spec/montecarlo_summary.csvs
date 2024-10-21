@@ -1,48 +1,41 @@
 version 1.1
 @totalColumns 6
+/*
+ Probabilistic model outputs under different scenarios:
 
-/**
- * Probabilistic model outputs under different scenarios:
- *
- * - baseline: Projections without intervention.
- * - mrc40Percent: Minimum recycled content mandate at 40% levels. This is after yield loss and recirculation.
- * - wasteInvest50Billion: 50 billion USD in waste infrastructure investment globally.
- * - capVirgin: Cap virigin production to 2020 levels.
- * - packagingConsumptionTaxHigh: A tax on packaging imposed at "high" levels based on region.
- * - package: Four policy package described in Pottinger et al.
- * - recycleInvest100Billion: 100 billion USD in recycling investment globally.
- * - mrr40Percent: Minimum recycling collection rate at 40%. This is prior to yield loss and recirculation.
- * - banSingleUse: Sharp reduction in single use plastics.
- * - packagingReuse80Percent: Reuse policy (as opposed to recycling) of packaging at 80%.
- *
- * Note that variables are reported individually as described:
- *
- * - simLandfillWasteMt: Amount of annual end of life plastic ending up in landfill in megatons.
- * - simMismanagedWasteMt: Amount of annual end of life plastic ending up with mismanaged classification in megatons.
- * - simIncineratedWasteMt: Amount of annual end of life plastic ending up in incineration in megatons.
- * - simRecycledWasteMt: Amount of annual end of life plastic ending up in recycling (prior to yield loss and recirculation) in megatons.
- * - totalConsumptionMt: Total annual consumption of plastic in megatons including all sectors.
- * - totalGhgCO2eMt: Total annual greenhouse gas emissions in megatons of CO2e including both production and waste management.
- * - primaryProductionMt: Annual primary (virgin) plastic production in megatons.
- * - secondaryProductionMt: Annual secondary plastic production in megatons.
- *
- * Note that megatons refers to million metric tons. If not specified, policies are simulated individually. All results provided for 2050. Data available for download at DOI 10.5281/zenodo.12615011.
- **/
+ - baseline: Projections without intervention.
+ - mrc40Percent: Minimum recycled content mandate at 40% levels. This is after yield loss and recirculation.
+ - wasteInvest50Billion: 50 billion USD in waste infrastructure investment globally.
+ - capVirgin: Cap virigin production to 2020 levels.
+ - packagingConsumptionTaxHigh: A tax on packaging imposed at "high" levels based on region.
+ - package: Four policy package described in Pottinger et al.
+ - recycleInvest100Billion: 100 billion USD in recycling investment globally.
+ - mrr40Percent: Minimum recycling collection rate at 40%. This is prior to yield loss and recirculation.
+ - banSingleUse: Sharp reduction in single use plastics.
+ - packagingReuse80Percent: Reuse policy (as opposed to recycling) of packaging at 80%.
 
-// Machine readable scenario key as described above.
+ Note that variables are reported individually as described:
+
+ - simLandfillWasteMt: Amount of annual end of life plastic ending up in landfill in megatons.
+ - simMismanagedWasteMt: Amount of annual end of life plastic ending up with mismanaged classification in megatons.
+ - simIncineratedWasteMt: Amount of annual end of life plastic ending up in incineration in megatons.
+ - simRecycledWasteMt: Amount of annual end of life plastic ending up in recycling (prior to yield loss and recirculation) in megatons.
+ - totalConsumptionMt: Total annual consumption of plastic in megatons including all sectors.
+ - totalGhgCO2eMt: Total annual greenhouse gas emissions in megatons of CO2e including both production and waste management.
+ - primaryProductionMt: Annual primary (virgin) plastic production in megatons.
+ - secondaryProductionMt: Annual secondary plastic production in megatons.
+
+ Note that megatons refers to million metric tons. If not specified, policies are simulated individually. All results provided for 2050. Data available for download at DOI 10.5281/zenodo.12615011.
+*/
 scenario: regex("^[0-9a-zA-Z]+$")
-
-// Machine readable geographic region identifier
+  // Machine readable scenario key as described above.
 regionKey: regex("^[0-9a-zA-Z]+$")
-
-// Human readable description of the geographic region as free text.
+  // Machine readable geographic region identifier
 region: regex("^[^,]+$")
-
-// The name of the variable being reported.
-variable: regex("^[a-zA-Z]+$")
-
-// The mean or average value of the variable reported.
-mean: regex("^?-[0-9]+(\.[0-9]+)?$")
-
-// The standard deviation of the variable reported.
-std: regex("^?-[0-9]+(\.[0-9]+)?$")
+  // Human readable description of the geographic region as free text.
+variable: regex("^[0-9a-zA-Z]+$")
+  // The name of the variable being reported.
+mean: regex("^-?[0-9]+.[0-9]+$")
+  // The mean or average value of the variable reported.
+std: regex("^-?[0-9]+\.[0-9]+$")
+  // The standard deviation of the variable reported.
