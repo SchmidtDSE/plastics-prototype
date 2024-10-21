@@ -11,6 +11,7 @@ language/*.jar
 test/qunit.css
 test/qunit.min.js
 third_party
+csv_validation
 
 *.pyc
 
@@ -19,6 +20,7 @@ preview.html
 test/harness.html
 
 img/line.png
+img/line.svg
 img/line.pdf
 img/waste.png
 img/consumption.png
