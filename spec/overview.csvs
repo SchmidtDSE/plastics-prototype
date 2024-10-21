@@ -28,10 +28,10 @@ scenarioKey: regex("^[0-9a-zA-Z]+$")
 scenarioDescription: regex("^[^,]+$")
 
 // Numeric year for which outputs are provided.
-year: range(2000, 2050)
+year: range(1900, 3000)
 
 // Machine readable key describing the geographic region for which results are presented in the row.
-regionKey: regex("^[a-zA-Z]+$")
+regionKey: regex("^[0-9a-zA-Z]+$")
 
 // Human readable free-text string describing the geographic region for which results are presented in the row.
 region: regex("^[^,]+$")
