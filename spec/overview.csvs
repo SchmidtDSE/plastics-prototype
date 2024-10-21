@@ -1,0 +1,100 @@
+version 1.0
+@totalColumns 27
+
+/**
+ * Archived model outputs as point estimates under different scenarios:
+ *
+ * - banPsPackaging: The result of having banned polystyrene packaging.
+ * - banSingleUse: The result of having reduced single use packaging by 90%.
+ * - capVirgin: The result of having capped virgin plastic production to 2020 business as ususal levels.
+ * - minimumRecycledContent: The result of a 30% minimum recycled content mandate for new products.
+ * - minimumRecyclingRate: The result of a 30% minimum recycling collection rate mandate.
+ * - recyclingInvestment: The result of 100B USD investment in recycling collection and infrastructure.
+ * - reducedAdditives: The result of 60% reduction in additives.
+ * - taxVirigin: The result of a low consumption tax (see tool for more details).
+ * - wasteInvestment: The result of 50B USD investment in non-recycling waste management including incineration and landfill.
+ * - businessAsUsual: No interventions.
+ * - selectPackage: Four policy package presented in Pottinger et al.
+ * - highAmbition: High ambition package discussed at https://global-plastics-policy-tool.org.
+ * - lowAmbition: Low ambition package discussed at https://global-plastics-policy-tool.org.
+ *
+ * Note that megatons refers to million metric tons. Data available for download at DOI 10.5281/zenodo.12615011.
+ **/
+
+// Machine readable key descirinb a scenario with, if appropriate, year disambiguation.
+scenarioKey: regex("^[0-9a-zA-Z]+$")
+
+// Human readable free-text string describing the scenario represented in the row.
+scenarioDescription: regex("^[^,]+$")
+
+// Numeric year for which outputs are provided.
+year: range(2000, 2050)
+
+// Machine readable key describing the geographic region for which results are presented in the row.
+regionKey: regex("^[a-zA-Z]+$")
+
+// Human readable free-text string describing the geographic region for which results are presented in the row.
+region: regex("^[^,]+$")
+
+// Boolean value where 0 is false and 1 is true indicating if the row describes results for the entire globe.
+isGlobal: range(0, 1)
+
+// Total metric megatons of plastic consumption across all sectors in the year presented within the specified region.
+totalConsumptionMt: range(0, *)
+
+// Total metric megatons of plastic waste (plastic at end of life) across all sectors in the year presented within the specified region.
+totalWasteMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the agricultural sector in the year presented within the specified region.
+consumptionAgricultureMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the construction sector in the year presented within the specified region.
+consumptionConstructionMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the electronic sector in the year presented within the specified region.
+consumptionElectronicMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the household, leisure, and sports sector in the year presented within the specified region.
+consumptionHouseholdLeisureSportsMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the packaging sector in the year presented within the specified region.
+consumptionPackagingMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the transportation sector in the year presented within the specified region.
+consumptionTransportationMt: range(0, *)
+
+// Total metric megatons of plastic consumption in the textiles sector in the year presented within the specified region.
+consumptionTextileMt: range(0, *)
+
+// Total metric megatons of plastic consumption not represented in other named sectors in the year presented within the specified region.
+consumptionOtherMt: range(0, *)
+
+// Total metric megatons of plastic at end of life in the recycling fate in the year presented within the specified region.
+eolRecyclingMt: range(0, *)
+
+// Total metric megatons of plastic at end of life in the landfill fate in the year presented within the specified region.
+eolLandfillMt: range(0, *)
+
+// Total metric megatons of plastic at end of life in the incineration fate in the year presented within the specified region.
+eolIncinerationMt: range(0, *)
+
+// Total metric megatons of plastic at end of life in the mismanged fate in the year presented within the specified region.
+eolMismanagedMt: range(0, *)
+
+// Total net imports for the year presented within the specified region if net imports greater than zero. Otherwise is zero or empty (net exports). In metric megatons.
+netImportsMt: range(0, *)
+
+// Total net exports for the year presented within the specified region if net imports greater than zero. Otherwise is zero or empty (net imports). In metric megatons.
+netExportsMt: range(0, *)
+
+// Total primary (virgin) production for the year presented within the specified region.
+primaryProductionMt: range(0, *)
+
+// Total secondary production for the year presented within the specified region.
+secondaryProductionMt: range(0, *)
+
+// Total net plastic waste exported in the year presented within the specified region if greater than zero. Otherwise is zero or empty (net imports). In metric megatons.
+netWasteExportMt: range(0, *)
+
+// Total net plastic waste imported in the year presented within the specified region if greater than zero. Otherwise is zero or empty (net exports). In metric megatons.
+netWasteImportMt: range(0, *)
