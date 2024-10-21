@@ -1,0 +1,27 @@
+version 1.1
+@totalColumns 11
+/*
+ Probabilistic model outputs under a business as usual scenario (no policy interventions) such that each row represents a single Monte Carlo trial. Note that megatons refers to million metric tons. Data available for download at DOI 10.5281/zenodo.12615011.
+ */
+year: range(1900, 3000)
+  // The year for which a trial result is reported.
+regionKey: regex("^[0-9a-zA-Z]+$")
+  // Machine readable string describing the geographic region for which a trial result is reported.
+region: regex("^[^,]+$")
+  // Human readable string describing the geographic region for which a trial result is provided.
+simLandfillWasteMt: range(0, *)
+  // The amount of end of life plastics in the reported year and region simulated to reach landfill.
+simMismanagedWasteMt: range(0, *)
+  // The amount of end of life plastics in the reported year and region simulated to have mismanaged classification.
+simIncineratedWasteMt: range(0, *)
+  // The amount of end of life plastics in the reported year and region simulated to reach incineration.
+simRecycledWasteMt: range(0, *)
+  // The amount of end of life plastics in the reported year and region simulated to reach recycling.
+totalConsumptionMt: range(0, *)
+  // The total amount of plastic consumption across all sectors in the reported year and region.
+totalGhgCO2eMt: range(0, *)
+  // The total amount of plastics-attributed greenhouse gas emissions across all sectors in the reported year and region.
+primaryProductionMt: range(0, *)
+  // The total amount of primary (virgin) plastic production in the given region and year.
+secondaryProductionMt: range(0, *)
+  // The total amount of secondary production in the given region and year.
