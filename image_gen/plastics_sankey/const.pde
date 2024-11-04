@@ -42,8 +42,8 @@ void loadSemiconstants() {
   FILL_COLORS.put("Mismanaged", #8da0cb);
   FILL_COLORS.put("Agriculture", #fdbf6f);
   FILL_COLORS.put("Construction", #1f78b4);
-  FILL_COLORS.put("Electronic", #fb9a99);
-  FILL_COLORS.put("HouseholdLeisureSports", #b2df8a);
+  FILL_COLORS.put("Electronic", #cab2d6);
+  FILL_COLORS.put("HouseholdLeisureSports", #6a3d9a);
   FILL_COLORS.put("Packaging", #a6cee3);
   FILL_COLORS.put("Transportation", #e31a1c);
   FILL_COLORS.put("Textile", #33a02c);
@@ -56,8 +56,8 @@ void loadSemiconstants() {
   CONNECT_COLORS.put("Mismanaged", #508da0cb);
   CONNECT_COLORS.put("Agriculture", #50fdbf6f);
   CONNECT_COLORS.put("Construction", #501f78b4);
-  CONNECT_COLORS.put("Electronic", #50fb9a99);
-  CONNECT_COLORS.put("HouseholdLeisureSports", #50b2df8a);
+  CONNECT_COLORS.put("Electronic", #50cab2d6);
+  CONNECT_COLORS.put("HouseholdLeisureSports", #506a3d9a);
   CONNECT_COLORS.put("Packaging", #50a6cee3);
   CONNECT_COLORS.put("Transportation", #50e31a1c);
   CONNECT_COLORS.put("Textile", #5033a02c);
