@@ -47,7 +47,6 @@ const STANDALONE_X_TITLES = {
     "ghg": "Global Gross GHG (CO2e Mt)",
     "primaryProduction": "Primary Production (Mt)",
     "secondaryProduction": "Secondary Production (Mt)",
-    "consumptionPackagingMT": "Packaging Consumption (Mt)",
 };
 
 /**
