@@ -196,7 +196,7 @@ class StagePresenter {
                     } else if (labelRaw === "Net Export (Waste)" && isGlobal) {
                         return "Waste Trade";
                     } else if (isGlobal) {
-                        return labelRaw.replace(" (Dom)", "");
+                        return labelRaw.replace(" (Dom ", " (");
                     } else {
                         return labelRaw;
                     }
