@@ -139,7 +139,6 @@ The project uses the following:
  - [Matplotlib](https://matplotlib.org/) under the [PSF License](https://matplotlib.org/stable/users/project/license.html).
  - [Pandas](https://pandas.pydata.org/) under the [BSD License](https://github.com/pandas-dev/pandas/blob/main/LICENSE).
  - [Papa Parse](https://www.papaparse.com/) under the [MIT License](https://github.com/mholt/PapaParse/blob/master/LICENSE).
- - [Polyfill.io](https://polyfill.io/v3/) under the [MIT License](https://github.com/JakeChampion/polyfill-service/blob/main/LICENSE.md).
  - [Popper](https://popper.js.org/) under the [MIT License](https://github.com/floating-ui/floating-ui/blob/master/LICENSE).
  - [Pure CSS Custom Dropdown Arrow](https://codepen.io/code-boxx/pen/RwxbpOz) under the [MIT License](https://codepen.io/code-boxx/pen/RwxbpOz).
  - [Qunit](https://qunitjs.com/) under the [MIT License](https://github.com/qunitjs/qunit/blob/main/LICENSE.txt).
