@@ -179,3 +179,9 @@ Finally, thanks to the following some basic boilerplates / inspiration:
  - [Tiny ANTLR Language](https://github.com/bkiers/tiny-language-antlr4/tree/master) under the [Unlicense License](https://github.com/bkiers/tiny-language-antlr4/blob/master/UNLICENSE).
 
 Note that additional open source libraries used by the model pipeline are discussed at [https://github.com/SchmidtDSE/plastics-pipeline](https://github.com/SchmidtDSE/plastics-pipeline).
+
+<br>
+
+Retrospectives
+--------------------------------------------------------------------------------
+As an open source project, we record major security or reliability incidents publicly. We have 1 report to mention: we had a near-miss as described in [20250611-GlobalPlasticsTool-Polyfill](https://github.com/SchmidtDSE/retrospectives/blob/main/20250611_GlobalPlasticsTool_Polyfill.md) in which we do not believe users were impacted.
