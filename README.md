@@ -112,7 +112,7 @@ Please be kind. Open source is an act of love.
 
 Data and Citation
 --------------------------------------------------------------------------------
-Papers are still in process. Please cite preprint at [10.48550/arXiv.2312.11359](https://arxiv.org/abs/2312.11359) for now. Thank you! This tool's other repositories use the following:
+Please cite <a href="https://www.science.org/doi/10.1126/science.adr3837">Pottinger et al 2024</a>. Thank you! This tool's other repositories use the following:
 
  - [DESA, World Population Prospects 2022 (2022).](https://population.un.org/wpp/Download)
  - [R. Geyer, J. R. Jambeck, K. L. Law, Production, use, and fate of all plastics ever made. Sci. Adv. 3, e1700782 (2017).](https://www.science.org/doi/10.1126/sciadv.1700782)
